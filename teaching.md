@@ -10,8 +10,7 @@ permalink: /teaching/
 
 [MATH 141 - Introduction to Probability and Statistics](http://andrewpbray.github.io/math-141/)
 
-- MWF 11:00 - 11:50 AM
-- Lecture in Physics 123
+- MWF 11:00 - 11:50 AM in Physics 123
 - Labs in ETC 211
     * T 10:00 - 11:00 AM
     * T 11:00 AM - noon
