@@ -8,7 +8,7 @@ I grew up in Vale, South Dakota, a town of 114 people an hour north of Rapid Cit
 
 I completed my Ph.D. in Statistics at Arizona State University (ASU) in 2013.  During my time at ASU, I worked with Randall Eubank as my dissertation advisor.  My dissertation topic focused on the testing of pseudorandom numbers in a parallel computing environment. 
 
-Before moving to Portland, Oregon in the summer of 2016 to start work as an Instructional Technologist/Statistical Consultant at Reed College, I was an assistant professor in the Mathematics and Computer Science Department at Ripon College in Wisconsin for two years.  
+Before moving to Portland, Oregon in the summer of 2015 to start work as an Instructional Technologist/Statistical Consultant at Reed College, I was an assistant professor in the Mathematics and Computer Science Department at Ripon College in Wisconsin for two years.  
 
 My research interests focus on the use of simulation and statistical computing in improving statistics education.  My passion is for working with students, faculty, and staff on statistical projects using the R computing language and on pushing for reproducible research in all aspects.  I am also interested in statistics in sports and in enhancing public awareness and knowledge of the field of statistics. I have taught many collegiate courses over the last ten years with varying roles from primary instructor to recitation/lab leader.  My love for engaging students in mathematical, computational, and statistical concepts influences my teaching and research greatly.
 
