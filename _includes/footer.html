@@ -12,15 +12,8 @@
           <li><a href="{{ site.inst_link }}">{{ site.institution }}</a></li>
         </ul>
       </div>
-
-      <div class="footer-col footer-col-2">
-        <ul class="contact-list">
-          <li>Office: ETC 223</li>
-          <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
-        </ul>
-      </div>
       
-      <div class="footer-col footer-col-3">
+      <div class="footer-col footer-col-2">
         <ul class="social-media-list">
           {% if site.github_username %}
           <li>
@@ -33,6 +26,14 @@
             {% include icon-twitter.html username=site.twitter_username %}
           </li>
           {% endif %}
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-3">
+        <ul class="contact-list">
+          <li>Office: ETC 223</li>
+          <li>Email: <a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+          <li>Curriculum Vita: <a href="{{ site.baseurl }}/extras/cv-2016-01.pdf">(PDF)</a></li>
         </ul>
       </div>
 
