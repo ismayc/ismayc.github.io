@@ -6,6 +6,7 @@ output:
     incremental: no
     logo: griffin.png
     fig.align: center
+    widescreen: true
 subtitle: Introduction to Probability and Statistics
 ---
 
