@@ -4,7 +4,7 @@ author: "Chester Ismay"
 output:
   ioslides_presentation:
     incremental: no
-    logo: griffin.png
+    logo: ../figs/griffin.png
     fig.align: center
     widescreen: true
 subtitle: Introduction to Probability and Statistics
@@ -26,17 +26,17 @@ subtitle: Introduction to Probability and Statistics
 ---
 
 <div class="centered">
-<img src="notebook.jpg" alt="notebook" style="width:550px;">
+<img src="../figs/notebook.jpg" alt="notebook" style="width:550px;">
 </div>
 
 ---
 
 <div class="centered">
-<img src="high_cancer.png" alt="high_cancer" style="width:820px;">
+<img src="../figs/high_cancer.png" alt="high_cancer" style="width:820px;">
 </div>
 
 ---
 
 <div class="centered">
-<img src="low_cancer.png" alt="low_cancer" style="width:820px;">
+<img src="../figs/low_cancer.png" alt="low_cancer" style="width:820px;">
 </div>
