@@ -1,0 +1,162 @@
+---
+title: "MATH 141"
+author: "Chester Ismay"
+output:
+  ioslides_presentation:
+    fig.align: center
+    keep_md: yes
+    logo: ../figs/griffin.png
+    widescreen: yes
+subtitle: Experimental Design
+---
+
+```{r setup, include=FALSE}
+pkg <- c("dplyr", "readr", "mosaic")
+
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+
+if (length(new.pkg)) {
+  install.packages(new.pkg, repos = "http://cran.rstudio.com")
+}
+
+lapply(pkg, library, character.only = TRUE)
+```
+
+## {.flexbox .vcenter}
+
+![plicker](plicker_roster.png)
+
+# Simple Random Sampling <br> versus <br> Stratified Sampling {.flexbox .vcenter}
+
+## 2015 MLB player salaries
+
+Let's investigate the average salary of four teams:
+
+  - Los Angeles Dodgers
+  - New York Yankees
+  - Tampa Bay Devil Rays
+  - Arizona Diamondbacks
+
+```{r load_data}
+url <- "http://www.usatoday.com/sports/mlb/salaries/"
+salaries <- read_csv("mlb_salaries.csv") %>%
+  select(NAME, TEAM, POS, SALARY)
+salaries_trim <- salaries %>% 
+  filter(TEAM %in% c("LAD", "NYY", "TB", "ARI"))
+salaries_summary <- salaries_trim %>% group_by(TEAM) %>%
+  summarize(mean_sal = mean(SALARY), count_team = n())
+grand_mean <- salaries %>% summarize(mean(SALARY))
+```
+
+---
+
+- `r nrow(salaries_trim)` player salaries available for those four teams
+- The mean salary for ALL `r nrow(salaries_trim)` players on those four teams is $$\mu = \$`r prettyNum(grand_mean, big.mark=",", scientific=FALSE)`$$
+
+- Remember, this is a summary value for the **population**.  We hardly ever have the whole population to work with.
+
+## How do SRS and Stratified Sampling compare in estimating $\mu$?
+
+```{r srs, include=TRUE}
+n <- 40
+set.seed(20160129)
+mean_srs <- salaries %>% 
+  sample_n(n) %>%
+  summarize(mean_srs_salary = mean(SALARY))
+```
+
+- Suppose we select `r n` players at random from the `r nrow(salaries_trim)` total
+
+- $\bar{x}_{SRS} = \$`r prettyNum(mean_srs, big.mark=",", scientific=FALSE)`$
+
+## Now for Stratified
+
+```{r sim, include=TRUE}
+strat_n <- 10
+mean_strat_by_team <- salaries %>% group_by(TEAM) %>%
+  sample_n(strat_n) %>%
+  summarize(mean_by_team = mean(SALARY))
+mean_strat <- mean_strat_by_team %>%
+  summarize(mean(mean_by_team))
+```
+
+- Let's select `r strat_n` players from each of the 4 teams
+
+- $\bar{x}_{STRAT} = \$`r prettyNum(mean_strat, big.mark = ",", scientific=FALSE)`$
+
+- SRS: Absolute bias of \$`r prettyNum(abs(grand_mean - mean_srs), big.mark = ",", scientific=FALSE)`
+
+- Stratified: Absolute bias of \$`r prettyNum(abs(grand_mean - mean_strat), big.mark = ",", scientific=FALSE)`
+
+### So is this evidence that simple random sampling is clearly better?
+
+## Not so fast!
+
+```{r comp, echo=FALSE, fig.align="center", fig.height=4}
+srs_mean <- function(df){
+  df %>% 
+    summarize(mean_srs_salary = mean(SALARY))
+} 
+
+strat_mean <- function(df){
+  mean_strat_by_team <- df %>% group_by(TEAM) %>%
+    sample_n(strat_n) %>%
+    summarize(mean_by_team = mean(SALARY))
+  mean_strat <- mean_strat_by_team %>%
+    summarize(mean(mean_by_team))
+  mean_strat
+}
+
+# sample repeatedly (1000 times) 150 rows of df and store in a list
+# apply the custom function to each sample in the list,
+# bind rows together and create an index column, all in a "pipe":
+
+srs_sim <- replicate(1000, sample_n(salaries, n), simplify = FALSE) %>%
+  lapply(., srs_mean) %>% 
+  bind_rows %>%
+  mutate(replicate = 1:n())
+  
+
+strat_sim <- replicate(1000, sample_n(group_by(salaries, TEAM), strat_n), simplify = FALSE) %>%
+  lapply(., strat_mean) %>% 
+  bind_rows
+  
+
+# Comparison
+
+#SRS <- do(1000) * mean(~salary, data = df)
+#STR <- do(1000) * mean(~salary, data = rbind(sample(subset(df, teams == "yankees"), 10),
+#                                             sample(subset(df, teams == "padres"), 10),
+#                                             sample(subset(df, teams == "mariners"), 10),
+#                                             sample(subset(df, teams == "dodgers"), 10)))
+sim <- bind_cols(srs_sim, strat_sim) %>%
+  select(replicate, everything())
+
+names(sim) <- c("replicate", "SRS", "STR")
+densityplot(~SRS + STR, data = sim, auto.key = TRUE)
+#sim %>% ggplot(aes)
+
+```
+
+#
+
+## {.flexbox .vcenter}
+
+<img src="../figs/corrs1.png" alt="corrs1" width="850">
+
+
+## {.flexbox .vcenter}
+
+<img src="../figs/corrs2.png" alt="corrs2" width="850">
+
+
+## If you learn one thing in this class... {.flexbox .vcenter}
+
+<img src="../figs/xkcd-correlation.png" alt="corr" width="850">
+
+# Plicker time!
+
+
+
+
+
