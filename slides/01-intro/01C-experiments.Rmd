@@ -57,7 +57,7 @@ grand_mean <- salaries %>% summarize(mean(SALARY))
 
 ## How do SRS and Stratified Sampling compare in estimating $\mu$?
 
-```{r srs, include=TRUE}
+```{r srs}
 n <- 40
 set.seed(20160129)
 mean_srs <- salaries %>% 
@@ -71,7 +71,7 @@ mean_srs <- salaries %>%
 
 ## Now for Stratified
 
-```{r sim, include=TRUE}
+```{r strat}
 strat_n <- 10
 mean_strat_by_team <- salaries %>% group_by(TEAM) %>%
   sample_n(strat_n) %>%
@@ -121,21 +121,11 @@ strat_sim <- replicate(1000, sample_n(group_by(salaries, TEAM), strat_n), simpli
   lapply(., strat_mean) %>% 
   bind_rows
   
-
-# Comparison
-
-#SRS <- do(1000) * mean(~salary, data = df)
-#STR <- do(1000) * mean(~salary, data = rbind(sample(subset(df, teams == "yankees"), 10),
-#                                             sample(subset(df, teams == "padres"), 10),
-#                                             sample(subset(df, teams == "mariners"), 10),
-#                                             sample(subset(df, teams == "dodgers"), 10)))
 sim <- bind_cols(srs_sim, strat_sim) %>%
   select(replicate, everything())
 
 names(sim) <- c("replicate", "SRS", "STR")
 densityplot(~SRS + STR, data = sim, auto.key = TRUE)
-#sim %>% ggplot(aes)
-
 ```
 
 #
