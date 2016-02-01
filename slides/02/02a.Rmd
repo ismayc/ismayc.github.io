@@ -126,7 +126,7 @@ Keep note of the measures of "typical" that are reported - they come quick!
 
 \[ s^2 = \frac{\sum_{i=1}^{n} (x_i - \bar{x})^2}{n - 1}\]
 
-Compare to the *population variance*, $\sigma^2$, which divides by $n$.
+Compare to the *population variance*, $\sigma^2$, which divides by $N$.
 
 
 ## Spread: variance {.build}
