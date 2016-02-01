@@ -7,6 +7,15 @@ permalink: /teaching/plickers/
 
 ### Chapter 1
 
+7. Which of these variables do you expect to be **uniformly** distributed?
+    <ol type="A">
+      <li>weights of adult females</li>
+      <li>salaries of a random sample of people from Oregon</li>
+      <li>birthdays of classmates (day of the month)</li>
+      <li>Two of the above</li>
+    </ol>
+
+
 3. In a study reported in the Archives of Pediatric and Adolescent Medicine on treating warts, researchers investigated whether liquid nitrogen cryotherapy (“freezing it off”) or common duct tape would be a more effective treatment for kids with warts. The researchers randomly assigned the 51 patients to two treatment groups and found that 22 of 26 patients treated with duct tape saw complete disappearance of their warts, compared to 15 of 25 patients in the cryotherapy group. **What are the observational units?**
     <ol type="A">
       <li>Methods for wart removal</li>
