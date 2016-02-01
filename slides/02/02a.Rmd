@@ -162,7 +162,7 @@ Compared to the *population standard deviation*, $\sigma$.
 
 \[ IQR = Q_3 - Q_1 \]
 
-```{r}
+```{r IQR}
 sort(x)
 IQR(x)
 ```
@@ -174,7 +174,7 @@ IQR(x)
 
 \[ range = max - min \]
 
-```{r}
+```{r range}
 max(x) - min(x)
 range(x)
 diff(range(x))
@@ -195,13 +195,13 @@ Which measure(s) of spread would be LEAST sensitive to the presence of outliers?
 
 ## Spread Q {.build}
 
-```{r, echo=FALSE}
+```{r create-y, echo=FALSE}
 y <- x
 y[2] <- 37
 ```
 
 
-```{r}
+```{r compare_x&y}
 x
 y
 var(x)
@@ -211,7 +211,7 @@ var(y)
 
 ## Spread Q {.build}
 
-```{r}
+```{r distxy}
 IQR(x)
 IQR(y)
 diff(range(x))
