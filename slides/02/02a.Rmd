@@ -113,12 +113,6 @@ mode(x)
 ```
 
 
-## The Typical Human
-
-(https://www.youtube.com/watch?v=4B2xOvKFFz4)
-
-Keep note of the measures of "typical" that are reported - they come quick!
-
 
 ## Spread: variance {.build}
 
