@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Problem Set 1 Key
-permalink: /teaching/ps1-solutions.html
+permalink: /teaching/ps1-solutions/
 ---
 
 Chapter 1: 1, 4, 6, 8, 10, 11, 15, 16, 17, 19, 22
