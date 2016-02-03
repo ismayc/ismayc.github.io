@@ -4,6 +4,12 @@ title: Plicker Questions from Class
 permalink: /teaching/plickers/
 ---
 
+<!--
+<style type="text/css">
+    ul { list-style-type: lower-alpha; }
+    ul ul {  list-style-type: lower-roman;  }
+</style>
+-->
 
 ### Chapter 1
 

@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Problem Set 1 Key
-permalink: /teaching/ps1-solutions/
+permalink: /teaching/ps1-solutions.html
 ---
 
 Chapter 1: 1, 4, 6, 8, 10, 11, 15, 16, 17, 19, 22
@@ -16,7 +16,7 @@ Chapter 1: 1, 4, 6, 8, 10, 11, 15, 16, 17, 19, 22
   -  Treatment: $10/43 = 0.23 \rightarrow 23\%$. Control: $2/46 = 0.04 \rightarrow 4\%$.
   - There is a 19\% difference between the pain reduction rates in the two groups. At first glance, it appears patients in the treatment group are more likely to experience pain reduction from the acupuncture treatment.
   - Answers may vary. Two possible answers:
-  $^1$Though the groups' difference is big, I'm skeptical the results show a real difference and think this might be due to chance. $^2$The difference in these rates looks pretty big, so I suspect acupuncture is having a positive impact on pain. </li>
+  $^1$Though the groups' difference is big, I'm skeptical the results show a real difference and think this might be due to chance. $^2$The difference in these rates looks pretty big, so I suspect acupuncture is having a positive impact on pain.
 
 #### 4
 
