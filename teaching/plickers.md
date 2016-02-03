@@ -7,6 +7,14 @@ permalink: /teaching/plickers/
 
 ### Chapter 1
 
+8. Which measure of spread would be LEAST sensitive to the presence of outliers?
+    <ol type="A">
+      <li>Standard Deviation</li>
+      <li>IQR</li>
+      <li>Range</li>
+      <li>Depends on the dataset</li>
+    </ol>
+
 7. Which of these variables do you expect to be **uniformly** distributed?
     <ol type="A">
       <li>weights of adult females</li>
