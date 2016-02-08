@@ -117,15 +117,3 @@ options(digits = 2)
 
     <img src="../figs/die_table.png" alt="die_table" width="600">
 
-# Plicker time!
-    
-## Considering Multiple Random Processes
-
-- $\mathbb{P}(\text{Left}) = 0.09$, $\mathbb{P}(\text{Right}) = 0.91$
-- $\mathbb{P}(\text{Blue}) = 0.15$
-- These processes are
-    - **independent**: knowing information about one of the variables doesn't give you
-    any information about the other
-- $\mathbb{P}(\text{Right and Blue}) = 0.91 \times 0.15 = `r 0.91 * 0.1365`$
-- **Multiplication Rule for Independent Processes** - Let $A$ and $B$ represent events from two independent processes.
-$$\mathbb{P}(A \text{ and } B) = \mathbb{P}(A) \cdot \mathbb{P}(B)$$

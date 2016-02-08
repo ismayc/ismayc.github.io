@@ -4,12 +4,25 @@ title: Plicker Questions from Class
 permalink: /teaching/plickers/
 ---
 
-<!--
+
 <style type="text/css">
-    ul { list-style-type: lower-alpha; }
-    ul ul {  list-style-type: lower-roman;  }
+    ul { list-style-type: upper-alpha; }
 </style>
--->
+
+### Appendix A (Probability)
+
+1. Two fair dice are rolled. What is the probability that either the sum is 8 or that at least one of the dice comes up a 6?
+    - 11/36
+    - 14/36
+    - 15/36
+    - 16/36
+
+2. In a certain semester at some other university, 500 students enrolled in both Calculus I and Physics I. Of these students, 82 got an A in calculus, 73 got an A in physics, and 42 got an A in both courses. Which of the following probabilities is the smallest? The probability that a randomly chosen student. . .
+
+    - Got an A in at least one of the two courses
+    - Got an A in both of the two courses
+    - Got an A in calculus but not in physics
+    - Got an A in physics but not calculus
 
 ### Chapter 1
 

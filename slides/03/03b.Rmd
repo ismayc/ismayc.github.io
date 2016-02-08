@@ -1,0 +1,48 @@
+---
+title: "MATH 141"
+author: "Chester Ismay"
+output:
+ ioslides_presentation:
+   incremental: true
+   fig.align: center
+   keep_md: yes
+   logo: ../figs/griffin.png
+   widescreen: yes
+subtitle: Independence and Conditional Probability
+---
+
+```{r setup, include=FALSE}
+# List of useful packages
+pkg <- c("dplyr", "ggplot2", "knitr")
+
+# Check if packages are not installed and assign the
+# names of the uninstalled packages to the variable new.pkg
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+
+# If there are any packages in the list that aren't installed,
+# install them
+if (length(new.pkg)) {
+  install.packages(new.pkg, repos = "http://cran.rstudio.com")
+}
+
+# Load the packages into the current environment
+library(knitr)
+library(dplyr)
+library(ggplot2)
+
+# Set number of digits to display
+options(digits = 2)
+```
+
+# Plicker time!
+    
+## Considering Multiple Random Processes
+
+- $\mathbb{P}(\text{Left}) = 0.09$, $\mathbb{P}(\text{Right}) = 0.91$
+- $\mathbb{P}(\text{Blue}) = 0.15$
+- These processes are
+    - **independent**: knowing information about one of the variables doesn't give you
+    any information about the other
+- $\mathbb{P}(\text{Right and Blue}) = 0.91 \times 0.15 = `r 0.91 * 0.1365`$
+- **Multiplication Rule for Independent Processes** - Let $A$ and $B$ represent events from two independent processes.
+$$\mathbb{P}(A \text{ and } B) = \mathbb{P}(A) \cdot \mathbb{P}(B)$$
