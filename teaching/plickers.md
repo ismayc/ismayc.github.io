@@ -18,7 +18,6 @@ permalink: /teaching/plickers/
     - 16/36
 
 2. In a certain semester at some other university, 500 students enrolled in both Calculus I and Physics I. Of these students, 82 got an A in calculus, 73 got an A in physics, and 42 got an A in both courses. Which of the following probabilities is the smallest? The probability that a randomly chosen student. . .
-
     - Got an A in at least one of the two courses
     - Got an A in both of the two courses
     - Got an A in calculus but not in physics
