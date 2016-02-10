@@ -104,7 +104,7 @@ To simulate 10% of retail employees being thieves, we will use your first random
 ## Pass or fail? {.build}
 
 Your manager now administers a lie detector test that is 80% accurate;
-there is an 80% change that thieves will fail the test and an 80% chance that 
+there is an 80% chance that thieves will fail the test and an 80% chance that 
 honest folk will pass the test. 
 
 Using your second random digit,
