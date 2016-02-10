@@ -11,6 +11,12 @@ permalink: /teaching/plickers/
 
 ### Appendix A (Probability)
 
+3. In the US population, 9% of people are left-handed and 15% of people have blue eyes. If you select an American at random, what is the probability they are right-handed and have blue eyes?
+    - 0.0135
+    - 0.24
+    - 0.1365
+    - None of the above
+
 1. Two fair dice are rolled. What is the probability that either the sum is 8 or that at least one of the dice comes up a 6?
     - 11/36
     - 14/36
