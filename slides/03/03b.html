@@ -118,21 +118,24 @@
 </article></slide><slide class=''><hgroup><h2>Problem Set-up</h2></hgroup><article  id="problem-set-up">
 
 <ul class = 'build'>
-<li><p>Through accounting procedures, it is known that possibly 25% of the employees of a store are stealing.</p></li>
-<li><p>This classroom will act as employees and one manager.</p></li>
+<li><p>Through accounting procedures, it is known that 10% of the employees of a store are stealing.</p></li>
+<li><p>This classroom will act as employees and two managers.</p></li>
 </ul>
 
-</article></slide><slide class=''><hgroup><h2>The manager</h2></hgroup><article  id="the-manager">
+</article></slide><slide class=''><hgroup><h2>The managers</h2></hgroup><article  id="the-managers">
 
 <ul class = 'build'>
-<li><p>First, we need a manager.</p>
+<li><p>First, we need two managers.</p>
 
 <pre class = 'prettyprint lang-r'>students &lt;- c(&quot;Josephine&quot;, &quot;Ella&quot;, &quot;Josh&quot;, &quot;Isabelle&quot;, &quot;Jesse&quot;, &quot;Toria&quot;, &quot;Miriam&quot;, 
-    &quot;Camille&quot;, &quot;Mauricio&quot;, &quot;Ryan&quot;, &quot;Margalit&quot;, &quot;Kathleen&quot;, &quot;Katie&quot;, &quot;Louise&quot;, 
-    &quot;Jeannette&quot;, &quot;Kiara&quot;)</pre></li>
-<li><pre class = 'prettyprint lang-r'>sample(students, size = 1)</pre>
+    &quot;Camille&quot;, &quot;Mauricio&quot;, &quot;Ryan Kitts&quot;, &quot;Margalit&quot;, &quot;Kathleen&quot;, &quot;Katie&quot;, &quot;Louise&quot;, 
+    &quot;Jeannette&quot;, &quot;Kiara&quot;, &quot;Emily&quot;, &quot;Kassidy&quot;, &quot;Jhanvi&quot;, &quot;Moira&quot;, &quot;Mia&quot;, &quot;Guanani&quot;, 
+    &quot;Julia&quot;, &quot;Nat&quot;, &quot;Hwan&quot;, &quot;Anadi&quot;, &quot;Ryan Kwok&quot;, &quot;Jenny&quot;, &quot;Garrett&quot;, &quot;Shannon&quot;, 
+    &quot;Eli&quot;, &quot;Shauna&quot;, &quot;Carter&quot;, &quot;Aaron&quot;, &quot;Alicia&quot;, &quot;Avery&quot;, &quot;Hunter&quot;)</pre></li>
+<li><pre class = 'prettyprint lang-r'>sample(students, size = 2)</pre>
 
-<pre >## [1] &quot;Josh&quot;</pre></li>
+<pre >## [1] &quot;Miriam&quot; &quot;Toria&quot;</pre></li>
+<li><p>The rest of you are the employees.</p></li>
 </ul>
 
 </article></slide><slide class=''><hgroup><h2>The employees</h2></hgroup><article  id="the-employees">
@@ -141,35 +144,37 @@
 
 <ul>
 <li>Digit 1: Last digit of your Reed ID #</li>
-<li>Digit 2: Number of letters in your preferred first name</li>
+<li>Digit 2: 5th digit of your phone num (excluding area code)</li>
 </ul>
 
-<p>Please write these on a sheet of paper.</p>
+<p>Please write <a href='last_digit.html' title=''>these</a> on a sheet of paper.</p>
 
 </article></slide><slide class=''><hgroup><h2>Honest or thief?</h2></hgroup><article  id="honest-or-thief">
 
-<p>To simulate 25% of retail employees being thieves, we will use your first random digit:</p>
+<p>To simulate 10% of retail employees being thieves, we will use your first random digit:</p>
 
 <ul class = 'build'>
-<li>If your number = 2, write &quot;thief&quot; above your first number.</li>
+<li>If your digit = 0, write &quot;thief&quot; above your first number.</li>
 <li>Otherwise, write &quot;honest&quot; above your first number.</li>
 </ul>
 
 </article></slide><slide class=''><hgroup><h2>Pass or fail?</h2></hgroup><article  id="pass-or-fail" class="build">
 
-<p>Your manager now administers a lie detector test that is 80% accurate; there is an 80% change that thieves will fail the test and an 80% chance that honest folk will pass the test. Using your second random digit,</p>
+<p>Your manager now administers a lie detector test that is 80% accurate; there is an 80% change that thieves will fail the test and an 80% chance that honest folk will pass the test.</p>
+
+<p>Using your second random digit,</p>
 
 <ul class = 'build'>
 <li>Thieves
 
 <ul class = 'build'>
-<li>If your digit = 4, write &quot;pass&quot; above that digit.</li>
+<li>If your digit = 0 or 1, write &quot;pass&quot; above that digit.</li>
 <li>Otherwise, write &quot;fail&quot; above that digit.</li>
 </ul></li>
 <li>Honest folk
 
 <ul class = 'build'>
-<li>If your digit = 6 or 7, write &quot;fail&quot; above that digit.</li>
+<li>If your digit = 0 or 1, write &quot;fail&quot; above that digit.</li>
 <li>Otherwise, write &quot;pass&quot; above that digit.</li>
 </ul></li>
 </ul>
@@ -178,9 +183,13 @@
 
 <ul class = 'build'>
 <li><p>Who wrote &quot;fail&quot; on their piece of paper? Raise your hands.</p></li>
-<li><p>Manager: What percentage of these employees do you think are thieves?</p></li>
-<li><p>Those that raised their hands/failed to test, state whether you are honest or a thief.</p></li>
-<li><p>What happened here?</p></li>
+<li><p>Managers: What percentage of these employees do you think are thieves?</p></li>
+<li><p>Those that raised their hands/failed the test, state whether you are honest or a thief.</p></li>
+<li>What happened here?
+
+<ul class = 'build'>
+<li>The well-known fallacy of reversing the conditional probability!</li>
+</ul></li>
 </ul>
 
 </article></slide><slide class='segue dark nobackground'><hgroup class = 'auto-fadein'><h2>Plicker time!</h2></hgroup><article  id="plicker-time">

@@ -35,6 +35,8 @@ options(digits = 2)
 set.seed(2016)
 ```
 
+
+
 # Honest Liars | An introduction to Conditional Probability
 
 ## The context
@@ -43,38 +45,59 @@ set.seed(2016)
 
 ## Problem Set-up
 
-- Through accounting procedures, it is known that possibly 25% of the employees of a store are stealing.
+- Through accounting procedures, it is known that 10% of the employees of a store are stealing.
 
-- This classroom will act as employees and one manager.
+- This classroom will act as employees and two managers.
 
-## The manager
+## The managers
 
-- First, we need a manager.
+- First, we need two managers.
 
     ```{r managers, tidy=TRUE}
-    students <- c("Josephine", "Ella", "Josh", "Isabelle", "Jesse", "Toria", "Miriam", "Camille", "Mauricio", "Ryan", "Margalit", "Kathleen", "Katie", "Louise", "Jeannette", "Kiara")
+    students <- c("Josephine", "Ella", "Josh", "Isabelle", "Jesse", "Toria", "Miriam", "Camille", "Mauricio", "Ryan Kitts", "Margalit", "Kathleen", "Katie", "Louise", "Jeannette", "Kiara", "Emily",
+  "Kassidy",
+  "Jhanvi",
+  "Moira",
+  "Mia",
+  "Guanani",
+  "Julia",
+  "Nat",
+  "Hwan",
+  "Anadi",
+  "Ryan Kwok",
+  "Jenny",
+  "Garrett",
+  "Shannon",
+  "Eli",
+  "Shauna",
+  "Carter",
+  "Aaron",
+  "Alicia",
+  "Avery",
+  "Hunter")
     ```
 
 -
     ```{r}
-    sample(students, size = 1)
+    sample(students, size = 2)
     ```
 
+- The rest of you are the employees.
 
 ## The employees
 
 You will need two random digits.
 
 >- Digit 1: Last digit of your Reed ID #
->- Digit 2: Number of letters in your preferred first name
+>- Digit 2: 5th digit of your phone num (excluding area code)
 
-Please write these on a sheet of paper.
+Please write [these](last_digit.html) on a sheet of paper.
 
 ## Honest or thief?
 
-To simulate 25% of retail employees being thieves, we will use your first random digit:
+To simulate 10% of retail employees being thieves, we will use your first random digit:
 
-- If your number = 2, write "thief" above your first number.
+- If your digit = 0, write "thief" above your first number.
 - Otherwise, write "honest" above your first number.
 
 
@@ -82,13 +105,15 @@ To simulate 25% of retail employees being thieves, we will use your first random
 
 Your manager now administers a lie detector test that is 80% accurate;
 there is an 80% change that thieves will fail the test and an 80% chance that 
-honest folk will pass the test. Using your second random digit,
+honest folk will pass the test. 
+
+Using your second random digit,
 
 - Thieves
-    - If your digit = 4, write "pass" above that digit.
+    - If your digit = 0 or 1, write "pass" above that digit.
     - Otherwise, write "fail" above that digit.
 - Honest folk
-    - If your digit = 6 or 7, write "fail" above that digit.
+    - If your digit = 0 or 1, write "fail" above that digit.
     - Otherwise, write "pass" above that digit.
     
     
@@ -96,11 +121,12 @@ honest folk will pass the test. Using your second random digit,
 
 - Who wrote "fail" on their piece of paper?  Raise your hands.
 
-- Manager:  What percentage of these employees do you think are thieves?
+- Managers:  What percentage of these employees do you think are thieves?
 
-- Those that raised their hands/failed to test, state whether you are honest or a thief.
+- Those that raised their hands/failed the test, state whether you are honest or a thief.
 
 - What happened here?
+    - The well-known fallacy of reversing the conditional probability!
 
 # Plicker time!
     

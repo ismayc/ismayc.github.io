@@ -1,0 +1,8 @@
+```{r echo=FALSE, results="asis"}
+library(DT)
+last_digit <- read.csv("last_digit.csv")
+datatable(last_digit, options = list(
+              pageLength = nrow(last_digit),
+              autoWidth = TRUE
+            ))
+```
