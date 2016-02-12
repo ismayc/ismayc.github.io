@@ -1,0 +1,40 @@
+---
+output: beamer_presentation
+---
+
+```{r setup, include=FALSE}
+# List of useful packages
+pkg <- c("dplyr", "ggplot2", "knitr", "devtools")#, "printr")
+
+# Check if packages are not installed and assign the
+# names of the uninstalled packages to the variable new.pkg
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+
+# If there are any packages in the list that aren't installed,
+# install them
+if (length(new.pkg)) {
+  install.packages(new.pkg, repos = "http://cran.rstudio.com")
+}
+
+if(!require(printr)){
+  devtools::install_github("yihui/printr")
+}
+  
+
+# Load the packages into the current environment
+lapply(pkg, library, character.only = TRUE)
+
+# Set number of digits to display
+#options(digits = 2)
+set.seed(2016)
+```
+
+```{r cocaine, echo=FALSE}
+treatment <- c(rep("desipramine", 24), rep("lithium", 24), rep("placebo", 24))
+relapse <- c(rep("Yes", 10), rep("No", 14), rep("Yes", 18), rep("No", 6),
+             rep("Yes", 20), rep("No", 4))
+relapse <- factor(relapse, levels = c("Yes", "No"))
+cocaine <- data_frame(treatment, relapse)
+table(treatment, relapse)
+```
+
