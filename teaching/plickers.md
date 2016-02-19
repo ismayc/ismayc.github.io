@@ -11,6 +11,58 @@ permalink: /teaching/plickers/
 
 ### Appendix A (Probability)
 
+11. Let $$Y \sim Bin(n, p)$$.  Using random variable identities, find $$\mathbb{E}(Y)$$ and $$\mathbb{S}(Y) = SD(Y)$$.
+    - $$np(1 - p)$$; $$\sqrt{p(1 - p)}$$
+    - $$np$$;  $$\sqrt{np(1 - p)}$$
+    - $$np$$;  $$\sqrt{p(1 - p)}$$
+    - $$np$$; $$\sqrt{(p^n)(1-p)^n}$$
+
+9. In the case of the bouncing ball, where _X_ takes the value 1 if it bounces R (with prob _p_) and 0 if it bounces L, what is $$SD(X)$$?
+    - $$\sqrt{1 - 2p + p^2}$$
+    - $$\sqrt{p(1 - p)}$$
+    - $$(1-p)p$$
+    - $$\sqrt{1 - 2p + 2p^2}$$
+
+10. What is $$\mathbb{P}(Y = 3)$$?
+    - $$3(1-p)^3$$
+    - $$p^3$$
+    - $$p^3(1-p)$$
+    - $$4p^3(1-p)$$
+
+8. What is the standard deviation of your winnings if you bet 1 dollar but play 3 times?
+    - 1.73
+    - 2.99
+    - 8.97
+    - 2.96
+
+6. In playing the standard game of roulette, what are your expected winnings if you go back to betting 1 dollar but play the game 3 times?
+    - 2.85
+    - 0.95
+    - 1.90
+    - 8.55
+
+7. What is the standard deviation of your winnings if you triple your bet and play one game?
+    - 1.73
+    - 2.99
+    - 8.97
+    - 2.96
+
+4. The American Cancer Society estimates that about 1.7\% of women have breast cancer.
+(<http://www.cancer.org/cancer/cancerbasics/cancer-prevalence>). Susan G. Komen For The Cure Foundation states that mammography correctly identifies about 78% of women who truly have breast cancer. (<http://ww5.komen.org/BreastCancer/AccuracyofMammograms.html>) An article published in 2003 suggests that up to 10\% of all mammograms result in false positives for patients who do not have cancer.
+(<http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1360940>)
+
+When a patient goes through breast cancer screening there are two competing claims: patient had cancer and patient doesn't have cancer. Suppose a woman who gets tested once and obtains a positive result wants to get tested again. In the second test, what should we assume to be the probability of this specific woman having cancer?
+    - 0.017
+    - 0.12
+    - 0.0133
+    - 0.88
+
+5. What is the probability that this woman has cancer if this second mammogram also yielded a positive result?
+    - 0.0936
+    - 0.088
+    - 0.48
+    - 0.52
+
 3. In the US population, 9% of people are left-handed and 15% of people have blue eyes. If you select an American at random, what is the probability they are right-handed and have blue eyes?
     - 0.0135
     - 0.24
