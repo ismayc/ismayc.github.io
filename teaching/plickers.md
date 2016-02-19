@@ -49,9 +49,7 @@ permalink: /teaching/plickers/
 
 4. The American Cancer Society estimates that about 1.7\% of women have breast cancer.
 (<http://www.cancer.org/cancer/cancerbasics/cancer-prevalence>). Susan G. Komen For The Cure Foundation states that mammography correctly identifies about 78% of women who truly have breast cancer. (<http://ww5.komen.org/BreastCancer/AccuracyofMammograms.html>) An article published in 2003 suggests that up to 10\% of all mammograms result in false positives for patients who do not have cancer.
-(<http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1360940>)
-
-When a patient goes through breast cancer screening there are two competing claims: patient had cancer and patient doesn't have cancer. Suppose a woman who gets tested once and obtains a positive result wants to get tested again. In the second test, what should we assume to be the probability of this specific woman having cancer?
+(<http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1360940>) When a patient goes through breast cancer screening there are two competing claims: patient had cancer and patient doesn't have cancer. Suppose a woman who gets tested once and obtains a positive result wants to get tested again. In the second test, what should we assume to be the probability of this specific woman having cancer?
     - 0.017
     - 0.12
     - 0.0133
