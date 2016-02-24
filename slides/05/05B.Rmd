@@ -202,12 +202,12 @@ d_{obs} = 21/24 - 14/24 \approx .29
 ## Simulating the Null Distribution {.build}
 
 1. Shuffle the deck and deal into two piles of twenty four.
-2. This mimics the process of each supervision being randomly assigned a male or female file.
-3. Compute the proportion that is promoted in each:
+    - This mimics the process of each supervision being randomly assigned a male or female file.
+2. Compute the proportion that is promoted in each:
 
-\[ d = \hat{p}_{M} - \hat{p}_{F} \]
+    \[ d = \hat{p}_{M} - \hat{p}_{F} \]
 
-Repeat steps 1-3 and store each one.
+3. Repeat steps 1-3 and store each one.
 
 
 ##
@@ -219,7 +219,7 @@ Repeat steps 1-3 and store each one.
 
 ## Simulation using R {.flexbox .vcenter}
 
-```{r simgender, echo = FALSE, cache=TRUE, fig.height=4, fig.width=9}
+```{r simgender, echo = FALSE, cache=TRUE, fig.height=4, fig.width=9, message=FALSE, warning=FALSE}
 gender <- rep(c("M", "F"), each = 24)
 promote <- rep(c("Yes", "No"), c(35, 13))
 D <- rep(NA, 10000)
@@ -234,6 +234,7 @@ for(i in 1:10000) {
 qplot(x = D, fill = I("steelblue"), colour = I("black"), 
   main = "Null Distribution", bins = 12) +
   geom_vline(xintercept = d_obs, colour = "goldenrod")
+ggsave("gender_promote.png", device = "png")
 ```
 
 # Plicker time
