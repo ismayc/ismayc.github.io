@@ -234,7 +234,7 @@ for(i in 1:10000) {
 qplot(x = D, fill = I("steelblue"), colour = I("black"), 
   main = "Null Distribution", bins = 12) +
   geom_vline(xintercept = d_obs, colour = "goldenrod")
-ggsave("gender_promote.png", device = "png")
+ggsave("../figs/gender_promote.png", device = "png")
 ```
 
 # Plicker time

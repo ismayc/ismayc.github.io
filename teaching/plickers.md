@@ -9,6 +9,13 @@ permalink: /teaching/plickers/
     ul { list-style-type: upper-alpha; }
 </style>
 
+### Chapter 2
+
+12. Do the results of the simulation below based on 10,000 simulations provide convincing evidence of gender discrimination against women, i.e. dependence between gender and promotion decisions?
+    - No, the data do not provide convincing evidence for the alternative hypothesis, therefore we can't reject the null hypothesis of independence between gender and promotion decisions. The observed difference between the two proportions was due to chance.
+    - Yes, the data provide convincing evidence for the alternative hypothesis of gender discrimination against women in promotion decisions. The observed difference between the two proportions was due to a real effect of gender.
+![Gender Promotion Sim]({{ site.baseurl }}/slides/figs/gender_promote.png)
+
 ### Appendix A (Probability)
 
 11. Let $$Y \sim Bin(n, p)$$.  Using random variable identities, find $$\mathbb{E}(Y)$$ and $$\mathbb{S}(Y) = SD(Y)$$.
