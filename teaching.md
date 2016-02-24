@@ -17,7 +17,9 @@ permalink: /teaching/
     * T 1:00 PM - 2:00 PM
 - R code from class available [here]({{ site.baseurl }}/teaching/r/)
 - Plicker questions from class available [here]({{ site.baseurl }}/teaching/plickers/)
+- Links to some slides from the course are below:
+    * [Wednesday, February 24 (Review of Poisson Distribution, Hypothesis Testing)]({{ site.baseurl }}/slides/05/05B.html)
 
 ### Previous courses
 
-A listing of other courses I have taught can be found in my [CV]({{ site.baseurl }}/extras/cv-2016-01.pdf).
+A listing of other courses I have taught can be found in my [CV]({{ site.baseurl }}/extras/cv-2016-01.pdf)
