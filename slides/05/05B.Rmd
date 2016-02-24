@@ -13,7 +13,6 @@ subtitle: Hypothesis Testing <br> (Slides available at <http://ismayc.github.io/
 
 ```{r setup, include=FALSE}
 library(knitr)
-#options(digits=2)
 knitr::opts_chunk$set(echo = TRUE)
 library(dplyr)
 library(ggplot2)
