@@ -93,7 +93,7 @@ We saw a difference of almost 30% (29.2% to be exact) between the proportion of 
 - No gender discrimination.
 - Observed difference in proportions is simply due to chance.
 
-**$H_a$, Alternative Hypothesis**: There is something going on.”
+**$H_a$, Alternative Hypothesis**: "There is something going on.”
 
 - Promotion and gender are dependent.
 - There is gender discrimination.
