@@ -11,6 +11,19 @@ permalink: /teaching/plickers/
 
 ### Chapter 2
 
+3. Based on the null distribution and the observed test statistic, what is our decision?
+    - Accept $$H_0$$
+    - Fail to reject $$H_a$$
+    - Reject $$H_a$$
+    - Reject $$H_0$$
+![Gay Marriage Sim]({{ site.baseurl }}/slides/figs/gay_mar_sim.png)
+
+2. What is the alternative hypothesis for this question trying to understand American adult views on gay marriage?  Let $$p$$ be the true proportion of Americans who favor same-sex marriage.
+    - $$H_a: p = 0.5$$
+    - $$H_a: p = 0.67$$
+    - $$H_a: p > 0.67$$
+    - $$H_a: p > 0.5$$
+    
 1. Do the results of the simulation below based on 10,000 simulations provide convincing evidence of gender discrimination against women, i.e. dependence between gender and promotion decisions?
     - No, the data do not provide convincing evidence for the alternative hypothesis, therefore we can't reject the null hypothesis of independence between gender and promotion decisions. The observed difference between the two proportions was due to chance.
     - Yes, the data provide convincing evidence for the alternative hypothesis of gender discrimination against women in promotion decisions. The observed difference between the two proportions was due to a real effect of gender.

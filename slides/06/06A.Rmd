@@ -245,9 +245,11 @@ ggplot(aes(x, y), data = df) +
   geom_vline(xintercept = 50, col = "deepskyblue")
 ```
 
+<center>
 The binomial model $p$-value was `r (1 - pbinom(50, 75, .5))`. <br>
 The normal model $p$-value was `r (1 - pnorm(50, 75 * 0.5, sqrt(75*0.5*0.5)))`. <br>
 The simulation approximation of the $p$-value was `r mean(p_hats$in_tail)`.
+</center>
 
 ## How large is "large enough"? {.build}
 
