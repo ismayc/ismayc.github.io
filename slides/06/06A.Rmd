@@ -30,7 +30,7 @@ Do a majority of American adults support gay marriage?
 
 ## Sampling
 
-Suppose you are able to conduct a survey on 75 randomly selected adult Americans.  It is found that 50 of the 75 (\approx 67%) sampled due support gay marriage.
+Suppose you are able to conduct a survey on 75 randomly selected adult Americans.  It is found that 50 of the 75 (\approx 67%) sampled do support gay marriage.
 
 # Plicker time!
 
@@ -66,7 +66,7 @@ set.seed(53)
 
 1. Let a coin flip represent selecting a random American. Heads = in favor. 
 2. Flip a coin 75 times and compute the proportion of heads.
-3. Repeat step 2 many many times, logging the sample proportion each time
+3. Repeat step 2 many many times, logging the sample proportion each time.
 
 ```{r sim, message=FALSE, warning=FALSE, cache=TRUE}
 library(mosaic)
