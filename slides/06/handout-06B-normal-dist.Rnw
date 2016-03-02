@@ -1,0 +1,24 @@
+\documentclass[10pt]{article}
+
+\input{../preamble}
+
+\rhead{\textsc{March 2, 2016}}
+
+\begin{document}
+
+\textbf{Make sure to draw pictures and shade the appropriate regions to give yourself an approximate value before you do your calculations.}
+
+\paragraph{Speeding on the I-5}
+
+The distribution of passenger vehicle speeds traveling on the Interstate 5 Freeway (I-5) in California is nearly normal with a mean of 72.6 miles/hour and a standard deviation of 4.78 miles/hour.
+
+\begin{enumerate}
+  \itemsep1.7in
+  \item What percent of passenger vehicles travel slower than 80 miles/hour?
+  \item What percent of passenger vehicles travel between 60 and 80 miles/hour?
+  \item How fast do the fastest 5\% of passenger vehicles travel?
+  \item The speed limit on this stretch of the I-5 is 70 miles/hour. Approximate what percentage of the passenger vehicles travel above the speed limit on this stretch of the I-5.
+  \vspace{1in}
+\end{enumerate}
+
+\end{document}
