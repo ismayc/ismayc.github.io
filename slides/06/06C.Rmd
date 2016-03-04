@@ -50,7 +50,7 @@ Lay out your model(s).
 
 ## Step 2 {.build}
 
-Contruct the appropriate null distribution.
+Construct the appropriate null distribution.
 
 ```{r, echo=FALSE, eval=TRUE, fig.height=2.5, fig.align='center'}
 x1  <- 0:75
