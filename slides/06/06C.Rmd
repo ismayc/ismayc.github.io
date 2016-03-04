@@ -8,7 +8,7 @@ output:
    keep_md: yes
    logo: ../figs/griffin.png
    widescreen: yes
-subtitle: Hypothesis Testing III, Confidence Intervals
+subtitle: Hypothesis Testing III
 ---
 
 <style type="text/css">
@@ -78,60 +78,3 @@ with null hypothesis <br> $\rightarrow$ "reject null hypothesis".
 the null hypothesis <br> $\rightarrow$ "fail to reject the null hypothesis."
 
 What can go wrong?
-
-## Statistical errors {.flexbox .vcenter}
-
-<img src="06C-stat-errors.pdf" alt="Stat Errors" height = 280>
-
-## Jury trial analogy {.flexbox .vcenter}
-
-<img src="06C-stat-errors-jury.pdf" alt="Stat Errors Trial" height = 280>
-
-# Confidence Intervals
-
-
-##
-
-**Confidence Interval**: a plausible range of values for a population parameter.
-
-
-##
-<center>
-<img src="../figs/pew-headline.png" alt="pew1" height = 540>
-</center>
-
-
-##
-<center>
-<img src="../figs/pew-table.png" alt="pew2" height = 470>
-</center>
-
-
-## Construction of a CI {.build}
-
-If the distribution of the point estimate can be well-approximated by the Normal Distribution:
-
-$$ \textrm{point estimate} \pm \textrm{margin of error} $$
-$$ \textrm{point estimate} \pm 1.96 \times SE $$
-
-- *point estimate*: $\hat{p}$, $\bar{x}$, $\hat{p}_1 - \hat{p}_2$
-- *standard error (SE)*: standard deviation of the sampling distribution of the point estimate.
-
-
-## Question
-
-"The proportion of Americans who want to support funding for Planned Parenthood is estimated
-to be between 57.1% and 62.9% with 95% confidence." Which of the following interpretations
-are reasonable?
-
-1. The interval [.571, .629] provides a plausible range for $\hat{p}$
-2. We are certain that the population proportion lies within this interval.
-3. If we took many more samples of the same size and computed many $\hat{p}$'s <br> and
-many CIs, around 95% of those CIs would contain the population <br> proportion $p$.
-4. 95% of all surveys conducted with differing sample sizes will have between 57.1% and 62.9% in support of funding Planned Parenthood.
-
-## {.flexbox .vcenter}
-
-<center>
-<img src="../figs/ci.png" alt="ci" height = 520>
-</center>
