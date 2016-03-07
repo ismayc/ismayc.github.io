@@ -26,11 +26,11 @@ library(ggplot2)
 
 ## Statistical errors {.flexbox .vcenter}
 
-<img src="06C-stat-errors.pdf" alt="Stat Errors" height = 280>
+<img src="../06/06C-stat-errors.pdf" alt="Stat Errors" height = 280>
 
 ## Jury trial analogy {.flexbox .vcenter}
 
-<img src="06C-stat-errors-jury.pdf" alt="Stat Errors Trial" height = 280>
+<img src="../06/06C-stat-errors-jury.pdf" alt="Stat Errors Trial" height = 280>
 
 # Confidence Intervals
 
