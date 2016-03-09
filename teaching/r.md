@@ -4,6 +4,9 @@ title: R Source Code from Class
 permalink: /teaching/r/
 ---
 
+#### Week 07 (March 7 - March 11)
+  - <a href = "{{ site.baseurl }}/slides/07/07B.R" target = "_blank">Wednesday</a>
+
 #### Week 06 (February 29 - March 4)
   - <a href = "{{ site.baseurl }}/slides/06/06B-qqplot.Rmd" target = "_blank">Wednesday</a> (<a href = "{{ site.baseurl }}/slides/06/06B-qqplot.HTML" target = "_blank">HTML</a>)
 
