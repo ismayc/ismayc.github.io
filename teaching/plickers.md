@@ -11,6 +11,13 @@ permalink: /teaching/plickers/
 
 ### Chapter 2
 
+4. We are given that $$n = 1002$$, $$\hat{p} = 0.05$$. Which of the
+below is the correct calculation of the 95% confidence interval?
+    - $$0.05 \pm 1.65 \sqrt{\dfrac{0.05 \times 0.95}{1002}}$$
+    - $$0.05 \pm 1.96 \left(\dfrac{0.05 \times 0.95}{\sqrt{1002}}\right)$$
+    - $$0.50 \pm 2.58 \sqrt{\dfrac{50 \times 952}{1002}}$$
+    - $$0.05 \pm 1.96 \sqrt{\dfrac{0.05 \times 0.95}{1002}}$$
+
 3. Based on the null distribution and the observed test statistic, what is our decision?
     - Accept $$H_0$$
     - Fail to reject $$H_a$$
