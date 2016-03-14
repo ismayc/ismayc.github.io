@@ -9,6 +9,14 @@ permalink: /teaching/plickers/
     ul { list-style-type: upper-alpha; }
 </style>
 
+#### Chapter 3
+
+1. Based on the problem setup with $$\hat{p} = 0.05$$ and a sample size of 1002 resulting in a confidence interval of (0.0364, 0.0634), which of the following are appropriate claims to make about the population parameter _p_?
+    - We have evidence that less than 7% of all Americans are atheists.
+    - We have evidence that more than 4% of all Americans are atheists.
+    - We are certain it matches exactly with the sample proportion of 0.05.
+    - Two of the above are TRUE.
+
 ### Chapter 2
 
 4. We are given that $$n = 1002$$, $$\hat{p} = 0.05$$. Which of the
