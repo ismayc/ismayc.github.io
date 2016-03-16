@@ -19,7 +19,7 @@ permalink: /teaching/
 - Plicker questions from class available [here]({{ site.baseurl }}/teaching/plickers/)
 - Links to some slides from the course are below:
     * [Wednesday, February 24 (Review of Poisson Distribution, Hypothesis Testing)]({{ site.baseurl }}/slides/05/05B.html)
-    
+    * [Wednesday, March 16 (Chi-square Distribution)]({{ site.baseurl }}/slides/08/08B.html)    
 
 ### Previous courses
 
