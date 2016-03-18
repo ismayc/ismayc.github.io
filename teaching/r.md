@@ -6,6 +6,7 @@ permalink: /teaching/r/
 
 #### Week 08 (March 14 - March 18)
   - <a href = "{{ site.baseurl }}/slides/08/08B.R" target = "_blank">Wednesday</a>
+  - <a href = "{{ site.baseurl }}/slides/08/08C.R" target = "_blank">Friday</a>
 
 #### Week 07 (March 7 - March 11)
   - <a href = "{{ site.baseurl }}/slides/07/07B.R" target = "_blank">Wednesday</a>

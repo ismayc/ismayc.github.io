@@ -11,6 +11,12 @@ permalink: /teaching/plickers/
 
 #### Chapter 3
 
+2. Which of the following is an appropriate null hypothesis based on comparing Reed's ethnicity to the state of Oregon's ethnicity?
+    - Ethnic diversity and choice of college are independent of one another.
+    - Ethnic diversity and home-state are independent of one another.
+    - $$p_{asian} = p_{black} = p_{hispanic} = p_{white} = p_{other}$$.
+    - The first-year class at Reed is sampled from a population that shares the same ethnic distribution as Oregon.
+
 1. Based on the problem setup with $$\hat{p} = 0.05$$ and a sample size of 1002 resulting in a confidence interval of (0.0364, 0.0634), which of the following are appropriate claims to make about the population parameter _p_?
     - We have evidence that less than 7% of all Americans are atheists.
     - We have evidence that more than 4% of all Americans are atheists.
