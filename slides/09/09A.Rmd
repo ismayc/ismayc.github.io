@@ -116,37 +116,3 @@ $$ df = n - 1$$
 4. Draw picture to assess where $t_{obs}$ falls in $t_{df = n - 1}$
 5. Compute a (two-tailed) $p$-value
 6. State conclusion
-
-
-## Confidence interval for $\mu$ {.build}
-
-point estimate $\pm$ margin of error
-
-$$ \bar{x} \pm (t^*_{df} \times SE) $$
-
-- $\bar{x}$: point estimate of $\mu$.
-- $t^*_{df}$: critical value that leaves $\alpha$ in the tails of a $t$ with 
-$df = n - 1$.
-- $SE$: standard error of $\bar{x}$, $s/\sqrt{n}$.
-
-
-## Finding $p$-values and $t^*_{df}$ {.build}
-
-<!--
-<center>
-<img src="../figs/t-table.png" width = 350>
-</center>
--->
-
-```{r}
-pt(-2.2, df = 18)
-qt(.025, df = 18)
-```
-
-- Use the [applet](http://ismay.shinyapps.io/ProbApp)
-
-## Extra problem
-
-<center>
-<img src="../figs/4.7.png" width = 950>
-</center>
