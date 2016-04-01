@@ -153,10 +153,11 @@ qplot(x = F_stats, geom = "density")
 ## Sampling dist for $F$ statistic via Randomization
 
 ```{r randoF, echo = FALSE, fig.height=3.5}
-F_stats <- rep(0, 1000)
+F_stats <- rep(0, 10000)
 wolf2 <- wolf
+set.seed(2016)
 
-for (i in 1:1000) {
+for (i in 1:10000) {
   wolf2$Depth <- sample(wolf2$Depth)
   F_stats[i] <- anova(aov(HCB ~ Depth, data = wolf2))$F[1]
 }
@@ -165,7 +166,7 @@ qplot(x = F_stats, geom = "density")
 ```
 
 ```{r Fpval}
-mean(F_stats > 3.032)
+mean(F_stats > 3.03)
 ```
 
 
@@ -175,10 +176,11 @@ If
 
 - independent observations,
 - nearly normal distributions for each group, and
-- constant variance between groups.
+- constant variance between groups,
 
-Then the sampling distribution for the $F$ statistic under the $H_0$ is well-approximated by a Fisher's $F$ distribution with $df_1 = k - 1$ and $df_2 = n_{total} - k$. The 
-$p$-value is represented by the upper tail. 
+then the sampling distribution for the $F$ statistic under $H_0$ is well-approximated by a Fisher's $F$ distribution with $df_1 = k - 1$ and $df_2 = n_{total} - k$. 
+
+- The $p$-value is represented by the upper tail. 
 
 - $n_{total}$ is the overall sample size and $k$ is the number of groups of the explanatory variable.
 
