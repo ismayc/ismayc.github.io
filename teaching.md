@@ -22,6 +22,7 @@ permalink: /teaching/
     * [Wednesday, March 16 (Chi-square Distribution)]({{ site.baseurl }}/slides/08/08B.html)
 - Sample worked out problems are below:
     * [Chi-Square Test of Independence]({{ site.baseurl }}/teaching/sample_problems/chi-square.html) [(Rmd)]({{ site.baseurl }}/teaching/sample_problems/chi-square.Rmd)
+    * [ANOVA]({{ site.baseurl }}/teaching/sample_problems/anova.html) [(Rmd)]({{ site.baseurl }}/teaching/sample_problems/anova.Rmd)
 
 ### Previous courses
 
