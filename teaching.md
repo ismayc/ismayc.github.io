@@ -23,6 +23,15 @@ permalink: /teaching/
 - Sample worked out problems are below:
     * [Chi-Square Test of Independence]({{ site.baseurl }}/teaching/sample_problems/chi-square.html) [(Rmd)]({{ site.baseurl }}/teaching/sample_problems/chi-square.Rmd)
     * [ANOVA]({{ site.baseurl }}/teaching/sample_problems/anova.html) [(Rmd)]({{ site.baseurl }}/teaching/sample_problems/anova.Rmd)
+- Inference Diagrams
+    * <a href = "{{ site.baseurl }}/teaching/diagrams/one_prop.pdf" target = "_blank">One Proportion</a> 
+    * <a href = "{{ site.baseurl }}/teaching/diagrams/two_props.pdf" target = "_blank">Two Proportions</a> 
+    * Multiple Proportions 
+        * Goodness of Fit (under development)
+        * Test of Independence (under development)
+    * <a href = "{{ site.baseurl }}/teaching/diagrams/one_mean.pdf" target = "_blank">One Mean</a> 
+    * <a href = "{{ site.baseurl }}/teaching/diagrams/two_means.pdf" target = "_blank">Two Means (Independent vs Paired)</a> 
+    * <a href = "{{ site.baseurl }}/teaching/diagrams/multi_means.pdf" target = "_blank">Multiple Means</a> 
 
 ### Previous courses
 
