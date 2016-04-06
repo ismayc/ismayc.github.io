@@ -413,6 +413,17 @@ F = \frac{MSG}{MSE}.
 <p>The <span class="math inline">\(p\)</span>-value—the probability of observing an <span class="math inline">\(F(df_G = 2, df_E = 54)\)</span> value of 10.012 or more in our null distribution—is 0.0002. This can also be calculated in R directly:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span> -<span class="st"> </span><span class="kw">pf</span>(<span class="fl">10.012</span>, <span class="dt">df1 =</span> <span class="dv">2</span>, <span class="dt">df2 =</span> <span class="dv">54</span>)</code></pre></div>
 <pre><code>## [1] 0.0002</code></pre>
+<p>Note that we could also do this test directly without invoking the <code>inference</code> function using the <code>aov</code> and <code>anova</code> functions. <code>aov</code> stands for analysis of variance and its form is similar to what is done using the <code>lm</code> function with linear regression. It fits an analysis of variance model to the data in the same way that <code>lm</code> fits a linear regression model to the data. <code>anova</code> displays the resulting ANOVA table for the model fit.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">comp_anova &lt;-<span class="st"> </span><span class="kw">aov</span>(<span class="dt">formula =</span> Comprehension ~<span class="st"> </span>Condition, <span class="dt">data =</span> comp)
+<span class="kw">anova</span>(comp_anova)</code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: Comprehension
+##           Df Sum Sq Mean Sq F value Pr(&gt;F)    
+## Condition  2   35.1   17.53      10 0.0002 ***
+## Residuals 54   94.5    1.75                   
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <div id="state-conclusion" class="section level1">
 <h1>State conclusion</h1>

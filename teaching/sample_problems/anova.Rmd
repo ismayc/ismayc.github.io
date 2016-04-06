@@ -220,6 +220,15 @@ The $p$-value---the probability of observing an $F(df_G = 2, df_E = 54)$ value o
 ```
 
 
+Note that we could also do this test directly without invoking the `inference` function using the `aov` and `anova` functions.  `aov` stands for analysis of variance and its form is similar to what is done using the `lm` function with linear regression.  It fits an analysis of variance model to the data in the same way that `lm` fits a linear regression model to the data.  `anova` displays the resulting ANOVA table for the model fit.
+
+```{r}
+comp_anova <- aov(formula = Comprehension ~ Condition, data = comp)
+anova(comp_anova)
+```
+
+
+
 # State conclusion
 
 We, therefore, have sufficient evidence to reject the null hypothesis.  Our initial guess that a statistically significant difference existed in the means was backed by this statistical analysis.  We have evidence to suggest that student comprehension of an ambiguous prose passage is affected by
