@@ -29,11 +29,8 @@ library(plotly)
 -->
 
 ```{r echo = FALSE}
-poverty <- read.delim("poverty.txt", header = TRUE)
-datatable(poverty, rownames = FALSE, options = list(
-              pageLength = 7, 
-              autoWidth = TRUE
-            ))
+poverty <- read.delim("poverty.txt", header = TRUE) %>% select(-Percent)
+head(poverty, 15)
 ```
 
 
@@ -41,6 +38,12 @@ datatable(poverty, rownames = FALSE, options = list(
 
 ```{r echo = FALSE}
 qplot(x = Poverty, y = Graduates, data = poverty)
+```
+
+## Interactive table
+
+```{r}
+datatable(poverty, rownames = FALSE, options = list(pageLength = 6))
 ```
 
 
@@ -101,7 +104,7 @@ qplot(x = .fitted, y = .stdresid, data = m1) +
 </center>
 -->
 
-## Estimating $\beta_1$ {.build}
+## Estimating $\beta_1$
 
 ```{r find-b1, echo = FALSE}
 poverty <- read.delim("poverty.txt", header = TRUE)
@@ -112,19 +115,22 @@ library(ggplot2)
   geom_point())
 ```
 
-## Estimating $\beta_1$ {.build}
+## Estimating $\beta_1$
+
+We use $s_x, s_y, \textrm{ and } R$ to calculate $b_1$.
 
 ```{r find-b1-2, echo = FALSE}
 m1 <- lm(Graduates ~ Poverty, data = poverty)
 (p2 <- p1 + 
    geom_abline(intercept = m1$coef[1], slope = m1$coef[2], col = "goldenrod") +
-   annotate("text", x = 3, y = 87, label = paste("slope = b_1 = ", round(m1$coef[2], 4))))
+   annotate("text", x = 3, y = 87, label = paste("slope = b_1 = ", round(m1$coef[2], 3))))
 ```
-
-We use $s_x, s_y, \textrm{ and } R$ to calculate $b_1$.
 
 
 ## Estimating $\beta_0$ {.build}
+
+If the line of best fit *must* pass through $(\bar{x}, \bar{y})$, what is $b_0$?
+
 
 ```{r find-b02, echo = FALSE}
 x_bar <- mean(poverty$Poverty)
@@ -137,13 +143,10 @@ p1 +
                 col = "steelblue",
                 lty = 2) + 
   geom_abline(intercept = m1$coef[1], slope = m1$coef[2], col = "goldenrod") +
-  annotate("text", x = 3, y = 91, label = paste("slope = b_1 =", round(m1$coef[2], 4))) +
+  annotate("text", x = 3, y = 91, label = paste("slope = b_1 =", round(m1$coef[2], 3))) +
   annotate("text", x = 14, y = 96, label = paste("x-bar = ", round(x_bar, 2))) +
   annotate("text", x = 19, y = 85, label = paste("y-bar = ", round(y_bar, 2)))
 ```
-
-If the line of best fit *must* pass through $(\bar{x}, \bar{y})$, what is $b_0$?
-
 
 ## Estimating $\beta_0$ {.build}
 
@@ -158,135 +161,4 @@ $$ b_0 = `r y_bar` + (`r abs(m1$coef[2])`) (`r x_bar`) = `r (y_bar + abs(m1$coef
 More generally:
 
 $$ b_0 = \bar{y} - b_1 \bar{x} $$
-
-
-## Estimation in R {.smaller .build}
-
-```{r fitlm}
-m1 <- lm(Graduates ~ Poverty, data = poverty)
-summary(m1)
-```
-
-
-## The `lm` object {.build .smaller}
-
-```{r showlm}
-attributes(m1)
-m1$coef
-m1$fit
-```
-
-
-## Interpretation of $b_1$ {.build}
-
-The **slope** describes the estimated difference in the $y$ variable if the explanatory
-variable $x$ for a case happened to be one unit larger.
-
-```{r}
-m1$coef[2]
-```
-
-*For each additional percentage point of people living below the poverty level,
-we expect a state to have a proportion of high school graduates that is 0.898
-lower*.
-
-**Be Cautious**: if it is observational data, you do not have evidence of a 
-*causal link*, but of an association, which still can be used for prediction.
-
-
-## Interpretation of $b_0$ {.build}
-
-The **intercept** is the estimated $y$ value that will be taken by a case with 
-an $x$ value of zero.
-
-```{r}
-m1$coef[1]
-```
-
-While necessary for prediction, the intercept often has no meaningful interpretation.
-
-
-# Outliers
-
-## What is an outlier? {.build}
-
-<div class="columns-2">
-![](http://marcoghislanzoni.com/blog/wp-content/uploads/2013/10/outliers_gladwell.jpg)
-
-**Outlier** is a general term to describe a data point that doesn't follow the
-pattern set by the bulk of the data, when one takes into account the model.
-</div>
-
-
-## Outlier Example One
-
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
-# this chunk sets the chunk options for the whole document
-require(knitr)
-opts_chunk$set(warning=FALSE, message=FALSE)
-```
-
-```{r, echo=FALSE}
-library(openintro)
-COL <- c('#55000088','#225588')
-set.seed(238)
-n <- c(50, 25, 78, 55, 70, 150)
-m <- c(12, -4, 7, -19, 0, 40)
-xr <- list(0.3, c(2), 1.42, runif(4,1.45,1.55), 5.78, -0.6)
-yr <- list(-4, c(-8), 19, c(-17,-20,-21,-19), 12, -23.2)
-i <- 1
-x <- runif(n[i])
-y <- m[i]*x + rnorm(n[i])
-x <- c(x,xr[[i]])
-y <- c(y,yr[[i]])
-par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.5,0), cex.lab = 1.25, cex.axis = 1.25, mfrow = c(2,1))
-lmPlot(x, y, col = COL[2], lCol = COL[1], lwd = 3)
-```
-
-
-## Outlier Example Two
-
-```{r, echo=FALSE}
-i <- 2
-x <- runif(n[i])
-y <- m[i]*x + rnorm(n[i])
-x <- c(x,xr[[i]])
-y <- c(y,yr[[i]])
-par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.5,0), cex.lab = 1.25, cex.axis = 1.25, mfrow = c(2,1))
-lmPlot(x, y, col = COL[2], lCol = COL[1], lwd = 3)
-```
-
-
-## Outlier Example Three
-
-```{r, echo=FALSE}
-i <- 3
-x <- runif(n[i])
-y <- m[i]*x + rnorm(n[i])
-x <- c(x,xr[[i]])
-y <- c(y,yr[[i]])
-par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.5,0), cex.lab = 1.25, cex.axis = 1.25, mfrow = c(2,1))
-lmPlot(x, y, col = COL[2], lCol = COL[1], lwd = 3)
-```
-
-
-## Outlier Example Four
-
-```{r, echo=FALSE}
-i <- 5
-x <- runif(n[i])
-y <- m[i]*x + rnorm(n[i])
-x <- c(x,xr[[i]])
-y <- c(y,yr[[i]])
-par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.5,0), cex.lab = 1.25, cex.axis = 1.25, mfrow = c(2,1))
-lmPlot(x, y, col = COL[2], lCol = COL[1], lwd = 3)
-```
-
-
-## Outlier Example Four (modified)
-
-```{r, echo=FALSE}
-par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.5,0), cex.lab = 1.25, cex.axis = 1.25, mfrow = c(2,1))
-lmPlot(x[1:70], y[1:70], col = COL[2], lCol = COL[1], lwd = 3, xlim = range(x), ylim = range(y))
-```
 
