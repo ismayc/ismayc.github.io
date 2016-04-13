@@ -12,7 +12,7 @@ subtitle: Simple Linear Regression II
 
 ```{r setup, include=FALSE}
 library(knitr)
-options(digits=3)
+options(digits=3, width = 100)
 knitr::opts_chunk$set(echo = TRUE, fig.align = "center")
 library(dplyr)
 library(ggplot2)
@@ -75,239 +75,18 @@ m1$coef[1]
 
 While necessary for prediction, the intercept often has no meaningful interpretation.
 
-
-# Outliers
-
-## What is an outlier? {.build}
-
-<div class="columns-2">
-![](http://marcoghislanzoni.com/blog/wp-content/uploads/2013/10/outliers_gladwell.jpg)
-
-**Outlier** is a general term to describe a data point that doesn't follow the
-pattern set by the bulk of the data, when one takes into account the model.
-</div>
-
-
-## Outlier Example One
-
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
-# this chunk sets the chunk options for the whole document
-require(knitr)
-opts_chunk$set(warning=FALSE, message=FALSE)
-```
-
-```{r, echo=FALSE}
-library(openintro)
-COL <- c('#55000088','#225588')
-set.seed(238)
-n <- c(50, 25, 78, 55, 70, 150)
-m <- c(12, -4, 7, -19, 0, 40)
-xr <- list(0.3, c(2), 1.42, runif(4,1.45,1.55), 5.78, -0.6)
-yr <- list(-4, c(-8), 19, c(-17,-20,-21,-19), 12, -23.2)
-i <- 1
-x <- runif(n[i])
-y <- m[i]*x + rnorm(n[i])
-x <- c(x,xr[[i]])
-y <- c(y,yr[[i]])
-par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.5,0), cex.lab = 1.25, cex.axis = 1.25, mfrow = c(2,1))
-lmPlot(x, y, col = COL[2], lCol = COL[1], lwd = 3)
-```
-
-
-## Outlier Example Two
-
-```{r, echo=FALSE}
-i <- 2
-x <- runif(n[i])
-y <- m[i]*x + rnorm(n[i])
-x <- c(x,xr[[i]])
-y <- c(y,yr[[i]])
-par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.5,0), cex.lab = 1.25, cex.axis = 1.25, mfrow = c(2,1))
-lmPlot(x, y, col = COL[2], lCol = COL[1], lwd = 3)
-```
-
-
-## Outlier Example Three
-
-```{r, echo=FALSE}
-i <- 3
-x <- runif(n[i])
-y <- m[i]*x + rnorm(n[i])
-x <- c(x,xr[[i]])
-y <- c(y,yr[[i]])
-par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.5,0), cex.lab = 1.25, cex.axis = 1.25, mfrow = c(2,1))
-lmPlot(x, y, col = COL[2], lCol = COL[1], lwd = 3)
-```
-
-
-## Outlier Example Four
-
-```{r, echo=FALSE}
-i <- 5
-x <- runif(n[i])
-y <- m[i]*x + rnorm(n[i])
-x <- c(x,xr[[i]])
-y <- c(y,yr[[i]])
-par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.5,0), cex.lab = 1.25, cex.axis = 1.25, mfrow = c(2,1))
-lmPlot(x, y, col = COL[2], lCol = COL[1], lwd = 3)
-```
-
-
-## Outlier Example Four (modified)
-
-```{r, echo=FALSE}
-par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.5,0), cex.lab = 1.25, cex.axis = 1.25, mfrow = c(2,1))
-lmPlot(x[1:70], y[1:70], col = COL[2], lCol = COL[1], lwd = 3, xlim = range(x), ylim = range(y))
-```
-
-## Outliers, leverage, influence {.build}
-
-**Outliers** are points that don't fit the trend in the rest of the data.
-
-**High leverage points** have the potential to have an unusually large influence 
-on the fitted model.
-
-**Influential points** are high leverage points that cause a very different
-line to be fit than would be with that point removed.
-
-
-## Example of high leverage, high influence
-
-We have data on the surface temperature and light intensity of 47 stars in the
-star cluster CYG OB1, near Cygnus.
-
-```{r, echo=FALSE}
-library(faraway)
-data(star)
-par(mar=c(4,4,2,1), las=1, mgp=c(2.5,0.7,0), cex.lab = 1.25, cex.axis = 1.25)
-plot(light ~ temp, data = star, pch=19, col=COL[2], xlab = "log(temp)", ylab = "log(light intensity)")
-```
-
-
-## Example of high leverage, high influence
-
-We have data on the surface temperature and light intensity of 47 stars in the
-star cluster CYG OB1, near Cygnus.
-
-```{r, echo=FALSE}
-par(mar=c(4,4,2,1), las=1, mgp=c(2.5,0.7,0), cex.lab = 1.25, cex.axis = 1.25)
-plot(light ~ temp, data = star, pch=19, col=COL[2], xlab = "log(temp)", ylab = "log(light intensity)")
-abline(lm(light~temp, data = star), col = "darkgreen", lwd = 3, lty = 2)
-legend("top", inset = 0.05, "w/ outliers", lty = 2, lwd = 2, col = "darkgreen")
-```
-
-
-## Example of high leverage, high influence
-
-We have data on the surface temperature and light intensity of 47 stars in the
-star cluster CYG OB1, near Cygnus.
-
-```{r, echo=FALSE}
-par(mar=c(4,4,2,1), las=1, mgp=c(2.5,0.7,0), cex.lab = 1.25, cex.axis = 1.25)
-plot(light ~ temp, data = star, pch=19, col=COL[2], xlab = "log(temp)", ylab = "log(light intensity)")
-abline(lm(light~temp, data = star), col = "darkgreen", lwd = 3, lty = 2)
-abline(lm(light[temp>4]~temp[temp>4], data = star), col = COL[1], lwd = 3)
-legend("top", inset = 0.05, c("w/ outliers","w/o outliers"), lty = c(2,1), lwd = c(2,3), col = c("darkgreen",COL[1]))
-```
-
-
-## Example of high leverage, low influence
-
-```{r, echo=FALSE}
-set.seed(12)
-i <- 2
-x <- runif(n[i])
-y <- m[i]*x + rnorm(n[i])
-x <- c(x,xr[[i]])
-y <- c(y,yr[[i]])
-y <- y - mean(y)
-par(mar=c(4,4,1,1), las=1, mgp=c(2.5,0.5,0), cex.lab = 1.25, cex.axis = 1.25, mfrow = c(2,1))
-lmPlot(x, y, col = COL[2], lCol = COL[1], lwd = 3)
-```
-
-
-## From leverage to influence
-
-**Leverage** measures the weight given to each point in determining the regression
-line.
-
-**Influence** measures how different the regression line would be without a given
-point. Often measured with *Cook's Distance*.
-
-```{r, echo=FALSE, fig.height=4, }
-i <- 5
-x <- runif(n[i])
-y <- m[i]*x + rnorm(n[i])
-x <- c(x,xr[[i]])
-y <- c(y,yr[[i]])
-par(mfrow = c(1, 2))
-plot(x, y, col = COL[2], pch = 16)
-abline(lm(y ~ x), col = COL[1], lwd = 3)
-x2 <- x[1:70]
-y2 <- y[1:70]
-plot(x2, y2, col = COL[2], pch = 16, xlim = range(x), ylim = range(y))
-abline(lm(y2 ~ x2), col = COL[1], lwd = 3)
-```
-
-
-## {.smaller}
-
-In the following plots are there outliers, leverage pts, or influential pts?
-
-<center>
-<img src="../figs/outliers.png" height = 550>
-</center>
-
-
-# Some chatter from the internets
-
-## 2016 Election {.build}
-<center>
-<img src="../figs/538.png" width = 850>
-</center>
-
-**Question at hand**: How will Obama's 46% approval rating effect his
-party's candidate for the 2016 presidential election?
-
-
-## 
-<center>
-<img src="../figs/538-1.png" width = 850>
-</center>
-
-
-##  {.build}
-<center>
-<img src="../figs/538-2.png" width = 850>
-</center>
-
-</br>
-</br>
-
-### How would you visualize this data?
-
-##  {.build}
-<center>
-<img src="../figs/538-3.png" width = 850>
-</center>
-
-</br>
-
-### Why is it ridiculous?
-
-
 ## Inference for Regression {.build}
 We can fit a line through any cloud of points that we please, but if we
 just have a *sample* of data, any trend we detect doesn't necessarily 
 demonstrate that the trend exists in the *population* at large.
 
-
+<!--
 ## Plato's Allegory of the Cave
 
 <div class="centered">
 ![](http://4.bp.blogspot.com/-rV1c4Xh4SSE/UZshhTTdFsI/AAAAAAAACQA/1VkmOaF7WFU/s1600/plato-cave.jpg)
 </div>
-
+-->
 
 ## Statistical Inference {.build}
 
@@ -517,3 +296,4 @@ pt(t_stat, df = 27 - 2) * 2
 <center>
 <img src="../figs/reg_conditions.png" width = 950>
 </center>
+

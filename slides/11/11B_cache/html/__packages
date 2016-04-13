@@ -1,13 +1,8 @@
 base
-methods
-datasets
-utils
-grDevices
-graphics
-stats
 knitr
 dplyr
 ggplot2
 oilabs
 openintro
 faraway
+plotly
