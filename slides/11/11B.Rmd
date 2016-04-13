@@ -288,7 +288,7 @@ pt(t_stat, df = 27 - 2) * 2
 1. **Linearity**: linear trend between $X$ and $Y$, check with residual plot.
 2. **Independent errors**: check with residual plot for serial correlation.
 3. **Normally distributed errors**: check for linearity in qq-plot.
-4. **Errors with constant variance**: look for constant spread in residual plot.
+4. **Constant variance**: look for constant spread in residual plot.
 
 
 ##
