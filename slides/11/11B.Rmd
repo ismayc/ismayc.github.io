@@ -290,10 +290,3 @@ pt(t_stat, df = 27 - 2) * 2
 3. **Normally distributed errors**: check for linearity in qq-plot.
 4. **Constant variance**: look for constant spread in residual plot.
 
-
-##
-
-<center>
-<img src="../figs/reg_conditions.png" width = 950>
-</center>
-
