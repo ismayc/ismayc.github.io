@@ -20,6 +20,7 @@ library(oilabs)
 library(openintro)
 library(DT)
 library(plotly)
+library(ggrepel)
 ```
 
 ## Poverty and Graduation
@@ -51,8 +52,8 @@ datatable(poverty, rownames = FALSE, options = list(pageLength = 6))
 
 ```{r echo=FALSE}
 (pov_plot <- qplot(x = Poverty, y = Graduates, data = poverty) +
-  geom_text(aes(label = State), hjust = -0.05, vjust = 1.4, size = 3))
-#ggplotly(pov_plot, tooltip = c("State"))
+#  geom_text(aes(label = State), hjust = -0.05, vjust = 1.4, size = 3))
+    geom_text_repel(aes(label = State)))
 ```
 
 
