@@ -1,0 +1,512 @@
+1 - pf(10.012, df1 = 2, df2 = 54)
+dim(nc)
+nc %>%
+group_by(habit) %>%
+summarize(n())
+# Chunk 1
+knitr::opts_chunk$set(eval = FALSE)
+# Chunk 2: load-data
+library(oilabs)
+library(dplyr)
+library(ggplot2)
+data(mlb11)
+str(mlb11)
+# Chunk 3: ex1
+qplot(x = at_bats, y = runs, data = mlb11)
+# Chunk 4: cor
+cor(mlb11$runs, mlb11$at_bats)
+# Chunk 5: plotss-atbats-runs
+plot_ss(x = at_bats, y = runs, data = mlb11)
+# Chunk 6: plotss-atbats-runs-squares
+plot_ss(x = at_bats, y = runs, data = mlb11, showSquares = TRUE)
+# Chunk 7: m1
+m1 <- lm(runs ~ at_bats, data = mlb11)
+# Chunk 8: summary-m1
+summary(m1)
+# Chunk 9: ex4
+m1 <- lm(runs ~ homeruns, data = mlb11)
+summary(m1)
+# Chunk 10: reg-with-line
+qplot(x = at_bats, y = runs, data = mlb11, geom = "point") +
+stat_smooth(method = "lm", se = FALSE)
+# Chunk 11: ex5
+m1 <- lm(runs ~ at_bats, data = mlb11)
+y_hat <- -2789.2429 + .6305 * 5579
+# Chunk 12: ex5b
+y_obs <- filter(mlb11, at_bats == 5579) %>% select(runs)
+y_obs - y_hat
+# Chunk 13: residuals
+qplot(x = .fitted, y = .stdresid, data = m1)
+# Chunk 14: hist-res
+qplot(x = .stdresid, data = m1, geom = "histogram")
+# Chunk 15: qq-res
+qplot(sample = .stdresid, data = m1, stat = "qq") +
+geom_abline()
+# Chunk 16: oyo1
+qplot(x = stolen_bases, y = runs, data = mlb11)
+m2 <- lm(runs ~ stolen_bases, data = mlb11)
+rsq2 <- summary(m2)$r.squared
+rsq1 <- summary(m1)$r.squared
+qplot(sample = .stdresid, data = m1, stat = "qq") +
+geom_abline()
+# Chunk 1: load-data
+library(oilabs)
+library(dplyr)
+library(ggplot2)
+# Chunk 2: look
+data(mlb11)
+str(mlb11)
+# Chunk 3: ex1
+qplot(x = at_bats, y = runs, data = mlb11)
+# Chunk 4: cor
+cor(mlb11$runs, mlb11$at_bats)
+# Chunk 7: m1
+m1 <- lm(runs ~ at_bats, data = mlb11)
+# Chunk 8: summary-m1
+summary(m1)
+# Chunk 9: ex4
+m1 <- lm(runs ~ homeruns, data = mlb11)
+summary(m1)
+# Chunk 10: reg-with-line
+qplot(x = at_bats, y = runs, data = mlb11, geom = "point") +
+stat_smooth(method = "lm", se = FALSE)
+# Chunk 11: ex5
+m1 <- lm(runs ~ at_bats, data = mlb11)
+y_hat <- -2789.2429 + .6305 * 5579
+# Chunk 12: ex5b
+y_obs <- filter(mlb11, at_bats == 5579) %>% select(runs)
+y_obs - y_hat
+# Chunk 13: residuals
+qplot(x = .fitted, y = .stdresid, data = m1)
+# Chunk 14: hist-res
+qplot(x = .stdresid, data = m1, geom = "histogram")
+qplot(sample = .stdresid, data = m1) +
+geom_abline()
+qplot(sample = .stdresid, data = m1) + stat_qq() +
+geom_abline()
+# Chunk 1: setup
+pkg <- c("tidyr", "dplyr", "ggplot2",
+"knitr", "rmarkdown", "readr",
+"DT","devtools", "broom")
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+if (length(new.pkg)) {
+install.packages(new.pkg, repos = "http://cran.rstudio.com")
+}
+lapply(pkg, library, character.only = TRUE)
+if(!require(oilabs))
+devtools::install_github("ismayc/oilabs")
+options(digits = 3, scipen = 99)
+# Chunk 2: read_data
+# download.file("http://www.math.hope.edu/isi/data/chap9/Comprehension.txt", destfile = "comprehension.txt")
+comp <- read.table("comprehension.txt", header = TRUE, stringsAsFactors = FALSE)
+# Chunk 3: summarize
+comp_summ <- comp %>% group_by(Condition) %>%
+summarize(sample_size = n(),
+mean = mean(Comprehension),
+sd = sd(Comprehension),
+minimum = min(Comprehension),
+lower_quartile = quantile(Comprehension, 0.25),
+median = median(Comprehension),
+upper_quartile = quantile(Comprehension, 0.75),
+max = max(Comprehension))
+kable(comp_summ)
+# Chunk 4: boxplot
+qplot(x = Condition, y = Comprehension, data = comp, geom = "boxplot") +
+stat_summary(fun.y="mean", geom="point", color="red")
+# Chunk 5: hist
+qplot(x = Comprehension, data = comp, geom = "histogram", facets = ~ Condition, binwidth = 1, color = I("white"))
+qplot(sample = Comprehension, data = comp, facets = ~ Condition) + geom_abline()
+qplot(sample = Comprehension, data = comp, facets = ~ Condition) +
+geom_abline(slope = coef(lm(Comprehension ~ Condition, data = comp))[2], intercept = lm(Comprehension ~ Condition, data = comp))[1])
+qplot(sample = Comprehension, data = comp, facets = ~ Condition) + geom_smooth(method = "lm", se = FALSE)
+# Chunk 1: load-data
+library(oilabs)
+library(dplyr)
+library(ggplot2)
+# Chunk 2: look
+data(mlb11)
+str(mlb11)
+# Chunk 3: ex1
+qplot(x = at_bats, y = runs, data = mlb11)
+# Chunk 4: cor
+cor(mlb11$runs, mlb11$at_bats)
+# Chunk 7: m1
+m1 <- lm(runs ~ at_bats, data = mlb11)
+# Chunk 8: summary-m1
+summary(m1)
+# Chunk 9: ex4
+m1 <- lm(runs ~ homeruns, data = mlb11)
+summary(m1)
+# Chunk 10: reg-with-line
+qplot(x = at_bats, y = runs, data = mlb11, geom = "point") +
+stat_smooth(method = "lm", se = FALSE)
+# Chunk 11: ex5
+m1 <- lm(runs ~ at_bats, data = mlb11)
+y_hat <- -2789.2429 + .6305 * 5579
+# Chunk 12: ex5b
+y_obs <- filter(mlb11, at_bats == 5579) %>% select(runs)
+y_obs - y_hat
+# Chunk 13: residuals
+qplot(x = .fitted, y = .stdresid, data = m1)
+# Chunk 14: hist-res
+qplot(x = .stdresid, data = m1, geom = "histogram")
+qplot(sample = .stdresid, data = m1) + stat_qq() +
+geom_abline()
+predict(m1, newdata=5578)
+predict(m1, newdata=c(5578))
+predict(m1, newdata=data.frame(at_bats = 5578))
+predict(m1, newdata=(at_bats = 5578))
+# Chunk 1: load-data
+library(oilabs)
+library(dplyr)
+library(ggplot2)
+# Chunk 2: look
+data(mlb11)
+str(mlb11)
+# Chunk 3: ex1
+qplot(x = at_bats, y = runs, data = mlb11)
+# Chunk 4: cor
+cor(mlb11$runs, mlb11$at_bats)
+# Chunk 7: m1
+m1 <- lm(runs ~ at_bats, data = mlb11)
+# Chunk 8: summary-m1
+summary(m1)
+# Chunk 9: ex4
+m1 <- lm(runs ~ homeruns, data = mlb11)
+summary(m1)
+# Chunk 10: reg-with-line
+qplot(x = at_bats, y = runs, data = mlb11, geom = "point") +
+stat_smooth(method = "lm", se = FALSE)
+# Chunk 11: ex5
+m1 <- lm(runs ~ at_bats, data = mlb11)
+y_hat <- -2789.2429 + .6305 * 5579
+# Chunk 12: ex5b
+y_obs <- filter(mlb11, at_bats == 5579) %>% select(runs)
+y_obs - y_hat
+qplot(x = .fitted, y = .stdresid, data = m1)
+# Chunk 1: load-data
+library(oilabs)
+library(dplyr)
+library(ggplot2)
+# Chunk 2: look
+data(mlb11)
+str(mlb11)
+# Chunk 3: ex1
+qplot(x = at_bats, y = runs, data = mlb11)
+# Chunk 4: cor
+cor(mlb11$runs, mlb11$at_bats)
+# Chunk 7: m1
+m1 <- lm(runs ~ at_bats, data = mlb11)
+# Chunk 8: summary-m1
+summary(m1)
+# Chunk 9: ex4
+m1 <- lm(runs ~ homeruns, data = mlb11)
+summary(m1)
+# Chunk 10: reg-with-line
+qplot(x = at_bats, y = runs, data = mlb11, geom = "point") +
+stat_smooth(method = "lm", se = FALSE)
+# Chunk 11: ex5
+m1 <- lm(runs ~ at_bats, data = mlb11)
+y_hat <- -2789.2429 + .6305 * 5579
+# Chunk 12: ex5b
+y_obs <- filter(mlb11, at_bats == 5579) %>% select(runs)
+y_obs - y_hat
+# Chunk 13: residuals
+qplot(x = .fitted, y = .stdresid, data = m1)
+# Chunk 14: hist-res
+qplot(x = .stdresid, data = m1, geom = "histogram")
+qplot(sample = .stdresid, data = m1) + stat_qq() +
+geom_abline()
+7 + 10 + 11 + 9 + 12 + 10 + 14 + 7
+?aov
+# Chunk 1: setup
+pkg <- c("tidyr", "dplyr", "ggplot2",
+"knitr", "rmarkdown", "readr",
+"DT","devtools", "broom")
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+if (length(new.pkg)) {
+install.packages(new.pkg, repos = "http://cran.rstudio.com")
+}
+lapply(pkg, library, character.only = TRUE)
+if(!require(oilabs))
+devtools::install_github("ismayc/oilabs")
+options(digits = 3, scipen = 99)
+# Chunk 2: read_data
+# download.file("http://www.math.hope.edu/isi/data/chap9/Comprehension.txt", destfile = "comprehension.txt")
+comp <- read.table("comprehension.txt", header = TRUE, stringsAsFactors = FALSE)
+# Chunk 3: summarize
+comp_summ <- comp %>% group_by(Condition) %>%
+summarize(sample_size = n(),
+mean = mean(Comprehension),
+sd = sd(Comprehension),
+minimum = min(Comprehension),
+lower_quartile = quantile(Comprehension, 0.25),
+median = median(Comprehension),
+upper_quartile = quantile(Comprehension, 0.75),
+max = max(Comprehension))
+kable(comp_summ)
+# Chunk 4: boxplot
+qplot(x = Condition, y = Comprehension, data = comp, geom = "boxplot") +
+stat_summary(fun.y="mean", geom="point", color="red")
+# Chunk 5: hist
+qplot(x = Comprehension, data = comp, geom = "histogram", facets = ~ Condition, binwidth = 1, color = I("white"))
+# Chunk 6: qqplot
+qplot(sample = Comprehension, data = comp, facets = ~ Condition)
+# Chunk 7
+inference(y = comp$Comprehension,
+x = comp$Condition,
+est = "mean",
+type = "ht",
+alternative = "greater",
+method = "theoretical")
+comp_anova <- aov(formula = Comprehension ~ Condition, data = comp)
+comp_anova <- aov(formula = Comprehension ~ Condition, data = comp)
+anova(comp_anova)
+install.packages("faraway")
+install.packages("faraway", repos = "http://cran.rstudio.org")
+# Chunk 1: setup
+library(knitr)
+options(digits=3)
+knitr::opts_chunk$set(echo = TRUE, fig.align = "center")
+library(dplyr)
+library(ggplot2)
+library(oilabs)
+library(openintro)
+poverty <- read.delim("poverty.txt", header = TRUE)
+head(poverty)
+setwd("~/Google Drive/ismayc.github.io/slides/11")
+poverty <- read.delim("poverty.txt", header = TRUE)
+head(poverty)
+poverty <- read.delim("poverty.txt", header = TRUE)
+head(sample(poverty, 12))
+poverty <- read.delim("poverty.txt", header = TRUE)
+head(sample_n(poverty, 12))
+poverty <- read.delim("poverty.txt", header = TRUE)
+sample_n(poverty, 12)
+?print
+?datatable
+?DT::datatable
+# Chunk 1: setup
+library(knitr)
+options(digits = 3, width = 100)
+knitr::opts_chunk$set(echo = TRUE, fig.align = "center")
+library(dplyr)
+library(ggplot2)
+library(oilabs)
+library(openintro)
+library(DT)
+# Chunk 2
+poverty <- read.delim("poverty.txt", header = TRUE)
+datatable(poverty, rownames = FALSE, options = list(
+pageLength = 7,
+autoWidth = TRUE
+))
+# Chunk 3
+qplot(x = Poverty, y = Graduates, data = poverty)
+qplot(x = Poverty, y = Graduates, data = poverty) +
+geom_text(aes(label = State), hjust = 1, vjust = 1, size = 3)
+qplot(x = Poverty, y = Graduates, data = poverty) +
+geom_text(aes(label = State), hjust = -2, vjust = 1, size = 3)
+qplot(x = Poverty, y = Graduates, data = poverty) +
+geom_text(aes(label = State), hjust = -1, vjust = 1, size = 3)
+qplot(x = Poverty, y = Graduates, data = poverty) +
+geom_text(aes(label = State), hjust = 2, vjust = 1, size = 3)
+qplot(x = Poverty, y = Graduates, data = poverty) +
+geom_text(aes(label = State), hjust = 1.5, vjust = 1, size = 3)
+pov_plot <- qplot(x = Poverty, y = Graduates, data = poverty) +
+geom_text(aes(label = State), hjust = 1.5, vjust = 1, size = 3)
+ggplotly(pov_pot)
+# Chunk 1: setup
+library(knitr)
+options(digits = 3, width = 100)
+knitr::opts_chunk$set(echo = TRUE, fig.align = "center")
+library(dplyr)
+library(ggplot2)
+library(oilabs)
+library(openintro)
+library(DT)
+library(plotly)
+# Chunk 2
+poverty <- read.delim("poverty.txt", header = TRUE)
+datatable(poverty, rownames = FALSE, options = list(
+pageLength = 7,
+autoWidth = TRUE
+))
+# Chunk 3
+qplot(x = Poverty, y = Graduates, data = poverty)
+pov_plot <- qplot(x = Poverty, y = Graduates, data = poverty) +
+geom_text(aes(label = State), hjust = 1.5, vjust = 1, size = 3)
+ggplotly(pov_pot)
+pov_plot <- qplot(x = Poverty, y = Graduates, data = poverty) +
+geom_text(aes(label = State), hjust = 1.5, vjust = 1, size = 3)
+ggplotly(pov_plot)
+?ggplotly
+pov_plot <- qplot(x = Poverty, y = Graduates, data = poverty) +
+geom_text(aes(label = State), hjust = 1.5, vjust = 1, size = 3)
+ggplotly(pov_plot, tooltip = "State")
+pov_plot <- qplot(x = Poverty, y = Graduates, data = poverty) +
+geom_text(aes(label = State), hjust = 1.5, vjust = 1, size = 3)
+ggplotly(pov_plot, tooltip = State)
+?ggplotly
+pov_plot <- qplot(x = Poverty, y = Graduates, data = poverty) +
+geom_text(aes(label = State), hjust = 1.5, vjust = 1, size = 3)
+ggplotly(pov_plot, tooltip = c("State"))
+(pov_plot <- qplot(x = Poverty, y = Graduates, data = poverty) +
+geom_text(aes(label = State), hjust = 1, vjust = 1, size = 3))
+#ggplotly(pov_plot, tooltip = c("State"))
+(pov_plot <- qplot(x = Poverty, y = Graduates, data = poverty) +
+geom_text(aes(label = State), hjust = -0.5, vjust = 1, size = 3))
+#ggplotly(pov_plot, tooltip = c("State"))
+(pov_plot <- qplot(x = Poverty, y = Graduates, data = poverty) +
+geom_text(aes(label = State), hjust = -0.3, vjust = 1, size = 3))
+#ggplotly(pov_plot, tooltip = c("State"))
+(pov_plot <- qplot(x = Poverty, y = Graduates, data = poverty) +
+geom_text(aes(label = State), hjust = 0, vjust = 1, size = 3))
+#ggplotly(pov_plot, tooltip = c("State"))
+(pov_plot <- qplot(x = Poverty, y = Graduates, data = poverty) +
+geom_text(aes(label = State), hjust = 0, vjust = 1.2, size = 3))
+#ggplotly(pov_plot, tooltip = c("State"))
+(pov_plot <- qplot(x = Poverty, y = Graduates, data = poverty) +
+geom_text(aes(label = State), hjust = 0, vjust = 1.4, size = 3))
+#ggplotly(pov_plot, tooltip = c("State"))
+qplot(x = Poverty, y = Graduates, data = poverty) +
+geom_text(aes(label = State), hjust = 0, vjust = 1.4, size = 3) +
+geom_smooth(method='lm',formula=y~x, se = FALSE)
+(pov_plot <- qplot(x = Poverty, y = Graduates, data = poverty) +
+geom_text(aes(label = State), hjust = 1, vjust = 1.4, size = 3))
+#ggplotly(pov_plot, tooltip = c("State"))
+qplot(x = Poverty, y = Graduates, data = poverty) +
+geom_text(aes(label = State), hjust = 1, vjust = 1.4, size = 3) +
+geom_smooth(method='lm',formula=y~x, se = FALSE)
+(pov_plot <- qplot(x = Poverty, y = Graduates, data = poverty) +
+geom_text(aes(label = State), hjust = 1, vjust = 1.4, size = 3))
+#ggplotly(pov_plot, tooltip = c("State"))
+(pov_plot <- qplot(x = Poverty, y = Graduates, data = poverty) +
+geom_text(aes(label = State), hjust = -1, vjust = 1.4, size = 3))
+#ggplotly(pov_plot, tooltip = c("State"))
+(pov_plot <- qplot(x = Poverty, y = Graduates, data = poverty) +
+geom_text(aes(label = State), hjust = -0.1, vjust = 1.4, size = 3))
+#ggplotly(pov_plot, tooltip = c("State"))
+(pov_plot <- qplot(x = Poverty, y = Graduates, data = poverty) +
+geom_text(aes(label = State), hjust = -0.05, vjust = 1.4, size = 3))
+#ggplotly(pov_plot, tooltip = c("State"))
+qplot(x = Poverty, y = Graduates, data = poverty) +
+geom_text(aes(label = State), hjust = -0.05, vjust = 1.4, size = 3) +
+geom_smooth(method='lm',formula=y~x, se = FALSE)
+# Chunk 1: setup
+library(knitr)
+options(digits = 3, width = 100)
+knitr::opts_chunk$set(echo = TRUE, fig.align = "center")
+library(dplyr)
+library(ggplot2)
+library(oilabs)
+library(openintro)
+library(DT)
+library(plotly)
+# Chunk 2
+poverty <- read.delim("poverty.txt", header = TRUE)
+datatable(poverty, rownames = FALSE, options = list(
+pageLength = 7,
+autoWidth = TRUE
+))
+# Chunk 3
+qplot(x = Poverty, y = Graduates, data = poverty)
+# Chunk 4
+(pov_plot <- qplot(x = Poverty, y = Graduates, data = poverty) +
+geom_text(aes(label = State), hjust = -0.05, vjust = 1.4, size = 3))
+#ggplotly(pov_plot, tooltip = c("State"))
+# Chunk 5
+qplot(x = Poverty, y = Graduates, data = poverty) +
+geom_text(aes(label = State), hjust = -0.05, vjust = 1.4, size = 3) +
+geom_smooth(method='lm',formula=y~x, se = FALSE)
+# Chunk 7
+poverty %>% summarize(cor(Graduates, Poverty))
+lm(Graduates ~ Poverty, data = poverty)
+# Chunk 8
+m1 <- lm(Graduates ~ Poverty, data = poverty)
+plot(m1, 1)
+# Chunk 9
+qplot(x = .fitted, y = .stdresid, data = m1) +
+geom_abline(intercept = 0, slope = 0, col = "blue")
+# Chunk 10: find-b1
+poverty <- read.delim("poverty.txt", header = TRUE)
+library(ggplot2)
+(p1 <- ggplot(poverty, aes(Poverty, Graduates)) +
+xlim(0, 20) +
+ylim(75, 96) +
+geom_point())
+m1
+m1 <- lm(Graduates ~ Poverty, data = poverty)
+(p2 <- p1 +
+geom_abline(intercept = m1$coef[1], slope = m1$coef[2], col = "goldenrod") +
+annotate("text", x = 3, y = 87, label = paste("slope = ", round(m1$coef[2], 2))))
+m1 <- lm(Graduates ~ Poverty, data = poverty)
+(p2 <- p1 +
+geom_abline(intercept = m1$coef[1], slope = m1$coef[2], col = "goldenrod") +
+annotate("text", x = 3, y = 87, label = paste("slope = b_1 = ", round(m1$coef[2], 2))))
+m1
+x_bar
+# Chunk 1: setup
+library(knitr)
+options(digits = 3, width = 100)
+knitr::opts_chunk$set(echo = TRUE, fig.align = "center")
+library(dplyr)
+library(ggplot2)
+library(oilabs)
+library(openintro)
+library(DT)
+library(plotly)
+# Chunk 2
+poverty <- read.delim("poverty.txt", header = TRUE)
+datatable(poverty, rownames = FALSE, options = list(
+pageLength = 7,
+autoWidth = TRUE
+))
+# Chunk 3
+qplot(x = Poverty, y = Graduates, data = poverty)
+# Chunk 4
+(pov_plot <- qplot(x = Poverty, y = Graduates, data = poverty) +
+geom_text(aes(label = State), hjust = -0.05, vjust = 1.4, size = 3))
+#ggplotly(pov_plot, tooltip = c("State"))
+# Chunk 5
+qplot(x = Poverty, y = Graduates, data = poverty) +
+geom_text(aes(label = State), hjust = -0.05, vjust = 1.4, size = 3) +
+geom_smooth(method='lm',formula=y~x, se = FALSE)
+# Chunk 7
+poverty %>% summarize(cor(Graduates, Poverty))
+lm(Graduates ~ Poverty, data = poverty)
+# Chunk 8
+m1 <- lm(Graduates ~ Poverty, data = poverty)
+plot(m1, 1)
+# Chunk 9
+qplot(x = .fitted, y = .stdresid, data = m1) +
+geom_abline(intercept = 0, slope = 0, col = "blue")
+# Chunk 10: find-b1
+poverty <- read.delim("poverty.txt", header = TRUE)
+library(ggplot2)
+(p1 <- ggplot(poverty, aes(Poverty, Graduates)) +
+xlim(0, 20) +
+ylim(75, 96) +
+geom_point())
+# Chunk 11: find-b1-2
+m1 <- lm(Graduates ~ Poverty, data = poverty)
+(p2 <- p1 +
+geom_abline(intercept = m1$coef[1], slope = m1$coef[2], col = "goldenrod") +
+annotate("text", x = 3, y = 87, label = paste("slope = b_1 = ", round(m1$coef[2], 4))))
+x_bar <- mean(poverty$Poverty)
+y_bar <- mean(poverty$Graduates)
+p1 +
+geom_vline(xintercept = mean(poverty$Poverty),
+col = "steelblue",
+lty = 2) +
+geom_hline(yintercept = mean(poverty$Graduates),
+col = "steelblue",
+lty = 2) +
+geom_abline(intercept = m1$coef[1], slope = m1$coef[2], col = "goldenrod") +
+annotate("text", x = 3, y = 91, label = paste("slope = b_1 =", round(m1$coef[2], 4))) +
+annotate("text", x = 14, y = 96, label = paste("x-bar = ", round(x_bar, 2))) +
+annotate("text", x = 19, y = 85, label = paste("y-bar = ", round(y_bar, 2)))
+x_bar
+11.9/89.7
+poverty <- read.delim("poverty.txt", header = TRUE) %>% select(-Percent)
+head(poverty, 15)
