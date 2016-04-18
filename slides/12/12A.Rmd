@@ -1,0 +1,763 @@
+---
+title: "MATH 141"
+author: "Chester Ismay"
+output: 
+ ioslides_presentation:
+   incremental: true
+   keep_md: yes
+   logo: ../figs/griffin.png
+   widescreen: yes
+   html_preview: false
+subtitle: Multiple  Linear Regression I
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(rglwidget)
+options(digits=3, width=100)
+knitr::opts_chunk$set(echo = TRUE, fig.align = "center")
+library(rgl)
+knit_hooks$set(webgl = hook_webgl)
+library(dplyr)
+library(ggplot2)
+library(oilabs)
+library(openintro)
+library(plotly)
+```
+
+## Example: shipping books {.build}
+
+<center>
+<img src="../figs/pile-of-books.jpg" width = 500>
+</center>
+
+When you buy a book from Amazon, you get a quote for how much it
+costs to ship. This is largely based on the weight of the book. If you
+didn't know the weight of a book, what other characteristics of it
+could you measure to help predict weight?
+
+```{r getdata, echo = FALSE, message=FALSE}
+library(DAAG)
+data(allbacks)
+books <- allbacks[, c(3, 1, 4)]
+```
+
+
+## Example: shipping books
+
+```{r plotallbacks}
+qplot(x = volume, y = weight, data = books)
+```
+
+
+## Example: shipping books {.smaller}
+
+```{r fitm1, echo = FALSE}
+m1 <- lm(weight ~ volume, data = books)
+```
+
+```{r plotallbackswline}
+qplot(x = volume, y = weight, data = books) + 
+  geom_abline(intercept = m1$coef[1], slope = m1$coef[2], col = "orchid")
+```
+
+
+## {.build .smaller} 
+
+```{r}
+m1 <- lm(weight ~ volume, data = books)
+summary(m1)
+```
+
+Q1: What is the equation for the line?
+
+$$ \hat{y} = 107.7 + 0.708 x $$
+$$ \widehat{weight} = 107.7 + 0.708 volume $$
+
+
+## {.build .smaller}
+
+Q2: Is volume a significant predictor?
+
+```{r sumtable}
+summary(m1)
+```
+
+Q3: How much of the variation in weight is explained by the model containing volume?
+
+
+## {.build}
+
+Q4: Does this appear to be a reasonable setting to apply linear regression?
+
+We need to check:
+
+1. **L** inear trend
+2. **I** ndependent observations/errors
+3. **N** ormal residuals
+4. **E** qual variance
+
+
+## Residual Plot
+
+```{r resplot}
+qplot(x = .fitted, y = .stdresid, data = m1)
+```
+
+
+## QQ plot
+
+```{r resplot2}
+qplot(sample = .stdresid, data = m1) + geom_abline(col = "purple")
+```
+
+# Multiple Regression
+
+## Multiple Regression {.build}
+
+Allows us to create a model to explain one $numerical$ variable, the response, as a linear function of many explanatory variables that can be both $numerical$ and
+$categorical$.
+
+We posit the true model:
+
+$$ Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \ldots + \beta_p X_p + \epsilon; \quad \epsilon \sim N(0, \sigma^2) $$
+
+We use the data to estimate our fitted model:
+
+$$ \hat{y} = b_0 + b_1 x_1 + b_2 x_2 + \ldots + b_p x_p $$
+
+
+## Estimating $\beta_0, \beta_1$, etc. {.build}
+
+In least-squares regression, we're still finding the estimates that minimize
+the sum of squared residuals.
+
+$$ \sum_{i = 1}^n {e_i}^2 = \sum_{i = 1}^n \left(y_i - \hat{y}_i\right)^2$$
+
+<!--
+**Mathy note:** They have a closed-form solution.
+
+$$ \mathbf{b} = (\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T\mathbf{y} $$ where $\mathbf{b} = (b_0, b_1, \ldots, b_p)$, $\mathbf{b} = (b_0, b_1, \ldots, b_p)$, \mathbf{X} = ()
+
+-->
+
+In R:
+
+```{r eval = FALSE}
+lm(y ~ x1 + x2 + ... + xp, data = mydata)
+```
+
+
+
+## Example: shipping books {.build}
+
+```{r plotcolors}
+qplot(x = volume, y = weight, color = cover, data = books)
+```
+
+
+## {.build .smaller}
+
+```{r}
+m2 <- lm(weight ~ volume + cover, data = books)
+summary(m2)
+```
+
+<center>
+### How do we interpret these estimates?
+</center>
+
+#
+
+
+## Example: shipping books {.build .smaller}
+
+```{r echo = FALSE}
+qplot(x = volume, y = weight, color = cover, data = books) +
+  geom_abline(intercept = m2$coef[1], slope = m2$coef[2], col = 2) +
+  geom_abline(intercept = m2$coef[1] + m2$coef[3], slope = m2$coef[2], col = 4)
+```
+
+
+## MLR slope interpretation {.build}
+
+The slope corresponding to the dummy variable tell us:
+
+- How much vertical separation there is between our lines
+- How much `weight` is expected to increase if `cover` goes
+from 0 to 1 and `volume` is left unchanged.
+
+Each $b_i$ tells you how much you expect the $y$ to change when you change the
+$x_i$ **by one unit**, while **holding all other variables constant**.
+
+
+## {.smaller .build}
+
+```{r}
+summary(m2)
+```
+
+- Is the difference between cover types significant?
+- How much of the variation in weight is explained by a model containing both
+volume and cover?
+
+
+##
+
+```{r}
+summary(m2)$coef
+qt(.025, df = nrow(books) - 3)
+```
+
+Which of the following represents the appropriate 95% CI for `coverpb`?
+
+- A. $197 \pm 1.96 \times 59.19$
+- B. $-184 \pm 2.18 \times 40.5$
+- C. $-184 \pm -4.55 \times 40.5$
+
+
+## Extending the model
+
+```{r echo = FALSE}
+qplot(x = volume, y = weight, color = cover, data = books) +
+  geom_abline(intercept = m2$coef[1], slope = m2$coef[2], col = 2) +
+  geom_abline(intercept = m2$coef[1] + m2$coef[3], slope = m2$coef[2], col = 4)
+```
+
+The two cover types have different intercepts. Do they share the same slope?
+
+
+#
+
+
+## Extending the model
+
+```{r echo = FALSE}
+qplot(x = volume, y = weight, color = cover, data = books) +
+  stat_smooth(method = "lm", se = FALSE)
+```
+
+
+## {.smaller .build}
+
+```{r}
+m3 <- lm(weight ~ volume + cover + volume:cover, data = books)
+summary(m3)
+```
+
+Do we have evidence that two types of books have different relationships
+between volume and weight?
+
+
+## Take home messages {.build}
+
+- There is a statistically significant relationship between volume and weight.
+- There is a statistically significant difference in weight between paperback
+and hardcover books, when controlling for volume.
+- There is not strong evidence that the relationship between volume and weight
+differs between paperbacks and hardbacks.
+
+This is **inference**, which required **valid models**. We'll check diagnostics 
+next time.
+
+#
+
+## {.smaller}
+
+```{r}
+qnorm(.025)
+qt(.025, df = 13)
+qt(.025, df = 14)
+qt(.05, df = 13)
+qt(.05, df = 14)
+```
+
+# Geometry of MLR
+
+
+## Ex: Restaurants in NYC
+
+![zagat](http://andrewpbray.github.io/reg/zagat.png)
+
+
+## Ex: Restaurants in NYC {.build}
+
+```{r echo = FALSE}
+nyc <- read.csv("http://andrewpbray.github.io/data/nyc.csv")
+```
+
+```{r}
+head(nyc, 3)
+dim(nyc)
+```
+
+What is the unit of observation?
+
+*A restaurant*
+
+
+## What determines the price of a meal?
+
+Let's look at the relationship between price, food rating, and decor rating.
+
+```{r echo=FALSE, webgl=TRUE}
+library(rgl)
+invisible(open3d())
+rgl.viewpoint(zoom = .7)
+plot3d(x = nyc$Food, y = nyc$Decor, z = nyc$Price, col = "steelblue", 
+       xlab = "Food rating", ylab = "Decor Rating", zlab = "Price")
+```
+
+## With fitted plane
+
+```{r echo=FALSE, webgl=TRUE}
+m1 <- lm(Price ~ Food + Decor, data = nyc)
+coefs <- m1$coef
+#invisible(open3d())
+rgl.viewpoint(zoom = .7)
+planes3d(coefs["Food"], coefs["Decor"], -1, coefs["(Intercept)"],
+         alpha = 0.4, col = "lightgray")
+```
+
+
+## What determines the price of a meal?
+
+\[ Price \sim Food + Decor \]
+
+```{r}
+head(nyc, 3)
+m1 <- lm(Price ~ Food + Decor, data = nyc)
+```
+
+## Model 1: Food + Decor {.smaller}
+
+```{r}
+summary(m1)
+```
+
+
+## The geometry of regression models {.build}
+
+The function for $\hat{y}$ is . . .
+
+- A *line* when you have one continuous $x$.
+- *Parallel lines* when you have one continuous $x_1$ and one categorical $x_2$.
+- *Unrelated lines* when you have one continuous $x_1$, one categorical $x_2$, 
+and an interaction term $x_1 : x_2$.
+
+When you have two continuous predictors $x_1$, $x_2$, then your mean function
+is . . .
+
+*a plane*
+
+
+## 3D plot
+
+```{r echo=FALSE, eval=TRUE, webgl=TRUE}
+rgl.viewpoint(zoom = .7)
+#plot3d(x = nyc$Food, y = nyc$Decor, z = nyc$Price, col = "steelblue", 
+#       xlab = "Food rating", ylab = "Decor Rating", zlab = "Price")
+m1 <- lm(Price ~ Food + Decor, data = nyc)
+coefs <- m1$coef
+planes3d(coefs["Food"], coefs["Decor"], -1, coefs["(Intercept)"],
+         alpha = 0.4, col = "lightgray")
+```
+
+
+## Location, location, location
+
+Does the price depend on where the restaurant is located in Manhattan?
+
+\[ Price \sim Food + Decor + East \]
+
+```{r}
+head(nyc, 3)
+```
+
+
+## Model 2: Food + Decor + East {.smaller}
+
+```{r}
+m2 <- lm(Price ~ Food + Decor + East, data = nyc)
+summary(m2)
+```
+
+
+## The geometry of regression models {.build}
+
+- When you have two continuous predictors $x_1$, $x_2$, then your mean function
+is *a plane*.
+- When you have two continuous predictors $x_1$, $x_2$, and a categorical 
+predictor $x_3$, then your mean function represents *parallel planes*.
+
+
+## 3D Plot
+
+```{r echo = FALSE, eval = TRUE, webgl = TRUE}
+m2 <- lm(Price ~ Food + Decor + East, data = nyc)
+colvec <- rep("steelblue", dim(nyc)[1])
+colvec[nyc$East == 1] <- "orange"
+#plot3d(x = nyc$Food, y = nyc$Decor, z = nyc$Price, col = colvec, 
+#       xlab = "Food rating", ylab = "Decor Rating", zlab = "Price")
+coefs <- m2$coef
+rgl.viewpoint(zoom = .7)
+planes3d(coefs["Food"], coefs["Decor"], -1, coefs["(Intercept)"],
+         alpha = 0.4, col = "steelblue")
+planes3d(coefs["Food"], coefs["Decor"], -1, coefs["(Intercept)"] + coefs["East"],
+         alpha = 0.4, col = "orange")
+```
+
+<!--
+## 3D Plot 2
+
+```{r echo = FALSE, eval = FALSE, webgl = TRUE}
+rgl.viewpoint(zoom = .7)
+planes3d(coefs["Food"], coefs["Decor"], -1, coefs["(Intercept)"] + coefs["East"],
+         alpha = 0.4, col = "orange")
+```
+-->
+
+## The geometry of regression models {.build}
+
+- When you have two continuous predictors $x_1$, $x_2$, then your mean function
+is *a plane*.
+- When you have two continuous predictors $x_1$, $x_2$, and a categorical 
+predictor $x_3$, then your mean function represents *parallel planes*.
+- When you add in interaction effects, the planes become *tilted*.
+
+
+## Model 3: Food + Decor + East + Decor:East {.smaller}
+
+```{r}
+m3 <- lm(Price ~ Food + Decor + East + Decor:East, data = nyc)
+summary(m3)
+```
+
+
+## 3D plot
+
+```{r echo=FALSE, eval=TRUE, webgl=TRUE}
+colvec <- rep("steelblue", dim(nyc)[1])
+colvec[nyc$East == 1] <- "orange"
+plot3d(x = nyc$Food, y = nyc$Decor, z = nyc$Price, col = colvec, 
+       xlab = "Food rating", ylab = "Decor Rating", zlab = "Price")
+coefs <- m3$coef
+planes3d(coefs["Food"], coefs["Decor"], -1, coefs["(Intercept)"],
+         alpha = 0.4, col = "steelblue")
+planes3d(coefs["Food"], coefs["Decor"] + coefs["Decor:East"], -1, 
+         coefs["(Intercept)"] + coefs["East"], alpha = 0.4, col = "orange")
+```
+
+
+## Comparing Models
+
+- The `East` term was significant in model 2, suggesting that there is a 
+significant relationship between location and price.
+- That term became non-significant when we allowed the slope of `Decor` to vary
+with location, and that difference in slopes was also non-significant.
+- Notice that slope estimate for a given variable will almost *always* change 
+depending on the other variables that are in the model.
+
+## The Problem of Model Selection {.build}
+
+<div class="columns-2">
+
+<img src="http://www.evilenglish.net/wp-content/uploads/2014/07/needle_haystack.jpg" height="450px" width="350px" />
+
+A given data set can conceivably have been generated from infinitely
+many models.  Identifying the true model is like finding a piece of hay in a 
+haystack. Said another way, the model space is massive and the criterion for
+what constitutes the "best" model is ill-defined.
+
+</div>
+
+
+## The Problem of Model Selection {.build}
+
+**Best strategy**: Use domain knowledge to constrain the model space and/or
+build models that help you answer specific scientific questions.
+
+**Another common strategy:**
+
+1. Pick a criterion for "best".
+2. Decide how to explore the model space.
+3. Select "best" model in search area.
+
+**Tread Carefully!!!**  The second strategy can lead to myopic analysis, 
+overconfidence, and wrong-headed conclusions.
+
+
+## What do we mean by "best"? {.build}
+
+While we'd like to find the "true" model, in practice we just hope we're doing
+a good job at:
+
+1. Prediction
+2. Description
+
+
+## Synthetic example
+
+How smooth should our model be?
+
+```{r, echo=FALSE, fig.align='center', fig.width=6, fig.height=5}
+betas <- c(0, 1, 1, -4, 1)
+sigma <- 5
+n <- 40
+set.seed(110)
+x <- runif(n, 0, 5)
+EyGx <- betas[1] + betas[2]*x + betas[3]*x^2 + betas[4]*x^3 + betas[5]*x^4
+y <- EyGx + rnorm(n, 0, sigma)
+plot(y ~ x, pch = 16, col = "steelblue")
+```
+
+
+## Four candidates {.build}
+
+```{r fig.width=9}
+m1 <- lm(y ~ x)
+m2 <- lm(y ~ x + I(x^2))
+m3 <- lm(y ~ x + I(x^2) + I(x^3))
+m4 <- lm(y ~ x + I(x^2) + I(x^3) + I(x^4))
+```
+
+We can add *polynomial* terms to account for non-linear trends.
+
+
+## Four candidates
+
+```{r, echo=FALSE}
+# plotting function
+plot_m <- function(x, y, m) {
+  plot(y ~ x, pch = 16, col = "steelblue")
+  x_range <- par("xaxp")[1:2]
+  xx <- seq(x_range[1], x_range[2], length.out = 300)
+  yy <- predict(m, newdata = data.frame("x" = xx))
+  lines(xx, yy, lwd = 2, col = "orange")
+}
+```
+
+```{r, echo=FALSE, fig.align='center', fig.width=8, fig.height=6}
+par(mfrow = c(2, 2))
+plot_m(x, y, m1)
+plot_m(x, y, m2)
+plot_m(x, y, m3)
+plot_m(x, y, m4)
+```
+
+
+## $R^2$ {.build}
+
+One way to quantify the explanatory power of a model.
+
+$$ R^2 = \frac{SS_{reg}}{SS_{tot}} $$
+
+This captures the proportion of variability in the $y$ explained by our 
+regression model.
+
+
+## Comparing $R^2$ {.build}
+
+```{r}
+c(summary(m1)$r.squared,
+  summary(m2)$r.squared,
+  summary(m3)$r.squared,
+  summary(m4)$r.squared)
+```
+
+The observed data is best explained by the quartic model.  So
+that's the best model, right?
+
+
+## The BEST model!
+
+```{r, echo=FALSE, fig.align='center', fig.width=6, fig.height=5}
+mBEST <- lm(y ~ poly(x, 20))
+plot_m(x, y, mBEST)
+```
+
+
+## The BEST model! {.build}
+
+```{r}
+mBEST <- lm(y ~ poly(x, 20))
+c(summary(m1)$r.squared,
+  summary(m2)$r.squared,
+  summary(m3)$r.squared,
+  summary(m4)$r.squared,
+  summary(mBEST)$r.squared)
+```
+
+But surely that's not the best model...
+
+
+## Three Criteria
+
+1. $R^2$
+2. $R^2_{adj}$
+3. p-values
+
+- There are many others ($AIC$, $BIC$, $AIC_C$, ...).
+
+
+## $R^2_{adj}$ {.build}
+
+A measure of explanatory power of model:
+
+\[ R^2 = \frac{SS_{reg}}{SS_{tot}} = 1 - \frac{SS_{res}}{SS_{tot}} \]
+
+But like likelihood, it only goes up with added predictors, therefore we add a
+penalty.
+
+\[ R^2_{adj} = 1 - \frac{SS_{res}/(n - (p + 1))}{SS_{tot}/(n - 1)} \]
+
+
+## $R^2$ vs. $R^2_{adj}$ {.smaller}
+
+```{r}
+summary(mBEST)$r.squared
+summary(mBEST)$adj.r.squared
+```
+
+
+
+## {.smaller}
+
+```{r}
+poverty <- read.delim("poverty.txt", header = TRUE)
+m1 <- lm(Poverty ~ Graduates, data = poverty)
+summary(m1)
+```
+
+## {.smaller}
+
+```{r}
+poverty$Noise <- rnorm(nrow(poverty))
+m2 <- lm(Poverty ~ Graduates + Noise, data = poverty)
+summary(m2)
+```
+
+
+# Logistic Regression
+
+## Building a spam filter {.build .smaller}
+
+```{r}
+head(email)
+# where did this data come from / how was it collected?
+```
+
+
+## How was the data collected? {.flexbox .vcenter .build}
+
+<img src="../figs/reed-email.png" width="800px" />
+
+1. Choose a single email account
+2. Save each email that comes in during a given time frame
+3. Create dummy variables for each text component of interest
+4. Visually classify each as spam or not
+
+
+## Simple Filter A {.build}
+
+Predicting spam or not using the presence of "winner"
+
+```{r echo = FALSE, fig.width=5, fig.height = 4}
+qplot(x = winner, fill = factor(spam), data = email, geom = "bar", 
+      position = "fill", ylab = "proportion")
+```
+
+If "winner" then "spam"?
+
+
+## Simple Filter B {.build}
+
+Predicting spam or not using number of characters (in K)
+
+```{r echo = FALSE, fig.width=6, fig.height = 4}
+qplot(x = num_char, col = factor(spam), data = email, geom = "density")
+```
+
+
+## Simple Filter B {.build}
+
+Predicting spam or not using log number of characters (in K)
+
+```{r echo = FALSE, fig.width=6, fig.height = 4}
+qplot(x = log(num_char), col = factor(spam), data = email, geom = "density")
+```
+
+If `log(num_char)` < 1, then "spam"?
+
+
+## Challenges {.build}
+
+Each simple filter can be thought of as a regression model.
+
+### Filter A
+$spam \sim winner; \quad X_1 \sim X_2$
+
+### Filter B
+$spam \sim log(num\_char); \quad X_1 \sim W_1$
+
+Each one by itself has poor predictive power, so how can we combine them into
+a single stronger model?
+
+
+## {.flexbox .vcenter .build}
+
+<img src="../figs/good-bad.jpg" width="800px" />
+
+
+
+#
+
+## Logistic Regression for B
+
+$$spam \sim log(num\_char)$$
+
+```{r echo = FALSE, fig.width=6, fig.height = 4}
+qplot(x = log(num_char), y = spam, data = email, geom = "point",
+      alpha = I(.1), ylab = "spam") + stat_smooth(method = "glm", 
+                                                  method.args = list(family = "binomial"),
+                                                  se = FALSE)
+```
+
+
+## {.smaller}
+```{r}
+m1 <- glm(spam ~ log(num_char), data = email, family = "binomial")
+summary(m1)
+```
+
+
+## Interpreting Logistic Regression {.build}
+
+1. Each row of the summary output is still a hypothesis test on that parameter being 0.
+2. A positive slope estimate indicates that there is a positive association.
+3. Each estimate is still conditional on the other variables held constant.
+
+
+## A more sophisticated model {.build .smaller}
+
+```{r}
+m2 <- glm(spam ~ log(num_char) + to_multiple + attach + dollar + inherit + 
+            viagra, data = email, family = "binomial")
+summary(m2)
+```
+
+
+## Extending the model {.build}
+
+A GLM consists of three things:
+
+1. A linear predictor
+2. A distribution of the response
+3. A link function between the two
+
+- MLR : Normal distribution, identity link function
+
+- Logistic Regression : Binomial distribution, logit link function
+
+- Poisson Regression : Poisson distribution, logarithm link function
+
