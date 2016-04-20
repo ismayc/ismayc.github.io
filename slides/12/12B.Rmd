@@ -36,7 +36,7 @@ books <- allbacks[, c(3, 1, 4)]
 
 ## Extending the model
 
-```{r echo = FALSE}
+```{r parallel_lines_plot, echo = FALSE}
 m2 <- lm(weight ~ volume + cover, data = books)
 qplot(x = volume, y = weight, color = cover, data = books) +
   geom_abline(intercept = m2$coef[1], slope = m2$coef[2], col = 2) +
@@ -48,7 +48,7 @@ The two cover types have different intercepts. Do they share the same slope?
 
 ## Extending the model
 
-```{r echo = FALSE}
+```{r diff_slopes_plot, echo = FALSE}
 qplot(x = volume, y = weight, color = cover, data = books) +
   stat_smooth(method = "lm", se = FALSE)
 ```
@@ -56,7 +56,7 @@ qplot(x = volume, y = weight, color = cover, data = books) +
 
 ## {.smaller .build}
 
-```{r}
+```{r interaction_model}
 m3 <- lm(weight ~ volume + cover + volume:cover, data = books)
 summary(m3)
 ```
@@ -77,30 +77,17 @@ This is **inference**, which required **valid models**. We'll now check diagnost
 
 ##
 
-```{r}
+```{r m3_residual_plot}
 qplot(x = .fitted, y = .stdresid, data = m3)
 ```
 
 
 ##
 
-```{r}
+```{r m3_qqplot}
 qplot(sample = .stdresid, data = m3) + geom_abline(col = "purple")
 ```
 
-
-<!--
-## {.smaller}
-
-```{r}
-qnorm(.025)
-qt(.025, df = 13)
-qt(.025, df = 14)
-qt(.05, df = 13)
-qt(.05, df = 14)
-```
-
--->
 
 # Geometry of MLR
 
@@ -112,11 +99,11 @@ qt(.05, df = 14)
 
 ## Ex: Restaurants in NYC {.build}
 
-```{r echo = FALSE}
+```{r read_nyc, echo = FALSE}
 nyc <- read.csv("http://andrewpbray.github.io/data/nyc.csv")
 ```
 
-```{r}
+```{r struc_nyc}
 head(nyc, 3)
 dim(nyc)
 ```
@@ -130,7 +117,7 @@ What is the unit of observation?
 
 Let's look at the relationship between price, food rating, and decor rating.
 
-```{r echo=FALSE, webgl=TRUE}
+```{r scatter3d, echo=FALSE, webgl=TRUE}
 library(rgl)
 invisible(open3d())
 rgl.viewpoint(zoom = .7)
@@ -140,7 +127,7 @@ plot3d(x = nyc$Food, y = nyc$Decor, z = nyc$Price, col = "steelblue",
 
 ## With fitted plane
 
-```{r echo=FALSE, webgl=TRUE}
+```{r scatter_and_plane3d, echo=FALSE, webgl=TRUE}
 m1 <- lm(Price ~ Food + Decor, data = nyc)
 coefs <- m1$coef
 #invisible(open3d())
@@ -154,14 +141,14 @@ planes3d(coefs["Food"], coefs["Decor"], -1, coefs["(Intercept)"],
 
 \[ Price \sim Food + Decor \]
 
-```{r}
+```{r contin_fit}
 head(nyc, 3)
 m1 <- lm(Price ~ Food + Decor, data = nyc)
 ```
 
 ## Model 1: Food + Decor {.smaller}
 
-```{r}
+```{r summary_m1}
 summary(m1)
 ```
 
@@ -183,10 +170,8 @@ is . . .
 
 ## 3D plot
 
-```{r echo=FALSE, eval=TRUE, webgl=TRUE}
+```{r mod1_plot, echo=FALSE, eval=TRUE, webgl=TRUE}
 rgl.viewpoint(zoom = .7)
-#plot3d(x = nyc$Food, y = nyc$Decor, z = nyc$Price, col = "steelblue", 
-#       xlab = "Food rating", ylab = "Decor Rating", zlab = "Price")
 m1 <- lm(Price ~ Food + Decor, data = nyc)
 coefs <- m1$coef
 planes3d(coefs["Food"], coefs["Decor"], -1, coefs["(Intercept)"],
@@ -200,14 +185,14 @@ Does the price depend on where the restaurant is located in Manhattan?
 
 \[ Price \sim Food + Decor + East \]
 
-```{r}
+```{r head_nyc}
 head(nyc, 3)
 ```
 
 
 ## Model 2: Food + Decor + East {.smaller}
 
-```{r}
+```{r add_east}
 m2 <- lm(Price ~ Food + Decor + East, data = nyc)
 summary(m2)
 ```
@@ -223,12 +208,10 @@ predictor $x_3$, then your mean function represents *parallel planes*.
 
 ## 3D Plot
 
-```{r echo = FALSE, eval = TRUE, webgl = TRUE}
+```{r intersecting_lines, echo = FALSE, eval = TRUE, webgl = TRUE}
 m2 <- lm(Price ~ Food + Decor + East, data = nyc)
 colvec <- rep("steelblue", dim(nyc)[1])
 colvec[nyc$East == 1] <- "orange"
-#plot3d(x = nyc$Food, y = nyc$Decor, z = nyc$Price, col = colvec, 
-#       xlab = "Food rating", ylab = "Decor Rating", zlab = "Price")
 coefs <- m2$coef
 rgl.viewpoint(zoom = .7)
 planes3d(coefs["Food"], coefs["Decor"], -1, coefs["(Intercept)"],
@@ -248,7 +231,7 @@ predictor $x_3$, then your mean function represents *parallel planes*.
 
 ## Model 3: Food + Decor + East + Decor:East {.smaller}
 
-```{r}
+```{r interaction_model2}
 m3 <- lm(Price ~ Food + Decor + East + Decor:East, data = nyc)
 summary(m3)
 ```

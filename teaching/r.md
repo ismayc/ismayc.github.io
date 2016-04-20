@@ -4,6 +4,9 @@ title: R Source Code from Class
 permalink: /teaching/r/
 ---
 
+#### Week 12 (April 18 - April 22)
+  - <a href = "{{ site.baseurl }}/slides/12/12B.R" target = "_blank">Wednesday</a>
+
 #### Week 08 (March 14 - March 18)
   - <a href = "{{ site.baseurl }}/slides/08/08B.R" target = "_blank">Wednesday</a>
   - <a href = "{{ site.baseurl }}/slides/08/08C.R" target = "_blank">Friday</a>
