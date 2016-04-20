@@ -15,3 +15,9 @@ At [Reed College](www.reed.edu), I'm working on the following projects
       - Biology
       - Linguistics
   - Providing support for Chem 101/102 students in learning R and R Markdown
+  - Assisting senior thesis students with data analysis and data visualization from the following departmenst
+      - Biology
+      - Sociology
+      - Economics
+      - Political Science
+      - Mathematics
