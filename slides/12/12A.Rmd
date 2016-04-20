@@ -235,3 +235,18 @@ summary(m2)
 - How much of the variation in weight is explained by a model containing both
 volume and cover?
 
+<!--
+##
+
+```{r}
+m2 <- lm(weight ~ volume + cover, data = books)
+summary(m2)$coef
+qt(.025, df = nrow(books) - 3)
+```
+
+Which of the following represents the appropriate 95% CI for `coverpb`?
+
+- A. $197 \pm 1.96 \times 59.19$
+- B. $-184 \pm 2.18 \times 40.5$
+- C. $-184 \pm -4.55 \times 40.5$
+-->

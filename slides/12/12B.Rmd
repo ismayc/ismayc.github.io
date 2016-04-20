@@ -1,0 +1,254 @@
+---
+title: "MATH 141"
+author: "Chester Ismay"
+output: 
+ ioslides_presentation:
+   incremental: true
+   keep_md: yes
+   logo: ../figs/griffin.png
+   widescreen: yes
+   html_preview: false
+subtitle: Multiple  Linear Regression II
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+library(rglwidget)
+options(digits=3, width=100)
+knitr::opts_chunk$set(echo = TRUE, fig.align = "center")
+library(rgl)
+knit_hooks$set(webgl = hook_webgl)
+library(dplyr)
+library(ggplot2)
+library(oilabs)
+library(openintro)
+library(plotly)
+```
+
+```{r getdata, echo = FALSE, message=FALSE}
+library(DAAG)
+data(allbacks)
+books <- allbacks[, c(3, 1, 4)]
+```
+
+
+
+
+## Extending the model
+
+```{r echo = FALSE}
+m2 <- lm(weight ~ volume + cover, data = books)
+qplot(x = volume, y = weight, color = cover, data = books) +
+  geom_abline(intercept = m2$coef[1], slope = m2$coef[2], col = 2) +
+  geom_abline(intercept = m2$coef[1] + m2$coef[3], slope = m2$coef[2], col = 4)
+```
+
+The two cover types have different intercepts. Do they share the same slope?
+
+
+## Extending the model
+
+```{r echo = FALSE}
+qplot(x = volume, y = weight, color = cover, data = books) +
+  stat_smooth(method = "lm", se = FALSE)
+```
+
+
+## {.smaller .build}
+
+```{r}
+m3 <- lm(weight ~ volume + cover + volume:cover, data = books)
+summary(m3)
+```
+
+Do we have evidence that two types of books have different relationships
+between volume and weight?
+
+
+## Take home messages {.build}
+
+- There is a statistically significant relationship between volume and weight.
+- There is a statistically significant difference in weight between paperback
+and hardcover books, when controlling for volume.
+- There is not strong evidence that the relationship between volume and weight
+differs between paperbacks and hardbacks.
+
+This is **inference**, which required **valid models**. We'll now check diagnostics.
+
+##
+
+```{r}
+qplot(x = .fitted, y = .stdresid, data = m3)
+```
+
+
+##
+
+```{r}
+qplot(sample = .stdresid, data = m3) + geom_abline(col = "purple")
+```
+
+
+<!--
+## {.smaller}
+
+```{r}
+qnorm(.025)
+qt(.025, df = 13)
+qt(.025, df = 14)
+qt(.05, df = 13)
+qt(.05, df = 14)
+```
+
+-->
+
+# Geometry of MLR
+
+
+## Ex: Restaurants in NYC
+
+![zagat](http://andrewpbray.github.io/reg/zagat.png)
+
+
+## Ex: Restaurants in NYC {.build}
+
+```{r echo = FALSE}
+nyc <- read.csv("http://andrewpbray.github.io/data/nyc.csv")
+```
+
+```{r}
+head(nyc, 3)
+dim(nyc)
+```
+
+What is the unit of observation?
+
+*A restaurant*
+
+
+## What determines the price of a meal?
+
+Let's look at the relationship between price, food rating, and decor rating.
+
+```{r echo=FALSE, webgl=TRUE}
+library(rgl)
+invisible(open3d())
+rgl.viewpoint(zoom = .7)
+plot3d(x = nyc$Food, y = nyc$Decor, z = nyc$Price, col = "steelblue", 
+       xlab = "Food rating", ylab = "Decor Rating", zlab = "Price")
+```
+
+## With fitted plane
+
+```{r echo=FALSE, webgl=TRUE}
+m1 <- lm(Price ~ Food + Decor, data = nyc)
+coefs <- m1$coef
+#invisible(open3d())
+rgl.viewpoint(zoom = .7)
+planes3d(coefs["Food"], coefs["Decor"], -1, coefs["(Intercept)"],
+         alpha = 0.4, col = "lightgray")
+```
+
+
+## What determines the price of a meal?
+
+\[ Price \sim Food + Decor \]
+
+```{r}
+head(nyc, 3)
+m1 <- lm(Price ~ Food + Decor, data = nyc)
+```
+
+## Model 1: Food + Decor {.smaller}
+
+```{r}
+summary(m1)
+```
+
+
+## The geometry of regression models {.build}
+
+The function for $\hat{y}$ is . . .
+
+- A *line* when you have one continuous $x$.
+- *Parallel lines* when you have one continuous $x_1$ and one categorical $x_2$.
+- *Unrelated lines* when you have one continuous $x_1$, one categorical $x_2$, 
+and an interaction term $x_1 : x_2$.
+
+When you have two continuous predictors $x_1$, $x_2$, then your mean function
+is . . .
+
+*a plane*
+
+
+## 3D plot
+
+```{r echo=FALSE, eval=TRUE, webgl=TRUE}
+rgl.viewpoint(zoom = .7)
+#plot3d(x = nyc$Food, y = nyc$Decor, z = nyc$Price, col = "steelblue", 
+#       xlab = "Food rating", ylab = "Decor Rating", zlab = "Price")
+m1 <- lm(Price ~ Food + Decor, data = nyc)
+coefs <- m1$coef
+planes3d(coefs["Food"], coefs["Decor"], -1, coefs["(Intercept)"],
+         alpha = 0.4, col = "lightgray")
+```
+
+
+## Location, location, location
+
+Does the price depend on where the restaurant is located in Manhattan?
+
+\[ Price \sim Food + Decor + East \]
+
+```{r}
+head(nyc, 3)
+```
+
+
+## Model 2: Food + Decor + East {.smaller}
+
+```{r}
+m2 <- lm(Price ~ Food + Decor + East, data = nyc)
+summary(m2)
+```
+
+
+## The geometry of regression models {.build}
+
+- When you have two continuous predictors $x_1$, $x_2$, then your mean function
+is *a plane*.
+- When you have two continuous predictors $x_1$, $x_2$, and a categorical 
+predictor $x_3$, then your mean function represents *parallel planes*.
+
+
+## 3D Plot
+
+```{r echo = FALSE, eval = TRUE, webgl = TRUE}
+m2 <- lm(Price ~ Food + Decor + East, data = nyc)
+colvec <- rep("steelblue", dim(nyc)[1])
+colvec[nyc$East == 1] <- "orange"
+#plot3d(x = nyc$Food, y = nyc$Decor, z = nyc$Price, col = colvec, 
+#       xlab = "Food rating", ylab = "Decor Rating", zlab = "Price")
+coefs <- m2$coef
+rgl.viewpoint(zoom = .7)
+planes3d(coefs["Food"], coefs["Decor"], -1, coefs["(Intercept)"],
+         alpha = 0.4, col = "steelblue")
+planes3d(coefs["Food"], coefs["Decor"], -1, coefs["(Intercept)"] + coefs["East"],
+         alpha = 0.4, col = "orange")
+```
+
+## The geometry of regression models {.build}
+
+- When you have two continuous predictors $x_1$, $x_2$, then your mean function
+is *a plane*.
+- When you have two continuous predictors $x_1$, $x_2$, and a categorical 
+predictor $x_3$, then your mean function represents *parallel planes*.
+- When you add in interaction effects, the planes become *tilted*.
+
+
+## Model 3: Food + Decor + East + Decor:East {.smaller}
+
+```{r}
+m3 <- lm(Price ~ Food + Decor + East + Decor:East, data = nyc)
+summary(m3)
+```
