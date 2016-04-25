@@ -8,14 +8,18 @@ output:
    logo: ../figs/griffin.png
    widescreen: yes
    html_preview: false
-subtitle: Logistic Regression
+subtitle: Bayesian Inference
 ---
+
+<style type="text/css">
+    ol { list-style-type: upper-alpha; }
+</style>
 
 ```{r setup, include=FALSE}
 library(knitr)
 library(rglwidget)
-options(digits=3, width=100)
-knitr::opts_chunk$set(echo = TRUE, fig.align = "center")
+options(digits=3, width=80)
+knitr::opts_chunk$set(echo = TRUE, fig.align = "center", warning = FALSE)
 library(rgl)
 knit_hooks$set(webgl = hook_webgl)
 library(dplyr)
@@ -25,149 +29,7 @@ library(openintro)
 library(plotly)
 ```
 
-```{r getdata, echo = FALSE, message=FALSE}
-nyc <- read.csv("http://andrewpbray.github.io/data/nyc.csv")
-```
-
-
-
-## Review:  The geometry of regression models {.build}
-
-- When you have two continuous predictors $x_1$, $x_2$, then your mean function
-is 
-
-*a plane*.
-
-- When you have two continuous predictors $x_1$, $x_2$, and a categorical 
-predictor $x_3$, then your mean function represents 
-
-*parallel planes*.
-
-- When you add in interaction effects, the planes become 
-
-*tilted*.
-
-## Model 2: Food + Decor + East {.smaller}
-
-```{r}
-m2 <- lm(Price ~ Food + Decor + East, data = nyc)
-summary(m2)
-```
-
-
-## Model 3: Food + Decor + East + Decor:East {.smaller}
-
-```{r}
-m3 <- lm(Price ~ Food + Decor + East + Decor:East, data = nyc)
-summary(m3)
-```
-
-
-## 3D plot
-
-```{r echo=FALSE, eval=TRUE, webgl=TRUE}
-colvec <- rep("steelblue", dim(nyc)[1])
-colvec[nyc$East == 1] <- "orange"
-plot3d(x = nyc$Food, y = nyc$Decor, z = nyc$Price, col = colvec, 
-       xlab = "Food rating", ylab = "Decor Rating", zlab = "Price")
-coefs <- m3$coef
-rgl.viewpoint(zoom = .7)
-planes3d(coefs["Food"], coefs["Decor"], -1, coefs["(Intercept)"],
-         alpha = 0.4, col = "steelblue")
-planes3d(coefs["Food"], coefs["Decor"] + coefs["Decor:East"], -1, 
-         coefs["(Intercept)"] + coefs["East"], alpha = 0.4, col = "orange")
-```
-
-
-## Comparing Models
-
-- The `East` term was significant in model 2, suggesting that there is a 
-significant relationship between location and price.
-- That term became non-significant when we allowed the slope of `Decor` to vary
-with location, and that difference in slopes was also non-significant.
-- Notice that the slope estimate for a given variable will almost *always* change 
-depending on the other variables that are in the model.
-
-
-
-# Logistic Regression
-
-## Building a spam filter {.build .smaller}
-
-```{r}
-library(openintro)
-head(email)
-# where did this data come from / how was it collected?
-```
-
-
-## How was the data collected? {.flexbox .vcenter .build}
-
-<img src="../figs/reed-email.png" width="800px" />
-
-1. Choose a single email account
-2. Save each email that comes in during a given time frame
-3. Create dummy variables for each text component of interest
-4. Visually classify each as spam or not
-
-
-## Simple Filter A {.build}
-
-Predicting spam or not using the presence of "winner"
-
-```{r echo = FALSE, fig.width=6, fig.height=4}
-qplot(x = winner, fill = factor(spam), data = email,
-       ylab = "proportion", geom = "bar")
-```
-
-If "winner" then "spam"?
-
-
-## Simple Filter B {.build}
-
-Predicting spam or not using number of characters (in thousands)
-
-```{r echo = FALSE, fig.width=6, fig.height = 4.5}
-qplot(x = num_char, col = factor(spam), data = email, geom = "density")
-```
-
-
-## Simple Filter B {.build}
-
-Predicting spam or not using log number of characters (in thousands)
-
-```{r echo = FALSE, fig.width=6, fig.height = 4}
-qplot(x = log(num_char), col = factor(spam), data = email, geom = "density")
-```
-
-If `log(num_char)` < 1, then "spam"?
-
-
-## Each simple filter can be thought of as a regression model. {.build .smaller}
-
-Remember our convention for Modeling Variable Types:
-
-- $K$: categorical variable with 2 groups
-- $G$: categorical variable with 3+ groups
-- $H$: continuous variable
-
-### Filter A
-$spam \sim winner; \quad K_1 \sim K_2$
-
-### Filter B
-$spam \sim log(num\_char); \quad K \sim H$
-
-
-Each one by itself has poor predictive power, so how can we combine them into
-a single stronger model?
-
-## {.flexbox .vcenter .build}
-
-<img src="../figs/good-bad.jpg" width="800px" />
-
-
-
-#
+# Review of Logistic Regression
 
 ## Logistic Regression for B
 
@@ -237,35 +99,12 @@ A GLM consists of three things:
 # Bayesian Inference
 
 
-## When will this lecture end? {.flexbox .vcenter .build}
-
-```{r echo = FALSE}
-qplot(c(-15, 15), stat = "function", fun = dnorm, geom = "line",
-      args = list(sd = 3.4), xlab = "minutes from the end", lwd = I(2),
-      col = I("steelblue"), ylab = "prob. density")
-```
-
-
-##
-
-Please draw your own subjective distributions for the following events.
-
-1. The probability that Hillary Clinton will win the presidency.
-2. The probability that, on a given night, the sun has gone super nova.
-3. The total number of individual socks that you own.
-
-
 ## Karl Broman's Socks {.flexbox .vcenter .build}
-
-```{r echo = FALSE, eval = FALSE}
-# credit for this example goes to Rasmus Baathe, who made a similar presentation
-# at userR! 2015. most of the included images are his.
-```
 
 <img src="../figs/broman-tweet.png" width="400px" />
 
 
-## Classical H test {.build}
+## Classical Hypothesis Test {.build}
 
 ### Assert a model
 $H_0$: I have $N_{pairs}$ pairs of socks and $N_{singles}$ singletons. The first 11 socks that 
@@ -278,7 +117,7 @@ The number of singletons in the sample: 11.
 Probability theory or simulation.
 
 ### See where your observed stat lies in that distribution
-Find the p-value if you like.
+Find the $p$-value if you like.
 
 
 ## $H_0$ {.flexbox .vcenter .build}
@@ -312,12 +151,9 @@ socks
 ## One draw from the machine {.build}
 
 ```{r}
-picked_socks <- sample(socks, size = 11, replace = FALSE)
-picked_socks
-sock_counts <- table(picked_socks)
-sock_counts
-n_singles <- sum(sock_counts == 1)
-n_singles
+picked_socks <- sample(socks, size = 11, replace = FALSE); picked_socks
+sock_counts <- table(picked_socks); sock_counts
+n_singles <- sum(sock_counts == 1); n_singles
 ```
 
 
@@ -370,7 +206,7 @@ qplot(as.factor(sim_singles), geom = "bar", xlab = "number of singletons") +
 ```
 
 
-## The p-value {.build}
+## The $p$-value {.build}
 
 Quantifying how far into the tails our observed count was.
 
@@ -388,35 +224,33 @@ Our two-tailed p-value is `r pval*2`.
 
 ## Question
 
-What is the best definition for our p-value in probability notation?
+What is the best definition for our $p$-value in probability notation?
 
-1. P($H_0$ is true | data) = `r pval`
-2. P($H_0$ is false | data) = `r pval`
-3. P($H_0$ is true) = `r pval`
-4. P(data | $H_0$ is true) = `r pval`
-5. P(data) = `r pval`
+1. $\mathbb{P}$($H_0$ is true | data) = `r pval`
+2. $\mathbb{P}$($H_0$ is true) = `r pval`
+3. $\mathbb{P}$(data | $H_0$ is true) = `r pval`
+4. $\mathbb{P}$(data) = `r pval`
 
 
 ## Question
 
 What is the best definition for our p-value in probability notation?
 
-1. P($H_0$ is true | data) = `r pval`
-2. P($H_0$ is false | data) = `r pval`
-3. P($H_0$ is true) = `r pval`
-4. **P(data | $H_0$ is true) = `r pval`**
-5. P(data) = `r pval`
+1. $\mathbb{P}$($H_0$ is true | data) = `r pval`
+2. $\mathbb{P}$($H_0$ is true) = `r pval`
+3. **$\mathbb{P}$(data | $H_0$ is true) = `r pval`**
+4. $\mathbb{P}$(data) = `r pval`
 
 
 ## The challenges with the classical method {.build}
 
 The result of a hypothesis test is a probability of the form:
 
-$$ P(\textrm{ data or more extreme } | \ H_0 \textrm{ true }) $$
+$$ \mathbb{P}(\textrm{ data or more extreme } | \ H_0 \textrm{ true }) $$
 
 while most people *think* they're getting
 
-$$ P(\ H_0 \textrm{ true } | \textrm{ data }) $$
+$$ \mathbb{P}(\ H_0 \textrm{ true } | \textrm{ data }) $$
 
 How can we go from the former to the latter?
 
@@ -432,22 +266,13 @@ How can we go from the former to the latter?
 # Bayesian Modeling
 ## Bayes Rule {.build}
 
-$$P(A \ | \ B) = \frac{P(A \textrm{ and } B)}{P(B)} $$
+$$\mathbb{P}(A \ | \ B) = \frac{\mathbb{P}(A \textrm{ and } B)}{\mathbb{P}(B)} $$
 
-$$P(A \ | \ B) = \frac{P(B \ | \ A) \ P(A)}{P(B)} $$
+$$\mathbb{P}(A \ | \ B) = \frac{\mathbb{P}(B \ | \ A) \ \mathbb{P}(A)}{\mathbb{P}(B)} $$
 
-$$P(model \ | \ data) = \frac{P(data \ | \ model) \ P(model)}{P(data)} $$
+$$\mathbb{P}(model \ | \ data) = \frac{\mathbb{P}(data \ | \ model) \ \mathbb{P}(model)}{\mathbb{P}(data)} $$
 
-What does it mean to think about $P(model)$?
-
-
-##
-
-Please draw your own subjective distributions for the following events.
-
-1. The probability that Hilary will win the presidency.
-2. The probability that, on a given night, the sun has gone super nova.
-3. The total number of individual socks that you own.
+What does it mean to think about $\mathbb{P}(model)$?
 
 
 ## Prior distribution {.build .flexbox .vcenter}
@@ -455,10 +280,10 @@ Please draw your own subjective distributions for the following events.
 A *prior distribution* is a probability distribution for a *parameter* that 
 summarizes the information that you have before seeing the data.
 
-```{r, cache = TRUE, echo = FALSE}
+```{r, cache = TRUE, echo = FALSE, warning=FALSE}
 x <- rnbinom(1e6, mu = 30, size = -30^2 / (30 - 15^2))
 (prior_n <- qplot(x, geom = "histogram", xlab = "number of socks", binwidth = 1, xlim = c(0, 100),
-      fill = I("green"), ylab = "prob. density", main = "P(parameter)"))
+      fill = I("darkgreen"), ylab = "prob. density", main = "P(parameter)"))
 ```
 
 
@@ -467,7 +292,7 @@ x <- rnbinom(1e6, mu = 30, size = -30^2 / (30 - 15^2))
 ```{r cache = TRUE, echo = FALSE}
 y <- rbeta(1e6, shape1 = 15, shape2 = 2)
 (prior_p <- qplot(y, geom = "histogram", xlab = "proportion of pairs", binwidth = .01, xlim = c(0, 1),
-      fill = I("green"), ylab = "prob. density", main = "P(parameter)"))
+      fill = I("darkgreen"), ylab = "prob. density", main = "P(parameter)"))
 ```
 
 
@@ -520,10 +345,10 @@ post_samples <- sock_sim %>%
 ```
 
 ```{r}
-head(sock_sim)
+head(sock_sim, 3)
 sock_sim %>%
   filter(unique == 11, pairs == 0) %>%
-  head()
+  head(3)
 ```
 
 
@@ -567,20 +392,20 @@ multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
 }
 ```
 
-```{r cache = TRUE, echo = FALSE, fig.width = 8.5}
+```{r cache = TRUE, echo = FALSE, fig.width = 8.5, warning=FALSE}
 post_p <- qplot(prop_pairs, data = post_samples, geom = "histogram", 
                 xlab = "proportion of pairs", binwidth = .01, xlim = c(0, 1),
-                fill = I("green"), ylab = "prob. density", main = "P(parameter|data)")
+                fill = I("darkgreen"), ylab = "prob. density", main = "P(parameter|data)")
 multiplot(prior_p, post_p, layout = matrix(1:2, ncol = 2, byrow = TRUE))
 ```
 
 
 ## Number of socks
 
-```{r cache = TRUE, echo = FALSE, fig.width = 8.5}
+```{r cache = TRUE, echo = FALSE, fig.width = 8.5, warning=FALSE}
 post_n <- qplot(n_socks, data = post_samples, geom = "histogram", 
                 xlab = "number of socks", binwidth = 1, xlim = c(0, 100),
-                fill = I("green"), ylab = "prob. density", main = "P(parameter|data)")
+                fill = I("darkgreen"), ylab = "prob. density", main = "P(parameter|data)")
 multiplot(prior_n, post_n, layout = matrix(1:2, ncol = 2, byrow = TRUE))
 ```
 
@@ -592,15 +417,14 @@ multiplot(prior_n, post_n, layout = matrix(1:2, ncol = 2, byrow = TRUE))
 
 ## The posterior distribution {.build}
 
-```{r cache = TRUE, echo = FALSE, fig.height = 3, fig.width = 5}
+```{r cache = TRUE, echo = FALSE, fig.height = 3, fig.width = 5, warning=FALSE}
 post_n
 ```
 
-- Distribution of a parameter after conditioning on the data
-- Synthesis of prior knowledge and observations (data)
+* Distribution of a parameter after conditioning on the data
+* Synthesis of prior knowledge and observations (data)
 
-### Question
-What is your best guess for the number of socks that Karl has?
+### Question: What is your best guess for the number of socks that Karl has?
 
 
 ## Our best guess
@@ -608,7 +432,7 @@ What is your best guess for the number of socks that Karl has?
 ```{r cache = TRUE, echo = FALSE, fig.height = 3, fig.width = 5}
 qplot(n_socks, data = post_samples, geom = "histogram", 
                 xlab = "number of socks", binwidth = 1, xlim = c(0, 100),
-                fill = I("green"), ylab = "prob. density", main = "P(parameter|data)") +
+                fill = I("darkgreen"), ylab = "prob. density", main = "P(parameter|data)") +
   geom_vline(xintercept = median(post_samples$n_socks), col = "goldenrod")
 ```
 
