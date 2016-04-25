@@ -11,6 +11,11 @@ header-includes:
   - \newenvironment{tight_enumerate}{ \begin{enumerate}[A)] \setlength{\itemsep}{0pt} \setlength{\parskip}{0pt}}{\end{enumerate}}
 ---
 
+```{r include=FALSE}
+knitr::opts_chunk$set(include = FALSE)
+```
+
+
 ## Identification of Problem Types
 
 Recall the following notation:
@@ -22,6 +27,7 @@ Recall the following notation:
 For each of the following problems, 
 
 \begin{tight_enumerate}
+  \item identify the variable(s) and types of variable(s),
   \item identify the model type (e.g., $K_1 \sim K_2$),
   \item determine which type of problem it is 
   \begin{itemize}
