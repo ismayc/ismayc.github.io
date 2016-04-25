@@ -9,6 +9,14 @@ permalink: /teaching/plickers/
     ul { list-style-type: upper-alpha; }
 </style>
 
+#### Bayesian Inference
+
+1. What is the best definition for our $p$-value in probability notation?
+    - $\mathbb{P}$($H_0$ is true | data or more extreme) = `r pval`
+    - $\mathbb{P}$($H_0$ is true) = `r pval`
+    - $\mathbb{P}$(data or more extreme | $H_0$ is true) = `r pval`
+    - $\mathbb{P}$(data) = `r pval`
+
 #### Chapter 3
 
 2. Which of the following is an appropriate null hypothesis based on comparing Reed's ethnicity to the state of Oregon's ethnicity?
