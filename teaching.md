@@ -25,12 +25,13 @@ permalink: /teaching/
     * [ANOVA]({{ site.baseurl }}/teaching/sample_problems/anova.html) [(Rmd)]({{ site.baseurl }}/teaching/sample_problems/anova.Rmd)
 - Inference Diagrams
     * <a href = "https://coggle.it/diagram/Vxlydu1akQFeqo6-" target = "_blank">Inference Diagrams on the Web</a>
-    * <a href = "{{ site.baseurl }}/teaching/diagrams/one_prop.pdf" target = "_blank">One Proportion</a> 
-    * <a href = "{{ site.baseurl }}/teaching/diagrams/two_props.pdf" target = "_blank">Two Proportions</a> 
-    * <a href = "{{ site.baseurl }}/teaching/diagrams/multi_prop.pdf" target = "_blank">Multiple Proportions (Goodness of Fit and Test of Independence)</a> 
-    * <a href = "{{ site.baseurl }}/teaching/diagrams/one_mean.pdf" target = "_blank">One Mean</a> 
-    * <a href = "{{ site.baseurl }}/teaching/diagrams/two_means.pdf" target = "_blank">Two Means (Independent vs Paired)</a> 
-    * <a href = "{{ site.baseurl }}/teaching/diagrams/multi_means.pdf" target = "_blank">Multiple Means</a> 
+    * Hand drawn Inference Diagrams
+        * <a href = "{{ site.baseurl }}/teaching/diagrams/one_prop.pdf" target = "_blank">One Proportion</a> 
+        * <a href = "{{ site.baseurl }}/teaching/diagrams/two_props.pdf" target = "_blank">Two Proportions</a> 
+        * <a href = "{{ site.baseurl }}/teaching/diagrams/multi_prop.pdf" target = "_blank">Multiple Proportions (Goodness of Fit and Test of Independence)</a> 
+        * <a href = "{{ site.baseurl }}/teaching/diagrams/one_mean.pdf" target = "_blank">One Mean</a> 
+        * <a href = "{{ site.baseurl }}/teaching/diagrams/two_means.pdf" target = "_blank">Two Means (Independent vs Paired)</a> 
+        * <a href = "{{ site.baseurl }}/teaching/diagrams/multi_means.pdf" target = "_blank">Multiple Means</a> 
 
 ### Previous courses
 
