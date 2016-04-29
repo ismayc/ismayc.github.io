@@ -1,6 +1,6 @@
 library(ggplot2)
 library(dplyr)
-homedir <- "/Users/Chester/Google Drive/ismayc.github.io/teaching/diagrams/"
+homedir <- "/Users/cismay/Google Drive/ismayc.github.io/teaching/diagrams/"
 
 # 1
 response <- rnorm(1000)
@@ -30,8 +30,23 @@ mosaicplot(table(dataframe$explanatory, dataframe$response),
   main = "Explanatory vs Response",
   cex.axis = 1.5)
 #dev.off()
-qplot(x = response, data = dataframe, fill = explanatory, geom = "bar") + theme(text = element_text(size = 20))
+qplot(x = explanatory, data = dataframe, fill = response, geom = "bar") + theme(text = element_text(size = 20))
 ggsave(paste0(homedir, "05-stacked_bar.png"), dpi = 1000)
+
+
+# 6
+explanatory <- c(rep("group1", 70), rep("group2", 130), rep("group3", 100))
+response <- c(rep("success", 38), rep("failure", 32), rep("success", 58), rep("failure", 130 - 58), rep("success", 15), rep("failure", 85))
+dataframe <- data.frame(explanatory, response)
+#png(paste0(homedir, "05-mosaic.png"), res = 500)
+mosaicplot(table(dataframe$explanatory, dataframe$response),
+  xlab = "Explanatory", 
+  ylab = "Response",
+  main = "Explanatory vs Response",
+  cex.axis = 1.5)
+#dev.off()
+qplot(x = explanatory, data = dataframe, fill = response, geom = "bar") + theme(text = element_text(size = 20))
+ggsave(paste0(homedir, "06-stacked_bar.png"), dpi = 600)
 
 
 # 7
