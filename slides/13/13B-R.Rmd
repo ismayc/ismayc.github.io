@@ -1,0 +1,178 @@
+---
+title: "MATH 141 Problem Type Examples"
+author: "KEY"
+date: "April 25, 2016"
+output: oilabs::review
+---
+
+```{r, warning=FALSE, message=FALSE}
+library(oilabs)
+library(dplyr)
+library(ggplot2)
+options(scipen = 99)
+knitr::opts_chunk$set(warning = FALSE, fig.width = 9, fig.height = 4)
+```
+
+
+* * *
+
+## Identification of Problem Types
+
+Recall the following notation:
+
+  - $K$: categorical variable with 2 groups
+  - $G$: categorical variable with 3+ groups
+  - $H$: continuous variable
+
+For each of the following problems, 
+
+  - A. Produce the appropriate R code and generate relevant plot(s) for the sample data.
+  - B. Conduct the appropriate hypothesis test to solve the question of interest, assuming conditions are met.
+
+You can assume that the significance level is 5% for all problems here.
+
+
+1. The National Survey of Family Growth conducted by the
+Centers for Disease Control gathers information on family life, marriage and divorce, pregnancy,
+infertility, use of contraception, and men's and women's health. One of the variables collected on
+this survey is the age at first marriage. 5,534 randomly sampled US women between 2006 and 2010 completed the survey. The women sampled here had been married at least once.  Do we have evidence that the mean age that all US women from 2006 to 2010 had an average age of first marriage of greater than 23 years?
+
+```{r one_mean}
+ageAtMar <- read.csv("data/ageAtMar.csv")
+qplot(x = age, data = ageAtMar, geom = "histogram", binwidth = 3, col = I("white"))
+inference(y = ageAtMar$age, est = "mean", null = 23, alternative = "greater",
+          type = "ht", method = "theoretical", eda_plot = FALSE, inf_plot = FALSE)
+```
+
+2. Average income varies from one region of the country to
+another, and it often reflects both lifestyles and regional living expenses. Suppose a new graduate
+is considering a job in two locations, Cleveland, OH and Sacramento, CA, and he wants to see
+whether the average income in one of these cities is higher than the other. He would like to conduct
+a hypothesis test based on two small samples from the 2000 Census.
+
+```{r two_means_indep}
+cleSac <- read.delim("data/cleSac.txt", header = TRUE) %>%
+  rename(metro_area = Metropolitan_area_Detailed,
+         income = Total_personal_income)
+qplot(x = metro_area, y = income, data = cleSac, geom = "boxplot")
+qplot(x = income, data = cleSac, geom = "histogram", col = I("white"), binwidth = 20000) +
+  facet_grid(metro_area ~ .)
+inference(x = cleSac$metro_area, y = cleSac$income, est = "mean", null = 0,
+          alternative = "twosided", type = "ht", method = "theoretical", eda_plot = FALSE,
+          inf_plot = FALSE)
+```
+
+3. Trace metals in drinking water affect the flavor and an unusually high concentration can pose a health hazard. Ten pairs of data were taken measuring zinc concentration in bottom water and surface water at 10 randomly selected locations on a stretch of river. Do the data suggest that the true average concentration in the bottom water exceeds that of surface water?
+
+```{r two_means_paired}
+zinc_conc <- read.delim("data/zinc_conc.txt", header = TRUE) %>%
+  mutate(diff = bottom - surface)
+qplot(x = diff, data = zinc_conc, geom = "histogram", col = I("white"), binwidth = 0.05)
+inference(y = zinc_conc$diff, est = "mean", null = 0, alternative = "greater", 
+          type = "ht", method = "theoretical", eda_plot = FALSE, inf_plot = FALSE)
+```
+
+4. The Child Health and Development Studies investigate a range of
+topics. One study considered a random sample of pregnancies between 1960 and 1967 among women in the Kaiser
+Foundation Health Plan in the San Francisco East Bay area with the focus on understanding what variables tend to influence the baby's `weight`.  The variable `smoke` is coded 1 if the mother is a
+smoker, and 0 if not.  Another variable considered is `parity`, which is 0 if the child is the first born, and 1 otherwise.  Which one(s) of these variables is/are good predictor(s) of the response variable?
+
+```{r lin_reg}
+babies <- read.csv("data/babies.csv")
+qplot(x = factor(parity), y = weight, data = babies, color = factor(smoke), geom = "point")
+qplot(x = factor(smoke), y = weight, data = babies, color = factor(parity), geom = "point")
+qplot(x = factor(smoke), y = weight, data = babies, geom = "point") +
+  facet_grid(parity ~ .)
+qplot(x = factor(parity), y = weight, data = babies, geom = "point") +
+  facet_grid(smoke ~ .)
+mosaicplot(table(babies$smoke, babies$parity), main = "Smoke v Parity", xlab = "smoke", 
+           ylab = "parity", color = c("orange", "gray"))
+qplot(x = factor(smoke), data = babies, fill = factor(parity), geom = "bar")
+babies_lm <- lm(weight ~ smoke + parity, data = babies)
+summary(babies_lm)
+```
+
+5. A 2010 survey asked 827 randomly sampled registered voters
+in California "Do you support? Or do you oppose? Drilling for oil and natural gas off the Coast of
+California? Or do you not know enough to say?" Conduct a hypothesis test to determine if the data
+provide strong evidence that the proportion of college
+graduates who do not have an opinion on this issue is
+different than that of non-college graduates.
+
+```{r two_prop}
+offshore <- read.delim("data/offshore_drilling.txt") %>%
+  mutate(response = ifelse(position == "do not know", "no opinion", "opinion")) %>%
+  select(-position)
+mosaicplot(table(offshore$college_grad, offshore$response),
+           xlab = "College Grad", 
+           ylab = "Opinion",
+           main = "College Grad vs Opinion",
+           color = c("blue", "green"))
+qplot(x = response, data = offshore, fill = college_grad, geom = "bar")
+```
+
+6. A random sample of 500 U.S. adults were questioned regarding their political affiliation (`democrat` or `republican`) and opinion on a tax reform bill (`favor`, `indifferent`, `opposed`). Based on this sample, do we have reason to believe that political party and opinion on the bill are related?
+
+```{r test_of_indep}
+tax_opinion <- read.csv("data/party_tax.csv")
+mosaicplot(table(tax_opinion$opinion, tax_opinion$party),
+           ylab = "Political Party", 
+           xlab = "Tax Reform Bill Opinion",
+           main = "Opinion vs Party",
+           color = c("purple", "forestgreen"))
+qplot(x = party, data = tax_opinion, fill = opinion, geom = "bar")
+inference(x = tax_opinion$party, y = tax_opinion$opinion, est = "proportion", alternative = "greater", 
+          type = "ht", method = "theoretical", eda_plot = FALSE, inf_plot = FALSE)
+```
+
+7. A particular brand of candy-coated chocolate comes in five different colors: brown, yellow, orange, green, and coffee.  The manufacturer of the candy says the candies are distributed in the following proportions:  brown - 40%, yellow - 20%, orange = 20%, and the remaining are split evenly between green and coffee.  A random sample of 580 pieces of this candy are collected.  Does this random sample provide evidence against the manufacturer's claim?
+
+```{r goodness_of_fit}
+candies <- read.csv("data/candies.csv")
+candy_freq <- table(candies$candy_colors)
+null.probs <- c(0.4, 0.1, 0.1, 0.2, 0.2)
+qplot(x = candy_colors, data = candies, geom = "bar")
+chisq.test(x = candy_freq, p = null.probs)
+```
+
+8. On January 28, 1986, a routine launch was anticipated for
+the Challenger space shuttle. Seventy-three seconds into the 
+flight, disaster happened: the shuttle
+broke apart, killing all seven crew members on board. An investigation into the cause of the
+disaster focused on a critical seal called an O-ring, and it is believed that damage to these O-rings
+during a shuttle launch may be related to the ambient temperature during the launch. Observational data on O-rings for 23 randomly selected shuttle missions was collected, where the mission order
+is based on the temperature at the time of the launch. `temp` gives the temperature in Fahrenheit and `damaged` is 1 when O-ring failed and 0 when it was undamaged.
+
+```{r logistic_reg}
+orings <- read.delim("data/orings.txt", header = TRUE)
+qplot(x = temp, y = damage, data = orings, geom = "point") + geom_jitter(height = 0.1)
+oring_glm <- glm(damage ~ temp, data = orings, family = binomial)
+summary(oring_glm)
+```
+
+9. The CEO of a large electric utility claims that 80 percent of his 1,000,000 customers are satisfied with the service they receive. To test this claim, the local newspaper surveyed 100 customers, using simple random sampling. Based on these findings from the sample, can we reject the CEO's hypothesis that 80% of the customers are satisfied?
+
+```{r one_prop}
+elec_survey <- c(rep("satisfied", 73), rep("unsatisfied", 27))
+qplot(x = elec_survey, geom = "bar")
+inference(y = elec_survey, est = "proportion", null = 0.8, 
+  success = "satisfied", type = "ht",
+  alternative = "twosided", method = "theoretical",
+  eda_plot = FALSE, inf_plot = FALSE)
+```
+
+10. Chicken farming is a multi-billion dollar industry,
+and any methods that increase the growth rate of young chicks can reduce consumer costs while
+increasing company profits, possibly by millions of dollars. An experiment was conducted to
+measure and compare the effectiveness of various feed supplements on the growth rate of chickens.
+Newly hatched chicks were randomly allocated into six groups, and each group was given a different
+feed supplement. Do these data provide strong evidence that the average weights of chickens that were fed
+linseed and horsebean are different?
+
+```{r anova}
+chick_wts <- read.csv("data/chickwts.csv")
+qplot(x = feed, y = weight, data = chick_wts, geom = "boxplot")
+inference(x = chick_wts$feed, y = chick_wts$weight, est = "mean",
+  type = "ht", alternative = "greater", method = "theoretical",
+  eda_plot = FALSE, inf_plot = FALSE)
+```

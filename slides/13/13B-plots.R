@@ -23,12 +23,13 @@ ggsave(paste0(homedir, "03-differences_histogram.png"), dpi = 600)
 explanatory <- c(rep("group1", 30), rep("group2", 70))
 response <- c(rep("success", 12), rep("failure", 18), rep("success", 58), rep("failure", 12))
 dataframe <- data.frame(explanatory, response)
+#png(paste0(homedir, "05-mosaic.png"), res = 500)
 mosaicplot(table(dataframe$explanatory, dataframe$response),
   xlab = "Explanatory", 
   ylab = "Response",
   main = "Explanatory vs Response",
   cex.axis = 1.5)
-ggsave(paste0(homedir, "05-mosaic.png"), dpi = 1000)
+#dev.off()
 qplot(x = response, data = dataframe, fill = explanatory, geom = "bar") + theme(text = element_text(size = 20))
 ggsave(paste0(homedir, "05-stacked_bar.png"), dpi = 1000)
 
