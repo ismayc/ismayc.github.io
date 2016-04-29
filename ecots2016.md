@@ -22,6 +22,6 @@ Our regional meeting on Thursday, May 19 at Reed College will provide opportunit
 
 5:00 - 6:00:  Dinner provided
 
-6:00 - 7:00:  eCOTS Keynote Presentation - Changing everything at once: Student-centered Learning, computerized practice exercises, evaluation of student progress, and a modern syllabus to create a completely new introductory statistics course (Andrew Gelman)
+6:00 - 7:00:  eCOTS Recorded Keynote Presentation - Changing everything at once: Student-centered Learning, computerized practice exercises, evaluation of student progress, and a modern syllabus to create a completely new introductory statistics course (Andrew Gelman)
 
 7:00 - : Socializing at a pub (Gigantic Brewing/others)
