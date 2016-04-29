@@ -58,3 +58,11 @@ ggsave(paste0(homedir, "07-single-bar.png"), dpi = 1000)
 response <- c(rep("success", 73), rep("failure", 27))
 qplot(x = response) + theme(text = element_text(size = 30))
 ggsave(paste0(homedir, "09-single-bar.png"), dpi = 1000)
+
+
+# 10
+explanatory <- c(rep("group1", 50), rep("group2", 50), rep("group3", 50), rep("group4", 50))
+response <- c(runif(50, min = 20, max = 70), runif(50, min = 30, max = 50), runif(50, min = 70, max = 80), runif(50, min = 20, max = 80))
+dataframe <- data.frame(explanatory, response)
+qplot(x = explanatory, y = response, data = dataframe, geom = "boxplot") 
+ggsave(paste0(homedir, "10-side_by_side_boxplot.png"), dpi = 1000)
