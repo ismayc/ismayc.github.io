@@ -14,6 +14,11 @@ dataframe <- data.frame(explanatory, response)
 qplot(x = explanatory, y = response, data = dataframe, geom = "boxplot") + theme(text = element_text(size = 30))
 ggsave(paste0(homedir, "02-side_by_side_boxplot.png"), dpi = 1000)
 
+# 3
+differences <- c(rnorm(500))
+qplot(x = differences, geom = "histogram", binwidth = 0.5, col = I("white")) + theme(text = element_text(size = 30))
+ggsave(paste0(homedir, "03-differences_histogram.png"), dpi = 600)
+
 
 # 7
 response <- c(rep("group1", 57), rep("group2", 75), rep("group3", 40), rep("group4", 50))
