@@ -54,6 +54,14 @@ response <- c(rep("group1", 57), rep("group2", 75), rep("group3", 40), rep("grou
 qplot(x = response) + theme(text = element_text(size = 30))
 ggsave(paste0(homedir, "07-single-bar.png"), dpi = 1000)
 
+# 8
+explanatory <- rnorm(100, 50)
+response <- 2 * explanatory + rnorm(100)
+dataframe <- data.frame(explanatory, response)
+qplot(x = explanatory, y = response, data = dataframe, geom = "point") +
+  theme(text = element_text(size = 20))
+ggsave(paste0(homedir, "scatterplot.png"), dpi = 600)
+
 # 9
 response <- c(rep("success", 73), rep("failure", 27))
 qplot(x = response) + theme(text = element_text(size = 30))
