@@ -19,6 +19,15 @@ differences <- c(rnorm(500))
 qplot(x = differences, geom = "histogram", binwidth = 0.5, col = I("white")) + theme(text = element_text(size = 30))
 ggsave(paste0(homedir, "03-differences_histogram.png"), dpi = 600)
 
+# 4
+explanatory <- rnorm(100, 50)
+response <- 2 * explanatory + rnorm(100)
+dataframe <- data.frame(explanatory, response)
+qplot(x = explanatory, y = response, data = dataframe, geom = "point") +
+  theme(text = element_text(size = 20))
+ggsave(paste0(homedir, "scatterplot.png"), dpi = 600)
+
+
 #5
 explanatory <- c(rep("group1", 30), rep("group2", 70))
 response <- c(rep("success", 12), rep("failure", 18), rep("success", 58), rep("failure", 12))
@@ -56,11 +65,12 @@ ggsave(paste0(homedir, "07-single-bar.png"), dpi = 1000)
 
 # 8
 explanatory <- rnorm(100, 50)
-response <- 2 * explanatory + rnorm(100)
+response <- factor(rbinom(100, size = 1, prob = 0.7))
 dataframe <- data.frame(explanatory, response)
 qplot(x = explanatory, y = response, data = dataframe, geom = "point") +
   theme(text = element_text(size = 20))
-ggsave(paste0(homedir, "scatterplot.png"), dpi = 600)
+ggsave(paste0(homedir, "scatterplot_logistic.png"), dpi = 600)
+
 
 # 9
 response <- c(rep("success", 73), rep("failure", 27))
