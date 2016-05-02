@@ -1,0 +1,149 @@
+---
+title: "One Proportion Example"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cerulean
+    highlight: pygments
+---
+
+
+```{r setup, include=FALSE}
+pkg <- c("tidyr", "dplyr", "ggplot2", 
+  "knitr", "rmarkdown", "readr", 
+  "DT","devtools", "broom", "openintro")
+
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+
+if (length(new.pkg)) {
+  install.packages(new.pkg, repos = "http://cran.rstudio.com")
+}
+
+lapply(pkg, library, character.only = TRUE)
+
+if(!require(oilabs))
+  devtools::install_github("ismayc/oilabs", force = TRUE)
+
+options(digits = 5, scipen = 99)
+```
+
+# Problem Statement
+
+The CEO of a large electric utility claims that 80 percent of his 1,000,000 customers are satisfied with the service they receive. To test this claim, the local newspaper surveyed 100 customers, using simple random sampling. 73 were satisfied and the remaining were unsatisfied.  Based on these findings from the sample, can we reject the CEO's hypothesis that 80% of the customers are satisfied?? [Tweaked a bit from http://stattrek.com/hypothesis-test/proportion.aspx?Tutorial=AP]
+
+# Competing Hypotheses
+
+## In words
+
+- Null hypothesis: The proportion of all customers of the large electric utility satisfied with service they receive is equal 0.80.
+
+- Alternative hypothesis:  The proportion of all customers of the large electric utility satisfied with service they receive is different from 0.80.
+
+<!--
+## Another way with words
+
+- Null hypothesis:  There is no association between feed type and age in the population of interest.
+
+- Alternative hypothesis:  There is an association between the variables in the population.
+-->
+
+## In symbols (with annotations)
+
+- $H_0: P = p_{0}$, where $P$ represents the proportion of all customers of the large electric utility satisfied with service they receive and $p_0$ is 0.8.
+- $H_A: P \ne 0.8$
+
+## Set $\alpha$
+
+It's important to set the significance level before starting the testing using the data. Let's set the significance level at 5\% here.
+
+# Exploring the sample data
+
+```{r read_data}
+library(dplyr)
+library(knitr)
+library(ggplot2)
+elec_survey <- c(rep("satisfied", 73), rep("unsatisfied", 27))
+```
+
+Note that `elec_survey` is a vector containing the data and that it does not live in a data frame.  We can, thus, refer to it directly without the need for using the `$` symbol or the `data =` argument.
+
+```{r summarize}
+prop.table(table(elec_survey))
+```
+
+
+The histogram below also shows the distribution of `elec`.
+
+```{r hist1}
+qplot(x = elec_survey, geom = "bar")
+```
+
+
+## Guess about statistical significance
+
+We are looking to see if the sample proportion of `r prop.table(table(elec_survey))[1]` is statistically different from $p_0 = 0.8$ based on this sample.  They seem to be quite close, and our sample size is not huge here ($n = 100$).  Let's guess that we do not have evidence to reject the null hypothesis.
+
+# Check conditions
+
+Remember that in order to use the shortcut (formula-based, theoretical) approach, we need to check that some conditions are met.
+
+1. _Independent observations_:  The observations are collected independently.
+
+   The cases are selected independently through random sampling so this condition is met.
+
+2. _Approximately normal_:  The number of expect successes and expected failures is at least 10.
+
+    This condition is met since 73 and 27 are both greater than 10.
+
+# Test statistic
+
+The test statistic is a random variable based on the sample data.  Here, we want to look at a way to estimate the population proportion $p$.  A good guess is the sample proportion $\hat{P}$.  Recall that this sample proportion is actually a random variable that will vary as different samples are (theoretically, would be) collected.  We are looking to see how likely is it for us to have observed a sample proportion of $\hat{p}_{obs} = 23.44$ or larger assuming that the population proportion is 0.80 (assuming the null hypothesis is true).  If the conditions are met and assuming $H_0$ is true, we can standardize this original test statistic of $\hat{P}$ into a $Z$ statistic that follows a $N(0, 1)$ distribution.
+
+$$ Z =\dfrac{ \hat{P} - p_0}{\sqrt{\dfrac{p_0(1 - p_0)}{n} }} \sim N(0, 1) $$
+
+## Observed test statistic
+
+While one could compute this observed test statistic by "hand", the focus here is on the set-up of the problem and in understanding which formula for the test statistic applies.  We can use the `inference` function in the `oilabs` package to perform this analysis for us. 
+
+```{r inference}
+inference(y = elec_survey, 
+          est = "proportion", 
+          null = 0.8, 
+          success = "satisfied", 
+          type = "ht",
+          alternative = "twosided", 
+          method = "theoretical",
+          eda_plot = FALSE, 
+          inf_plot = FALSE)
+```
+
+We see here that the $z_{obs}$ value is around -1.75. Our observed sample proportion of 0.73 is 1.75 standard errors below the hypothesized parameter value of 0.80.
+
+# Compute $p$-value
+
+The $p$-value---the probability of observing an $z_{obs}$ value of -1.75 or more extreme (in both directions) in our null distribution---is around 8%.  This can also be calculated in R directly:
+
+```{r pval}
+2 * pnorm(-1.75)
+```
+
+Note that we could also do this test directly without invoking the `inference` function using the `prop.test` function.
+
+```{r}
+prop.test(x = table(elec_survey),
+       n = length(elec_survey),
+       alternative = "two.sided",
+       p = 0.8,
+       correct = FALSE)
+```
+
+`prop.test` does a $\chi^2$ test here but this matches up exactly with what we would expect:  $x^2_{obs} = 3.06 = (-1.75)^2 = (z_{obs})^2$ and the $p$-values are the same because we are focusing on a two-tailed test.
+
+
+# State conclusion
+
+We, therefore, do not have sufficient evidence to reject the null hypothesis.  Our initial guess that our observed sample proportion was not statistically greater than the hypothesized proportion has not been invalidated.  Based on this sample, we have do not evidence that the proportion of all customers of the large electric utility satisfied with service they receive is different from 0.80, at the 5% level.
+
+---
+

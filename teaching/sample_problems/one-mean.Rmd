@@ -79,7 +79,7 @@ It's important to set the significance level before starting the testing using t
 library(dplyr)
 library(knitr)
 library(ggplot2)
-#download.file("https://raw.githubusercontent.com/ismayc/ismayc.github.io/master/teaching/sample_problems/data/ageAtMar.csv", destfile = "ageAtMar.csv")
+#download.file("https://raw.githubusercontent.com/ismayc/ismayc.github.io/master/teaching/sample_problems/ageAtMar.csv", destfile = "ageAtMar.csv")
 ageAtMar <- read.csv("ageAtMar.csv")
 ```
 
@@ -133,11 +133,13 @@ The test statistic is a random variable based on the sample data.  Here, we want
 
 $$ T =\dfrac{ \bar{X} - \mu_0}{ S / \sqrt{n} } \sim t (df = n - 1) $$
 
+where $S$ represents the standard deviation of the sample and $n$ is the sample size.
+
 ## Observed test statistic
 
 While one could compute this observed test statistic by "hand", the focus here is on the set-up of the problem and in understanding which formula for the test statistic applies.  We can use the `inference` function in the `oilabs` package to perform this analysis for us. 
 
-```{r}
+```{r inference}
 inference(y = ageAtMar$age, 
           est = "mean", 
           null = 23, 
@@ -166,7 +168,7 @@ pnorm(6.936, lower.tail = FALSE)
 
 Note that we could also do this test directly without invoking the `inference` function using the `t.test` function.
 
-```{r}
+```{r t.test}
 t.test(x = ageAtMar$age, 
        alternative = "greater",
        mu = 23)
