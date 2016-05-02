@@ -8,7 +8,7 @@ output:
     highlight: pygments
 references:
 - id: oi
-  title: Intro Stat with Randomization and Simulation, First Edition
+  title: OpenIntro Statistics, Third Edition
   author:
   - family: Diez
     given: David
@@ -18,7 +18,7 @@ references:
     given: Mine
   type: book
   issued:
-    year: 2014
+    year: 2015
 ---
 
 
@@ -49,7 +49,7 @@ increasing company profits, possibly by millions of dollars. An experiment was c
 measure and compare the effectiveness of various feed supplements on the growth rate of chickens.
 Newly hatched chicks were randomly allocated into six groups, and each group was given a different
 feed supplement. Do these data provide strong evidence that the average weights of chickens that were fed
-different crops are different? [Tweaked a bit from @oi [Chapter 4]]
+different crops are different? [Tweaked a bit from @oi [Chapter 5]]
 
 # Competing Hypotheses
 
