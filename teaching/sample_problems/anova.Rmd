@@ -119,6 +119,10 @@ It's important to set the significance level before starting the testing using t
 # Exploring the sample data
 
 ```{r read_data}
+library(dplyr)
+library(knitr)
+library(ggplot2)
+library(oilabs)
 # download.file("http://www.math.hope.edu/isi/data/chap9/Comprehension.txt", destfile = "comprehension.txt")
 comp <- read.table("comprehension.txt", header = TRUE, stringsAsFactors = FALSE)
 ```

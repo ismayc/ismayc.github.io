@@ -30,7 +30,7 @@ options(digits = 5, scipen = 99)
 
 # Problem Statement
 
-The CEO of a large electric utility claims that 80 percent of his 1,000,000 customers are satisfied with the service they receive. To test this claim, the local newspaper surveyed 100 customers, using simple random sampling. 73 were satisfied and the remaining were unsatisfied.  Based on these findings from the sample, can we reject the CEO's hypothesis that 80% of the customers are satisfied?? [Tweaked a bit from http://stattrek.com/hypothesis-test/proportion.aspx?Tutorial=AP]
+The CEO of a large electric utility claims that 80 percent of his 1,000,000 customers are satisfied with the service they receive. To test this claim, the local newspaper surveyed 100 customers, using simple random sampling. 73 were satisfied and the remaining were unsatisfied.  Based on these findings from the sample, can we reject the CEO's hypothesis that 80% of the customers are satisfied? [Tweaked a bit from http://stattrek.com/hypothesis-test/proportion.aspx?Tutorial=AP]
 
 # Competing Hypotheses
 
@@ -63,6 +63,7 @@ It's important to set the significance level before starting the testing using t
 library(dplyr)
 library(knitr)
 library(ggplot2)
+library(oilabs)
 elec_survey <- c(rep("satisfied", 73), rep("unsatisfied", 27))
 ```
 
@@ -73,9 +74,9 @@ prop.table(table(elec_survey))
 ```
 
 
-The histogram below also shows the distribution of `elec`.
+The bar graph below also shows the distribution of `elec`.
 
-```{r hist1}
+```{r bar}
 qplot(x = elec_survey, geom = "bar")
 ```
 
@@ -92,7 +93,7 @@ Remember that in order to use the shortcut (formula-based, theoretical) approach
 
    The cases are selected independently through random sampling so this condition is met.
 
-2. _Approximately normal_:  The number of expect successes and expected failures is at least 10.
+2. _Approximately normal_:  The number of expected successes and expected failures is at least 10.
 
     This condition is met since 73 and 27 are both greater than 10.
 
@@ -144,6 +145,4 @@ prop.test(x = table(elec_survey),
 # State conclusion
 
 We, therefore, do not have sufficient evidence to reject the null hypothesis.  Our initial guess that our observed sample proportion was not statistically greater than the hypothesized proportion has not been invalidated.  Based on this sample, we have do not evidence that the proportion of all customers of the large electric utility satisfied with service they receive is different from 0.80, at the 5% level.
-
----
 
