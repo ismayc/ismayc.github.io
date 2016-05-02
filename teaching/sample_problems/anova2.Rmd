@@ -100,9 +100,9 @@ kable(wgt_summ)
 
 The boxplot below also shows the mean for each group highlighted by the red dots.
 
-```{r boxplot, echo=FALSE}
+```{r boxplot}
 qplot(x = feed, y = weight, data = chickwts, geom = "boxplot") +
-      stat_summary(fun.y="mean", geom="point", color="red")
+      stat_summary(fun.y = "mean", geom = "point", color = "red")
 ```
 
 

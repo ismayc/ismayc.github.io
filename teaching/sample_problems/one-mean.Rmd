@@ -1,0 +1,180 @@
+---
+title: "One Mean Example"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cerulean
+    highlight: pygments
+references:
+- id: oi
+  title: OpenIntro Statistics, Third Edition
+  author:
+  - family: Diez
+    given: David
+  - family: Barr
+    given: Christopher
+  - family: Cetinkaya-Rundel
+    given: Mine
+  type: book
+  issued:
+    year: 2015
+---
+
+
+```{r setup, include=FALSE}
+pkg <- c("tidyr", "dplyr", "ggplot2", 
+  "knitr", "rmarkdown", "readr", 
+  "DT","devtools", "broom", "openintro")
+
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+
+if (length(new.pkg)) {
+  install.packages(new.pkg, repos = "http://cran.rstudio.com")
+}
+
+lapply(pkg, library, character.only = TRUE)
+
+if(!require(oilabs))
+  devtools::install_github("ismayc/oilabs", force = TRUE)
+
+options(digits = 5, scipen = 99)
+```
+
+# Problem Statement
+
+The National Survey of Family Growth conducted by the
+Centers for Disease Control gathers information on family life, marriage and divorce, pregnancy,
+infertility, use of contraception, and men's and women's health. One of the variables collected on
+this survey is the age at first marriage. 5,534 randomly sampled US women between 2006 and 2010 completed the survey. The women sampled here had been married at least once.  Do we have evidence that the mean age of first marriage for all US women from 2006 to 2010 is greater than 23 years? [Tweaked a bit from @oi [Chapter 4]]
+
+# Competing Hypotheses
+
+## In words
+
+- Null hypothesis: The mean age of first marriage for all US women from 2006 to 2010 is equal 23 years.
+
+- Alternative hypothesis:  The mean age of first marriage for all US women from 2006 to 2010 is greater than 23 years.
+
+<!--
+## Another way with words
+
+- Null hypothesis:  There is no association between feed type and age in the population of interest.
+
+- Alternative hypothesis:  There is an association between the variables in the population.
+-->
+
+## In symbols (with annotations)
+
+- $H_0: \mu = \mu_{0}$, where $\mu$ represents the mean age of first marriage for all US women from 2006 to 2010 and $\mu_0$ is 23.
+- $H_A: \mu > 23$
+
+## Set $\alpha$
+
+It's important to set the significance level before starting the testing using the data. Let's set the significance level at 5\% here.
+
+# Exploring the sample data
+
+```{r read_data}
+library(dplyr)
+library(knitr)
+library(ggplot2)
+#download.file("https://raw.githubusercontent.com/ismayc/ismayc.github.io/master/teaching/sample_problems/data/ageAtMar.csv", destfile = "ageAtMar.csv")
+ageAtMar <- read.csv("ageAtMar.csv")
+```
+
+```{r summarize}
+age_summ <- ageAtMar %>%
+  summarize(sample_size = n(),
+    mean = mean(age),
+    sd = sd(age),
+    minimum = min(age),
+    lower_quartile = quantile(age, 0.25),
+    median = median(age),
+    upper_quartile = quantile(age, 0.75),
+    max = max(age))
+kable(age_summ)
+```
+
+
+The histogram below also shows the distribution of `age`.
+
+```{r hist1}
+qplot(x = age, data = ageAtMar, geom = "histogram", 
+      binwidth = 3, col = I("white"))
+```
+
+
+## Guess about statistical significance
+
+We are looking to see if the sample mean of `r age_summ$mean` is statistically greater than $\mu_0 = 23$.  They seem to be quite close, but we have a large sample size here.  Let's guess that the large sample size will lead us to reject this practically small difference. 
+
+# Check conditions
+
+Remember that in order to use the shortcut (formula-based, theoretical) approach, we need to check that some conditions are met.
+
+1. _Independent observations_:  The observations are collected independently.
+
+   The cases are selected independently through random sampling so this condition is met.
+
+2. _Approximately normal_:  The distribution of the response for each group should be normal or the sample size should be at least 30.
+
+    The histogram above does show some skew so we have reason to doubt the population being normal based on this sample.  The Q-Q plot below also shows some skew.
+
+```{r qqplot}
+qplot(sample = age, data = ageAtMar)
+```
+
+The sample size here is quite large though ($n = 5534$) so both conditions are met.
+
+# Test statistic
+
+The test statistic is a random variable based on the sample data.  Here, we want to look at a way to estimate the population mean $\mu$.  A good guess is the sample mean $\bar{X}$.  Recall that this sample mean is actually a random variable that will vary as different samples are (theoretically, would be) collected.  We are looking to see how likely is it for us to have observed a sample mean of $\bar{x}_{obs} = 23.44$ or larger assuming that the population mean is 23 (assuming the null hypothesis is true).  If the conditions are met and assuming $H_0$ is true, we can "standardize" this original test statistic of $\bar{X}$ into a $T$ statistic that follows a $t$ distribution with degrees of freedom equal to $df = n - 1$:
+
+$$ T =\dfrac{ \bar{X} - \mu_0}{ S / \sqrt{n} } \sim t (df = n - 1) $$
+
+## Observed test statistic
+
+While one could compute this observed test statistic by "hand", the focus here is on the set-up of the problem and in understanding which formula for the test statistic applies.  We can use the `inference` function in the `oilabs` package to perform this analysis for us. 
+
+```{r}
+inference(y = ageAtMar$age, 
+          est = "mean", 
+          null = 23, 
+          alternative = "greater",
+          type = "ht", 
+          method = "theoretical", 
+          eda_plot = FALSE, 
+          inf_plot = FALSE)
+```
+
+We see here that the $t_{obs}$ value is around 6.936. Recall that for large sample sizes the $t$ distribution is essentially the standard normal distribution and this is why the statistic is reported as `Z`.
+
+# Compute $p$-value
+
+The $p$-value---the probability of observing an $t_{obs}$ value of 6.936 or more in our null distribution of a $t$ with 5433 degrees of freedom---is essentially 0.  This can also be calculated in R directly:
+
+```{r pval1}
+pt(6.936, df = nrow(ageAtMar) - 1, lower.tail = FALSE)
+```
+
+We can also use the $N(0, 1)$ distribution here:
+
+```{r pval2}
+pnorm(6.936, lower.tail = FALSE)
+```
+
+Note that we could also do this test directly without invoking the `inference` function using the `t.test` function.
+
+```{r}
+t.test(x = ageAtMar$age, 
+       alternative = "greater",
+       mu = 23)
+```
+
+# State conclusion
+
+We, therefore, have sufficient evidence to reject the null hypothesis.  Our initial guess that our observed sample mean was statistically greater than the hypothesized mean has supporting evidence here.  Based on this sample, we have evidence that the mean age of first marriage for all US women from 2006 to 2010 is greater than 23 years.
+
+---
+
