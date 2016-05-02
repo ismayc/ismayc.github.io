@@ -121,7 +121,8 @@ Remember that in order to use the shortcut (formula-based, theoretical) approach
 2. _Approximately normal_:  The distribution of the response for each group should be normal or the sample sizes should be at least 30.
 
 ```{r hist}
-qplot(x = weight, data = chickwts, geom = "histogram", facets = ~ feed, binwidth = 60, color = I("white"))
+qplot(x = weight, data = chickwts, geom = "histogram", facets = ~ feed, 
+      binwidth = 60, color = I("white"))
 ```
 
 ```{r qqplot}
