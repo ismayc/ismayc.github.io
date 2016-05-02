@@ -77,8 +77,8 @@ Before the college students were tested to see whether they understood the passa
 assigned to one of three groups, and then each group was read the passage under one of the following cue
 conditions:
 
-- Students were shown the picture in Figure 9.1 before they heard the passage.
-- Students were shown the picture in Figure 9.1 after they heard the passage.
+- Students were shown the picture before they heard the passage.
+- Students were shown the picture after they heard the passage.
 - Students were not shown any picture before or after hearing the passage.
 
 Is student comprehension of an ambiguous prose passage affected by
