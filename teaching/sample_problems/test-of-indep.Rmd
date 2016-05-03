@@ -85,7 +85,7 @@ qplot(x = party, data = tax_opinion, fill = opinion, geom = "bar")
 
 ## Guess about statistical significance
 
-We are looking to see if a difference exists in the heights of the bars corresponding to `democrat`.  Based solely on mosaicplot, we have reason to believe that a difference exists since the `favor` bar seems to be taller than the other two, BUT...it's important to use statistics to see if that difference is actually statistically significant!
+We are looking to see if a difference exists in the heights of the bars corresponding to `democrat`.  Based solely on mosaic plot, we have reason to believe that a difference exists since the `favor` bar seems to be taller than the other two, BUT...it's important to use statistics to see if that difference is actually statistically significant!
 
 # Check conditions
 
@@ -136,6 +136,12 @@ The $p$-value---the probability of observing a $\chi^2_{df = 2}$ value of 22.2 o
 
 ```{r pval}
 1 - pchisq(22.2, df = 2)
+```
+
+Note that we could also do this test directly without invoking the `inference` function using the `chisq.test` function.
+
+```{r chisq.test}
+chisq.test(x = table(tax_opinion$party, tax_opinion$opinion), correct = FALSE)
 ```
 
 

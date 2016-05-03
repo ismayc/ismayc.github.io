@@ -53,7 +53,7 @@ options(digits = 5)
 
 # Problem Statement
 
-Students at Virginia Tech studied which vehicles come to a complete stop at an intersection with fourway
+Students at Virginia Tech studied which vehicles come to a complete stop at an intersection with four-way
 stop signs, selecting at random the cars to observe. They looked at several factors to see which (if any) were associated with coming to a
 complete stop. (They defined a complete stop as “the speed of the vehicle will become zero at least for an
 [instant]”). Some of these variables included the age of the driver, how many passengers were in the
@@ -106,7 +106,7 @@ It's important to set the significance level before starting the testing using t
 ----------------------- --------------------- --------------- ---------------------- -------------------
 Table: Observed Counts and (Conditional Probabilities)
 
-```{r bargraph, echo=FALSE}
+```{r bargraph}
 stop <- c(rep("complete", 265), rep("not_complete", 52))
 vehicle_type <- c(rep("single", 151), rep("lead", 38), rep("follow", 76),
   rep("single", 25), rep("lead", 5), rep("follow", 22))
@@ -188,6 +188,11 @@ The $p$-value---the probability of observing a $\chi^2_{df = 2}$ value of 4 or m
 1 - pchisq(3.9476, df = 2)
 ```
 
+Note that we could also do this test directly without invoking the `inference` function using the `chisq.test` function.
+
+```{r chisq.test}
+chisq.test(x = table(df$vehicle_type, df$stop), correct = FALSE)
+```
 
 # State conclusion
 

@@ -105,7 +105,7 @@ qplot(x = college_grad, data = offshore, fill = response, geom = "bar")
 
 ## Guess about statistical significance
 
-We are looking to see if a difference exists in the heights of the bars corresponding to `no opinion` for the mosaic plot.  Based solely on mosaicplot, we have little reason to believe that a difference exists since the bars seem to be about the same height, BUT...it's important to use statistics to see if that difference is actually statistically significant!
+We are looking to see if a difference exists in the heights of the bars corresponding to `no opinion` for the mosaic plot.  Based solely on mosaic plot, we have little reason to believe that a difference exists since the bars seem to be about the same height, BUT...it's important to use statistics to see if that difference is actually statistically significant!
 
 # Check conditions
 

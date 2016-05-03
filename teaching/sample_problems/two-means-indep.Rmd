@@ -1,0 +1,191 @@
+---
+title: "Two Means - Independent Samples Example"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cerulean
+    highlight: pygments
+references:
+- id: oi
+  title: OpenIntro Statistics, Third Edition
+  author:
+  - family: Diez
+    given: David
+  - family: Barr
+    given: Christopher
+  - family: Cetinkaya-Rundel
+    given: Mine
+  type: book
+  issued:
+    year: 2015
+---
+
+
+```{r setup, include=FALSE}
+pkg <- c("tidyr", "dplyr", "ggplot2", 
+  "knitr", "rmarkdown", "readr", 
+  "DT","devtools", "broom")
+
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+
+if (length(new.pkg)) {
+  install.packages(new.pkg, repos = "http://cran.rstudio.com")
+}
+
+lapply(pkg, library, character.only = TRUE)
+
+if(!require(oilabs))
+  devtools::install_github("ismayc/oilabs")
+
+options(digits = 5, scipen = 99)
+```
+
+# Problem Statement
+
+Average income varies from one region of the country to
+another, and it often reflects both lifestyles and regional living expenses. Suppose a new graduate
+is considering a job in two locations, Cleveland, OH and Sacramento, CA, and he wants to see
+whether the average income in one of these cities is higher than the other. He would like to conduct
+a hypothesis test based on two randomly selected samples from the 2000 Census. [Tweaked a bit from @oi [Chapter 5]]
+
+# Competing Hypotheses
+
+## In words
+
+- Null hypothesis: There is no association between income and location (Cleveland, OH and Sacramento, CA).
+
+- Alternative hypothesis:  There is an association between income and location (Cleveland, OH and Sacramento, CA).
+
+## Another way in words
+
+- Null hypothesis: The mean income is the **same** for both cities.
+
+- Alternative hypothesis:  The mean income is different for the two cities.
+
+## In symbols (with annotations)
+
+- $H_0: \mu_{cleveland} = \mu_{sacramento}$ or $H_0: \mu_{cleveland} - \mu_{sacramento} = 0$, where $\mu$ represents the average income.
+- $H_A: \mu_{cleveland} - \mu_{sacramento} \ne 0$
+
+## Set $\alpha$
+
+It's important to set the significance level before starting the testing using the data. Let's set the significance level at 5\% here.
+
+# Exploring the sample data
+
+```{r read_data, echo=FALSE}
+library(dplyr)
+library(knitr)
+library(ggplot2)
+library(oilabs)
+#download.file("https://raw.githubusercontent.com/ismayc/ismayc.github.io/master/teaching/sample_problems/cleSac.txt", destfile = "cleSac.txt")
+cleSac <- read.delim("cleSac.txt") %>%
+  rename(metro_area = Metropolitan_area_Detailed,
+         income = Total_personal_income) %>%
+  na.omit()
+```
+
+```{r summarize}
+inc_summ <- cleSac %>% group_by(metro_area) %>%
+  summarize(sample_size = n(),
+    mean = mean(income),
+    sd = sd(income),
+    minimum = min(income),
+    lower_quartile = quantile(income, 0.25),
+    median = median(income),
+    upper_quartile = quantile(income, 0.75),
+    max = max(income))
+kable(inc_summ)
+```
+
+The boxplot below also shows the mean for each group highlighted by the red dots.
+
+```{r boxplot}
+qplot(x = metro_area, y = income, data = cleSac, geom = "boxplot") +
+      stat_summary(fun.y = "mean", geom = "point", color = "red")
+```
+
+
+## Guess about statistical significance
+
+We are looking to see if a difference exists in the mean income of the three levels of the explanatory variable.  Based solely on the side-by-side boxplot, we have reason to believe that no difference exists.  The distributions of income seem similar and the means fall in roughly the same place.
+
+# Check conditions
+
+Remember that in order to use the short-cut (formula-based, theoretical) approach, we need to check that some conditions are met.
+
+1. _Independent observations_:  The observations are independent in both samples.
+
+    This metro_area is met since the cases are randomly selected from each city.
+
+2. _Approximately normal_:  The distribution of the response for each group should be normal or the sample sizes should be at least 30.
+
+```{r hist}
+qplot(x = income, data = cleSac, geom = "histogram", col = I("white"), 
+      binwidth = 20000, facets = ~ metro_area)
+```
+
+```{r qqplot}
+qplot(sample = income, data = cleSac, facets = ~ metro_area)
+```
+
+We have some reason to doubt the normality assumption here since both the histograms and the qqplots show deviation from a normal model fitting the data well for each group.  The sample sizes for each group are greater than 100 though so the Central Limit Theorem should still apply.
+
+
+3. _Independent samples_: The samples should be collected without any natural pairing.
+
+    There is no mention of there being a relationship between those selected in Cleveland and in Sacramento.
+
+# Test statistic
+
+The test statistic is a random variable based on the sample data.  Here, we are interested in seeing if our observed difference in sample means ($\bar{x}_{cleveland, obs} - \bar{x}_{sacramento, obs}$ = `r inc_summ$mean[1] - inc_summ$mean[2]`) is statistically different than 0.  Assuming that conditions are met and the null hypothesis is true, we can use the $t$ distribution to standardize the difference in sample means ($\bar{X}_{cleveland} - \bar{X}_{sacramento}$) using the approximate standard error of $\bar{X}_{cleveland} - \bar{X}_{sacramento}$ (invoking $S_{cleveland}$ and $S_{sacramento}$ as estimates of unknown $\sigma_{cleveland}$ and $\sigma_{sacramento}$).
+
+$$ T =\dfrac{ (\bar{X}_1 - \bar{X}_2) - 0}{ \sqrt{\dfrac{S_1^2}{n_1} + \dfrac{S_2^2}{n_2}}  } \sim t (df = min(n_1 - 1, n_2 - 1) $$ where 1 = Cleveland and 2 = Sacramento with $S_1^2$ and $S_2^2$ the sample variance of the incomes of both cities, respectively, and $n_1 = 212$ for Cleveland and $n_2 = 175$ for Sacramento.
+
+## Observed test statistic
+
+While one could compute this observed test statistic by "hand", the focus here is on the set-up of the problem and in understanding which formula for the test statistic applies.  We can use the `inference` function in the `oilabs` package to perform this analysis for us.  Note that to obtain the `F value` given here, you divide the observed $MSG$ value of 17.53 by the observed $MSE$ value of 1.75.  (The use of the word `Residuals` will make more sense when we have covered regression.)
+
+```{r infer}
+inference(x = cleSac$metro_area, 
+          y = cleSac$income, 
+          est = "mean", 
+          null = 0,
+          alternative = "twosided", 
+          type = "ht", 
+          method = "theoretical", 
+          eda_plot = FALSE,
+          inf_plot = FALSE)
+```
+
+We see here that the observed test statistic value is around -1.501 with $df = min(212 - 1, 175 - 1) = 174$.  Recall that for large degrees of freedom, the $t$ distribution is roughly equal to the standard normal curve, which is what the `inference` function uses here.
+
+# Compute $p$-value
+
+The $p$-value---the probability of observing an $t_{174}$ value of -1.501 or more extreme (in both directions) in our null distribution---is 0.13.  This can also be calculated in R directly:
+
+```{r pval1}
+2 * pt(-1.501, df = min(212 - 1, 175 - 1), lower.tail = TRUE)
+```
+
+We can also approximate by using the standard normal curve:
+
+```{r pval2}
+2 * pnorm(-1.501)
+```
+
+Note that we could also do (ALMOST) this test directly without invoking the `inference` function using the `t.test` function.  The `x` and `y` arguments are expected to both be numeric vectors here so we'll need to appropriately filter our data sets.
+
+```{r t.test}
+cleveland <- cleSac %>% filter(metro_area == "Cleveland_ OH")
+sacramento <- cleSac %>% filter(metro_area != "Cleveland_ OH")
+t.test(x = cleveland$income, y = sacramento$income,
+       alternative = "two.sided")
+```
+
+Note that the degrees of freedom reported above are different than what we used.  The degrees of freedom used here is also known as the Satterthwaite approximation and involves a quite complicated formula.  For most problems, the must simpler smaller of sample sizes minus one will suffice.
+
+# State conclusion
+
+We, therefore, do not have sufficient evidence to reject the null hypothesis.  Our initial guess that a statistically significant difference not existing in the means was backed by this statistical analysis.  We do not have evidence to suggest that the true mean income differs between Cleveland, OH and Sacramento, CA based on this data.
