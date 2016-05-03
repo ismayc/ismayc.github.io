@@ -1,5 +1,5 @@
 ---
-title: "Chi-Square Example"
+title: "Chi-Square - Test of Independence Example"
 output:
   html_document:
     toc: true
@@ -48,7 +48,7 @@ lapply(pkg, library, character.only = TRUE)
 if(!require(oilabs))
   devtools::install_github("ismayc/oilabs")
 
-options(digits = 2)
+options(digits = 5)
 ```
 
 # Problem Statement
@@ -167,22 +167,24 @@ Assuming the conditions outlined above are met, $X^2 \sim \chi^2(df = (R - 1) \t
 
 While one could compute this observed test statistic by "hand", the focus here is on the set-up of the problem and in understanding which formula for the test statistic applies.  We can use the `inference` function in the `oilabs` package to perform this analysis for us.
 
-```{r}
+```{r infer}
 inference(y = df$stop, 
   x = df$vehicle_type, 
   est = "proportion", 
   type = "ht", 
   alternative = "greater", 
-  method = "theoretical")
+  method = "theoretical",
+  eda_plot = FALSE,
+  inf_plot = FALSE)
 ```
 
-We see here that the $X^2_{obs}$ value is around 4 with $df = (2 - 1)(3 - 1) = 2$.  
+We see here that the $x^2_{obs}$ value is around 4 with $df = (2 - 1)(3 - 1) = 2$.  
 
 # Compute $p$-value
 
 The $p$-value---the probability of observing a $\chi^2_{df = 2}$ value of 4 or more in our null distribution---is (to one decimal place) 10%.  This can also be calculated in R directly:
 
-```{r}
+```{r pval}
 1 - pchisq(3.9476, df = 2)
 ```
 
