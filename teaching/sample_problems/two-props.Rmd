@@ -1,0 +1,169 @@
+---
+title: "Two Proportions Example"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cerulean
+    highlight: pygments
+references:
+- id: oi
+  title: OpenIntro Statistics, Third Edition
+  author:
+  - family: Diez
+    given: David
+  - family: Barr
+    given: Christopher
+  - family: Cetinkaya-Rundel
+    given: Mine
+  type: book
+  issued:
+    year: 2015
+---
+
+
+```{r setup, include=FALSE}
+pkg <- c("tidyr", "dplyr", "ggplot2", 
+  "knitr", "rmarkdown", "readr", 
+  "DT","devtools", "broom")
+
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+
+if (length(new.pkg)) {
+  install.packages(new.pkg, repos = "http://cran.rstudio.com")
+}
+
+lapply(pkg, library, character.only = TRUE)
+
+if(!require(oilabs))
+  devtools::install_github("ismayc/oilabs")
+
+options(digits = 5, scipen = 99)
+```
+
+# Problem Statement
+
+A 2010 survey asked 827 randomly sampled registered voters
+in California "Do you support? Or do you oppose? Drilling for oil and natural gas off the Coast of
+California? Or do you not know enough to say?" Conduct a hypothesis test to determine if the data
+provide strong evidence that the proportion of college
+graduates who do not have an opinion on this issue is
+different than that of non-college graduates. [Tweaked a bit from @oi [Chapter 6]]
+
+# Competing Hypotheses
+
+## In words
+
+- Null hypothesis: There is no association between having an opinion on drilling and having a college degree for all registered California voters in 2010.
+
+- Alternative hypothesis:  There is an association between having an opinion on drilling and having a college degree for all registered California voters in 2010.
+
+## Another way in words
+
+- Null hypothesis: The probability that a Californian voter in 2010 having no opinion on drilling and is a college graduate is the **same** as that of a non-college graduate.
+
+- Alternative hypothesis:  These parameter probabilities are different.
+
+## In symbols (with annotations)
+
+- $H_0: P_{college} = P_{no\_college}$ or $H_0: P_{college} - P_{no\_college} = 0$, where $P$ represents the probability of not having an opinion on drilling.
+- $H_A: P_{college} - P_{no\_college} \ne 0$
+
+## Set $\alpha$
+
+It's important to set the significance level before starting the testing using the data. Let's set the significance level at 5\% here.
+
+# Exploring the sample data
+
+```{r read_data, echo=FALSE}
+library(dplyr)
+library(knitr)
+library(ggplot2)
+library(oilabs)
+#download.file("https://raw.githubusercontent.com/ismayc/ismayc.github.io/master/teaching/sample_problems/offshore_drilling.txt", destfile = "offshore_drilling.txt")
+offshore <- read.delim("offshore_drilling.txt") %>%
+  mutate(response = ifelse(position == "do not know", "no opinion", "opinion")) %>%
+  select(-position)
+str(offshore)
+```
+
+```{r summarize}
+table(offshore$college_grad, offshore$response)
+```
+
+```{r mosaic}
+mosaicplot(table(offshore$college_grad, offshore$response),
+           xlab = "College Grad", 
+           ylab = "Opinion",
+           main = "College Grad vs Opinion",
+           color = c("salmon", "blue"))
+```
+
+```{r stacked_bar}
+qplot(x = college_grad, data = offshore, fill = response, geom = "bar")
+```
+
+## Guess about statistical significance
+
+We are looking to see if a difference exists in the heights of the bars corresponding to `no opinion` for the mosaic plot.  Based solely on mosaicplot, we have little reason to believe that a difference exists since the bars seem to be about the same height, BUT...it's important to use statistics to see if that difference is actually statistically significant!
+
+# Check conditions
+
+Remember that in order to use the short-cut (formula-based, theoretical) approach, we need to check that some conditions are met.
+
+1. _Independent observations_:  Each case that was selected must be independent of all the other cases selected.
+
+    This condition is met since cases were selected at random to observe.
+
+2. _Sample size_:  The number of pooled successes and pooled failures must be at least 10 for each group.
+
+    We need to first figure out the pooled success rate:  $$\hat{p}_{obs} = \dfrac{131 + 104}{827} = 0.28.$$  We now determine expected (pooled) success and failure counts:
+    
+    $0.28 \cdot (131 + 258) = `r 0.28 * (131 + 258)`$, $0.72 \cdot (131 + 258) = `r 0.72 * (131 + 258)`$
+    
+    $0.28 \cdot (104 + 334) = `r 0.28 * (104 + 334)`$, $0.72 \cdot (104 + 334) = `r 0.72 * (104 + 334)`$
+
+3. _Independent selection of samples_:  The cases are not paired in any meaningful way.
+
+    We have no reason to suspect that a college graduate selected would have any relationship to a non-college graduate selected.
+
+# Test statistic
+
+The test statistic is a random variable based on the sample data.  Here, we are interested in seeing if our observed difference in sample proportions corresponding to no opinion on drilling ($\hat{p}_{college, obs} - \hat{p}_{no\_college, obs}$ = `r prop.table(table(offshore$college_grad, offshore$response))[1, 1] - prop.table(table(offshore$college_grad, offshore$response))[2, 1]`) is statistically different than 0.  Assuming that conditions are met and the null hypothesis is true, we can use the standard normal distribution to standardize the difference in sample proportions ($\hat{P}_{college} - \hat{P}_{no\_college}$) using the standard error of $\hat{P}_{college} - \hat{P}_{no\_college}$ and the pooled estimate:
+
+$$ Z =\dfrac{ (\hat{P}_1 - \hat{P}_2) - 0}{\sqrt{\dfrac{\hat{P}(1 - \hat{P})}{n_1} + \dfrac{\hat{P}(1 - \hat{P})}{n_2} }} \sim N(0, 1) $$ where $\hat{P} = \dfrac{\text{total number of successes} }{ \text{total number of cases}}.$
+
+## Observed test statistic
+
+While one could compute this observed test statistic by "hand", the focus here is on the set-up of the problem and in understanding which formula for the test statistic applies.  We can use the `inference` function in the `oilabs` package to perform this analysis for us.
+
+```{r infer}
+inference(x = offshore$college_grad, 
+          y = offshore$response, 
+          est = "proportion", 
+          success = "no opinion",
+          alternative = "twosided", 
+          type = "ht", 
+          null = 0,
+          method = "theoretical", 
+          eda_plot = FALSE, 
+          inf_plot = FALSE)
+```
+
+We see here that the $z_{obs}$ value is 3.161.  The observed difference in sample proportions is 3.161 standard deviations larger than 0.
+
+# Compute $p$-value
+
+The $p$-value---the probability of observing a $Z$ value of 3.161 or more extreme in our null distribution---is 0.0015.  This can also be calculated in R directly:
+
+```{r pval}
+2 * pnorm(3.161, lower.tail = FALSE)
+```
+
+
+# State conclusion
+
+We, therefore, have sufficient evidence to reject the null hypothesis.  Our initial guess that a statistically significant difference did not exist in the proportions of no opinion on offshore drilling between college educated and non-college educated Californians was not validated.  We do have evidence to suggest that there is a dependency between college graduation and position on offshore drilling for Californians.
+
+---
+

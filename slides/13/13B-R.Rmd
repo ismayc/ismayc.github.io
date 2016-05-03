@@ -109,6 +109,10 @@ mosaicplot(table(offshore$college_grad, offshore$response),
            main = "College Grad vs Opinion",
            color = c("blue", "green"))
 qplot(x = response, data = offshore, fill = college_grad, geom = "bar")
+inference(x = offshore$college_grad, y = offshore$response, est = "proportion", 
+          success = "no opinion", alternative = "twosided", type = "ht", 
+          null = 0, method = "theoretical", eda_plot = FALSE, 
+          inf_plot = FALSE)
 ```
 
 6. A random sample of 500 U.S. adults were questioned regarding their political affiliation (`democrat` or `republican`) and opinion on a tax reform bill (`favor`, `indifferent`, `opposed`). Based on this sample, do we have reason to believe that political party and opinion on the bill are related?

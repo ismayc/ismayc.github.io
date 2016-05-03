@@ -253,7 +253,7 @@ div.tocify {
 <div id="in-symbols-with-annotations" class="section level2">
 <h2>In symbols (with annotations)</h2>
 <ul>
-<li><span class="math inline">\(H_0: p_{favor} = p_{indifferent} = p_{opposed}\)</span>, where <span class="math inline">\(p\)</span> represents the long-run probability of being a Democrat.</li>
+<li><span class="math inline">\(H_0: P_{favor} = P_{indifferent} = P_{opposed}\)</span>, where <span class="math inline">\(p\)</span> represents the long-run probability of being a Democrat.</li>
 <li><span class="math inline">\(H_A\)</span>: At least one of these parameter probabilities is different from the others</li>
 </ul>
 </div>
@@ -299,19 +299,6 @@ div.tocify {
 <h1>Test statistic</h1>
 <p>The test statistic is a random variable based on the sample data. Here, we want to look for deviations from what we would expect cells in the table if the null hypothesis were true. This requires us to calculate expected counts via</p>
 <p><span class="math display">\[\text{Expected Count}_{\text{row } i, \text{col } j} = \dfrac{\text{row } i \text{ total} \times \text{column } j \text{ total}}{\text{table total}}\]</span></p>
-<!--
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                            Single Vehicle                                     Lead Vehicle                                Following Vehicle                TOTAL
------------------------ ---------------------------------------- ---------------------------------------- ---------------------------------------- ----------------------------------------
-   Complete Stop          151 (147.59)                                          38 (35.22)                                 76 (82.18)                    **265**
-  
-   Not Complete Stop      25 (28.41)                                              4 (6.78)                                  22 (15.82)                    **51**
-
- **Total**                      **176**                                          **42**                                     **98**                         **_316_**
- 
------------------------ ---------------------------------------- ---------------------------------------- ---------------------------------------- ----------------------------------------
-Table: Observed Counts and (Expected Counts)
--->
 <p><span class="math inline">\(X^2 = \sum_{\text{all cells in the table}} \dfrac{(\text{observed count} - \text{expected count})^2}{\text{expected count}}\)</span></p>
 <p>Assuming the conditions outlined above are met, <span class="math inline">\(X^2 \sim \chi^2(df = (R - 1) \times (C - 1))\)</span> where <span class="math inline">\(R\)</span> is the number of rows in the table and <span class="math inline">\(C\)</span> is the number of columns.</p>
 <div id="observed-test-statistic" class="section level2">
