@@ -131,7 +131,7 @@ The $p$-value---the probability of observing an $z_{obs}$ value of -1.75 or more
 
 Note that we could also do this test directly without invoking the `inference` function using the `prop.test` function.
 
-```{r}
+```{r prop.test}
 prop.test(x = table(elec_survey),
        n = length(elec_survey),
        alternative = "two.sided",

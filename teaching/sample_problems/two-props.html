@@ -344,6 +344,24 @@ div.tocify {
 <p>The <span class="math inline">\(p\)</span>-value—the probability of observing a <span class="math inline">\(Z\)</span> value of 3.161 or more extreme in our null distribution—is 0.0015. This can also be calculated in R directly:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span> *<span class="st"> </span><span class="kw">pnorm</span>(<span class="fl">3.161</span>, <span class="dt">lower.tail =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## [1] 0.0015723</code></pre>
+<p>Note that we could also do this test directly without invoking the <code>inference</code> function using the <code>prop.test</code> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">prop.test</span>(<span class="dt">x =</span> <span class="kw">table</span>(offshore$college_grad, offshore$response),
+       <span class="dt">n =</span> <span class="kw">nrow</span>(offshore),
+       <span class="dt">alternative =</span> <span class="st">&quot;two.sided&quot;</span>,
+       <span class="dt">correct =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## 
+##  2-sample test for equality of proportions without continuity
+##  correction
+## 
+## data:  table(offshore$college_grad, offshore$response)
+## X-squared = 9.99, df = 1, p-value = 0.0016
+## alternative hypothesis: two.sided
+## 95 percent confidence interval:
+##  0.037725 0.160911
+## sample estimates:
+##  prop 1  prop 2 
+## 0.33676 0.23744</code></pre>
+<p><code>prop.test</code> does a <span class="math inline">\(\chi^2\)</span> test here but this matches up exactly with what we would expect: <span class="math inline">\(x^2_{obs} = 9.99 = (3.16)^2 = (z_{obs})^2\)</span> and the <span class="math inline">\(p\)</span>-values are the same because we are focusing on a two-tailed test.</p>
 </div>
 <div id="state-conclusion" class="section level1">
 <h1>State conclusion</h1>

@@ -160,6 +160,17 @@ The $p$-value---the probability of observing a $Z$ value of 3.161 or more extrem
 2 * pnorm(3.161, lower.tail = FALSE)
 ```
 
+Note that we could also do this test directly without invoking the `inference` function using the `prop.test` function.
+
+```{r prop.test}
+prop.test(x = table(offshore$college_grad, offshore$response),
+       n = nrow(offshore),
+       alternative = "two.sided",
+       correct = FALSE)
+```
+
+`prop.test` does a $\chi^2$ test here but this matches up exactly with what we would expect:  $x^2_{obs} = 9.99 = (3.16)^2 = (z_{obs})^2$ and the $p$-values are the same because we are focusing on a two-tailed test.
+
 
 # State conclusion
 
