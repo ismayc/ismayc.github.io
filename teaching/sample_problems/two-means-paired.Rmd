@@ -1,5 +1,5 @@
 ---
-title: "One Mean Example"
+title: "Two Means - Paired Samples Example"
 output:
   html_document:
     toc: true
