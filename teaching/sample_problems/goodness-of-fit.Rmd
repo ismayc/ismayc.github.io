@@ -72,7 +72,7 @@ prop.table(table(candies$candy_colors))
 ```
 
 
-The bar below also shows the distribution of `elec`.
+The bar below also shows the distribution of `candy_colors`.
 
 ```{r bar}
 qplot(x = candy_colors, data = candies, geom = "bar")
