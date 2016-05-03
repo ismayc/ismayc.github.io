@@ -52,7 +52,7 @@ this survey is the age at first marriage. 5,534 randomly sampled US women betwee
 
 ## In words
 
-- Null hypothesis: The mean age of first marriage for all US women from 2006 to 2010 is equal 23 years.
+- Null hypothesis: The mean age of first marriage for all US women from 2006 to 2010 is equal to 23 years.
 
 - Alternative hypothesis:  The mean age of first marriage for all US women from 2006 to 2010 is greater than 23 years.
 
