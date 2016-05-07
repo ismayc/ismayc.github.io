@@ -140,7 +140,7 @@ We next look at our fitted line from our sample of data:
 summary(weight_wing_mod)
 ```
 
-We are looking to see how likely is it for us to have observed a sample slope of $b_{1, obs} = 0.4674$ or more extreme assuming that the population slope is 0 (assuming the null hypothesis is true).  If the conditions are met and assuming $H_0$ is true, we can "standardize" this original test statistic of $\bar{X}$ into a $T$ statistic that follows a $t$ distribution with degrees of freedom equal to $df = n - k$ where $k$ is the number of parameters in the model:
+We are looking to see how likely is it for us to have observed a sample slope of $b_{1, obs} = 0.4674$ or more extreme assuming that the population slope is 0 (assuming the null hypothesis is true).  If the conditions are met and assuming $H_0$ is true, we can "standardize" this original test statistic of $B_1$ into a $T$ statistic that follows a $t$ distribution with degrees of freedom equal to $df = n - k$ where $k$ is the number of parameters in the model:
 
 $$ T =\dfrac{ B_i - 0}{ {SE}_i } \sim t (df = n - 2) $$
 
@@ -166,7 +166,7 @@ Note that an interpretation of the observed intercept can also be done: we expec
 The $p$-value---the probability of observing a $t_{114}$ value of 13.46 or more extreme in our null distribution---is essentially zero  This can also be calculated in R directly:
 
 ```{r}
-1 - pt(13.46, df = 114)
+2 * pt(13.46, df = 114, lower.tail = FALSE)
 ```
 
 # State conclusion
