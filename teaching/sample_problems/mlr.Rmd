@@ -99,7 +99,7 @@ options(digits = 5, scipen = 20, width = 90)
 The scatterplot below shows the relationship between mileage, price, and car type.
 
 ```{r scatter1}
-qplot(x = Mileage, y = Price, color = CarType, data = ThreeCars)
+qplot(x = Mileage, y = Price, color = CarType, data = ThreeCars, geom = "point")
 ```
 
 
@@ -162,7 +162,7 @@ where ${SE}_i$ represents the standard deviation of the distribution of the samp
 
 ## Observed test statistic
 
-While one could compute this observed test statistic by "hand", the focus here is on the set-up of the problem and in understanding which formula for the test statistic applies.  We can use the `lm` function here to fit a line and conduct the hypothesis test.  (We've already run this code earlier in the analysis, but it is shown here again for clarity.)
+While one could compute these observed test statistics by "hand", the focus here is on the set-up of the problem and in understanding which formula for the test statistic applies.  We can use the `lm` function here to fit a line and conduct the hypothesis test.  (We've already run this code earlier in the analysis, but it is shown here again for clarity.)
 
 ```{r fit_again}
 car_mult_lm <- lm(Price ~ Mileage + CarType + Mileage:CarType, data = ThreeCars)
