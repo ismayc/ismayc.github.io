@@ -4,7 +4,7 @@ title: PNW eCOTS 2016
 permalink: /ecots2016/
 ---
 
-If you are interested in joining us, please fill out the Google Form at http://goo.gl/forms/kQhMvhqWbj .
+If you are interested in joining us, please fill out the Google Form at [http://goo.gl/forms/kQhMvhqWbj](http://goo.gl/forms/kQhMvhqWbj) .
 
 Our regional meeting on Thursday, May 19 at Reed College will provide opportunities for statistical educators in the Pacific Northwest to meet and discuss pedagogical ideas and to virtually attend poster sessions, keynote presentations, and breakout sessions of <a href = "https://www.causeweb.org/cause/ecots/ecots16" target = "_blank">eCOTS</a> together.
 
