@@ -1,0 +1,214 @@
+---
+title: "ANOVA Example for Portland departing flights in 2014"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cerulean
+    highlight: pygments
+---
+
+
+```{r setup, include=FALSE}
+pkg <- c("tidyr", "dplyr", "ggplot2", 
+  "knitr", "rmarkdown")
+
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+
+if (length(new.pkg)) {
+  install.packages(new.pkg, repos = "http://cran.rstudio.com")
+}
+
+lapply(pkg, library, character.only = TRUE)
+
+if(!require(reedoilabs))
+  devtools::install_github("ismayc/reedoilabs", force = TRUE)
+
+if(!require(pnwflights14))
+  devtools::install_github("ismayc/pnwflights14", force = TRUE)
+
+options(digits = 5, scipen = 99)
+```
+
+# Problem Statement
+
+The `pnwflights14` R package is a modified version of Hadley Wickham's `nycflights13` package and 
+contains information about all flights that departed from the two major airports of
+the Pacific Northwest (PNW), SEA in Seattle and PDX in Portland, in 2014: 162,049 
+flights in total. To help understand what causes delays, it also includes a number 
+of other useful datasets:
+
+* `weather`: hourly meterological data for each airport
+* `planes`: construction information about each plane
+* `airports`: airport names and locations
+* `airlines`: translation between two letter carrier codes and names
+
+In this example, we will focus on a random sample of flights departing Portland with no missing information:
+
+```{r get_data}
+library(pnwflights14)
+data("flights", package = "pnwflights14")
+pdx_flights <- flights %>% filter(origin == "PDX") %>% 
+  select(-year, -origin)
+set.seed(2016)
+pdx_rs <- na.omit(pdx_flights) %>% sample_n(6000)
+```
+
+We are interested in testing whether there is a difference in the mean departure delays by airline/`carrier` for departing flights from Portland in 2014.  The `carrier` variable is coded as a 2-character code.  The corresponding `airlines` dataset mentioned above contains the full name of the airline and we will link this together with our `flights` dataset later.
+
+# Competing Hypotheses
+
+## In words
+
+- Null hypothesis: The mean departure delays are the same for all `r length(unique(flights$carrier))` carriers for all 2014 flights departing Portland, Oregon.
+
+- Alternative hypothesis:  At least one of the population mean departure delays is different.
+
+## Another way with words
+
+- Null hypothesis:  There is no association between departure delay and airline in the population of interest.
+
+- Alternative hypothesis:  There is an association between the variables in the population.
+
+## Set $\alpha$
+
+It's important to set the significance level before starting the testing using the data. Let's set the significance level at 5\% here.
+
+# Exploring the sample data
+
+```{r load_pkg}
+library(dplyr)
+library(knitr)
+library(ggplot2)
+library(reedoilabs)
+```
+
+```{r summarize}
+pdx_summ <- pdx_rs %>% group_by(carrier) %>%
+  summarize(sample_size = n(),
+    mean = mean(dep_delay),
+    sd = sd(dep_delay),
+    minimum = min(dep_delay),
+    lower_quartile = quantile(dep_delay, 0.25),
+    median = median(dep_delay),
+    upper_quartile = quantile(dep_delay, 0.75),
+    max = max(dep_delay))
+kable(pdx_summ)
+```
+
+
+The side-by-side boxplot below also shows the mean for each group highlighted by the red dots.
+
+```{r boxplot}
+qplot(x = carrier, y = dep_delay, data = pdx_rs, geom = "boxplot") +
+      stat_summary(fun.y = "mean", geom = "point", color = "red")
+```
+
+The outliers do muddy this plot up quite a bit.  We can remove them and zoom in on the interquartile range by using the R code below:
+
+```{r clean_boxplot}
+ggplot(aes(x = carrier, y = dep_delay), data = pdx_rs) + 
+  geom_boxplot(outlier.shape = NA) +
+  coord_cartesian(ylim = c(-20, 45)) +
+  stat_summary(fun.y = "mean", geom = "point", color = "red")
+```
+
+
+
+## Guess about statistical significance
+
+We are looking to see if a difference exists in the mean departure time in the 11 levels of the explanatory variable.  Based solely on the boxplot, we have reason to believe that a difference exists, but the overlap of the boxplots is potentially a bit concerning.
+
+# Check conditions
+
+Remember that in order to use the shortcut (formula-based, theoretical) approach, we need to check that some conditions are met.
+
+1. _Independent observations_:  The observations are independent both within and across groups.
+
+    A pseudorandom generator was used in R to select a sample of 3000 flights from our population of all flights.  We also assume that the different airlines act independently, which may not always be the case, but shouldn't affect the results greatly here.
+
+2. _Approximately normal_:  The distribution of the response for each group should be normal or the sample sizes should be at least 30.
+
+```{r qqplot}
+qplot(sample = dep_delay, data = pdx_rs, facets = ~ carrier)
+```
+
+The quantile-quantile plots here should result in straight lines matching the theoretical quantiles of a standard normal distribution if they were in fact normal.  We have serious reason to doubt they are normally distributed, which intuitively makes sense since flight departure delays are likely to have a right-skewed distribution.
+
+The Central Limit Theorem can be invoked with reasonable certainty if each of the groups has more than 30 observations (sample size).  We can see in the table above that `HA` has the fewest but it is at 37, so we can assume this condition is met even though the distributions are heavily skewed.
+
+3. _Constant variance_:  The variance in the groups is about equal from one group to the next.
+
+    The standard deviances in the table above leads us to possibly suspect that the standard deviations of the groups in the population are not similar.  `AA` has a standard deviation of 76.622 minutes while `HA` has a standard deviation of 12.927 minutes.  These are on the same order of magnitude so we can proceed, albeit with some caution.
+
+# Test statistic
+
+The test statistic is a random variable based on the sample data.  Here, we want to look at the ratio of variability **between** the groups over the variability **within** the groups.  This measure we will call $F$ and it represents a measure of the difference in means.  A big observed $F$ ratio corresponds to the variability between groups over-powering the variability within groups.  A small observed $F$ ratio means that the within group variability is much larger than the between group variability.
+
+$F$ is the defined as the ratio
+
+$$
+F = \frac{MSG}{MSE}.
+$$
+
+Here, $MSG$ is the within group variability.  As a formula,
+
+$$ MSG = \dfrac{\sum_{i = 1}^k n_i (\bar{X}_i - \bar{X})}{k - 1} $$ where $\bar{X}_i$ is the mean for each group $i$, and $\bar{X}$ is the overall mean.
+
+Notice that this is very similar to the variance for looking at the group means compared to the overall mean.  In other words, this is the **between** group variability.
+
+Also, note that $MSE$ can be thought of as a pooled variance estimate, which can be thought as a measure of the **within** group variability:
+
+$$MSE = \dfrac{\sum_{i, j} (X_{ij} - \bar{X}_j)^2}{n_{total} - k} $$
+
+where $n_{total} = n_1 + n_2 + \cdots + n_k$ with $n_i$ being the sample size of group $i$.
+
+## Observed test statistic
+
+While one could compute this observed test statistic by "hand", the focus here is on the set-up of the problem and in understanding which formula for the test statistic applies.  We can use the `inference` function in the `reedoilabs` package to perform this analysis for us.  Note that to obtain the `F value` given here, you divide the observed $MSG$ value of 13,033 by the observed $MSE$ value of 966.
+
+```{r}
+inference(x = pdx_rs$carrier, 
+          y = pdx_rs$dep_delay, 
+          est = "mean",
+          type = "ht", 
+          alternative = "greater", 
+          method = "theoretical")
+```
+
+We see here that the $f_{obs}$ value is around 13.5 with $df_G = k - 1 = 11 - 1 = 10$ and $df_E = n_{total} - k   = 6000 - 11 = 5989$.
+
+# Compute $p$-value
+
+The $p$-value---the probability of observing an $F(df_G = 10, df_E = 5989)$ value of 15.4 or more in our null distribution---is essentially 0.  This can also be calculated in R directly:
+
+```{r}
+pf(13.5, df1 = 10, df2 = 5989, lower.tail = FALSE)
+```
+
+
+Note that we could also do this test directly without invoking the `inference` function using the `aov` function.  `aov` stands for analysis of variance and its form is similar to what is done using the `lm` function with linear regression.  It fits an analysis of variance model to the data in the same way that `lm` fits a linear regression model to the data.  `summary` displays the resulting ANOVA table for the model fit.
+
+```{r}
+pdx_anova <- aov(formula = dep_delay ~ carrier, data = pdx_rs)
+summary(pdx_anova)
+```
+
+
+
+# State conclusion
+
+We, therefore, have sufficient evidence to reject the null hypothesis.  Our initial guess that a statistically significant difference existed in the means was backed by this statistical analysis.  We have evidence to suggest that departure delay is related to carrier.  If we'd like to get a sense for how the codes relate to the actual names of the airlines, we can use the `inner_join` function in the `dplyr` package to match the `carrier` code with its corresponding `name` in the `airlines` table:
+
+```{r join, warning=FALSE}
+data(airlines, package = "pnwflights14")
+pdx_join <- inner_join(x = pdx_summ %>% select(carrier, mean, sd), 
+           y = airlines, by = "carrier")
+kable(pdx_join)
+```
+
+
+# Final note
+
+With the conditions near being (or possibly) violated, one should use randomization to compare our $p$-value there with the value here to see if the assumptions may have been violated.  One could also assess whether the sampling distribution of the $F$ statistic matches well with a Fisher's $F$ distribution using randomization as well.  If the conditions are reasonable, the next step would be to calculate pairwise analyses to better understand the reasons for the rejection of the null hypotheses in the ANOVA.
+

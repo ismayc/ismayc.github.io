@@ -8,6 +8,16 @@ If you are interested in joining us, please fill out the Google Form at [http://
 
 Our regional meeting on Thursday, May 19 at Reed College will provide opportunities for statistical educators in the Pacific Northwest to meet and discuss pedagogical ideas and to virtually attend poster sessions, keynote presentations, and breakout sessions of <a href = "https://www.causeweb.org/cause/ecots/ecots16" target = "_blank">eCOTS</a> together.
 
+The meeting will take place in Vollum Lounge in Vollum College Center on Reed Campus and in neighboring classrooms in Vollum College Center.  A map is below and more details are available [here](https://www.reed.edu/facilities_services/reed_static_map.html).  We recommend you park in East Parking near SE 36th Ave and SE Woodstock Blvd.  On the map below, Vollum College Center is Building 39.  This parking lot is labeled by a star below:
+
+<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d5594.9525979079235!2d-122.62893629540856!3d45.48035255955436!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1463433927812" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+
+![Reed Campus Map]({{ site.baseurl }}/campus_map_lg.gif)
+
+
+
+**Schedule**
+
 12:00 - 12:30:  Free registration and introductions
 
 12:30 - 12:40:  Welcome and discussion of schedule
