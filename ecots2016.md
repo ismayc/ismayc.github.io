@@ -20,7 +20,7 @@ The meeting will take place in Vollum Lounge in Vollum College Center on Reed Ca
 
 12:30 - 12:40:  Welcome and discussion of schedule
 
-12:45 - 1:15:  eCOTS Breakout Session - Assessment at scale: challenges and opportunities in assessment in large and small statistics courses (Julia L Parris)
+12:45 - 1:15:  eCOTS Recorded Breakout Session - GAISEing into the NEW Guidelines (Robert Carver, Megan Mocko, Jeff Witmer and Beverly Wood)
 
 1:25 - 1:55:  Using RStudio Server and GitHub for collaborative reproducible research and statistical analyses (Andrew Bray and Chester Ismay) - Live demonstration
 
@@ -28,7 +28,7 @@ The meeting will take place in Vollum Lounge in Vollum College Center on Reed Ca
 
 3:00 - 3:30:  Networking / Break
 
-3:30 - 5:00:  Group Discussion / Previous eCOTS Breakout Sessions
+3:30 - 5:00:  Group Discussion 
 
 5:00 - 6:00:  Dinner provided
 
