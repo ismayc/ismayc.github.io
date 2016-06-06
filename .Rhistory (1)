@@ -1,0 +1,512 @@
+geom_jitter()
+qplot(x = explanatory, y = response, data = dataframe, geom = "point") +
++ theme(text = element_text(size = 20))
+explanatory <- rnorm(100, 50)
+response <- 2 * explanatory + rnorm(100)
+dataframe <- data.frame(explanatory, response)
+qplot(x = explanatory, y = response, data = dataframe, geom = "point") +
++ theme(text = element_text(size = 20))
+explanatory <- rnorm(100, 50)
+response <- 2 * explanatory + rnorm(100)
+dataframe <- data.frame(explanatory, response)
+qplot(x = explanatory, y = response, data = dataframe, geom = "point") +
+theme(text = element_text(size = 20))
+explanatory <- rnorm(100, 50)
+response <- 2 * explanatory + rnorm(100)
+dataframe <- data.frame(explanatory, response)
+qplot(x = explanatory, y = response, data = dataframe, geom = "point") +
+theme(text = element_text(size = 20))
+ggsave(paste0(homedir, "scatterplot.png"), dpi = 600)
+?rbin
+rbinom
+?rbinom
+explanatory <- rnorm(100, 50)
+response <- rbinom(100, size = 1, prob = 0.1)
+dataframe <- data.frame(explanatory, response)
+qplot(x = explanatory, y = response, data = dataframe, geom = "point") +
+theme(text = element_text(size = 20))
+library(ggplot2)
+explanatory <- rnorm(100, 50)
+response <- rbinom(100, size = 1, prob = 0.1)
+dataframe <- data.frame(explanatory, response)
+qplot(x = explanatory, y = response, data = dataframe, geom = "point") +
+theme(text = element_text(size = 20))
+explanatory <- rnorm(100, 50)
+response <- rbinom(100, size = 1, prob = 0.5)
+dataframe <- data.frame(explanatory, response)
+qplot(x = explanatory, y = response, data = dataframe, geom = "point") +
+theme(text = element_text(size = 20))
+ggsave(paste0(homedir, "scatterplot_logistic.png"), dpi = 600)
+explanatory <- rnorm(100, 50)
+response <- rbinom(100, size = 1, prob = 0.9)
+dataframe <- data.frame(explanatory, response)
+qplot(x = explanatory, y = response, data = dataframe, geom = "point") +
+theme(text = element_text(size = 20))
+ggsave(paste0(homedir, "scatterplot_logistic.png"), dpi = 600)
+explanatory <- rnorm(100, 50)
+response <- rbinom(100, size = 1, prob = 0.6)
+dataframe <- data.frame(explanatory, response)
+qplot(x = explanatory, y = response, data = dataframe, geom = "point") +
+theme(text = element_text(size = 20))
+explanatory <- rnorm(100, 50)
+response <- rbinom(100, size = 1, prob = 0.6)
+dataframe <- data.frame(explanatory, response)
+qplot(x = explanatory, y = factor(response), data = dataframe, geom = "point") +
+theme(text = element_text(size = 20))
+explanatory <- rnorm(100, 50)
+response <- factor(rbinom(100, size = 1, prob = 0.6))
+dataframe <- data.frame(explanatory, response)
+qplot(x = explanatory, y = response) data = dataframe, geom = "point") +
+theme(text = element_text(size = 20))
+explanatory <- rnorm(100, 50)
+response <- factor(rbinom(100, size = 1, prob = 0.6))
+dataframe <- data.frame(explanatory, response)
+qplot(x = explanatory, y = response) data = dataframe, geom = "point") +
+theme(text = element_text(size = 20))
+explanatory <- rnorm(100, 50)
+response <- factor(rbinom(100, size = 1, prob = 0.6))
+dataframe <- data.frame(explanatory, response)
+qplot(x = explanatory, y = response, data = dataframe, geom = "point") +
+theme(text = element_text(size = 20))
+explanatory <- rnorm(100, 50)
+response <- factor(rbinom(100, size = 1, prob = 0.7))
+dataframe <- data.frame(explanatory, response)
+qplot(x = explanatory, y = response, data = dataframe, geom = "point") +
+theme(text = element_text(size = 20))
+ggsave(paste0(homedir, "scatterplot_logistic.png"), dpi = 600)
+orings <- read.delim("data/orings.txt", header = TRUE)
+qplot(x = temp, y = damage, data = orings, geom = "point") +
+geom_jitter(height = 0.1)
+oring_glm <- glm(damage ~ temp, data = orings, family = binomial)
+summary(oring_glm)
+qplot(x = temp, y = damage, data = orings, geom = "point") +
+geom_jitter(height = 0.1)
+library(ggplot2)
+qplot(x = temp, y = damage, data = orings, geom = "point") +
+geom_jitter(height = 0.1)
+orings <- read.delim("data/orings.txt", header = TRUE)
+qplot(x = temp, y = damage, data = orings, geom = "point") +
+geom_jitter(height = 0.1)
+setwd("~/Google Drive/ismayc.github.io/slides/13")
+orings <- read.delim("data/orings.txt", header = TRUE)
+qplot(x = temp, y = damage, data = orings, geom = "point") +
+geom_jitter(height = 0.1)
+pkg <- c("tidyr", "dplyr", "ggplot2",
+"knitr", "rmarkdown", "readr",
+"DT","devtools", "broom", "Stat2Data")
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+if (length(new.pkg)) {
+install.packages(new.pkg, repos = "http://cran.rstudio.com")
+}
+lapply(pkg, library, character.only = TRUE)
+if(!require(oilabs))
+devtools::install_github("ismayc/oilabs", force = TRUE)
+options(digits = 5, scipen = 99)
+library(dplyr)
+library(knitr)
+library(ggplot2)
+library(oilabs)
+library(Stat2Data)
+data(Sparrows)
+summarizer <- function(data, group, over){
+data %>% group_by(group) %>%
+summarize(sample_size = n(),
+mean = mean(over),
+sd = sd(over),
+minimum = min(over),
+lower_quartile = quantile(over, 0.25),
+median = median(over),
+upper_quartile = quantile(over, 0.75),
+max = max(over))
+}
+spar_summ <- Sparrows %>% summarizer(group = Treatment, over = Weight)
+summarizer <- function(data, group, over){
+data %>% group_by_(group) %>%
+summarize(sample_size = n(),
+mean = mean(over),
+sd = sd(over),
+minimum = min(over),
+lower_quartile = quantile(over, 0.25),
+median = median(over),
+upper_quartile = quantile(over, 0.75),
+max = max(over))
+}
+spar_summ <- Sparrows %>% summarizer(group = Treatment, over = Weight)
+summarizer <- function(data, group, over){
+data %>% group_by_(quote(group)) %>%
+summarize(sample_size = n(),
+mean = mean(over),
+sd = sd(over),
+minimum = min(over),
+lower_quartile = quantile(over, 0.25),
+median = median(over),
+upper_quartile = quantile(over, 0.75),
+max = max(over))
+}
+spar_summ <- Sparrows %>% summarizer(group = Treatment, over = Weight)
+?quote
+?lazyeval
+install.packages("lazyeval")
+install.packages("lazyeval")
+library(dplyr)
+library(knitr)
+library(ggplot2)
+library(oilabs)
+library(Stat2Data)
+library(lazyeval)
+data(Sparrows)
+summarizer <- function(data, group, over){
+data %>% group_by(lazy(group)) %>%
+summarize(sample_size = n(),
+mean = mean(over),
+sd = sd(over),
+minimum = min(over),
+lower_quartile = quantile(over, 0.25),
+median = median(over),
+upper_quartile = quantile(over, 0.75),
+max = max(over))
+}
+spar_summ <- Sparrows %>% summarizer(group = Treatment, over = Weight)
+summarizer <- function(data, group, over){
+data %>% group_by_(~group) %>%
+summarize(sample_size = n(),
+mean = mean(over),
+sd = sd(over),
+minimum = min(over),
+lower_quartile = quantile(over, 0.25),
+median = median(over),
+upper_quartile = quantile(over, 0.75),
+max = max(over))
+}
+spar_summ <- Sparrows %>% summarizer(group = Treatment, over = Weight)
+summarizer <- function(data, group, over){
+data %>% group_by_(quote(group)) %>%
+summarize(sample_size = n(),
+mean = mean(over),
+sd = sd(over),
+minimum = min(over),
+lower_quartile = quantile(over, 0.25),
+median = median(over),
+upper_quartile = quantile(over, 0.75),
+max = max(over))
+}
+spar_summ <- Sparrows %>% summarizer(group = Treatment, over = Weight)
+qplot(x = WingLength, y = Weight, data = Sparrows, geom = "point")
+weight_wing_mod <- lm(weight ~ wing, data = Sparrows)
+weight_wing_mod <- lm(Weight ~ WingLength, data = Sparrows)
+summary(weight_wing_mod)
+weight_wing_mod <- lm(Weight ~ WingLength, data = Sparrows)
+qplot(x = .fitted, y = .stdresid, data = weight_wing_mod)
+qplot(sample = .stdresid, data = weight_wing_mod)
+qplot(sample = .stdresid, data = weight_wing_mod) + geom_abline()
+qplot(sample = .stdresid, data = weight_wing_mod) +
+geom_abline(color = "blue")
+0.83/(1.23/sqrt(10))
+summary(weight_wing_mod)
+weight_wing_mod <- lm(Weight ~ WingLength, data = Sparrows)
+summary(weight_wing_mod)
+1 - pt(13.46, df = 114)
+?qplot
+library(ggplot2)
+?qplot
+setwd("~/Google Drive/ismayc.github.io/teaching/sample_problems")
+library(dplyr)
+library(knitr)
+library(ggplot2)
+library(oilabs)
+orings <- read.delim("orings")
+library(dplyr)
+library(knitr)
+library(ggplot2)
+library(oilabs)
+orings <- read.delim("orings.txt")
+# Chunk 1: setup
+pkg <- c("tidyr", "dplyr", "ggplot2",
+"knitr", "rmarkdown", "readr",
+"DT","devtools", "broom", "Stat2Data")
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+if (length(new.pkg)) {
+install.packages(new.pkg, repos = "http://cran.rstudio.com")
+}
+lapply(pkg, library, character.only = TRUE)
+if(!require(oilabs))
+devtools::install_github("ismayc/oilabs", force = TRUE)
+options(digits = 5, scipen = 99)
+# Chunk 2: read_data
+library(dplyr)
+library(knitr)
+library(ggplot2)
+library(oilabs)
+orings <- read.delim("orings.txt")
+qplot(x = temp, y = damage, data = orings, geom = "point") +
+geom_jitter(height = 0.1)
+qplot(x = temp, y = factor(damage), data = orings, geom = "point") +
+geom_jitter(height = 0.1)
+qplot(x = temp, y = factor(damage), data = orings, geom = "point") +
+geom_jitter()
+qplot(x = temp, y = factor(damage), data = orings, geom = "point") +
+geom_jitter(height = 0.2)
+qplot(x = temp, y = factor(damage), data = orings, geom = "point") +
+geom_jitter(height = 0.2, alpha = 0.5)
+qplot(x = temp, y = factor(damage), data = orings, geom = "point") +
+geom_jitter(height = 0.3, alpha = 0.5)
+qplot(x = temp, y = factor(damage), data = orings, geom = "point") +
+geom_jitter(height = 0.4, alpha = 0.5)
+?install.packages
+oring_glm <- glm(damage ~ temp, data = orings, family = binomial)
+summary(oring_glm)
+qplot(x = .fitted, y = .stdresid, data = oring_glm)
+oring_glm <- glm(damage ~ temp, data = orings, family = binomial)
+summary(oring_glm)
+summary(oring_glm)
+qplot(x = temp, y = factor(damage),
+data = orings, geom = "point") +
+geom_jitter(height = 0.4, alpha = 0.5) +
+geom_smooth(method = "glm",
+method.args = list(family = binomial))
+qplot(x = temp, y = factor(damage),
+data = orings, geom = "point") +
+geom_jitter(height = 0.4, alpha = 0.5)  +
+stat_smooth(method = "glm",
+method.args = list(family = "binomial"),
+se = FALSE)
+qplot(x = temp, y = damage,
+data = orings, geom = "point") +
+geom_jitter(height = 0.4, alpha = 0.5)  +
+stat_smooth(method = "glm",
+method.args = list(family = "binomial"),
+se = FALSE)
+qplot(x = temp, y = damage,
+data = orings, geom = "point") +
+stat_smooth(method = "glm",
+method.args = list(family = "binomial"),
+se = FALSE)
+summary(weight_wing_mod)
+summary(oring_glm)
+oring_glm <- glm(damage ~ temp, data = orings, family = binomial)
+summary(oring_glm)
+summary(weight_wing_mod)
+oring_glm <- glm(damage ~ temp, data = orings, family = binomial)
+summary(oring_glm)
+2 * pnorm(13.46, lower.tail = FALSE)
+2 * pnorm(-2.14)
+2 * pt(13.46, df = 114)
+2 * pt(13.46, df = 114, lower.tail = FALSE)
+?filllab
+library(ggplot2)
+?filllab
+?labs
+# Chunk 1: setup
+pkg <- c("tidyr", "dplyr", "ggplot2",
+"knitr", "rmarkdown", "googlesheets", "plotly",
+"DT","devtools", "readr", "scales")
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+if (length(new.pkg)) {
+install.packages(new.pkg, repos = "http://cran.rstudio.com")
+}
+rm(list = ls(all = TRUE))
+library(dplyr)
+library(ggplot2)
+library(googlesheets)
+library(readr)
+library(DT)
+library(knitr)
+library(plotly)
+library(tidyr)
+library(scales)
+options(digits = 3)
+opts_chunk$set(message = FALSE, echo = FALSE, fig.width = 9, fig.height = 5, fig.align = "center")
+# Chunk 2: load_data
+# Read in data from Google Sheet
+gs_obj <- gs_title("Spring 2016 edited response data", verbose = TRUE)
+# Chunk 3
+# Create summarizer function
+sum_up <- function(df, var1, var2 = NULL){
+require(dplyr)
+require(knitr)
+require(DT)
+if(is.null(var2)){
+df %>% group_by_(var1) %>%
+summarize(count = n()) %>%
+mutate(freq = round(count / sum(count) * 100, 2))
+}
+else
+df %>% group_by_(var1, var2) %>%
+summarize(count = n()) %>%
+mutate(freq = round(count / sum(count) * 100, 2))
+}
+# Chunk 4: get_data
+# Create data frame from first worksheet in Google Sheet.
+ss_data <- gs_read(gs_obj, ws = 1, verbose = FALSE) %>%
+# Rename to easier column names
+rename(year = `What is your year in school?`) %>%
+rename(major = `What is your major?`) %>%
+# Turn into a factor variable to change ordering of variable
+mutate(year = factor(year, levels = c("First-year", "Sophomore", "Junior", "Senior"))) %>%
+# Create computer and tablet variables
+rename(computer = `Computer (laptop OR desktop)`) %>%
+rename(tablet = `Tablet?`) %>%
+# Create tablet ownership variable
+mutate(own_tablet = ifelse(tablet == "None" | is.na(tablet) | tablet == "I use the PARC ipads", "Don't Own", "Own")) %>%
+mutate(computer = ifelse(computer == "lottery mac", "Macintosh", computer)) %>%
+# Remove students with non-standard years and majors
+filter(year != "Other", major != "Other")
+div_totals <- ss_div_tab %>% sum_up(var1 = "division")
+datatable(div_totals, rownames = FALSE,
+options = list(pageLength = nrow(div_totals)))
+# Read in division table based on major
+div_obj <- gs_title("Major_Division_Table", verbose = TRUE)
+div_major <- gs_read(div_obj, ws = 1, verbose = FALSE) %>% distinct()
+div_table <- read_csv("div_table.csv")
+# Join to create column in `ss_data` with division
+ss_div <- inner_join(x = ss_data, y = div_table, by = "major")
+ss_div_tab <- ss_div %>% filter(own_tablet == "Own")
+View(ss_div)
+# Chunk 1: setup
+pkg <- c("tidyr", "dplyr", "ggplot2",
+"knitr", "rmarkdown", "googlesheets", "plotly",
+"DT","devtools", "readr", "scales")
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+if (length(new.pkg)) {
+install.packages(new.pkg, repos = "http://cran.rstudio.com")
+}
+rm(list = ls(all = TRUE))
+library(dplyr)
+library(ggplot2)
+library(googlesheets)
+library(readr)
+library(DT)
+library(knitr)
+library(plotly)
+library(tidyr)
+library(scales)
+options(digits = 3)
+opts_chunk$set(message = FALSE, echo = FALSE, fig.width = 9, fig.height = 5, fig.align = "center")
+# Chunk 2: load_data
+# Read in data from Google Sheet
+gs_obj <- gs_title("Spring 2016 edited response data", verbose = TRUE)
+# Chunk 3
+# Create summarizer function
+sum_up <- function(df, var1, var2 = NULL){
+require(dplyr)
+require(knitr)
+require(DT)
+if(is.null(var2)){
+df %>% group_by_(var1) %>%
+summarize(count = n()) %>%
+mutate(freq = round(count / sum(count) * 100, 2))
+}
+else
+df %>% group_by_(var1, var2) %>%
+summarize(count = n()) %>%
+mutate(freq = round(count / sum(count) * 100, 2))
+}
+# Chunk 4: get_data
+# Create data frame from first worksheet in Google Sheet.
+ss_data <- gs_read(gs_obj, ws = 1, verbose = FALSE) %>%
+# Rename to easier column names
+rename(year = `What is your year in school?`) %>%
+rename(major = `What is your major?`) %>%
+# Turn into a factor variable to change ordering of variable
+mutate(year = factor(year, levels = c("First-year", "Sophomore", "Junior", "Senior"))) %>%
+# Create computer and tablet variables
+rename(computer = `Computer (laptop OR desktop)`) %>%
+rename(tablet = `Tablet?`) %>%
+# Create tablet ownership variable
+mutate(own_tablet = ifelse(tablet == "None" | is.na(tablet) | tablet == "I use the PARC ipads", "Don't Own", "Own")) %>%
+mutate(computer = ifelse(computer == "lottery mac", "Macintosh", computer)) %>%
+# Remove students with non-standard years and majors
+filter(year != "Other", major != "Other")
+# Read in division table based on major
+div_obj <- gs_title("Major_Division_Table", verbose = TRUE)
+div_major <- gs_read(div_obj, ws = 1, verbose = FALSE) %>% distinct()
+div_table <- read_csv("div_table.csv")
+# Join to create column in `ss_data` with division
+ss_div <- inner_join(x = ss_data, y = div_table, by = "major")
+ss_div_tab <- ss_div %>% filter(own_tablet == "Own")
+pkg <- c("dplyr", "ggplot2",
+"knitr", "rmarkdown", "devtools", "DT")
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+if(length(new.pkg))
+install.packages(new.pkg, repos = "http://cran.rstudio.com")
+if(!require(izzyuntappd))
+devtools::install_github("ismayc/untappd", force = TRUE)
+lapply(pkg, library, character.only = TRUE)
+options(width = 95, dplyr.print_max = 1e9)
+# Chunk 1: setup
+pkg <- c("dplyr", "ggplot2",
+"knitr", "rmarkdown", "devtools", "DT")
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+if(length(new.pkg))
+install.packages(new.pkg, repos = "http://cran.rstudio.com")
+if(!require(izzyuntappd))
+devtools::install_github("ismayc/untappd", force = TRUE)
+lapply(pkg, library, character.only = TRUE)
+options(width = 95, dplyr.print_max = 1e9)
+# Chunk 2: load_data
+data(untappd, package = "izzyuntappd")
+# I've also included the dataset as a CSV file and you can read it in by using
+# untappd <- read.csv(file = "chester_beer_feb15-may16.csv", header = TRUE,
+#     stringsAsFactors = FALSE)
+# Chunk 3: glance
+head(untappd)
+# Chunk 4: central_tends
+untappd %>% summarize(mean_abv = mean(abv), median_abv = median(abv))
+# Chunk 5: abv_plot
+qplot(x = abv, data = untappd, geom = "histogram", bins = 20, color = I("white"))
+# Chunk 6: n_styles
+style_count <- untappd %>% group_by(style) %>%
+summarize(count = n()) %>%
+arrange(desc(count))
+datatable(style_count)
+# Chunk 7
+untappd %>% filter(brewery_state == "OR" | brewery_state == "WI") %>%
+#  group_by(brewery_state) %>%
+summarize(med_rating = median(rating))
+pkg <- c("dplyr", "ggplot2",
+"knitr", "rmarkdown", "devtools", "DT")
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+if(length(new.pkg))
+install.packages(new.pkg, repos = "http://cran.rstudio.com")
+if(!require(izzyuntappd))
+devtools::install_github("ismayc/izzyuntappd", force = TRUE)
+lapply(pkg, library, character.only = TRUE)
+options(width = 95, dplyr.print_max = 1e9)
+# Chunk 1: setup
+pkg <- c("dplyr", "ggplot2",
+"knitr", "rmarkdown", "devtools", "DT")
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+if(length(new.pkg))
+install.packages(new.pkg, repos = "http://cran.rstudio.com")
+if(!require(izzyuntappd))
+devtools::install_github("ismayc/izzyuntappd", force = TRUE)
+lapply(pkg, library, character.only = TRUE)
+options(width = 95, dplyr.print_max = 1e9)
+# Chunk 2: load_data
+data(untappd, package = "izzyuntappd")
+# I've also included the dataset as a CSV file and you can read it in by using
+# untappd <- read.csv(file = "chester_beer_feb15-may16.csv", header = TRUE,
+#     stringsAsFactors = FALSE)
+# Chunk 3: glance
+head(untappd)
+# Chunk 4: central_tends
+untappd %>% summarize(mean_abv = mean(abv), median_abv = median(abv))
+# Chunk 5: abv_plot
+qplot(x = abv, data = untappd, geom = "histogram", bins = 20, color = I("white"))
+# Chunk 6: n_styles
+style_count <- untappd %>% group_by(style) %>%
+summarize(count = n()) %>%
+arrange(desc(count))
+datatable(style_count)
+# Chunk 7
+untappd %>% filter(brewery_state == "OR" | brewery_state == "WI") %>%
+#  group_by(brewery_state) %>%
+summarize(med_rating = median(rating))
+df <- data.frame(x=1:100,y=1:100)
+df
+data(untappd, package = "izzyuntappd")
+# I've also included the dataset as a CSV file and you can read it in by using
+# untappd <- read.csv(file = "chester_beer_feb15-may16.csv", header = TRUE,
+#     stringsAsFactors = FALSE)
+untappd
+View(untappd)

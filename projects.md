@@ -6,6 +6,7 @@ permalink: /projects/
 
 At [Reed College](www.reed.edu), I'm working on the following projects
 
+  - [Writing blogs about useful educational tools](http://blogs.reed.edu/ed-tech/author/cismay/)
   - [R Markdown senior thesis template](http://github.com/ismayc/reedtemplates)
   - [Data on all flights leaving PDX and SEA in 2014](http://github.com/ismayc/pnwflights14)
   - [GitHub organization for Reed community](http://github.com/Reedies)
