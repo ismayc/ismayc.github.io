@@ -11,7 +11,7 @@ permalink: /teaching/plickers/
 
 #### Bayesian Inference
 
-1. What is the best definition for our $p$-value in probability notation?
+1. What is the best definition for our _p_-value in probability notation?
     - $$\mathbb{P}$$($$H_0$$ is true | data or more extreme)
     - $$\mathbb{P}$$($$H_0$$ is true)
     - $$\mathbb{P}$$(data or more extreme | $$H_0$$ is true)
