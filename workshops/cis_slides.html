@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Chester Ismay" />
+  <title>Putting the   R   in Reed CIS</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="slides_files/reveal.js-3.3.0/css/reveal.css"/>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+pre, code { background-color: #f8f8f8; }
+code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code > span.dt { color: #204a87; } /* DataType */
+code > span.dv { color: #0000cf; } /* DecVal */
+code > span.bn { color: #0000cf; } /* BaseN */
+code > span.fl { color: #0000cf; } /* Float */
+code > span.ch { color: #4e9a06; } /* Char */
+code > span.st { color: #4e9a06; } /* String */
+code > span.co { color: #8f5902; font-style: italic; } /* Comment */
+code > span.ot { color: #8f5902; } /* Other */
+code > span.al { color: #ef2929; } /* Alert */
+code > span.fu { color: #000000; } /* Function */
+code > span.er { color: #a40000; font-weight: bold; } /* Error */
+code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #000000; } /* SpecialChar */
+code > span.vs { color: #4e9a06; } /* VerbatimString */
+code > span.ss { color: #4e9a06; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #000000; } /* Variable */
+code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code > span.ex { } /* Extension */
+code > span.at { color: #c4a000; } /* Attribute */
+code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="slides_files/reveal.js-3.3.0/css/theme/beige.css" id="theme">
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'slides_files/reveal.js-3.3.0/css/print/pdf.css' : 'slides_files/reveal.js-3.3.0/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <!--[if lt IE 9]>
+    <script src="slides_files/reveal.js-3.3.0/lib/js/html5shiv.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">Putting the <br> <code>R</code> <br> in Reed CIS <br> <br></h1>
+    <h2 class="author">Chester Ismay</h2>
+    <h3 class="date">Friday, August 5, 2016 <br><br> Slides available at <br> <a href="http://rpubs.com/cismay/R_in_CIS" class="uri">http://rpubs.com/cismay/R_in_CIS</a></h3>
+</section>
+
+<section id="what-is-r" class="slide level2">
+<h1>What is <code>R</code>?</h1>
+<style type="text/css">
+  /* I'm cheating here. The ioslides pipeline wants to treat every h1 and h2
+     in a special way, so I can't demo what they look like as a part of a page.
+     I'm just emulating it here.*/
+  #faux-h1 {
+    font-size: 1.5em; margin: .67em 0;
+  }
+  
+  #faux-h2 {
+    font-size: 1.2em; margin: .75em 0;
+  }
+  
+  #questions {
+    text-align: center;
+    font-size: 2em;
+    padding-top: 1em;
+    padding-bottom: 2em;
+  }
+  
+  #wrap {
+   width:900px;
+   margin:0 auto;
+  }
+ 
+  #left_col {
+   float:left;
+   width:550px;
+  }
+  
+  #right_col {
+   float:right;
+   width:350px;
+  }
+     
+</style>
+<p><img src="gif/land_free_small.gif" /></p>
+<p><br><small><a href="http://rpubs.com/cismay/R_in_CIS" class="uri">http://rpubs.com/cismay/R_in_CIS</a></small></p>
+<aside class="notes">
+<ul>
+<li><code>R</code> is a completely free software package and language for statistical analysis and graphics.</li>
+<li>It was developed by Ross Ihaka and Robert Gentleman at the University of Auckland in New Zealand as a free version of the S language.</li>
+<li>It’s first initial release was in 1994.</li>
+</ul>
+</aside>
+</section>
+<section id="what-has-r-been" class="slide level2">
+<h1>What has <code>R</code> been?</h1>
+<p><img src="figure/old_r.png" width="600" /></p>
+<aside class="notes">
+<ul>
+<li><code>R</code> is a programming language written by statisticians for statisticians.</li>
+<li>When I first learned it in 2007, I never thought I’d be teaching Introductory Statistics students and my non-statistician colleagues (Go ITS!) how to use it</li>
+</ul>
+</aside>
+<p><br><br><small><a href="http://rpubs.com/cismay/R_in_CIS" class="uri">http://rpubs.com/cismay/R_in_CIS</a></small></p>
+</section>
+<section id="what-is-r-becoming" class="slide level2">
+<h1>What is <code>R</code> becoming?</h1>
+<p><img src="figure/hadley.jpg" width="350" /></p>
+<p><small><a href="http://rpubs.com/cismay/R_in_CIS" class="uri">http://rpubs.com/cismay/R_in_CIS</a></small></p>
+<aside class="notes">
+<ul>
+<li>With the help of Hadley Wickham and other developers, R now <em>excels</em> in helping you with
+<ul>
+<li>data manipulation</li>
+<li>automation</li>
+<li>reproducibility</li>
+<li>improved accuracy</li>
+<li>error finding</li>
+<li>customizability</li>
+<li>beautiful visualizations</li>
+</ul></li>
+</ul>
+</aside>
+</section>
+<section id="learning-how-to-use-r" class="slide level2">
+<h1>Learning how to use R</h1>
+</section>
+<section id="rstudio-and-r-markdown" class="slide level2">
+<h1>RStudio and R Markdown</h1>
+<ul>
+<li>Nice user interface</li>
+<li>Free</li>
+<li>RStudio in Desktop and Server versions</li>
+<li>Reproducible research using R Markdown</li>
+</ul>
+<aside class="notes">
+<ul>
+<li>RStudio is a powerful user interface that helps you get better control of your analysis.</li>
+<li>It is also completely free.</li>
+<li>It comes in both a desktop version and a server version (on the cloud).</li>
+<li>You can write your entire paper/report (text, code, analysis, graphics, etc.) all in R Markdown.</li>
+<li>If you need to update any of your code, R Markdown will automatically update your plots and output of your analysis and will create an updated PDF/HTML file.</li>
+</ul>
+</aside>
+<p><br><br><br><small><a href="http://rpubs.com/cismay/R_in_CIS" class="uri">http://rpubs.com/cismay/R_in_CIS</a></small></p>
+</section>
+<section id="rstudio-and-r-markdown-1" class="slide level2">
+<h1>RStudio and R Markdown</h1>
+<p><img src="gif/copy_paste.gif" width="300" /></p>
+<ul>
+<li><strong>No more copy-and-paste!</strong></li>
+</ul>
+<p><small><a href="http://rpubs.com/cismay/R_in_CIS" class="uri">http://rpubs.com/cismay/R_in_CIS</a></small></p>
+</section>
+<section id="but-then-i-have-to-learn-r" class="slide level2">
+<h1>But then I have to learn R…</h1>
+</section>
+<section id="like-learning-a-foreign-language" class="slide level2">
+<h1>Like learning a foreign language!</h1>
+<h3 id="similarities-in-the-simplest-case">Similarities (In the simplest case)</h3>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">R</th>
+<th style="text-align: center;">Foreign Language</th>
+<th>R examples</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><em>functions</em></td>
+<td style="text-align: center;">verb</td>
+<td>- <code>sqrt()</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: center;"></td>
+<td>- <code>arrange()</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: center;"></td>
+<td>- <code>lm()</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><em>command</em></td>
+<td style="text-align: center;">sentence</td>
+<td>- <code>exp(3)</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: center;"></td>
+<td>- <code>tail(babynames)</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>KEY POINT</strong> - Exposure makes you fluent!</p>
+<aside class="notes">
+<ul>
+<li>Throughout this presentation, we will be working with Hadley Wickham’s packages that have really sped up newbies learning R.</li>
+</ul>
+</aside>
+<p><br><small><a href="http://rpubs.com/cismay/R_in_CIS" class="uri">http://rpubs.com/cismay/R_in_CIS</a></small></p>
+</section>
+<section id="r-at-work" class="slide level2">
+<h1>R at work</h1>
+</section>
+<section id="to-the-beer" class="slide level2">
+<h1>To the beeR!</h1>
+<p><img src="gif/beer.gif" width="350" /></p>
+<p><br><small><a href="http://rpubs.com/cismay/R_in_CIS" class="uri">http://rpubs.com/cismay/R_in_CIS</a></small></p>
+</section>
+<section id="my-untappd-ratings" class="slide level2">
+<h1>My Untappd ratings</h1>
+<p><img src="figure/untappd.jpg" width="800" /></p>
+<aside class="notes">
+<ul>
+<li>Untappd is an app available on iOS/Android/Windows phones and on the web</li>
+<li>It allows you to “check in” to the location and rate the beers you are drinking</li>
+<li>It has a scale of 0.25 to 5 by quarters</li>
+<li>For a mere $5, you can become an Untappd supporter and get access to all of your ratings in CSV format.</li>
+</ul>
+</aside>
+<p><br><small><a href="http://rpubs.com/cismay/R_in_CIS" class="uri">http://rpubs.com/cismay/R_in_CIS</a></small></p>
+</section>
+<section id="my-untappd-r-data-package" class="slide level2">
+<h1>My Untappd R data package</h1>
+<p><a href="https://github.com/ismayc/izzyuntappd" class="uri">https://github.com/ismayc/izzyuntappd</a></p>
+<p><img src="figure/fort_george.jpg" width="700" /></p>
+<aside class="notes">
+<ul>
+<li>To help newbies get used to working in R, I paid the $5 and created an R data package containing information on all of my beer rankings from February 2015 to June 2016</li>
+<li>To access more information about the package you can go to the link</li>
+<li>We are now going to switch over to RStudio.</li>
+</ul>
+</aside>
+<p><small><a href="http://rpubs.com/cismay/R_in_CIS" class="uri">http://rpubs.com/cismay/R_in_CIS</a></small></p>
+</section>
+<section id="demo" class="slide level2">
+<h1>DEMO</h1>
+</section>
+<section id="useful-links" class="slide level2">
+<h1>Useful links</h1>
+<p><a href="https://rpubs.com/bradleyboehmke/data_wrangling">Data Processing with dplyr &amp; tidyr</a></p>
+<p><a href="https://goo.gl/SY6qBy">Introduction to dplyr</a></p>
+<p><a href="http://docs.ggplot2.org/current/"><code>ggplot2</code> documentation</a></p>
+<p><a href="http://www.cookbook-r.com/Graphs/">R Graphics Cookbook</a></p>
+<p><a href="https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf"><code>ggplot2</code> Cheat Sheet</a></p>
+<p>OR just Google it!</p>
+</section>
+<section id="thanks" class="slide level2">
+<h1>Thanks!</h1>
+<ul>
+<li class="fragment">Code for slide creation on <a href="https://github.com/ismayc/Reed_WoRkshops/tree/master/putting_R_in_CIS">my GitHub page</a></li>
+<li class="fragment">Slides available <a href="http://rpubs.com/cismay/R_in_CIS">here</a></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sessionInfo</span>()</code></pre></div>
+<pre><code>## R version 3.3.0 (2016-05-03)
+## Platform: x86_64-apple-darwin13.4.0 (64-bit)
+## Running under: OS X 10.11.6 (El Capitan)
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] revealjs_0.7            rmarkdown_1.0           knitr_1.13              ggplot2_2.1.0          
+## [5] dplyr_0.5.0             pnwflights14_0.1.0.9000
+## 
+## loaded via a namespace (and not attached):
+##  [1] Rcpp_0.12.6      digest_0.6.9     assertthat_0.1   plyr_1.8.4       grid_3.3.0      
+##  [6] R6_2.1.2         gtable_0.2.0     DBI_0.4-1        formatR_1.4      magrittr_1.5    
+## [11] scales_0.4.0     evaluate_0.9     stringi_1.1.1    tools_3.3.0      stringr_1.0.0   
+## [16] munsell_0.4.3    yaml_2.1.13      colorspace_1.2-6 htmltools_0.3.5  tibble_1.1</code></pre>
+</section>
+    </div>
+  </div>
+
+  <script src="slides_files/reveal.js-3.3.0/lib/js/head.min.js"></script>
+  <script src="slides_files/reveal.js-3.3.0/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: true,
+        // Transition style
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'zoom', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'slides_files/reveal.js-3.3.0/plugin/notes/notes.js', async: true },
+          { src: 'slides_files/reveal.js-3.3.0/plugin/zoom-js/zoom.js', async: true },
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>
