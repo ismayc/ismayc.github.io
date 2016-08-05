@@ -16,6 +16,8 @@ I've led many workshops on using R and R Markdown at <a target="_blank" href="ht
 
 Slides from these workshops and other projects can be found on my <a target="_blank" href="http://www.rpubs.com/cismay">RPubs.com page</a>.
 
+<!--
 The slides to a workshop I led for members of Computing & Information Services at Reed is available [here]({{ site.baseurl }}/workshops/cis_slides.html).
+-->
 
 A listing of other talks and presentations I have given can be found in my [CV]({{ site.baseurl }}/extras/cv-2016-01.pdf).
