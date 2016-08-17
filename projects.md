@@ -10,7 +10,7 @@ At [Reed College](www.reed.edu), I'm working on the following projects
   - [R Markdown senior thesis template in a variety of formats](http://github.com/ismayc/thesisdown)
       + [Example layout of gitbook (HTML) version](http://github.com/ismayc/thesisdown_book)
   - [Getting Used to R, RStudio, and R Markdown book](http://ismayc.github.io/rbasics-book)
-  - [R Markdown templates and special function for Chem 101/102](http://github.com/ismayc/chemistr)
+  - [R Markdown templates and special functions for Chem 101/102](http://github.com/ismayc/chemistr)
   - [Data on all flights leaving PDX and SEA in 2014](http://github.com/ismayc/pnwflights14)
   - [GitHub organization for Reed community](http://github.com/Reedies)
   - [Probability Distribution Viewer and Calculator](http://ismay.shinyapps.io/ProbApp)
