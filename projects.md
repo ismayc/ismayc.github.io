@@ -8,7 +8,7 @@ At [Reed College](www.reed.edu), I'm working on the following projects
 
   - [Writing blogs about useful educational tools](http://blogs.reed.edu/ed-tech/author/cismay/)
   - [R Markdown senior thesis template in a variety of formats](http://github.com/ismayc/thesisdown)
-      + [Example layout of gitbook (HTML) version](http://github.com/ismayc/thesisdown_book)
+      + [Example layout of gitbook (HTML) version](http://ismayc.github.io/thesisdown_book)
   - [Getting Used to R, RStudio, and R Markdown book](http://ismayc.github.io/rbasics-book)
   - [R Markdown templates and special functions for Chem 101/102](http://github.com/ismayc/chemistr)
   - [Data on all flights leaving PDX and SEA in 2014](http://github.com/ismayc/pnwflights14)
