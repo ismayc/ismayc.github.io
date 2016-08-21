@@ -4,6 +4,6 @@ _site
 .jekyll-metadata
 .Rproj.user
 .RData
-.Rhistory
+.Rhistory*
 .DS_Store
 "Icon\r"
