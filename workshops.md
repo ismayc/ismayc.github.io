@@ -21,4 +21,6 @@ Revealjs slides from August 2016 talks are below:
 - **Putting the R in CIS** - Computing & Information Services at Reed is available [here]({{ site.baseurl }}/workshops/cis_slides.html).
 - **Creating and Using Templates in R Markdown** - Portland R Data Group Meetup is available [here]({{ site.baseurl }}/workshops/rmd-pdx.html).
 
+In May of 2016, Andrew Bray and I hosted a conference of Pacific Northwest educators along with eCOTS 2016.  Materials can be found [here]({{ site.baseurl }}/ecots2k16/).
+
 A listing of other talks and presentations I have given can be found in my [CV]({{ site.baseurl }}/extras/cv-2016-01.pdf).
