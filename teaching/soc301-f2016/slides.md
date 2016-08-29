@@ -8,6 +8,8 @@ permalink: /teaching/soc301-f2016/slides/
 
 ### Monday
 - <a href = "{{ site.baseurl }}/teaching/soc301-f2016/slides/week-01/01a.html">2016-08-29</a>
+
+#### Covered Content
 - Introduction to the course and to each other
 - [Pre-test](https://www.surveymonkey.com/r/XSYDHJB) Due by 3:00 PM Tuesday
 - [PS1](https://goo.gl/forms/kOCJIEMpS1i8lqgn1) Due by 10:00 AM on Wednesday
