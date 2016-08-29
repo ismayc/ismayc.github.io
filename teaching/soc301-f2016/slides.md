@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Teaching
-permalink: /teaching/soc301-f2016/slides
+permalink: /teaching/soc301-f2016/slides/
 ---
 
 ## Week 1
