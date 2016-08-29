@@ -19,7 +19,7 @@ subtitle: Social Statistics
 3. What is your class standing (Freshman, Sophomore, etc.)?
 3. What is your major?
 4. What is your hometown?
-6. What is the farthest from Pacific that you were over spring break (in miles)?
+6. What is the farthest from Pacific that you were over summer break (in miles)?
 7. What is one interesting fact about you?
 8. How old is Chester (in years)?
 
