@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Teaching
+title: Content covered and Slides
 permalink: /teaching/soc301-f2016/slides/
 ---
 
