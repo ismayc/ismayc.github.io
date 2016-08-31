@@ -1,0 +1,120 @@
+---
+title: "SOC 301-01: Social Statistics"
+author: "Chester Ismay"
+output:
+  ioslides_presentation:
+    incremental: no
+    logo: ../figs/boxer.jpg
+    fig.align: center
+    widescreen: true
+subtitle: Working in RStudio
+---
+
+## Review PS1 in groups
+
+Get into groups of three (of your own choosing) and discuss (for around 10 minutes)
+how you answered the questions below.
+
+- **3**. What are five reasons why I am having you use R in this class?
+- **4**. Why is copy-and-pasting results to and from Microsoft Excel and Microsoft Word, for example, not a good sustainable workflow?
+
+## Review PS1 as a class
+
+- **5**. What steps fall in the Understand section of Hadley's workflow graphic?
+
+```{r echo=FALSE, fig.width=3}
+knitr::include_graphics("https://ismayc.github.io/moderndiver-book/images/tidy1.png")
+```
+
+## Review PS2 as a class
+
+- **6**. What questions do you have about the reading or about the course?
+
+    - I hope to always have a new PS ready for you after each class period.
+    - We will almost always spend time in the beginning of class going over answers to each PS.
+    - I hope to also address questions in FAQ documents [here](http://ismayc.github.io/teaching/soc301-f2016/ps-faq/).
+    - You'll have a better idea of what R is when you actually get to working with it.
+    - Feel free to look ahead in the book!
+
+## Review PS2 in groups
+
+- **7**. What concerns do you have about the course? How can I alleviate these concerns for you?
+
+## Review PS2 as a class
+
+- **7**. What concerns do you have about the course? How can I alleviate these concerns for you?
+
+    - You'll be given time in class on Monday to complete labs and ask questions.  I'll try to have the lab assignments ready on Thursdays just as your turn in your last lab.
+
+    - "How much outside work will be required in this class? It seems as if it will be a consistently heavy load of work."
+    
+    - I am happy to meet on a weekly basis with you as needed.  I want you to like R and use it after the class is done.  If you aren't enjoying the class or seeing the power of using it, I'm not doing my job well enough and we should talk about it.
+
+## My webpage <http://ismayc.github.io>
+
+- Syllabus in HTML and PDF at <http://ismayc.github.io/teaching/soc301-f2016/>
+- Today's slides link : <http://ismayc.github.io/teaching/soc301-f2016/slides/week-01/01b.html>
+- FAQ documents for Problem Sets : <http://ismayc.github.io/teaching/soc301-f2016/ps-faq/>
+
+## Interesting data sets
+
+- Spend some time in your groups brainstorming about a data set that you'd be interested in analyzing.
+- It doesn't have to exist and you don't all have to agree.  This is also about learning about the
+interests of others.
+- Clearly lay out the variables and sketch what the collected data might look like.
+    - What does each row correspond to?
+    - What does each column?
+
+## Supplementary Material
+
+<http://ismayc.github.io/rbasics-book>
+
+PDF version also available:  <https://ismayc.github.io/rbasics-book/rbasics.pdf>
+
+## RStudio Server
+
+<http://beta.rstudio.org>
+
+
+## Install packages
+
+```{r eval=FALSE}
+needed_pkgs <- c("nycflights13", "dplyr", "ggplot2", "knitr", 
+  "ggplot2movies", "dygraphs", "rmarkdown", "mosaic", "tibble")
+
+new.pkgs <- needed_pkgs[!(needed_pkgs %in% installed.packages())]
+
+if(length(new.pkgs)) {
+  install.packages(new.pkgs, repos = "http://cran.rstudio.com")
+}
+```
+
+## Practice problems
+
+- Can eating a yogurt a day cause you to lose weight?
+- Do males find females more attractive if they wear red?
+- Does louder music cause people to drink more beer?
+- Are lions more likely to attack after a full moon?
+
+1. What are the variable(s) in each question?
+2. Classify them as categorical or quantitative.
+3. Draw what a data set might look for each problem like to collect the needed data to answer these questions.
+
+# Plicker time!
+
+## Course Textbook
+
+<http://ismayc.github.io/moderndiver-book>
+
+PDF version also available: <https://ismayc.github.io/moderndiver-book/ismay.pdf>
+
+## Next class (Wednesday) plans
+
+- Answer questions for first 10-15 minutes to help prepare you for the quiz
+- You'll have the chance to talk about anything you are struggling with in groups
+- Quiz #1 testing your knowledge of using R, RStudio, and R Markdown based on the
+[Getting Used to R, RStudio, and R Markdown](http://ismayc.github.io/rbasics-book) book
+    - First you'll take the quiz individually
+    - Then we will take a break in class and you'll take the quiz in groups
+    - Then we'll go over it in class
+Lastly, I'll show you how to do a few more things in R

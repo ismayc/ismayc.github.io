@@ -33,22 +33,6 @@ subtitle: Social Statistics
 
 <http://ismayc.github.io/teaching/soc301-f2016/slides/week-01/01a.html>
 
-## Interesting data sets
-
-- Spend some time in your groups brainstorming about a data set that you'd be interested in analyzing.
-- It doesn't have to exist.
-
-
-## Let's begin
-
-- Can eating a yogurt a day cause you to lose weight?
-- Do males find females more attractive if they wear red?
-- Does louder music cause people to drink more beer?
-- Are lions more likely to attack after a full moon?
-
-1. What are the variable(s) in each question?
-2. Classify them as categorical or quantitative.
-
 ## Syllabus Review
 
 - What are the five most important things to you as you review the syllabus in groups?
