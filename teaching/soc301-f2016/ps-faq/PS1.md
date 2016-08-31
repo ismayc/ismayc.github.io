@@ -87,6 +87,8 @@ The formulas will be taught, but you won't be asked to memorize them and you'll 
 
 I'm not sure that there is anything really advanced mathematically in this course.  Some of the formulas may seem complicated but the focus will be on how they approximate simulation using R and not necessarily on the mathematical theory behind them. 
 
+***
+
 **7** - What concerns do you have about the course?
 
 - My concern is that I wont have any idea what I am doing once the hand holding segment of the class is over. The only way I can think of that would Alleviate stress is making sure we are comfortable enough with the basic stuff before you let us go out on our own with R.

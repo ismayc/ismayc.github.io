@@ -34,6 +34,11 @@ lapply(pkg, library, character.only = TRUE)
 
 - Peter C. Brown, _Make It Stick_
 
+<br>
+
+- Today's slides link : <http://ismayc.github.io/teaching/soc301-f2016/slides/week-01/01b.html>
+
+- Read over my responses to PS1 #6 and #7 in PS1 of [Problem Set FAQs](http://ismayc.github.io/teaching/soc301-f2016/ps-faq/)
 
 ## Review PS1 in groups
 
@@ -85,7 +90,6 @@ knitr::include_graphics("https://ismayc.github.io/moderndiver-book/images/tidy1.
 ## My webpage <http://ismayc.github.io>
 
 - Syllabus in HTML and PDF at <http://ismayc.github.io/teaching/soc301-f2016/>
-- Today's slides link : <http://ismayc.github.io/teaching/soc301-f2016/slides/week-01/01b.html>
 - FAQ documents for Problem Sets : <http://ismayc.github.io/teaching/soc301-f2016/ps-faq/>
 
 ## Interesting data sets
