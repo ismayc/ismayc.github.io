@@ -1,0 +1,11 @@
+---
+title: "Week One, Day 2"
+author: "Chester Ismay"
+date: "August 31, 2016"
+output: html_document
+---
+
+***
+
+1. Show them search function in the book
+2. Why do you think programming is a valuable skill?
