@@ -1,0 +1,49 @@
+---
+title: "Week Six, Day 3"
+author: "Chester Ismay"
+date: "March 3, 2016"
+output: html_document
+---
+
+***
+
+```{r setup, include=FALSE}
+# List of useful packages
+pkg <- c("dplyr", "ggplot2", "knitr")
+
+# Check if packages are not installed and assign the
+# names of the uninstalled packages to the variable new.pkg
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+
+# If there are any packages in the list that aren't installed,
+# install them
+if (length(new.pkg)) {
+  install.packages(new.pkg, repos = "http://cran.rstudio.com")
+}
+
+# Load the packages into the current environment
+library(knitr)
+library(dplyr)
+library(ggplot2)
+
+# Set number of digits to display
+# options(digits = 3)
+```
+
+0. Hand back PS (**Madison is back in my office today**)
+
+1. Go over Midterm Exam 1 weighting
+  - Multiple choice: 35%
+  - Problem 9: 15%
+  - Problem 10a-10c: 20%
+  - Problem 10d-10g: 20%
+  - Problem 11: 10%
+
+2. Give them 5 minutes to finish the worksheet
+
+3. Go over worksheet
+
+4. Go through slides
+  - Specify $\alpha = \mathbb{P}(\text{Reject } H_0 \,|\, H_0 \text{ true})$ and $\beta = \mathbb{P}(\text{Fail to Reject } H_0 \,|\, H_0 \text{ false})$
+  - Decision is based on the sample data
+  - True State of Nature corresponds to the population

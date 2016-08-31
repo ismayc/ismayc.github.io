@@ -1,0 +1,55 @@
+---
+title: "Week Five, Day 1"
+author: "Chester Ismay"
+date: "February 22, 2016"
+output: html_document
+---
+
+***
+
+```{r setup, include=FALSE}
+# List of useful packages
+pkg <- c("dplyr", "ggplot2", "knitr")
+
+# Check if packages are not installed and assign the
+# names of the uninstalled packages to the variable new.pkg
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+
+# If there are any packages in the list that aren't installed,
+# install them
+if (length(new.pkg)) {
+  install.packages(new.pkg, repos = "http://cran.rstudio.com")
+}
+
+# Load the packages into the current environment
+library(knitr)
+library(dplyr)
+library(ggplot2)
+
+# Set number of digits to display
+# options(digits = 3)
+```
+
+1. Hand back quizzes
+
+2. Remember that Midterm Exam 1 is Friday
+  - Content covered listed on website
+
+3. Also bringing Madison to my office on Friday
+
+4. PS5 due next Monday
+  - Read Zika article and answer questions
+  
+5. Turn in PS4
+
+6. Watch Mythbusters yawning video
+
+7. Get into groups of four
+
+8. Pass out 2 decks to each group
+
+9. Demo one simulation
+  - $X$ = the number of yawners out of 16
+
+10. Go over answers
+  - Talk about what it means to be more extreme (left tail here)
