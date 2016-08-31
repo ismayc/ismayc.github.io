@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Slides and Class Content
+title: Slides and Class Content - Week 1
 permalink: /teaching/soc301-f2016/slides/week01/
 ---
 
@@ -17,8 +17,8 @@ permalink: /teaching/soc301-f2016/slides/week01/
     - Install the needed packages
     
     ```r
-    needed_pkgs <- c("nycflights13", "dplyr", "ggplot2", "knitr",  "ggplot2movies", "dygraphs", 
-                     "rmarkdown", "mosaic", "tibble")
+    needed_pkgs <- c("nycflights13", "dplyr", "ggplot2", "knitr",
+                      "ggplot2movies", "dygraphs", "rmarkdown", "mosaic", "tibble")
 
     new.pkgs <- needed_pkgs[!(needed_pkgs %in% installed.packages())]
 
