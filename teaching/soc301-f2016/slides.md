@@ -8,6 +8,8 @@ permalink: /teaching/soc301-f2016/slides/
 
 ### Wednesday
 - <a href = "{{ site.baseurl }}/teaching/soc301-f2016/slides/week-01/01b.html">2016-08-31</a>
+
+#### Covered content
 - Go over PS1
     - FAQ [here]({{ site.baseurl }}/teaching/soc301-f2016/ps-faq/PS1/)
 - Log-in to RStudio Server
