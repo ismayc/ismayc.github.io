@@ -7,4 +7,7 @@ _site
 .Rhistory*
 .DS_Store
 "Icon\r"
+*Roster.pdf
+roster.html
+teaching/soc301-f2016/roster_files/*
 *2016F.csv
