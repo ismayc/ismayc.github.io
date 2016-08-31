@@ -10,6 +10,31 @@ output:
 subtitle: Working in RStudio
 ---
 
+```{r include=FALSE}
+pkg <- c("devtools")
+
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+
+if (length(new.pkg)) {
+  install.packages(new.pkg, repos = "http://cran.rstudio.com")
+}
+
+if(!require("vembedr"))
+  devtools::install_github("ijlyttle/vembedr")
+
+pkg <- c(pkg, "vembedr")
+
+lapply(pkg, library, character.only = TRUE)
+```
+
+
+## Learning Quote of the Day {.flexbox .vcenter}
+
+> Trying to solve a problem before being taught the solution leads to better learning, even when errors are made in the attempt.
+
+- Peter C. Brown, _Make It Stick_
+
+
 ## Review PS1 in groups
 
 Get into groups of three (of your own choosing) and discuss (for around 10 minutes)
@@ -17,6 +42,13 @@ how you answered the questions below.
 
 - **3**. What are five reasons why I am having you use R in this class?
 - **4**. Why is copy-and-pasting results to and from Microsoft Excel and Microsoft Word, for example, not a good sustainable workflow?
+
+## [R Markdown video](https://www.youtube.com/watch?v=lNWVQ2oxNho)
+
+```{r echo=FALSE}
+embed_youtube(id = "lNWVQ2oxNho")
+```
+
 
 ## Review PS1 as a class
 
@@ -88,6 +120,7 @@ if(length(new.pkgs)) {
   install.packages(new.pkgs, repos = "http://cran.rstudio.com")
 }
 ```
+
 
 ## Practice problems
 
