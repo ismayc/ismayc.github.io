@@ -7,7 +7,7 @@ output:
     logo: ../figs/boxer.jpg
     fig.align: center
     widescreen: true
-subtitle: Working in RStudio
+subtitle: Data Basics / Installing R Packages
 ---
 
 ```{r include=FALSE}
@@ -135,29 +135,23 @@ if(length(new.pkgs)) {
 
 1. What are the variable(s) in each question?
 2. Classify them as categorical or quantitative.
-3. Draw what a data set might look for each problem like to collect the needed data to answer these questions.
+3. Draw what a tidy data set might look for each problem to collect the needed data to answer these questions.
 
-# Plicker time!
+## For next time (Monday)
 
-## Course Textbook
+- Try to finish the install of the needed packages
+    - Remember that the code to install the packages is the first R chunk of code in Chapter 1 of [MODERN DIVE](https://ismayc.github.io/moderndiver-book)
+    - We won't actually need these packages until we start the Tidy Data chapter so if you have issues, just follow along with the Getting Used to R book.
+    
+- The packages are all installed if you can run the R chunk you've copied again and just get `>` waiting for you to enter something else.
+    
+- Read Chapters 3, 4, and 5 of [Getting Used to R](http://ismayc.github.io/rbasics-book)
 
-<http://ismayc.github.io/moderndiver-book>
+- We will be walking through many of the examples there and also doing some Plicker questions to check your understanding of variables and observational units.
 
-PDF version also available: <https://ismayc.github.io/moderndiver-book/ismay.pdf>
-
-## Next class (Wednesday) plans
-
-- Answer questions for first 10-15 minutes to help prepare you for the quiz
-- You'll have the chance to talk about anything you are struggling with in groups
-- Quiz #1 testing your knowledge of using R, RStudio, and R Markdown based on the
-[Getting Used to R, RStudio, and R Markdown](http://ismayc.github.io/rbasics-book) book
-    - First you'll take the quiz individually
-    - Then we will take a break in class and you'll take the quiz in groups
-    - Then we'll go over it in class
-Lastly, I'll show you how to do a few more things in R
 
 ## Minute Papers
 
-- Now that you've worked with R some, how do you plan to practice working with it more to begin studying for the quiz?
+- What did you learn about in class today?  What questions do you have?
 
 - What additional concerns do you have?  I understand they likely might not all be gone, but I'm always interested in how you think your learning is going.

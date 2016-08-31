@@ -1,0 +1,59 @@
+---
+title: "SOC 301-01: Social Statistics"
+author: "Chester Ismay"
+output:
+  ioslides_presentation:
+    incremental: no
+    logo: ../figs/boxer.jpg
+    fig.align: center
+    widescreen: true
+subtitle: Working on the RStudio Server
+---
+
+
+## Learning Quote of the Day {.flexbox .vcenter}
+
+> 
+
+- 
+
+
+## Install packages
+
+```{r eval=FALSE}
+needed_pkgs <- c("nycflights13", "dplyr", "ggplot2", "knitr", 
+  "ggplot2movies", "dygraphs", "rmarkdown", "mosaic", "tibble")
+
+new.pkgs <- needed_pkgs[!(needed_pkgs %in% installed.packages())]
+
+if(length(new.pkgs)) {
+  install.packages(new.pkgs, repos = "http://cran.rstudio.com")
+}
+```
+
+# Plicker time!
+
+## Course Textbook
+
+<http://ismayc.github.io/moderndiver-book>
+
+PDF version also available: <https://ismayc.github.io/moderndiver-book/ismay.pdf>
+
+## Next class (Wednesday) plans
+
+- Answer questions for first 10-15 minutes to help prepare you for the quiz
+- You'll have the chance to talk about anything you are struggling with in groups
+- Quiz #1 testing your knowledge of using R, RStudio, and R Markdown based on the
+[Getting Used to R, RStudio, and R Markdown](http://ismayc.github.io/rbasics-book) book
+    - First you'll take the quiz individually
+    - Then we will take a break in class and you'll take the quiz in groups
+    - Then we'll go over it in class
+Lastly, I'll show you how to do a few more things in R
+
+## Minute Papers
+
+- Now that you've worked with R some, how do you plan to practice working with it more to begin studying for the quiz?
+
+- What additional concerns do you have?  I understand they likely might not all be gone, but I'm always interested in how you think your learning is going.
+
+
