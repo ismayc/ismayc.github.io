@@ -155,3 +155,9 @@ PDF version also available: <https://ismayc.github.io/moderndiver-book/ismay.pdf
     - Then we will take a break in class and you'll take the quiz in groups
     - Then we'll go over it in class
 Lastly, I'll show you how to do a few more things in R
+
+## Minute Papers
+
+- Now that you've worked with R some, how do you plan to practice working with it more to begin studying for the quiz?
+
+- What additional concerns do you have?  I understand they likely might not all be gone, but I'm always interested in how you think your learning is going.
