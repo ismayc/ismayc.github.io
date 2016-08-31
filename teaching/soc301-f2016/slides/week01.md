@@ -16,7 +16,7 @@ permalink: /teaching/soc301-f2016/slides/week01/
     - **Make sure to switch from R 3.1.0 to R 3.2.0 in the top right hand part of the screen**
     - Install the needed packages
     
-    ```r
+```r
     needed_pkgs <- c("nycflights13", "dplyr", "ggplot2", "knitr",
                       "ggplot2movies", "dygraphs", "rmarkdown", "mosaic", "tibble")
 
@@ -25,7 +25,7 @@ permalink: /teaching/soc301-f2016/slides/week01/
     if(length(new.pkgs)) {
       install.packages(new.pkgs, repos = "http://cran.rstudio.com")
     }
-    ```
+```
 
 - If everything installed correctly, you'll see this when you run the code again.  If you don't get this, [send me an email](mailto:chester@pacificu.edu)   
 
