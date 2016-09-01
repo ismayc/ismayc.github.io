@@ -17,14 +17,14 @@ permalink: /teaching/soc301-f2016/slides/week01/
     - Install the needed packages
     
 ```r
-    needed_pkgs <- c("nycflights13", "dplyr", "ggplot2", "knitr",
-                      "ggplot2movies", "dygraphs", "rmarkdown", "mosaic", "tibble")
+needed_pkgs <- c("nycflights13", "dplyr", "ggplot2", "knitr",
+                 "ggplot2movies", "dygraphs", "rmarkdown", "mosaic", "tibble")
 
-    new.pkgs <- needed_pkgs[!(needed_pkgs %in% installed.packages())]
+new.pkgs <- needed_pkgs[!(needed_pkgs %in% installed.packages())]
 
-    if(length(new.pkgs)) {
-      install.packages(new.pkgs, repos = "http://cran.rstudio.com")
-    }
+if(length(new.pkgs)) {
+    install.packages(new.pkgs, repos = "http://cran.rstudio.com")
+}
 ```
 
 - If everything installed correctly, you'll see this when you run the code again.  If you don't get this, [send me an email](mailto:chester@pacificu.edu)   
