@@ -19,8 +19,13 @@ subtitle: Working on the RStudio Server
 
 - Richard Branson
 
+## Sharing RStudio Project
+
+DEMO
 
 ## Install packages
+
+- Remember that you need to select R 3.2 in the top right corner of RStudio Server
 
 ```{r eval=FALSE}
 needed_pkgs <- c("nycflights13", "dplyr", "ggplot2", "knitr", 
@@ -41,10 +46,6 @@ if(length(new.pkgs)) {
 
 PDF version also available: <https://ismayc.github.io/moderndiver-book/ismay.pdf>
 
-## Sharing RStudio Project
-
-DEMO
-
 ## Working in RStudio with R Markdown
 
 DEMO
@@ -52,11 +53,11 @@ DEMO
 ## Next class (Monday) plans
 
 - Answer questions for first 10-15 minutes to help prepare you for the quiz
-- You'll have the chance to talk about anything you are struggling with in groups
+- You'll have the chance to talk about anything you are struggling with in groups as well for a few minutes
 - Quiz #1 testing your knowledge of using R, RStudio, and R Markdown based on the
 [Getting Used to R, RStudio, and R Markdown](http://ismayc.github.io/rbasics-book) book
     - First you'll take the quiz individually
-    - Then we will take a break in class and you'll take the quiz in groups
+    - Then we will take a break in class and you'll take the quiz again in groups
     - Then we'll go over it in class
 - Lastly, I'll show you how to do a few more things in R and we'll begin Tidy data in MODERN DIVE.
 
@@ -65,11 +66,15 @@ DEMO
 - Read Chapter 3 of MODERN DIVE textbook
 - Complete LC3.1 - LC3.8 and other questions in PS2 by 10 AM on Monday
 - Start on Lab 1
+    - Lab 1 draft (must attempt all exercises for credit) due on Tuesday at 3 PM
+    - Great way to study for the quiz
 
 ## Minute Papers
 
 - Now that you've worked with R some, how do you plan to practice working with it more to begin studying for the quiz?
 
-- What additional concerns do you have?  I understand they likely might not all be gone, but I'm always interested in how you think your learning is going.
+- Remember that you'll need to quiz yourself frequently if you want to learn the material.  I'll be able to pretty easily identify students that are studying on their own and those that are not quizzing themselves frequently.  
+
+- Keep on studying as often as you can and checking yourself for understanding!
 
 
