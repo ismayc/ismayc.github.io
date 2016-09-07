@@ -13,9 +13,11 @@ subtitle: Working on the RStudio Server
 
 ## Learning Quote of the Day {.flexbox .vcenter}
 
-> 
+> "You don't learn to walk by following rules. 
 
-- 
+> You learn by doing, and by falling over." 
+
+- Richard Branson
 
 
 ## Install packages
@@ -39,7 +41,15 @@ if(length(new.pkgs)) {
 
 PDF version also available: <https://ismayc.github.io/moderndiver-book/ismay.pdf>
 
-## Next class (Wednesday) plans
+## Sharing RStudio Project
+
+DEMO
+
+## Working in RStudio with R Markdown
+
+DEMO
+
+## Next class (Monday) plans
 
 - Answer questions for first 10-15 minutes to help prepare you for the quiz
 - You'll have the chance to talk about anything you are struggling with in groups
@@ -48,7 +58,13 @@ PDF version also available: <https://ismayc.github.io/moderndiver-book/ismay.pdf
     - First you'll take the quiz individually
     - Then we will take a break in class and you'll take the quiz in groups
     - Then we'll go over it in class
-Lastly, I'll show you how to do a few more things in R
+- Lastly, I'll show you how to do a few more things in R and we'll begin Tidy data in MODERN DIVE.
+
+## Assignment for Monday
+
+- Read Chapter 3 of MODERN DIVE textbook
+- Complete LC3.1 - LC3.8 and other questions in PS2 by 10 AM on Monday
+- Start on Lab 1
 
 ## Minute Papers
 

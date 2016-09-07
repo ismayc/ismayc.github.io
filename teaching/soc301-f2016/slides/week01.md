@@ -27,7 +27,7 @@ if(length(new.pkgs)) {
 }
 ```
 
-- If everything installed correctly, you'll see this when you run the code again.  If you don't get this, [send me an email](mailto:chester@pacificu.edu)   
+- If everything installed correctly, you'll see this when you run the code again.  If you don't get this, [send me an email](mailto:chester@pacificu.edu).
 
 ![Install Went Well]({{ site.baseurl }}/teaching/soc301-f2016/slides/install_pkg.gif)
 
