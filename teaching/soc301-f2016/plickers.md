@@ -25,10 +25,7 @@ The U.S. government authorizes private contractors to audit bills paid by Medica
     - The proportion of claims that were judged to be overpayments.
     - Whether or not a higher proportion of medium claims are judged as overpayments.
 
-4. Think about the proportion of students at your college who are wearing clothing that displays the college name or logo today. Also suppose that a friend of yours attends a different college, and the two of you have a recurring discussion about which college displays more school pride. You decide to measure school pride by the proportion of students at the college who wear clothing that displays the college name or logo on a particular day. You want to investigate whether this proportion differs between your college (call it Exemplary Students University, ESU) and your friend’s college (call it Mediocre Students University, MSU).
-
-What are the observational units?
-
+4. Think about the proportion of students at your college who are wearing clothing that displays the college name or logo today. Also suppose that a friend of yours attends a different college, and the two of you have a recurring discussion about which college displays more school pride. You decide to measure school pride by the proportion of students at the college who wear clothing that displays the college name or logo on a particular day. You want to investigate whether this proportion differs between your college (call it Exemplary Students University, ESU) and your friend’s college (call it Mediocre Students University, MSU). What are the observational units?
     - Clothing, with or without college logos.
     - The two colleges.
     - Students at both schools who wear clothing with college logos.
