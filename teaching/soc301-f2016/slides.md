@@ -28,12 +28,12 @@ permalink: /teaching/soc301-f2016/slides/
 clicking the New Folder button in the **Files** tab in the lower right of RStudio
 - To obtain the lab, copy the following R code into the Console:
 
-```
-file.copy(from = "/shared/isma5720@pacificu.edu/lab1.Rmd",
-          to = "/home/EMAIL/LastnameFirstname/lab1")
-```
+    ```
+    file.copy(from = "/shared/isma5720@pacificu.edu/lab1.Rmd",
+              to = "/home/EMAIL/LastnameFirstname/lab1")
+    ```
 
-where `EMAIL` is your Pacific email (mine is isma5720@pacificu.edu) and
+    where `EMAIL` is your Pacific email (mine is isma5720@pacificu.edu) and
 `LastnameFirstname` is where you have shared your RStudio project with me (mine is IsmayChester).
 
 - You now can work on the `lab1.Rmd` file and save your results there.
