@@ -24,11 +24,18 @@ permalink: /teaching/soc301-f2016/slides/
 
 #### Getting Lab 1
 
-- To obtain the lab go to File -> Open File and then paste the following next to **File name:** `/shared/isma5720@pacificu.edu/lab1.Rmd`
-- Then click on Save As.
-- Enter `/home/EMAIL` next to **File name:** where `EMAIL` corresponds to the `EMAIL` you log in to RStudio Server with.  This will get you back to your home directory.
-- Click on your **LastnameFirstname** folder.
-- Create a new folder called `lab1` in your **LastnameFirstname** folder, and save the file in the `lab1` directory as `lab1.Rmd`.
+- First create a new folder called `lab1` in your LastnameFirstname folder by
+clicking the New Folder button in the **Files** tab in the lower right of RStudio
+- To obtain the lab, copy the following R code into the Console:
+
+```
+file.copy(from = "/shared/isma5720@pacificu.edu/lab1.Rmd",
+          to = "/home/EMAIL/LastnameFirstname/lab1")
+```
+
+where `EMAIL` is your Pacific email (mine is isma5720@pacificu.edu) and
+`LastnameFirstname` is where you have shared your RStudio project with me (mine is IsmayChester).
+- You now can work on the `lab1.Rmd` file and save your results there.
 
 
 ## [Week 1]({{ site.baseurl }}/teaching/soc301-f2016/slides/week01/)
