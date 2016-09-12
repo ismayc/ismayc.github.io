@@ -26,7 +26,7 @@ permalink: /teaching/soc301-f2016/slides/
     - Make sure to Knit to HTML for full credit
     - You must attempt all exercises in the lab for credit.  "I don't know how to do this." or "I'm not sure." are not valid reasons.  I'm here to help, but you have to take the initiative to reach out to me!
 - Look over comments denoted with **CHESTER: ** in your Rmd file.  I will let you know via email when comments are available.
-
+- **DO NOT** delete my comments or your old responses.  Answer below my comments with your new answers.
 
 ## [Week 2]({{ site.baseurl }}/teaching/soc301-f2016/slides/week02/)
 
