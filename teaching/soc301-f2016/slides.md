@@ -12,6 +12,7 @@ permalink: /teaching/soc301-f2016/slides/
 #### Covered content
 - Quiz 1 individually and with partners
 - Go over Quiz 1
+- Link to your grades: <https://ismay.shinyapps.io/soc301_grades/>
 - Talk about good versus bad emails to me asking for help
 - Review Tidy Data I
 - Answer Lab 1 questions

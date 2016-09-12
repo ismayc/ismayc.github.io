@@ -19,7 +19,9 @@ knitr::include_graphics("hadley.png")
 
 ## Go over Quiz 1
 
+## A non-Moodle Grade Viewer
 
+<https://ismay.shinyapps.io/soc301_grades/>
 
 ## Inefficient email to me
 
