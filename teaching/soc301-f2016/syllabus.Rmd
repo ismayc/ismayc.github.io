@@ -2,11 +2,11 @@
 title: "SOC 301-01 - Social Statistics Syllabus"
 subtitle: Pacific University - Fall 2016
 output:
+  pdf_document:
+    toc: no
   html_document:
     toc: yes
     toc_float: yes
-  pdf_document:
-    toc: no
 ---
 
 ```{r include=FALSE}
