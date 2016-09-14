@@ -1,0 +1,74 @@
+---
+title: "SOC 301-01: Social Statistics"
+author: "Chester Ismay"
+output:
+  ioslides_presentation:
+    incremental: no
+    logo: ../figs/boxer.jpg
+    fig.align: center
+    widescreen: true
+subtitle: Tidy Data II
+---
+
+
+## Learning Quote of the Day {.flexbox .vcenter}
+
+> "You can forget facts but you cannot forget understanding.""
+
+- Eric Mazur
+
+# Sample answers from Lab 1
+
+## Exercise 1
+
+How does the article use graphics to help convey the theme of the article?  
+
+**Answer:**
+In Nate Silver's piece, he uses relatively clear graphics that display his data in a way in which readers who are not familiar with reading data sets can find patterns and outliers (if any exist) in his graphics. This is especially present in his graphic called "Police Locals" which shows percentages on the top of the graph from 0-100% (living in the city they protect) and readers are thus able to see how far or close to either end of the spectrum these officers are  to either living or not living in the city they protect. Readers immediately see that, from this data, many officers do not live in the city they are supposed to protect and also are able to see the racial divide whereas non-white officers more often than white officers live in the city they protect. All of this furthers Silver's theme of Ferguson and what it means when police do not reside in the city they are meant to protect (i.e, lack of community outreach/knowledge of the community leads to violence/miscommunciation etc.).
+
+## Exercise 3
+
+What stands out to you from a social perspective?  Try to keep the focus on the numbers presented in the article and not on personal opinions you may have about the topic.
+
+**Answer:** I find it interesting that the data shown in the first scatter graph reveals that the most liberal cities have the lowest percentage of officers, regardless of ethnicity, that live in the city they are assigned to.
+
+## Exercise 9
+
+What stands out to you as you look over the data?  What social concerns does this data raise for you?
+
+**Answer:** It was surprising to see the comparison between police officers who are white and live inside the city limits and police officers who are part of a minority group. This can raise the social concern of minority groups living in certain areas where poverty is high compared to areas where more white people are living. This article helps point out the concern for racial disparity.
+
+
+# SPELL CHECK!
+
+##
+
+Please run spell check before the deadline of the labs on Tuesdays.  I'm happy to correct your grammar, but I shouldn't be correcting your spelling.
+
+# Plicker time
+
+# Install ggplot2
+
+## Run this in the Console
+
+- Also available as the second chunk of Chapter 4 in [MODERN DIVE](https://ismayc.github.io/moderndiver-book/4-viz.html)
+
+```{r eval=FALSE}
+if(!require("ggplot2"))
+  install.packages("ggplot2", repos = "http://cran.rstudio.org")
+```
+
+
+## To do for next time
+
+- Read Sections 4.1-4.3 of MODERN DIVE textbook
+- Begin Lab 2
+    - Lab 2 draft due on Tuesday at 3 PM
+    - Make sure to Knit to HTML for full credit
+    - You must attempt all exercises in the lab for credit.  "I don't know how to do this." or "I'm not sure." are not valid reasons.  I'm here to help, but you have to take the initiative to reach out to me!
+- Complete [PS4](https://goo.gl/forms/fuvXl5ngt6aoJPhn2) by 10 AM on Monday
+
+
+
+
+

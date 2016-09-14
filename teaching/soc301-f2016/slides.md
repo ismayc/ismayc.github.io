@@ -6,6 +6,25 @@ permalink: /teaching/soc301-f2016/slides/
 
 ## Week 3
 
+### Wednesday
+- <a href = "{{ site.baseurl }}/teaching/soc301-f2016/slides/week-03/03b.html">2016-09-14</a>
+
+#### Covered content
+- Go over some sample responses from Lab 1
+- Plicker questions over Chapter 3
+- Review Chapter 3
+- Make sure `ggplot2` package is installed (Switch to R 3.2!)
+- Walk through copying chunks of Chapter 4 into your own R Markdown file
+- Time in class to ask questions about Lab 1
+
+#### To do for next time
+- Read Sections 4.1-4.3 of MODERN DIVE textbook
+- Begin Lab 2
+    - Lab 2 draft due on Tuesday at 3 PM
+    - Make sure to Knit to HTML for full credit
+    - You must attempt all exercises in the lab for credit.  "I don't know how to do this." or "I'm not sure." are not valid reasons.  I'm here to help, but you have to take the initiative to reach out to me!
+- Complete [PS4](https://goo.gl/forms/fuvXl5ngt6aoJPhn2) by 10 AM on Monday
+
 ### Monday
 - <a href = "{{ site.baseurl }}/teaching/soc301-f2016/slides/week-03/03a.html">2016-09-12</a>
 
