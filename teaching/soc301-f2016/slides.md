@@ -25,7 +25,7 @@ permalink: /teaching/soc301-f2016/slides/
     - You must attempt all exercises in the lab for credit.  "I don't know how to do this." or "I'm not sure." are not valid reasons.  I'm here to help, but you have to take the initiative to reach out to me!
 - Complete [PS4](https://goo.gl/forms/fuvXl5ngt6aoJPhn2) by 10 AM on Monday
 
-#### Getting Lab 2
+#### Getting Lab 2 (IN PARTNERS)
 
 - First create a new folder called `lab2` in your **LastnameFirstname** folder by
 clicking the New Folder button in the **Files** tab in the lower right of RStudio
@@ -40,6 +40,7 @@ clicking the New Folder button in the **Files** tab in the lower right of RStudi
 `LastnameFirstname` is where you have shared your RStudio project with me (mine is IsmayChester).
 
 - You now can work on the `lab2.Rmd` file and save your results there.
+- You'll only turn in one lab per your group/partners.  Tell me on Monday during class who is your partner and where Lab 2 will be located.
 
 
 ### Monday
