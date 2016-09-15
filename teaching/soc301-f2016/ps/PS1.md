@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Problem Set 1 FAQ
-permalink: /teaching/soc301-f2016/ps-faq/PS1/
+permalink: /teaching/soc301-f2016/ps/PS1/
 ---
 
 
