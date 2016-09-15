@@ -9,6 +9,26 @@ permalink: /teaching/soc301-f2016/plickers/
     ul { list-style-type: upper-alpha; }
 </style>
 
+#### 2016-09-14
+
+3. What is the value of normal data forms?
+    - It allows you to easily merge two data sets by one or more variables in common.
+    - It reduces redundancy by not repeating values over and over again.
+    - Both of the above are true.
+    - None of the above.
+
+2. Which of the following is a characteristic of a tidy data frame?
+    - Variables correspond to rows.
+    - Columns may correspond to multiple variables.
+    - Values are what is stored on the inside of the data frame.
+    - Observational units are stored in the columns.
+    
+1. What is the appropriate definition of "observational unit"?
+    - The factor described in the data that is being analyzed and measured.
+    - The variable of the row that is being measured in the data set.
+    - The unit within a row that is being observed via the columns.
+    - The result of rows and columns creating a table.
+
 #### 2016-09-07
 
 The U.S. government authorizes private contractors to audit bills paid by Medicare and Medicaid. The contractor audits a random sample of paid claims and judges each claim to be either fully justified or an overpayment.  30 small claims and 30 medium claims were chosen. We want to answer the question, "Does the chance that a claim is judged to be an overpayment depend on the size of the claim?”  
