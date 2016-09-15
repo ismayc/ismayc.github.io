@@ -18,7 +18,7 @@ permalink: /teaching/soc301-f2016/slides/
 - Time in class to ask questions about Lab 1
 
 #### To do for next time
-- Read Sections 4.1-4.3 of MODERN DIVE textbook
+- Read Sections 4.1-4.3 of [MODERN DIVE](http://ismayc.github.io/moderndiver-book) textbook
 - Begin Lab 2
     - Lab 2 draft due on Tuesday at 3 PM
     - Make sure to Knit to HTML for full credit
