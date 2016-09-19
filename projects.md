@@ -6,6 +6,7 @@ permalink: /projects/
 
 At [Reed College](www.reed.edu), I'm working on the following projects
 
+  - [A MODERN DIVE into Data with R book](http://ismayc.github.io/moderndiver-book)
   - [Writing blogs about useful educational tools](http://blogs.reed.edu/ed-tech/author/cismay/)
   - [R Markdown senior thesis template in a variety of formats](http://github.com/ismayc/thesisdown)
       + [Example layout of gitbook (HTML) version](http://ismayc.github.io/thesisdown_book)
@@ -19,8 +20,10 @@ At [Reed College](www.reed.edu), I'm working on the following projects
       - Biology
       - Linguistics
   - Providing support for Chem 101/102 students in learning R and R Markdown
+      + [LeaRning R in ChemistRy at Reed help manual](http://ismayc.github.io/chemistr-book)
   - Assisting senior thesis students with data analysis and data visualization from the following departments
       - Biology
+      - Linguistics
       - Sociology
       - Economics
       - Political Science
