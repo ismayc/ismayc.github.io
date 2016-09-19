@@ -12,7 +12,7 @@ permalink: /teaching/soc301-f2016/slides/
 #### Covered content
 - Plicker questions over MODERN DIVE Chapter 3, MODERN DIVE Sections 4.1-4.3, and R so far
 - Demo some examples of making histograms and boxplots in R Markdown
-- Ask you to produce some histograms and boxplots in R Markdown
+- Ask you to produce some histograms in R Markdown
 - Time in class to ask questions about Lab 2
 
 #### To do for next time
