@@ -13,7 +13,7 @@ subtitle: Tidy Data II
 
 ## Learning Quote of the Day {.flexbox .vcenter}
 
-> "You can forget facts but you cannot forget understanding.""
+> "You can forget facts but you cannot forget understanding."
 
 - Eric Mazur
 
@@ -24,7 +24,7 @@ subtitle: Tidy Data II
 How does the article use graphics to help convey the theme of the article?  
 
 **Answer:**
-In Nate Silver's piece, he uses relatively clear graphics that display his data in a way in which readers who are not familiar with reading data sets can find patterns and outliers (if any exist) in his graphics. This is especially present in his graphic called "Police Locals" which shows percentages on the top of the graph from 0-100% (living in the city they protect) and readers are thus able to see how far or close to either end of the spectrum these officers are  to either living or not living in the city they protect. Readers immediately see that, from this data, many officers do not live in the city they are supposed to protect and also are able to see the racial divide whereas non-white officers more often than white officers live in the city they protect. All of this furthers Silver's theme of Ferguson and what it means when police do not reside in the city they are meant to protect (i.e, lack of community outreach/knowledge of the community leads to violence/miscommunciation etc.).
+In Nate Silver's piece, he uses relatively clear graphics that display his data in a way in which readers who are not familiar with reading data sets can find patterns and outliers (if any exist) in his graphics. This is especially present in his graphic called "Police Locals" which shows percentages on the top of the graph from 0-100% (living in the city they protect) and readers are thus able to see how far or close to either end of the spectrum these officers are  to either living or not living in the city they protect. Readers immediately see that, from this data, many officers do not live in the city they are supposed to protect and also are able to see the racial divide whereas non-white officers more often than white officers live in the city they protect. All of this furthers Silver's theme of Ferguson and what it means when police do not reside in the city they are meant to protect (i.e, lack of community outreach/knowledge of the community leads to violence/miscommunication etc.).
 
 ## Exercise 3
 

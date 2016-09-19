@@ -159,7 +159,7 @@ That being said, I do EXPECT hard work and focus from you as students. I want yo
 Your course grade will be determined by the following basis with relative weights given: 
 
 - Attendance/Participation/Problem Sets – 10%
-- Cumulative Individual and Pair Quizzes – 40%
+- Cumulative Quizzes and Exams – 40%
 - Labs/Group Project – 30%
 - Final Exam - 20%
 
