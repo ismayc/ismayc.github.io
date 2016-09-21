@@ -126,19 +126,4 @@ ggplot(weather, aes(x = origin, y = temp)) +
 - Complete [PS6](https://goo.gl/forms/7gc6EJCZ6TwgT2h02) by 10 AM on Monday
 - Begin work on Lab 3
 
-
-## Closing connections
-
-On a half-sheet of paper, 
-
-- Write your name on the front and answer
-    - What are the differences between a histogram and a boxplot?
-    - What is the difference between a histogram and a barplot?
-
-- On the back of this sheet, answer the following questions:
-
-    1. What is the definition of "observational unit"?
-    2. What are the three properties of a **tidy** data set?
-    3. What are the Five Named Graphs we will explore in this chapter?
-    
 # Course (so far) evaluation    

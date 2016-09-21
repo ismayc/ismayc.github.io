@@ -18,7 +18,6 @@ permalink: /teaching/soc301-f2016/slides/
 - Ask you to produce some histograms, boxplots, and barplots in R Markdown
 - Time in class to finish Lab 2
 - Complete one-third-term course evaluation
-- Reflect on your learning in last slide
 
 #### To do for next time
 
