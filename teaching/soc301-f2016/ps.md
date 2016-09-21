@@ -8,6 +8,10 @@ permalink: /teaching/soc301-f2016/ps/
 
 All problem sets are due at 10 AM unless otherwise specified.
 
+- [PS6](https://goo.gl/forms/7gc6EJCZ6TwgT2h02) due Monday, September 26
+
+- [PS5](https://goo.gl/forms/ZEn8SSVtExPEdK7d2) due Wednesday, September 21
+
 - [PS4](https://goo.gl/forms/2G0yEpizdkVKUZy23) due Monday, September 19
 
 - [PS3](https://goo.gl/forms/o7QGf58SIfGsH8jx1) due Wednesday, September 14

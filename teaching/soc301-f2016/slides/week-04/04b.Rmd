@@ -7,43 +7,52 @@ output:
     logo: ../figs/boxer.jpg
     fig.align: center
     widescreen: true
-subtitle: Data Viz - Histograms and Boxplots
+subtitle: Data Viz - Histograms, Boxplots, and Barplots
 ---
 
 
 ## Learning Quote of the Day {.flexbox .vcenter}
 
-> A short study break—-five, ten, twenty minutes to check in on Facebook, respond to a few emails, check sports scores—-is the most effective technique learning scientists know of to help you solve a problem when you’re stuck.
+> Learning is not attained by chance, it must be sought for with ardor and diligence.
 
-- Benedict Carey, _How We Learn: The Surprising Truth About When, Where, and Why It Happens_
+- Abigail Adams
+
+## Theme of the course
+
+We’ll be working through problems together in class and discussing content from your reading assignments. This class may be different from other classes you take or your experiences in classrooms from the past. I prefer to think of myself as your guide on the side instead of the sage on the stage. I’m here to assist you as needed, but I don’t want to be the passer of all knowledge to you. In other words, I’m hoping to create an environment where you develop understanding based on each of your own needs rather than just dictating how and what to think to you.
+
+
 
 # Plicker time
 
-# Go over the LC questions
+# Which plot for which problem set-up?
 
-## LC4.1 - LC4.4
+## Question from PS5 - Question 1 {.flexbox .vcenter}
 
-- Review your responses in partners
+Why do we still use the less efficient plots, like the side-by-side barplot, the stacked barplot, or even the pie-chart when there are much more effective plots, like the faceted barplot, to use? It just seems weird to me.
 
-## LC4.5 - LC4.9
+## Question from PS5 - Question 2 {.flexbox .vcenter}
 
-- Review your responses in partners
-    - Someone different than last time
+`geom_bar(position = "dodge")` What does a dodge position? 
 
-## LC4.10 - LC4.13
+## Question from PS5 - Question 3 {.flexbox .vcenter}
 
-- Review your responses in partners
-    - Someone different than both of the last two times
+When playing with the code in Rstudio for chapter 4 i kept getting the error message that “ggplot” is not a package. I then proceeded to look in my packages and found that i have “ggplot2”. Long story short, i still don’t know how to get “ggplot” and was wondering how i would go about doing that?
 
 # R problems for practice
+
+## Getting set-up
+
+- Create a new R Markdown file
+- Clean out all of the default text in the document
+- Save it as `dataviz-09-21.Rmd` in your LastnameFirstname folder
+- This is where you will be putting your chunks of code.
 
 ## Practice problem 1
 
 - Produce a histogram of the humidity recordings in the `weather` data frame with 15 bins, missing values removed, fill with a color of your choosing, and a border color of your choosing.
 
 - Describe in a few sentences how this plot is different from the last plot.
-
-- What more information does this tell you that the previous plot doesn't?
 
 ## Practice problem 2 (CHALLENGE)
 
@@ -58,6 +67,38 @@ ggplot(weather, aes(x = origin, y = pressure, fill = origin)) +
 ```
 
 - What does this plot tell us about how the response variable differs by the different levels of the explanatory variable?
+
+## Practice problem 3
+
+- Install the `okcupiddata` package by typing `install.packages("okcupiddata")` into your R console.
+
+- Load the package via `library(okcupiddata)`
+
+- Load the data via `data(profiles)`
+
+- Produce a barplot of the `status` variable
+
+## Practice problem 4
+
+- Produce a barplot of the `sex` variable in the `profiles` data frame
+
+## Practice problem 5
+
+- Produce a faceted barplot of the `status` variable based on `sex`
+
+**CHALLENGE**
+
+- Fill the faceted barplot based on `drinks`
+
+## One more step {.flexbox .vcenter}
+
+```{r message=FALSE, warning=FALSE, fig.width=11, fig.height=4}
+library(dplyr); library(okcupiddata)
+non_straight <- filter(profiles, orientation != "straight", status != "unknown")
+ggplot(data = non_straight, aes(x = drinks, fill = sex)) +
+  geom_bar() + facet_wrap(orientation ~ status)
+```
+
 
 <!--
 ## Practice problem 5 (CHALLENGE)
@@ -75,25 +116,15 @@ ggplot(weather, aes(x = origin, y = temp)) +
 
 -->
 
-# Finish Lab 2
+# Finish Lab 2 / Start on Lab 3
 
 
 ## To do for next time
 
-- Finish Lab 2 by 3 PM tomorrow
-    - Make sure to let me know who you are working with and where the project is stored
-- Read Section 4.4 of [MODERN DIVE textbook](https://ismayc.github.io/moderndiver-book/4-viz.html#barplots)
-- Review comments on Lab 2
-    - Lab 2 revisions due on Thursday at 3 PM
-    - Make sure to Knit to HTML for full credit
-    - You must attempt all exercises in the lab for credit.  "I don't know how to do this." or "I'm not sure." are not valid reasons.  I'm here to help, but you have to take the initiative to reach out to me!
-- Complete [PS5](https://goo.gl/forms/ZEn8SSVtExPEdK7d2) by 10 AM on Wednesday
-
-## Plans for next time
-
-- Plicker questions over Sections 4.1 - 4.4
-- More review of plotting in R with practice problems
-- Time to ask questions about Lab 2
+- Complete corrections for Lab 2 by 3 PM tomorrow
+- Read Sections 4.5 and 4.6 of [MODERN DIVE textbook](https://ismayc.github.io/moderndiver-book/4-viz.html#scatter-plots)
+- Complete [PS6](https://goo.gl/forms/7gc6EJCZ6TwgT2h02) by 10 AM on Monday
+- Begin work on Lab 3
 
 
 ## Closing connections
@@ -101,10 +132,13 @@ ggplot(weather, aes(x = origin, y = temp)) +
 On a half-sheet of paper, 
 
 - Write your name on the front and answer
-    - What is the difference between a histogram and a boxplot?
+    - What are the differences between a histogram and a boxplot?
+    - What is the difference between a histogram and a barplot?
 
 - On the back of this sheet, answer the following questions:
 
     1. What is the definition of "observational unit"?
     2. What are the three properties of a **tidy** data set?
     3. What are the Five Named Graphs we will explore in this chapter?
+    
+# Course (so far) evaluation    
