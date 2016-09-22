@@ -45,15 +45,7 @@ subtitle: Data Viz - Histograms and Boxplots
 
 - Describe in a few sentences what this plot tells you.
 
-## Practice problem 2
-
-- Produce a histogram of the humidity recordings in the `weather` data frame with 15 bins, missing values removed, fill with a color of your choosing, and a border color of your choosing.
-
-- Describe in a few sentences how this plot is different from the last plot.
-
-- What more information does this tell you that the previous plot doesn't?
-
-## Practice problem 3 (CHALLENGE)
+## Practice problem 2 (CHALLENGE)
 
 Produce the following histogram:
 
@@ -67,36 +59,6 @@ ggplot(weather, aes(x = pressure)) +
 ```
 
 Note that you'll need to "add a layer" to the plot to change the horizontal and vertical axes using `+ labs()`.
-
-## Practice problem 4 (CHALLENGE)
-
-Produce the following boxplot:
-
-```{r echo=FALSE, fig.height=3.5, fig.width=9.5, fig.pos="center"}
-library(nycflights13)
-library(ggplot2)
-ggplot(weather, aes(x = origin, y = pressure, fill = origin)) + 
-  geom_boxplot(na.rm = TRUE, color = "orange") +
-  labs(x = "Airport", y = "Atmospheric Pressure", title = "Atmospheric Pressure By Airport in 2013")
-```
-
-- What does this plot tell us about how the response variable differs by the different levels of the explanatory variable?
-
-<!--
-## Practice problem 5 (CHALLENGE)
-
-Produce the following faceted boxplot:
-
-```{r echo=FALSE, fig.height=3}
-library(nycflights13)
-library(ggplot2)
-ggplot(weather, aes(x = origin, y = temp)) + 
-  geom_boxplot(na.rm = TRUE) +
-  labs(x = "Airport", y = "Temperature", title = "Temperature By Airport in 2013") +
-  facet_wrap(~ month)
-```
-
--->
 
 # Work on Lab 2
 
@@ -117,17 +79,3 @@ ggplot(weather, aes(x = origin, y = temp)) +
 - Plicker questions over Sections 4.1 - 4.4
 - More review of plotting in R with practice problems
 - Time to ask questions about Lab 2
-
-
-## Closing connections
-
-On a half-sheet of paper, 
-
-- Write your name on the front and answer
-    - What is the difference between a histogram and a boxplot?
-
-- On the back of this sheet, answer the following questions:
-
-    1. What is the definition of "observational unit"?
-    2. What are the three properties of a **tidy** data set?
-    3. What are the Five Named Graphs we will explore in this chapter?
