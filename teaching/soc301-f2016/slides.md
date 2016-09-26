@@ -30,7 +30,7 @@ file.copy(from = "/shared/isma5720@pacificu.edu/pq2.Rmd",
               to = "/home/EMAIL/LastnameFirstname/")
 ```
 
-###[Week 4 - Data Viz (Histograms, Boxplots, Barplots)]({{ site.baseurl }}/teaching/soc301-f2016/slides/week04/)
+### [Week 4 - Data Viz (Histograms, Boxplots, Barplots)]({{ site.baseurl }}/teaching/soc301-f2016/slides/week04/)
 
 ### [Week 3 - Tidy Data]({{ site.baseurl }}/teaching/soc301-f2016/slides/week03/)
 
