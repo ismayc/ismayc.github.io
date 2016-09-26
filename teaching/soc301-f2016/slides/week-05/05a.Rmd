@@ -10,6 +10,10 @@ output:
 subtitle: Data Viz
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.align = 'center')
+```
+
 
 ## Learning Quote of the Day {.flexbox .vcenter}
 
