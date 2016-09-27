@@ -4,60 +4,33 @@ title: Slides and Class Content
 permalink: /teaching/soc301-f2016/slides/
 ---
 
-## Week 4
-
-### Wednesday
-
-- <a href = "{{ site.baseurl }}/teaching/soc301-f2016/slides/week-04/04b.html">2016-09-21</a>
-
-#### Covered content
-
-- Plicker questions based on your submitted multiple choice questions
-- Talk about which plots are appropriate for a given data set
-- Discuss responses to your questions from PS5
-- Ask you to produce some histograms, boxplots, and barplots in R Markdown
-- Time in class to finish Lab 2
-- Complete one-third-term course evaluation
-
-#### To do for next time
-
-- Complete corrections for Lab 2 by 3 PM tomorrow
-- Read Sections 4.5 and 4.6 of [MODERN DIVE textbook](https://ismayc.github.io/moderndiver-book/4-viz.html#scatter-plots)
-- Complete [PS6](https://goo.gl/forms/7gc6EJCZ6TwgT2h02) by 10 AM on Monday
-- Begin work on Lab 3
-
-#### Getting Lab 3 (in groups of 3)
-
-- To obtain the lab, copy the following R code into the Console where `EMAIL` is your Pacific email (mine is isma5720@pacificu.edu) and
-`LastnameFirstname` is where you have shared your RStudio project with me (mine is IsmayChester):
-
-    ```
-    file.copy(from = "/shared/isma5720@pacificu.edu/lab3.Rmd",
-              to = "/home/EMAIL/LastnameFirstname/")
-    ```
-
-- You now can work on the `lab3.Rmd` file and save your results there.
-- You'll only turn in one lab per your group.  Your partners have been assigned in the Google Sheet [here](https://docs.google.com/a/pacificu.edu/spreadsheets/d/1x9gAqaf7eO9IHA52KbLqX7USIsQSGeMS43JHIv8C4io/edit?usp=sharing).
-
-***
+## Week 5
 
 ### Monday
-- <a href = "{{ site.baseurl }}/teaching/soc301-f2016/slides/week-04/04a.html">2016-09-19</a>
+- <a href = "{{ site.baseurl }}/teaching/soc301-f2016/slides/week-05/05a.html">2016-09-26</a>
 
 #### Covered content
-- Plicker questions over MODERN DIVE Chapter 3, MODERN DIVE Sections 4.1-4.3, and R so far
-- Demo some examples of making histograms and boxplots in R Markdown
-- Ask you to produce some histograms in R Markdown
-- Time in class to ask questions about Lab 2
+- Go over responses to PS6 and course evaluation
+- Practice making plots in R
+- Go over examples of tidy data and the Grammar of Graphics
+- Time in class to ask questions about/work on Lab 3
 
 #### To do for next time
-- Finish Lab 2 by 3 PM tomorrow
-- Read Section 4.4 of [MODERN DIVE textbook](https://ismayc.github.io/moderndiver-book/4-viz.html#barplots)
-- Review comments on Lab 2
-    - Lab 2 revisions due on Thursday at 3 PM
-    - Make sure to Knit to HTML for full credit
-    - You must attempt all exercises in the lab for credit.  "I don't know how to do this." or "I'm not sure." are not valid reasons.  I'm here to help, but you have to take the initiative to reach out to me!
-- Complete [PS5](https://goo.gl/forms/ZEn8SSVtExPEdK7d2) by 10 AM on Wednesday
+- Complete Lab 3 by 3 PM tomorrow
+    - Email me with whose lab to grade with a link to their project
+- Read Sections 4.7 and 4.8 of [MODERN DIVE textbook](https://ismayc.github.io/moderndiver-book/4-viz.html#brief-review-of-the-grammar-of-graphics)
+- Complete PS7 (Practice Quiz for Quiz #2) by 10 AM on Wednesday
+
+### Getting PS7
+
+Run the following in the R console where `EMAIL` is your Pacific University email (mine is `isma5720@pacificu.edu`) and `LastnameFirstname` is the name of the project you created (mine is `IsmayChester`):
+
+```
+file.copy(from = "/shared/isma5720@pacificu.edu/pq2.Rmd",
+              to = "/home/EMAIL/LastnameFirstname/")
+```
+
+### [Week 4 - Data Viz (Histograms, Boxplots, Barplots)]({{ site.baseurl }}/teaching/soc301-f2016/slides/week04/)
 
 ### [Week 3 - Tidy Data]({{ site.baseurl }}/teaching/soc301-f2016/slides/week03/)
 

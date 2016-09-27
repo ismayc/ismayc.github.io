@@ -68,37 +68,6 @@ ggplot(weather, aes(x = origin, y = pressure, fill = origin)) +
 
 - What does this plot tell us about how the response variable differs by the different levels of the explanatory variable?
 
-## Practice problem 3
-
-- Install the `okcupiddata` package by typing `install.packages("okcupiddata")` into your R console.
-
-- Load the package via `library(okcupiddata)`
-
-- Load the data via `data(profiles)`
-
-- Produce a barplot of the `status` variable
-
-## Practice problem 4
-
-- Produce a barplot of the `sex` variable in the `profiles` data frame
-
-## Practice problem 5
-
-- Produce a faceted barplot of the `status` variable based on `sex`
-
-**CHALLENGE**
-
-- Fill the faceted barplot based on `drinks`
-
-## One more step {.flexbox .vcenter}
-
-```{r message=FALSE, warning=FALSE, fig.width=11, fig.height=4}
-library(dplyr); library(okcupiddata)
-non_straight <- filter(profiles, orientation != "straight", status != "unknown")
-ggplot(data = non_straight, aes(x = drinks, fill = sex)) +
-  geom_bar() + facet_wrap(orientation ~ status)
-```
-
 
 <!--
 ## Practice problem 5 (CHALLENGE)
