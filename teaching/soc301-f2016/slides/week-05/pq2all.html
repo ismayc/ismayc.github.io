@@ -572,7 +572,7 @@ div.tocify {
 <ul>
 <li><p>A.</p>
 <pre class="r"><code>ggplot(data = flights, mapping = aes(x = arr_delay)) +
-  geom_histogram(bins = 100, color = &quot;black&quot;, fill = &quot;gold&quot;)</code></pre></li>
+  geom_histogram(bins = 1000, color = &quot;black&quot;, fill = &quot;gold&quot;)</code></pre></li>
 <li><ol start="2" style="list-style-type: upper-alpha">
 <li></li>
 </ol>
@@ -758,7 +758,7 @@ div.tocify {
 <li>A. A faceted histogram is used for two categorical variables and a faceted barplot is best for one categorical and one numeric variable</li>
 <li>B. A faceted barplot is used for two categorical variables and a faceted histogram is used for a numeric explanatory variable and a categorical response variable</li>
 <li>C. A faceted barplot shows two categorical variables and a faceted histogram shows two numeric variables</li>
-<li>D. A faceted histogram is for plotting a categorical response variable and a numeric response variable while a faceted barplot is for plotting a categorical response and categorical response variable</li>
+<li>D. A faceted histogram is for plotting a categorical explanatory variable and a numeric response variable while a faceted barplot is for plotting a categorical response and categorical response variable</li>
 </ul>
 </div>
 <div id="problem-47" class="section level1">
@@ -886,7 +886,7 @@ div.tocify {
 <p>If a dataset called <code>class_examscore</code> included 10 students names and grades that they received on three exams, how would you extract the first five student names in the dataset?</p>
 <ul>
 <li>A. <code>class_examscore$name[1:5]</code></li>
-<li>B. <code>class_examscore$name(c(1:5))</code></li>
+<li>B. <code>class_examscore$name(c(1, 5))</code></li>
 <li>C. <code>class_examscore$name1:5</code></li>
 <li>D. None of the above</li>
 </ul>
@@ -926,10 +926,10 @@ div.tocify {
 <h1>Problem 61</h1>
 <p>Which code below corresponds to a histogram with 10 bins, a black outline, and a blue fill (assuming the appropriate call to <code>ggplot</code> with a <code>+</code> was made just before this)?</p>
 <ul>
-<li>A. ggplot(binwidth = 10, color = “white”, fill = “forestgreen”)</li>
-<li>B. geom_histogram(binwidth = 10, color = “black”, fill = “blue”)</li>
-<li>C. geom_histogram(bins = 10, color = “black”, fill = “blue”)</li>
-<li>D. geom_boxplot(binwidth = 10, color = “black”, fill = “blue”)</li>
+<li>A. <code>ggplot(binwidth = 10, color = &quot;white&quot;, fill = &quot;forestgreen&quot;)</code></li>
+<li>B. <code>geom_histogram(binwidth = 10, color = &quot;black&quot;, fill = &quot;blue&quot;)</code></li>
+<li>C. <code>geom_histogram(bins = 10, color = &quot;black&quot;, fill = &quot;blue&quot;)</code></li>
+<li>D. <code>geom_boxplot(binwidth = 10, color = &quot;black&quot;, fill = &quot;blue&quot;)</code></li>
 </ul>
 </div>
 <div id="problem-62" class="section level1">
@@ -1027,11 +1027,11 @@ library(ggplot2)
 ggplot(data = weather, mapping = aes(x = temp))</code></pre>
 <p>If you wanted to produce a histogram, would the code above plot a histogram? Why or why not?</p>
 <ul>
-<li><p>A. Yes. The code below specifically allows RStudio to plot the dataset.</p></li>
+<li><p>A. Yes. The code above specifically allows RStudio to plot the dataset.</p></li>
 <li><p>B. No. The code just provided a backdrop. We need to be able to plot, thus we will follow up the code with a “+”. As seen in the code below.</p>
 <pre class="r"><code>ggplot(data = weather, mapping = aes(x = temp)) +
   geom_histogram()</code></pre></li>
-<li><p>C. Yes. The code below has provided the backdrop and added the layer needed to plot.</p></li>
+<li><p>C. Yes. The code above has provided the backdrop and added the layer needed to plot.</p></li>
 <li><p>D. No. The code just provided a backdrop. We need to be able to plot, thus we will begin the following line with a “+”. As seen in the code below.</p>
 <pre class="r"><code>ggplot(data = weather, mapping = aes(x = temp)) 
   + geom_histogram()</code></pre></li>
@@ -1381,7 +1381,7 @@ ggplot(data = weather, mapping = aes(x = temp))</code></pre>
 <h1>Problem 98</h1>
 <p>Why should you use a lineplot?</p>
 <ul>
-<li>A. Great way look at trends over time</li>
+<li>A. Great way to look at trends over time</li>
 <li>B. You should never!</li>
 <li>C. When you have a natural ordering to <code>x</code> and one corresponding value of <code>y</code> for each <code>x</code> value.</li>
 <li>D. Both A and C</li>
