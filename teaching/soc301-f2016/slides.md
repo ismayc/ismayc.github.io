@@ -15,7 +15,8 @@ permalink: /teaching/soc301-f2016/slides/
 
 #### To do for next time
 
-- Work through practice problems for Quiz #2 [here](http://ismayc.github.io/teaching/soc301-f2016/slides/week-05/pq2all.html)
+- Complete [PS8](https://goo.gl/forms/LLcnjyeaemRTgH0Y2) by 10 AM on Monday, October 3
+- Work through as many of the practice problems for Quiz #2 [here](http://ismayc.github.io/teaching/soc301-f2016/slides/week-05/pq2all.html) as you can
 - No lab due on Tuesday next week
 
 ***

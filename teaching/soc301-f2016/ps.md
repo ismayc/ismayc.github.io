@@ -8,6 +8,15 @@ permalink: /teaching/soc301-f2016/ps/
 
 All problem sets are due at 10 AM unless otherwise specified.
 
+- [PS8](https://goo.gl/forms/LSH83PVgzY5yRfdy1)
+
+- PS7:  Create five multiple choice questions in R Markdown on the [RStudio Server](http://beta.rstudio.org) in the template file retrieved via the code below.  This is due on Wednesday, September 28.
+
+```
+file.copy(from = "/shared/isma5720@pacificu.edu/pq2.Rmd",
+              to = "/home/EMAIL/LastnameFirstname/")
+```
+
 - [PS6](https://goo.gl/forms/7gc6EJCZ6TwgT2h02) due Monday, September 26
 
 - [PS5](https://goo.gl/forms/ZEn8SSVtExPEdK7d2) due Wednesday, September 21
