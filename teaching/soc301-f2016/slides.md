@@ -6,6 +6,20 @@ permalink: /teaching/soc301-f2016/slides/
 
 ## Week 5
 
+### Wednesday
+- <a href = "{{ site.baseurl }}/teaching/soc301-f2016/slides/week-05/05b.html">2016-09-28</a>
+
+#### Covered content
+- Go over examples of tidy data and the Grammar of Graphics
+- Time in class to ask questions about/work on Lab 3
+
+#### To do for next time
+
+- Work through practice problems for Quiz #2 [here](http://ismayc.github.io/teaching/soc301-f2016/slides/week05/pq2all.html)
+- No lab due on Tuesday next week
+
+***
+
 ### Monday
 - <a href = "{{ site.baseurl }}/teaching/soc301-f2016/slides/week-05/05a.html">2016-09-26</a>
 
