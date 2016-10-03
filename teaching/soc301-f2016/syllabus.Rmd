@@ -2,11 +2,11 @@
 title: "SOC 301-01 - Social Statistics Syllabus"
 subtitle: Pacific University - Fall 2016
 output:
-  pdf_document:
-    toc: no
   html_document:
     toc: yes
     toc_float: yes
+  pdf_document:
+    toc: no
 ---
 
 ```{r include=FALSE}
@@ -78,7 +78,7 @@ Introductory statistics course for students in the social sciences. The emphasis
 
 # Textbook
 
-[**A MODERN DIVE into Data with R**](https://ismayc.github.io/moderndiver-book/) (2016) by Chester Ismay.  The online HTML version is preferred but a PDF version is also available.  This textbook
+[**A MODERN DIVE into Data with R**](https://ismayc.github.io/moderndiver-book/) (2016) by Chester Ismay and Albert Y. Kim.  The online HTML version is preferred but a PDF version is also available.  This textbook
 is free and open-source and will be a key component of the course.  You'll frequently be asked to
 read through the textbook and complete the Learning Checks and Review Questions for homework to check for comprehension.
 
@@ -92,7 +92,7 @@ in learning what might initially be scary.  We'll refer to this document frequen
 "Deciphering Common R Errors", which will be updated as the semester goes along.
 
 [**OpenIntro: Introductory Statistics with Randomization and Simulation**](https://www.openintro.org/stat/textbook.php?stat_book=isrs) (2014),
-by Diez, Barr and Çetinkaya-Rundel, available in three formats: pdf, 
+by David M. Diez, Christopher D. Barr, and Mine Çetinkaya-Rundel, available in three formats: pdf, 
 tablet-friendly pdf, and paperback edition. You'll notice a pattern here:  the textbook is also free and open-source.
 
 # Class components
