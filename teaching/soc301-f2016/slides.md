@@ -4,46 +4,23 @@ title: Slides and Class Content
 permalink: /teaching/soc301-f2016/slides/
 ---
 
-## Week 5
-
-### Wednesday
-- <a href = "{{ site.baseurl }}/teaching/soc301-f2016/slides/week-05/05b.html">2016-09-28</a>
-
-#### Covered content
-- Go over examples of tidy data and the Grammar of Graphics
-- Time in class to ask questions about/work on Lab 3
-
-#### To do for next time
-
-- Complete [PS8](https://goo.gl/forms/LLcnjyeaemRTgH0Y2) by 10 AM on Monday, October 3
-- Work through as many of the practice problems for Quiz #2 [here](http://ismayc.github.io/teaching/soc301-f2016/slides/week-05/pq2all.html) as you can
-- No lab due on Tuesday next week
-
-***
+## Week 6
 
 ### Monday
-- <a href = "{{ site.baseurl }}/teaching/soc301-f2016/slides/week-05/05a.html">2016-09-26</a>
 
 #### Covered content
-- Go over responses to PS6 and course evaluation
-- Practice making plots in R
-- Go over examples of tidy data and the Grammar of Graphics
-- Time in class to ask questions about/work on Lab 3
+- Quiz 2 individually
+- Quiz 2 in partners of three of your own choosing
+- Review Practice Quiz #2 problems
+- Look over [Take Home Exam - Study Guide]({{ site.baseurl }}/teaching/soc301-f2016/exam1review.html)
 
 #### To do for next time
-- Complete Lab 3 by 3 PM tomorrow
-    - Email me with whose lab to grade with a link to their project
-- Read Sections 4.7 and 4.8 of [MODERN DIVE textbook](https://ismayc.github.io/moderndiver-book/4-viz.html#brief-review-of-the-grammar-of-graphics)
-- Complete PS7 (Practice Quiz for Quiz #2) by 10 AM on Wednesday
 
-### Getting PS7
+- Study for Take Home Exam 1
+    - Distributed at the beginning of class on Wednesday
+    - Due at 10 AM on Monday, October 10th on the RStudio Server like the labs
 
-Run the following in the R console where `EMAIL` is your Pacific University email (mine is `isma5720@pacificu.edu`) and `LastnameFirstname` is the name of the project you created (mine is `IsmayChester`):
-
-```
-file.copy(from = "/shared/isma5720@pacificu.edu/pq2.Rmd",
-              to = "/home/EMAIL/LastnameFirstname/")
-```
+### [Week 5 - Data Viz (Scatter-plots and Line-graphs)]({{ site.baseurl }}/teaching/soc301-f2016/slides/week05/)
 
 ### [Week 4 - Data Viz (Histograms, Boxplots, Barplots)]({{ site.baseurl }}/teaching/soc301-f2016/slides/week04/)
 
