@@ -972,7 +972,7 @@ ggplot(data = profiles, mapping = aes(x = smokes)) +
     ```{r eval=FALSE}
     ggplot(data = profiles, mapping = aes(x = status)) +
       geom_bar((aes(fill = smokes, na.rm = TRUE))) +
-      facet_grid(~smokes)
+      facet_wrap(~smokes)
     ```
 
 <!-- Nani -->
