@@ -303,7 +303,7 @@ Which of these codes is the most correct?
 
 # Problem `r lc <- lc + 1; lc`
 
-When producing a code for a scatterplot, do we use to `fill` function or the `color` function to change the color of the points? 
+When producing a code for a scatterplot, do we use the `fill` function or the `color` function to change the color of the points? 
 
 - A. You use both. 
 - B. `color`
@@ -571,7 +571,7 @@ What are the main features of a tidy data set?
 
 # Problem `r lc <- lc + 1; lc`
 
-If you want to plot two variables, where the explanatory is categorical and the response is numeric, which types of graphs could you use?
+If you want to plot two variables, where the explanatory is categorical and the response is numeric, which types of graphs would be appropriate to use?
 
 - A. Faceted barplot & faceted histogram 
 - B. Faceted histogram & line graph 
@@ -580,7 +580,7 @@ If you want to plot two variables, where the explanatory is categorical and the 
 
 # Problem `r lc <- lc + 1; lc`
 
-If you want to plot two categorical variables which types of graph could you use?
+If you want to plot two categorical variables which type of graph would be the most appropriate to use?
 
 - A. Boxplot
 - B. Bar plot
@@ -656,10 +656,10 @@ Which of these will give us rows 9 through 12 of the variable `distance` in the 
 
 Which of these plots is not used when the explanatory variable is categorical? 
 
-- A. Faceted Barplot
+- A. Faceted barplot
 - B. Boxplot 
-- C. Faceted Histograms 
-- D. Histogram 
+- C. Faceted histogram 
+- D. Scatterplot
 
 <!-- Dinisa -->
 
@@ -688,18 +688,18 @@ What 2 functions are most crucial when producing a faceted barplot?
 
 - A.`factor` and `geom_bar` functions
 - B.`geom_bar` and `facet_grid` functions
-- C.`bins`, `aes`, and `facet_grid` functions
+- C.`bins` and `facet_grid` functions
 - D. None of the above. 
 
 # Problem `r lc <- lc + 1; lc`
 
-Which of the following would be the result of the R code in the Console? 
+Which of the following would be the result of running the following R code in the Console? 
 
 `> library(okcupiddata)`
 
-- A. R will load the `okcupiddata` package.
+- A. R will load the `okcupiddata` package if the package is installed.
 - B. R will allow you to view the `okcupiddata` dataset.
-- C. By performing this output, it will allow you to remove the missing values in the `okcupiddata` dataset.
+- C. It will allow you to remove the missing values in the `okcupiddata` dataset.
 - D. All of the above.
 
 # Problem `r lc <- lc + 1; lc`
@@ -709,7 +709,7 @@ Why is the `labs` function useful in keeping your data distributions organized?
 - A.The `labs` function is useful because it allows you to label the **x** and **y** axis.
 - B.The `labs` function is useful because it allows you to change the default labels on the plot and add a title.
 - C.The `labs` function is useful because others are able to receive clarification of the data distribution, with the help of labels.
-- *D. All of the above.*
+- D. All of the above.
 
 <!-- Kelcie -->
 
@@ -790,18 +790,18 @@ What is the biggest problem with pie charts compared to barplots?
 
 # Problem `r lc <- lc + 1; lc`
 
-"`Error: could not function 'ggplot'`" appears in R Console after running:
+"`Error: could not function 'ggplot'`" appears in the R Console after running:
 
 ```{r eval=FALSE}
-ggplot(alaska_flights, aes(x = dep_delay, y = arr_delay)) + 
+ggplot(data = alaska_flights, aes(x = dep_delay, y = arr_delay)) + 
    geom_point(alpha = 0.2)
 ```
 
 What needs to be done to fix this error?
 
 - A. You need to put `ggplot2` rather than `ggplot` in your code.
-- B. `ggplot` is a function of `ggplot2`, so you need to make sure `ggplot2` is loaded via `library(ggplot2)` in a chunk above this chunk
-- C. the `g` in `ggplot` needs to be capitalized: (`Ggplot`)
+- B. `ggplot` is a function in `ggplot2`, so you need to make sure `ggplot2` is loaded via `library(ggplot2)` in a chunk above this chunk.
+- C. The `g` in `ggplot` needs to be capitalized: (`Ggplot`)
 - D. None of the above.
 
 # Problem `r lc <- lc + 1; lc`
@@ -891,7 +891,7 @@ If you wanted to produce a histogram, would the code above plot a histogram? Why
 
 # Problem `r lc <- lc + 1; lc`
 
-Which plot is appropriate to plot the correlation between `sex` and `education` in the `profiles` `okcupiddata` data set?
+Which plot is appropriate to plot the relationship between `sex` and `education` in the `profiles` `okcupiddata` data set?
 
 - A. Barplot
 - B. Faceted Barplot 
@@ -1009,9 +1009,9 @@ When using two categorical variables, what is the most appropriate plot to use?
 
 # Problem `r lc <- lc + 1; lc`
 
-What does the "box" of a box plot represent?
+What precisely does the "box" of a boxplot represent?
 
-- A. 0, 50th, and 100 percentiles
+- A. 0th, 50th, and 100th percentiles
 - B. Below average, average, above average
 - C. 25th, 50th and 75th percentiles
 - D. Answers A and B
