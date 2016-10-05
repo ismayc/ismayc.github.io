@@ -6,6 +6,23 @@ permalink: /teaching/soc301-f2016/slides/
 
 ## Week 6
 
+### Wednesday
+
+#### Getting Take Home Exam 1
+
+- To obtain the exam, copy the following R code into the Console where `EMAIL` is your Pacific email (mine is `isma5720@pacificu.edu`) and
+`LastnameFirstname` is where you have shared your RStudio project with me (mine is `IsmayChester`):
+
+    ```
+    file.copy(from = "/shared/isma5720@pacificu.edu/exam1.Rmd",
+              to = "/home/EMAIL/LastnameFirstname/")
+    ```
+
+- You now can work on the `exam1.Rmd` file and save your results there.
+- The exam is due at 2 PM PDT on Monday, October 10.  You don't need to do anything to turn it in other than making sure you have saved the `exam1.Rmd` file and knitted to HTML to produce an `exam1.html` file before the deadline.
+
+***
+
 ### Monday
 
 #### Covered content
