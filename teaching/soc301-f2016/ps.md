@@ -8,6 +8,8 @@ permalink: /teaching/soc301-f2016/ps/
 
 All problem sets are due at 10 AM unless otherwise specified.
 
+- PS9:  Create five questions in R Markdown on the [RStudio Server](http://beta.rstudio.org) in an R Markdown file named `ps9.Rmd` in your `LastnameFirstname` folder.  You may work on this in partners if you like.  Please email me with whose file you will be sharing and who you are working with.  This is due on Monday, October 17.
+
 - [PS8](https://goo.gl/forms/LSH83PVgzY5yRfdy1) due Monday, October 3
 
 - PS7:  Create five multiple choice questions in R Markdown on the [RStudio Server](http://beta.rstudio.org) in the template file retrieved via the code below.  This is due on Wednesday, September 28.
