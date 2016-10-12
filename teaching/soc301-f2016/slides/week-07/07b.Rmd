@@ -168,7 +168,7 @@ flights %>%
 
 ## To do for next time
 
-- Re-read Chapter 5 and create five of your own problems (in partners if you like) using the `gap` data frame you downloaded for Exam 1.  Save this file as `ps9.Rmd` in your `LastnameFirstname` folder.
+- Re-read Chapter 5 and create five of your own problems (in partners if you like) using the `gap` data frame you downloaded for Exam 1.  Save this file as `ps9.Rmd` in your `LastnameFirstname` folder.  You may work on this in partners if you like.  Please email me with whose file you will be sharing and who you are working with.  
 
 - We will work through many of these problems in class on Monday.
 
@@ -176,6 +176,7 @@ flights %>%
 
 - Keep working through Chapter 5
 - No lab for next week (I'll give you a little break, but you should still be spending 15 minutes a day quizzing yourself.)
+- Quiz #3 is Monday, October 24 over Chapters 3, 4, and 5 of [A MODERN DIVE into Data with R](https://ismayc.github.io/moderndiver-book/3-tidy.html).
 
 
     
