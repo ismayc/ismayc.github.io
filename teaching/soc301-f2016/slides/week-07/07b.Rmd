@@ -111,59 +111,6 @@ Say hello to the FMV: the **five main verbs**
 
 Keep looking back and forth between book and [cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)!
 
-
-
-
-
-<!--
-## Important Concept: Piping
-
-Piping allows you to take the output of one function and **pipe** it as the input of
-the next function. You can string along several pipes to form a single **chain**.
-
-* R Command: `%>%`
-* Described as: "_then_". 
-
-
-
-## Important Concept: Piping
-
-Ex:  say you want to apply functions `h()` and `g()` and then `f()` on data `x`.  You can do
-
-* `f(g(h(x)))` OR
-* `x %>% h() %>% g() %>% f()`
-
-This
-
-> * saves you from confusing nested parentheses
-> * emphasizes the **sequential** breaking down of tasks, making it more readable
-> * i.e. Do this _then_ do this _then_ do this _then_ ...
-
-
-
-
-## Important Concept: Piping
-
-Pipes are always directed to the first argument of any function. The following three bits of R code
-do the same thing, extract all january flights:
-
-```{r,eval=FALSE, echo=TRUE}
-library(nycflights13)
-data(flights)
-
-# Bit 1: No piping
-filter(flights, month == 1)
-
-# Bit 2: Piping. Note no comma
-flights %>% filter(month == 1)
-
-# Bit 3: Piping across multiple lines (preferred for legibility)
-flights %>% 
-  filter(month==1)
-```
--->
-
-
 # Finish Lab 4
 
 ## To do for next time

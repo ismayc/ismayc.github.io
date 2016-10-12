@@ -208,55 +208,6 @@
 
 <p>Keep looking back and forth between book and <a href='https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf' title=''>cheatsheet</a>!</p>
 
-<!--
-## Important Concept: Piping
-
-Piping allows you to take the output of one function and **pipe** it as the input of
-the next function. You can string along several pipes to form a single **chain**.
-
-* R Command: `%>%`
-* Described as: "_then_". 
-
-
-
-## Important Concept: Piping
-
-Ex:  say you want to apply functions `h()` and `g()` and then `f()` on data `x`.  You can do
-
-* `f(g(h(x)))` OR
-* `x %>% h() %>% g() %>% f()`
-
-This
-
-> * saves you from confusing nested parentheses
-> * emphasizes the **sequential** breaking down of tasks, making it more readable
-> * i.e. Do this _then_ do this _then_ do this _then_ ...
-
-
-
-
-## Important Concept: Piping
-
-Pipes are always directed to the first argument of any function. The following three bits of R code
-do the same thing, extract all january flights:
-
-
-```r
-library(nycflights13)
-data(flights)
-
-# Bit 1: No piping
-filter(flights, month == 1)
-
-# Bit 2: Piping. Note no comma
-flights %>% filter(month == 1)
-
-# Bit 3: Piping across multiple lines (preferred for legibility)
-flights %>% 
-  filter(month==1)
-```
--->
-
 </article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>Finish Lab 4</h2></hgroup><article  id="finish-lab-4">
 
 </article></slide><slide class=''><hgroup><h2>To do for next time</h2></hgroup><article  id="to-do-for-next-time">
