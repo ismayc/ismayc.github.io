@@ -23,8 +23,8 @@ Thursday,October,6,"""",-
 Monday,October,10,Work on Lab 4 in class,Take Home Exam 1 Due at 2 PM
 Wednesday,October,12,<a href='https://ismayc.github.io/moderndiver-book/5-manip.html'>Five Main Verbs & The Pipe (Sections 5.1 and 5.2)</a>,Lab 4 draft due at 4 PM
 Friday,October,14,"""",Lab 4 final due at 3 PM
-Monday,October,17,<a href='https://ismayc.github.io/moderndiver-book/5-manip.html'>Five Main Verbs & The Pipe (Sections 5.1 and 5.2) (Part 2)</a>,-
-Wednesday,October,19,<a href='https://ismayc.github.io/moderndiver-book/5-manip.html#the-pipe'>The Pipe and Joins (Sections 5.2 and 5.3)</a>,PS9
+Monday,October,17,<a href='https://ismayc.github.io/moderndiver-book/5-manip.html'>Five Main Verbs & The Pipe (Sections 5.1 and 5.2) (Part 2)</a>,<a href='http://ismayc.github.io/teaching/soc301-f2016/slides/week-07/07b.html#13'>PS7</a>
+Wednesday,October,19,<a href='https://ismayc.github.io/moderndiver-book/5-manip.html#the-pipe'>The Pipe and Joins (Sections 5.2 and 5.3)</a>,PS10
 Monday,October,24,<a href='https://ismayc.github.io/moderndiver-book/6-infer-basics.html#simulation'>Random sampling and Simulation (Sections 6.1 and 6.2)</a>,Quiz 3
 Tuesday,October,25,"""",Lab 5 draft due
 Wednesday,October,26,<a href='https://ismayc.github.io/moderndiver-book/6-infer-basics.html#bootstrapping'>Bootstrapping (Section 6.3)</a>,-
@@ -33,23 +33,23 @@ Monday,October,31,Review for Exam 2 (Chapters 1-6),-
 Tuesday,November,1,"""",-
 Wednesday,November,2,Exam 2 in class (Chapters 1-6),-
 Thursday,November,3,"""",Midterm course eval
-Monday,November,7,<a href='https://ismayc.github.io/moderndiver-book/7-hypo.html'>Hypothesis Testing (Chapter 7)</a>,PS10
+Monday,November,7,<a href='https://ismayc.github.io/moderndiver-book/7-hypo.html'>Hypothesis Testing (Chapter 7)</a>,PS11
 Tuesday,November,8,"""",Lab 6 draft due
-Wednesday,November,9,<a href='https://ismayc.github.io/moderndiver-book/7-hypo.html'>Hypothesis Testing II (Chapter 7)</a>,PS11
+Wednesday,November,9,<a href='https://ismayc.github.io/moderndiver-book/7-hypo.html'>Hypothesis Testing II (Chapter 7)</a>,PS12
 Thursday,November,10,"""",Lab 6 final due
-Monday,November,14,<a href='https://ismayc.github.io/moderndiver-book/8-ci.html'>Confidence Intervals (Chapter 8)</a>,PS12
+Monday,November,14,<a href='https://ismayc.github.io/moderndiver-book/8-ci.html'>Confidence Intervals (Chapter 8)</a>,PS13
 Tuesday,November,15,"""",Lab 7 draft due
-Wednesday,November,16,<a href='https://ismayc.github.io/moderndiver-book/9-regress.html'>Correlation/Simple Regression (Sections 9.1 and 9.2)</a>,"Quiz 4, PS13"
+Wednesday,November,16,<a href='https://ismayc.github.io/moderndiver-book/9-regress.html'>Correlation/Simple Regression (Sections 9.1 and 9.2)</a>,"Quiz 4, PS14"
 Thursday,November,17,"""",Lab 7 final due
-Monday,November,21,<a href='https://ismayc.github.io/moderndiver-book/9-regress.html#mlr'>Multiple Regression (Section 9.3)</a>,PS14
+Monday,November,21,<a href='https://ismayc.github.io/moderndiver-book/9-regress.html#mlr'>Multiple Regression (Section 9.3)</a>,PS15
 Tuesday,November,22,"""",-
 Wednesday,November,23,Thanksgiving Holiday (No Classes),-
 Thursday,November,24,Thanksgiving Holiday (No Classes),-
 Monday,November,28,<a href='https://ismayc.github.io/moderndiver-book/9-regress.html#mlr'>Multiple Regression II (Section 9.3)</a>,-
 Tuesday,November,29,"""",Draft of Final Project Due
-Wednesday,November,30,<a href='https://ismayc.github.io/moderndiver-book/9-regress.html#types-of-predictors'>Multiple Regression III (Sections 9.4 to 9.6)</a>,"Quiz 5, PS 15"
+Wednesday,November,30,<a href='https://ismayc.github.io/moderndiver-book/9-regress.html#types-of-predictors'>Multiple Regression III (Sections 9.4 to 9.6)</a>,"Quiz 5, PS 16"
 Thursday,December,1,Work on Final Project,-
-Monday,December,5,Course Review <a href='https://ismayc.github.io/moderndiver-book/10-conclusion.html'>(Chapter 10)</a>,"Final Project, PS 16"
+Monday,December,5,Course Review <a href='https://ismayc.github.io/moderndiver-book/10-conclusion.html'>(Chapter 10)</a>,"Final Project, PS 17"
 Tuesday,December,6,-,Post-test
 Wednesday,December,7,READING DAY,-
 Tuesday,December,13,Final Exam,8:30 AM to 11:00 AM
