@@ -168,7 +168,7 @@ flights %>%
 
 ## To do for next time
 
-- Re-read Chapter 5 and create five of your own problems (in partners if you like) using the `gap` data frame you downloaded for Exam 1.  Save this file as `ps9.Rmd` in your `LastnameFirstname` folder.  You may work on this in partners if you like.  Please email me with whose file you will be sharing and who you are working with.  
+- Re-read Chapter 5 and create five of your own problems using the `gap` data frame you downloaded for Exam 1.  Save this file as `ps9.Rmd` in your `LastnameFirstname` folder.
 
 - We will work through many of these problems in class on Monday.
 
