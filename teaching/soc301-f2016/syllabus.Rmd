@@ -2,11 +2,11 @@
 title: "SOC 301-01 - Social Statistics Syllabus"
 subtitle: Pacific University - Fall 2016
 output:
+  pdf_document:
+    toc: no
   html_document:
     toc: yes
     toc_float: yes
-  pdf_document:
-    toc: no
 ---
 
 ```{r include=FALSE}
@@ -19,8 +19,8 @@ options(width = 150)
 - **Course meeting time**: Mondays and Wednesdays 2:15 PM - 3:50 PM in Walter Annex, Room 101
 - **Course webpage**: <http://ismayc.github.io/teaching/soc301-f2016>
 - **Office Hours**
-    - Mondays 1:00 PM - 2:00 PM first floor of the Library near Information Desk
-    - Wednesdays 11:30 AM - 12:30 PM first floor of the Library near Information Desk
+    - Mondays 1:00 PM - 2:00 PM second floor of the Library near the stairs
+    - Wednesdays 11:30 AM - 12:30 PM second floor of the Library near the stairs
     - By appointment (Send email to [chester@pacificu.edu](mailto:chester@pacificu.edu) or talk to me after class.)
 - **Office Phone Number**: Not available (Happy to meet in the Library or another place on campus as needed though.)
 - Email: [chester@pacificu.edu](mailto:chester@pacificu.edu)
