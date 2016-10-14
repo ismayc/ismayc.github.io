@@ -4,46 +4,57 @@ title: Slides and Class Content
 permalink: /teaching/soc301-f2016/slides/
 ---
 
-## Week 5
+## Week 7
 
 ### Wednesday
-- <a href = "{{ site.baseurl }}/teaching/soc301-f2016/slides/week-05/05b.html">2016-09-28</a>
+- <a href = "{{ site.baseurl }}/teaching/soc301-f2016/slides/week-07/07b.html">2016-10-12</a>
+
 
 #### Covered content
-- Go over examples of tidy data and the Grammar of Graphics
-- Time in class to ask questions about/work on Lab 3
 
-#### To do for next time
+- Introduction to `dplyr` package
+- Work through many of the Lab 4 questions in class
 
-- Complete [PS8](https://goo.gl/forms/LLcnjyeaemRTgH0Y2) by 10 AM on Monday, October 3
-- Work through as many of the practice problems for Quiz #2 [here](http://ismayc.github.io/teaching/soc301-f2016/slides/week-05/pq2all.html) as you can
-- No lab due on Tuesday next week
+## To do for next time
+
+- Re-read Chapter 5 and create five of your own problems (in partners if you like) using the `gap` data frame you downloaded for Exam 1 based on the FMV.  An example would be (no you can't use this as one of your five problems):
+
+`## Exercise 1`
+
+What is the mean life expectancy in 2007 for each `subRegion`?
+
+Save this file with your five Exercises as `gap.Rmd` in your `LastnameFirstname` folder.
+
+- We will work through many of these problems in class on Monday.
+
 
 ***
 
 ### Monday
-- <a href = "{{ site.baseurl }}/teaching/soc301-f2016/slides/week-05/05a.html">2016-09-26</a>
 
 #### Covered content
-- Go over responses to PS6 and course evaluation
-- Practice making plots in R
-- Go over examples of tidy data and the Grammar of Graphics
-- Time in class to ask questions about/work on Lab 3
 
-#### To do for next time
-- Complete Lab 3 by 3 PM tomorrow
-    - Email me with whose lab to grade with a link to their project
-- Read Sections 4.7 and 4.8 of [MODERN DIVE textbook](https://ismayc.github.io/moderndiver-book/4-viz.html#brief-review-of-the-grammar-of-graphics)
-- Complete PS7 (Practice Quiz for Quiz #2) by 10 AM on Wednesday
+- Read Sections 5.1 and 5.2 of [A MODERN DIVE into Data with R](https://ismayc.github.io/moderndiver-book/5-manip.html)
+- Work on Lab 4
 
-### Getting PS7
+#### Getting Lab 4 (individual)
 
-Run the following in the R console where `EMAIL` is your Pacific University email (mine is `isma5720@pacificu.edu`) and `LastnameFirstname` is the name of the project you created (mine is `IsmayChester`):
+- To obtain the lab, copy the following R code into the Console where `EMAIL` is your Pacific email (mine is `isma5720@pacificu.edu`) and
+`LastnameFirstname` is where you have shared your RStudio project with me (mine is IsmayChester):
 
-```
-file.copy(from = "/shared/isma5720@pacificu.edu/pq2.Rmd",
+    ```
+    file.copy(from = "/shared/isma5720@pacificu.edu/lab4.Rmd",
               to = "/home/EMAIL/LastnameFirstname/")
-```
+    ```
+    
+#### To do for next time
+
+- Finish Lab 4 draft (Due on Wednesday, October 12 at 4 PM)
+- Quiz yourself on the content in Sections 5.1 and 5.2
+
+### [Week 6 - Review and Take Home Exam 1]({{ site.baseurl }}/teaching/soc301-f2016/slides/week06/)
+
+### [Week 5 - Data Viz (Scatter-plots and Line-graphs)]({{ site.baseurl }}/teaching/soc301-f2016/slides/week05/)
 
 ### [Week 4 - Data Viz (Histograms, Boxplots, Barplots)]({{ site.baseurl }}/teaching/soc301-f2016/slides/week04/)
 
