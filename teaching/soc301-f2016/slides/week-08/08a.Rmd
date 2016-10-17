@@ -17,18 +17,17 @@ knitr::opts_chunk$set(fig.align = 'center')
 
 ## Learning Quote of the Day {.flexbox .vcenter}
 
-> "Tell me and I forget. Teach me and I remember. Involve me and I learn."
+> "Every student can learn, just not on the same day, or the same way."  
 
-― Benjamin Franklin
+― George Evans
 
-<!--
 ## Important Concept: Piping
 
 Piping allows you to take the output of one function and **pipe** it as the input of
 the next function. You can string along several pipes to form a single **chain**.
 
 * R Command: `%>%`
-* Described as: "_then_". 
+* Described as: "_and then_". 
 
 
 
@@ -67,4 +66,3 @@ flights %>% filter(month == 1)
 flights %>% 
   filter(month==1)
 ```
--->
