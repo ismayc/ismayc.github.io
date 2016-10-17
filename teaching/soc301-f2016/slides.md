@@ -25,7 +25,7 @@ file.copy(from = "/shared/isma5720@pacificu.edu/ps9all.Rmd",
 #### To do for next time
 
 - Read Sections 5.2 and 5.3 of [A MODERN DIVE into Data with R](https://ismayc.github.io/moderndiver-book/5-manip.html)
-- PS10: Create AT LEAST five multiple choice questions with four responses over the content in Chapters 3, 4, and 5 before 10 AM on Monday, October 24
+- PS10: Create AT LEAST five multiple choice questions with four responses over the content in Chapters 3, 4, and 5 before 10 AM on Wednesday, October 19
 
 #### Getting PS10
 
