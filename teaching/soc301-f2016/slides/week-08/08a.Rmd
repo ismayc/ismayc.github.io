@@ -7,7 +7,7 @@ output:
     logo: ../figs/boxer.jpg
     fig.align: center
     widescreen: true
-subtitle: Five Main Verbs + `%>%` (Part 1)
+subtitle: Five Main Verbs + `%>%` (Part 2)
 ---
 
 ```{r setup, include=FALSE}
