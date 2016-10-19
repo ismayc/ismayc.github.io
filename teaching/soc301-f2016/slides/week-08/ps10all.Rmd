@@ -112,9 +112,9 @@ If you have produced a scatter plot, this means your data involves:
 
 # Problem `r lc <- lc + 1; lc`
 
-What does the ` %>% ` do? 
+What does the `%>%` do? 
 
-- A. ` %>%   does nothing, you made this up. 
+- A. ` %>%`   does nothing, you made this up. 
 - B. Acts as a `~` similar to ggplot
 - C. Chains together `dyplr` functions
 - D. It is used similarly to the `!` in the `dyplr` package
