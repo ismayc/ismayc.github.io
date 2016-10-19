@@ -466,9 +466,9 @@ ggplot(data = flights_namedports, mapping = aes(x = carrier, fill = name)) +
 What situation below favors the use of a scatter plot?
 
 - A. A graph showing relationship of two categorical variables.
-- B. The relationship of one continous variable across different levels of one categorical variable.
-- C. The relationship between two continous variables.
-- D. The relationship of one continous variable and two categorical variables.
+- B. The relationship of one continuous variable across different levels of one categorical variable.
+- C. The relationship between two continuous variables.
+- D. The relationship of one continuous variable and two categorical variables.
 
 # Problem `r lc <- lc + 1; lc`
 
@@ -500,9 +500,9 @@ named_freq_dests
 
 What makes a data set "tidy"?"
 
-- A. Each variable forms a row, each observation forms a column, each observaton forms the table.
-- B.Each variable forms a column, each observation forms a row, each observaton forms the table.
-- C.The observational units form the columns, each observation forms a row, each observaton forms the table.
+- A. Each variable forms a row, each observation forms a column, each observational unit forms the table.
+- B.Each variable forms a column, each observation forms a row, each observational unit forms the table.
+- C.The observational units form the columns, each observation forms a row, each observation forms the table.
 - D.Each table forms a column, each observation forms a row, each variable forms the table.
 
 # Problem `r lc <- lc + 1; lc`
@@ -520,7 +520,7 @@ ggplot(data = weather, mapping = aes(x = temp)) +
 
 
 - A.ggplot(data = weather, mapping = aes(x = temp)) +
-  geom_histogram(binswidth=10,color="black", fill="lightblue", na.rm=TRUE)
+  geom_histogram(bin width=10,color="black", fill="lightblue", na.rm=TRUE)
 - B.ggplot(data = weather, mapping = aes(x = temp)) +
   geom_histogram(bins=10,color="black", fill="lightblue", na.rm=TRUE)
 - C.ggplot(data = weather, mapping = aes(x = temp)) +
@@ -564,7 +564,7 @@ Select the 'delay variables from the "flights dataset.
 What does the `select()` verb correspond with?
 
 - A. Values
-- B. Obersvational units
+- B. Observational units
 - C. Rows
 - D.Columns by variable names
 
@@ -586,7 +586,7 @@ What are the five named graphs?
 - A. line, scatter, histogram, boxplot, barplot
 - B. line, scatter, histogram, faceted- barplot, boxplot
 - C. line, scatter, histogram, pie, boxplot 
-- D. line, scatter, histogram, facted- histogram, boxplot
+- D. line, scatter, histogram, faceted- histogram, boxplot
 
 
 # Problem `r lc <- lc + 1; lc`
@@ -622,17 +622,17 @@ Which of these is a correct aspect of tidy data:
 
 - A. Each observational unit forms a column
 - B. Each value forms a row
-- C. Two or mroe variables are in each row
+- C. Two or more variables are in each row
 - D. Each variable forms a column
 
 # Problem `r lc <- lc + 1; lc`
 
-If I wanted to plot a categorical variable over a numeric variable, which plot(s) would I use?
+If I wanted to plot a numeric variable over a categorical variable, which plot(s) would I use?
 
 - A. Barplot
 - B. Scatterplot and linegraph
 - C. Stacked barplot
-- D. Histogram and Boxplot
+- D. Faceted histogram and Boxplot
 
 # Problem `r lc <- lc + 1; lc`
 
@@ -652,7 +652,7 @@ geom_bar()
 
 - A. Name is not in quotes
 - B. You did not specify the color of your graph
-- C. You forgot a paranthesis between 'mapping' and 'flights', and then at the end of 'name'
+- C. You forgot a parenthesis between 'mapping' and 'flights', and then at the end of 'name'
 - D. You forgot to wrap mapping in aes
 
 # Problem `r lc <- lc + 1; lc`
@@ -719,9 +719,9 @@ What are the FMV we can use in piping?
 
 # Problem `r lc <- lc + 1; lc`
 
-Which of the following would give you am appropriote plot based on the variables?
+Which of the following would give you am appropriate plot based on the variables?
 
-- A. two continous variables-bar plot
+- A. two continuous variables-bar plot
 - B.  two categorical- faceted histogram
 - C. one categorical-bar plot
 - D.one continuous variable- faceted box plot
