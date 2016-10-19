@@ -279,7 +279,7 @@ What R code would you use to find the mean and standard deviation of temperature
 - A. summarize(weather,
           mean = mean(temp),
           std_dev = sd(temp))
-- B. summary_temp <- summarize(weather,
+- B. summarize(weather,
           mean = mean(temp, na.rm = TRUE),
           std_dev = sd(temp, na.rm = TRUE))
 - C. summarize(weather,
