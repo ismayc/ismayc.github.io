@@ -8,6 +8,13 @@ permalink: /teaching/soc301-f2016/ps/
 
 All problem sets are due at 10 AM unless otherwise specified.
 
+- PS10: Create AT LEAST five multiple choice questions with four responses over the content in Chapters 3, 4, and 5 in R Markdown on the [RStudio Server](http://beta.rstudio.org) in the template file retrieved via the code below.
+
+```
+file.copy(from = "/shared/isma5720@pacificu.edu/ps10.Rmd",
+              to = "/home/EMAIL/LastnameFirstname/")
+```              
+
 - PS9:  Create five questions based on the `gap` data set from Exam 1 using the content from Chapter 5 of the textbook.  This file needs to be named `ps9.Rmd` in your `LastnameFirstname` folder on the [RStudio Server](http://beta.rstudio.org).  This is due on Monday, October 17.
 
 - [PS8](https://goo.gl/forms/LSH83PVgzY5yRfdy1) due Monday, October 3
