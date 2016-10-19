@@ -20,7 +20,7 @@ What does the `select` function do?
 - A. Pick rows based on conditions about their values
 - B. Sort the rows based on one or more variables
 - C. Choose variables/columns by their names
-- D. Choose columns by their names
+- D. Choose observational units by their names
 
 # Problem `r lc <- lc + 1; lc`
 
