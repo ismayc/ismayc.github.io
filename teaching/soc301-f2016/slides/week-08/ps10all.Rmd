@@ -298,6 +298,8 @@ What does ! correspond to?
 - C. Not equal to
 - D. Greater than or equal to
 
+# Problem `r lc <- lc + 1; lc`
+
 What code will make a plot showing number of `Strongly Autocratic` and `Mildly Autocratic` countries in Africa over year, in each region. Color by subregion, with white borders. 
 
 - A. autocratic_Africa_plot <- gap %>% filter(region == "Africa") %>% filter(dem_rank == "Strongly Autocratic" | "Mildly Autocratic") %>%  ggplot(mapping = aes(x = year, fill = subRegion)) + geom_histogram(position = "dodge", bins = 10, color = "white")
