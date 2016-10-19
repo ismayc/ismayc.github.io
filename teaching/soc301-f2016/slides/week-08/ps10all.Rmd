@@ -270,7 +270,7 @@ What does the 'mutate' function do?
 - A. Makes a new variable in the data frame
 - B. Changes a specific variable slightly
 - C. Turns your variable into a mutant
-- D. All of the above
+- D. Two of the above
 
 # Problem `r lc <- lc + 1; lc`
 
