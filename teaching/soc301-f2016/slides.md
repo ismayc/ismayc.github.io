@@ -12,7 +12,7 @@ permalink: /teaching/soc301-f2016/slides/
 #### Covered content
 
 - Work through Quiz practice problems from PS10
-- All problems are available <a href = "{{ site.baseurl }}/teaching/soc301-f2016/slides/week-08/08b.html">here</a>
+- All problems are available <a href = "{{ site.baseurl }}/teaching/soc301-f2016/slides/week-08/ps10all.html">here</a>
 
 ***
 
