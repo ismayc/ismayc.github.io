@@ -6,6 +6,15 @@ permalink: /teaching/soc301-f2016/slides/
 
 ## Week 8
 
+### Wednesday
+- <a href = "{{ site.baseurl }}/teaching/soc301-f2016/slides/week-08/08b.html">2016-10-19</a>
+
+#### Covered content
+
+- Work through Quiz practice problems from PS10
+
+***
+
 ### Monday
 - <a href = "{{ site.baseurl }}/teaching/soc301-f2016/slides/week-08/08a.html">2016-10-17</a>
 
