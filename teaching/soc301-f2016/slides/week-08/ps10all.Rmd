@@ -116,8 +116,8 @@ What does the `%>%` do?
 
 - A. ` %>%`   does nothing, you made this up. 
 - B. Acts as a `~` similar to ggplot
-- C. Chains together `dyplr` functions
-- D. It is used similarly to the `!` in the `dyplr` package
+- C. Chains together `dplyr` functions
+- D. It is used similarly to the `!` in the `dplyr` package
 
 # Problem `r lc <- lc + 1; lc`
 
