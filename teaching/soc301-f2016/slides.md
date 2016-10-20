@@ -16,7 +16,20 @@ permalink: /teaching/soc301-f2016/slides/
 
 #### To do for next time
 - Complete [PS11](https://goo.gl/forms/1XOGt6CQhkFCRgpE2) by 10 AM on Monday
-- Study for Quiz #3 on Monday over Chapters 3 to Section 5.2 over MODERN DIVE
+- Study for Quiz #3 on Monday over Chapters 3 to Section 5.2 over MODERN DIVE.
+- Begin working on Lab 5 alone.  
+- Schedule a time to meet with/chat your group about the problems. You'll have some time in class on Monday to work on this as well, but the expectation is that each of you have started it on your own first.
+- Enter your group and whose project I will be grading by 4 PM on Monday, October 24 into the Google Sheet [here](https://docs.google.com/a/pacificu.edu/spreadsheets/d/1dDWIl0nYn7RBnhLFXShc3eRMd17EzXBHgUQxpEbdmyI/edit?usp=sharing).
+
+#### Getting Lab 5 (groups of 4)
+
+- To obtain the lab, copy the following R code into the Console where `EMAIL` is your Pacific email (mine is `isma5720@pacificu.edu`) and
+`LastnameFirstname` is where you have shared your RStudio project with me (mine is IsmayChester):
+
+    ```
+    file.copy(from = "/shared/isma5720@pacificu.edu/lab5.Rmd",
+              to = "/home/EMAIL/LastnameFirstname/")
+    ```
 
 ***
 
