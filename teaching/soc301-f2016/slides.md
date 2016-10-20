@@ -20,6 +20,7 @@ permalink: /teaching/soc301-f2016/slides/
 - Begin working on Lab 5 alone.  
 - Schedule a time to meet with/chat your group about the problems. You'll have some time in class on Monday to work on this as well, but the expectation is that each of you have started it on your own first.
 - Enter your group and whose project I will be grading by 4 PM on Monday, October 24 into the Google Sheet [here](https://docs.google.com/a/pacificu.edu/spreadsheets/d/1dDWIl0nYn7RBnhLFXShc3eRMd17EzXBHgUQxpEbdmyI/edit?usp=sharing).
+- I will be handing out Peer Review and Individual Review forms for you to fill out on your own and about your group-mates.  Part of your lab grade (potentially a significant amount) will be on how well you worked as a teammate and how much work you put into the lab as explained by your classmates and yourself.  Don't be a free-loader!  Take this as an opportunity to learn and ask questions and to teach others.  You'll learn the material much better if you take this strategy.
 
 #### Getting Lab 5 (groups of 4)
 
