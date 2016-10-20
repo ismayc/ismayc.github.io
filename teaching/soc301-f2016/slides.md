@@ -24,7 +24,7 @@ permalink: /teaching/soc301-f2016/slides/
 #### Getting Lab 5 (groups of 4)
 
 - To obtain the lab, copy the following R code into the Console where `EMAIL` is your Pacific email (mine is `isma5720@pacificu.edu`) and
-`LastnameFirstname` is where you have shared your RStudio project with me (mine is IsmayChester):
+`LastnameFirstname` is where you have shared your RStudio project with me (mine is `IsmayChester`):
 
     ```
     file.copy(from = "/shared/isma5720@pacificu.edu/lab5.Rmd",
