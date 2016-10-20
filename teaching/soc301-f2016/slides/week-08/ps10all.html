@@ -528,11 +528,39 @@ div.tocify {
 <h1>Problem 30</h1>
 <p>What code will make a plot showing number of <code>Strongly Autocratic</code> and <code>Mildly Autocratic</code> countries in Africa over year, in each region. Color by subregion, with white borders.</p>
 <ul>
-<li>A. autocratic_Africa_plot &lt;- gap %&gt;% filter(region == “Africa”) %&gt;% filter(dem_rank == “Strongly Autocratic” | “Mildly Autocratic”) %&gt;% ggplot(mapping = aes(x = year, fill = subRegion)) + geom_histogram(position = “dodge”, bins = 10, color = “white”)</li>
-<li>B. autocratic_Africa_plot &lt;- gap %&gt;% filter(region == “Africa”) %&gt;% filter(dem_rank == “Strongly Autocratic” | subRegion == “Mildly Autocratic”) %&gt;% ggplot(mapping = aes(x = year, fill = subRegion)) + geom_histogram(position = “dodge”, bins = 10, color = “white”)</li>
-<li>C. autocratic_Africa_plot &lt;- gap %&gt;% filter(region == Africa) %&gt;% filter(dem_rank = “Strongly Autocratic” | subRegion = “Mildly Autocratic”) %&gt;% ggplot(mapping = aes(x = year, fill = subRegion)) + geom_histogram(position = “dodge”, bins = 10, color = “white”)</li>
-<li>D. autocratic_Africa_plot &lt;- gap %&gt;% filter(region == “Africa”) %&gt;% filter(dem_rank == “Strongly Autocratic”, “Mildly Autocratic”) %&gt;% ggplot(mapping = aes(x = dem_rank, fill = subRegion)) + geom_histogram(position = “dodge”, bins = 10, color = “white”)</li>
+<li><ol style="list-style-type: upper-alpha">
+<li></li>
+</ol></li>
 </ul>
+<pre class="r"><code>gap %&gt;% filter(region == &quot;Africa&quot;) %&gt;% 
+  filter(dem_rank == &quot;Strongly Autocratic&quot; | &quot;Mildly Autocratic&quot;) %&gt;%
+  ggplot(mapping = aes(x = year, fill = subRegion)) + 
+  geom_histogram(position = &quot;dodge&quot;, bins = 10, color = &quot;white&quot;)</code></pre>
+<ul>
+<li><ol start="2" style="list-style-type: upper-alpha">
+<li></li>
+</ol></li>
+</ul>
+<pre class="r"><code>gap %&gt;% filter(region == &quot;Africa&quot;) %&gt;%
+  filter(dem_rank == &quot;Strongly Autocratic&quot; | dem_rank == &quot;Mildly Autocratic&quot;) %&gt;% 
+  ggplot(mapping = aes(x = year, fill = subRegion)) +
+  geom_histogram(position = &quot;dodge&quot;, bins = 10, color = &quot;white&quot;)</code></pre>
+<ul>
+<li><ol start="3" style="list-style-type: upper-alpha">
+<li></li>
+</ol></li>
+</ul>
+<pre class="r"><code>gap %&gt;% filter(region == Africa) %&gt;%
+  filter(dem_rank = &quot;Strongly Autocratic&quot; | dem_rank = &quot;Mildly Autocratic&quot;) %&gt;%
+  ggplot(mapping = aes(x = year, fill = subRegion)) + 
+  geom_histogram(position = &quot;dodge&quot;, bins = 10, color = &quot;white&quot;)</code></pre>
+<ul>
+<li>D.</li>
+</ul>
+<pre class="r"><code>gap %&gt;% filter(region == &quot;Africa&quot;) %&gt;%
+  filter(dem_rank == &quot;Strongly Autocratic&quot;, &quot;Mildly Autocratic&quot;) %&gt;%
+  ggplot(mapping = aes(x = dem_rank, fill = subRegion)) +
+  geom_histogram(position = &quot;dodge&quot;, bins = 10, color = &quot;white&quot;)</code></pre>
 </div>
 <div id="problem-31" class="section level1">
 <h1>Problem 31</h1>
@@ -568,10 +596,10 @@ div.tocify {
 <h1>Problem 34</h1>
 <p>Create a data frame showing only American Airlines flights that were delayed. (no on-time flights or early arrivals!)</p>
 <ul>
-<li>A. AA_delayed &lt;- flights %&gt;% filter(carrier == “AA”, dep_delay &gt; 2)</li>
-<li>B. AA_delayed &lt;- flights %&gt;% filter(carrier == “AA”, dep_delay &gt; 0)</li>
-<li>C. AA_delayed &lt;- flights %&gt;% filter(carrier == “AA”, dep_delay &gt; -1)</li>
-<li>D. AA_delayed &lt;- flights %&gt;% filter(carrier == “AA”, dep_delay &lt; 0)</li>
+<li>A. <code>AA_delayed &lt;- flights %&gt;% filter(carrier == &quot;AA&quot;, dep_delay &gt; 2)</code></li>
+<li>B. <code>AA_delayed &lt;- flights %&gt;% filter(carrier == &quot;AA&quot;, dep_delay &gt; 0)</code></li>
+<li>C. <code>AA_delayed &lt;- flights %&gt;% filter(carrier == &quot;AA&quot;, dep_delay &gt; -1)</code></li>
+<li>D. <code>AA_delayed &lt;- flights %&gt;% filter(carrier == &quot;AA&quot;, dep_delay &lt; 0)</code></li>
 </ul>
 </div>
 <div id="problem-35" class="section level1">
@@ -774,10 +802,10 @@ named_freq_dests</code></pre>
 <h1>Problem 53</h1>
 <p>What is the standard deviation for population in 1952?</p>
 <ul>
-<li>A.gap %&gt;% select(year == 1952) %&gt;% summarize(sd_pop = sd(pop))</li>
-<li>B.gap %&gt;% filter(year == 1982) %&gt;% summarize(sd_pop = sd(pop))</li>
-<li>C.gap %&gt;% calculate(year == 1952) %&gt;% summarize(sd_pop = sd(pop))</li>
-<li>D.gap %&gt;% filter(year = 1952) %&gt;% summarize(sd_pop = sd(pop))</li>
+<li>A. <code>gap %&gt;% select(year == 1952) %&gt;% summarize(sd_pop = sd(pop))</code></li>
+<li>B. <code>gap %&gt;% filter(year == 1952) %&gt;% summarize(sd_pop = sd(pop))</code></li>
+<li>C. <code>gap %&gt;% summarize(year == 1952, sd_pop = sd(pop))</code></li>
+<li>D. <code>gap %&gt;% filter(year = 1952) %&gt;% summarize(sd_pop = sd(pop))</code></li>
 </ul>
 </div>
 <div id="problem-54" class="section level1">
@@ -856,7 +884,7 @@ named_freq_dests</code></pre>
 <ul>
 <li>A. Each observational unit forms a column</li>
 <li>B. Each value forms a row</li>
-<li>C. Two or more variables are in each row</li>
+<li>C. Two or more variables are in each column</li>
 <li>D. Each variable forms a column</li>
 </ul>
 </div>
@@ -883,12 +911,12 @@ named_freq_dests</code></pre>
 <div id="problem-64" class="section level1">
 <h1>Problem 64</h1>
 <p>What is wrong with my coding here:</p>
-<p>ggplot(data = flights, mapping = carrier, fill = name) + geom_bar()</p>
+<pre class="r"><code>ggplot(data = flights, x = carrier, fill = origin) + geom_bar()</code></pre>
 <ul>
-<li>A. Name is not in quotes</li>
-<li>B. You did not specify the color of your graph</li>
-<li>C. You forgot a parenthesis between ‘mapping’ and ‘flights’, and then at the end of ‘name’</li>
-<li>D. You forgot to wrap mapping in aes</li>
+<li>A. <code>origin</code> is not in quotes</li>
+<li>B. You can’t use <code>fill</code> with <code>geom_bar</code></li>
+<li>C. You should have used <code>y</code> instead of <code>x</code></li>
+<li>D. You forgot to wrap your variables in <code>aes</code></li>
 </ul>
 </div>
 <div id="problem-65" class="section level1">
@@ -935,10 +963,10 @@ named_freq_dests</code></pre>
 <h1>Problem 69</h1>
 <p>Which of the following is correct about the five main verbs?</p>
 <ul>
-<li>A. Select- Pick rows based on conditions about their values</li>
-<li>B. Arrange- Sort the rows based on one or more variables</li>
-<li>C. Mutate- Create summary measures of variables (or groups of observations on variables using group_by)</li>
-<li>D.None of the above</li>
+<li>A. <code>select</code> - Pick rows based on conditions about their values</li>
+<li>B. <code>arrange</code> - Sort the rows based on one or more variables</li>
+<li>C. <code>mutate</code> - Create summary measures of variables (or groups of observations on variables using <code>group_by</code>)</li>
+<li>D. None of the above</li>
 </ul>
 </div>
 <div id="problem-70" class="section level1">

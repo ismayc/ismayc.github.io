@@ -14,6 +14,10 @@ permalink: /teaching/soc301-f2016/slides/
 - Work through Quiz practice problems from PS10
 - All problems are available <a href = "{{ site.baseurl }}/teaching/soc301-f2016/slides/week-08/ps10all.html">here</a>
 
+#### To do for next time
+- Complete [PS11](https://goo.gl/forms/1XOGt6CQhkFCRgpE2) by 10 AM on Monday
+- Study for Quiz #3 on Monday over Chapters 3 to Section 5.2 over MODERN DIVE
+
 ***
 
 ### Monday

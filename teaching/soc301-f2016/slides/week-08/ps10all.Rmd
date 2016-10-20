@@ -302,10 +302,42 @@ What does ! correspond to?
 
 What code will make a plot showing number of `Strongly Autocratic` and `Mildly Autocratic` countries in Africa over year, in each region. Color by subregion, with white borders. 
 
-- A. autocratic_Africa_plot <- gap %>% filter(region == "Africa") %>% filter(dem_rank == "Strongly Autocratic" | "Mildly Autocratic") %>%  ggplot(mapping = aes(x = year, fill = subRegion)) + geom_histogram(position = "dodge", bins = 10, color = "white")
-- B. autocratic_Africa_plot <- gap %>% filter(region == "Africa") %>% filter(dem_rank == "Strongly Autocratic" | subRegion == "Mildly Autocratic") %>%  ggplot(mapping = aes(x = year, fill = subRegion)) + geom_histogram(position = "dodge", bins = 10, color = "white")
-- C. autocratic_Africa_plot <- gap %>% filter(region == Africa) %>% filter(dem_rank = "Strongly Autocratic" | subRegion = "Mildly Autocratic") %>%  ggplot(mapping = aes(x = year, fill = subRegion)) + geom_histogram(position = "dodge", bins = 10, color = "white")
-- D. autocratic_Africa_plot <- gap %>% filter(region == "Africa") %>% filter(dem_rank == "Strongly Autocratic", "Mildly Autocratic") %>%  ggplot(mapping = aes(x = dem_rank, fill = subRegion)) + geom_histogram(position = "dodge", bins = 10, color = "white")
+- A. 
+
+```{r eval=FALSE}
+gap %>% filter(region == "Africa") %>% 
+  filter(dem_rank == "Strongly Autocratic" | "Mildly Autocratic") %>%
+  ggplot(mapping = aes(x = year, fill = subRegion)) + 
+  geom_histogram(position = "dodge", bins = 10, color = "white")
+```
+
+- B. 
+
+```{r eval=FALSE}
+gap %>% filter(region == "Africa") %>%
+  filter(dem_rank == "Strongly Autocratic" | dem_rank == "Mildly Autocratic") %>% 
+  ggplot(mapping = aes(x = year, fill = subRegion)) +
+  geom_histogram(position = "dodge", bins = 10, color = "white")
+```
+
+- C. 
+
+```{r eval=FALSE}
+gap %>% filter(region == Africa) %>%
+  filter(dem_rank = "Strongly Autocratic" | dem_rank = "Mildly Autocratic") %>%
+  ggplot(mapping = aes(x = year, fill = subRegion)) + 
+  geom_histogram(position = "dodge", bins = 10, color = "white")
+```
+
+- D.
+
+```{r eval=FALSE}
+gap %>% filter(region == "Africa") %>%
+  filter(dem_rank == "Strongly Autocratic", "Mildly Autocratic") %>%
+  ggplot(mapping = aes(x = dem_rank, fill = subRegion)) +
+  geom_histogram(position = "dodge", bins = 10, color = "white")
+```
+
 
 # Problem `r lc <- lc + 1; lc`
 
@@ -338,10 +370,10 @@ What is the mean dep_delay of flights leaving NYC in 2013? (write the code to fi
 
 Create a data frame showing only American Airlines flights that were delayed. (no on-time flights or early arrivals!)
 
-- A. AA_delayed <- flights %>% filter(carrier == "AA", dep_delay > 2)
-- B. AA_delayed <- flights %>% filter(carrier == "AA", dep_delay > 0)
-- C. AA_delayed <- flights %>% filter(carrier == "AA", dep_delay > -1)
-- D. AA_delayed <- flights %>% filter(carrier == "AA", dep_delay < 0)
+- A. `AA_delayed <- flights %>% filter(carrier == "AA", dep_delay > 2)`
+- B. `AA_delayed <- flights %>% filter(carrier == "AA", dep_delay > 0)`
+- C. `AA_delayed <- flights %>% filter(carrier == "AA", dep_delay > -1)`
+- D. `AA_delayed <- flights %>% filter(carrier == "AA", dep_delay < 0)`
 
 # Problem `r lc <- lc + 1; lc`
 
@@ -541,14 +573,10 @@ Is the "weather" dataset tidy? How should we fix it if it's not?
 
 What is the standard deviation for population in 1952?
 
-- A.gap %>% select(year == 1952) %>%
-  summarize(sd_pop = sd(pop))
-- B.gap %>% filter(year == 1982) %>%
-  summarize(sd_pop = sd(pop))
-- C.gap %>% calculate(year == 1952) %>%
-  summarize(sd_pop = sd(pop))
-- D.gap %>% filter(year = 1952) %>%
-  summarize(sd_pop = sd(pop))
+- A. `gap %>% select(year == 1952) %>% summarize(sd_pop = sd(pop))`
+- B. `gap %>% filter(year == 1952) %>% summarize(sd_pop = sd(pop))`
+- C. `gap %>% summarize(year == 1952, sd_pop = sd(pop))`
+- D. `gap %>% filter(year = 1952) %>% summarize(sd_pop = sd(pop))`
 
 # Problem `r lc <- lc + 1; lc`
 
@@ -622,7 +650,7 @@ Which of these is a correct aspect of tidy data:
 
 - A. Each observational unit forms a column
 - B. Each value forms a row
-- C. Two or more variables are in each row
+- C. Two or more variables are in each column
 - D. Each variable forms a column
 
 # Problem `r lc <- lc + 1; lc`
@@ -647,13 +675,14 @@ What plot would I use if I wanted to plot a single, DISCRETE variable?
 
 What is wrong with my coding here:
 
-ggplot(data = flights, mapping = carrier, fill = name) +
-geom_bar()
+```{r eval=FALSE}
+ggplot(data = flights, x = carrier, fill = origin) + geom_bar()
+```
 
-- A. Name is not in quotes
-- B. You did not specify the color of your graph
-- C. You forgot a parenthesis between 'mapping' and 'flights', and then at the end of 'name'
-- D. You forgot to wrap mapping in aes
+- A. `origin` is not in quotes
+- B. You can't use `fill` with `geom_bar`
+- C. You should have used `y` instead of `x`
+- D. You forgot to wrap your variables in `aes`
 
 # Problem `r lc <- lc + 1; lc`
 
@@ -702,10 +731,10 @@ What are the five named graphics (5NG)?
 
 Which of the following is correct about the five main verbs?
 
-- A. Select- Pick rows based on conditions about their values
-- B. Arrange- Sort the rows based on one or more variables
-- C. Mutate- Create summary measures of variables (or groups of observations on variables using group_by)
-- D.None of the above
+- A. `select` - Pick rows based on conditions about their values
+- B. `arrange` - Sort the rows based on one or more variables
+- C. `mutate` - Create summary measures of variables (or groups of observations on variables using `group_by`)
+- D. None of the above
 
 
 # Problem `r lc <- lc + 1; lc`
