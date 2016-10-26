@@ -1,0 +1,97 @@
+---
+title: "SOC 301-01: Social Statistics"
+author: "Chester Ismay"
+output:
+  ioslides_presentation:
+    incremental: no
+    logo: ../figs/boxer.jpg
+    fig.align: center
+    widescreen: true
+subtitle: Five Main Verbs + `%>%` (Practice)
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.align = 'center')
+lc <- 0
+library(ggplot2)
+library(okcupiddata)
+```
+
+<style type="text/css">
+    ol { list-style-type: upper-alpha; }
+</style>
+
+## Practice
+
+We will use the `profiles` data set in the `okcupiddata` package and the `Titanic` (note the capital T) data set in the `datasets` package.  `datasets` comes automatically loaded with R.
+
+```{r eval=FALSE}
+library(dplyr)
+library(okcupiddata)
+data(profiles)
+View(profiles)
+Titanic <- data.frame(Titanic)
+View(Titanic)
+```
+
+
+# Question 1
+
+##
+
+How many of those identified as `Male` survived the Titanic crash, broken down by Child/Adult?
+
+>- `filter` to focus only on `Sex == "Male"`
+>- `filter` to focus only on `Survived == "Yes"`
+>- `group_by` to break down by `Age`
+>- `summarize` to sum together the remaining counts of `Freq`
+
+# Question 2
+
+##
+
+What's another `dplyr`-type question you can answer from the `Titanic` data set?
+
+# Question 3
+
+##
+
+What is the mean `age` of OKCupid profiles corresponding to levels of `drugs` and `drinks`?
+
+>- `group_by` to break down by `drugs` and `drinks`
+>- `summarize` to calculate mean `age`
+
+# Question 4
+
+##
+
+Produce an appropriate plot relating `age` to the levels of `drugs` and `drinks`.
+
+# Question 5
+
+##
+
+What are the top 2 heights of those identifying as female entered based on `pets`?
+
+>- `filter` to only choose `sex == "f"`
+>- `select` to only choose `height` and `pets`
+>- `group_by` to break down by `pets`
+>- `top_n` to determine top 2 heights
+
+# Question 6
+
+##
+
+Identify two new `dplyr` questions to answer based on the `profiles` data frame.
+
+## Lab 6 next week
+
+- Find a sociology related data set, download it to your computer, and upload it to the RStudio Server.  The best file formats are CSVs (comma-separated) files, but other file formats will work as well.
+- Make a note about the "tidy"-ness of the data and how easy it is to understand the names of the variables.
+- Find an article/data journalism piece related to sociology that uses data visualization to convey a message.  Write a two paragraph summary of the article and how data visualization is used.
+- You can work in partners (2 per group) on this lab.
+
+## To do for next time 
+- Read over Chapter 6 in MODERN DIVE
+- Read the article from Lifehacker published yesterday entitled [How to Lie to Yourself and Others With Statistics](http://lifehacker.com/how-to-lie-to-yourself-and-others-with-statistics-1788184031)
+- We will go over the Learning Checks for Sections 6.1 and 6.2 on Monday.  Try them for practice before then.
