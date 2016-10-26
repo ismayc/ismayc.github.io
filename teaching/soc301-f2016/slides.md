@@ -7,6 +7,7 @@ permalink: /teaching/soc301-f2016/slides/
 ## Week 9
 
 ### Wednesday
+- <a href = "{{ site.baseurl }}/teaching/soc301-f2016/slides/week-09/09b.html">2016-10-26</a>
 
 #### Covered content
 
@@ -21,7 +22,6 @@ permalink: /teaching/soc301-f2016/slides/
 
 - Work through Chapter 5 practice problems
 - Work on Lab 5 in groups
-    
     
 #### To do for next time
 - Re-read Chapter 5 of [A MODERN DIVE into Data with R](https://ismayc.github.io/moderndiver-book/5-manip.html)
