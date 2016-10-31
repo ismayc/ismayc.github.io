@@ -4,29 +4,24 @@ title: Slides and Class Content
 permalink: /teaching/soc301-f2016/slides/
 ---
 
-## Week 9
-
-### Wednesday
-- <a href = "{{ site.baseurl }}/teaching/soc301-f2016/slides/week-09/09b.html">2016-10-26</a>
-
-#### Covered content
-
-- Practice more `dplyr` problems in class and finish Lab 5
-- Turn in Peer Review and Individual Forms for Lab 5
-
-***
+## Week 10
 
 ### Monday
+- <a href = "{{ site.baseurl }}/teaching/soc301-f2016/slides/week-10/10a.html">2016-10-31</a>
 
 #### Covered content
 
-- Work through Chapter 5 practice problems
-- Work on Lab 5 in groups
-    
+- Discuss sampling and simulation
+
+
 #### To do for next time
-- Re-read Chapter 5 of [A MODERN DIVE into Data with R](https://ismayc.github.io/moderndiver-book/5-manip.html)
+- Read all of Chapter 6 of [A MODERN DIVE into Data with R](https://ismayc.github.io/moderndiver-book/6-infer-basics.html)
+- Carefully take notes on important definitions and key topics in R
+
 
 ***
+
+### [Week 9 - Data Manipulation (Part 3)]({{ site.baseurl }}/teaching/soc301-f2016/slides/week09/)
 
 ### [Week 8 - Data Manipulation (Part 2)]({{ site.baseurl }}/teaching/soc301-f2016/slides/week08/)
 

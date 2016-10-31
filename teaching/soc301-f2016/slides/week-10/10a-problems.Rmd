@@ -1,0 +1,68 @@
+---
+title: "Populations, samples, and generalizability"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    collapsed: false
+    smooth_scroll: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+set.seed(79)
+library(tidyverse)
+library(knitr)
+library(nycflights13)
+```
+
+
+For each of the following 3 scenarios, 
+
+- Identify the **population** of interest and the **population parameter**
+- Identify the **sample** used and the **statistic**
+- Comment on the **representativeness/generalizability** of the results of the sample to the population.
+
+## Scenario 1
+
+You want to know the average income of Pacific graduates in the last 10 years.  So you get the records of 10 randomly chosen Pacific graduates.  They all answer and you take the average.
+
+1. Statements about population 
+    + **population**: All Pacific graduates in the last ten years.
+    + **population parameter**: The population mean $\mu$ (greek letter "mu"): their average income of all these graduates.
+1. Statements about sample
+    + **sample**: The 10 chosen Pacific graduates
+    + **statistic**: The sample mean $\overline{x} = \frac{1}{n}\sum_{i=1}^n x_i$ of their incomes.
+1. Representativeness/generalizability:
+    + While the sample size is small (i.e. our estimate won't be very precise and highly variable), it is still representative (i.e. still accurate). We'll see that accuracy and precision are different concepts.
+
+
+## Scenario 2
+
+Imagine it's 1993 i.e. almost all households have landlines.  You want to know the average number of people in each household in Forest Grove.  You randomly pick out 500 phone numbers from the phone book and conduct a phone survey.
+
+1. Statements about population 
+    + **population**: All Forest Grove households
+    + **population parameter**: the population mean $\mu$: average number of people in a household
+1. Statements about sample
+    + **sample**: Of the 500 households chosen, those *who answer the phone*
+    + **statistic**: The sample mean $\overline{x} = \frac{1}{n}\sum_{i=1}^n x_i$ of the number of people in the households.
+1. Representativeness/generalizability:
+    + We assumed that all households have landlines, so the real issue of poorer individuals not having phones is not in question here.
+    + Rather, households with larger numbers of people are more likely to have at least one person at home, and thus someone able to pick up the phone. Our results will be biased towards larger households. 
+    + One way to address this is to keep trying until every house on your list picks up. But especially for single young professionals, this might be very hard to do.
+
+
+## Scenario 3
+
+You want to know the prevalence of illegal downloading of TV shows among Pacific students.  You get the emails of 100 randomly chosen Pacific students and ask them "How many times did you download a pirated TV show last week?"
+
+1. Statements about population 
+    + **population**: All current Pacific students
+    + **population parameter**: the population proportion $\pi$ of Pacific students who downloaded a pirated TV show last week.
+1. Statements about sample
+    + **sample**: The 100 randomly chosen Pacific students
+    + **statistic**: The sample proportion $\widehat{p}$ of Pacific students who **self-report** to have done so
+1. Representativeness/generalizability:
+    + This study could suffer from **volunteer bias**, where different people might have different probabilities of willingness to report the truth. Since we are asking Pacific students to fess up to illegal activity, your results might get skewed.
+
