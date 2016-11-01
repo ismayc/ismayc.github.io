@@ -11,7 +11,8 @@ permalink: /teaching/soc301-f2016/slides/
 
 #### Covered content
 
-- Discuss sampling and simulation
+- Discuss sampling and simulation using `rflip` and `do` functions in the `mosaic` package
+- Solutions to questions from class <a href = "{{ site.baseurl }}/teaching/soc301-f2016/slides/week-10/10a-problems.html">here</a>
 
 
 #### To do for next time
