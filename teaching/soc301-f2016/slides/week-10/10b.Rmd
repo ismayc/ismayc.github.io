@@ -1,0 +1,168 @@
+---
+title: "SOC 301-01: Social Statistics"
+author: "Chester Ismay"
+output:
+  ioslides_presentation:
+    incremental: no
+    logo: ../figs/boxer.jpg
+    fig.align: center
+    widescreen: true
+subtitle: Sampling/Resampling
+---
+
+# Notes check
+
+## Peer review of Lab 6
+
+- Meet with those that you are reviewing
+- Answer the questions on the next slide as you review their work on a sheet of paper that you will turn in to me:
+
+##
+
+<small>
+**Data set**
+
+  1. Is the data set sociology related?  If you aren't sure, have them explain.  
+  2. Were they able to upload their data to the RStudio Server?  What file format is it?  Were they able to read it into R as a data frame?
+  3. Were they correct in identifying the "tidy"-ness of their data?  Explain.
+  4. Were they correct on identifying how easy the variable names were to understand?
+</small>
+
+**Sociology article**
+
+  5. Is the article related to sociology?
+  6. Does it use data visualization to convey a message?
+  7. Do they do a good job of explaining how data visualization is used?
+
+- Are there typos in their paragraphs?  If so, correct the typos for them.
+</small>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(knitr)
+library(mosaic)
+```
+
+## Recall
+
+The `mosaic` package has the following 4 functions will give us (most of) the random simulation tools we need. We've seen
+
+1. `rflip()`: Flip a coin
+1. ~~`shuffle()`: Shuffle a set of values~~
+1. `do()`: Do the same thing many, many, many times
+1. ~~`resample()`: the swiss army knife of functions~~
+
+> * Today we do `shuffle()` and `resample()`
+
+## Key Distinction
+
+A *huge* distinction in types of sampling:
+
+1. Sampling **with** replacement
+1. Sampling **without** replacement
+
+In the Powerball analogy, this translates to:
+
+> 1. After picking a ball, putting it back into the machine
+> 1. After picking a ball, leaving it out. What the lottery does in real life.
+
+
+
+
+## Shuffling AKA Permuting
+
+Shuffling AKA re-ordering AKA **permuting** are all synonyms. I'm going to use
+all three terms interchangeably. 
+
+Run the following in your console:
+
+```{r, eval=FALSE}
+library(mosaic)
+# Define a vector fruit
+fruit <- c("apple", "orange", "mango")
+
+# Do this multiple times:
+shuffle(fruit)
+```
+
+
+
+
+## Shuffling AKA Permuting
+
+This works with the `do()` operator...
+
+```{r, eval=FALSE}
+do(5) * shuffle(fruit)
+```
+
+... as well as within a `mutate()`
+
+```{r, eval=FALSE}
+example_data <- data_frame(
+  name = c("Ilana", "Abbi", "Hannibal"),
+  fruit = c("apple", "orange", "mango")
+)
+
+# Run this multiple times: 
+example_data %>% 
+  mutate(fruit = shuffle(fruit))
+```
+
+
+
+## Resampling
+
+At its most basic, `resample()` resamples the input vector **with** replacement. Run this in the console multiple times:
+
+```{r, eval=FALSE}
+resample(fruit)
+```
+
+> * You can get the same fruit all three times i.e. sampling with replacement
+> * `resample()` has default settings that we can set to fit our needs; it is a swiss army knife.
+> * Let's unpack the defaults:
+
+
+
+
+## Resampling
+
+```{r, eval=FALSE}
+resample(x = fruit, size = length(x), replace = TRUE, 
+         prob = rep(1 / length(x), length(x)) )
+```
+
+> * `x` is the input. In this case `fruit`.
+> * `size`: size of output vector. By default the same size as `x`.
+> * `replace`: Sample **with** or **without** replacement. By default with replacement.
+> * `prob`: Probability of sampling each input value. By default, equal probability
+> * Run `rep(1/length(fruit), length(fruit))` in your console. In the case of
+`fruit`, this vector is `rep(1/3, 3)` i.e. repeat 1/3 three times.
+
+## Practice Problems
+
+1. Rewrite `rflip(10)` using the `resample()` command. 
+
+    Hint: `coin <- c("H", "T")`
+    
+1. Rewrite the `shuffle()` command by changing the minimal number of default settings of `resample()`. Test this on `fruit`.
+1. Write code that will allow you to generate a sample of 15 fruit without replacement.
+1. Write code that will allow you to generate a sample of 15 fruit with replacement.
+1. What's the fastest way to do the above (in Question 4) 5 times? Write it out.
+
+## Case study
+
+> * Say its the early 1900's, and you are a statistician and you meet someone who claims to be able to tell by tasting whether the tea or the milk was added first to a cup.
+> * You call BS and think they are just guessing.
+> * Say you have 8 cups, tea, and milk handy. How would you **design an experiment** to test whether a) they can really tell which came first or b) they are just guessing?
+> * Brainstorm all the components of this experiment with your seatmates.
+> * Then think about how you can implement this with `resample()`ing.
+
+## Reflection
+
+Describe the process of _bootstrapping_.  (You can use your notes if you like, but you can't use the textbook.)
