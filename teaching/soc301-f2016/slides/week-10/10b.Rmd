@@ -14,7 +14,7 @@ subtitle: Sampling/Resampling
 
 ## Peer review of Lab 6
 
-- Meet with those that you are reviewing
+- Meet with those that you are [reviewing](https://docs.google.com/a/pacificu.edu/spreadsheets/d/1OEf_zN7lT4SLC11KTas5syLyy3gP40n1LITgHcn6JP4/edit?usp=sharing)
 - Answer the questions on the next slide as you review their work on a sheet of paper that you will turn in to me:
 
 ##
