@@ -4,37 +4,44 @@ title: Slides and Class Content
 permalink: /teaching/soc301-f2016/slides/
 ---
 
-## Week 8
+## Week 10
 
-### Monday
-- <a href = "{{ site.baseurl }}/teaching/soc301-f2016/slides/week-08/08a.html">2016-10-17</a>
-
+### Wednesday
+- <a href = "{{ site.baseurl }}/teaching/soc301-f2016/slides/week-10/10b.html">2016-11-02</a>
 
 #### Covered content
 
-- Work through Chapter 5 practice problems individually, in groups, and as a class
-    - Shared via an RStudio Project called `ps9all`
-    - Also available via
-    
-```
-file.copy(from = "/shared/isma5720@pacificu.edu/ps9all.Rmd",
-              to = "/home/EMAIL/LastnameFirstname/")
-```      
+- Peer review of Lab 6
+- Discuss sampling/resampling
+- Review bootstrapping in groups and as a class
 
-    
+
 #### To do for next time
+- Try all of the Learning Checks in [Chapter 6]https://ismayc.github.io/moderndiver-book/6-infer-basics.html) of MODERN DIVE
+- Finish the Practice Problems and Case Study from the slides <a href = "{{ site.baseurl }}/teaching/soc301-f2016/slides/week-10/10b.html#11">for today</a>
+- Identify the areas you still struggle with most from Chapters 3 - 6 of MODERN DIVE
 
-- Read Sections 5.2 and 5.3 of [A MODERN DIVE into Data with R](https://ismayc.github.io/moderndiver-book/5-manip.html)
-- PS10: Create AT LEAST five multiple choice questions with four responses over the content in Chapters 3, 4, and 5 before 10 AM on Wednesday, October 19
+***
 
-#### Getting PS10
+### Monday
+- <a href = "{{ site.baseurl }}/teaching/soc301-f2016/slides/week-10/10a.html">2016-10-31</a>
 
-Run the following in the R console where `EMAIL` is your Pacific University email (mine is `isma5720@pacificu.edu`) and `LastnameFirstname` is the name of the project you created (mine is `IsmayChester`):
+#### Covered content
 
-```
-file.copy(from = "/shared/isma5720@pacificu.edu/ps10.Rmd",
-              to = "/home/EMAIL/LastnameFirstname/")
-```              
+- Discuss sampling and simulation using `rflip` and `do` functions in the `mosaic` package
+- Solutions to questions from class <a href = "{{ site.baseurl }}/teaching/soc301-f2016/slides/week-10/10a-problems.html">here</a>
+
+
+#### To do for next time
+- Read all of Chapter 6 of [A MODERN DIVE into Data with R](https://ismayc.github.io/moderndiver-book/6-infer-basics.html)
+- Carefully take notes on important definitions and key topics in R
+
+
+***
+
+### [Week 9 - Data Manipulation (Part 3)]({{ site.baseurl }}/teaching/soc301-f2016/slides/week09/)
+
+### [Week 8 - Data Manipulation (Part 2)]({{ site.baseurl }}/teaching/soc301-f2016/slides/week08/)
 
 ### [Week 7 - Data Manipulation]({{ site.baseurl }}/teaching/soc301-f2016/slides/week07/)
 
