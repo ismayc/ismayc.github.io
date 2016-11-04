@@ -316,7 +316,7 @@ Tidy data is...
 
 - A. When the data set is small. 
 - B. When things are organized in a nice and neat manner. 
-- C. When each variable forms a row, and the observational unity forms a column. 
+- C. When each variable forms a row, and the observational unit forms a column. 
 - D. When each variable forms a column, and the observational unit forms a row, and each type of observational unit forms a table.
 
 # Problem `r lc <- lc + 1; lc`

@@ -13,13 +13,23 @@ permalink: /teaching/soc301-f2016/slides/
 
 - Peer review of Lab 6
 - Discuss sampling/resampling
-- Review bootstrapping in groups and as a class
+- Review bootstrapping as a class
 
 
 #### To do for next time
 - Try all of the Learning Checks in [Chapter 6]https://ismayc.github.io/moderndiver-book/6-infer-basics.html) of MODERN DIVE
 - Finish the Practice Problems and Case Study from the slides <a href = "{{ site.baseurl }}/teaching/soc301-f2016/slides/week-10/10b.html#11">for today</a>
 - Identify the areas you still struggle with most from Chapters 3 - 6 of MODERN DIVE
+- PS12: Create AT LEAST five multiple choice questions with four responses over the content in Chapters 3, 4, 5, and 6 before 10 AM on Monday, November 7
+
+#### Getting PS12
+
+Run the following in the R console where `EMAIL` is your Pacific University email (mine is `isma5720@pacificu.edu`) and `LastnameFirstname` is the name of the project you created (mine is `IsmayChester`):
+
+```
+file.copy(from = "/shared/isma5720@pacificu.edu/ps12.Rmd",
+              to = "/home/EMAIL/LastnameFirstname/")
+```  
 
 ***
 
