@@ -82,7 +82,7 @@ What is the definition of select?
 
 # Problem `r lc <- lc + 1; lc`
 
-What does the pipe fucntion do?
+What does the pipe function do?
 
 - A.Chains together dplyr functions and ggplot functions.
 - B.Combines only dplyr functions.
@@ -91,7 +91,7 @@ What does the pipe fucntion do?
 
 # Problem `r lc <- lc + 1; lc`
 
-What has two variable the explanatory that is continuos, the response is numerical, and there are multiple response values per explanatory value?
+What has two variable the explanatory that is continuous, the response is numerical, and there are multiple response values per explanatory value?
 
 - A.Faceted barplot
 - B.Scatterplot
@@ -254,9 +254,9 @@ At its most basic, `resample()`
 
 Which of the following is true of statistics and parameters? 
 
-- A. Paramaters are calculations based on a sample, statistiscs are calculations based on the population  
+- A. Parameters are calculations based on a sample, statistics are calculations based on the population  
 - B. Statistics are calculations based on a sample, parameters are calculations based on statistics
-- C. Paramaters are measured from the population
+- C. Parameters are measured from the population
 - D. Both B and C 
 
 # Problem `r lc <- lc + 1; lc`
@@ -292,13 +292,13 @@ What symbol do you use to chain together multiple functions in the`mosaic` packa
 
 - A. `+` the plus sign
 - B. `%>%` the pipe 
-- C. `*` an asterick 
+- C. `*` an asterisk 
 - D. All of the above
 
 
 # Problem `r lc <- lc + 1; lc`
 
-Which package is most neccessary if needed to create/perform multiple simulations?
+Which package is most necessary if needed to create/perform multiple simulations?
 
 - A. `ggplot` package
 - B. `mosaic` package
@@ -336,7 +336,7 @@ If you would like to list many entries in a vector object, you can do so by?
 
 # Problem `r lc <- lc + 1; lc`
 
-In order to complete the task of creating a simulation where you flip a coin 500 times in sets of 10, what would be the nessary functions to input?
+In order to complete the task of creating a simulation where you flip a coin 500 times in sets of 10, what would be the necessary functions to input?
 
 - A. simulations <- resample(10) * rflip(500)
 - B. simulations <- do(500) * rflip(10)
@@ -355,7 +355,7 @@ The term "Faceting" is used when...
 
 # Problem `r lc <- lc + 1; lc`
 
-If you had the anual data of manufactured cars, what categorical variable would you facet wrap in order to see the amount of cars manufactured by month? 
+If you had the annual data of manufactured cars, what categorical variable would you facet wrap in order to see the amount of cars manufactured by month? 
 
 - A. Facet(year)
 - B. Facet(month)
@@ -364,7 +364,7 @@ If you had the anual data of manufactured cars, what categorical variable would 
 
 # Problem `r lc <- lc + 1; lc`
 
-What symbol is uded when chaining dplyr funtions together?
+What symbol is used when chaining dplyr functions together?
 
 - A. +
 - B. =
@@ -378,14 +378,14 @@ A collection of observation units collected from the population is the:
 - A. Population
 - B. Selection
 - C. Sample 
-- D. Represeanative sample
+- D. Representative sample
 
 # Problem `r lc <- lc + 1; lc`
 
 Bootstrapping is:
 
-- A. The process of making a bootstrap distribution; without replacemen. 
-- B. How you make represenative samples. 
+- A. The process of making a bootstrap distribution; without replacement. 
+- B. How you make representative samples. 
 - C. To sample with replacement to create new resamples of the same size.
 - D. To make different sized samples to compare.
 
@@ -443,7 +443,7 @@ What does "bootstrapping" do?
 - A. Samples the dataset and replaces the data each time
 - B. Samples a dataset without replacing the data each time
 - C. Estimates the variability of a statistic from a sample
-- D. It helps you achive the American Dream.
+- D. It does not help you achieve the American Dream.
 
 # Problem `r lc <- lc + 1; lc`
 
@@ -470,7 +470,7 @@ Which is true?
 - A. Sampling is better when it is not random.
 - B. Sampling is better when it is random.
 - C. A representative sample does not need to have all the parts of the populations in order to represent it.
-- D. Bias is a problem of the past, and is no longer an issue for statasticians
+- D. Bias is a problem of the past, and is no longer an issue for statisticians
 
 # Problem `r lc <- lc + 1; lc`
 
@@ -489,7 +489,7 @@ What is a component of Tidy Data?
 - A. 1-2 variables per column 
 - B. 1 variable per row
 - C. values make up the table
-- D. obervational units consits in columns 
+- D. observational units consists in columns 
 
 # Problem `r lc <- lc + 1; lc`
 
@@ -511,7 +511,7 @@ Which is not a Five Main Verb?
 
 # Problem `r lc <- lc + 1; lc`
 
-The pipe function chains commands together in the dpylr package, what does it stand for? 
+The pipe function chains commands together in the dplyr package, what does it stand for? 
 
 - A. And then
 - B. Also
@@ -548,7 +548,7 @@ Which of the following is TRUE about pie charts?
 
 # Problem `r lc <- lc + 1; lc`
 
-Gapminder %>% filter(subRegion == “Southern Asia” | region ==  “Americas”) %>% Referring to the R code above, what does this symbol "|" refer to?
+gapminder %>% filter(subRegion == “Southern Asia” | region ==  “Americas”) %>% Referring to the R code above, what does this symbol "|" refer to?
 
 - A. and
 - B. if
@@ -608,7 +608,7 @@ What is Bootstrapping?
 - A. estimate the variability of our statistic from sample to sample
 - B. displays the range of the data
 - C. adds straps to your boots
-- D. transfers a datset online to be viewed in R
+- D. transfers a dataset online to be viewed in R
 
 # Problem `r lc <- lc + 1; lc`
 
