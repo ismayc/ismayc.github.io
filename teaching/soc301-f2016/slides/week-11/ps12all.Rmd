@@ -454,9 +454,9 @@ Which is true?
 - C. A statistic and a parameter come from different calculations
 - D. Sets of coin flips will always turn out to be 50/50
 
-# Which is true?
+# Problem `r lc <- lc + 1; lc`
 
-
+Which is true?
 
 - A. `filter` selects variables in columns
 - B. `select` selects variables in rows
