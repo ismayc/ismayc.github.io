@@ -1,0 +1,620 @@
+---
+title: "All practice problems from PS12"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+```{r include=FALSE}
+lc <- 0
+library(ggplot2)
+library(dplyr)
+library(mosaic)
+```
+
+***
+
+
+# Problem `r lc <- lc + 1; lc`
+
+What does the `select` feature do?
+
+- A. Choose variables/columns by their names
+- B. Make a new variable in the data frame
+- C. Pick rows based on conditions about their values
+- D. Choose variables/columns by their values
+
+# Problem `r lc <- lc + 1; lc`
+
+What is a **parameter**?
+
+- A. A calculation based on one or more variables measured in the sample. Parameters are usually denoted by lower case Arabic letters with other symbols added sometimes.
+- B. The largest group in which it makes sense to make inferences about from the sample collected
+- C. A calculation based on one or more variables measured in the population. Parameters are almost always denoted symbolically using Greek letters
+- D. A smaller collection of observational units that is selected from the population.
+
+# Problem `r lc <- lc + 1; lc`
+
+What is a **statistic**?
+
+- A. A calculation based on one or more variables measured in the sample. Parameters are usually denoted by lower case Arabic letters with other symbols added sometimes.
+- B. The largest group in which it makes sense to make inferences about from the sample collected
+- C. A calculation based on one or more variables measured in the population. Parameters are almost always denoted symbolically using Greek letters
+- D. A smaller collection of observational units that is selected from the population.
+
+# Problem `r lc <- lc + 1; lc`
+
+What is **sampling**?
+
+- A.  The probability of observing a sample statistic as extreme or more extreme than what was observed, assuming that the null hypothesis of a by chance operation is true
+- B. Refers to the process of selecting observations from a population. There are both random and non-random ways this can be done.
+- C. Refers to the largest group in which it makes sense to make inferences about from the sample collected.
+- D. The (usually) large pool of observational units that we are interested in
+
+# Problem `r lc <- lc + 1; lc`
+
+**Bias** corresponds to...
+
+- A. Ignoring one group over another
+- B. Resampling in order to achieve desired results
+- C. Neutrality towards the groups within the population
+- D. Favoring one group over another
+
+
+# Problem `r lc <- lc + 1; lc`
+
+What is a sample?
+
+- A.Is a smaller collection of variables that are selected from the population.
+- B.Is the characteristics of observational units selected are a good approximation of the characteristics from the original population.
+- C.Is a smaller collection of observational units that is selected from the population.
+- D.Is the (usually) large pool of observational units that we are interested in.
+
+# Problem `r lc <- lc + 1; lc`
+
+What is the definition of select?
+
+- A.Chooses columns based off their name.
+- B.Pick rows based on conditions about their values.
+- C.Choose variables by their conditions.
+- D.Choose variables/columns by their names.
+
+# Problem `r lc <- lc + 1; lc`
+
+What does the pipe fucntion do?
+
+- A.Chains together dplyr functions and ggplot functions.
+- B.Combines only dplyr functions.
+- C.Replaces the + function in ggplot
+- D.Arranges the data to be tidy
+
+# Problem `r lc <- lc + 1; lc`
+
+What has two variable the explanatory that is continuos, the response is numerical, and there are multiple response values per explanatory value?
+
+- A.Faceted barplot
+- B.Scatterplot
+- C.Histogram
+- D.Boxplot
+
+# Problem `r lc <- lc + 1; lc`
+
+What is the appropriate code for determining the relationship between age and sex?
+
+- A.ggplot(data = profiles, mapping = aes(x = sex, fill = name)) +
+  geom_bar()
+- B. ggplot(data = profiles, mapping = aes(x = name, fill = age)) +
+  geom_bar()
+- C.ggplot(data = profiles, mapping = aes(x = age, y = sex)) +
+  geom_boxplot()
+- D.ggplot(data = profiles, mapping = aes(x = sex, y = age)) +
+  geom_boxplot()
+  
+
+# Problem `r lc <- lc + 1; lc`
+
+What are the five main verbs?
+
+- A. `group_by`, `fliter`, `summaraize`, `mutate`, `arrange`
+- B.`Select`, `fliter`, `summaraize`, `mutate`, `arrange`
+- C. `Select`, `filler`, `summaraize`, `mutate`, `arrange`
+- D. `Select`, `fliter`, `summaraize`, `count`, `arrange`
+
+# Problem `r lc <- lc + 1; lc`
+
+What is the purpose of Bootstrapping?
+
+- A. There is no purpose. 
+- B. Bootstrapping allows us to estimate the variety of our statistic from sample to sample
+- C. Bootstrapping allows us to estimate the variability of our statistic from sample to sample.
+- D. Bootstrapping allows us to estimate the variability of our statistic from sample to statistic. 
+
+# Problem `r lc <- lc + 1; lc`
+
+Generalizability:
+
+- A. refers to the largest group in which it makes sense to make inferences about from the sample collected. This is directly related to how the sample was selected 
+- B. refers to the smallest group in which it makes sense to make inferences about from the sample collected. This is directly related to how the sample was selected.
+- C. refers to the largest group in which it makes sense to make inferences about from the population collected. This is directly related to how the sample was selected.
+- D. refers to the largest group in which it makes sense to make inferences about from the sample collected. This is indirectly related to how the sample was selected.
+
+# Problem `r lc <- lc + 1; lc`
+
+What does the `inner_join` function do?
+
+- A. helps tidy up a messy data frame by combining all the observational units into columns and variables into rows. 
+- B. joins two different observational units of different data frames together
+- C. joins two different rows of different data frames together
+- D. brings two different data frames together
+
+# Problem `r lc <- lc + 1; lc`
+
+What are the five main plots?
+
+- A. histograms, boxplots, barplots, scatter plots, line graphs
+- B. histograms, bareplots, barplots, scatter plots, line graphs
+- C. histograms, pie charts, barplots, scatter plots, line graphs
+- D. histograms, boxplots, barplots, scatter-line plots, line graphs
+
+
+# Problem `r lc <- lc + 1; lc`
+
+Generalizability
+
+- A. corresponds to a favoring of one group in a population over another group.
+- B. is a calculation based on one or more variables measured in the population.
+- C. is when the characteristics of observational units selected are a good approximation of the characteristics from the original population.
+- D. refers to the largest group in which it makes sense to make inferences about from the sample collected, and is directly related to how the sample was selected.
+
+# Problem `r lc <- lc + 1; lc`
+
+The sample_n function
+
+- A. creates one resample/bootstrap sample.
+- B. gives how many entries are in a filtered data frame.
+- C. filters the data at random and is used to get a random sample.
+- D. none of the above.
+
+# Problem `r lc <- lc + 1; lc`
+
+The select function allows you to
+
+- A. pick rows based on conditions about their values.
+- B. sort rows based on one or more variables.
+- C. choose variables/columns by their names.
+- D. none of the above.
+
+# Problem `r lc <- lc + 1; lc`
+
+We can use the inner_join function 
+
+- A. to chain together dplyr functions.
+- B. in random sampling.
+- C. to bring two different data frames together.
+- D. both A and B.
+
+# Problem `r lc <- lc + 1; lc`
+
+Tasting soup is an analogy to 
+
+- A. inference.
+- B. generalizability.
+- C. random sampling.
+- D. population.
+
+
+# Problem `r lc <- lc + 1; lc`
+
+Define a representative sample.
+
+- A. A sample from the U.S House of Representatives.
+- B. A sample that is meant manipulated to show certain patterns. 
+- C. A sample that shows a good approximation of the original population.
+- D. A sample that is never chosen at random.
+
+# Problem `r lc <- lc + 1; lc`
+
+What are possible biases that could occur when performing a phone survey?
+
+- A. Non-response bias
+- B. Undercoverage
+- C. Voluntary response bias
+- D. All of the above
+
+# Problem `r lc <- lc + 1; lc`
+
+Given a one categorical explanatory variable and one numerical response variable, what plot should we use?
+
+- A. Faceted line graph
+- B. Barplot
+- C. Boxplot
+- D. Histogram
+
+# Problem `r lc <- lc + 1; lc`
+
+What is the function of `select()`?
+
+- A. Chooses rows based on conditions about their values
+- B. Chooses variables/columns by their names
+- C. Chooses certain measurements to list
+- D. Chooses data frames to combine
+
+# Problem `r lc <- lc + 1; lc`
+
+At its most basic, `resample()`
+
+- A. resamples the input vector without replacement
+- B. resamples the input vector to show a representative sample
+- C. resamples the input vector to find missing data 
+- D. resamples the input vector with replacement
+
+
+# Problem `r lc <- lc + 1; lc`
+
+Which of the following is true of statistics and parameters? 
+
+- A. Paramaters are calculations based on a sample, statistiscs are calculations based on the population  
+- B. Statistics are calculations based on a sample, parameters are calculations based on statistics
+- C. Paramaters are measured from the population
+- D. Both B and C 
+
+# Problem `r lc <- lc + 1; lc`
+
+Using the Titanic data which of these pieces of code would find the number women who died from each class? 
+
+- A.`Titanic %>% filter(Sex = "Female", Survived = "No")  %>% group_by(Class)  %>% summarise(sum_deadwomen = sum(Freq))`
+- B.`Titanic %>% filter(Sex == Female, Survived == No)  %>% group_by(Class)  %>% summarise(sum_deadwomen = sum(Class))`
+- C.`Titanic %>% filter(Sex == "Female", Survived == "No")  %>% group_by(Class)  %>% summarise(sum_deadwomen = sum(Class))`
+- D.`Titanic %>% filter(Sex == "Female", Survived == "No")  %>% group_by(Class)  %>% summarise(sum_deadwomen = sum(Freq))`
+
+# Problem `r lc <- lc + 1; lc`
+
+Using the movie data set how could you plot the average yearly rating of movies? 
+
+- A.`(meanyearratingplot <- movies  %>% group_by(rating)  %>% summarize(mean_yearrating = mean(rating, na.rm = TRUE)) %>% ggplot(aes(x = year, y = mean_yearrating)) + geom_line())`
+- B.`(meanyearratingplot <- movies  %>% select(year)  %>% summarize(mean_yearrating = mean(rating, na.rm = TRUE)) %>% ggplot(aes(x = year, y = rating)) + geom_line())`
+- C.`(meanyearratingplot <- movies  %>% group_by(year)  %>% summarize(mean_yearrating = mean(rating, na.rm = TRUE)) %>% ggplot(aes(x = year, y = mean_yearrating)) + geom_line())`
+- D.`(meanyearratingplot <- movies  %>% group_by(rating)  %>% summarize(mean_yearrating = mean(rating, na.rm = TRUE)) %>% ggplot(aes(x = year, y = rating)) + geom_line())`
+
+# Problem `r lc <- lc + 1; lc`
+
+Which could NEVER be a possible outcome of running this code `resample(x = fruit, replace = FALSE)`? 
+
+- A. `mango, mango, orange`
+- B. `orange, mango, apple`  
+- C. `apple, orange, mango`
+- D. `mango, orange, apple`
+
+# Problem `r lc <- lc + 1; lc`
+
+What symbol do you use to chain together multiple functions in the`mosaic` package?
+
+- A. `+` the plus sign
+- B. `%>%` the pipe 
+- C. `*` an asterick 
+- D. All of the above
+
+
+# Problem `r lc <- lc + 1; lc`
+
+Which package is most neccessary if needed to create/perform multiple simulations?
+
+- A. `ggplot` package
+- B. `mosaic` package
+- C. `dplyr` package
+- D.  You are able to create/perform simulations on all        the listed packages.
+
+# Problem `r lc <- lc + 1; lc`
+
+What are the 4 central functions of the `mosaic` package?
+
+- A. factor(), arrange(), select(), resample()
+- B. rflip(), shuffle(), do(), resample()
+- C. dim(), rename(), filter(), ggplot()
+- D. None of the above are central functions of the `mosaic` package.
+
+# Problem `r lc <- lc + 1; lc`
+
+Which of the following would be the result of the output? 
+
+  > `library(okcupiddata)`
+
+- A. By performing this output, R will check if *okcupiddata* *has been downloaded and installed.
+- B. By performing this output, R will allow you to view the *okcupiddata* dataset.
+- C. By performing this output, it will allow you to remove the missing values in the following dataset: *okcupiddata*.
+- D. All of the above.
+
+# Problem `r lc <- lc + 1; lc`
+
+If you would like to list many entries in a vector object, you can do so by?
+
+- A. entering ?c in the R console.
+- B. using the View function.
+- C. both A and B.
+- D. none of the above.
+
+# Problem `r lc <- lc + 1; lc`
+
+In order to complete the task of creating a simulation where you flip a coin 500 times in sets of 10, what would be the nessary functions to input?
+
+- A. simulations <- resample(10) * rflip(500)
+- B. simulations <- do(500) * rflip(10)
+- C. simulations <- rflip(500) * do(10)
+- D. simulations <- shuffle(10) * rflip(500)
+
+
+# Problem `r lc <- lc + 1; lc`
+
+The term "Faceting" is used when...
+
+- A. You want combine two different plots with different categorical variables.
+- B. You want to create small multitudes of the same plot over a different categorical variable.
+- C. You want two different histograms side-by-side.
+- D. You want to create small multitudes of the same plot over different numerical variables. 
+
+# Problem `r lc <- lc + 1; lc`
+
+If you had the anual data of manufactured cars, what categorical variable would you facet wrap in order to see the amount of cars manufactured by month? 
+
+- A. Facet(year)
+- B. Facet(month)
+- C. Facet(every month)
+- D. Facet(~ month)
+
+# Problem `r lc <- lc + 1; lc`
+
+What symbol is uded when chaining dplyr funtions together?
+
+- A. +
+- B. =
+- C. %>%
+- D. $()$
+
+# Problem `r lc <- lc + 1; lc`
+
+A collection of observation units collected from the population is the:
+
+- A. Population
+- B. Selection
+- C. Sample 
+- D. Represeanative sample
+
+# Problem `r lc <- lc + 1; lc`
+
+Bootstrapping is:
+
+- A. The process of making a bootstrap distribution; without replacemen. 
+- B. How you make represenative samples. 
+- C. To sample with replacement to create new resamples of the same size.
+- D. To make different sized samples to compare.
+
+
+# Problem `r lc <- lc + 1; lc`
+
+What does the `str` function do and why would you use it? 
+
+- A. It stands for structure and it gives a few of the first entries of each variable in a row after the variable.  
+- B. It stands for structure and it makes your data set tidy if it is not. 
+- C. It stands for structure and it puts all your data in to a table. 
+- D. It does nothing so its useless.
+
+# Problem `r lc <- lc + 1; lc`
+
+Why are there bins in a histogram, but not a barplot?
+
+- A. In a histogram the bins are if the variable falls in between two numeric values.  
+- B. A bar graph is for when the variable is categorical.
+- C. A and B from above. 
+- D. None of the above. 
+
+# Problem `r lc <- lc + 1; lc`
+
+If a problem tells to to sort a specific variable in decreasing order you should use the verb...
+
+- A. Arrange and desc. 
+- B. Summarize and desc. 
+- C. Filter and desc. 
+- D. Mutate and desc. 
+
+# Problem `r lc <- lc + 1; lc`
+
+In bootstrapping the resample must always be the same length as the original.
+
+- A. True 
+- B. False 
+- C. This is partially true. 
+- D. This doesn't make sense. 
+
+# Problem `r lc <- lc + 1; lc`
+
+Selecting observations from a population, putting them back and repicking observations is an example of...
+
+- A. Non-random sampling 
+- B. Random sampling. 
+- C. Bias. 
+- D. Two of the above. 
+
+
+# Problem `r lc <- lc + 1; lc`
+
+What does "bootstrapping" do?
+
+- A. Samples the dataset and replaces the data each time
+- B. Samples a dataset without replacing the data each time
+- C. Estimates the variability of a statistic from a sample
+- D. It helps you achive the American Dream.
+
+# Problem `r lc <- lc + 1; lc`
+
+Which is true?
+
+- A. Parameters are always known.
+- B. The population is always larger than the sample
+- C. A statistic and a parameter come from different calculations
+- D. Sets of coin flips will always turn out to be 50/50
+
+# Which is true?
+
+
+
+- A. `filter` selects variables in columns
+- B. `select` selects variables in rows
+- C. `mutate` is used with `mean` and `sd`
+- D. `mutate` is used to create a new variable
+
+# Problem `r lc <- lc + 1; lc`
+
+Which is true?
+
+- A. Sampling is better when it is not random.
+- B. Sampling is better when it is random.
+- C. A representative sample does not need to have all the parts of the populations in order to represent it.
+- D. Bias is a problem of the past, and is no longer an issue for statasticians
+
+# Problem `r lc <- lc + 1; lc`
+
+What is not true about tidy data?
+
+- A. Each variable forms a row
+- B. Each observational unit forms a row
+- C. Each type of observation forms a table
+- D. Each variable forms a column
+
+
+# Problem `r lc <- lc + 1; lc`
+
+What is a component of Tidy Data? 
+
+- A. 1-2 variables per column 
+- B. 1 variable per row
+- C. values make up the table
+- D. obervational units consits in columns 
+
+# Problem `r lc <- lc + 1; lc`
+
+To create a side-by-side barplot what word will you need to use? 
+
+- A. "Edge"
+- B. "Side"
+- C. "Dodge"
+- D. "Next"
+
+# Problem `r lc <- lc + 1; lc`
+
+Which is not a Five Main Verb? 
+
+- A. Mutate
+- B. Select
+- C. Specific
+- D. Organize
+
+# Problem `r lc <- lc + 1; lc`
+
+The pipe function chains commands together in the dpylr package, what does it stand for? 
+
+- A. And then
+- B. Also
+- C. Adding
+- D. Plus
+
+# Problem `r lc <- lc + 1; lc`
+
+What does the concept of Bootstrapping do? 
+
+- A. Calculates the mean from the original sample.
+- B. Estimates the distribution and standard deviation of a representative  sample.
+- C. Calculates the distribution of the original sample. 
+- D. Approximates the distribution and standard deviation from a original sample. 
+
+
+# Problem `r lc <- lc + 1; lc`
+
+Which of these is NOT one of the first things you should do when given a data set?
+
+- A. Identify the observational unit
+- B. Give the types of variables you are presented with 
+- C. Specify the variables
+- D. reorganize the data set to make it tidy 
+
+# Problem `r lc <- lc + 1; lc`
+
+Which of the following is TRUE about pie charts?
+
+- A. We should always use pie charts, for every graph, they are a great representation of every data set.
+- B. Pie charts are only good for replacing histograms
+- C. They are not that great for looking at the different distributions in some data sets.
+- D. Pie charts do not actually exist
+
+# Problem `r lc <- lc + 1; lc`
+
+Gapminder %>% filter(subRegion == “Southern Asia” | region ==  “Americas”) %>% Referring to the R code above, what does this symbol "|" refer to?
+
+- A. and
+- B. if
+- C. or
+- D. but
+
+# Problem `r lc <- lc + 1; lc`
+
+When thinking about sampling, what should we always be comparing it to?
+
+- A. Tacos
+- B. Salads
+- C. Sandwiches
+- D. Soup
+
+# Problem `r lc <- lc + 1; lc`
+
+Which of the following definitions is correct?
+
+- A. Population- Usually a large pool of observational units that we are interested in (LARGER than the sample).
+- B. Bias- refers to the process of selecting observations from population. There are both random and non-random ways this can be done
+- C. Statistic- If the characteristics from the original units selected are good approximation of the characteristics from the population.
+- D. P-value- Corresponds to a favoring of one group in a population of another group.
+
+
+# Problem `r lc <- lc + 1; lc`
+
+Which one is not one of the 5 main verbs
+
+- A. Select
+- B. Filter
+- C. Arrange
+- D. Change
+
+# Problem `r lc <- lc + 1; lc`
+
+What does this %>% do? 
+
+- A.chain together dplyr function
+- B.arranges graphs into an a certain order
+- C.Both A and D
+- D.it is a short cut for the five main verbs
+
+# Problem `r lc <- lc + 1; lc`
+
+When graphing a categorical response and a categorical explanatory variables what graph should we use?
+
+- A.Bar plot
+- B.Box Plots
+- C. scatter plot (preferred)
+- D.pie chart
+
+# Problem `r lc <- lc + 1; lc`
+
+What is Bootstrapping?
+
+- A. estimate the variability of our statistic from sample to sample
+- B. displays the range of the data
+- C. adds straps to your boots
+- D. transfers a datset online to be viewed in R
+
+# Problem `r lc <- lc + 1; lc`
+
+What is not a key distinction of types of sampling
+
+- A. Sampling without replacement
+- B. Sampling with replacement
+- C. These are all types of sampling
+- D. Sampling with graphs

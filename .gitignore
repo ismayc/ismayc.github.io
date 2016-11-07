@@ -4,7 +4,7 @@ _site
 .Rproj.user
 .RData
 .Rhistory*
-.DS_Store
+*.DS_Store
 "Icon\r"
 *Roster.pdf
 roster.html
