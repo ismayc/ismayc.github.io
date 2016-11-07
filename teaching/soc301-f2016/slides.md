@@ -17,7 +17,7 @@ permalink: /teaching/soc301-f2016/slides/
 
 #### To do for next time
 - Review Quiz #4 practice problems [here]({{site.baseurl }}/teaching/soc301-f2016/slides/week-01/ps12all.html)
-- Complete [PS13]()
+- Complete [PS13]() (To be posted soon)
 
 
 ***
