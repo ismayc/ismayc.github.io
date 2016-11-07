@@ -23,12 +23,20 @@ Includes data from including the CIA World Factbook, the World Bank, the Associa
 
 - We want to identify the mean percentage of women holding national office.
 
-```{r}
+```{r include=FALSE}
 library(haven)
 library(dplyr)
 global13_full <- read_sav("global13sdss_0.sav")
 global13 <- global13_full %>% select(country, FEMALEOFFICE)
 ```
+
+```{r eval=FALSE}
+library(haven)
+library(dplyr)
+global13_full <- read_sav("/shared/isma5720@pacificu.edu/global13sdss_0.sav")
+global13 <- global13_full %>% select(country, FEMALEOFFICE)
+```
+
 
 ## Plotting the population data
 
