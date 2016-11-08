@@ -11,6 +11,7 @@ lc <- 0
 library(ggplot2)
 library(dplyr)
 library(mosaic)
+knitr::opts_chunk$set(message = FALSE, eval=FALSE, fig.height = 4, fig.align = "center")
 ```
 
 ***
@@ -66,19 +67,19 @@ What is **sampling**?
 
 What is a sample?
 
-- A.Is a smaller collection of variables that are selected from the population.
-- B.Is the characteristics of observational units selected are a good approximation of the characteristics from the original population.
-- C.Is a smaller collection of observational units that is selected from the population.
-- D.Is the (usually) large pool of observational units that we are interested in.
+- A. Is a smaller collection of variables that are selected from the population.
+- B. Is the characteristics of observational units selected are a good approximation of the characteristics from the original population.
+- C. Is a smaller collection of observational units that is selected from the population.
+- D. Is the (usually) large pool of observational units that we are interested in.
 
 # Problem `r lc <- lc + 1; lc`
 
-What is the definition of select?
+What is the definition of `select`?
 
-- A.Chooses columns based off their name.
-- B.Pick rows based on conditions about their values.
-- C.Choose variables by their conditions.
-- D.Choose variables/columns by their names.
+- A. Chooses rows based off their name.
+- B. Pick rows based on conditions about their values.
+- C. Choose variables by their conditions.
+- D. Choose variables/columns by their names.
 
 # Problem `r lc <- lc + 1; lc`
 
@@ -93,30 +94,30 @@ What does the pipe function do?
 
 What has two variable the explanatory that is continuous, the response is numerical, and there are multiple response values per explanatory value?
 
-- A.Faceted barplot
-- B.Scatterplot
-- C.Histogram
-- D.Boxplot
+- A. Faceted barplot
+- B. Scatterplot
+- C. Histogram
+- D. Boxplot
 
 # Problem `r lc <- lc + 1; lc`
 
 What is the appropriate code for determining the relationship between age and sex?
 
-- A.ggplot(data = profiles, mapping = aes(x = sex, fill = name)) +
-  geom_bar()
-- B. ggplot(data = profiles, mapping = aes(x = name, fill = age)) +
-  geom_bar()
-- C.ggplot(data = profiles, mapping = aes(x = age, y = sex)) +
-  geom_boxplot()
-- D.ggplot(data = profiles, mapping = aes(x = sex, y = age)) +
-  geom_boxplot()
+- A. `ggplot(data = profiles, mapping = aes(x = sex, fill = name)) +
+  geom_bar()`
+- B. `ggplot(data = profiles, mapping = aes(x = name, fill = age)) +
+  geom_bar()`
+- C. `ggplot(data = profiles, mapping = aes(x = age, y = sex)) +
+  geom_boxplot()`
+- D. `ggplot(data = profiles, mapping = aes(x = sex, y = age)) +
+  geom_boxplot()`
   
 
 # Problem `r lc <- lc + 1; lc`
 
 What are the five main verbs?
 
-- A. `group_by`, `fliter`, `summaraize`, `mutate`, `arrange`
+- A. `group_by`, `filter`, `summarize`, `mutate`, `arrange`
 - B.`Select`, `fliter`, `summaraize`, `mutate`, `arrange`
 - C. `Select`, `filler`, `summaraize`, `mutate`, `arrange`
 - D. `Select`, `fliter`, `summaraize`, `count`, `arrange`
@@ -187,10 +188,10 @@ The select function allows you to
 
 # Problem `r lc <- lc + 1; lc`
 
-We can use the inner_join function 
+We can use the `inner_join` function 
 
-- A. to chain together dplyr functions.
-- B. in random sampling.
+- A. to chain together `dplyr` functions.
+- B. only in random sampling.
 - C. to bring two different data frames together.
 - D. both A and B.
 
@@ -209,7 +210,7 @@ Tasting soup is an analogy to
 Define a representative sample.
 
 - A. A sample from the U.S House of Representatives.
-- B. A sample that is meant manipulated to show certain patterns. 
+- B. A sample that is meant to be manipulated to show certain patterns. 
 - C. A sample that shows a good approximation of the original population.
 - D. A sample that is never chosen at random.
 
@@ -254,32 +255,87 @@ At its most basic, `resample()`
 
 Which of the following is true of statistics and parameters? 
 
-- A. Parameters are calculations based on a sample, statistics are calculations based on the population  
-- B. Statistics are calculations based on a sample, parameters are calculations based on statistics
-- C. Parameters are measured from the population
+- A. Parameters are calculations based on sample(s), statistics are calculations based on the population  
+- B. Statistics are calculations based on sample(s), parameters are calculations based on populations
+- C. Parameters are almost always known.
 - D. Both B and C 
 
 # Problem `r lc <- lc + 1; lc`
 
-Using the Titanic data which of these pieces of code would find the number women who died from each class? 
+Using the `Titanic` data which of these pieces of code would find the number of women who died from each class? (Remember that `Titanic <- as.data.frame(Titanic)` is needed first.)
 
-- A.`Titanic %>% filter(Sex = "Female", Survived = "No")  %>% group_by(Class)  %>% summarise(sum_deadwomen = sum(Freq))`
-- B.`Titanic %>% filter(Sex == Female, Survived == No)  %>% group_by(Class)  %>% summarise(sum_deadwomen = sum(Class))`
-- C.`Titanic %>% filter(Sex == "Female", Survived == "No")  %>% group_by(Class)  %>% summarise(sum_deadwomen = sum(Class))`
-- D.`Titanic %>% filter(Sex == "Female", Survived == "No")  %>% group_by(Class)  %>% summarise(sum_deadwomen = sum(Freq))`
+- A.
+
+```{r}
+Titanic %>% filter(Sex = "Female", Survived = "No")  %>%
+  group_by(Class) %>% 
+  summarise(sum_deadwomen = sum(Freq))
+```
+
+- B.
+
+```{r}
+Titanic %>% filter(Sex == Female, Survived == No)  %>%
+  group_by(Class)  %>%
+  summarise(sum_deadwomen = sum(Class))
+```
+
+- C.
+
+```{r}
+Titanic %>% filter(Sex == "Female", Survived == "No")  %>%
+  group_by(Class)  %>% 
+  summarise(sum_deadwomen = sum(Class))
+```
+
+- D.
+
+```{r}
+Titanic %>% filter(Sex == "Female", Survived == "No")  %>%
+  group_by(Class)  %>% 
+  summarise(sum_deadwomen = sum(Freq))
+```
 
 # Problem `r lc <- lc + 1; lc`
 
-Using the movie data set how could you plot the average yearly rating of movies? 
+Using the `movies` data set in the `ggplot2movies` package, how could you plot the average yearly rating of movies? 
 
-- A.`(meanyearratingplot <- movies  %>% group_by(rating)  %>% summarize(mean_yearrating = mean(rating, na.rm = TRUE)) %>% ggplot(aes(x = year, y = mean_yearrating)) + geom_line())`
-- B.`(meanyearratingplot <- movies  %>% select(year)  %>% summarize(mean_yearrating = mean(rating, na.rm = TRUE)) %>% ggplot(aes(x = year, y = rating)) + geom_line())`
-- C.`(meanyearratingplot <- movies  %>% group_by(year)  %>% summarize(mean_yearrating = mean(rating, na.rm = TRUE)) %>% ggplot(aes(x = year, y = mean_yearrating)) + geom_line())`
-- D.`(meanyearratingplot <- movies  %>% group_by(rating)  %>% summarize(mean_yearrating = mean(rating, na.rm = TRUE)) %>% ggplot(aes(x = year, y = rating)) + geom_line())`
+- A.
+
+```{r}
+movies %>% group_by(rating) %>%
+   summarize(mean_yearrating = mean(rating, na.rm = TRUE)) %>%
+   ggplot(aes(x = year, y = mean_yearrating)) + geom_line()
+```
+
+- B.
+
+```{r}
+movies %>% select(year)  %>% 
+  summarize(mean_yearrating = mean(rating, na.rm = TRUE)) %>%
+  ggplot(aes(x = year, y = rating)) + geom_line()
+```
+
+- C.
+
+```{r}
+movies  %>% group_by(year)  %>% 
+  summarize(mean_yearrating = mean(rating, na.rm = TRUE)) %>%
+  ggplot(aes(x = year, y = mean_yearrating)) + geom_line()
+```
+
+- D.
+
+```{r}
+movies  %>% group_by(rating)  %>% 
+  summarize(mean_yearrating = mean(rating, na.rm = TRUE)) %>%
+  ggplot(aes(x = year, y = rating)) + geom_line()
+```
+
 
 # Problem `r lc <- lc + 1; lc`
 
-Which could NEVER be a possible outcome of running this code `resample(x = fruit, replace = FALSE)`? 
+Which could NEVER be a possible outcome of running this code `resample(x = fruit, replace = FALSE)`? Recall that `fruit <- c("mango", "apple", "orange")`.
 
 - A. `mango, mango, orange`
 - B. `orange, mango, apple`  
@@ -336,12 +392,12 @@ If you would like to list many entries in a vector object, you can do so by?
 
 # Problem `r lc <- lc + 1; lc`
 
-In order to complete the task of creating a simulation where you flip a coin 500 times in sets of 10, what would be the necessary functions to input?
+In order to complete the task of creating a simulation where you flip a coin in sets of 10 and record how many heads occurred in each set for 500 times, what would be the necessary functions to input?
 
-- A. simulations <- resample(10) * rflip(500)
-- B. simulations <- do(500) * rflip(10)
-- C. simulations <- rflip(500) * do(10)
-- D. simulations <- shuffle(10) * rflip(500)
+- A. `simulations <- resample(10) * rflip(500)`
+- B. `simulations <- do(500) * rflip(10)`
+- C. `simulations <- rflip(500) * do(10)`
+- D. `simulations <- shuffle(10) * rflip(500)`
 
 
 # Problem `r lc <- lc + 1; lc`
@@ -349,18 +405,18 @@ In order to complete the task of creating a simulation where you flip a coin 500
 The term "Faceting" is used when...
 
 - A. You want combine two different plots with different categorical variables.
-- B. You want to create small multitudes of the same plot over a different categorical variable.
+- B. You want to create small multiples of the same plot over a different categorical variable.
 - C. You want two different histograms side-by-side.
-- D. You want to create small multitudes of the same plot over different numerical variables. 
+- D. You want to create small multiples of the same plot over different numerical variables. 
 
 # Problem `r lc <- lc + 1; lc`
 
 If you had the annual data of manufactured cars, what categorical variable would you facet wrap in order to see the amount of cars manufactured by month? 
 
-- A. Facet(year)
-- B. Facet(month)
-- C. Facet(every month)
-- D. Facet(~ month)
+- A. facet(year)
+- B. facet(month)
+- C. facet(every month)
+- D. facet(~ month)
 
 # Problem `r lc <- lc + 1; lc`
 
@@ -419,12 +475,12 @@ If a problem tells to to sort a specific variable in decreasing order you should
 
 # Problem `r lc <- lc + 1; lc`
 
-In bootstrapping the resample must always be the same length as the original.
+In bootstrapping, the resample must be the same length as the original.
 
-- A. True 
-- B. False 
-- C. This is partially true. 
-- D. This doesn't make sense. 
+- A. True always
+- B. False always
+- C. This is rarely true
+- D. This is rarely false 
 
 # Problem `r lc <- lc + 1; lc`
 
@@ -502,12 +558,41 @@ To create a side-by-side barplot what word will you need to use?
 
 # Problem `r lc <- lc + 1; lc`
 
-Which is not a Five Main Verb? 
+Which of these would produce a side by side barplot of `status` faceted by `sex` with `fill` color determined by `orientation` for the `profiles` data frame in the `okcupiddata` package?
 
-- A. Mutate
-- B. Select
-- C. Specific
-- D. Organize
+- A.
+
+    ```{r eval=FALSE}
+    ggplot(data = profiles, aes(status, fill = orientation)) +
+      geom_bar() + 
+      facet_wrap(~sex) + 
+      (position = "dodge")
+    ```
+
+- B. 
+
+    ```{r eval=FALSE}
+    ggplot(data = profiles, aes(status, fill = orientation)) + 
+      geom_bar(position = "dodge") + 
+      facet_wrap(~sex) 
+    ```
+
+- C.
+    
+    ```{r eval=FALSE}
+    ggplot(data = profiles, aes(status, fill = orientation)) + 
+      geom_bar() + 
+      facet_wrap(~sex)
+    ```
+
+- D. 
+
+    ```{r eval=FALSE}
+    ggplot(data = profiles, aes(status, fill = orientation)) +
+      geom_bar(position = dodge) + 
+      facet_wrap(~sex)
+    ```
+
 
 # Problem `r lc <- lc + 1; lc`
 

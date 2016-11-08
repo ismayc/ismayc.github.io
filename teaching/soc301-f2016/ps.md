@@ -8,6 +8,8 @@ permalink: /teaching/soc301-f2016/ps/
 
 All problem sets are due at 10 AM unless otherwise specified.
 
+- [PS13](https://goo.gl/forms/3K1qm0xrkj5kX8aK2) due Wednesday, November 9
+
 - PS12: Create AT LEAST five multiple choice questions with four responses over the content in Chapters 3, 4, 5, and 6 in R Markdown on the [RStudio Server](http://beta.rstudio.org) in the template file retrieved via the code below.  This is due on Monday, November 7.
 
 ```

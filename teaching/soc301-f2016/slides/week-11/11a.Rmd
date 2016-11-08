@@ -181,5 +181,5 @@ boot_means %>% summarize(sd_boot_dist = sd(boot_mean))
 
 - Complete the problem on the previous slide.
 - Review the Quiz #4 practice problems at <http://ismayc.github.io/teaching/soc301-f2016/slides/week-11/ps12all.html>
-- Complete [PS13]() (To be posted soon)
+- Complete [PS13](https://goo.gl/forms/FkwFjUtkmHG0c0zQ2) by 10 AM on Wednesday, November 9
 - Begin working on the Exam 2 practice problems at <http://ismayc.github.io/teaching/soc301-f2016/Midterm-II-Practice.pdf>

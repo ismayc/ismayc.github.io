@@ -274,20 +274,20 @@ div.tocify {
 <h1>Problem 6</h1>
 <p>What is a sample?</p>
 <ul>
-<li>A.Is a smaller collection of variables that are selected from the population.</li>
-<li>B.Is the characteristics of observational units selected are a good approximation of the characteristics from the original population.</li>
-<li>C.Is a smaller collection of observational units that is selected from the population.</li>
-<li>D.Is the (usually) large pool of observational units that we are interested in.</li>
+<li>A. Is a smaller collection of variables that are selected from the population.</li>
+<li>B. Is the characteristics of observational units selected are a good approximation of the characteristics from the original population.</li>
+<li>C. Is a smaller collection of observational units that is selected from the population.</li>
+<li>D. Is the (usually) large pool of observational units that we are interested in.</li>
 </ul>
 </div>
 <div id="problem-7" class="section level1">
 <h1>Problem 7</h1>
-<p>What is the definition of select?</p>
+<p>What is the definition of <code>select</code>?</p>
 <ul>
-<li>A.Chooses columns based off their name.</li>
-<li>B.Pick rows based on conditions about their values.</li>
-<li>C.Choose variables by their conditions.</li>
-<li>D.Choose variables/columns by their names.</li>
+<li>A. Chooses rows based off their name.</li>
+<li>B. Pick rows based on conditions about their values.</li>
+<li>C. Choose variables by their conditions.</li>
+<li>D. Choose variables/columns by their names.</li>
 </ul>
 </div>
 <div id="problem-8" class="section level1">
@@ -304,27 +304,27 @@ div.tocify {
 <h1>Problem 9</h1>
 <p>What has two variable the explanatory that is continuous, the response is numerical, and there are multiple response values per explanatory value?</p>
 <ul>
-<li>A.Faceted barplot</li>
-<li>B.Scatterplot</li>
-<li>C.Histogram</li>
-<li>D.Boxplot</li>
+<li>A. Faceted barplot</li>
+<li>B. Scatterplot</li>
+<li>C. Histogram</li>
+<li>D. Boxplot</li>
 </ul>
 </div>
 <div id="problem-10" class="section level1">
 <h1>Problem 10</h1>
 <p>What is the appropriate code for determining the relationship between age and sex?</p>
 <ul>
-<li>A.ggplot(data = profiles, mapping = aes(x = sex, fill = name)) + geom_bar()</li>
-<li>B. ggplot(data = profiles, mapping = aes(x = name, fill = age)) + geom_bar()</li>
-<li>C.ggplot(data = profiles, mapping = aes(x = age, y = sex)) + geom_boxplot()</li>
-<li>D.ggplot(data = profiles, mapping = aes(x = sex, y = age)) + geom_boxplot()</li>
+<li>A. <code>ggplot(data = profiles, mapping = aes(x = sex, fill = name)) +   geom_bar()</code></li>
+<li>B. <code>ggplot(data = profiles, mapping = aes(x = name, fill = age)) +   geom_bar()</code></li>
+<li>C. <code>ggplot(data = profiles, mapping = aes(x = age, y = sex)) +   geom_boxplot()</code></li>
+<li>D. <code>ggplot(data = profiles, mapping = aes(x = sex, y = age)) +   geom_boxplot()</code></li>
 </ul>
 </div>
 <div id="problem-11" class="section level1">
 <h1>Problem 11</h1>
 <p>What are the five main verbs?</p>
 <ul>
-<li>A. <code>group_by</code>, <code>fliter</code>, <code>summaraize</code>, <code>mutate</code>, <code>arrange</code></li>
+<li>A. <code>group_by</code>, <code>filter</code>, <code>summarize</code>, <code>mutate</code>, <code>arrange</code></li>
 <li>B.<code>Select</code>, <code>fliter</code>, <code>summaraize</code>, <code>mutate</code>, <code>arrange</code></li>
 <li>C. <code>Select</code>, <code>filler</code>, <code>summaraize</code>, <code>mutate</code>, <code>arrange</code></li>
 <li>D. <code>Select</code>, <code>fliter</code>, <code>summaraize</code>, <code>count</code>, <code>arrange</code></li>
@@ -402,10 +402,10 @@ div.tocify {
 </div>
 <div id="problem-19" class="section level1">
 <h1>Problem 19</h1>
-<p>We can use the inner_join function</p>
+<p>We can use the <code>inner_join</code> function</p>
 <ul>
-<li>A. to chain together dplyr functions.</li>
-<li>B. in random sampling.</li>
+<li>A. to chain together <code>dplyr</code> functions.</li>
+<li>B. only in random sampling.</li>
 <li>C. to bring two different data frames together.</li>
 <li>D. both A and B.</li>
 </ul>
@@ -425,7 +425,7 @@ div.tocify {
 <p>Define a representative sample.</p>
 <ul>
 <li>A. A sample from the U.S House of Representatives.</li>
-<li>B. A sample that is meant manipulated to show certain patterns.</li>
+<li>B. A sample that is meant to be manipulated to show certain patterns.</li>
 <li>C. A sample that shows a good approximation of the original population.</li>
 <li>D. A sample that is never chosen at random.</li>
 </ul>
@@ -474,36 +474,72 @@ div.tocify {
 <h1>Problem 26</h1>
 <p>Which of the following is true of statistics and parameters?</p>
 <ul>
-<li>A. Parameters are calculations based on a sample, statistics are calculations based on the population<br />
+<li>A. Parameters are calculations based on sample(s), statistics are calculations based on the population<br />
 </li>
-<li>B. Statistics are calculations based on a sample, parameters are calculations based on statistics</li>
-<li>C. Parameters are measured from the population</li>
+<li>B. Statistics are calculations based on sample(s), parameters are calculations based on populations</li>
+<li>C. Parameters are almost always known.</li>
 <li>D. Both B and C</li>
 </ul>
 </div>
 <div id="problem-27" class="section level1">
 <h1>Problem 27</h1>
-<p>Using the Titanic data which of these pieces of code would find the number women who died from each class?</p>
+<p>Using the <code>Titanic</code> data which of these pieces of code would find the number of women who died from each class? (Remember that <code>Titanic &lt;- as.data.frame(Titanic)</code> is needed first.)</p>
 <ul>
-<li>A.<code>Titanic %&gt;% filter(Sex = &quot;Female&quot;, Survived = &quot;No&quot;)  %&gt;% group_by(Class)  %&gt;% summarise(sum_deadwomen = sum(Freq))</code></li>
-<li>B.<code>Titanic %&gt;% filter(Sex == Female, Survived == No)  %&gt;% group_by(Class)  %&gt;% summarise(sum_deadwomen = sum(Class))</code></li>
-<li>C.<code>Titanic %&gt;% filter(Sex == &quot;Female&quot;, Survived == &quot;No&quot;)  %&gt;% group_by(Class)  %&gt;% summarise(sum_deadwomen = sum(Class))</code></li>
-<li>D.<code>Titanic %&gt;% filter(Sex == &quot;Female&quot;, Survived == &quot;No&quot;)  %&gt;% group_by(Class)  %&gt;% summarise(sum_deadwomen = sum(Freq))</code></li>
+<li>A.</li>
 </ul>
+<pre class="r"><code>Titanic %&gt;% filter(Sex = &quot;Female&quot;, Survived = &quot;No&quot;)  %&gt;%
+  group_by(Class) %&gt;% 
+  summarise(sum_deadwomen = sum(Freq))</code></pre>
+<ul>
+<li>B.</li>
+</ul>
+<pre class="r"><code>Titanic %&gt;% filter(Sex == Female, Survived == No)  %&gt;%
+  group_by(Class)  %&gt;%
+  summarise(sum_deadwomen = sum(Class))</code></pre>
+<ul>
+<li>C.</li>
+</ul>
+<pre class="r"><code>Titanic %&gt;% filter(Sex == &quot;Female&quot;, Survived == &quot;No&quot;)  %&gt;%
+  group_by(Class)  %&gt;% 
+  summarise(sum_deadwomen = sum(Class))</code></pre>
+<ul>
+<li>D.</li>
+</ul>
+<pre class="r"><code>Titanic %&gt;% filter(Sex == &quot;Female&quot;, Survived == &quot;No&quot;)  %&gt;%
+  group_by(Class)  %&gt;% 
+  summarise(sum_deadwomen = sum(Freq))</code></pre>
 </div>
 <div id="problem-28" class="section level1">
 <h1>Problem 28</h1>
-<p>Using the movie data set how could you plot the average yearly rating of movies?</p>
+<p>Using the <code>movies</code> data set in the <code>ggplot2movies</code> package, how could you plot the average yearly rating of movies?</p>
 <ul>
-<li>A.<code>(meanyearratingplot &lt;- movies  %&gt;% group_by(rating)  %&gt;% summarize(mean_yearrating = mean(rating, na.rm = TRUE)) %&gt;% ggplot(aes(x = year, y = mean_yearrating)) + geom_line())</code></li>
-<li>B.<code>(meanyearratingplot &lt;- movies  %&gt;% select(year)  %&gt;% summarize(mean_yearrating = mean(rating, na.rm = TRUE)) %&gt;% ggplot(aes(x = year, y = rating)) + geom_line())</code></li>
-<li>C.<code>(meanyearratingplot &lt;- movies  %&gt;% group_by(year)  %&gt;% summarize(mean_yearrating = mean(rating, na.rm = TRUE)) %&gt;% ggplot(aes(x = year, y = mean_yearrating)) + geom_line())</code></li>
-<li>D.<code>(meanyearratingplot &lt;- movies  %&gt;% group_by(rating)  %&gt;% summarize(mean_yearrating = mean(rating, na.rm = TRUE)) %&gt;% ggplot(aes(x = year, y = rating)) + geom_line())</code></li>
+<li>A.</li>
 </ul>
+<pre class="r"><code>movies %&gt;% group_by(rating) %&gt;%
+   summarize(mean_yearrating = mean(rating, na.rm = TRUE)) %&gt;%
+   ggplot(aes(x = year, y = mean_yearrating)) + geom_line()</code></pre>
+<ul>
+<li>B.</li>
+</ul>
+<pre class="r"><code>movies %&gt;% select(year)  %&gt;% 
+  summarize(mean_yearrating = mean(rating, na.rm = TRUE)) %&gt;%
+  ggplot(aes(x = year, y = rating)) + geom_line()</code></pre>
+<ul>
+<li>C.</li>
+</ul>
+<pre class="r"><code>movies  %&gt;% group_by(year)  %&gt;% 
+  summarize(mean_yearrating = mean(rating, na.rm = TRUE)) %&gt;%
+  ggplot(aes(x = year, y = mean_yearrating)) + geom_line()</code></pre>
+<ul>
+<li>D.</li>
+</ul>
+<pre class="r"><code>movies  %&gt;% group_by(rating)  %&gt;% 
+  summarize(mean_yearrating = mean(rating, na.rm = TRUE)) %&gt;%
+  ggplot(aes(x = year, y = rating)) + geom_line()</code></pre>
 </div>
 <div id="problem-29" class="section level1">
 <h1>Problem 29</h1>
-<p>Which could NEVER be a possible outcome of running this code <code>resample(x = fruit, replace = FALSE)</code>?</p>
+<p>Which could NEVER be a possible outcome of running this code <code>resample(x = fruit, replace = FALSE)</code>? Recall that <code>fruit &lt;- c(&quot;mango&quot;, &quot;apple&quot;, &quot;orange&quot;)</code>.</p>
 <ul>
 <li>A. <code>mango, mango, orange</code></li>
 <li>B. <code>orange, mango, apple</code><br />
@@ -569,12 +605,12 @@ div.tocify {
 </div>
 <div id="problem-35" class="section level1">
 <h1>Problem 35</h1>
-<p>In order to complete the task of creating a simulation where you flip a coin 500 times in sets of 10, what would be the necessary functions to input?</p>
+<p>In order to complete the task of creating a simulation where you flip a coin in sets of 10 and record how many heads occurred in each set for 500 times, what would be the necessary functions to input?</p>
 <ul>
-<li>A. simulations &lt;- resample(10) * rflip(500)</li>
-<li>B. simulations &lt;- do(500) * rflip(10)</li>
-<li>C. simulations &lt;- rflip(500) * do(10)</li>
-<li>D. simulations &lt;- shuffle(10) * rflip(500)</li>
+<li>A. <code>simulations &lt;- resample(10) * rflip(500)</code></li>
+<li>B. <code>simulations &lt;- do(500) * rflip(10)</code></li>
+<li>C. <code>simulations &lt;- rflip(500) * do(10)</code></li>
+<li>D. <code>simulations &lt;- shuffle(10) * rflip(500)</code></li>
 </ul>
 </div>
 <div id="problem-36" class="section level1">
@@ -582,19 +618,19 @@ div.tocify {
 <p>The term “Faceting” is used when…</p>
 <ul>
 <li>A. You want combine two different plots with different categorical variables.</li>
-<li>B. You want to create small multitudes of the same plot over a different categorical variable.</li>
+<li>B. You want to create small multiples of the same plot over a different categorical variable.</li>
 <li>C. You want two different histograms side-by-side.</li>
-<li>D. You want to create small multitudes of the same plot over different numerical variables.</li>
+<li>D. You want to create small multiples of the same plot over different numerical variables.</li>
 </ul>
 </div>
 <div id="problem-37" class="section level1">
 <h1>Problem 37</h1>
 <p>If you had the annual data of manufactured cars, what categorical variable would you facet wrap in order to see the amount of cars manufactured by month?</p>
 <ul>
-<li>A. Facet(year)</li>
-<li>B. Facet(month)</li>
-<li>C. Facet(every month)</li>
-<li>D. Facet(~ month)</li>
+<li>A. facet(year)</li>
+<li>B. facet(month)</li>
+<li>C. facet(every month)</li>
+<li>D. facet(~ month)</li>
 </ul>
 </div>
 <div id="problem-38" class="section level1">
@@ -661,12 +697,12 @@ div.tocify {
 </div>
 <div id="problem-44" class="section level1">
 <h1>Problem 44</h1>
-<p>In bootstrapping the resample must always be the same length as the original.</p>
+<p>In bootstrapping, the resample must be the same length as the original.</p>
 <ul>
-<li>A. True</li>
-<li>B. False</li>
-<li>C. This is partially true.</li>
-<li>D. This doesn’t make sense.</li>
+<li>A. True always</li>
+<li>B. False always</li>
+<li>C. This is rarely true</li>
+<li>D. This is rarely false</li>
 </ul>
 </div>
 <div id="problem-45" class="section level1">
@@ -751,12 +787,29 @@ div.tocify {
 </div>
 <div id="problem-53" class="section level1">
 <h1>Problem 53</h1>
-<p>Which is not a Five Main Verb?</p>
+<p>Which of these would produce a side by side barplot of <code>status</code> faceted by <code>sex</code> with <code>fill</code> color determined by <code>orientation</code> for the <code>profiles</code> data frame in the <code>okcupiddata</code> package?</p>
 <ul>
-<li>A. Mutate</li>
-<li>B. Select</li>
-<li>C. Specific</li>
-<li>D. Organize</li>
+<li><p>A.</p>
+<pre class="r"><code>ggplot(data = profiles, aes(status, fill = orientation)) +
+  geom_bar() + 
+  facet_wrap(~sex) + 
+  (position = &quot;dodge&quot;)</code></pre></li>
+<li><ol start="2" style="list-style-type: upper-alpha">
+<li></li>
+</ol>
+<pre class="r"><code>ggplot(data = profiles, aes(status, fill = orientation)) + 
+  geom_bar(position = &quot;dodge&quot;) + 
+  facet_wrap(~sex) </code></pre></li>
+<li><p>C.</p>
+<pre class="r"><code>ggplot(data = profiles, aes(status, fill = orientation)) + 
+  geom_bar() + 
+  facet_wrap(~sex)</code></pre></li>
+<li><ol start="4" style="list-style-type: upper-alpha">
+<li></li>
+</ol>
+<pre class="r"><code>ggplot(data = profiles, aes(status, fill = orientation)) +
+  geom_bar(position = dodge) + 
+  facet_wrap(~sex)</code></pre></li>
 </ul>
 </div>
 <div id="problem-54" class="section level1">
