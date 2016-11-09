@@ -23,7 +23,7 @@ options(width = 150)
     - Wednesdays 11:30 AM - 12:30 PM second floor of the Library near the stairs
     - By appointment (Send email to [chester@pacificu.edu](mailto:chester@pacificu.edu) or talk to me after class.)
 - **Office Phone Number**: Not available (Happy to meet in the Library or another place on campus as needed though.)
-- Email: [chester@pacificu.edu](mailto:chester@pacificu.edu)
+- **Email**: [chester@pacificu.edu](mailto:chester@pacificu.edu)
 
 # Overview
 
