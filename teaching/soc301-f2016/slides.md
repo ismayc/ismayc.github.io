@@ -16,7 +16,7 @@ permalink: /teaching/soc301-f2016/slides/
 
 
 #### To do for next time
-- Review Quiz #4 practice problems [here]({{site.baseurl }}/teaching/soc301-f2016/slides/week-01/ps12all.html)
+- Review Quiz #4 practice problems [here]({{site.baseurl }}/teaching/soc301-f2016/slides/week-11/ps12all.html)
 - Complete [PS13](https://goo.gl/forms/3K1qm0xrkj5kX8aK2) by 10 AM PST on Wednesday, November 9
 - Begin working on the Exam 2 practice problems <a href = "{{ site.baseurl }}/teaching/soc301-f2016/Midterm-II-Practice.pdf">here</a>
 
