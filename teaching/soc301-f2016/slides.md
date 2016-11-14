@@ -4,37 +4,25 @@ title: Slides and Class Content
 permalink: /teaching/soc301-f2016/slides/
 ---
 
-## Week 11
-
-### Wednesday
-
-#### Covered content
-
-- Quiz #4
-- Review Chapters 3 - 6 of MODERN DIVE
-- Discuss the results of [Exit Polls](http://www.nytimes.com/interactive/2016/11/08/us/politics/election-exit-polls.html) 
-
-#### To do for next time
-- Finish working on the Exam 2 practice problems <a href = "{{ site.baseurl }}/teaching/soc301-f2016/Midterm-II-Practice.pdf">here</a>
-- Email me with any questions or to check your work before Saturday, November 12 at 5 PM PST
-
-***
+## Week 12
 
 ### Monday
-- <a href = "{{ site.baseurl }}/teaching/soc301-f2016/slides/week-11/11a.html">2016-11-07</a>
 
 #### Covered content
 
-- Discuss sampling and resampling/bootstrapping
-- Review for Quiz #4
-
+- Exam #2
 
 #### To do for next time
-- Review Quiz #4 practice problems [here]({{site.baseurl }}/teaching/soc301-f2016/slides/week-11/ps12all.html)
-- Complete [PS13](https://goo.gl/forms/3K1qm0xrkj5kX8aK2) by 10 AM PST on Wednesday, November 9
-- Begin working on the Exam 2 practice problems <a href = "{{ site.baseurl }}/teaching/soc301-f2016/Midterm-II-Practice.pdf">here</a>
+- Read Chapter 7 of [MODERN DIVE](https://ismayc.github.io/moderndiver-book/7-hypo.html)
+- Focus on identifying the important concepts and pieces of code as you read.
+- The Final Project assignment is [here](http://ismayc.github.io/teaching/soc301-f2016/week-12/final_project_outline.html)
+    - Your final project partners have been assigned [here](https://docs.google.com/a/pacificu.edu/spreadsheets/d/147VClwV3o4MBnGh8iCPIG9dwkGOmw646yBlLY6yqXm4/edit?usp=sharing)
+    - [Project Proposal](http://ismayc.github.io/teaching/soc301-f2016/slides/week-12/final_project_outline.html#project_proposal) is due by 2 PM next Monday (November 21)
+
 
 ***
+
+### [Week 11 - Introduction to Inference (Part 2)]({{ site.baseurl }}/teaching/soc301-f2016/slides/week11/)
 
 ### [Week 10 - Introduction to Inference]({{ site.baseurl }}/teaching/soc301-f2016/slides/week10/)
 
