@@ -107,7 +107,7 @@ balance:
 * Having two or more different data sets to join is not an explicit requirement
 for this project; your scientific question will dictate this need.
 * If you're having trouble finding specific data that you have in mind, make an
-appointment with the Middlebury Data Services Librarian Ryan Clement.
+appointment with the Pacific University librarians.
 
 
 
