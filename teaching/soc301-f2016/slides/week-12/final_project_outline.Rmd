@@ -122,7 +122,7 @@ tone), just ask yourself: "What does a newspaper/online news story sound like?"
 * A supplementary materials section that goes more in depth about the
 nitty-gritty details, that one might want to spare casual readers from, but
 include for people wanting to learn more.
-* A `final_project.Rmd` template file is available [here](http://ismayc.github.io/teaching/soc301-f2016/week-12/Final_Project.Rmd).  Please download this file to your computer and then Upload it to [the RStudio Server](http://beta.rstudio.org).
+* A `final_project.Rmd` template file is available [here](http://ismayc.github.io/teaching/soc301-f2016/slides/week-12/Final_Project.Rmd).  Please download this file to your computer and then Upload it to [the RStudio Server](http://beta.rstudio.org).
 
 
 
