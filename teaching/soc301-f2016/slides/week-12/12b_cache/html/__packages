@@ -1,0 +1,15 @@
+base
+methods
+needs
+datasets
+utils
+grDevices
+graphics
+stats
+dplyr
+lattice
+ggplot2
+mosaicData
+Matrix
+mosaic
+readr

@@ -1,0 +1,216 @@
+---
+title: "SOC 301-01: Social Statistics"
+author: "Chester Ismay"
+output:
+  ioslides_presentation:
+    incremental: no
+    logo: ../figs/boxer.jpg
+    fig.align: center
+    widescreen: true
+subtitle: Hypothesis Testing
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, fig.height = 4, fig.align = "center")
+```
+
+
+## County Characteristics Datasets
+
+### Annual County Resident Population Estimates by Age, Sex, Race, and Hispanic Origin
+
+- Downloaded from [here](https://www.census.gov/popest/data/counties/asrh/2015/CC-EST2015-ALLDATA.html) via All States (CSV)
+
+- Codebook is available [here](https://www.census.gov/popest/data/counties/asrh/2015/files/CC-EST2015-ALLDATA.pdf)
+
+- This dataset is messy.  I've tidied it and focused on only Total Population and Black or African American alone.
+
+```{r message=FALSE, warning=FALSE}
+# Remember to load the needed packages
+library(dplyr)
+library(mosaic)
+library(ggplot2)
+library(readr)
+```
+
+
+## Problem set-up
+
+
+- On Exam 2, I asked you to think about using bootstrapping to provide an estimate for the range of possible values for the mean percentage of black residents in ALL US counties.
+
+## Comparing mean percentages in two states
+
+- Suppose we were interested in testing the mean percentage of black residents in two different states.  Let's choose Oregon and Washington.
+
+- Washington has 39 counties and Oregon has 36.
+
+- Assume we only have access to 20 randomly selected counties from each state.
+
+```{r eval=FALSE}
+wash_or <- read_csv("/shared/isma5720@pacificu.edu/wash-or_black.csv")
+```
+
+```{r include=FALSE}
+wash_or <- read_csv("wash-or_black.csv")
+```
+
+
+## Problem set-up {.build}
+
+Do we have evidence that the mean percentage of black residents in Washington and Oregon is statistically different?
+
+- $H_A: \mu_{wa} \ne \mu_{or}$ or $H_A: \mu_{wa} - \mu_{or} \ne 0$
+
+What is the null hypothesis?
+
+- $H_0: \mu_{wa} = \mu_{or}$ or $H_0: \mu_{wa} - \mu_{or} = 0$
+
+What does this mean?
+
+- We are assuming that the mean percentage of black residents in Washington and Oregon is THE SAME.
+
+- We will use hypothesis testing to look to see if we have evidence to go against this assumption.
+
+## The layout of all hypothesis tests
+
+```{r echo=FALSE}
+knitr::include_graphics("ht.png", dpi = 120)
+```
+
+## For our problem {.build}
+
+What is the **observational unit**?
+
+- Counties in Washington and Oregon
+    
+DATA:  
+
+- We have collected our sample of 20 Washington counties and 20 Oregon counties
+
+TEST STATISTIC:  
+
+- We are interested in the difference in sample means.
+
+## OBSERVED EFFECT
+
+```{r}
+(state_means <- wash_or %>% group_by(state) %>% 
+  summarize(mean_perc = mean(black_perc)))
+(obs_diff <- diff(state_means$mean_perc))
+```
+
+- From our original (observed) sample, we have 
+
+$$\verb+obs_diff+ = \bar{x}_{wa} - \bar{x}_{or} = 0.9105771$$
+
+## MODEL OF $H_0$ {.build}
+
+We assume that the two POPULATION mean percentages are the same:
+
+$H_0: \mu_{wa} = \mu_{or}$ or $H_0: \mu_{wa} - \mu_{or} = 0$
+
+## SIMULATED DATA {.build}
+
+We want to use the data we have collected to simulate a process following the model for $H_0$.
+
+This is similar to bootstrapping except in this case we have two groups instead of just one.
+
+**BIG STEP**:  Assuming that $H_0: \mu_{wa} = \mu_{or}$, any one of the percentages we saw in our sample data could have occurred (equally) in either Washington or in Oregon.
+
+We can use the `shuffle` function in the `mosaic` package to shuffle the percentages between Oregon and Washington.
+
+## One shuffle
+
+```{r}
+set.seed(2016)
+(shuffled_state_means <- wash_or %>%
+     mutate(state = shuffle(state)) %>% 
+     group_by(state) %>%
+     summarize(mean_shuf_perc = mean(black_perc)))
+(obs_shuf_diff <- diff(shuffled_state_means$mean_shuf_perc))
+```
+
+## NULL DISTRIBUTION
+
+- Repeat this shuffling many times and then look at the distribution of all the resulting simulated test statistics
+
+```{r cache=TRUE}
+many_shuffles <- do(10000) *
+  (shuffled_state_means <- wash_or %>%
+     mutate(state = shuffle(state)) %>% 
+     group_by(state) %>%
+     summarize(mean_shuf_perc = mean(black_perc)))
+rand_distn <- many_shuffles %>% 
+  group_by(.index) %>% 
+  summarize(diffmean = diff(mean_shuf_perc))
+```
+
+## Plot of NULL DISTRIBUTION {.build}
+
+```{r fig.height=2.7}
+rand_distn %>% ggplot(aes(x = diffmean)) +
+  geom_histogram(color = "white", bins = 20)
+```
+
+Where will the center of this distribution always be?
+
+- 0 (We assumed the means were the same & used that process to build the distribution).
+
+## View the $p$-value {.build}
+
+We want to see where our observed effect (the original different in sample means) falls on our NULL DISTRIBUTION.
+
+- Note that we check for both directions here since we had a two-sided $H_A$.
+
+```{r fig.height=2.7}
+rand_distn %>% ggplot(aes(x = diffmean,
+                      fill = (abs(diffmean) >= obs_diff))) +
+  geom_histogram(color = "white", bins = 20)
+```
+
+## View the $p$-value {.build}
+
+```{r fig.height=2.7}
+rand_distn %>% ggplot(aes(x = diffmean)) +
+  geom_histogram(color = "white", bins = 20) +
+  geom_vline(xintercept = obs_diff, color = "red") +
+  geom_vline(xintercept = -obs_diff, color = "red")
+```
+
+
+## Calculate the $p$-value
+
+```{r}
+rand_distn %>%
+  filter(abs(diffmean) >= obs_diff) %>%
+  nrow() / nrow(rand_distn)
+```
+
+So there is around a 4% chance we could have seen results such as this if the true population mean percentages were the same.  What does that mean?
+
+## Significance level
+
+The "beyond a reasonable doubt" in statistics corresponds to setting the $\alpha$ value before you conduct your test.  Most often this is set to 5%.
+
+So with our test, since 0.0439 < 0.05, we reject $H_0$ in favor of $H_A$.  We have evidence to support the claim that the mean percentages of black residents per county are different for Washington and Oregon.
+
+## All data
+
+- The 2015 data for ALL counties is available via:
+
+```{r eval=FALSE}
+cc_full <- read_csv("/shared/isma5720@pacificu.edu/cc_full.csv")
+```
+
+Practice:  Determine what the actual difference is in mean percentage of black residents for ALL Washington and Oregon counties.  Is the difference **practically** large?
+
+## To do for next time
+
+- Read Chapter 8 of [MODERN DIVE](https://ismayc.github.io/moderndiver-book/8-ci.html)
+    - Focus on identifying the important concepts and pieces of code as you read.
+- Review the Learning Checks of Chapter 7 of [MODERN DIVE](https://ismayc.github.io/moderndiver-book/7-hypo.html)
+- The Final Project assignment is [here](http://ismayc.github.io/teaching/soc301-f2016/slides/week-12/final_project_outline.html)
+    - Your final project partners have been assigned [here](https://docs.google.com/a/pacificu.edu/spreadsheets/d/147VClwV3o4MBnGh8iCPIG9dwkGOmw646yBlLY6yqXm4/edit?usp=sharing)
+    - [Project Proposal](http://ismayc.github.io/teaching/soc301-f2016/slides/week-12/final_project_outline.html#project_proposal) is due by 2 PM next Monday (November 21)
+
