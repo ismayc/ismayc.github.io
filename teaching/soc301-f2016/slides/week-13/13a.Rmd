@@ -53,6 +53,29 @@ mean percentage of black residents per county than Oregon.
 
 > - Is the difference $\mu_{wa} - \mu_{or}$ _practically_ different?
 
+## Relationship between `state` and `black_perc` {.build}
+
+Another important step is to visualize how the response variable changes based on the levels of the explanatory variable:
+
+```{r fig.height=2.5}
+library(ggplot2); cc_full %>% filter(state %in% c("Washington", "Oregon")) %>% 
+  ggplot(mapping = aes(x = state, y = black_perc)) +
+  geom_boxplot(outlier.shape = NA) + 
+  geom_jitter(alpha = 0.2, height = 0, width = 0.3) +
+  coord_flip()
+```
+
+## Relationship between `state` and `black_perc` {.build}
+
+
+```{r fig.height=3.5}
+cc_full %>% filter(state %in% c("Washington", "Oregon")) %>% 
+  ggplot(mapping = aes(x = state, y = black_perc)) +
+  geom_violin() + 
+  coord_flip()
+```
+
+
 ## 
 
 > - Hypothesis testing is usually a good start, but you may have asked "We have a statistically significant difference
@@ -75,7 +98,6 @@ black_rand_distn <- read_rds("black_rand_distn.RDS")
 ## Plotting
 
 ```{r fig.height=2.7}
-library(ggplot2)
 black_rand_distn %>% ggplot(aes(x = diffmean)) +
   geom_histogram(color = "white", bins = 20)
 ```
@@ -157,6 +179,8 @@ We are 95% confident that the true mean difference in the percentage of black re
 ## To do for next time
 
 - Enjoy the Thanksgiving break!
+- Begin thinking about
+    - Give advice to students for next semester about how to succeed in the course
 - We'll review many of the more traditional methods of inference and how they
 relate to what you've seen so far with bootstrapping, simulation, resampling, and shuffling on Monday after break.
 - I'll be reading over your final project proposals and we'll be meeting in groups next week to discuss.  I'll be sending out sign-up forms over the next few days.
