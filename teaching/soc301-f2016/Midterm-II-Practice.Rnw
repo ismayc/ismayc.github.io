@@ -152,8 +152,8 @@ names(airlines)
 \item[a)] Which data sets are you going to need to compute the distance covered by all
 flights leaving New York City?
 \item[b)] Write the code that will output a table presenting the median departure delay of all flights for each airline leaving Newark (airport code {{\tt EWR}}) .
-\item[c)] Write the extra lines of code that will output a table presenting the median departure delay of all flights for each airline leaving Newark, but this time in reverse alphabetical order.
-\item[d)] Name a graphic that would best show all the information contained in the tables in part b).
+\item[c)] Write the extra line of code that will output a table presenting the median departure delay of all flights for each airline leaving Newark, but this time in reverse alphabetical order.
+\item[d)] Name a graphic that would best show all the information contained in the table in part b).
 \item[e)] Write the code that will tabulate the mean humidity level
 recorded for all flights leaving New York City in July 2013. 
 \end{itemize}

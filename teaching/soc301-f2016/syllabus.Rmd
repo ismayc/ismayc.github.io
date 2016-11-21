@@ -2,11 +2,11 @@
 title: "SOC 301-01 - Social Statistics Syllabus"
 subtitle: Pacific University - Fall 2016
 output:
-  pdf_document:
-    toc: no
   html_document:
     toc: yes
     toc_float: yes
+  pdf_document:
+    toc: no
 ---
 
 ```{r include=FALSE}
@@ -23,7 +23,7 @@ options(width = 150)
     - Wednesdays 11:30 AM - 12:30 PM second floor of the Library near the stairs
     - By appointment (Send email to [chester@pacificu.edu](mailto:chester@pacificu.edu) or talk to me after class.)
 - **Office Phone Number**: Not available (Happy to meet in the Library or another place on campus as needed though.)
-- Email: [chester@pacificu.edu](mailto:chester@pacificu.edu)
+- **Email**: [chester@pacificu.edu](mailto:chester@pacificu.edu)
 
 # Overview
 

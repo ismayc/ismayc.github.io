@@ -4,9 +4,12 @@ _site
 .Rproj.user
 .RData
 .Rhistory*
-*/.DS_Store*
+*/.DS_Store
 "Icon\r"
 *Roster.pdf
 roster.html
 teaching/soc301-f2016/roster_files/*
 *2016F.csv
+*randomness.Rmd
+*sampling.Rmd
+*intro_to_inference.Rmd
