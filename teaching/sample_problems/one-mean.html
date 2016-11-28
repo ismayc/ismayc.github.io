@@ -274,8 +274,14 @@ div.tocify {
 <h1>Exploring the sample data</h1>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
 <span class="kw">library</span>(knitr)
-<span class="kw">download.file</span>(<span class="st">&quot;https://raw.githubusercontent.com/ismayc/ismayc.github.io/master/teaching/sample_problems/ageAtMar.csv&quot;</span>, <span class="dt">destfile =</span> <span class="st">&quot;ageAtMar.csv&quot;</span>)
-ageAtMar &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;ageAtMar.csv&quot;</span>)</code></pre></div>
+<span class="kw">library</span>(readr)
+<span class="kw">download.file</span>(<span class="st">&quot;https://raw.githubusercontent.com/ismayc/ismayc.github.io/master/teaching/sample_problems/ageAtMar.csv&quot;</span>, 
+  <span class="dt">destfile =</span> <span class="st">&quot;ageAtMar.csv&quot;</span>)
+ageAtMar &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;ageAtMar.csv&quot;</span>)</code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   age = col_integer()
+## )</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">age_summ &lt;-<span class="st"> </span>ageAtMar %&gt;%
 <span class="st">  </span><span class="kw">summarize</span>(<span class="dt">sample_size =</span> <span class="kw">n</span>(),
     <span class="dt">mean =</span> <span class="kw">mean</span>(age),
@@ -363,7 +369,7 @@ pvalue</code></pre></div>
 </div>
 <div id="bootstrapping-for-confidence-interval" class="section level2">
 <h2>Bootstrapping for Confidence Interval</h2>
-<p>We can also create a confidence interval for the unknown population parameter <span class="math inline">\(\mu\)</span> using our sample data using <em>bootstrapping</em>. Note that we don’t need to shift this distribution since we want the center of our confidence interval to be our point estimate ${x}_{obs} = 23.44019.</p>
+<p>We can also create a confidence interval for the unknown population parameter <span class="math inline">\(\mu\)</span> using our sample data using <em>bootstrapping</em>. Note that we don’t need to shift this distribution since we want the center of our confidence interval to be our point estimate <span class="math inline">\(\bar{x}_{obs} = 23.44019\)</span>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">boot_distn &lt;-<span class="st"> </span><span class="kw">do</span>(<span class="dv">10000</span>) *<span class="st"> </span>
 <span class="st">  </span><span class="kw">resample</span>(ageAtMar, <span class="dt">replace =</span> <span class="ot">TRUE</span>) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">summarize</span>(<span class="dt">mean_age =</span> <span class="kw">mean</span>(age))</code></pre></div>

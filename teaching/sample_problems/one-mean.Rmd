@@ -157,7 +157,7 @@ So our $p$-value is `r pvalue` and we reject the null hypothesis at the 5% level
 
 ## Bootstrapping for Confidence Interval
 
-We can also create a confidence interval for the unknown population parameter $\mu$ using our sample data using *bootstrapping*.  Note that we don't need to shift this distribution since we want the center of our confidence interval to be our point estimate $\bar{x}_{obs} = `r obs_mean`.
+We can also create a confidence interval for the unknown population parameter $\mu$ using our sample data using *bootstrapping*.  Note that we don't need to shift this distribution since we want the center of our confidence interval to be our point estimate $\bar{x}_{obs} = `r obs_mean`$.
 
 ```{r boot, cache=TRUE}
 boot_distn <- do(10000) * 
