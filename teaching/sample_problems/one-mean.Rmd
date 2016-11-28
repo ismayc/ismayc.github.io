@@ -178,6 +178,7 @@ boot_distn %>% summarize(lower = quantile(mean_age, probs = 0.025),
 We see that `r mu0` is not contained in this confidence interval as a plausible value of $\mu$ (the unknown population mean) and the entire interval is larger than `r mu0`.  This matches with our hypothesis test results of rejecting the null hypothesis in favor of the alternative ($\mu > 23$).
 
 **Interpretation**:  We are 95% confident the true mean age of first marriage for all US women from 2006 to 2010 is between `r boot_distn$lower` and `r boot_distn$upper`.
+
 ---
 
 # Traditional methods
