@@ -169,7 +169,7 @@ pvalue <- null_distn %>%
 pvalue
 ```
 
-So our $p$-value is `r pvalue` and we fail reject the null hypothesis at the 5% level.  You can also see this from the histogram above that we are not very far into the tail of the null distribution.
+So our $p$-value is `r pvalue` and we fail to reject the null hypothesis at the 5% level.  You can also see this from the histogram above that we are not very far into the tail of the null distribution.
 
 ## Bootstrapping for Confidence Interval
 
