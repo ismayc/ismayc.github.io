@@ -11,8 +11,8 @@ output:
 
 ```{r setup, include=FALSE}
 pkg <- c("tidyr", "dplyr", "ggplot2", 
-  "knitr", "rmarkdown", "readr", 
-  "DT","devtools", "broom", "openintro")
+  "knitr", "rmarkdown", "readr", "mosaic",
+  "DT","devtools", "broom", "tibble")
 
 new.pkg <- pkg[!(pkg %in% installed.packages())]
 
@@ -22,8 +22,8 @@ if (length(new.pkg)) {
 
 lapply(pkg, library, character.only = TRUE)
 
-if(!require(oilabs))
-  devtools::install_github("ismayc/oilabs", force = TRUE)
+#if(!require(oilabs))
+#  devtools::install_github("ismayc/oilabs", force = TRUE)
 
 options(digits = 5, scipen = 99)
 ```
@@ -61,79 +61,163 @@ It's important to set the significance level before starting the testing using t
 
 ```{r read_data}
 library(dplyr)
-library(knitr)
-library(ggplot2)
-library(oilabs)
-elec_survey <- c(rep("satisfied", 73), rep("unsatisfied", 27))
+elec <- c(rep("satisfied", 73), rep("unsatisfied", 27)) %>% 
+  as_data_frame() %>% 
+  rename("satisfy" = value)
 ```
 
-Note that `elec_survey` is a vector containing the data and that it does not live in a data frame.  We can, thus, refer to it directly without the need for using the `$` symbol or the `data =` argument.
-
-```{r summarize}
-prop.table(table(elec_survey))
-```
-
-
-The bar graph below also shows the distribution of `elec`.
+The bar graph below also shows the distribution of `satisfy`.
 
 ```{r bar}
-qplot(x = elec_survey, geom = "bar")
+library(ggplot2)
+ggplot(data = elec, aes(x = satisfy)) + geom_bar()
 ```
 
 
 ## Guess about statistical significance
 
-We are looking to see if the sample proportion of `r prop.table(table(elec_survey))[1]` is statistically different from $p_0 = 0.8$ based on this sample.  They seem to be quite close, and our sample size is not huge here ($n = 100$).  Let's guess that we do not have evidence to reject the null hypothesis.
+We are looking to see if the sample proportion of `r prop.table(table(elec$satisfy))[1]` is statistically different from $p_0 = 0.8$ based on this sample.  They seem to be quite close, and our sample size is not huge here ($n = 100$).  Let's guess that we do not have evidence to reject the null hypothesis.
 
-# Check conditions
+***
+
+# Non-traditional methods
+
+## Simulation for Hypothesis Test
+
+In order to look to see if `r prop.table(table(elec$satisfy))[1]` is statistically different from 0.8, we need to account for the sample size.  We also need to determine a process that replicates how the original sample of size 100 was selected.  We can use the idea of an unfair coin to *simulate* this process.  We will simulate flipping an unfair coin (with probability of success 0.8 matching the null hypothesis) 100 times.  Then we will keep track of how many heads come up in those 100 flips.  Our simulated statistic matches with how we calculated the original statistic $\hat{p}$:  the number of heads (satisfied) out of our total sample of 100. We then repeat this process many times (say 10,000) to create the null distribution looking at the simulated proportions of successes:
+
+```{r sim, cache=TRUE}
+library(mosaic)
+set.seed(2016)
+null_distn <- do(10000) * rflip(100, prob = 0.8)
+null_distn %>% ggplot(aes(x = prop)) +
+  geom_histogram(bins = 30, color = "white")
+```
+
+We can next use this distribution to observe our $p$-value.  Recall this is a two-tailed test so we will be looking for values that are 0.8 - 0.73 = 0.07 away from 0.8 in BOTH directions for our $p$-value:
+
+```{r}
+p_hat <- 73/100
+dist <- 0.8 - p_hat
+null_distn %>% ggplot(aes(x = prop)) +
+  geom_histogram(bins = 30, color = "white") +
+  geom_vline(color = "red", xintercept = 0.8 + dist) +
+  geom_vline(color = "red", xintercept = p_hat)
+```
+
+### Calculate $p$-value
+
+```{r}
+pvalue <- null_distn %>%
+  filter( (prop >= 0.8 + dist) | (prop <= p_hat) ) %>%
+  nrow() / nrow(null_distn)
+pvalue
+```
+
+So our $p$-value is `r pvalue` and we fail to reject the null hypothesis at the 5% level.
+
+## Bootstrapping for Confidence Interval
+
+We can also create a confidence interval for the unknown population parameter $P$ using our sample data.  To do so, we use *bootstrapping*, which involves 
+
+1. sampling with replacement from our original sample of 100 survey respondents and repeating this process 10,000 times, 
+2. calculating the proportion of successes for each of the 10,000 bootstrap samples created in Step 1.,
+3. combining all of these bootstrap statistics calculated in Step 2 into a `boot_distn` object,
+4. identifying the 2.5^th^ and 97.5^th^ percentiles of this distribution (corresponding to the 5% significance level chosen) to find a 95% confidence interval for $P$, and
+5. interpret this confidence interval in the context of the problem.
+
+```{r boot, cache=TRUE}
+boot_distn <- do(10000) * 
+  elec %>% resample(size = 100, replace = TRUE) %>% 
+  summarize(success_rate = mean(satisfy == "satisfied"))
+```
+
+Just as we use the `mean` function for calculating the mean over a numerical variable, we can also use it to compute the proportion of successes for a categorical variable where we specify what we are calling a "success" after the `==`.  (Think about the formula for calculating a mean and how R handles logical statements such as `satisfy == "satisfied"` for why this must be true.)
+
+```{r}
+boot_distn %>% ggplot(aes(x = success_rate)) +
+  geom_histogram(bins = 30, color = "white")
+```
+
+```{r}
+boot_distn %>% summarize(lower = quantile(success_rate, probs = 0.025),
+    upper = quantile(success_rate, probs = 0.975))
+```
+
+We see that 0.80 is contained in this confidence interval as a plausible value of $P$ (the unknown population proportion).  This matches with our hypothesis test results of failing to reject the null hypothesis.
+
+**Interpretation**:  We are 95% confident the true proportion of customers who are satisfied with the service they receive is between `r boot_distn$lower` and `r boot_distn$upper`.
+
+**Note**:  You could also use the null distribution with a shift to have its center at $\hat{p} = 0.73$ instead of at $p_0 = 0.8$ and calculate its percentiles.  The confidence interval produced via this method should be comparable to the one done using bootstrapping above.
+
+---
+
+# Traditional methods
+
+## Check conditions
 
 Remember that in order to use the shortcut (formula-based, theoretical) approach, we need to check that some conditions are met.
 
 1. _Independent observations_:  The observations are collected independently.
 
-   The cases are selected independently through random sampling so this condition is met.
+    The cases are selected independently through random sampling so this condition is met.
 
 2. _Approximately normal_:  The number of expected successes and expected failures is at least 10.
 
     This condition is met since 73 and 27 are both greater than 10.
 
-# Test statistic
+## Test statistic
 
-The test statistic is a random variable based on the sample data.  Here, we want to look at a way to estimate the population proportion $p$.  A good guess is the sample proportion $\hat{P}$.  Recall that this sample proportion is actually a random variable that will vary as different samples are (theoretically, would be) collected.  We are looking to see how likely is it for us to have observed a sample proportion of $\hat{p}_{obs} = 23.44$ or larger assuming that the population proportion is 0.80 (assuming the null hypothesis is true).  If the conditions are met and assuming $H_0$ is true, we can standardize this original test statistic of $\hat{P}$ into a $Z$ statistic that follows a $N(0, 1)$ distribution.
+The test statistic is a random variable based on the sample data.  Here, we want to look at a way to estimate the population proportion $p$.  A good guess is the sample proportion $\hat{P}$.  Recall that this sample proportion is actually a random variable that will vary as different samples are (theoretically, would be) collected.  We are looking to see how likely is it for us to have observed a sample proportion of $\hat{p}_{obs} = `r p_hat`$ or larger assuming that the population proportion is 0.80 (assuming the null hypothesis is true).  If the conditions are met and assuming $H_0$ is true, we can standardize this original test statistic of $\hat{P}$ into a $Z$ statistic that follows a $N(0, 1)$ distribution.
 
 $$ Z =\dfrac{ \hat{P} - p_0}{\sqrt{\dfrac{p_0(1 - p_0)}{n} }} \sim N(0, 1) $$
 
-## Observed test statistic
+### Observed test statistic
 
-While one could compute this observed test statistic by "hand", the focus here is on the set-up of the problem and in understanding which formula for the test statistic applies.  We can use the `inference` function in the `oilabs` package to perform this analysis for us. 
+While one could compute this observed test statistic by "hand" by plugging the observed values into the formula, the focus here is on the set-up of the problem and in understanding which formula for the test statistic applies. The calculation has been done in R below for completeness though:
 
-```{r inference}
-inference(y = elec_survey, 
-          est = "proportion", 
+```{r}
+p_hat <- 0.73
+p0 <- 0.8
+n <- 100
+(z_obs <- (p_hat - p0) / sqrt( (p0 * (1 - p0)) / n))
+```
+
+
+<!--
+We can use the `inference` function in the `oilabs` package to perform this analysis for us. 
+
+```{r inference, eval=FALSE}
+library(oilabs)
+inference(y = satisfy,
+          data = elec,
+          statistic = "proportion", 
           null = 0.8, 
           success = "satisfied", 
           type = "ht",
           alternative = "twosided", 
           method = "theoretical",
-          eda_plot = FALSE, 
-          inf_plot = FALSE)
+          show_eda_plot = FALSE, 
+          show_inf_plot = FALSE)
 ```
 
-We see here that the $z_{obs}$ value is around -1.75. Our observed sample proportion of 0.73 is 1.75 standard errors below the hypothesized parameter value of 0.80.
+-->
 
-# Compute $p$-value
+We see here that the $z_{obs}$ value is around `r z_obs`. Our observed sample proportion of `r p_hat` is `r -z_obs` standard errors below the hypothesized parameter value of `r p0`.
 
-The $p$-value---the probability of observing an $z_{obs}$ value of -1.75 or more extreme (in both directions) in our null distribution---is around 8%.  This can also be calculated in R directly:
+## Compute $p$-value
 
 ```{r pval}
-2 * pnorm(-1.75)
+2 * pnorm(z_obs)
 ```
 
-Note that we could also do this test directly without invoking the `inference` function using the `prop.test` function.
+The $p$-value---the probability of observing an $z_{obs}$ value of `r z_obs` or more extreme (in both directions) in our null distribution---is around `r round(2 * pnorm(z_obs) * 100)`%. 
+
+Note that we could also do this test directly using the `prop.test` function.
 
 ```{r prop.test}
-prop.test(x = table(elec_survey),
-       n = length(elec_survey),
+stats::prop.test(x = table(elec$satisfy),
+       n = length(elec$satisfy),
        alternative = "two.sided",
        p = 0.8,
        correct = FALSE)
@@ -141,8 +225,14 @@ prop.test(x = table(elec_survey),
 
 `prop.test` does a $\chi^2$ test here but this matches up exactly with what we would expect:  $x^2_{obs} = 3.06 = (-1.75)^2 = (z_{obs})^2$ and the $p$-values are the same because we are focusing on a two-tailed test.
 
+Note that the 95 percent confidence interval given above matches well with the one calculated using bootstrapping.
 
-# State conclusion
+## State conclusion
 
 We, therefore, do not have sufficient evidence to reject the null hypothesis.  Our initial guess that our observed sample proportion was not statistically greater than the hypothesized proportion has not been invalidated.  Based on this sample, we have do not evidence that the proportion of all customers of the large electric utility satisfied with service they receive is different from 0.80, at the 5% level.
 
+***
+
+# Comparing results
+
+Observing the bootstrap distribution and the null distribution that were created, it makes quite a bit of sense that the results are so similar for traditional and non-traditional methods in terms of the $p$-value and the confidence interval since these distributions look very similar to normal distributions.  The conditions also being met leads us to better guess that using any of the methods whether they are traditional (formula-based) or non-traditional (computational-based) will lead to similar results.

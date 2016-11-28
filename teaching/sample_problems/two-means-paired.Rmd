@@ -8,11 +8,10 @@ output:
     highlight: pygments
 ---
 
-
 ```{r setup, include=FALSE}
 pkg <- c("tidyr", "dplyr", "ggplot2", 
-  "knitr", "rmarkdown", "readr", 
-  "DT","devtools", "broom", "openintro")
+  "knitr", "rmarkdown", "readr", "mosaic",
+  "DT","devtools", "broom", "tibble")
 
 new.pkg <- pkg[!(pkg %in% installed.packages())]
 
@@ -22,11 +21,12 @@ if (length(new.pkg)) {
 
 lapply(pkg, library, character.only = TRUE)
 
-if(!require(oilabs))
-  devtools::install_github("ismayc/oilabs", force = TRUE)
+#if(!require(oilabs))
+#  devtools::install_github("ismayc/oilabs", force = TRUE)
 
-options(digits = 5, scipen = 99)
+options(digits = 2, scipen = 99)
 ```
+
 
 # Problem Statement
 
@@ -47,7 +47,7 @@ Trace metals in drinking water affect the flavor and an unusually high concentra
 
 ## Set $\alpha$
 
-It's important to set the significance level before starting the testing using the data. Let's set the significance level at 5\% here.
+It's important to set the significance level before starting the testing using the data. Let's set the significance level at 5% here.
 
 # Exploring the sample data
 
@@ -56,7 +56,7 @@ library(dplyr)
 library(knitr)
 library(ggplot2)
 library(oilabs)
-#download.file("https://raw.githubusercontent.com/ismayc/ismayc.github.io/master/teaching/sample_problems/zinc_conc.txt", destfile = "zinc_conc.txt")
+download.file("https://raw.githubusercontent.com/ismayc/ismayc.github.io/master/teaching/sample_problems/zinc_conc.txt", destfile = "zinc_conc.txt")
 zinc_conc <- read.delim("zinc_conc.txt") %>%
   mutate(diff = bottom - surface)
 ```
