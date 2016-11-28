@@ -13,6 +13,7 @@ I've led many workshops on using R and R Markdown at <a target="_blank" href="ht
 - senior thesis development
 - interactive data visualization
 - dynamic web application frameworks using `shiny`
+- importing and tidying/reshaping data
 
 Slides from these workshops and other projects can be found on my <a target="_blank" href="http://www.rpubs.com/cismay">RPubs.com page</a>.
 

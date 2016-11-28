@@ -268,8 +268,8 @@ div.tocify {
 <div id="in-symbols-with-annotations" class="section level2">
 <h2>In symbols (with annotations)</h2>
 <ul>
-<li><span class="math inline">\(H_0: P = p_{0}\)</span>, where <span class="math inline">\(P\)</span> represents the proportion of all customers of the large electric utility satisfied with service they receive and <span class="math inline">\(p_0\)</span> is 0.8.</li>
-<li><span class="math inline">\(H_A: P \ne 0.8\)</span></li>
+<li><span class="math inline">\(H_0: \pi = p_{0}\)</span>, where <span class="math inline">\(\pi\)</span> represents the proportion of all customers of the large electric utility satisfied with service they receive and <span class="math inline">\(p_0\)</span> is 0.8.</li>
+<li><span class="math inline">\(H_A: \pi \ne 0.8\)</span></li>
 </ul>
 </div>
 <div id="set-alpha" class="section level2">
@@ -363,7 +363,7 @@ pvalue</code></pre></div>
 </div>
 <div id="test-statistic" class="section level2">
 <h2>Test statistic</h2>
-<p>The test statistic is a random variable based on the sample data. Here, we want to look at a way to estimate the population proportion <span class="math inline">\(p\)</span>. A good guess is the sample proportion <span class="math inline">\(\hat{P}\)</span>. Recall that this sample proportion is actually a random variable that will vary as different samples are (theoretically, would be) collected. We are looking to see how likely is it for us to have observed a sample proportion of <span class="math inline">\(\hat{p}_{obs} = 0.73\)</span> or larger assuming that the population proportion is 0.80 (assuming the null hypothesis is true). If the conditions are met and assuming <span class="math inline">\(H_0\)</span> is true, we can standardize this original test statistic of <span class="math inline">\(\hat{P}\)</span> into a <span class="math inline">\(Z\)</span> statistic that follows a <span class="math inline">\(N(0, 1)\)</span> distribution.</p>
+<p>The test statistic is a random variable based on the sample data. Here, we want to look at a way to estimate the population proportion <span class="math inline">\(\pi\)</span>. A good guess is the sample proportion <span class="math inline">\(\hat{P}\)</span>. Recall that this sample proportion is actually a random variable that will vary as different samples are (theoretically, would be) collected. We are looking to see how likely is it for us to have observed a sample proportion of <span class="math inline">\(\hat{p}_{obs} = 0.73\)</span> or larger assuming that the population proportion is 0.80 (assuming the null hypothesis is true). If the conditions are met and assuming <span class="math inline">\(H_0\)</span> is true, we can standardize this original test statistic of <span class="math inline">\(\hat{P}\)</span> into a <span class="math inline">\(Z\)</span> statistic that follows a <span class="math inline">\(N(0, 1)\)</span> distribution.</p>
 <p><span class="math display">\[ Z =\dfrac{ \hat{P} - p_0}{\sqrt{\dfrac{p_0(1 - p_0)}{n} }} \sim N(0, 1) \]</span></p>
 <div id="observed-test-statistic" class="section level3">
 <h3>Observed test statistic</h3>

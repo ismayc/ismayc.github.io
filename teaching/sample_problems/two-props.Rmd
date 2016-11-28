@@ -66,46 +66,145 @@ different than that of non-college graduates. [Tweaked a bit from @oi [Chapter 6
 
 ## In symbols (with annotations)
 
-- $H_0: P_{college} = P_{no\_college}$ or $H_0: P_{college} - P_{no\_college} = 0$, where $P$ represents the probability of not having an opinion on drilling.
-- $H_A: P_{college} - P_{no\_college} \ne 0$
+- $H_0: \pi_{college} = \pi_{no\_college}$ or $H_0: \pi_{college} - \pi_{no\_college} = 0$, where $\pi$ represents the probability of not having an opinion on drilling.
+- $H_A: \pi_{college} - \pi_{no\_college} \ne 0$
 
 ## Set $\alpha$
 
-It's important to set the significance level before starting the testing using the data. Let's set the significance level at 5\% here.
+It's important to set the significance level before starting the testing using the data. Let's set the significance level at 5% here.
 
 # Exploring the sample data
 
-```{r read_data, echo=FALSE}
+```{r read_data, warning=FALSE, message=FALSE}
 library(dplyr)
 library(knitr)
 library(ggplot2)
-library(oilabs)
-#download.file("https://raw.githubusercontent.com/ismayc/ismayc.github.io/master/teaching/sample_problems/offshore_drilling.txt", destfile = "offshore_drilling.txt")
-offshore <- read.delim("offshore_drilling.txt") %>%
-  mutate(response = ifelse(position == "do not know", "no opinion", "opinion")) %>%
-  select(-position)
-str(offshore)
+library(readr)
+download.file("https://raw.githubusercontent.com/ismayc/ismayc.github.io/master/teaching/sample_problems/offshore_drilling.txt", destfile = "offshore_drilling.txt")
+offshore <- read_csv("offshore.csv")
 ```
 
 ```{r summarize}
 table(offshore$college_grad, offshore$response)
+(off_summ <- offshore %>% group_by(college_grad) %>% 
+  summarize(prop_no_opinion = mean(response == "no opinion"),
+    sample_size = n())
+)
 ```
 
-```{r mosaic}
-mosaicplot(table(offshore$college_grad, offshore$response),
-           xlab = "College Grad", 
-           ylab = "Opinion",
-           main = "College Grad vs Opinion",
-           color = c("salmon", "blue"))
-```
 
 ```{r stacked_bar}
-qplot(x = college_grad, data = offshore, fill = response, geom = "bar")
+offshore %>% ggplot(aes(x = college_grad, fill = response)) +
+  geom_bar(position = "fill") +
+  coord_flip()
 ```
 
 ## Guess about statistical significance
 
-We are looking to see if a difference exists in the heights of the bars corresponding to `no opinion` for the mosaic plot.  Based solely on mosaic plot, we have little reason to believe that a difference exists since the bars seem to be about the same height, BUT...it's important to use statistics to see if that difference is actually statistically significant!
+We are looking to see if a difference exists in the heights of the bars corresponding to `no opinion` for the plot.  Based solely on the plot, we have little reason to believe that a difference exists since the bars seem to be about the same height, BUT...it's important to use statistics to see if that difference is actually statistically significant!
+
+
+***
+
+# Non-traditional methods
+
+## Collecting summary info
+
+Next we will assign some key values to variable names in R:
+
+```{r stats}
+phat_nograd <- off_summ$prop_no_opinion[1]
+phat_grad <- off_summ$prop_no_opinion[2]
+obs_diff <- phat_grad - phat_nograd
+n_nograd <- off_summ$sample_size[1]
+n_grad <- off_summ$sample_size[2]
+```
+
+
+## Randomization for Hypothesis Test
+
+In order to look to see if the observed sample proportion of no opinion for college graduates of `r phat_nograd` is statistically different than that for graduates of `r phat_grad`, we need to account for the sample sizes.  Note that this is the same as looking to see if $\hat{p}_{grad} - \hat{p}_{nograd}$ is statistically different than 0.  We also need to determine a process that replicates how the original group sizes of `r n_nograd` and `r n_grad` were selected.  
+
+We can use the idea of *randomization testing* (also known as *permutation testing*) to simulate the population from which the sample came (with two groups of different sizes) and then generate samples using *shuffling* from that simulated population to account for sampling variability.  
+
+```{r sim, cache=TRUE}
+library(mosaic)
+set.seed(2016)
+many_shuffles <- do(10000) * 
+  (offshore %>%
+     mutate(response = shuffle(response)) %>% 
+     group_by(college_grad) %>%
+     summarize(prop_no_opinion = mean(response == "no opinion"))
+   )
+null_distn <- many_shuffles %>% 
+  group_by(.index) %>%
+  summarize(diffprop = diff(prop_no_opinion))
+null_distn %>% ggplot(aes(x = diffprop)) +
+  geom_histogram(bins = 25, color = "white")
+```
+
+We can next use this distribution to observe our $p$-value.  Recall this is a two-tailed test so we will be looking for values that are greater than or equal to `r obs_diff` or less than or equal to `r -obs_diff` for our $p$-value.
+
+```{r}
+null_distn %>% ggplot(aes(x = diffprop)) +
+  geom_histogram(bins = 20, color = "white") +
+  geom_vline(color = "red", xintercept = obs_diff) +
+  geom_vline(color = "red", xintercept = -obs_diff)
+```
+
+### Calculate $p$-value
+
+```{r}
+pvalue <- null_distn %>%
+  filter( (diffprop <= obs_diff) | (diffprop >= -obs_diff) ) %>%
+  nrow() / nrow(null_distn)
+pvalue
+```
+
+So our $p$-value is `r pvalue` and we reject the null hypothesis at the 5% level.  You can also see this from the histogram above that we are far into the tails of the null distribution.
+
+## Bootstrapping for Confidence Interval
+
+We can also create a confidence interval for the unknown population parameter $\pi_{college} - \pi_{no\_college}$ using our sample data with *bootstrapping*.  Here we will bootstrap each of the groups with replacement instead of shuffling.  This is done using the `groups`
+argument in the `resample` function to fix the size of each group to
+be the same as the original group sizes of `r n_nograd` for non-college graduates and `r n_grad` for college graduates.
+
+```{r boot, cache=TRUE}
+boot_props <- do(10000) *
+  offshore %>% 
+  resample(replace = TRUE, groups = college_grad) %>% 
+  group_by(college_grad) %>% 
+  summarize(prop_no_opinion = mean(response == "no opinion"))
+```
+
+Next, we calculate the difference in sample proportions for each of the 10,000 replications:
+
+```{r}
+boot_distn <- boot_props %>% 
+  group_by(.index) %>% 
+  summarize(diffprop = diff(prop_no_opinion))
+```
+
+
+```{r}
+boot_distn %>% ggplot(aes(x = diffprop)) +
+  geom_histogram(bins = 30, color = "white")
+```
+
+```{r}
+(ci_boot <- boot_distn %>% summarize(lower = quantile(diffprop, probs = 0.025),
+    upper = quantile(diffprop, probs = 0.975)))
+```
+
+We see that 0 is not contained in this confidence interval as a plausible value of $\pi_{college} - \pi_{no\_college}$ (the unknown population parameter).  This matches with our hypothesis test results of rejecting the null hypothesis.  Since zero is not a plausible value of the population parameter, we have evidence that the proportion of college graduates in California with no opinion on drilling is different than that of non-college graduates.
+
+**Interpretation**:  We are 95% confident the true proportion of non-college graduates with no opinion on offshore drilling in California is between `r round(-ci_boot$lower, 2)` dollars smaller to `r round(-ci_boot$upper, 2)` dollars smaller than for college graduates.
+
+**Note**:  You could also use the null distribution based on randomization with a shift to have its center at $\hat{p}_{college} - \hat{p}_{no\_college} = \$`r round(obs_diff, 2)`$ instead of at 0 and calculate its percentiles.  The confidence interval produced via this method should be comparable to the one done using bootstrapping above.
+
+---
+
+# Traditional methods
 
 # Check conditions
 
@@ -135,9 +234,19 @@ $$ Z =\dfrac{ (\hat{P}_1 - \hat{P}_2) - 0}{\sqrt{\dfrac{\hat{P}(1 - \hat{P})}{n_
 
 ## Observed test statistic
 
-While one could compute this observed test statistic by "hand", the focus here is on the set-up of the problem and in understanding which formula for the test statistic applies.  We can use the `inference` function in the `oilabs` package to perform this analysis for us.
+While one could compute this observed test statistic by "hand", the focus here is on the set-up of the problem and in understanding which formula for the test statistic applies.  We can use the `prop.test` function to perform this analysis for us.
 
-```{r infer}
+```{r prop.test}
+stats::prop.test(x = table(offshore$college_grad, offshore$response),
+       n = nrow(offshore),
+       alternative = "two.sided",
+       correct = FALSE)
+```
+
+`prop.test` does a $\chi^2$ test here but this matches up exactly with what we would expect from the test statistic above since $Z^2 = \chi^2$ so $\sqrt{9.99} = 3.16 = z_{obs}$:  The $p$-values are the same because we are focusing on a two-tailed test.  The observed difference in sample proportions is 3.16 standard deviations larger than 0.
+
+
+```{r infer, include=FALSE, eval=FALSE}
 inference(x = offshore$college_grad, 
           y = offshore$response, 
           est = "proportion", 
@@ -150,27 +259,13 @@ inference(x = offshore$college_grad,
           inf_plot = FALSE)
 ```
 
-We see here that the $z_{obs}$ value is 3.161.  The observed difference in sample proportions is 3.161 standard deviations larger than 0.
-
-# Compute $p$-value
-
-The $p$-value---the probability of observing a $Z$ value of 3.161 or more extreme in our null distribution---is 0.0015.  This can also be calculated in R directly:
+The $p$-value---the probability of observing a $Z$ value of 3.16 or more extreme in our null distribution---is 0.0016.  This can also be calculated in R directly:
 
 ```{r pval}
-2 * pnorm(3.161, lower.tail = FALSE)
+2 * pnorm(3.16, lower.tail = FALSE)
 ```
 
-Note that we could also do this test directly without invoking the `inference` function using the `prop.test` function.
-
-```{r prop.test}
-prop.test(x = table(offshore$college_grad, offshore$response),
-       n = nrow(offshore),
-       alternative = "two.sided",
-       correct = FALSE)
-```
-
-`prop.test` does a $\chi^2$ test here but this matches up exactly with what we would expect:  $x^2_{obs} = 9.99 = (3.16)^2 = (z_{obs})^2$ and the $p$-values are the same because we are focusing on a two-tailed test.
-
+The 95% confidence interval is also stated above in the `prop.test` results.
 
 # State conclusion
 
@@ -178,3 +273,6 @@ We, therefore, have sufficient evidence to reject the null hypothesis.  Our init
 
 ---
 
+# Comparing results
+
+Observing the bootstrap distribution and the null distribution that were created, it makes quite a bit of sense that the results are so similar for traditional and non-traditional methods in terms of the $p$-value and the confidence interval since these distributions look very similar to normal distributions.  The conditions were not met since the number of pairs was small, but the sample data was not highly skewed.  Using any of the methods whether they are traditional (formula-based) or non-traditional (computational-based) lead to similar results.

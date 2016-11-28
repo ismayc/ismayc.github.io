@@ -1,0 +1,15 @@
+base
+tidyr
+dplyr
+ggplot2
+knitr
+rmarkdown
+readr
+DT
+devtools
+broom
+oilabs
+lattice
+mosaicData
+Matrix
+mosaic

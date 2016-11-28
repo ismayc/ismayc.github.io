@@ -232,7 +232,7 @@ The $p$-value---the probability of observing an $t_{obs}$ value of  or less in o
 pt(-5, df = nrow(zinc_diff) - 1, lower.tail = TRUE)
 ```
 
-# State conclusion
+## State conclusion
 
 We, therefore, have sufficient evidence to reject the null hypothesis.  Our initial guess that our observed sample mean difference was not statistically less than the hypothesized mean of 0 has been invalidated here.  Based on this sample, we have evidence that the mean concentration in the bottom water is greater than that of the surface water at different paired locations.
 

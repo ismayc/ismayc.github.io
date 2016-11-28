@@ -71,8 +71,10 @@ It's important to set the significance level before starting the testing using t
 ```{r read_data}
 library(dplyr)
 library(knitr)
-download.file("https://raw.githubusercontent.com/ismayc/ismayc.github.io/master/teaching/sample_problems/ageAtMar.csv", destfile = "ageAtMar.csv")
-ageAtMar <- read.csv("ageAtMar.csv")
+library(readr)
+download.file("https://raw.githubusercontent.com/ismayc/ismayc.github.io/master/teaching/sample_problems/ageAtMar.csv", 
+  destfile = "ageAtMar.csv")
+ageAtMar <- read_csv("ageAtMar.csv")
 ```
 
 ```{r summarize}

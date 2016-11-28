@@ -77,7 +77,6 @@ It's important to set the significance level before starting the testing using t
 library(dplyr)
 library(knitr)
 library(ggplot2)
-#library(oilabs)
 download.file("https://raw.githubusercontent.com/ismayc/ismayc.github.io/master/teaching/sample_problems/cleSac.txt", destfile = "cleSac.txt")
 cleSac <- read.delim("cleSac.txt") %>%
   rename(metro_area = Metropolitan_area_Detailed,
@@ -213,6 +212,8 @@ We see that 0 is contained in this confidence interval as a plausible value of $
 ---
 
 # Traditional methods
+
+## Check conditions
 
 Remember that in order to use the short-cut (formula-based, theoretical) approach, we need to check that some conditions are met.
 

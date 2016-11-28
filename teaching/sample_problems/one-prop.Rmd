@@ -12,7 +12,7 @@ output:
 ```{r setup, include=FALSE}
 pkg <- c("tidyr", "dplyr", "ggplot2", 
   "knitr", "rmarkdown", "readr", "mosaic",
-  "DT","devtools", "broom", "tibble")
+  "DT","devtools", "broom", "tibble", "readr")
 
 new.pkg <- pkg[!(pkg %in% installed.packages())]
 
@@ -50,12 +50,12 @@ The CEO of a large electric utility claims that 80 percent of his 1,000,000 cust
 
 ## In symbols (with annotations)
 
-- $H_0: P = p_{0}$, where $P$ represents the proportion of all customers of the large electric utility satisfied with service they receive and $p_0$ is 0.8.
-- $H_A: P \ne 0.8$
+- $H_0: \pi = p_{0}$, where $\pi$ represents the proportion of all customers of the large electric utility satisfied with service they receive and $p_0$ is 0.8.
+- $H_A: \pi \ne 0.8$
 
 ## Set $\alpha$
 
-It's important to set the significance level before starting the testing using the data. Let's set the significance level at 5\% here.
+It's important to set the significance level before starting the testing using the data. Let's set the significance level at 5% here.
 
 # Exploring the sample data
 
@@ -168,7 +168,7 @@ Remember that in order to use the shortcut (formula-based, theoretical) approach
 
 ## Test statistic
 
-The test statistic is a random variable based on the sample data.  Here, we want to look at a way to estimate the population proportion $p$.  A good guess is the sample proportion $\hat{P}$.  Recall that this sample proportion is actually a random variable that will vary as different samples are (theoretically, would be) collected.  We are looking to see how likely is it for us to have observed a sample proportion of $\hat{p}_{obs} = `r p_hat`$ or larger assuming that the population proportion is 0.80 (assuming the null hypothesis is true).  If the conditions are met and assuming $H_0$ is true, we can standardize this original test statistic of $\hat{P}$ into a $Z$ statistic that follows a $N(0, 1)$ distribution.
+The test statistic is a random variable based on the sample data.  Here, we want to look at a way to estimate the population proportion $\pi$.  A good guess is the sample proportion $\hat{P}$.  Recall that this sample proportion is actually a random variable that will vary as different samples are (theoretically, would be) collected.  We are looking to see how likely is it for us to have observed a sample proportion of $\hat{p}_{obs} = `r p_hat`$ or larger assuming that the population proportion is 0.80 (assuming the null hypothesis is true).  If the conditions are met and assuming $H_0$ is true, we can standardize this original test statistic of $\hat{P}$ into a $Z$ statistic that follows a $N(0, 1)$ distribution.
 
 $$ Z =\dfrac{ \hat{P} - p_0}{\sqrt{\dfrac{p_0(1 - p_0)}{n} }} \sim N(0, 1) $$
 
