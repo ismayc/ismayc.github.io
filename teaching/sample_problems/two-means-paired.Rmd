@@ -56,8 +56,9 @@ library(dplyr)
 library(knitr)
 library(ggplot2)
 library(readr)
-download.file("https://raw.githubusercontent.com/ismayc/ismayc.github.io/master/teaching/sample_problems/zinc_tidy.csv",
-  destfile = "zinc_tidy.csv")
+download.file("ismayc.github.io/teaching/sample_problems/zinc_tidy.csv",
+  destfile = "zinc_tidy.csv",
+  method = "curl")
 zinc_tidy <- read_csv("zinc_tidy.csv")
 ```
 

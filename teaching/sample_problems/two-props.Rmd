@@ -80,7 +80,9 @@ library(dplyr)
 library(knitr)
 library(ggplot2)
 library(readr)
-download.file("https://raw.githubusercontent.com/ismayc/ismayc.github.io/master/teaching/sample_problems/offshore_drilling.txt", destfile = "offshore_drilling.txt")
+download.file("ismayc.github.io/teaching/sample_problems/offshore.csv", 
+  destfile = "offshore.csv",
+  method = "curl")
 offshore <- read_csv("offshore.csv")
 ```
 
@@ -127,7 +129,7 @@ In order to look to see if the observed sample proportion of no opinion for coll
 
 We can use the idea of *randomization testing* (also known as *permutation testing*) to simulate the population from which the sample came (with two groups of different sizes) and then generate samples using *shuffling* from that simulated population to account for sampling variability.  
 
-```{r sim, cache=TRUE}
+```{r sim, warning=FALSE, message=FALSE, cache=TRUE}
 library(mosaic)
 set.seed(2016)
 many_shuffles <- do(10000) * 
@@ -265,7 +267,7 @@ The $p$-value---the probability of observing a $Z$ value of 3.16 or more extreme
 2 * pnorm(3.16, lower.tail = FALSE)
 ```
 
-The 95% confidence interval is also stated above in the `prop.test` results.
+The 95% confidence interval is also stated above in the `prop.test` results.  (Note that the levels of `college_grad` have been swapped here resulting in flip to the positive side in the confidence interval.)
 
 # State conclusion
 
