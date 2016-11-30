@@ -20,13 +20,12 @@ permalink: /teaching/soc301-f2016/slides/
 - Download the sample Final Project template available [here](http://ismayc.github.io/teaching/soc301-f2016/slides/week-12/final_project_outline.html#electronic-only_final_project_submission)
     - One person in your group should sign up for Rpubs.com
     - Publish this Final Project knitted HTML file with all of your names to Rpubs.com
-
 - Work on Final Project
 
 #### To do for next time
 
 - Finish Group Project
-- Complete Peer Review and Individual Review printed forms for Group Project
+- Complete [Peer Review](http://ismayc.github.io/teaching/soc301-f2016/slides/week-14/Peer Review Rubric - Final Project.pdf) and [Individual Review](http://ismayc.github.io/teaching/soc301-f2016/slides/week-14/Individual Review Rubric - Final Project.pdf) printed forms for Group Project
 - Send me an email giving AT LEAST three pieces of advice to students next semester on how to succeed in the course.  The more specific your responses the better.
 - Complete course evaluations (link in your Pacific email)
 
