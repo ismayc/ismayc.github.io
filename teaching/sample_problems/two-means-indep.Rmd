@@ -37,7 +37,7 @@ lapply(pkg, library, character.only = TRUE)
 #if(!require(oilabs))
 #  devtools::install_github("ismayc/oilabs", force = TRUE)
 
-#options(digits = 3, scipen = 99)
+options(digits = 3, scipen = 99)
 ```
 
 # Problem Statement
