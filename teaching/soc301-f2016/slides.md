@@ -4,6 +4,15 @@ title: Slides and Class Content
 permalink: /teaching/soc301-f2016/slides/
 ---
 
+## Week 15
+
+### Monday
+
+#### Covered content
+
+- Final Exam Review Session is Friday, December 9 from 1 PM to 3 PM PST in Walter Annex Room 101
+- Extra office hour is Friday, December 9 from noon to 1 PM in Walter Annex Room 101
+- Final Exam Review Problems are [here](http://ismayc.github.io/teaching/soc301-f2016/Final-Exam-Practice.pdf)
 
 ## Week 14
 
