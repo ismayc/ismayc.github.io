@@ -77,7 +77,7 @@ It's important to set the significance level before starting the testing using t
 library(dplyr)
 library(knitr)
 library(ggplot2)
-download.file("https://raw.githubusercontent.com/ismayc/ismayc.github.io/master/teaching/sample_problems/cleSac.txt", destfile = "cleSac.txt")
+download.file("http://ismayc.github.io/teaching/sample_problems/cleSac.txt", destfile = "cleSac.txt")
 cleSac <- read.delim("cleSac.txt") %>%
   rename(metro_area = Metropolitan_area_Detailed,
          income = Total_personal_income) %>%
