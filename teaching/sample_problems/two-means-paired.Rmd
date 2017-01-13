@@ -56,7 +56,9 @@ library(dplyr)
 library(knitr)
 library(ggplot2)
 library(readr)
-#download.file("https://raw.githubusercontent.com/ismayc/ismayc.github.io/master/teaching/sample_problems/zinc_tidy.txt", destfile = "zinc_tidy.txt")
+download.file("ismayc.github.io/teaching/sample_problems/zinc_tidy.csv",
+  destfile = "zinc_tidy.csv",
+  method = "curl")
 zinc_tidy <- read_csv("zinc_tidy.csv")
 ```
 
@@ -68,6 +70,7 @@ zinc_diff <- zinc_tidy %>%
   summarize(pair_diff = diff(concentration))
 ```
 
+Descriptive statistics are now given.
 
 ```{r summarize}
 zinc_summ <- zinc_diff %>%

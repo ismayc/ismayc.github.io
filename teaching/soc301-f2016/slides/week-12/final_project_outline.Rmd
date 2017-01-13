@@ -61,6 +61,7 @@ files.
     + In the RStudio Server group shared folder:
         + A `final_project.Rmd` file that completely reproduces your analysis i.e. I should have to press Knit only once to recreate the entire HTML page.
         + All necessary data files.
+        + Publish your final project to Rpubs.com.  (Send me an email with a link to your Rpubs submission final result.)
     + Individually: A Google Forms survey, which I will email on Friday, December 2 by 5pm.
     + Your project won't be considered submitted until I give you email confirmation that everything looks good.
 * **Office Hours**: Scheduled by appointment

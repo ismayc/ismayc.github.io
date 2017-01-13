@@ -283,7 +283,9 @@ div.tocify {
 <span class="kw">library</span>(knitr)
 <span class="kw">library</span>(ggplot2)
 <span class="kw">library</span>(readr)
-<span class="kw">download.file</span>(<span class="st">&quot;https://raw.githubusercontent.com/ismayc/ismayc.github.io/master/teaching/sample_problems/offshore_drilling.txt&quot;</span>, <span class="dt">destfile =</span> <span class="st">&quot;offshore_drilling.txt&quot;</span>)
+<span class="kw">download.file</span>(<span class="st">&quot;ismayc.github.io/teaching/sample_problems/offshore.csv&quot;</span>, 
+  <span class="dt">destfile =</span> <span class="st">&quot;offshore.csv&quot;</span>,
+  <span class="dt">method =</span> <span class="st">&quot;curl&quot;</span>)
 offshore &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;offshore.csv&quot;</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(offshore$college_grad, offshore$response)</code></pre></div>
 <pre><code>##      
@@ -324,34 +326,8 @@ n_grad &lt;-<span class="st"> </span>off_summ$sample_size[<span class="dv">2</sp
 <h2>Randomization for Hypothesis Test</h2>
 <p>In order to look to see if the observed sample proportion of no opinion for college graduates of 0.33676 is statistically different than that for graduates of 0.23744, we need to account for the sample sizes. Note that this is the same as looking to see if <span class="math inline">\(\hat{p}_{grad} - \hat{p}_{nograd}\)</span> is statistically different than 0. We also need to determine a process that replicates how the original group sizes of 389 and 438 were selected.</p>
 <p>We can use the idea of <em>randomization testing</em> (also known as <em>permutation testing</em>) to simulate the population from which the sample came (with two groups of different sizes) and then generate samples using <em>shuffling</em> from that simulated population to account for sampling variability.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mosaic)</code></pre></div>
-<pre><code>## Loading required package: lattice</code></pre>
-<pre><code>## Loading required package: mosaicData</code></pre>
-<pre><code>## Loading required package: Matrix</code></pre>
-<pre><code>## 
-## Attaching package: 'Matrix'</code></pre>
-<pre><code>## The following object is masked from 'package:tidyr':
-## 
-##     expand</code></pre>
-<pre><code>## 
-## The 'mosaic' package masks several functions from core packages in order to add additional features.  
-## The original behavior of these functions should not be affected by this.</code></pre>
-<pre><code>## 
-## Attaching package: 'mosaic'</code></pre>
-<pre><code>## The following object is masked from 'package:Matrix':
-## 
-##     mean</code></pre>
-<pre><code>## The following objects are masked from 'package:dplyr':
-## 
-##     count, do, tally</code></pre>
-<pre><code>## The following objects are masked from 'package:stats':
-## 
-##     binom.test, cor, cov, D, fivenum, IQR, median, prop.test,
-##     quantile, sd, t.test, var</code></pre>
-<pre><code>## The following objects are masked from 'package:base':
-## 
-##     max, mean, min, prod, range, sample, sum</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">2016</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(mosaic)
+<span class="kw">set.seed</span>(<span class="dv">2016</span>)
 many_shuffles &lt;-<span class="st"> </span><span class="kw">do</span>(<span class="dv">10000</span>) *<span class="st"> </span>
 <span class="st">  </span>(offshore %&gt;%
 <span class="st">     </span><span class="kw">mutate</span>(<span class="dt">response =</span> <span class="kw">shuffle</span>(response)) %&gt;%<span class="st"> </span>
@@ -451,7 +427,7 @@ pvalue</code></pre></div>
 <p>The <span class="math inline">\(p\)</span>-value—the probability of observing a <span class="math inline">\(Z\)</span> value of 3.16 or more extreme in our null distribution—is 0.0016. This can also be calculated in R directly:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span> *<span class="st"> </span><span class="kw">pnorm</span>(<span class="fl">3.16</span>, <span class="dt">lower.tail =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <pre><code>## [1] 0.0015777</code></pre>
-<p>The 95% confidence interval is also stated above in the <code>prop.test</code> results.</p>
+<p>The 95% confidence interval is also stated above in the <code>prop.test</code> results. (Note that the levels of <code>college_grad</code> have been swapped here resulting in flip to the positive side in the confidence interval.)</p>
 </div>
 </div>
 <div id="state-conclusion" class="section level1">

@@ -276,12 +276,15 @@ div.tocify {
 <span class="kw">library</span>(knitr)
 <span class="kw">library</span>(ggplot2)
 <span class="kw">library</span>(readr)
-<span class="co">#download.file(&quot;https://raw.githubusercontent.com/ismayc/ismayc.github.io/master/teaching/sample_problems/zinc_tidy.txt&quot;, destfile = &quot;zinc_tidy.txt&quot;)</span>
+<span class="kw">download.file</span>(<span class="st">&quot;ismayc.github.io/teaching/sample_problems/zinc_tidy.csv&quot;</span>,
+  <span class="dt">destfile =</span> <span class="st">&quot;zinc_tidy.csv&quot;</span>,
+  <span class="dt">method =</span> <span class="st">&quot;curl&quot;</span>)
 zinc_tidy &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;zinc_tidy.csv&quot;</span>)</code></pre></div>
 <p>We want to look at the differences in <code>surface - bottom</code> for each location:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">zinc_diff &lt;-<span class="st"> </span>zinc_tidy %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">group_by</span>(loc_id) %&gt;%<span class="st"> </span>
 <span class="st">  </span><span class="kw">summarize</span>(<span class="dt">pair_diff =</span> <span class="kw">diff</span>(concentration))</code></pre></div>
+<p>Descriptive statistics are now given.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">zinc_summ &lt;-<span class="st"> </span>zinc_diff %&gt;%
 <span class="st">  </span><span class="kw">summarize</span>(<span class="dt">sample_size =</span> <span class="kw">n</span>(),
     <span class="dt">mean =</span> <span class="kw">mean</span>(pair_diff),

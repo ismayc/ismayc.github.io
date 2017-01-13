@@ -68,12 +68,13 @@ It's important to set the significance level before starting the testing using t
 
 # Exploring the sample data
 
-```{r read_data}
+```{r read_data, message=FALSE, warning=FALSE}
 library(dplyr)
 library(knitr)
 library(readr)
-download.file("https://raw.githubusercontent.com/ismayc/ismayc.github.io/master/teaching/sample_problems/ageAtMar.csv", 
-  destfile = "ageAtMar.csv")
+download.file("ismayc.github.io/teaching/sample_problems/ageAtMar.csv", 
+  destfile = "ageAtMar.csv",
+  method = "curl")
 ageAtMar <- read_csv("ageAtMar.csv")
 ```
 
@@ -171,13 +172,14 @@ boot_distn %>% ggplot(aes(x = mean_age)) +
 ```
 
 ```{r}
-boot_distn %>% summarize(lower = quantile(mean_age, probs = 0.025),
-    upper = quantile(mean_age, probs = 0.975))
+(ci_boot <- boot_distn %>% summarize(lower = quantile(mean_age, probs = 0.025),
+    upper = quantile(mean_age, probs = 0.975)))
 ```
 
 We see that `r mu0` is not contained in this confidence interval as a plausible value of $\mu$ (the unknown population mean) and the entire interval is larger than `r mu0`.  This matches with our hypothesis test results of rejecting the null hypothesis in favor of the alternative ($\mu > 23$).
 
-**Interpretation**:  We are 95% confident the true mean age of first marriage for all US women from 2006 to 2010 is between `r boot_distn$lower` and `r boot_distn$upper`.
+**Interpretation**:  We are 95% confident the true mean age of first marriage for all US women from 2006 to 2010 is between `r ci_boot$lower` and `r ci_boot$upper` years.
+
 ---
 
 # Traditional methods
@@ -192,15 +194,17 @@ Remember that in order to use the shortcut (formula-based, theoretical) approach
 
 2. _Approximately normal_:  The distribution of the response variable should be normal or the sample size should be at least 30.
 
-    The histogram for the sample above does show some skew.
+    The histogram for the sample above does show some skew.  The sample size here is quite large though ($n = 5534$) so both conditions are met.
+    
 <!--    
 The Q-Q plot below also shows some skew.
 
-```{r qqplot, eval=FALSE}
+```{r qqplot, eval=FALSE, include=FALSE}
 qplot(sample = age, data = ageAtMar)
 ```
 -->
-The sample size here is quite large though ($n = 5534$) so both conditions are met.
+
+    
 
 ## Test statistic
 

@@ -37,7 +37,7 @@ lapply(pkg, library, character.only = TRUE)
 #if(!require(oilabs))
 #  devtools::install_github("ismayc/oilabs", force = TRUE)
 
-options(digits = 2, scipen = 99)
+options(digits = 3, scipen = 99)
 ```
 
 # Problem Statement
@@ -73,11 +73,13 @@ It's important to set the significance level before starting the testing using t
 
 # Exploring the sample data
 
-```{r read_data, echo=FALSE}
+```{r read_data, message=FALSE, warning=FALSE}
 library(dplyr)
 library(knitr)
 library(ggplot2)
-download.file("https://raw.githubusercontent.com/ismayc/ismayc.github.io/master/teaching/sample_problems/cleSac.txt", destfile = "cleSac.txt")
+download.file("http://ismayc.github.io/teaching/sample_problems/cleSac.txt", 
+  destfile = "cleSac.txt",
+  method = "curl")
 cleSac <- read.delim("cleSac.txt") %>%
   rename(metro_area = Metropolitan_area_Detailed,
          income = Total_personal_income) %>%
@@ -277,20 +279,20 @@ inference(x = cleSac$metro_area,
           inf_plot = FALSE)
 ```
 
-We see here that the observed test statistic value is around -1.5 with $df = min(212 - 1, 175 - 1) = 174$.  Recall that for large degrees of freedom, the $t$ distribution is roughly equal to the standard normal curve so our difference in `df` for the Satterthwaite and "min" variations doesn't really matter.
+We see here that the observed test statistic value is around 1.5 with $df = min(212 - 1, 175 - 1) = 174$.  Recall that for large degrees of freedom, the $t$ distribution is roughly equal to the standard normal curve so our difference in `df` for the Satterthwaite and "min" variations doesn't really matter.
 
 # Compute $p$-value
 
-The $p$-value---the probability of observing an $t_{174}$ value of -1.501 or more extreme (in both directions) in our null distribution---is 0.13.  This can also be calculated in R directly:
+The $p$-value---the probability of observing an $t_{174}$ value of 1.5 or more extreme (in both directions) in our null distribution---is around 0.135.  This can also be calculated in R directly:
 
 ```{r pval1}
-2 * pt(-1.501, df = min(212 - 1, 175 - 1), lower.tail = TRUE)
+2 * pt(1.5, df = min(212 - 1, 175 - 1), lower.tail = FALSE)
 ```
 
 We can also approximate by using the standard normal curve:
 
 ```{r pval2}
-2 * pnorm(-1.501)
+2 * pnorm(1.5, lower.tail = FALSE)
 ```
 
 Note that the 95 percent confidence interval given above matches well with the one calculated using bootstrapping.
