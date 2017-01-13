@@ -1,8 +1,8 @@
 ---
 title: "Teaching Introductory Statistics using the <small>`tidyverse`</small> via <small>`bookdown`</small>"
 subtitle: "rstudio::conf 2017"
-author: "Chester Ismay (and Albert Y. Kim) <br> Twitter: @old_man_chester <br><br> Reed College/Pacific University"
-date: "2017/01/13 <br><br> Slides available at http://bit.ly/rstudioconf17 <br><br> Source code available at https://github.com/ismayc/rstudioconf"
+author: "Chester Ismay (and Albert Y. Kim) <br> Twitter: @old_man_chester <br> Reed College/Pacific University"
+date: "2017/01/13 <br><br> Slides available at http://bit.ly/rstudioconf17 <br> Source code available at https://github.com/ismayc/rstudioconf"
 output:
   xaringan::moon_reader:
     lib_dir: libs
