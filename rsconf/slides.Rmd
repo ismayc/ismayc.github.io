@@ -280,7 +280,7 @@ ggplot(data = simple_ex, mapping = aes(x = A, y = B)) +
 ```
 
 ```{r out.width="85%", fig.align="center"}
-include_graphics("images/basic1.tiff")
+include_graphics("images/basic1.png")
 ```
 
 
@@ -294,7 +294,7 @@ ggplot(data = simple_ex, mapping = aes(x = A, y = B, color = D)) +
 ```
 
 ```{r out.width="85%", fig.align="center"}
-include_graphics("images/basic1.tiff")
+include_graphics("images/basic1.png")
 ```
 
 
@@ -309,7 +309,7 @@ ggplot(data = simple_ex, mapping = aes(x = A, y = B, color = D)) +
 
 
 ```{r out.width="60%", fig.align="center"}
-include_graphics("images/color.tiff")
+include_graphics("images/color.png")
 ```
 
 
@@ -318,7 +318,7 @@ include_graphics("images/color.tiff")
 ## `dplyr` diagrams
 
 ```{r out.width="95%", fig.align="center"}
-include_graphics("images/dplyrchalk.tiff")
+include_graphics("images/dplyrchalk.png")
 ```
 
 
