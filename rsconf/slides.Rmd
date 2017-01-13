@@ -392,54 +392,6 @@ include_graphics("images/police.png")
 
 ### Create DataCamp course to supplement and assist with more immediate feedback
 
-<!--
-pseudocode, sketch out the drawings, 
-
-Distinguish the how from the what
-What is the focus
-
-
-Story of teaching intro stats
-Making stats not math anymore
-  - Make it computation	
-
-Why we did this
-
-And this is how we teach dplyr and ggplot2
-  - The verb is the command
-  - Put tickmarks throughout the book to differentiate the language
-  - The slow patient approach on the blackboard
-  - what (no R code) from the how (or any other implementation of the graphics - plotly, tableau)
-  - forward engineering and reverse engineer
-
-Why Bookdown 
-  - rapid iteration
-  - Exports to multiple formats
-  - Cross-references
-  - Easily-updateable
-  - Versions not editions (continual improvement)
-  - Software engineering principles bringing it to books in subjects that lend well
-      - Maybe not theory-stats
-  - Following Hadley's paradigm of wikipedia for intro stats/data science
-
-fivethirtyeight
-  - Released to CRAN on ...
-  - finding relevant, interesting data sets
-  - tidy data principle manifesto for intro stats
-  - R packages are excellent for distributing data
-  - Example problem
-
-Contribute
-Remember back to when you were first learning R
-  - What do you wish you knew then that you know now
-  - What should we tell our students?
-  - Fix our stuff!
-    - No graduate students and no grants
-
-What’s wrong with the textbook industry?  Maybe this is a solution
-
--->
-
 ---
 
 # [ModernDive.com](http://www.moderndive.com)
