@@ -140,11 +140,23 @@ library(babynames)
 
 ### - Reinforce concepts, not equations, formulas, and probability tables
 
+&lt;!--
+### - Have data visualization be the driver
+--&gt;
+
+&lt;img src="images/tdist.png" width="717" style="display: block; margin: auto;" /&gt;
+
+---
+## 4. Use simulation/resampling not probability/large sample approximation
+
+### - Reinforce concepts, not equations, formulas, and probability tables
+
 ### - Have data visualization be the driver
 
 &lt;img src="images/ht.png" width="597" style="display: block; margin: auto;" /&gt;
 
 ---
+
 
 ## 5. Don’t fence off students from the computation pool, throw them in!
 
@@ -192,7 +204,21 @@ ggplot(data = simple_ex, mapping = aes(x = A, y = B)) +
   geom_point()
 ```
 
-Image here with data set
+&lt;img src="images/basic1.tiff" width="85%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+## Teaching the Grammar of Graphics via "chalk talk"
+
+
+```r
+ggplot(data = simple_ex, mapping = aes(x = A, y = B, color = D)) + 
+  geom_point()
+```
+
+&lt;img src="images/basic1.tiff" width="85%" style="display: block; margin: auto;" /&gt;
+
 
 ---
 
@@ -204,18 +230,16 @@ ggplot(data = simple_ex, mapping = aes(x = A, y = B, color = D)) +
   geom_point()
 ```
 
+
+&lt;img src="images/color.tiff" width="60%" style="display: block; margin: auto;" /&gt;
+
+
 ---
 
-## Teaching the Grammar of Graphics via chalk talk
+## `dplyr` diagrams
 
+&lt;img src="images/dplyrchalk.tiff" width="95%" style="display: block; margin: auto;" /&gt;
 
-```r
-ggplot(data = simple_ex, mapping = aes(x = A, y = B, color = D)) + 
-  geom_point()
-```
-
-
-Image here with data set
 
 ---
 
@@ -223,7 +247,7 @@ Image here with data set
 
 - What `dplyr` and `ggplot2` code is needed to produce this plot using the `profiles` data frame in `okcupiddata`?
 
-![](slides_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
+![](slides_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
 
 &lt;!--
 - What effective data stories can you tell with this data based on the distributions above for males and females?
@@ -258,13 +282,28 @@ class: center, middle
 
 ## Features of &lt;small&gt;`fivethirtyeight`&lt;/small&gt;  
 
-***
-
 ### Data sets that balance being
 
 ### - **rich enough** to answer meaningful questions with, 
 ### - **real enough** to ensure that there is context, and 
 ### - **realistic enough** to convey to students that data as it exists &lt;br&gt; "in the wild" often needs processing.
+
+---
+
+## Features of &lt;small&gt;`fivethirtyeight`&lt;/small&gt;  
+
+&lt;small&gt;&lt;https://fivethirtyeight.com/datalab/most-police-dont-live-in-the-cities-they-serve/&gt;&lt;/small&gt;
+
+
+```r
+library(fivethirtyeight)
+data(police_locals)
+```
+
+
+&lt;img src="images/police.png" width="90%" /&gt;
+
+
 
 ---
 
@@ -328,22 +367,26 @@ What’s wrong with the textbook industry?  Maybe this is a solution
 
 ---
 
-# Thanks!
+# [ModernDive.com](http://www.moderndive.com)
 
 - Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan) by Yihui Xie.
 
-- [ModernDive.com](http://www.moderndive.com)
-
 - Fork our GitHub repository at &lt;br&gt; &lt;https://github.com/ismayc/moderndiver-book&gt;
 
-    - Please feel free to modify the book as you wish for your own needs! All we ask is that you
+    - Please feel free to modify the book as you wish for your own needs! (CC0 1.0 Universal License) All we ask is that you
 list the authors as "Chester Ismay, Albert Y. Kim, and **YOU**!"
 
-- Fill out our Google Form to receive updates at &lt;br&gt; &lt;http://bit.ly/moderndive-users&gt;
+- Fill out Google Form to receive updates at &lt;http://bit.ly/moderndive-users&gt;
 
 - Email us at &lt;chester@moderndive.com&gt; or &lt;albert@moderndive.com&gt;
 
-- Getting Used to R, RStudio, and R Markdown book at &lt;https://ismayc.github.io/rbasics-book/&gt;
+- Getting Used to R, RStudio, and R Markdown book &lt;br&gt; &lt;https://ismayc.github.io/rbasics-book/&gt;
+
+***
+
+These slides available at &lt;http://bit.ly/rstudioconf&gt;
+
+Slides source code available at &lt;https://github.com/ismayc/rstudioconf&gt;
     </textarea>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({

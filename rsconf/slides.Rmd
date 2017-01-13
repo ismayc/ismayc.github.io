@@ -175,6 +175,19 @@ library(babynames)
 
 ### - Reinforce concepts, not equations, formulas, and probability tables
 
+<!--
+### - Have data visualization be the driver
+-->
+
+```{r, fig.align="center"}
+knitr::include_graphics("images/tdist.png", dpi = 180)
+```
+
+---
+## 4. Use simulation/resampling not probability/large sample approximation
+
+### - Reinforce concepts, not equations, formulas, and probability tables
+
 ### - Have data visualization be the driver
 
 ```{r, fig.align="center"}
@@ -182,6 +195,7 @@ knitr::include_graphics("images/ht.png", dpi = 180)
 ```
 
 ---
+
 
 ## 5. Don’t fence off students from the computation pool, throw them in!
 
@@ -245,7 +259,24 @@ ggplot(data = simple_ex, mapping = aes(x = A, y = B)) +
   geom_point()
 ```
 
-Image here with data set
+```{r out.width="85%", fig.align="center"}
+include_graphics("images/basic1.tiff")
+```
+
+
+---
+
+## Teaching the Grammar of Graphics via "chalk talk"
+
+```{r, eval=FALSE, echo=TRUE}
+ggplot(data = simple_ex, mapping = aes(x = A, y = B, color = D)) + 
+  geom_point()
+```
+
+```{r out.width="85%", fig.align="center"}
+include_graphics("images/basic1.tiff")
+```
+
 
 ---
 
@@ -256,17 +287,20 @@ ggplot(data = simple_ex, mapping = aes(x = A, y = B, color = D)) +
   geom_point()
 ```
 
----
 
-## Teaching the Grammar of Graphics via chalk talk
-
-```{r, eval=FALSE, echo=TRUE}
-ggplot(data = simple_ex, mapping = aes(x = A, y = B, color = D)) + 
-  geom_point()
+```{r out.width="60%", fig.align="center"}
+include_graphics("images/color.tiff")
 ```
 
 
-Image here with data set
+---
+
+## `dplyr` diagrams
+
+```{r out.width="95%", fig.align="center"}
+include_graphics("images/dplyrchalk.tiff")
+```
+
 
 ---
 
@@ -322,13 +356,29 @@ include_graphics("images/fallon.gif")
 
 ## Features of <small>`fivethirtyeight`</small>  
 
-***
-
 ### Data sets that balance being
 
 ### - **rich enough** to answer meaningful questions with, 
 ### - **real enough** to ensure that there is context, and 
 ### - **realistic enough** to convey to students that data as it exists <br> "in the wild" often needs processing.
+
+---
+
+## Features of <small>`fivethirtyeight`</small>  
+
+<small><https://fivethirtyeight.com/datalab/most-police-dont-live-in-the-cities-they-serve/></small>
+
+```{r eval=FALSE, echo=TRUE}
+library(fivethirtyeight)
+data(police_locals)
+```
+
+
+```{r out.width="90%"}
+include_graphics("images/police.png")
+```
+
+
 
 ---
 
@@ -392,19 +442,23 @@ What’s wrong with the textbook industry?  Maybe this is a solution
 
 ---
 
-# Thanks!
+# [ModernDive.com](http://www.moderndive.com)
 
 - Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan) by Yihui Xie.
 
-- [ModernDive.com](http://www.moderndive.com)
-
 - Fork our GitHub repository at <br> <https://github.com/ismayc/moderndiver-book>
 
-    - Please feel free to modify the book as you wish for your own needs! All we ask is that you
+    - Please feel free to modify the book as you wish for your own needs! (CC0 1.0 Universal License) All we ask is that you
 list the authors as "Chester Ismay, Albert Y. Kim, and **YOU**!"
 
-- Fill out our Google Form to receive updates at <br> <http://bit.ly/moderndive-users>
+- Fill out Google Form to receive updates at <http://bit.ly/moderndive-users>
 
 - Email us at <chester@moderndive.com> or <albert@moderndive.com>
 
-- Getting Used to R, RStudio, and R Markdown book at <https://ismayc.github.io/rbasics-book/>
+- Getting Used to R, RStudio, and R Markdown book <br> <https://ismayc.github.io/rbasics-book/>
+
+***
+
+These slides available at <http://bit.ly/rstudioconf>
+
+Slides source code available at <https://github.com/ismayc/rstudioconf>
