@@ -4,43 +4,37 @@ title: Slides and Class Content
 permalink: /teaching/soc301-f2016/slides/
 ---
 
-## Week 12
 
-### Wednesday
-- <a href = "{{ site.baseurl }}/teaching/soc301-f2016/slides/week-12/12b.html">2016-11-16</a>
-
-#### Covered content
-
-- Review Exam #2
-- Go over Hypothesis Testing
-- Answer questions about Final Project
-- Work in groups on [Final Project Proposal](http://ismayc.github.io/teaching/soc301-f2016/slides/week-12/final_project_outline.html#project_proposal) due by 2 PM next Monday (November 21)
-
-#### To do for next time
-- Read Chapter 8 of [MODERN DIVE](https://ismayc.github.io/moderndiver-book/8-ci.html)
-    - Focus on identifying the important concepts and pieces of code as you read.
-- Review the Learning Checks of Chapter 7 of [MODERN DIVE](https://ismayc.github.io/moderndiver-book/7-hypo.html)
-- The Final Project assignment is [here](http://ismayc.github.io/teaching/soc301-f2016/slides/week-12/final_project_outline.html)
-    - Your final project partners have been assigned [here](https://docs.google.com/a/pacificu.edu/spreadsheets/d/147VClwV3o4MBnGh8iCPIG9dwkGOmw646yBlLY6yqXm4/edit?usp=sharing)
-    - [Project Proposal](http://ismayc.github.io/teaching/soc301-f2016/slides/week-12/final_project_outline.html#project_proposal) is due by 2 PM next Monday (November 21)
-
-***
+## Week 14
 
 ### Monday
+- <a href = "{{ site.baseurl }}/teaching/soc301-f2016/slides/week-14/14a.html">2016-11-28</a>
 
 #### Covered content
 
-- Exam #2
+- Discuss Hypothesis Testing and Confidence Intervals in more settings
+- Show the traditional ways to do hypothesis tests
+- Look over the Inference Mind Map [here](https://coggle.it/diagram/Vxlydu1akQFeqo6-)
+- Work on Practice Problems from Mind Map in class
+- Work on Final Project
 
 #### To do for next time
-- Read Chapter 7 of [MODERN DIVE](https://ismayc.github.io/moderndiver-book/7-hypo.html)
-    - Focus on identifying the important concepts and pieces of code as you read.
-- The Final Project assignment is [here](http://ismayc.github.io/teaching/soc301-f2016/slides/week-12/final_project_outline.html)
-    - Your final project partners have been assigned [here](https://docs.google.com/a/pacificu.edu/spreadsheets/d/147VClwV3o4MBnGh8iCPIG9dwkGOmw646yBlLY6yqXm4/edit?usp=sharing)
-    - [Project Proposal](http://ismayc.github.io/teaching/soc301-f2016/slides/week-12/final_project_outline.html#project_proposal) is due by 2 PM next Monday (November 21)
 
+- Meet with me in groups for Feedback Sessions following the schedule [here](https://docs.google.com/a/pacificu.edu/spreadsheets/d/1TmJ3FNQsYChlYMrX7Y5_MLCQA0fHAXhi5yrvZtenkcY/edit?usp=sharing)
+- Continue working on ideas for your Final Group Project.
+    - Focus on creating plots that help you tell the story you want to tell.
+        - Don't just produce the basic `ggplot` plots.  Jazz them up!
+    - Remember that the Final Project is due at 11:59 PM on Monday, December 5
+    - A sample Final Project template is available [here](http://ismayc.github.io/teaching/soc301-f2016/slides/week-12/final_project_outline.html)
+    - It should be clear of all typos and published to Rpubs.com including all of your names
+    - Email me with a link to your Rpubs.com submission before 11:59 PM on Monday, December 5
+    - You'll be completing a peer review form as well for the Final Group Project
 
 ***
+
+### [Week 13 - Confidence Intervals]({{ site.baseurl }}/teaching/soc301-f2016/slides/week13/)
+
+### [Week 12 - Hypothesis Testing]({{ site.baseurl }}/teaching/soc301-f2016/slides/week12/)
 
 ### [Week 11 - Introduction to Inference (Part 2)]({{ site.baseurl }}/teaching/soc301-f2016/slides/week11/)
 

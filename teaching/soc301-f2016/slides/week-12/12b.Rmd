@@ -169,6 +169,12 @@ rand_distn %>% ggplot(aes(x = diffmean,
   geom_histogram(color = "white", bins = 20)
 ```
 
+```{r include=FALSE}
+library(readr)
+write_rds(rand_distn, "rand_distn.RDS")
+```
+
+
 ## View the $p$-value {.build}
 
 ```{r fig.height=2.7}

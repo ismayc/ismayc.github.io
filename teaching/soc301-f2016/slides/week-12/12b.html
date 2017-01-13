@@ -190,7 +190,7 @@ library(readr)</pre>
 <pre class = 'prettyprint lang-r'>(state_means &lt;- wash_or %&gt;% group_by(state) %&gt;% 
   summarize(mean_perc = mean(black_perc)))</pre>
 
-<pre >## # A tibble: 2 x 2
+<pre >## # A tibble: 2 × 2
 ##        state mean_perc
 ##        &lt;chr&gt;     &lt;dbl&gt;
 ## 1     Oregon 0.8817059
@@ -230,7 +230,7 @@ library(readr)</pre>
      group_by(state) %&gt;%
      summarize(mean_shuf_perc = mean(black_perc)))</pre>
 
-<pre >## # A tibble: 2 x 2
+<pre >## # A tibble: 2 × 2
 ##        state mean_shuf_perc
 ##        &lt;chr&gt;          &lt;dbl&gt;
 ## 1     Oregon       1.174869

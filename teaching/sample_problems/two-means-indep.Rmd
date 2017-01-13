@@ -21,11 +21,10 @@ references:
     year: 2015
 ---
 
-
 ```{r setup, include=FALSE}
 pkg <- c("tidyr", "dplyr", "ggplot2", 
-  "knitr", "rmarkdown", "readr", 
-  "DT","devtools", "broom")
+  "knitr", "rmarkdown", "readr", "mosaic",
+  "DT","devtools", "broom", "tibble")
 
 new.pkg <- pkg[!(pkg %in% installed.packages())]
 
@@ -35,10 +34,10 @@ if (length(new.pkg)) {
 
 lapply(pkg, library, character.only = TRUE)
 
-if(!require(oilabs))
-  devtools::install_github("ismayc/oilabs")
+#if(!require(oilabs))
+#  devtools::install_github("ismayc/oilabs", force = TRUE)
 
-options(digits = 5, scipen = 99)
+options(digits = 2, scipen = 99)
 ```
 
 # Problem Statement
@@ -65,12 +64,12 @@ a hypothesis test based on two randomly selected samples from the 2000 Census. [
 
 ## In symbols (with annotations)
 
-- $H_0: \mu_{cleveland} = \mu_{sacramento}$ or $H_0: \mu_{cleveland} - \mu_{sacramento} = 0$, where $\mu$ represents the average income.
-- $H_A: \mu_{cleveland} - \mu_{sacramento} \ne 0$
+- $H_0: \mu_{sac} = \mu_{cle}$ or $H_0: \mu_{sac} - \mu_{cle} = 0$, where $\mu$ represents the average income.
+- $H_A: \mu_{sac} - \mu_{cle} \ne 0$
 
 ## Set $\alpha$
 
-It's important to set the significance level before starting the testing using the data. Let's set the significance level at 5\% here.
+It's important to set the significance level before starting the testing using the data. Let's set the significance level at 5% here.
 
 # Exploring the sample data
 
@@ -78,8 +77,7 @@ It's important to set the significance level before starting the testing using t
 library(dplyr)
 library(knitr)
 library(ggplot2)
-library(oilabs)
-#download.file("https://raw.githubusercontent.com/ismayc/ismayc.github.io/master/teaching/sample_problems/cleSac.txt", destfile = "cleSac.txt")
+download.file("https://raw.githubusercontent.com/ismayc/ismayc.github.io/master/teaching/sample_problems/cleSac.txt", destfile = "cleSac.txt")
 cleSac <- read.delim("cleSac.txt") %>%
   rename(metro_area = Metropolitan_area_Detailed,
          income = Total_personal_income) %>%
@@ -102,35 +100,140 @@ kable(inc_summ)
 The boxplot below also shows the mean for each group highlighted by the red dots.
 
 ```{r boxplot}
-qplot(x = metro_area, y = income, data = cleSac, geom = "boxplot") +
-      stat_summary(fun.y = "mean", geom = "point", color = "red")
+cleSac %>% ggplot(aes(x = metro_area, y = income)) +
+  geom_boxplot() +
+  stat_summary(fun.y = "mean", geom = "point", color = "red")
 ```
 
 
 ## Guess about statistical significance
 
-We are looking to see if a difference exists in the mean income of the three levels of the explanatory variable.  Based solely on the side-by-side boxplot, we have reason to believe that no difference exists.  The distributions of income seem similar and the means fall in roughly the same place.
+We are looking to see if a difference exists in the mean income of the two levels of the explanatory variable.  Based solely on the boxplot, we have reason to believe that no difference exists.  The distributions of income seem similar and the means fall in roughly the same place.
 
-# Check conditions
+
+***
+
+# Non-traditional methods
+
+## Collecting summary info
+
+Next we will assign some key values to variable names in R:
+
+```{r stats}
+xbar_cle <- inc_summ$mean[1]
+xbar_sac <- inc_summ$mean[2]
+obs_diff <- xbar_sac - xbar_cle
+n_cle <- inc_summ$sample_size[1]
+n_sac <- inc_summ$sample_size[2]
+```
+
+
+## Randomization for Hypothesis Test
+
+In order to look to see if the observed sample mean for Sacramento of `r xbar_cle` is statistically different than that for Cleveland of `r xbar_sac`, we need to account for the sample sizes.  Note that this is the same as looking to see if $\bar{x}_{sac} - \bar{x}_{cle}$ is statistically different than 0.  We also need to determine a process that replicates how the original group sizes of `r n_cle` and `r n_sac` were selected.  
+
+We can use the idea of *randomization testing* (also known as *permutation testing*) to simulate the population from which the sample came (with two groups of different sizes) and then generate samples using *shuffling* from that simulated population to account for sampling variability.  
+
+```{r sim, cache=TRUE}
+library(mosaic)
+set.seed(2016)
+many_shuffles <- do(10000) * 
+  (cleSac %>%
+     mutate(income = shuffle(income)) %>% 
+     group_by(metro_area) %>%
+     summarize(mean_inc = mean(income))
+   )
+null_distn <- many_shuffles %>% 
+  group_by(.index) %>%
+  summarize(diffmean = diff(mean_inc))
+null_distn %>% ggplot(aes(x = diffmean)) +
+  geom_histogram(bins = 30, color = "white")
+```
+
+We can next use this distribution to observe our $p$-value.  Recall this is a two-tailed test so we will be looking for values that are greater than or equal to `r obs_diff` or less than or equal to `r -obs_diff` for our $p$-value.
+
+```{r}
+null_distn %>% ggplot(aes(x = diffmean)) +
+  geom_histogram(bins = 30, color = "white") +
+  geom_vline(color = "red", xintercept = obs_diff) +
+  geom_vline(color = "red", xintercept = -obs_diff)
+```
+
+### Calculate $p$-value
+
+```{r}
+pvalue <- null_distn %>%
+  filter( (diffmean >= obs_diff) | (diffmean <= -obs_diff) ) %>%
+  nrow() / nrow(null_distn)
+pvalue
+```
+
+So our $p$-value is `r pvalue` and we fail to reject the null hypothesis at the 5% level.  You can also see this from the histogram above that we are not very far into the tail of the null distribution.
+
+## Bootstrapping for Confidence Interval
+
+We can also create a confidence interval for the unknown population parameter $\mu_{sac} - \mu_{cle}$ using our sample data with *bootstrapping*.  Here we will bootstrap each of the groups with replacement instead of shuffling.  This is done using the `groups`
+argument in the `resample` function to fix the size of each group to
+be the same as the original group sizes of `r n_sac` for Sacramento and `r n_cle` for Cleveland.
+
+```{r boot, cache=TRUE}
+boot_means <- do(10000) *
+  cleSac %>% 
+  resample(replace = TRUE, groups = metro_area) %>% 
+  group_by(metro_area) %>% 
+  summarize(mean_inc = mean(income))
+```
+
+Next, we calculate the difference in sample means for each of the 10,000 replications:
+
+```{r}
+boot_distn <- boot_means %>% 
+  group_by(.index) %>% 
+  summarize(diffmean = diff(mean_inc))
+```
+
+
+```{r}
+boot_distn %>% ggplot(aes(x = diffmean)) +
+  geom_histogram(bins = 30, color = "white")
+```
+
+```{r}
+(ci_boot <- boot_distn %>% summarize(lower = quantile(diffmean, probs = 0.025),
+    upper = quantile(diffmean, probs = 0.975)))
+```
+
+We see that 0 is contained in this confidence interval as a plausible value of $\mu_{sac} - \mu_{cle}$ (the unknown population parameter).  This matches with our hypothesis test results of failing to reject the null hypothesis.  Since zero is a plausible value of the population parameter, we do not have evidence that Sacramento incomes are different than Cleveland incomes.
+
+**Interpretation**:  We are 95% confident the true mean yearly income for those living in Sacramento is between `r round(-ci_boot$lower, 2)` dollars smaller to `r round(ci_boot$upper, 2)` dollars higher than for Cleveland.
+
+**Note**:  You could also use the null distribution based on randomization with a shift to have its center at $\bar{x}_{sac} - \bar{x}_{cle} = \$`r round(obs_diff, 2)`$ instead of at 0 and calculate its percentiles.  The confidence interval produced via this method should be comparable to the one done using bootstrapping above.
+
+---
+
+# Traditional methods
+
+## Check conditions
 
 Remember that in order to use the short-cut (formula-based, theoretical) approach, we need to check that some conditions are met.
 
-1. _Independent observations_:  The observations are independent in both samples.
+1. _Independent observations_:  The observations are independent in both groups.
 
-    This metro_area is met since the cases are randomly selected from each city.
+    This `metro_area` variable is met since the cases are randomly selected from each city.
 
 2. _Approximately normal_:  The distribution of the response for each group should be normal or the sample sizes should be at least 30.
 
-```{r hist}
-qplot(x = income, data = cleSac, geom = "histogram", col = I("white"), 
-      binwidth = 20000, facets = ~ metro_area)
-```
+    ```{r hist}
+    cleSac %>% ggplot(aes(x = income)) +
+      geom_histogram(color = "white", binwidth = 20000) +
+      facet_wrap(~ metro_area)
+    ```
 
-```{r qqplot}
+```{r qqplot, eval=FALSE, include=FALSE}
 qplot(sample = income, data = cleSac, facets = ~ metro_area)
 ```
 
-We have some reason to doubt the normality assumption here since both the histograms and the qqplots show deviation from a normal model fitting the data well for each group.  The sample sizes for each group are greater than 100 though so the Central Limit Theorem should still apply.
+    We have some reason to doubt the normality assumption here since both the histograms show deviation from a normal model fitting the data well for each group.  The sample sizes for each group are greater than 100 though so the assumptions should still apply.
 
 
 3. _Independent samples_: The samples should be collected without any natural pairing.
@@ -139,15 +242,30 @@ We have some reason to doubt the normality assumption here since both the histog
 
 # Test statistic
 
-The test statistic is a random variable based on the sample data.  Here, we are interested in seeing if our observed difference in sample means ($\bar{x}_{cleveland, obs} - \bar{x}_{sacramento, obs}$ = `r inc_summ$mean[1] - inc_summ$mean[2]`) is statistically different than 0.  Assuming that conditions are met and the null hypothesis is true, we can use the $t$ distribution to standardize the difference in sample means ($\bar{X}_{cleveland} - \bar{X}_{sacramento}$) using the approximate standard error of $\bar{X}_{cleveland} - \bar{X}_{sacramento}$ (invoking $S_{cleveland}$ and $S_{sacramento}$ as estimates of unknown $\sigma_{cleveland}$ and $\sigma_{sacramento}$).
+The test statistic is a random variable based on the sample data.  Here, we are interested in seeing if our observed difference in sample means ($\bar{x}_{sac, obs} - \bar{x}_{cle, obs}$ = `r inc_summ$mean[2] - inc_summ$mean[1]`) is statistically different than 0.  Assuming that conditions are met and the null hypothesis is true, we can use the $t$ distribution to standardize the difference in sample means ($\bar{X}_{sac} - \bar{X}_{cle}$) using the approximate standard error of $\bar{X}_{sac} - \bar{X}_{cle}$ (invoking $S_{sac}$ and $S_{cle}$ as estimates of unknown $\sigma_{sac}$ and $\sigma_{cle}$).
 
-$$ T =\dfrac{ (\bar{X}_1 - \bar{X}_2) - 0}{ \sqrt{\dfrac{S_1^2}{n_1} + \dfrac{S_2^2}{n_2}}  } \sim t (df = min(n_1 - 1, n_2 - 1) $$ where 1 = Cleveland and 2 = Sacramento with $S_1^2$ and $S_2^2$ the sample variance of the incomes of both cities, respectively, and $n_1 = 212$ for Cleveland and $n_2 = 175$ for Sacramento.
+$$ T =\dfrac{ (\bar{X}_1 - \bar{X}_2) - 0}{ \sqrt{\dfrac{S_1^2}{n_1} + \dfrac{S_2^2}{n_2}}  } \sim t (df = min(n_1 - 1, n_2 - 1)) $$ where 1 = Sacramento and 2 = Cleveland with $S_1^2$ and $S_2^2$ the sample variance of the incomes of both cities, respectively, and $n_1 = 175$ for Sacramento and $n_2 = 212$ for Cleveland.
 
 ## Observed test statistic
 
-While one could compute this observed test statistic by "hand", the focus here is on the set-up of the problem and in understanding which formula for the test statistic applies.  We can use the `inference` function in the `oilabs` package to perform this analysis for us.  Note that to obtain the `F value` given here, you divide the observed $MSG$ value of 17.53 by the observed $MSE$ value of 1.75.  (The use of the word `Residuals` will make more sense when we have covered regression.)
+Note that we could also do (ALMOST) this test directly using the `t.test` function.  The `x` and `y` arguments are expected to both be numeric vectors here so we'll need to appropriately filter our data sets.
 
-```{r infer}
+```{r t.test}
+cleveland <- cleSac %>% filter(metro_area == "Cleveland_ OH")
+sacramento <- cleSac %>% filter(metro_area != "Cleveland_ OH")
+t.test(y = cleveland$income, x = sacramento$income,
+       alternative = "two.sided")
+```
+
+Note that the degrees of freedom reported above are different than what we used above in specifying the **Test Statistic**.  The degrees of freedom used here is also known as the Satterthwaite approximation and involves a quite complicated formula.  For most problems, the must simpler smaller of sample sizes minus one will suffice.
+
+While one could compute this observed test statistic by "hand", the focus here is on the set-up of the problem and in understanding which formula for the test statistic applies. 
+
+<!--
+We can use the `inference` function in the `oilabs` package to perform this analysis for us.  Note that to obtain the `F value` given here, you divide the observed $MSG$ value of 17.53 by the observed $MSE$ value of 1.75.  (The use of the word `Residuals` will make more sense when we have covered regression.)
+-->
+
+```{r infer, eval=FALSE, include=FALSE}
 inference(x = cleSac$metro_area, 
           y = cleSac$income, 
           est = "mean", 
@@ -159,7 +277,7 @@ inference(x = cleSac$metro_area,
           inf_plot = FALSE)
 ```
 
-We see here that the observed test statistic value is around -1.501 with $df = min(212 - 1, 175 - 1) = 174$.  Recall that for large degrees of freedom, the $t$ distribution is roughly equal to the standard normal curve, which is what the `inference` function uses here.
+We see here that the observed test statistic value is around -1.5 with $df = min(212 - 1, 175 - 1) = 174$.  Recall that for large degrees of freedom, the $t$ distribution is roughly equal to the standard normal curve so our difference in `df` for the Satterthwaite and "min" variations doesn't really matter.
 
 # Compute $p$-value
 
@@ -175,17 +293,14 @@ We can also approximate by using the standard normal curve:
 2 * pnorm(-1.501)
 ```
 
-Note that we could also do (ALMOST) this test directly without invoking the `inference` function using the `t.test` function.  The `x` and `y` arguments are expected to both be numeric vectors here so we'll need to appropriately filter our data sets.
-
-```{r t.test}
-cleveland <- cleSac %>% filter(metro_area == "Cleveland_ OH")
-sacramento <- cleSac %>% filter(metro_area != "Cleveland_ OH")
-t.test(x = cleveland$income, y = sacramento$income,
-       alternative = "two.sided")
-```
-
-Note that the degrees of freedom reported above are different than what we used.  The degrees of freedom used here is also known as the Satterthwaite approximation and involves a quite complicated formula.  For most problems, the must simpler smaller of sample sizes minus one will suffice.
+Note that the 95 percent confidence interval given above matches well with the one calculated using bootstrapping.
 
 # State conclusion
 
 We, therefore, do not have sufficient evidence to reject the null hypothesis.  Our initial guess that a statistically significant difference not existing in the means was backed by this statistical analysis.  We do not have evidence to suggest that the true mean income differs between Cleveland, OH and Sacramento, CA based on this data.
+
+***
+
+# Comparing results
+
+Observing the bootstrap distribution and the null distribution that were created, it makes quite a bit of sense that the results are so similar for traditional and non-traditional methods in terms of the $p$-value and the confidence interval since these distributions look very similar to normal distributions.  The conditions also being met leads us to better guess that using any of the methods whether they are traditional (formula-based) or non-traditional (computational-based) will lead to similar results.
