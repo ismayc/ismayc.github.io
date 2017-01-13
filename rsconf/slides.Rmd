@@ -12,9 +12,7 @@ output:
     countIncrementalSlides: false
 ---
 
-## My story teaching Intro Stats
-
-### Grad school
+## My story teaching Intro Stats - Grad school
 
 ```{r setup, include=FALSE}
 # devtools::install_github("yihui/xaringan")
@@ -28,17 +26,26 @@ options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-![](images/NAU-Lumberjack.gif)  |  ![](images/asu.jpg) 
+![](images/NAU_Lumberjacks_wordmark.png)  |  ![](images/asu_logo.jpg) 
 :-------------------------:|:-------------------------:
+
+<br> <br> <br>
+
+Images labeled as **free to use and share** via [Advanced Google Search](https://www.google.com/advanced_image_search): 
+
+<small><https://upload.wikimedia.org/wikipedia/commons/2/2d/NAU_Lumberjacks_wordmark.png></small>
+
+<small>https://upload.wikimedia.org/wikipedia/commons/b/b3/Arizona_State_University_logo.svg</small>
 
 ---
 
-## My story teaching Intro Stats
+## My story teaching Intro Stats -  Grad school
 
-### Grad school
-
-![](images/ti.jpg)  |  ![](images/ztable.gif) 
+![](images/ti2.jpg)  |  ![](images/Table_t.png) 
 :-------------------------:|:-------------------------:
+
+- <small><https://upload.wikimedia.org/wikipedia/commons/2/24/TI-30XIIS.JPG></small>
+- <small>https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Tabla_t.png/189px-Tabla_t.png</small>
 
 ---
 
@@ -46,19 +53,22 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ### Tenure-track stats prof
 
-```{r}
-include_graphics("images/ripon.png")
+```{r out.width="80%"}
+include_graphics("images/riponsnow.jpg")
 ```
 
+<small>https://commons.wikimedia.org/wiki/File:Harwood_Memorial_Union,_Ripon_College_view_4.jpg</small>
 ---
 
 ## My story teaching Intro Stats
 
 ### Tenure-track stats prof
 
-```{r fig.align="center"}
-knitr::include_graphics("images/statkey.png", dpi = 180)
+```{r fig.align="center", out.width="60%"}
+knitr::include_graphics("images/statkey.png")
 ```
+
+<http://www.lock5stat.com/StatKey/>
 
 ---
 
@@ -96,6 +106,8 @@ class: center, middle
 ![](images/pacu.jpg)  |  ![](images/thinking.gif) 
 :-------------------------:|:-------------------------:
 
+<http://giphy.com/gifs/sherlock-bbc-one-l0MYM98IwMYDIn1fO>
+
 ---
 
 class: center, middle
@@ -124,10 +136,12 @@ class: center, middle
 
 ## 1. Blur the lines between lecture and lab
 
-```{r out.width="75%"}
-knitr::include_graphics("images/giphy1.gif")
+```{r out.width="40%"}
+include_graphics("images/cat.gif")
 ```
 
+
+<https://giphy.com/gifs/JIX9t2j0ZTN9S>
 
 ---
 
@@ -179,8 +193,8 @@ library(babynames)
 ### - Have data visualization be the driver
 -->
 
-```{r, fig.align="center"}
-knitr::include_graphics("images/tdist.png", dpi = 180)
+```{r, fig.align="center", out.width="80%"}
+knitr::include_graphics("images/tdist.png")
 ```
 
 ---
@@ -190,9 +204,11 @@ knitr::include_graphics("images/tdist.png", dpi = 180)
 
 ### - Have data visualization be the driver
 
-```{r, fig.align="center"}
-knitr::include_graphics("images/ht.png", dpi = 180)
+```{r, fig.align="center", out.width="65%"}
+knitr::include_graphics("images/ht.png")
 ```
+
+<http://allendowney.blogspot.com/2016/06/there-is-still-only-one-test.html>
 
 ---
 
@@ -201,9 +217,11 @@ knitr::include_graphics("images/ht.png", dpi = 180)
 
 ### - Scaffold & support as a good foreign language professor would
 
-```{r out.width="80%", fig.align='center'}
+```{r out.width="60%", fig.align='center'}
 knitr::include_graphics("images/giphy2.gif")
 ```
+
+<http://giphy.com/gifs/pool-diving-synchronized-swimming-pDWtwK7D2IlFu>
 
 ---
 
@@ -213,9 +231,11 @@ knitr::include_graphics("images/giphy2.gif")
 
 ### - Ultimately the best textbook is one you’ve written yourself
 
-```{r out.width="80%", fig.align='center'}
+```{r out.width="70%", fig.align='center'}
 knitr::include_graphics("images/precious.gif")
 ```
+
+<http://giphy.com/gifs/oskouioskoui-lotr-gifscapade-3oFyCVxsQn6RBa0r5u>
 
 ---
 
@@ -339,18 +359,21 @@ class: center, middle
 
 # Finding great, interesting, accessible data sets is hard
 
-```{r, out.width="60%"}
+```{r, out.width="50%"}
 include_graphics("images/saul.gif")
 ```
 
+<http://giphy.com/gifs/justin-g-angry-better-call-saul-exasperation-26tnnpcYVRNJGlHy0>
 
 ---
 
 # Debuting <small>`fivethirtyeight`</small> 
 
-```{r, out.width="100%"}
+```{r, out.width="90%"}
 include_graphics("images/fallon.gif")
 ```
+
+<http://giphy.com/gifs/lil-jon-FBXSMK6fp3kQ>
 
 ---
 
