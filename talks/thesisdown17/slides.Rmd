@@ -222,22 +222,6 @@ class: center, middle
 
 ---
 
-## More resources
-
-***
-
-### - It's my job!  
---
-
-### - [Getting Used to R, RStudio, and R Markdown](https://ismayc.github.io/rbasics-book/)
---
-
-### - [A MODERN DIVE into Data with R](http://www.moderndive.com)
-
-
-
----
-
 class: center, middle
 
 # `thesisdown` <br><br> The Reed College <br> R Markdown <br> Senior Thesis Template
@@ -275,11 +259,21 @@ class: center, middle
 
 ***
 
+### - It's my job!  
+--
+
+### - [Getting Used to R, RStudio, and R Markdown](https://ismayc.github.io/rbasics-book/)
+--
+
+### - [A MODERN DIVE into Data with R](http://www.moderndive.com)
+--
+
 ### - [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 
 ### - [R Markdown Reference Guide](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)
 
 ### - [RStudio Cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
+--
 
 ### - [My <small>`thesisdown`</small> package](https://github.com/ismayc/thesisdown/)
 
