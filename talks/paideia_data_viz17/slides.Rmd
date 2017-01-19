@@ -136,6 +136,8 @@ countIncrementalSlides: false
 
 ### - [datablog from The Guardian](https://www.theguardian.com/data)
 
+### - [Data Viz Mind Map](https://coggle.it/diagram/V_G2gzukTDoQ-aZt)
+
 ---
 
 # Thanks!
