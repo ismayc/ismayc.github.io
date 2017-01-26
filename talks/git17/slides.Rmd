@@ -25,7 +25,7 @@ output:
 
 layout: true
 
-.footer[These slides available at <http://bit.ly/git17>]
+.footer[These slides available at <http://bit.ly/reed-git17>]
 
 ---
 
@@ -119,6 +119,7 @@ Start drawing on the board here
 ## Create and add files to repo
 
 - Create a text file called <small>`git_workshop.txt`</small>
+
     * Save it in the same folder as the repo
 --
 
@@ -170,20 +171,92 @@ Current tense is preferred on your commit message
 
 ---
 
-## Check the status / Push it
+## Check the status / Make changes
 
-- To see that changes to the repository have been recorded, use again
+- To see that changes to the repository have been recorded, use 
+
+```{bash eval=FALSE}
+git log --oneline
+```
+--
+
+- Make a change to the text file by adding "gitting it together" and save your file
+--
+
+- Check that the file has been modified
 
 ```{bash eval=FALSE}
 git status
 ```
---
 
-- To publish your changes, run
+---
+
+## Add the file & commit
 
 ```{bash eval=FALSE}
-git push
+git add .
+git commit -m "Add line of text"
+git log --oneline
 ```
+
+---
+
+## Fixing my typo
+
+- You can go back to a previous commit using
+  - Use with caution!
+
+```{bash eval=FALSE}
+git reset --hard [commit]
+```
+
+???
+
+Pass out cheat sheets
+
+Complete diagram
+
+---
+
+<img src="img/github.jpg" width="200"/>
+
+- Like Dropbox on steroids
+    - You determine the backups
+--
+
+- You can collaborate with others...uh... easily
+--
+
+- You can back up your code to the cloud
+
+---
+
+class: center, middle
+
+<img src="img/github.jpg" width="300"/> <img src="img/plus.jpg" width="100"/> <img src="img/rstudio.png" width="320"/>
+
+---
+
+# Linking GitHub and RStudio via SSH
+
+- This allows 
+
+???
+
+- Fork homework repo
+- Pull repository from your GitHub account in RStudio
+
+
+---
+
+# Recap setting up GitHub with RStudio
+
+- Fork homework repo
+- `clone` repository from your GitHub account in RStudio as RStudio project
+- Make a change to a file
+- Check the box next to the files to `add`
+- Commit the changes
+- `push` the changes to GitHub via
 
 
 
@@ -191,8 +264,8 @@ git push
 
 # Resources
 
-- [Happy Git and GitHub for the useR](http://happygitwithr.com/)
-
+- Excellent resource:  [Happy Git and GitHub for the useR](http://happygitwithr.com/)
+- A [section](http://r-pkgs.had.co.nz/git.html) in Hadley's R Packages book
 
 ---
 
