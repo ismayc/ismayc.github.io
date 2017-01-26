@@ -239,17 +239,15 @@ class: center, middle
 
 # Linking GitHub and RStudio via SSH
 
-- This allows 
+- This allows for you to not have to enter your username/password over and over again
+- Adds security
+- How to:
+  - In RStudio, go to Tools > Global Options > Git/SVN
+  - Make sure **Enable version control interface for RStudio projects** is checked
+  - Press the **Create RSA Key...** button
+  - Enter passphrase (that you can remember!)
 
 ???
-
-- Fork homework repo
-- Pull repository from your GitHub account in RStudio
-
-
----
-
-# Recap setting up GitHub with RStudio
 
 - Fork homework repo
 - `clone` repository from your GitHub account in RStudio as RStudio project
@@ -257,7 +255,48 @@ class: center, middle
 - Check the box next to the files to `add`
 - Commit the changes
 - `push` the changes to GitHub via
+- Every time you start over you should click the Pull button
 
+---
+
+# Linking GitHub and RStudio via SSH
+
+- Go to the path specified as the location of the key
+- Open the <small>`id_rsa.pub`</small> file
+- Copy the contents
+- Go to <https://github.com/settings/keys>
+    - Press New SSH key
+    - Give it a title and paste into **Key**
+    - Press **Add SSH Key** button
+
+---
+
+class: center, middle
+
+<img src="img/github.jpg" width="200"/> <img src="img/plus.jpg" width="50"/> <img src="img/rstudio.png" width="200"/>
+
+***
+
+# DEMO
+
+---
+
+
+# Recap working with GitHub and RStudio
+
+- Fork homework repo from GitHub Classroom
+- <small>`clone`</small> repository from your GitHub account in RStudio as RStudio project
+- Make changes to files / update analyses
+- Check the box next to the files to <small>`add`</small>
+- Commit the changes
+- <small>`push`</small> the changes to GitHub
+    - First time, need to run <small>git push -u origin master</small> in shell
+- Go to GitHub and check that files have been updated
+- **Every time you start over you should Pull!**
+
+???
+
+Create new diagram for GitHub / RStudio workflow
 
 
 ---
@@ -266,6 +305,7 @@ class: center, middle
 
 - Excellent resource:  [Happy Git and GitHub for the useR](http://happygitwithr.com/)
 - A [section](http://r-pkgs.had.co.nz/git.html) in Hadley's R Packages book
+- [Git Cheat Sheet from GitHub.com](https://services.github.com/on-demand/downloads/github-git-cheat-sheet.pdf)
 
 ---
 
@@ -273,9 +313,9 @@ class: center, middle
 
 - Slides created via the R package [`xaringan`](https://github.com/yihui/xaringan) by Yihui Xie.
 
-- Email me at cismay@reed.edu
+- Email me at <cismay@reed.edu>
 
-- These slides available at <http://bit.ly/git17>
+- Office: ETC 223
 
 
 
