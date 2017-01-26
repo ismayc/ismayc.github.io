@@ -1,0 +1,208 @@
+---
+title: Slack/git/GitHub
+subtitle: Math 241 - Spring 2017
+author: "<br> Chester Ismay <br> Email: cismay@reed.edu <br> Office: ETC 223"
+date: '2017/01/26 <br><br> Slides available at <font style="text-transform: lowercase;"><http://bit.ly/reed-git17></font>'
+output: 
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: monokai
+      highlightLines: true
+    countIncrementalSlides: false
+    css: example.css
+  # revealjs::revealjs_presentation:
+  #   theme: beige
+  #   highlight: tango
+  #   center: true
+  #   fig_width: 9.5
+  #   fig_height: 4.5
+  #   fig.align: center
+  #   transition: slide
+  #   background_transition: zoom
+  #   slide_level: 1
+---
+
+layout: true
+
+.footer[These slides available at <http://bit.ly/git17>]
+
+---
+
+class: center, middle
+
+<img src="img/slack.jpg" width="275"/> <img src="img/git.jpg" width="200"/> <img src="img/github.jpg" width="200"/> 
+
+---
+
+<img src="img/slack.jpg" width="275"/>
+
+- "An instant messaging and collaboration system on steroids"
+
+- [Slack video tour](https://slack.com/is)
+
+- [What is Slack and How Do I Use It for My Team?](https://smallbiztrends.com/2015/12/slack-use-team.html)
+
+---
+
+<img src="img/slack.jpg" width="275"/>
+
+
+<center><H1>Exploration/DEMO</H1></center>
+
+???
+Make sure to go over inline code and block of code.
+
+---
+
+class: middle
+
+<img src="img/git.jpg" width="250"/>
+
+- Most widely used version control system in the world
+- Developed by Linus Torvalds in 2005
+- [Why Git?](http://happygitwithr.com/big-picture.html)
+
+---
+
+# Getting on the same page
+
+### Make sure that you've
+
+  1. [Downloaded and installed git on your machine](http://happygitwithr.com/install-git.html)
+  2. Created a GitHub account at <http://github.com>
+  3. [Downloaded and installed R and RStudio Desktop](http://happygitwithr.com/install-r-rstudio.html) 
+
+- For a description of the different commands and arguments, check out [this](https://www.kernel.org/pub/software/scm/git/docs/git.html)
+---
+
+## Introduce yourself to Git
+
+- [Open the shell](http://happygitwithr.com/shell.html#shell)
+
+    * One way: In RStudio, go to Tools > Shell
+    
+--
+
+- Enter the following replacing my name & email with yours
+
+    * Your email needs to be the same as the one you signed up on GitHub with
+
+```{bash eval=FALSE}
+git config --global user.name 'Chester Ismay'
+git config --global user.email 'cismay@reed.edu'
+```
+
+---
+
+## Initialize repository
+
+- Determine what folder you are currently at in the shell
+
+```{bash eval=FALSE}
+pwd
+```
+
+- Set a folder to correspond to a `git` repository
+
+
+```{bash eval=FALSE}
+git init
+```
+
+???
+
+Start drawing on the board here
+
+---
+
+## Create and add files to repo
+
+- Create a text file called <small>`git_workshop.txt`</small>
+    * Save it in the same folder as the repo
+--
+
+- To add this file to the repository to be tracked, run
+
+```{bash eval=FALSE}
+git add git_workshop.txt
+```
+
+--
+
+- Can add all files in the folder using `.` 
+
+```{bash eval=FALSE}
+git add .
+```
+
+
+???
+
+Git works great with text files, CSVs, etc.  Since R Markdown is plain text, it works great but it works
+with many of other plain text files too.
+
+Step away from the shell... Create text file in RStudio
+
+---
+
+## Check the status / Make commit
+
+- To see that the file has been added, use
+
+```{bash eval=FALSE}
+git status
+```
+--
+
+- To record the changes to the repository, use
+```{bash eval=FALSE}
+git commit -m "Add blank file"
+```
+
+--
+
+- Creating a good commit message is not fun, but it can save you in the long run
+
+???
+
+Current tense is preferred on your commit message
+
+---
+
+## Check the status / Push it
+
+- To see that changes to the repository have been recorded, use again
+
+```{bash eval=FALSE}
+git status
+```
+--
+
+- To publish your changes, run
+
+```{bash eval=FALSE}
+git push
+```
+
+
+
+---
+
+# Resources
+
+- [Happy Git and GitHub for the useR](http://happygitwithr.com/)
+
+
+---
+
+# Thanks!
+
+- Slides created via the R package [`xaringan`](https://github.com/yihui/xaringan) by Yihui Xie.
+
+- Email me at cismay@reed.edu
+
+- These slides available at <http://bit.ly/git17>
+
+
+
