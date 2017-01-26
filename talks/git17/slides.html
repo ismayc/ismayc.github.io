@@ -11,7 +11,7 @@
 class: center, middle, inverse, title-slide
 
 # Slack/git/GitHub
-## Math 241 - Spring 2017
+## Reed College Math 241 - Spring 2017
 ### <br> Chester Ismay <br> Email: <a href="mailto:cismay@reed.edu">cismay@reed.edu</a> <br> Office: ETC 223
 ### 2017/01/26 <br><br> Slides available at <font style="text-transform: lowercase;"><a href="http://bit.ly/reed-git17" class="uri">http://bit.ly/reed-git17</a></font>
 
@@ -28,6 +28,10 @@ class: center, middle
 
 &lt;img src="img/slack.jpg" width="275"/&gt; &lt;img src="img/git.jpg" width="200"/&gt; &lt;img src="img/github.jpg" width="200"/&gt; 
 
+???
+
+Who can tell me something about any one of these three?
+
 ---
 
 &lt;img src="img/slack.jpg" width="275"/&gt;
@@ -37,6 +41,10 @@ class: center, middle
 - [Slack video tour](https://slack.com/is)
 
 - [What is Slack and How Do I Use It for My Team?](https://smallbiztrends.com/2015/12/slack-use-team.html)
+
+???
+
+Watch video
 
 ---
 
@@ -68,8 +76,9 @@ class: middle
   1. [Downloaded and installed git on your machine](http://happygitwithr.com/install-git.html)
   2. Created a GitHub account at &lt;http://github.com&gt;
   3. [Downloaded and installed R and RStudio Desktop](http://happygitwithr.com/install-r-rstudio.html) 
+  4. Entered your [GitHub information](https://goo.gl/forms/ryaJCgjiLOxSFcr53) so Andrew can add you to GitHub Classroom
 
-- For a description of the different commands and arguments, check out [this](https://www.kernel.org/pub/software/scm/git/docs/git.html)
+- For a description of the different commands and arguments in &lt;small&gt;`git`&lt;/small&gt;, check [this](https://www.kernel.org/pub/software/scm/git/docs/git.html) out 
 ---
 
 ## Introduce yourself to Git
@@ -115,7 +124,7 @@ Start drawing on the board here
 
 ---
 
-## Create and add files to repo
+## Create and add a file to repo
 
 - Create a text file called &lt;small&gt;`git_workshop.txt`&lt;/small&gt;
 
@@ -128,6 +137,10 @@ Start drawing on the board here
 ```bash
 git add git_workshop.txt
 ```
+
+???
+
+Can also add folders and all of their files if inside this folder
 
 --
 
@@ -258,13 +271,23 @@ class: center, middle
 
 ???
 
-- Fork homework repo
-- `clone` repository from your GitHub account in RStudio as RStudio project
-- Make a change to a file
-- Check the box next to the files to `add`
+- Fork homework repo from GitHub Classroom
+
+- &lt;small&gt;`clone`&lt;/small&gt; repository from your GitHub account in RStudio as RStudio project
+
+- Make changes to files / update analyses
+
+- Check the box next to the files to &lt;small&gt;`add`&lt;/small&gt;
+
 - Commit the changes
-- `push` the changes to GitHub via
-- Every time you start over you should click the Pull button
+
+- &lt;small&gt;`push`&lt;/small&gt; the changes to GitHub
+    - First time, need to run &lt;small&gt;git push -u origin master&lt;/small&gt; in shell
+
+- Go to GitHub and check that files have been updated
+
+- **Every time you start over you should Pull!**
+
 
 ---
 
@@ -282,7 +305,7 @@ class: center, middle
 
 class: center, middle
 
-&lt;img src="img/github.jpg" width="200"/&gt; &lt;img src="img/plus.jpg" width="50"/&gt; &lt;img src="img/rstudio.png" width="200"/&gt;
+&lt;img src="img/github.jpg" width="200"/&gt; &lt;img src="img/plus.jpg" width="100"/&gt; &lt;img src="img/rstudio.png" width="230"/&gt;
 
 ***
 
@@ -293,20 +316,40 @@ class: center, middle
 
 # Recap working with GitHub and RStudio
 
-- Fork homework repo from GitHub Classroom
+- Click Accept assignment link in email to get barebones homework repo from GitHub Classroom into your GitHub
+--
+
 - &lt;small&gt;`clone`&lt;/small&gt; repository from your GitHub account in RStudio as RStudio project
+--
+
 - Make changes to files / update analyses
-- Check the box next to the files to &lt;small&gt;`add`&lt;/small&gt;
-- Commit the changes
-- &lt;small&gt;`push`&lt;/small&gt; the changes to GitHub
-    - First time, need to run &lt;small&gt;git push -u origin master&lt;/small&gt; in shell
+--
+
+- Check box next to the files to &lt;small&gt;`add`&lt;/small&gt; &amp; &lt;small&gt;`commit`&lt;/small&gt; changes
+--
+
+- &lt;small&gt;`push`&lt;/small&gt; the changes to GitHub in the shell via 
+
+
+```bash
+git push -u origin master
+```
+
+(Only the first time, you can just press the **Push** button subsequently)
+--
+
 - Go to GitHub and check that files have been updated
-- **Every time you start over you should Pull!**
+
 
 ???
 
 Create new diagram for GitHub / RStudio workflow
 
+---
+
+## Good Habit
+
+- **Every time you start over in your work, you should Pull!**
 
 ---
 
@@ -316,6 +359,10 @@ Create new diagram for GitHub / RStudio workflow
 - A [section](http://r-pkgs.had.co.nz/git.html) in Hadley's R Packages book
 - [Git Cheat Sheet from GitHub.com](https://services.github.com/on-demand/downloads/github-git-cheat-sheet.pdf)
 - [Git For People Who Think Git is Hard](https://web-crunch.com/git-people-think-git-hard/])
+
+### More advanced
+
+- [Git command help](https://www.kernel.org/pub/software/scm/git/docs/git.html)
 - [Pro Git book](https://git-scm.com/book/en/v2)
 
 ---
