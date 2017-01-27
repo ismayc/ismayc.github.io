@@ -94,7 +94,7 @@ tr:hover {background-color: skyblue}
 .footer {
     color: black;
     position: fixed;
-    top: 90%;
+    top: 92%;
     left: 0;
     text-align: center;
     width: 100%;
@@ -132,3 +132,9 @@ ol{
     padding-top: 0;
     padding-bottom: 0;
 }
+
+.column:first-of-type {float:left}
+.column:last-of-type {float:right}
+
+.split-40 .column:first-of-type {width: 40%}
+.split-40 .column:last-of-type {width: 60%}

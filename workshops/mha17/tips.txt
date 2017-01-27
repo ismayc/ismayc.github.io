@@ -1,0 +1,7 @@
+class: split-50
+.column[
+left
+]
+.column[
+right
+]

@@ -29,10 +29,637 @@ layout: true
 
 ---
 
-class: center, middle
+# Workshop Agenda - Friday
+
+- Part 1: Introduction
+  - Overview of Statistics & Key Terms
+--
+
+- Part 2: Data Visualization
+  - Tables
+  - Types of plots and best plots for types of data
+--
+
+- Part 3: Data Summaries
+  - Averages
+  - Variability
+  - Correlation
 
 
 ???
+
+---
+
+# Workshop Agenda - Saturday
+
+- Part 4: Simulating randomness
+  - Random sampling & common terms
+  - Sampling distribution
+  - Simulation
+--
+
+- Part 5: Inference
+  - Hypothesis testing
+  - Confidence intervals
+--
+
+- Part 6: Workshop Review
+
+
+???
+
+---
+
+# Learning objectives
+
+### By completion of the workshop you should understand how to
+
+2. organize data
+--
+
+3. visualize data
+--
+
+4. summarize data
+--
+
+6. simulate sampling of data
+--
+
+5. infer conclusions about data
+--
+
+6. interpret results about data
+--
+
+7. tell a story effectively with data
+
+???
+
+---
+
+# Ice breaker
+
+- Do you have experience with statistics? Explain, e.g., specific courses, comfort level with the subject.
+
+- What do you expect from this workshop?
+
+---
+
+## [Arthur Benjamin - Teach Statistics before Calculus!](https://www.ted.com/talks/arthur_benjamin_s_formula_for_changing_math_education)
+
+
+- Reflect on Arthur Benjamin’s TED Talk. What is your response to the question, “why study statistics?”
+
+- Frame your response within the context of healthcare administration.
+--
+
+- How does statistics apply to your everyday life? To the world as a whole?
+
+---
+
+## First steps
+
+### Frequently the first thing you should do when given a dataset is to
+
+- identify the observational unit,
+- specify the variables, and
+- give the types of variables you are presented with.
+
+---
+
+## Organizing data
+
+![](img/hepA.png)
+
+- identify the observational unit
+- give the names of the variables
+- specify the types of the variables (logical, numerical, categorical)
+
+---
+
+class: center, middle
+
+![](img/tidy.png)
+
+---
+
+class: center
+
+# So what is Statistics?
+
+## Statistics is a set of tools and techniques used for describing, organizing, and interpreting information or data 
+
+---
+
+class: center, middle
+
+[<img src="img/stats.png" alt="Statistics" style="width:400px;">](http://www.statisticsblog.com/2012/10/comic-with-stats-discussion/)
+
+---
+
+# Why are tables an effective way to show data?
+
+--
+
+- Help clarify exactly what information is most pertinent
+- Exact values can be presented easily
+- Often simpler to produce than a graphic
+- Summarize frequencies and percentages well
+
+---
+
+# What are the most important features of this table?
+
+![](img/table1.png)
+
+---
+
+## What are the most important features of this table?
+
+- Title: The title must explain as simply as possible what is contained in the table. The title should answer the questions:
+--
+
+  - What are the data? Are these percentages; frequencies?
+  - Who? Who is the table about? For instance, are these males or females; a certain service; a type of disease?
+  - Where? For example, is this your hospital; the United States; or your state?
+  - When? What is the time period?
+  
+---  
+
+---
+ 
+## What are the most important features of this table?
+  
+- Stub heading: The title or heading of the first column
+- Column headings: The headings or titles for the columns
+- Stubs: The categories (the left-hand column of a table)
+- Cells: The information formed by intersecting columns and rows
+- Source footnote: The source for any factual data should be identified in a footnote.
+
+---
+
+class: center, middle
+
+![](img/table2.png)
+
+
+---
+
+
+
+# Frequency Distribution Tables
+
+### A frequency distribution shows the values that a variable can take and the number of obser-vations associated with each value. 
+
+### _Example:_ The Utilization Review Committee is interested in knowing the admission days for patients in your hospital. To construct a frequency distribution, you would list the days of the week and then enter the observations or number of patients admitted on the corresponding day of the week. 
+
+---
+
+class: center, middle
+
+![](img/table3.png)
+
+
+---
+
+class: center, middle
+
+![](img/table4.png)
+
+
+---
+
+## Rules for building tables
+
+--
+
+- Ranges of values should not overlap (1-10, 10-20, etc. for ages is bad)
+- Try not to use fewer than four or more than ten categories
+- Groupings should be well defined
+- Groupings should cover equal ranges (as much as possible)
+
+---
+
+class: center, middle
+
+### BREAK TIME
+
+![](img/table-ex.png)
+
+
+---
+
+class: center, middle
+
+![](img/table-ex2.png)
+
+
+---
+
+class: center, middle
+
+# Unfortunately, tables are... BORING
+
+***
+
+## [Hans Rosling's 200 Countries, 200 Years, 4 Minutes](https://www.youtube.com/watch?v=jbkSRLYSojo)
+
+---
+
+# What are general guidelines for creating effective plots?
+--
+
+- The title must relate to what the graph is displaying.
+
+- When a variable has multiple levels included on the same graph, each should be identified by using a legend or key.
+
+- The plot should be oriented in the way we read
+
+- Axes are labeled clearly (with units)
+
+???
+
+- (for example, males, females, and non-binary)
+
+- Categories should be natural; that is, the vertical axis should always start with zero. The scale of values for the x-axis reads from the lowest value on the left to the highest on the right. The scale of values for the y-axis extends from the lowest value at the bottom of the graph to the highest at the top.
+
+---
+
+class: center, middle
+
+![](img/cigplot.png)
+
+---
+
+## Most common types of plots
+
+- Bar graphs
+- Histograms
+- Boxplots
+- Scatter plots
+- Line graphs
+
+---
+
+# Bar graphs
+
+- Appropriate for displaying categorical data
+- Usually display either the count or the percentage of each level of one or more categorical variables
+
+---
+
+class: center, middle
+
+![](img/bar1.png)
+
+???
+
+What does the data look like that produced this plot?
+
+---
+
+class: center, middle
+
+![](img/bar2.png)
+---
+
+class: center, middle
+
+![](img/bar3.png)
+
+---
+
+## Histograms
+
+- Used to display frequency distributions for continuous numerical data
+--
+
+- created from frequency distribution tables
+--
+
+- look similar to bar graphs except that all the bars in a histogram are touching because they show the continuous nature of the distribution.
+--
+
+- bars should be of equal width
+
+---
+
+class: center, middle
+
+![](img/hist.png)
+
+---
+
+class: center, middle
+
+![](img/hist2.png)
+
+???
+
+What does the data look like that produced this plot?
+
+---
+
+## Boxplot
+
+- Displays the distribution of a continuous variable based on _quantiles_
+- Can be used to compare the distribution of a continuous variables across the groups of a categorical variable
+
+---
+
+class: center, middle
+
+### Time slept versus day of the week for a college professor
+
+![](img/box.jpg)
+
+???
+
+What does this plot tell us?
+
+---
+
+## Scatter plots
+
+- Shows the relationship between two numerical variables
+- Helps to identify whether a linear correlation exists between the variables or not
+
+---
+
+class: center, middle
+
+### Weight versus height for British adults
+
+<img src="img/scatter.png" alt="Scatter" style="width:620px;">
+
+---
+
+## Line graphs
+
+- Most frequently used when time is the predictor variable
+- There must be only one measurement (response value) for each value of time given for each group
+
+---
+
+class: center, middle
+
+<img src="img/line.png" alt="Line graph" style="width:830px;">
+
+---
+
+class: center, middle
+
+# BREAK TIME
+
+<br><br><br>
+
+<img src="img/prac1.png" style="width:850px;">
+
+---
+
+# What type of plot is most appropriate for this data?
+
+<img src="img/prac2.png" style="width:850px;">
+
+
+---
+
+class: center, middle
+
+# What type of plot is most appropriate?
+
+<img src="img/prac3.png" style="width:460px;">
+
+---
+
+# Shifting gears
+
+<img src="img/descinf.png" style="width:730px;">
+
+
+---
+
+# Summarizing data
+
+## Measures of Central Tendency
+
+<img src="img/averages.png" style="width:700px;">
+
+---
+
+## Computing the Mean
+
+<img src="img/mean0.png" style="width:700px;">
+
+---
+
+## Computing the Mean
+
+<img src="img/mean.png" style="width:700px;">
+
+---
+
+## Things to remember about the mean
+
+- The sample mean is a measure of central tendency that best represents the population mean ($n$ = sample size, <br> $N$ = population size)
+
+- The mean is the centermost point where all values on one side of the mean are equal in weight to all values on the other side of the mean
+
+- Mean is VERY sensitive to extreme scores (outliers) that can "skew" or distort findings
+
+
+---
+
+## Median
+
+- Point at which 50% of scores fall below it and 50% fall above it
+- Because the median cares about the number of cases, extreme scores (i.e., outliers) do not impact it
+--
+
+- Steps in finding the median
+  1. List the values, in order, either from highest to lowest or lowest to highest.
+--
+
+  2. Find the middle-most score.  That’s the median.
+    - What if there are two middle scores?
+    - What if the two middle scores are the same?
+
+---
+
+## Percentiles
+
+- Divide data in 100 equal parts
+- Percentile ranks are used to define percent of cases equal to and below a certain point on a distribution
+  - 75th percentile – means that the score received is at or above 75% of all other scores in the distribution
+  - Median is always at the 50th percentile 
+- Relates to what is plotted on a boxplot
+
+---
+
+class: center, middle
+
+### Time slept versus day of the week for a college professor
+
+![](img/box.jpg)
+
+---
+
+## Mode
+
+- Mode = most frequently occurring score
+
+- When two values occur the same number of times, we have a bimodal distribution
+
+- Steps to finding the mode
+  1. List all values in the distribution
+  2. Tally the number of times each value occurs
+  3. The value occurring the most is the mode
+
+---
+
+## When to use what...
+
+- Use _mode_ when the data are qualitative, categorical, or nominal (e.g., eye color, political party) and values can only fit into one category (i.e., mutually-exclusive)
+- Use _median_ when you have extreme (numerical) scores
+- Use _mean_ when the data does not include extreme scores (i.e., outliers) and are not categorical
+
+---
+
+## Importance of variability
+
+- Variability reflects how scores differ from one another
+- Usually measured relative to mean or median
+--
+
+- Measures of variability (aka spread, dispersion)
+  - Range
+  - Standard deviation
+--
+
+- Note: You typically report the average and the variability together to describe a distribution
+
+---
+
+## Computing the range
+
+- Range is the most general estimate of variability
+
+- $range = h – l$
+
+    where $h$ - highest numerical value and <br> $l$ is lowest numerical value 
+
+---
+
+## Computing standard deviation
+
+1. Calculate the mean
+--
+
+2. Subtract the mean from each observation, and square the difference
+--
+
+3. Sum the squared difference
+--
+
+4. Divide the sum of the squared differences by $n$ $-$ $1$
+--
+
+5. Take the square root of the value obtained in step 4 (the result is the standard deviation) 
+
+???
+
+ Most frequently used measure of variability
+
+---
+
+## Computing standard deviation
+
+- Commonly denoted as $SD$ or $s$ for the sample standard deviation.  $\sigma$ for the population standard deviation.
+
+    $$s = \sqrt{\frac{\sum (X - \bar{X})}{n - 1}}$$
+
+- Only works well for data that does not have outliers.  Why?
+
+???
+
+What do these symbols mean?
+
+Interpretation: The "average" distance a value of the variable is from the mean of the variable
+
+---
+
+class: center, middle
+
+## Practice
+
+<br><br>
+
+### Incubation periods for hepatitis A: 
+
+### 27, 31, 15, 30, 22 days
+
+<br><br>
+
+### Calculate the standard deviation
+
+---
+
+## Practice
+
+<img src="img/sd.png" style="width:700px;">
+
+--
+
+### How do we interpret this result?
+
+---
+
+## Things to remember
+
+- Standard deviation is computed as the average distance from the mean
+- The larger the standard deviation the more spread out the values are
+- Like the mean, the standard deviation is sensitive to extreme scores
+- If $s = 0$, then there is no variability among scores and the scores are identical in value
+
+---
+
+## Analogy for Mean and Standard Deviation
+
+- The site for a new school was selected because it provides a central location. An alternative site on the west side of town was considered, but rejected because it would require extensive busing for students living on the east side. The location represents the *mean*; just as the school is located at the center of town, the mean is located in the center of a distribution of scores. 
+
+---
+
+## Analogy for Mean and Standard Deviation
+
+- For each student, it is possible to measure the distance between home and the new school. Some students live only a few blocks from the new school and others lives as much as 3 miles away. Let’s say the average distance a student must travel to school was calculated to be 0.8 miles. The average distance from school represents *standard deviation*, which measures the standard distance from an individual score to the mean.
+
+
+---
+
+class: center, middle
+
+### FINAL BREAK
+
+<img src="img/finalBreak.png" style="width:700px;">
+
+
+---
+
+class: center, middle
+
+### More practice
+
+<img src="img/moreprac1.png" style="width:700px;">
+
+
+---
+
+class: center, middle
+
+### More practice
+
+<img src="img/moreprac2.png" style="width:450px;">
 
 
 ---
@@ -41,6 +668,7 @@ class: center, middle
 
 - [ModernDive:  An Introduction to Statistical and Data Sciences via R](http://moderndive.com/)
 
+- Horton, L. A. (2012). Calculating and Reporting Healthcare Statistics. Chicago, Ill: AHIMA Press.
 
 ---
 
@@ -49,8 +677,6 @@ class: center, middle
 - Slides created via the R package [<small>`xaringan`</small>](https://github.com/yihui/xaringan) by Yihui Xie.
 
 - Email me at <chester@pacificu.edu>
-
-- Office: ETC 223
 
 - Source code for these slides is on [GitHub](https://github.com/ismayc/ismayc.github.io/tree/master/workshops/mha17) 
 
