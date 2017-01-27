@@ -37,14 +37,13 @@ layout: true
 
 - Part 2: Data Visualization
   - Tables
-  - Types of plots and best plots for types of data
+  - Different plots
+  - Best plots for certain types of data
 --
 
 - Part 3: Data Summaries
   - Averages
   - Variability
-  - Correlation
-
 
 ???
 
@@ -52,13 +51,14 @@ layout: true
 
 # Workshop Agenda - Saturday
 
-- Part 4: Simulating randomness
-  - Random sampling & common terms
-  - Sampling distribution
+- Part 4: Simulating Randomness
+  - Random sampling 
+  - Common terms of inference
   - Simulation
+  - Sampling distribution
 --
 
-- Part 5: Inference
+- Part 5: Inferential Statistics
   - Hypothesis testing
   - Confidence intervals
 --
@@ -158,7 +158,7 @@ class: center, middle
 
 ---
 
-# Why are tables an effective way to show data?
+## Why are tables an effective way to show data?
 
 --
 
@@ -169,33 +169,34 @@ class: center, middle
 
 ---
 
-# What are the most important features of this table?
-
-![](img/table1.png)
-
----
+class: center, middle
 
 ## What are the most important features of this table?
 
-- Title: The title must explain as simply as possible what is contained in the table. The title should answer the questions:
+<img src="img/table1.png" style="width:1050px;">
+
+---
+
+## What are the most important features of <u>any</u> table?
+--
+
+- <u>Title</u>: The title must explain as simply as possible what is contained in the table. The title should answer the questions:
 --
 
   - What are the data? Are these percentages; frequencies?
-  - Who? Who is the table about? For instance, are these males or females; a certain service; a type of disease?
+  - Who? Who is the table about? For instance, are these for a certain service; a type of disease?
   - Where? For example, is this your hospital; the United States; or your state?
   - When? What is the time period?
-  
----  
 
 ---
  
 ## What are the most important features of this table?
   
-- Stub heading: The title or heading of the first column
-- Column headings: The headings or titles for the columns
-- Stubs: The categories (the left-hand column of a table)
-- Cells: The information formed by intersecting columns and rows
-- Source footnote: The source for any factual data should be identified in a footnote.
+- <u>Stub heading</u>: The title or heading of the first column
+- <u>Column headings</u>: The headings or titles for the columns
+- <u>Stubs</u>: The categories (the left-hand column of a table)
+- <u>Cells</u>: The info formed by intersecting columns & rows
+- <u>Source footnote</u>: The source for any factual data should be identified in a footnote.
 
 ---
 
@@ -210,7 +211,7 @@ class: center, middle
 
 # Frequency Distribution Tables
 
-### A frequency distribution shows the values that a variable can take and the number of obser-vations associated with each value. 
+### A <u>frequency distribution</u> shows the values that a variable can take and the number of observations associated with each value. 
 
 ### _Example:_ The Utilization Review Committee is interested in knowing the admission days for patients in your hospital. To construct a frequency distribution, you would list the days of the week and then enter the observations or number of patients admitted on the corresponding day of the week. 
 
@@ -236,7 +237,7 @@ class: center, middle
 
 - Ranges of values should not overlap (1-10, 10-20, etc. for ages is bad)
 - Try not to use fewer than four or more than ten categories
-- Groupings should be well defined
+- Groupings should be well-defined
 - Groupings should cover equal ranges (as much as possible)
 
 ---
@@ -274,7 +275,7 @@ class: center, middle
 
 - When a variable has multiple levels included on the same graph, each should be identified by using a legend or key.
 
-- The plot should be oriented in the way we read
+- The plot should be oriented in the way we read & expect
 
 - Axes are labeled clearly (with units)
 
@@ -305,6 +306,8 @@ class: center, middle
 # Bar graphs
 
 - Appropriate for displaying categorical data
+--
+
 - Usually display either the count or the percentage of each level of one or more categorical variables
 
 ---
@@ -338,7 +341,7 @@ class: center, middle
 - created from frequency distribution tables
 --
 
-- look similar to bar graphs except that all the bars in a histogram are touching because they show the continuous nature of the distribution.
+- look similar to bar graphs except that all the bars in a histogram are touching because they show the continuous nature of the distribution
 --
 
 - bars should be of equal width
@@ -383,6 +386,8 @@ What does this plot tell us?
 ## Scatter plots
 
 - Shows the relationship between two numerical variables
+--
+
 - Helps to identify whether a linear correlation exists between the variables or not
 
 ---
@@ -398,6 +403,8 @@ class: center, middle
 ## Line graphs
 
 - Most frequently used when time is the predictor variable
+--
+
 - There must be only one measurement (response value) for each value of time given for each group
 
 ---
@@ -463,10 +470,12 @@ class: center, middle
 ## Things to remember about the mean
 
 - The sample mean is a measure of central tendency that best represents the population mean ($n$ = sample size, <br> $N$ = population size)
+--
 
 - The mean is the centermost point where all values on one side of the mean are equal in weight to all values on the other side of the mean
+--
 
-- Mean is VERY sensitive to extreme scores (outliers) that can "skew" or distort findings
+- The mean is VERY sensitive to extreme scores (outliers) that can "skew" or distort findings
 
 
 ---
@@ -474,6 +483,8 @@ class: center, middle
 ## Median
 
 - Point at which 50% of scores fall below it and 50% fall above it
+--
+
 - Because the median cares about the number of cases, extreme scores (i.e., outliers) do not impact it
 --
 
@@ -490,9 +501,13 @@ class: center, middle
 ## Percentiles
 
 - Divide data in 100 equal parts
+--
+
 - Percentile ranks are used to define percent of cases equal to and below a certain point on a distribution
   - 75th percentile – means that the score received is at or above 75% of all other scores in the distribution
   - Median is always at the 50th percentile 
+--
+
 - Relates to what is plotted on a boxplot
 
 ---
@@ -520,9 +535,13 @@ class: center, middle
 
 ## When to use what...
 
-- Use _mode_ when the data are qualitative, categorical, or nominal (e.g., eye color, political party) and values can only fit into one category (i.e., mutually-exclusive)
-- Use _median_ when you have extreme (numerical) scores
-- Use _mean_ when the data does not include extreme scores (i.e., outliers) and are not categorical
+- Use the <u>mode</u> when the data are qualitative, categorical, or nominal (e.g., eye color, political party) and values can only fit into one category (i.e., mutually-exclusive)
+--
+
+- Use the <u>median</u> when you have extreme (numerical) scores
+--
+
+- Use the <u>mean</u> when the data does not include extreme scores (i.e., outliers) and are not categorical
 
 ---
 
@@ -545,9 +564,9 @@ class: center, middle
 
 - Range is the most general estimate of variability
 
-- $range = h – l$
+- $range = h$ $–$ $l$
 
-    where $h$ - highest numerical value and <br> $l$ is lowest numerical value 
+    where $h$ is highest numerical value and <br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; $l$ is lowest numerical value 
 
 ---
 
@@ -578,6 +597,8 @@ class: center, middle
 - Commonly denoted as $SD$ or $s$ for the sample standard deviation.  $\sigma$ for the population standard deviation.
 
     $$s = \sqrt{\frac{\sum (X - \bar{X})}{n - 1}}$$
+    
+--
 
 - Only works well for data that does not have outliers.  Why?
 
@@ -618,21 +639,27 @@ class: center, middle
 ## Things to remember
 
 - Standard deviation is computed as the average distance from the mean
+--
+
 - The larger the standard deviation the more spread out the values are
+--
+
 - Like the mean, the standard deviation is sensitive to extreme scores
-- If $s = 0$, then there is no variability among scores and the scores are identical in value
+--
+
+- If $s$ = 0, then there is no variability among scores and the scores are identical in value
 
 ---
 
 ## Analogy for Mean and Standard Deviation
 
-- The site for a new school was selected because it provides a central location. An alternative site on the west side of town was considered, but rejected because it would require extensive busing for students living on the east side. The location represents the *mean*; just as the school is located at the center of town, the mean is located in the center of a distribution of scores. 
+- The site for a new school was selected because it provides a central location. An alternative site on the west side of town was considered, but rejected because it would require extensive busing for students living on the east side. The location represents the <u>mean</u>; just as the school is located at the center of town, the mean is located in the center of a distribution of scores. 
 
 ---
 
 ## Analogy for Mean and Standard Deviation
 
-- For each student, it is possible to measure the distance between home and the new school. Some students live only a few blocks from the new school and others lives as much as 3 miles away. Let’s say the average distance a student must travel to school was calculated to be 0.8 miles. The average distance from school represents *standard deviation*, which measures the standard distance from an individual score to the mean.
+- For each student, it is possible to measure the distance between home and the new school. Some students live only a few blocks from the new school and others live as much as 3 miles away. Let’s say the average distance a student must travel to school was calculated to be 0.8 miles. The average distance from school represents <u>standard deviation</u>, which measures the standard distance from an individual score to the mean.
 
 
 ---
