@@ -1,0 +1,56 @@
+---
+title: MHA Statistics Course - Day 1
+subtitle: Pacific University
+author: "<br> Dr. Chester Ismay <br> Email: chester@pacificu.edu"
+date: '2017/01/27 <br><br> Slides available at <font style="text-transform: lowercase;"><http://bit.ly/mha17-day1></font>'
+output: 
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: monokai
+      highlightLines: true
+    countIncrementalSlides: false
+    css: example.css
+  # revealjs::revealjs_presentation:
+  #   theme: beige
+  #   highlight: tango
+  #   center: true
+  #   fig_width: 9.5
+  #   fig_height: 4.5
+  #   fig.align: center
+  #   transition: slide
+  #   background_transition: zoom
+  #   slide_level: 1
+---
+
+layout: true
+
+.footer[These slides available at <http://bit.ly/mha17-day1>]
+
+---
+
+class: center, middle
+
+
+???
+
+
+---
+
+# Resources
+
+- [ModernDive:  An Introduction to Statistical and Data Sciences via R](http://moderndive.com/)
+
+
+---
+
+# Thanks!
+
+- Slides created via the R package [<small>`xaringan`</small>](https://github.com/yihui/xaringan) by Yihui Xie.
+
+- Email me at <chester@pacificu.edu>
+
+- Office: ETC 223
+
+- Source code for these slides is on [GitHub](https://github.com/ismayc/ismayc.github.io/tree/master/workshops/mha17) 
+
