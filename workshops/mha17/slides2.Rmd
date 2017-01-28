@@ -336,9 +336,9 @@ class: center, middle
 
 ### Match each of these tests with the problems on the previous slide
 
-- To assist, think about 
+- To assist think about 
     - how many variables are in the problem
-    - what type of variable they each are
+    - what type of variable each is
 ---
 
 ### Answers
@@ -362,7 +362,7 @@ class: center, middle
 
 - Data for this problem can be viewed interactively [here](http://ismayc.github.io/workshops/mha17/materials/difference_props.html)
 
-- The summarized data to be entered into StatKey is at the top of interactive data
+- The summarized data to be entered into StatKey is at the top of the interactive data
 
 - Back into [StatKey](http://www.lock5stat.com/StatKey/index.html)
 
@@ -415,7 +415,7 @@ class: center, middle
 
 # Reflection
 
-- What are the biggest take-aways from this workshop for you?
+- What are your biggest take-aways from this workshop?
 - What advice would you give to future workshop attendees about the workshop?
 - What did you like most about the workshop?
 - What could be improved for future workshop participants?
