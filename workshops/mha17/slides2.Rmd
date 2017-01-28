@@ -396,7 +396,6 @@ class: center, middle
 
 ### Test for Single Proportion
 
-
 - Data for this problem can be viewed interactively [here](http://ismayc.github.io/workshops/mha17/materials/one_prop.html)
 
 - The summarized data to be entered into StatKey is at the top of the interactive data
