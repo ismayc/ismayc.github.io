@@ -399,7 +399,7 @@ class: center, middle
 
 - Data for this problem can be viewed interactively [here](http://ismayc.github.io/workshops/mha17/materials/one_prop.html)
 
-- Download a CSV of this data to upload in StatKey [here](http://ismayc.github.io/workshops/mha17/materials/one_prop.csv)
+- The summarized data to be entered into StatKey is at the top of the interactive data
 
 - Back into [StatKey](http://www.lock5stat.com/StatKey/index.html)
 
