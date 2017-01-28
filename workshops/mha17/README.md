@@ -1,1 +1,1 @@
-# MHA Day 1
+# MHA Days 1 and 2

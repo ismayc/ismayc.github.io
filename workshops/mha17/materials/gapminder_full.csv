@@ -1,0 +1,1669 @@
+country,region,subRegion,year,lifeExp,pop,gdpPercap,dem_rank,basic_rank
+Afghanistan,Asia,Southern Asia,1952.0,28.801,8425333,779.4453145,Strongly Autocratic,Autocratic
+Afghanistan,Asia,Southern Asia,1957.0,30.332,9240934,820.8530296,Strongly Autocratic,Autocratic
+Afghanistan,Asia,Southern Asia,1962.0,31.997,10267083,853.10071,Strongly Autocratic,Autocratic
+Afghanistan,Asia,Southern Asia,1967.0,34.02,11537966,836.1971382,Strongly Autocratic,Autocratic
+Afghanistan,Asia,Southern Asia,1972.0,36.088,13079460,739.9811058,Strongly Autocratic,Autocratic
+Afghanistan,Asia,Southern Asia,1977.0,38.438,14880372,786.11336,Strongly Autocratic,Autocratic
+Afghanistan,Asia,Southern Asia,1982.0,39.854,12881816,978.0114388,Strongly Autocratic,Autocratic
+Afghanistan,Asia,Southern Asia,1987.0,40.822,13867957,852.3959448,Strongly Autocratic,Autocratic
+Afghanistan,Asia,Southern Asia,1992.0,41.674,16317921,649.3413952,Middle of the Road,Middle of the Road
+Afghanistan,Asia,Southern Asia,1997.0,41.763,22227415,635.341351,Strongly Autocratic,Autocratic
+Afghanistan,Asia,Southern Asia,2002.0,42.129,25268405,726.7340548,NA,NA
+Afghanistan,Asia,Southern Asia,2007.0,43.828,31889923,974.5803384,NA,NA
+Albania,Europe,Southern Europe,1952.0,55.23,1282697,1601.056136,Strongly Autocratic,Autocratic
+Albania,Europe,Southern Europe,1957.0,59.28,1476505,1942.284244,Strongly Autocratic,Autocratic
+Albania,Europe,Southern Europe,1962.0,64.82,1728137,2312.888958,Strongly Autocratic,Autocratic
+Albania,Europe,Southern Europe,1967.0,66.22,1984060,2760.196931,Strongly Autocratic,Autocratic
+Albania,Europe,Southern Europe,1972.0,67.69,2263554,3313.422188,Strongly Autocratic,Autocratic
+Albania,Europe,Southern Europe,1977.0,68.93,2509048,3533.00391,Strongly Autocratic,Autocratic
+Albania,Europe,Southern Europe,1982.0,70.42,2780097,3630.880722,Strongly Autocratic,Autocratic
+Albania,Europe,Southern Europe,1987.0,72.0,3075321,3738.932735,Strongly Autocratic,Autocratic
+Albania,Europe,Southern Europe,1992.0,71.581,3326498,2497.437901,Mildly Democratic,Democratic
+Albania,Europe,Southern Europe,1997.0,72.95,3428038,3193.054604,Mildly Democratic,Democratic
+Albania,Europe,Southern Europe,2002.0,75.651,3508512,4604.211737,Strongly Democratic,Democratic
+Albania,Europe,Southern Europe,2007.0,76.423,3600523,5937.029526,Strongly Democratic,Democratic
+Algeria,Africa,Northern Africa,1952.0,43.077,9279525,2449.008185,NA,NA
+Algeria,Africa,Northern Africa,1957.0,45.685,10270856,3013.976023,NA,NA
+Algeria,Africa,Northern Africa,1962.0,48.303,11000948,2550.81688,Strongly Autocratic,Autocratic
+Algeria,Africa,Northern Africa,1967.0,51.407,12760499,3246.991771,Strongly Autocratic,Autocratic
+Algeria,Africa,Northern Africa,1972.0,54.518,14760787,4182.663766,Strongly Autocratic,Autocratic
+Algeria,Africa,Northern Africa,1977.0,58.014,17152804,4910.416756,Strongly Autocratic,Autocratic
+Algeria,Africa,Northern Africa,1982.0,61.368,20033753,5745.160213,Strongly Autocratic,Autocratic
+Algeria,Africa,Northern Africa,1987.0,65.799,23254956,5681.358539,Strongly Autocratic,Autocratic
+Algeria,Africa,Northern Africa,1992.0,67.744,26298373,5023.216647,Strongly Autocratic,Autocratic
+Algeria,Africa,Northern Africa,1997.0,69.152,29072015,4797.295051,Mildly Autocratic,Autocratic
+Algeria,Africa,Northern Africa,2002.0,70.994,31287142,5288.040382,Mildly Autocratic,Autocratic
+Algeria,Africa,Northern Africa,2007.0,72.301,33333216,6223.367465,Middle of the Road,Middle of the Road
+Angola,Africa,Middle Africa,1952.0,30.015,4232095,3520.610273,NA,NA
+Angola,Africa,Middle Africa,1957.0,31.999,4561361,3827.940465,NA,NA
+Angola,Africa,Middle Africa,1962.0,34.0,4826015,4269.276742,NA,NA
+Angola,Africa,Middle Africa,1967.0,35.985,5247469,5522.776375,NA,NA
+Angola,Africa,Middle Africa,1972.0,37.928,5894858,5473.288005,NA,NA
+Angola,Africa,Middle Africa,1977.0,39.483,6162675,3008.647355,Strongly Autocratic,Autocratic
+Angola,Africa,Middle Africa,1982.0,39.942,7016384,2756.953672,Strongly Autocratic,Autocratic
+Angola,Africa,Middle Africa,1987.0,39.906,7874230,2430.208311,Strongly Autocratic,Autocratic
+Angola,Africa,Middle Africa,1992.0,40.647,8735988,2627.845685,Middle of the Road,Middle of the Road
+Angola,Africa,Middle Africa,1997.0,40.963,9875024,2277.140884,Mildly Autocratic,Autocratic
+Angola,Africa,Middle Africa,2002.0,41.003,10866106,2773.287312,Middle of the Road,Middle of the Road
+Angola,Africa,Middle Africa,2007.0,42.731,12420476,4797.231267,Middle of the Road,Middle of the Road
+Argentina,Americas,South America,1952.0,62.485,17876956,5911.315053,Strongly Autocratic,Autocratic
+Argentina,Americas,South America,1957.0,64.399,19610538,6856.856212,Middle of the Road,Middle of the Road
+Argentina,Americas,South America,1962.0,65.142,21283783,7133.166023,Middle of the Road,Middle of the Road
+Argentina,Americas,South America,1967.0,65.634,22934225,8052.953021,Strongly Autocratic,Autocratic
+Argentina,Americas,South America,1972.0,67.065,24779799,9443.038526,Strongly Autocratic,Autocratic
+Argentina,Americas,South America,1977.0,68.481,26983828,10079.02674,Strongly Autocratic,Autocratic
+Argentina,Americas,South America,1982.0,69.942,29341374,8997.897412,Strongly Autocratic,Autocratic
+Argentina,Americas,South America,1987.0,70.774,31620918,9139.671389,Strongly Democratic,Democratic
+Argentina,Americas,South America,1992.0,71.868,33958947,9308.41871,Strongly Democratic,Democratic
+Argentina,Americas,South America,1997.0,73.275,36203463,10967.28195,Strongly Democratic,Democratic
+Argentina,Americas,South America,2002.0,74.34,38331121,8797.640716,Strongly Democratic,Democratic
+Argentina,Americas,South America,2007.0,75.32,40301927,12779.37964,Strongly Democratic,Democratic
+Australia,Oceania,Australia and New Zealand,1952.0,69.12,8691212,10039.59564,Strongly Democratic,Democratic
+Australia,Oceania,Australia and New Zealand,1957.0,70.33,9712569,10949.64959,Strongly Democratic,Democratic
+Australia,Oceania,Australia and New Zealand,1962.0,70.93,10794968,12217.22686,Strongly Democratic,Democratic
+Australia,Oceania,Australia and New Zealand,1967.0,71.1,11872264,14526.12465,Strongly Democratic,Democratic
+Australia,Oceania,Australia and New Zealand,1972.0,71.93,13177000,16788.62948,Strongly Democratic,Democratic
+Australia,Oceania,Australia and New Zealand,1977.0,73.49,14074100,18334.19751,Strongly Democratic,Democratic
+Australia,Oceania,Australia and New Zealand,1982.0,74.74,15184200,19477.00928,Strongly Democratic,Democratic
+Australia,Oceania,Australia and New Zealand,1987.0,76.32,16257249,21888.88903,Strongly Democratic,Democratic
+Australia,Oceania,Australia and New Zealand,1992.0,77.56,17481977,23424.76683,Strongly Democratic,Democratic
+Australia,Oceania,Australia and New Zealand,1997.0,78.83,18565243,26997.93657,Strongly Democratic,Democratic
+Australia,Oceania,Australia and New Zealand,2002.0,80.37,19546792,30687.75473,Strongly Democratic,Democratic
+Australia,Oceania,Australia and New Zealand,2007.0,81.235,20434176,34435.36744,Strongly Democratic,Democratic
+Austria,Europe,Western Europe,1952.0,66.8,6927772,6137.076492,Strongly Democratic,Democratic
+Austria,Europe,Western Europe,1957.0,67.48,6965860,8842.59803,Strongly Democratic,Democratic
+Austria,Europe,Western Europe,1962.0,69.54,7129864,10750.72111,Strongly Democratic,Democratic
+Austria,Europe,Western Europe,1967.0,70.14,7376998,12834.6024,Strongly Democratic,Democratic
+Austria,Europe,Western Europe,1972.0,70.63,7544201,16661.6256,Strongly Democratic,Democratic
+Austria,Europe,Western Europe,1977.0,72.17,7568430,19749.4223,Strongly Democratic,Democratic
+Austria,Europe,Western Europe,1982.0,73.18,7574613,21597.08362,Strongly Democratic,Democratic
+Austria,Europe,Western Europe,1987.0,74.94,7578903,23687.82607,Strongly Democratic,Democratic
+Austria,Europe,Western Europe,1992.0,76.04,7914969,27042.01868,Strongly Democratic,Democratic
+Austria,Europe,Western Europe,1997.0,77.51,8069876,29095.92066,Strongly Democratic,Democratic
+Austria,Europe,Western Europe,2002.0,78.98,8148312,32417.60769,Strongly Democratic,Democratic
+Austria,Europe,Western Europe,2007.0,79.829,8199783,36126.4927,Strongly Democratic,Democratic
+Bahrain,Asia,Western Asia,1952.0,50.939,120447,9867.084765,NA,NA
+Bahrain,Asia,Western Asia,1957.0,53.832,138655,11635.79945,NA,NA
+Bahrain,Asia,Western Asia,1962.0,56.923,171863,12753.27514,NA,NA
+Bahrain,Asia,Western Asia,1967.0,59.923,202182,14804.6727,NA,NA
+Bahrain,Asia,Western Asia,1972.0,63.3,230800,18268.65839,Strongly Autocratic,Autocratic
+Bahrain,Asia,Western Asia,1977.0,65.593,297410,19340.10196,Strongly Autocratic,Autocratic
+Bahrain,Asia,Western Asia,1982.0,69.052,377967,19211.14731,Strongly Autocratic,Autocratic
+Bahrain,Asia,Western Asia,1987.0,70.75,454612,18524.02406,Strongly Autocratic,Autocratic
+Bahrain,Asia,Western Asia,1992.0,72.601,529491,19035.57917,Strongly Autocratic,Autocratic
+Bahrain,Asia,Western Asia,1997.0,73.925,598561,20292.01679,Strongly Autocratic,Autocratic
+Bahrain,Asia,Western Asia,2002.0,74.795,656397,23403.55927,Strongly Autocratic,Autocratic
+Bahrain,Asia,Western Asia,2007.0,75.635,708573,29796.04834,Strongly Autocratic,Autocratic
+Bangladesh,Asia,Southern Asia,1952.0,37.484,46886859,684.2441716,NA,NA
+Bangladesh,Asia,Southern Asia,1957.0,39.348,51365468,661.6374577,NA,NA
+Bangladesh,Asia,Southern Asia,1962.0,41.216,56839289,686.3415538,NA,NA
+Bangladesh,Asia,Southern Asia,1967.0,43.453,62821884,721.1860862,NA,NA
+Bangladesh,Asia,Southern Asia,1972.0,45.252,70759295,630.2336265,Strongly Democratic,Democratic
+Bangladesh,Asia,Southern Asia,1977.0,46.923,80428306,659.8772322,Strongly Autocratic,Autocratic
+Bangladesh,Asia,Southern Asia,1982.0,50.009,93074406,676.9818656,Strongly Autocratic,Autocratic
+Bangladesh,Asia,Southern Asia,1987.0,52.819,103764241,751.9794035,Mildly Autocratic,Autocratic
+Bangladesh,Asia,Southern Asia,1992.0,56.018,113704579,837.8101643,Mildly Democratic,Democratic
+Bangladesh,Asia,Southern Asia,1997.0,59.412,123315288,972.7700352,Mildly Democratic,Democratic
+Bangladesh,Asia,Southern Asia,2002.0,62.013,135656790,1136.39043,Mildly Democratic,Democratic
+Bangladesh,Asia,Southern Asia,2007.0,64.062,150448339,1391.253792,Mildly Autocratic,Autocratic
+Belgium,Europe,Western Europe,1952.0,68.0,8730405,8343.105127,Strongly Democratic,Democratic
+Belgium,Europe,Western Europe,1957.0,69.24,8989111,9714.960623,Strongly Democratic,Democratic
+Belgium,Europe,Western Europe,1962.0,70.25,9218400,10991.20676,Strongly Democratic,Democratic
+Belgium,Europe,Western Europe,1967.0,70.94,9556500,13149.04119,Strongly Democratic,Democratic
+Belgium,Europe,Western Europe,1972.0,71.44,9709100,16672.14356,Strongly Democratic,Democratic
+Belgium,Europe,Western Europe,1977.0,72.8,9821800,19117.97448,Strongly Democratic,Democratic
+Belgium,Europe,Western Europe,1982.0,73.93,9856303,20979.84589,Strongly Democratic,Democratic
+Belgium,Europe,Western Europe,1987.0,75.35,9870200,22525.56308,Strongly Democratic,Democratic
+Belgium,Europe,Western Europe,1992.0,76.46,10045622,25575.57069,Strongly Democratic,Democratic
+Belgium,Europe,Western Europe,1997.0,77.53,10199787,27561.19663,Strongly Democratic,Democratic
+Belgium,Europe,Western Europe,2002.0,78.32,10311970,30485.88375,Strongly Democratic,Democratic
+Belgium,Europe,Western Europe,2007.0,79.441,10392226,33692.60508,Strongly Democratic,Democratic
+Benin,Africa,Western Africa,1952.0,38.223,1738315,1062.7522,NA,NA
+Benin,Africa,Western Africa,1957.0,40.358,1925173,959.6010805,NA,NA
+Benin,Africa,Western Africa,1962.0,42.618,2151895,949.4990641,Middle of the Road,Middle of the Road
+Benin,Africa,Western Africa,1967.0,44.885,2427334,1035.831411,Strongly Autocratic,Autocratic
+Benin,Africa,Western Africa,1972.0,47.014,2761407,1085.796879,Strongly Autocratic,Autocratic
+Benin,Africa,Western Africa,1977.0,49.19,3168267,1029.161251,Strongly Autocratic,Autocratic
+Benin,Africa,Western Africa,1982.0,50.904,3641603,1277.897616,Strongly Autocratic,Autocratic
+Benin,Africa,Western Africa,1987.0,52.337,4243788,1225.85601,Strongly Autocratic,Autocratic
+Benin,Africa,Western Africa,1992.0,53.919,4981671,1191.207681,Mildly Democratic,Democratic
+Benin,Africa,Western Africa,1997.0,54.777,6066080,1232.975292,Mildly Democratic,Democratic
+Benin,Africa,Western Africa,2002.0,54.406,7026113,1372.877931,Mildly Democratic,Democratic
+Benin,Africa,Western Africa,2007.0,56.728,8078314,1441.284873,Strongly Democratic,Democratic
+Bolivia,Americas,South America,1952.0,40.414,2883315,2677.326347,Mildly Autocratic,Autocratic
+Bolivia,Americas,South America,1957.0,41.89,3211738,2127.686326,Mildly Autocratic,Autocratic
+Bolivia,Americas,South America,1962.0,43.428,3593918,2180.972546,Mildly Autocratic,Autocratic
+Bolivia,Americas,South America,1967.0,45.032,4040665,2586.886053,Mildly Autocratic,Autocratic
+Bolivia,Americas,South America,1972.0,46.714,4565872,2980.331339,Strongly Autocratic,Autocratic
+Bolivia,Americas,South America,1977.0,50.023,5079716,3548.097832,Strongly Autocratic,Autocratic
+Bolivia,Americas,South America,1982.0,53.859,5642224,3156.510452,Strongly Democratic,Democratic
+Bolivia,Americas,South America,1987.0,57.251,6156369,2753.69149,Strongly Democratic,Democratic
+Bolivia,Americas,South America,1992.0,59.957,6893451,2961.699694,Strongly Democratic,Democratic
+Bolivia,Americas,South America,1997.0,62.05,7693188,3326.143191,Strongly Democratic,Democratic
+Bolivia,Americas,South America,2002.0,63.883,8445134,3413.26269,Strongly Democratic,Democratic
+Bolivia,Americas,South America,2007.0,65.554,9119152,3822.137084,Strongly Democratic,Democratic
+Bosnia and Herzegovina,Europe,Southern Europe,1952.0,53.82,2791000,973.5331948,Strongly Autocratic,Autocratic
+Bosnia and Herzegovina,Europe,Southern Europe,1957.0,58.45,3076000,1353.989176,Strongly Autocratic,Autocratic
+Bosnia and Herzegovina,Europe,Southern Europe,1962.0,61.93,3349000,1709.683679,Strongly Autocratic,Autocratic
+Bosnia and Herzegovina,Europe,Southern Europe,1967.0,64.79,3585000,2172.352423,Strongly Autocratic,Autocratic
+Bosnia and Herzegovina,Europe,Southern Europe,1972.0,67.45,3819000,2860.16975,Strongly Autocratic,Autocratic
+Bosnia and Herzegovina,Europe,Southern Europe,1977.0,69.86,4086000,3528.481305,Strongly Autocratic,Autocratic
+Bosnia and Herzegovina,Europe,Southern Europe,1982.0,70.69,4172693,4126.613157,Mildly Autocratic,Autocratic
+Bosnia and Herzegovina,Europe,Southern Europe,1987.0,71.14,4338977,4314.114757,Mildly Autocratic,Autocratic
+Bosnia and Herzegovina,Europe,Southern Europe,1992.0,72.178,4256013,2546.781445,Middle of the Road,Middle of the Road
+Bosnia and Herzegovina,Europe,Southern Europe,1997.0,73.244,3607000,4766.355904,NA,NA
+Bosnia and Herzegovina,Europe,Southern Europe,2002.0,74.09,4165416,6018.975239,NA,NA
+Bosnia and Herzegovina,Europe,Southern Europe,2007.0,74.852,4552198,7446.298803,NA,NA
+Botswana,Africa,Southern Africa,1952.0,47.622,442308,851.2411407,NA,NA
+Botswana,Africa,Southern Africa,1957.0,49.618,474639,918.2325349,NA,NA
+Botswana,Africa,Southern Africa,1962.0,51.52,512764,983.6539764,NA,NA
+Botswana,Africa,Southern Africa,1967.0,53.298,553541,1214.709294,Mildly Democratic,Democratic
+Botswana,Africa,Southern Africa,1972.0,56.024,619351,2263.611114,Mildly Democratic,Democratic
+Botswana,Africa,Southern Africa,1977.0,59.319,781472,3214.857818,Mildly Democratic,Democratic
+Botswana,Africa,Southern Africa,1982.0,61.484,970347,4551.14215,Mildly Democratic,Democratic
+Botswana,Africa,Southern Africa,1987.0,63.622,1151184,6205.88385,Strongly Democratic,Democratic
+Botswana,Africa,Southern Africa,1992.0,62.745,1342614,7954.111645,Strongly Democratic,Democratic
+Botswana,Africa,Southern Africa,1997.0,52.556,1536536,8647.142313,Strongly Democratic,Democratic
+Botswana,Africa,Southern Africa,2002.0,46.634,1630347,11003.60508,Strongly Democratic,Democratic
+Botswana,Africa,Southern Africa,2007.0,50.728,1639131,12569.85177,Strongly Democratic,Democratic
+Brazil,Americas,South America,1952.0,50.917,56602560,2108.944355,Mildly Democratic,Democratic
+Brazil,Americas,South America,1957.0,53.285,65551171,2487.365989,Mildly Democratic,Democratic
+Brazil,Americas,South America,1962.0,55.665,76039390,3336.585802,Mildly Democratic,Democratic
+Brazil,Americas,South America,1967.0,57.632,88049823,3429.864357,Strongly Autocratic,Autocratic
+Brazil,Americas,South America,1972.0,59.504,100840058,4985.711467,Strongly Autocratic,Autocratic
+Brazil,Americas,South America,1977.0,61.489,114313951,6660.118654,Mildly Autocratic,Autocratic
+Brazil,Americas,South America,1982.0,63.336,128962939,7030.835878,Mildly Autocratic,Autocratic
+Brazil,Americas,South America,1987.0,65.205,142938076,7807.095818,Strongly Democratic,Democratic
+Brazil,Americas,South America,1992.0,67.057,155975974,6950.283021,Strongly Democratic,Democratic
+Brazil,Americas,South America,1997.0,69.388,168546719,7957.980824,Strongly Democratic,Democratic
+Brazil,Americas,South America,2002.0,71.006,179914212,8131.212843,Strongly Democratic,Democratic
+Brazil,Americas,South America,2007.0,72.39,190010647,9065.800825,Strongly Democratic,Democratic
+Bulgaria,Europe,Eastern Europe,1952.0,59.6,7274900,2444.286648,Strongly Autocratic,Autocratic
+Bulgaria,Europe,Eastern Europe,1957.0,66.61,7651254,3008.670727,Strongly Autocratic,Autocratic
+Bulgaria,Europe,Eastern Europe,1962.0,69.51,8012946,4254.337839,Strongly Autocratic,Autocratic
+Bulgaria,Europe,Eastern Europe,1967.0,70.42,8310226,5577.0028,Strongly Autocratic,Autocratic
+Bulgaria,Europe,Eastern Europe,1972.0,70.9,8576200,6597.494398,Strongly Autocratic,Autocratic
+Bulgaria,Europe,Eastern Europe,1977.0,70.81,8797022,7612.240438,Strongly Autocratic,Autocratic
+Bulgaria,Europe,Eastern Europe,1982.0,71.08,8892098,8224.191647,Strongly Autocratic,Autocratic
+Bulgaria,Europe,Eastern Europe,1987.0,71.34,8971958,8239.854824,Strongly Autocratic,Autocratic
+Bulgaria,Europe,Eastern Europe,1992.0,71.19,8658506,6302.623438,Strongly Democratic,Democratic
+Bulgaria,Europe,Eastern Europe,1997.0,70.32,8066057,5970.38876,Strongly Democratic,Democratic
+Bulgaria,Europe,Eastern Europe,2002.0,72.14,7661799,7696.777725,Strongly Democratic,Democratic
+Bulgaria,Europe,Eastern Europe,2007.0,73.005,7322858,10680.79282,Strongly Democratic,Democratic
+Burkina Faso,Africa,Western Africa,1952.0,31.975,4469979,543.2552413,NA,NA
+Burkina Faso,Africa,Western Africa,1957.0,34.906,4713416,617.1834648,NA,NA
+Burkina Faso,Africa,Western Africa,1962.0,37.814,4919632,722.5120206,Strongly Autocratic,Autocratic
+Burkina Faso,Africa,Western Africa,1967.0,40.697,5127935,794.8265597,Strongly Autocratic,Autocratic
+Burkina Faso,Africa,Western Africa,1972.0,43.591,5433886,854.7359763,Mildly Autocratic,Autocratic
+Burkina Faso,Africa,Western Africa,1977.0,46.137,5889574,743.3870368,Middle of the Road,Middle of the Road
+Burkina Faso,Africa,Western Africa,1982.0,48.122,6634596,807.1985855,Strongly Autocratic,Autocratic
+Burkina Faso,Africa,Western Africa,1987.0,49.557,7586551,912.0631417,Strongly Autocratic,Autocratic
+Burkina Faso,Africa,Western Africa,1992.0,50.26,8878303,931.7527731,Mildly Autocratic,Autocratic
+Burkina Faso,Africa,Western Africa,1997.0,50.324,10352843,946.2949618,Mildly Autocratic,Autocratic
+Burkina Faso,Africa,Western Africa,2002.0,50.65,12251209,1037.645221,Middle of the Road,Middle of the Road
+Burkina Faso,Africa,Western Africa,2007.0,52.295,14326203,1217.032994,Middle of the Road,Middle of the Road
+Burundi,Africa,Eastern Africa,1952.0,39.031,2445618,339.2964587,NA,NA
+Burundi,Africa,Eastern Africa,1957.0,40.533,2667518,379.5646281,NA,NA
+Burundi,Africa,Eastern Africa,1962.0,42.045,2961915,355.2032273,Middle of the Road,Middle of the Road
+Burundi,Africa,Eastern Africa,1967.0,43.548,3330989,412.9775136,Strongly Autocratic,Autocratic
+Burundi,Africa,Eastern Africa,1972.0,44.057,3529983,464.0995039,Strongly Autocratic,Autocratic
+Burundi,Africa,Eastern Africa,1977.0,45.91,3834415,556.1032651,Strongly Autocratic,Autocratic
+Burundi,Africa,Eastern Africa,1982.0,47.471,4580410,559.603231,Strongly Autocratic,Autocratic
+Burundi,Africa,Eastern Africa,1987.0,48.211,5126023,621.8188189,Strongly Autocratic,Autocratic
+Burundi,Africa,Eastern Africa,1992.0,44.736,5809236,631.6998778,Mildly Autocratic,Autocratic
+Burundi,Africa,Eastern Africa,1997.0,45.326,6121610,463.1151478,Mildly Autocratic,Autocratic
+Burundi,Africa,Eastern Africa,2002.0,47.36,7021078,446.4035126,Middle of the Road,Middle of the Road
+Burundi,Africa,Eastern Africa,2007.0,49.58,8390505,430.0706916,Mildly Democratic,Democratic
+Cambodia,Asia,South-Eastern Asia,1952.0,39.417,4693836,368.4692856,NA,NA
+Cambodia,Asia,South-Eastern Asia,1957.0,41.366,5322536,434.0383364,Strongly Autocratic,Autocratic
+Cambodia,Asia,South-Eastern Asia,1962.0,43.415,6083619,496.9136476,Strongly Autocratic,Autocratic
+Cambodia,Asia,South-Eastern Asia,1967.0,45.415,6960067,523.4323142,Strongly Autocratic,Autocratic
+Cambodia,Asia,South-Eastern Asia,1972.0,40.317,7450606,421.6240257,Mildly Autocratic,Autocratic
+Cambodia,Asia,South-Eastern Asia,1977.0,31.22,6978607,524.9721832,Strongly Autocratic,Autocratic
+Cambodia,Asia,South-Eastern Asia,1982.0,50.957,7272485,624.4754784,Mildly Autocratic,Autocratic
+Cambodia,Asia,South-Eastern Asia,1987.0,53.914,8371791,683.8955732,Middle of the Road,Middle of the Road
+Cambodia,Asia,South-Eastern Asia,1992.0,55.803,10150094,682.3031755,Middle of the Road,Middle of the Road
+Cambodia,Asia,South-Eastern Asia,1997.0,56.534,11782962,734.28517,Strongly Autocratic,Autocratic
+Cambodia,Asia,South-Eastern Asia,2002.0,56.752,12926707,896.2260153,Middle of the Road,Middle of the Road
+Cambodia,Asia,South-Eastern Asia,2007.0,59.723,14131858,1713.778686,Middle of the Road,Middle of the Road
+Cameroon,Africa,Middle Africa,1952.0,38.523,5009067,1172.667655,NA,NA
+Cameroon,Africa,Middle Africa,1957.0,40.428,5359923,1313.048099,NA,NA
+Cameroon,Africa,Middle Africa,1962.0,42.643,5793633,1399.607441,Mildly Autocratic,Autocratic
+Cameroon,Africa,Middle Africa,1967.0,44.799,6335506,1508.453148,Strongly Autocratic,Autocratic
+Cameroon,Africa,Middle Africa,1972.0,47.049,7021028,1684.146528,Strongly Autocratic,Autocratic
+Cameroon,Africa,Middle Africa,1977.0,49.355,7959865,1783.432873,Strongly Autocratic,Autocratic
+Cameroon,Africa,Middle Africa,1982.0,52.961,9250831,2367.983282,Strongly Autocratic,Autocratic
+Cameroon,Africa,Middle Africa,1987.0,54.985,10780667,2602.664206,Strongly Autocratic,Autocratic
+Cameroon,Africa,Middle Africa,1992.0,54.314,12467171,1793.163278,Mildly Autocratic,Autocratic
+Cameroon,Africa,Middle Africa,1997.0,52.199,14195809,1694.337469,Mildly Autocratic,Autocratic
+Cameroon,Africa,Middle Africa,2002.0,49.856,15929988,1934.011449,Mildly Autocratic,Autocratic
+Cameroon,Africa,Middle Africa,2007.0,50.43,17696293,2042.09524,Mildly Autocratic,Autocratic
+Canada,Americas,Northern America,1952.0,68.75,14785584,11367.16112,Strongly Democratic,Democratic
+Canada,Americas,Northern America,1957.0,69.96,17010154,12489.95006,Strongly Democratic,Democratic
+Canada,Americas,Northern America,1962.0,71.3,18985849,13462.48555,Strongly Democratic,Democratic
+Canada,Americas,Northern America,1967.0,72.13,20819767,16076.58803,Strongly Democratic,Democratic
+Canada,Americas,Northern America,1972.0,72.88,22284500,18970.57086,Strongly Democratic,Democratic
+Canada,Americas,Northern America,1977.0,74.21,23796400,22090.88306,Strongly Democratic,Democratic
+Canada,Americas,Northern America,1982.0,75.76,25201900,22898.79214,Strongly Democratic,Democratic
+Canada,Americas,Northern America,1987.0,76.86,26549700,26626.51503,Strongly Democratic,Democratic
+Canada,Americas,Northern America,1992.0,77.95,28523502,26342.88426,Strongly Democratic,Democratic
+Canada,Americas,Northern America,1997.0,78.61,30305843,28954.92589,Strongly Democratic,Democratic
+Canada,Americas,Northern America,2002.0,79.77,31902268,33328.96507,Strongly Democratic,Democratic
+Canada,Americas,Northern America,2007.0,80.653,33390141,36319.23501,Strongly Democratic,Democratic
+Chad,Africa,Middle Africa,1952.0,38.092,2682462,1178.665927,NA,NA
+Chad,Africa,Middle Africa,1957.0,39.881,2894855,1308.495577,NA,NA
+Chad,Africa,Middle Africa,1962.0,41.716,3150417,1389.817618,Strongly Autocratic,Autocratic
+Chad,Africa,Middle Africa,1967.0,43.601,3495967,1196.810565,Strongly Autocratic,Autocratic
+Chad,Africa,Middle Africa,1972.0,45.569,3899068,1104.103987,Strongly Autocratic,Autocratic
+Chad,Africa,Middle Africa,1977.0,47.383,4388260,1133.98495,Strongly Autocratic,Autocratic
+Chad,Africa,Middle Africa,1982.0,49.517,4875118,797.9081006,Middle of the Road,Middle of the Road
+Chad,Africa,Middle Africa,1987.0,51.051,5498955,952.386129,Strongly Autocratic,Autocratic
+Chad,Africa,Middle Africa,1992.0,51.724,6429417,1058.0643,Mildly Autocratic,Autocratic
+Chad,Africa,Middle Africa,1997.0,51.573,7562011,1004.961353,Middle of the Road,Middle of the Road
+Chad,Africa,Middle Africa,2002.0,50.525,8835739,1156.18186,Middle of the Road,Middle of the Road
+Chad,Africa,Middle Africa,2007.0,50.651,10238807,1704.063724,Middle of the Road,Middle of the Road
+Chile,Americas,South America,1952.0,54.745,6377619,3939.978789,Middle of the Road,Middle of the Road
+Chile,Americas,South America,1957.0,56.074,7048426,4315.622723,Mildly Democratic,Democratic
+Chile,Americas,South America,1962.0,57.924,7961258,4519.094331,Mildly Democratic,Democratic
+Chile,Americas,South America,1967.0,60.523,8858908,5106.654313,Mildly Democratic,Democratic
+Chile,Americas,South America,1972.0,63.441,9717524,5494.024437,Mildly Democratic,Democratic
+Chile,Americas,South America,1977.0,67.052,10599793,4756.763836,Strongly Autocratic,Autocratic
+Chile,Americas,South America,1982.0,70.565,11487112,5095.665738,Strongly Autocratic,Autocratic
+Chile,Americas,South America,1987.0,72.492,12463354,5547.063754,Mildly Autocratic,Autocratic
+Chile,Americas,South America,1992.0,74.126,13572994,7596.125964,Strongly Democratic,Democratic
+Chile,Americas,South America,1997.0,75.816,14599929,10118.05318,Strongly Democratic,Democratic
+Chile,Americas,South America,2002.0,77.86,15497046,10778.78385,Strongly Democratic,Democratic
+Chile,Americas,South America,2007.0,78.553,16284741,13171.63885,Strongly Democratic,Democratic
+China,Asia,Eastern Asia,1952.0,44.0,556263527,400.448611,Strongly Autocratic,Autocratic
+China,Asia,Eastern Asia,1957.0,50.54896,637408000,575.9870009,Strongly Autocratic,Autocratic
+China,Asia,Eastern Asia,1962.0,44.50136,665770000,487.6740183,Strongly Autocratic,Autocratic
+China,Asia,Eastern Asia,1967.0,58.38112,754550000,612.7056934,Strongly Autocratic,Autocratic
+China,Asia,Eastern Asia,1972.0,63.11888,862030000,676.9000921,Strongly Autocratic,Autocratic
+China,Asia,Eastern Asia,1977.0,63.96736,943455000,741.2374699,Strongly Autocratic,Autocratic
+China,Asia,Eastern Asia,1982.0,65.525,1000281000,962.4213805,Strongly Autocratic,Autocratic
+China,Asia,Eastern Asia,1987.0,67.274,1084035000,1378.904018,Strongly Autocratic,Autocratic
+China,Asia,Eastern Asia,1992.0,68.69,1164970000,1655.784158,Strongly Autocratic,Autocratic
+China,Asia,Eastern Asia,1997.0,70.426,1230075000,2289.234136,Strongly Autocratic,Autocratic
+China,Asia,Eastern Asia,2002.0,72.028,1280400000,3119.280896,Strongly Autocratic,Autocratic
+China,Asia,Eastern Asia,2007.0,72.961,1318683096,4959.114854,Strongly Autocratic,Autocratic
+Colombia,Americas,South America,1952.0,50.643,12350771,2144.115096,Mildly Autocratic,Autocratic
+Colombia,Americas,South America,1957.0,55.118,14485993,2323.805581,Strongly Democratic,Democratic
+Colombia,Americas,South America,1962.0,57.863,17009885,2492.351109,Strongly Democratic,Democratic
+Colombia,Americas,South America,1967.0,59.963,19764027,2678.729839,Strongly Democratic,Democratic
+Colombia,Americas,South America,1972.0,61.623,22542890,3264.660041,Strongly Democratic,Democratic
+Colombia,Americas,South America,1977.0,63.837,25094412,3815.80787,Strongly Democratic,Democratic
+Colombia,Americas,South America,1982.0,66.653,27764644,4397.575659,Strongly Democratic,Democratic
+Colombia,Americas,South America,1987.0,67.768,30964245,4903.2191,Strongly Democratic,Democratic
+Colombia,Americas,South America,1992.0,68.421,34202721,5444.648617,Strongly Democratic,Democratic
+Colombia,Americas,South America,1997.0,70.313,37657830,6117.361746,Strongly Democratic,Democratic
+Colombia,Americas,South America,2002.0,71.682,41008227,5755.259962,Strongly Democratic,Democratic
+Colombia,Americas,South America,2007.0,72.889,44227550,7006.580419,Strongly Democratic,Democratic
+Comoros,Africa,Eastern Africa,1952.0,40.715,153936,1102.990936,NA,NA
+Comoros,Africa,Eastern Africa,1957.0,42.46,170928,1211.148548,NA,NA
+Comoros,Africa,Eastern Africa,1962.0,44.467,191689,1406.648278,NA,NA
+Comoros,Africa,Eastern Africa,1967.0,46.472,217378,1876.029643,NA,NA
+Comoros,Africa,Eastern Africa,1972.0,48.944,250027,1937.577675,NA,NA
+Comoros,Africa,Eastern Africa,1977.0,50.939,304739,1172.603047,Mildly Autocratic,Autocratic
+Comoros,Africa,Eastern Africa,1982.0,52.933,348643,1267.100083,Mildly Autocratic,Autocratic
+Comoros,Africa,Eastern Africa,1987.0,54.926,395114,1315.980812,Strongly Autocratic,Autocratic
+Comoros,Africa,Eastern Africa,1992.0,57.939,454429,1246.90737,Mildly Democratic,Democratic
+Comoros,Africa,Eastern Africa,1997.0,60.66,527982,1173.618235,Mildly Democratic,Democratic
+Comoros,Africa,Eastern Africa,2002.0,62.974,614382,1075.811558,Mildly Democratic,Democratic
+Comoros,Africa,Eastern Africa,2007.0,65.152,710960,986.1478792,Strongly Democratic,Democratic
+"Congo, Dem. Rep.",Africa,Middle Africa,1952.0,39.143,14100005,780.5423257,NA,NA
+"Congo, Dem. Rep.",Africa,Middle Africa,1957.0,40.652,15577932,905.8602303,NA,NA
+"Congo, Dem. Rep.",Africa,Middle Africa,1962.0,42.122,17486434,896.3146335,Middle of the Road,Middle of the Road
+"Congo, Dem. Rep.",Africa,Middle Africa,1967.0,44.056,19941073,861.5932424,Strongly Autocratic,Autocratic
+"Congo, Dem. Rep.",Africa,Middle Africa,1972.0,45.989,23007669,904.8960685,Strongly Autocratic,Autocratic
+"Congo, Dem. Rep.",Africa,Middle Africa,1977.0,47.804,26480870,795.757282,Strongly Autocratic,Autocratic
+"Congo, Dem. Rep.",Africa,Middle Africa,1982.0,47.784,30646495,673.7478181,Strongly Autocratic,Autocratic
+"Congo, Dem. Rep.",Africa,Middle Africa,1987.0,47.412,35481645,672.774812,Strongly Autocratic,Autocratic
+"Congo, Dem. Rep.",Africa,Middle Africa,1992.0,45.548,41672143,457.7191807,Middle of the Road,Middle of the Road
+"Congo, Dem. Rep.",Africa,Middle Africa,1997.0,42.587,47798986,312.188423,Middle of the Road,Middle of the Road
+"Congo, Dem. Rep.",Africa,Middle Africa,2002.0,44.966,55379852,241.1658765,Middle of the Road,Middle of the Road
+"Congo, Dem. Rep.",Africa,Middle Africa,2007.0,46.462,64606759,277.5518587,Mildly Democratic,Democratic
+"Congo, Rep.",Africa,Middle Africa,1952.0,42.111,854885,2125.621418,NA,NA
+"Congo, Rep.",Africa,Middle Africa,1957.0,45.053,940458,2315.056572,NA,NA
+"Congo, Rep.",Africa,Middle Africa,1962.0,48.435,1047924,2464.783157,Mildly Democratic,Democratic
+"Congo, Rep.",Africa,Middle Africa,1967.0,52.04,1179760,2677.939642,Strongly Autocratic,Autocratic
+"Congo, Rep.",Africa,Middle Africa,1972.0,54.907,1340458,3213.152683,Strongly Autocratic,Autocratic
+"Congo, Rep.",Africa,Middle Africa,1977.0,55.625,1536769,3259.178978,Strongly Autocratic,Autocratic
+"Congo, Rep.",Africa,Middle Africa,1982.0,56.695,1774735,4879.507522,Strongly Autocratic,Autocratic
+"Congo, Rep.",Africa,Middle Africa,1987.0,57.47,2064095,4201.194937,Strongly Autocratic,Autocratic
+"Congo, Rep.",Africa,Middle Africa,1992.0,56.433,2409073,4016.239529,Mildly Democratic,Democratic
+"Congo, Rep.",Africa,Middle Africa,1997.0,52.962,2800947,3484.164376,Mildly Autocratic,Autocratic
+"Congo, Rep.",Africa,Middle Africa,2002.0,52.97,3328795,3484.06197,Mildly Autocratic,Autocratic
+"Congo, Rep.",Africa,Middle Africa,2007.0,55.322,3800610,3632.557798,Mildly Autocratic,Autocratic
+Costa Rica,Americas,Central America,1952.0,57.206,926317,2627.009471,Strongly Democratic,Democratic
+Costa Rica,Americas,Central America,1957.0,60.026,1112300,2990.010802,Strongly Democratic,Democratic
+Costa Rica,Americas,Central America,1962.0,62.842,1345187,3460.937025,Strongly Democratic,Democratic
+Costa Rica,Americas,Central America,1967.0,65.424,1588717,4161.727834,Strongly Democratic,Democratic
+Costa Rica,Americas,Central America,1972.0,67.849,1834796,5118.146939,Strongly Democratic,Democratic
+Costa Rica,Americas,Central America,1977.0,70.75,2108457,5926.876967,Strongly Democratic,Democratic
+Costa Rica,Americas,Central America,1982.0,73.45,2424367,5262.734751,Strongly Democratic,Democratic
+Costa Rica,Americas,Central America,1987.0,74.752,2799811,5629.915318,Strongly Democratic,Democratic
+Costa Rica,Americas,Central America,1992.0,75.713,3173216,6160.416317,Strongly Democratic,Democratic
+Costa Rica,Americas,Central America,1997.0,77.26,3518107,6677.045314,Strongly Democratic,Democratic
+Costa Rica,Americas,Central America,2002.0,78.123,3834934,7723.447195,Strongly Democratic,Democratic
+Costa Rica,Americas,Central America,2007.0,78.782,4133884,9645.06142,Strongly Democratic,Democratic
+Cote d'Ivoire,Africa,Western Africa,1952.0,40.477,2977019,1388.594732,NA,NA
+Cote d'Ivoire,Africa,Western Africa,1957.0,42.469,3300000,1500.895925,NA,NA
+Cote d'Ivoire,Africa,Western Africa,1962.0,44.93,3832408,1728.869428,Strongly Autocratic,Autocratic
+Cote d'Ivoire,Africa,Western Africa,1967.0,47.35,4744870,2052.050473,Strongly Autocratic,Autocratic
+Cote d'Ivoire,Africa,Western Africa,1972.0,49.801,6071696,2378.201111,Strongly Autocratic,Autocratic
+Cote d'Ivoire,Africa,Western Africa,1977.0,52.374,7459574,2517.736547,Strongly Autocratic,Autocratic
+Cote d'Ivoire,Africa,Western Africa,1982.0,53.983,9025951,2602.710169,Strongly Autocratic,Autocratic
+Cote d'Ivoire,Africa,Western Africa,1987.0,54.655,10761098,2156.956069,Strongly Autocratic,Autocratic
+Cote d'Ivoire,Africa,Western Africa,1992.0,52.044,12772596,1648.073791,Strongly Autocratic,Autocratic
+Cote d'Ivoire,Africa,Western Africa,1997.0,47.991,14625967,1786.265407,Mildly Autocratic,Autocratic
+Cote d'Ivoire,Africa,Western Africa,2002.0,46.832,16252726,1648.800823,Middle of the Road,Middle of the Road
+Cote d'Ivoire,Africa,Western Africa,2007.0,48.328,18013409,1544.750112,Middle of the Road,Middle of the Road
+Croatia,Europe,Southern Europe,1952.0,61.21,3882229,3119.23652,Strongly Autocratic,Autocratic
+Croatia,Europe,Southern Europe,1957.0,64.77,3991242,4338.231617,Strongly Autocratic,Autocratic
+Croatia,Europe,Southern Europe,1962.0,67.13,4076557,5477.890018,Strongly Autocratic,Autocratic
+Croatia,Europe,Southern Europe,1967.0,68.5,4174366,6960.297861,Strongly Autocratic,Autocratic
+Croatia,Europe,Southern Europe,1972.0,69.61,4225310,9164.090127,Strongly Autocratic,Autocratic
+Croatia,Europe,Southern Europe,1977.0,70.64,4318673,11305.38517,Strongly Autocratic,Autocratic
+Croatia,Europe,Southern Europe,1982.0,70.46,4413368,13221.82184,Mildly Autocratic,Autocratic
+Croatia,Europe,Southern Europe,1987.0,71.52,4484310,13822.58394,Mildly Autocratic,Autocratic
+Croatia,Europe,Southern Europe,1992.0,72.527,4494013,8447.794873,Mildly Autocratic,Autocratic
+Croatia,Europe,Southern Europe,1997.0,73.68,4444595,9875.604515,Mildly Autocratic,Autocratic
+Croatia,Europe,Southern Europe,2002.0,74.876,4481020,11628.38895,Strongly Democratic,Democratic
+Croatia,Europe,Southern Europe,2007.0,75.748,4493312,14619.22272,Strongly Democratic,Democratic
+Cuba,Americas,Caribbean,1952.0,59.421,6007797,5586.53878,Middle of the Road,Middle of the Road
+Cuba,Americas,Caribbean,1957.0,62.325,6640752,6092.174359,Strongly Autocratic,Autocratic
+Cuba,Americas,Caribbean,1962.0,65.246,7254373,5180.75591,Strongly Autocratic,Autocratic
+Cuba,Americas,Caribbean,1967.0,68.29,8139332,5690.268015,Strongly Autocratic,Autocratic
+Cuba,Americas,Caribbean,1972.0,70.723,8831348,5305.445256,Strongly Autocratic,Autocratic
+Cuba,Americas,Caribbean,1977.0,72.649,9537988,6380.494966,Strongly Autocratic,Autocratic
+Cuba,Americas,Caribbean,1982.0,73.717,9789224,7316.918107,Strongly Autocratic,Autocratic
+Cuba,Americas,Caribbean,1987.0,74.174,10239839,7532.924763,Strongly Autocratic,Autocratic
+Cuba,Americas,Caribbean,1992.0,74.414,10723260,5592.843963,Strongly Autocratic,Autocratic
+Cuba,Americas,Caribbean,1997.0,76.151,10983007,5431.990415,Strongly Autocratic,Autocratic
+Cuba,Americas,Caribbean,2002.0,77.158,11226999,6340.646683,Strongly Autocratic,Autocratic
+Cuba,Americas,Caribbean,2007.0,78.273,11416987,8948.102923,Strongly Autocratic,Autocratic
+Denmark,Europe,Northern Europe,1952.0,70.78,4334000,9692.385245,Strongly Democratic,Democratic
+Denmark,Europe,Northern Europe,1957.0,71.81,4487831,11099.65935,Strongly Democratic,Democratic
+Denmark,Europe,Northern Europe,1962.0,72.35,4646899,13583.31351,Strongly Democratic,Democratic
+Denmark,Europe,Northern Europe,1967.0,72.96,4838800,15937.21123,Strongly Democratic,Democratic
+Denmark,Europe,Northern Europe,1972.0,73.47,4991596,18866.20721,Strongly Democratic,Democratic
+Denmark,Europe,Northern Europe,1977.0,74.69,5088419,20422.9015,Strongly Democratic,Democratic
+Denmark,Europe,Northern Europe,1982.0,74.63,5117810,21688.04048,Strongly Democratic,Democratic
+Denmark,Europe,Northern Europe,1987.0,74.8,5127024,25116.17581,Strongly Democratic,Democratic
+Denmark,Europe,Northern Europe,1992.0,75.33,5171393,26406.73985,Strongly Democratic,Democratic
+Denmark,Europe,Northern Europe,1997.0,76.11,5283663,29804.34567,Strongly Democratic,Democratic
+Denmark,Europe,Northern Europe,2002.0,77.18,5374693,32166.50006,Strongly Democratic,Democratic
+Denmark,Europe,Northern Europe,2007.0,78.332,5468120,35278.41874,Strongly Democratic,Democratic
+Djibouti,Africa,Eastern Africa,1952.0,34.812,63149,2669.529475,NA,NA
+Djibouti,Africa,Eastern Africa,1957.0,37.328,71851,2864.969076,NA,NA
+Djibouti,Africa,Eastern Africa,1962.0,39.693,89898,3020.989263,NA,NA
+Djibouti,Africa,Eastern Africa,1967.0,42.074,127617,3020.050513,NA,NA
+Djibouti,Africa,Eastern Africa,1972.0,44.366,178848,3694.212352,NA,NA
+Djibouti,Africa,Eastern Africa,1977.0,46.519,228694,3081.761022,Strongly Autocratic,Autocratic
+Djibouti,Africa,Eastern Africa,1982.0,48.812,305991,2879.468067,Strongly Autocratic,Autocratic
+Djibouti,Africa,Eastern Africa,1987.0,50.04,311025,2880.102568,Strongly Autocratic,Autocratic
+Djibouti,Africa,Eastern Africa,1992.0,51.604,384156,2377.156192,Strongly Autocratic,Autocratic
+Djibouti,Africa,Eastern Africa,1997.0,53.157,417908,1895.016984,Mildly Autocratic,Autocratic
+Djibouti,Africa,Eastern Africa,2002.0,53.373,447416,1908.260867,Middle of the Road,Middle of the Road
+Djibouti,Africa,Eastern Africa,2007.0,54.791,496374,2082.481567,Middle of the Road,Middle of the Road
+Ecuador,Americas,South America,1952.0,48.357,3548753,3522.110717,Middle of the Road,Middle of the Road
+Ecuador,Americas,South America,1957.0,51.356,4058385,3780.546651,Middle of the Road,Middle of the Road
+Ecuador,Americas,South America,1962.0,54.64,4681707,4086.114078,Middle of the Road,Middle of the Road
+Ecuador,Americas,South America,1967.0,56.678,5432424,4579.074215,Middle of the Road,Middle of the Road
+Ecuador,Americas,South America,1972.0,58.796,6298651,5280.99471,Mildly Autocratic,Autocratic
+Ecuador,Americas,South America,1977.0,61.31,7278866,6679.62326,Mildly Autocratic,Autocratic
+Ecuador,Americas,South America,1982.0,64.342,8365850,7213.791267,Strongly Democratic,Democratic
+Ecuador,Americas,South America,1987.0,67.231,9545158,6481.776993,Strongly Democratic,Democratic
+Ecuador,Americas,South America,1992.0,69.613,10748394,7103.702595,Strongly Democratic,Democratic
+Ecuador,Americas,South America,1997.0,72.312,11911819,7429.455877,Strongly Democratic,Democratic
+Ecuador,Americas,South America,2002.0,74.173,12921234,5773.044512,Mildly Democratic,Democratic
+Ecuador,Americas,South America,2007.0,74.994,13755680,6873.262326,Mildly Democratic,Democratic
+Egypt,Africa,Northern Africa,1952.0,41.893,22223309,1418.822445,Strongly Autocratic,Autocratic
+Egypt,Africa,Northern Africa,1957.0,44.444,25009741,1458.915272,Strongly Autocratic,Autocratic
+Egypt,Africa,Northern Africa,1962.0,46.992,28173309,1693.335853,Strongly Autocratic,Autocratic
+Egypt,Africa,Northern Africa,1967.0,49.293,31681188,1814.880728,Strongly Autocratic,Autocratic
+Egypt,Africa,Northern Africa,1972.0,51.137,34807417,2024.008147,Strongly Autocratic,Autocratic
+Egypt,Africa,Northern Africa,1977.0,53.319,38783863,2785.493582,Mildly Autocratic,Autocratic
+Egypt,Africa,Northern Africa,1982.0,56.006,45681811,3503.729636,Mildly Autocratic,Autocratic
+Egypt,Africa,Northern Africa,1987.0,59.797,52799062,3885.46071,Mildly Autocratic,Autocratic
+Egypt,Africa,Northern Africa,1992.0,63.674,59402198,3794.755195,Mildly Autocratic,Autocratic
+Egypt,Africa,Northern Africa,1997.0,67.217,66134291,4173.181797,Mildly Autocratic,Autocratic
+Egypt,Africa,Northern Africa,2002.0,69.806,73312559,4754.604414,Mildly Autocratic,Autocratic
+Egypt,Africa,Northern Africa,2007.0,71.338,80264543,5581.180998,Mildly Autocratic,Autocratic
+El Salvador,Americas,Central America,1952.0,45.262,2042865,3048.3029,Mildly Autocratic,Autocratic
+El Salvador,Americas,Central America,1957.0,48.57,2355805,3421.523218,Mildly Autocratic,Autocratic
+El Salvador,Americas,Central America,1962.0,52.307,2747687,3776.803627,Mildly Autocratic,Autocratic
+El Salvador,Americas,Central America,1967.0,55.855,3232927,4358.595393,Middle of the Road,Middle of the Road
+El Salvador,Americas,Central America,1972.0,58.207,3790903,4520.246008,Middle of the Road,Middle of the Road
+El Salvador,Americas,Central America,1977.0,56.696,4282586,5138.922374,Mildly Autocratic,Autocratic
+El Salvador,Americas,Central America,1982.0,56.604,4474873,4098.344175,Middle of the Road,Middle of the Road
+El Salvador,Americas,Central America,1987.0,63.154,4842194,4140.442097,Mildly Democratic,Democratic
+El Salvador,Americas,Central America,1992.0,66.798,5274649,4444.2317,Strongly Democratic,Democratic
+El Salvador,Americas,Central America,1997.0,69.535,5783439,5154.825496,Strongly Democratic,Democratic
+El Salvador,Americas,Central America,2002.0,70.734,6353681,5351.568666,Strongly Democratic,Democratic
+El Salvador,Americas,Central America,2007.0,71.878,6939688,5728.353514,Strongly Democratic,Democratic
+Equatorial Guinea,Africa,Middle Africa,1952.0,34.482,216964,375.6431231,NA,NA
+Equatorial Guinea,Africa,Middle Africa,1957.0,35.983,232922,426.0964081,NA,NA
+Equatorial Guinea,Africa,Middle Africa,1962.0,37.485,249220,582.8419714,NA,NA
+Equatorial Guinea,Africa,Middle Africa,1967.0,38.987,259864,915.5960025,NA,NA
+Equatorial Guinea,Africa,Middle Africa,1972.0,40.516,277603,672.4122571,Strongly Autocratic,Autocratic
+Equatorial Guinea,Africa,Middle Africa,1977.0,42.024,192675,958.5668124,Strongly Autocratic,Autocratic
+Equatorial Guinea,Africa,Middle Africa,1982.0,43.662,285483,927.8253427,Strongly Autocratic,Autocratic
+Equatorial Guinea,Africa,Middle Africa,1987.0,45.664,341244,966.8968149,Strongly Autocratic,Autocratic
+Equatorial Guinea,Africa,Middle Africa,1992.0,47.545,387838,1132.055034,Strongly Autocratic,Autocratic
+Equatorial Guinea,Africa,Middle Africa,1997.0,48.245,439971,2814.480755,Mildly Autocratic,Autocratic
+Equatorial Guinea,Africa,Middle Africa,2002.0,49.348,495627,7703.4959,Mildly Autocratic,Autocratic
+Equatorial Guinea,Africa,Middle Africa,2007.0,51.579,551201,12154.08975,Mildly Autocratic,Autocratic
+Eritrea,Africa,Eastern Africa,1952.0,35.928,1438760,328.9405571,NA,NA
+Eritrea,Africa,Eastern Africa,1957.0,38.047,1542611,344.1618859,NA,NA
+Eritrea,Africa,Eastern Africa,1962.0,40.158,1666618,380.9958433,NA,NA
+Eritrea,Africa,Eastern Africa,1967.0,42.189,1820319,468.7949699,NA,NA
+Eritrea,Africa,Eastern Africa,1972.0,44.142,2260187,514.3242082,NA,NA
+Eritrea,Africa,Eastern Africa,1977.0,44.535,2512642,505.7538077,NA,NA
+Eritrea,Africa,Eastern Africa,1982.0,43.89,2637297,524.8758493,NA,NA
+Eritrea,Africa,Eastern Africa,1987.0,46.453,2915959,521.1341333,NA,NA
+Eritrea,Africa,Eastern Africa,1992.0,49.991,3668440,582.8585102,NA,NA
+Eritrea,Africa,Eastern Africa,1997.0,53.378,4058319,913.47079,Mildly Autocratic,Autocratic
+Eritrea,Africa,Eastern Africa,2002.0,55.24,4414865,765.3500015,Strongly Autocratic,Autocratic
+Eritrea,Africa,Eastern Africa,2007.0,58.04,4906585,641.3695236,Strongly Autocratic,Autocratic
+Ethiopia,Africa,Eastern Africa,1952.0,34.078,20860941,362.1462796,Strongly Autocratic,Autocratic
+Ethiopia,Africa,Eastern Africa,1957.0,36.667,22815614,378.9041632,Strongly Autocratic,Autocratic
+Ethiopia,Africa,Eastern Africa,1962.0,40.059,25145372,419.4564161,Strongly Autocratic,Autocratic
+Ethiopia,Africa,Eastern Africa,1967.0,42.115,27860297,516.1186438,Strongly Autocratic,Autocratic
+Ethiopia,Africa,Eastern Africa,1972.0,43.515,30770372,566.2439442,Strongly Autocratic,Autocratic
+Ethiopia,Africa,Eastern Africa,1977.0,44.51,34617799,556.8083834,Strongly Autocratic,Autocratic
+Ethiopia,Africa,Eastern Africa,1982.0,44.916,38111756,577.8607471,Strongly Autocratic,Autocratic
+Ethiopia,Africa,Eastern Africa,1987.0,46.684,42999530,573.7413142,Strongly Autocratic,Autocratic
+Ethiopia,Africa,Eastern Africa,1992.0,48.091,52088559,421.3534653,Middle of the Road,Middle of the Road
+Ethiopia,Africa,Eastern Africa,1997.0,49.402,59861301,515.8894013,Middle of the Road,Middle of the Road
+Ethiopia,Africa,Eastern Africa,2002.0,50.725,67946797,530.0535319,Middle of the Road,Middle of the Road
+Ethiopia,Africa,Eastern Africa,2007.0,52.947,76511887,690.8055759,Middle of the Road,Middle of the Road
+Finland,Europe,Northern Europe,1952.0,66.55,4090500,6424.519071,Strongly Democratic,Democratic
+Finland,Europe,Northern Europe,1957.0,67.49,4324000,7545.415386,Strongly Democratic,Democratic
+Finland,Europe,Northern Europe,1962.0,68.75,4491443,9371.842561,Strongly Democratic,Democratic
+Finland,Europe,Northern Europe,1967.0,69.83,4605744,10921.63626,Strongly Democratic,Democratic
+Finland,Europe,Northern Europe,1972.0,70.87,4639657,14358.8759,Strongly Democratic,Democratic
+Finland,Europe,Northern Europe,1977.0,72.52,4738902,15605.42283,Strongly Democratic,Democratic
+Finland,Europe,Northern Europe,1982.0,74.55,4826933,18533.15761,Strongly Democratic,Democratic
+Finland,Europe,Northern Europe,1987.0,74.83,4931729,21141.01223,Strongly Democratic,Democratic
+Finland,Europe,Northern Europe,1992.0,75.7,5041039,20647.16499,Strongly Democratic,Democratic
+Finland,Europe,Northern Europe,1997.0,77.13,5134406,23723.9502,Strongly Democratic,Democratic
+Finland,Europe,Northern Europe,2002.0,78.37,5193039,28204.59057,Strongly Democratic,Democratic
+Finland,Europe,Northern Europe,2007.0,79.313,5238460,33207.0844,Strongly Democratic,Democratic
+France,Europe,Western Europe,1952.0,67.41,42459667,7029.809327,Strongly Democratic,Democratic
+France,Europe,Western Europe,1957.0,68.93,44310863,8662.834898,Strongly Democratic,Democratic
+France,Europe,Western Europe,1962.0,70.51,47124000,10560.48553,Mildly Democratic,Democratic
+France,Europe,Western Europe,1967.0,71.55,49569000,12999.91766,Mildly Democratic,Democratic
+France,Europe,Western Europe,1972.0,72.38,51732000,16107.19171,Strongly Democratic,Democratic
+France,Europe,Western Europe,1977.0,73.83,53165019,18292.63514,Strongly Democratic,Democratic
+France,Europe,Western Europe,1982.0,74.89,54433565,20293.89746,Strongly Democratic,Democratic
+France,Europe,Western Europe,1987.0,76.34,55630100,22066.44214,Strongly Democratic,Democratic
+France,Europe,Western Europe,1992.0,77.46,57374179,24703.79615,Strongly Democratic,Democratic
+France,Europe,Western Europe,1997.0,78.64,58623428,25889.78487,Strongly Democratic,Democratic
+France,Europe,Western Europe,2002.0,79.59,59925035,28926.03234,Strongly Democratic,Democratic
+France,Europe,Western Europe,2007.0,80.657,61083916,30470.0167,Strongly Democratic,Democratic
+Gabon,Africa,Middle Africa,1952.0,37.003,420702,4293.476475,NA,NA
+Gabon,Africa,Middle Africa,1957.0,38.999,434904,4976.198099,NA,NA
+Gabon,Africa,Middle Africa,1962.0,40.489,455661,6631.459222,Strongly Autocratic,Autocratic
+Gabon,Africa,Middle Africa,1967.0,44.598,489004,8358.761987,Strongly Autocratic,Autocratic
+Gabon,Africa,Middle Africa,1972.0,48.69,537977,11401.94841,Strongly Autocratic,Autocratic
+Gabon,Africa,Middle Africa,1977.0,52.79,706367,21745.57328,Strongly Autocratic,Autocratic
+Gabon,Africa,Middle Africa,1982.0,56.564,753874,15113.36194,Strongly Autocratic,Autocratic
+Gabon,Africa,Middle Africa,1987.0,60.19,880397,11864.40844,Strongly Autocratic,Autocratic
+Gabon,Africa,Middle Africa,1992.0,61.366,985739,13522.15752,Mildly Autocratic,Autocratic
+Gabon,Africa,Middle Africa,1997.0,60.461,1126189,14722.84188,Mildly Autocratic,Autocratic
+Gabon,Africa,Middle Africa,2002.0,56.761,1299304,12521.71392,Mildly Autocratic,Autocratic
+Gabon,Africa,Middle Africa,2007.0,56.735,1454867,13206.48452,Mildly Autocratic,Autocratic
+Gambia,Africa,Western Africa,1952.0,30.0,284320,485.2306591,NA,NA
+Gambia,Africa,Western Africa,1957.0,32.065,323150,520.9267111,NA,NA
+Gambia,Africa,Western Africa,1962.0,33.896,374020,599.650276,NA,NA
+Gambia,Africa,Western Africa,1967.0,35.857,439593,734.7829124,Strongly Democratic,Democratic
+Gambia,Africa,Western Africa,1972.0,38.308,517101,756.0868363,Strongly Democratic,Democratic
+Gambia,Africa,Western Africa,1977.0,41.842,608274,884.7552507,Strongly Democratic,Democratic
+Gambia,Africa,Western Africa,1982.0,45.58,715523,835.8096108,Strongly Democratic,Democratic
+Gambia,Africa,Western Africa,1987.0,49.265,848406,611.6588611,Strongly Democratic,Democratic
+Gambia,Africa,Western Africa,1992.0,52.644,1025384,665.6244126,Strongly Democratic,Democratic
+Gambia,Africa,Western Africa,1997.0,55.861,1235767,653.7301704,Mildly Autocratic,Autocratic
+Gambia,Africa,Western Africa,2002.0,58.041,1457766,660.5855997,Mildly Autocratic,Autocratic
+Gambia,Africa,Western Africa,2007.0,59.448,1688359,752.7497265,Mildly Autocratic,Autocratic
+Germany,Europe,Western Europe,1952.0,67.5,69145952,7144.114393,Strongly Democratic,Democratic
+Germany,Europe,Western Europe,1957.0,69.1,71019069,10187.82665,Strongly Democratic,Democratic
+Germany,Europe,Western Europe,1962.0,70.3,73739117,12902.46291,Strongly Democratic,Democratic
+Germany,Europe,Western Europe,1967.0,70.8,76368453,14745.62561,Strongly Democratic,Democratic
+Germany,Europe,Western Europe,1972.0,71.0,78717088,18016.18027,Strongly Democratic,Democratic
+Germany,Europe,Western Europe,1977.0,72.5,78160773,20512.92123,Strongly Democratic,Democratic
+Germany,Europe,Western Europe,1982.0,73.8,78335266,22031.53274,Strongly Democratic,Democratic
+Germany,Europe,Western Europe,1987.0,74.847,77718298,24639.18566,Strongly Democratic,Democratic
+Germany,Europe,Western Europe,1992.0,76.07,80597764,26505.30317,Strongly Democratic,Democratic
+Germany,Europe,Western Europe,1997.0,77.34,82011073,27788.88416,Strongly Democratic,Democratic
+Germany,Europe,Western Europe,2002.0,78.67,82350671,30035.80198,Strongly Democratic,Democratic
+Germany,Europe,Western Europe,2007.0,79.406,82400996,32170.37442,Strongly Democratic,Democratic
+Ghana,Africa,Western Africa,1952.0,43.149,5581001,911.2989371,NA,NA
+Ghana,Africa,Western Africa,1957.0,44.779,6391288,1043.561537,NA,NA
+Ghana,Africa,Western Africa,1962.0,46.452,7355248,1190.041118,Strongly Autocratic,Autocratic
+Ghana,Africa,Western Africa,1967.0,48.072,8490213,1125.69716,Strongly Autocratic,Autocratic
+Ghana,Africa,Western Africa,1972.0,49.875,9354120,1178.223708,Strongly Autocratic,Autocratic
+Ghana,Africa,Western Africa,1977.0,51.756,10538093,993.2239571,Strongly Autocratic,Autocratic
+Ghana,Africa,Western Africa,1982.0,53.744,11400338,876.032569,Strongly Autocratic,Autocratic
+Ghana,Africa,Western Africa,1987.0,55.729,14168101,847.0061135,Strongly Autocratic,Autocratic
+Ghana,Africa,Western Africa,1992.0,57.501,16278738,925.060154,Middle of the Road,Middle of the Road
+Ghana,Africa,Western Africa,1997.0,58.556,18418288,1005.245812,Middle of the Road,Middle of the Road
+Ghana,Africa,Western Africa,2002.0,58.453,20550751,1111.984578,Mildly Democratic,Democratic
+Ghana,Africa,Western Africa,2007.0,60.022,22873338,1327.60891,Strongly Democratic,Democratic
+Greece,Europe,Southern Europe,1952.0,65.86,7733250,3530.690067,Mildly Democratic,Democratic
+Greece,Europe,Southern Europe,1957.0,67.86,8096218,4916.299889,Mildly Democratic,Democratic
+Greece,Europe,Southern Europe,1962.0,69.51,8448233,6017.190733,Mildly Democratic,Democratic
+Greece,Europe,Southern Europe,1967.0,71.0,8716441,8513.097016,Strongly Autocratic,Autocratic
+Greece,Europe,Southern Europe,1972.0,72.34,8888628,12724.82957,Strongly Autocratic,Autocratic
+Greece,Europe,Southern Europe,1977.0,73.68,9308479,14195.52428,Strongly Democratic,Democratic
+Greece,Europe,Southern Europe,1982.0,75.24,9786480,15268.42089,Strongly Democratic,Democratic
+Greece,Europe,Southern Europe,1987.0,76.67,9974490,16120.52839,Strongly Democratic,Democratic
+Greece,Europe,Southern Europe,1992.0,77.03,10325429,17541.49634,Strongly Democratic,Democratic
+Greece,Europe,Southern Europe,1997.0,77.869,10502372,18747.69814,Strongly Democratic,Democratic
+Greece,Europe,Southern Europe,2002.0,78.256,10603863,22514.2548,Strongly Democratic,Democratic
+Greece,Europe,Southern Europe,2007.0,79.483,10706290,27538.41188,Strongly Democratic,Democratic
+Guatemala,Americas,Central America,1952.0,42.023,3146381,2428.237769,Middle of the Road,Middle of the Road
+Guatemala,Americas,Central America,1957.0,44.142,3640876,2617.155967,Mildly Autocratic,Autocratic
+Guatemala,Americas,Central America,1962.0,46.954,4208858,2750.364446,Mildly Autocratic,Autocratic
+Guatemala,Americas,Central America,1967.0,50.016,4690773,3242.531147,Mildly Democratic,Democratic
+Guatemala,Americas,Central America,1972.0,53.738,5149581,4031.408271,Middle of the Road,Middle of the Road
+Guatemala,Americas,Central America,1977.0,56.029,5703430,4879.992748,Mildly Autocratic,Autocratic
+Guatemala,Americas,Central America,1982.0,58.137,6395630,4820.49479,Strongly Autocratic,Autocratic
+Guatemala,Americas,Central America,1987.0,60.782,7326406,4246.485974,Mildly Democratic,Democratic
+Guatemala,Americas,Central America,1992.0,63.373,8486949,4439.45084,Mildly Democratic,Democratic
+Guatemala,Americas,Central America,1997.0,66.322,9803875,4684.313807,Strongly Democratic,Democratic
+Guatemala,Americas,Central America,2002.0,68.978,11178650,4858.347495,Strongly Democratic,Democratic
+Guatemala,Americas,Central America,2007.0,70.259,12572928,5186.050003,Strongly Democratic,Democratic
+Guinea,Africa,Western Africa,1952.0,33.609,2664249,510.1964923,NA,NA
+Guinea,Africa,Western Africa,1957.0,34.558,2876726,576.2670245,NA,NA
+Guinea,Africa,Western Africa,1962.0,35.753,3140003,686.3736739,Strongly Autocratic,Autocratic
+Guinea,Africa,Western Africa,1967.0,37.197,3451418,708.7595409,Strongly Autocratic,Autocratic
+Guinea,Africa,Western Africa,1972.0,38.842,3811387,741.6662307,Strongly Autocratic,Autocratic
+Guinea,Africa,Western Africa,1977.0,40.762,4227026,874.6858643,Strongly Autocratic,Autocratic
+Guinea,Africa,Western Africa,1982.0,42.891,4710497,857.2503577,Strongly Autocratic,Autocratic
+Guinea,Africa,Western Africa,1987.0,45.552,5650262,805.5724718,Strongly Autocratic,Autocratic
+Guinea,Africa,Western Africa,1992.0,48.576,6990574,794.3484384,Mildly Autocratic,Autocratic
+Guinea,Africa,Western Africa,1997.0,51.455,8048834,869.4497668,Middle of the Road,Middle of the Road
+Guinea,Africa,Western Africa,2002.0,53.676,8807818,945.5835837,Middle of the Road,Middle of the Road
+Guinea,Africa,Western Africa,2007.0,56.007,9947814,942.6542111,Middle of the Road,Middle of the Road
+Guinea-Bissau,Africa,Western Africa,1952.0,32.5,580653,299.850319,NA,NA
+Guinea-Bissau,Africa,Western Africa,1957.0,33.489,601095,431.7904566,NA,NA
+Guinea-Bissau,Africa,Western Africa,1962.0,34.488,627820,522.0343725,NA,NA
+Guinea-Bissau,Africa,Western Africa,1967.0,35.492,601287,715.5806402,NA,NA
+Guinea-Bissau,Africa,Western Africa,1972.0,36.486,625361,820.2245876,NA,NA
+Guinea-Bissau,Africa,Western Africa,1977.0,37.465,745228,764.7259628,Strongly Autocratic,Autocratic
+Guinea-Bissau,Africa,Western Africa,1982.0,39.327,825987,838.1239671,Strongly Autocratic,Autocratic
+Guinea-Bissau,Africa,Western Africa,1987.0,41.245,927524,736.4153921,Strongly Autocratic,Autocratic
+Guinea-Bissau,Africa,Western Africa,1992.0,43.266,1050938,745.5398706,Mildly Autocratic,Autocratic
+Guinea-Bissau,Africa,Western Africa,1997.0,44.873,1193708,796.6644681,Mildly Democratic,Democratic
+Guinea-Bissau,Africa,Western Africa,2002.0,45.504,1332459,575.7047176,Mildly Democratic,Democratic
+Guinea-Bissau,Africa,Western Africa,2007.0,46.388,1472041,579.231743,Mildly Democratic,Democratic
+Haiti,Americas,Caribbean,1952.0,37.579,3201488,1840.366939,Mildly Autocratic,Autocratic
+Haiti,Americas,Caribbean,1957.0,40.696,3507701,1726.887882,Mildly Autocratic,Autocratic
+Haiti,Americas,Caribbean,1962.0,43.59,3880130,1796.589032,Strongly Autocratic,Autocratic
+Haiti,Americas,Caribbean,1967.0,46.243,4318137,1452.057666,Strongly Autocratic,Autocratic
+Haiti,Americas,Caribbean,1972.0,48.042,4698301,1654.456946,Strongly Autocratic,Autocratic
+Haiti,Americas,Caribbean,1977.0,49.923,4908554,1874.298931,Strongly Autocratic,Autocratic
+Haiti,Americas,Caribbean,1982.0,51.461,5198399,2011.159549,Strongly Autocratic,Autocratic
+Haiti,Americas,Caribbean,1987.0,53.636,5756203,1823.015995,Strongly Autocratic,Autocratic
+Haiti,Americas,Caribbean,1992.0,55.089,6326682,1456.309517,Strongly Autocratic,Autocratic
+Haiti,Americas,Caribbean,1997.0,56.671,6913545,1341.726931,Strongly Democratic,Democratic
+Haiti,Americas,Caribbean,2002.0,58.137,7607651,1270.364932,Middle of the Road,Middle of the Road
+Haiti,Americas,Caribbean,2007.0,60.916,8502814,1201.637154,Mildly Democratic,Democratic
+Honduras,Americas,Central America,1952.0,41.912,1517453,2194.926204,Mildly Autocratic,Autocratic
+Honduras,Americas,Central America,1957.0,44.665,1770390,2220.487682,Middle of the Road,Middle of the Road
+Honduras,Americas,Central America,1962.0,48.041,2090162,2291.156835,Middle of the Road,Middle of the Road
+Honduras,Americas,Central America,1967.0,50.924,2500689,2538.269358,Middle of the Road,Middle of the Road
+Honduras,Americas,Central America,1972.0,53.884,2965146,2529.842345,Middle of the Road,Middle of the Road
+Honduras,Americas,Central America,1977.0,57.402,3055235,3203.208066,Middle of the Road,Middle of the Road
+Honduras,Americas,Central America,1982.0,60.909,3669448,3121.760794,Mildly Democratic,Democratic
+Honduras,Americas,Central America,1987.0,64.492,4372203,3023.096699,Mildly Democratic,Democratic
+Honduras,Americas,Central America,1992.0,66.399,5077347,3081.694603,Mildly Democratic,Democratic
+Honduras,Americas,Central America,1997.0,67.659,5867957,3160.454906,Mildly Democratic,Democratic
+Honduras,Americas,Central America,2002.0,68.565,6677328,3099.72866,Strongly Democratic,Democratic
+Honduras,Americas,Central America,2007.0,70.198,7483763,3548.330846,Strongly Democratic,Democratic
+"Hong Kong, China",Asia,Eastern Asia,1952.0,60.96,2125900,3054.421209,NA,NA
+"Hong Kong, China",Asia,Eastern Asia,1957.0,64.75,2736300,3629.076457,NA,NA
+"Hong Kong, China",Asia,Eastern Asia,1962.0,67.65,3305200,4692.648272,NA,NA
+"Hong Kong, China",Asia,Eastern Asia,1967.0,70.0,3722800,6197.962814,NA,NA
+"Hong Kong, China",Asia,Eastern Asia,1972.0,72.0,4115700,8315.928145,NA,NA
+"Hong Kong, China",Asia,Eastern Asia,1977.0,73.6,4583700,11186.14125,NA,NA
+"Hong Kong, China",Asia,Eastern Asia,1982.0,75.45,5264500,14560.53051,NA,NA
+"Hong Kong, China",Asia,Eastern Asia,1987.0,76.2,5584510,20038.47269,NA,NA
+"Hong Kong, China",Asia,Eastern Asia,1992.0,77.601,5829696,24757.60301,NA,NA
+"Hong Kong, China",Asia,Eastern Asia,1997.0,80.0,6495918,28377.63219,NA,NA
+"Hong Kong, China",Asia,Eastern Asia,2002.0,81.495,6762476,30209.01516,NA,NA
+"Hong Kong, China",Asia,Eastern Asia,2007.0,82.208,6980412,39724.97867,NA,NA
+Hungary,Europe,Eastern Europe,1952.0,64.03,9504000,5263.673816,Strongly Autocratic,Autocratic
+Hungary,Europe,Eastern Europe,1957.0,66.41,9839000,6040.180011,Strongly Autocratic,Autocratic
+Hungary,Europe,Eastern Europe,1962.0,67.96,10063000,7550.359877,Strongly Autocratic,Autocratic
+Hungary,Europe,Eastern Europe,1967.0,69.5,10223422,9326.64467,Strongly Autocratic,Autocratic
+Hungary,Europe,Eastern Europe,1972.0,69.76,10394091,10168.65611,Strongly Autocratic,Autocratic
+Hungary,Europe,Eastern Europe,1977.0,69.95,10637171,11674.83737,Strongly Autocratic,Autocratic
+Hungary,Europe,Eastern Europe,1982.0,69.39,10705535,12545.99066,Strongly Autocratic,Autocratic
+Hungary,Europe,Eastern Europe,1987.0,69.58,10612740,12986.47998,Strongly Autocratic,Autocratic
+Hungary,Europe,Eastern Europe,1992.0,69.17,10348684,10535.62855,Strongly Democratic,Democratic
+Hungary,Europe,Eastern Europe,1997.0,71.04,10244684,11712.7768,Strongly Democratic,Democratic
+Hungary,Europe,Eastern Europe,2002.0,72.59,10083313,14843.93556,Strongly Democratic,Democratic
+Hungary,Europe,Eastern Europe,2007.0,73.338,9956108,18008.94444,Strongly Democratic,Democratic
+Iceland,Europe,Northern Europe,1952.0,72.49,147962,7267.688428,NA,NA
+Iceland,Europe,Northern Europe,1957.0,73.47,165110,9244.001412,NA,NA
+Iceland,Europe,Northern Europe,1962.0,73.68,182053,10350.15906,NA,NA
+Iceland,Europe,Northern Europe,1967.0,73.73,198676,13319.89568,NA,NA
+Iceland,Europe,Northern Europe,1972.0,74.46,209275,15798.06362,NA,NA
+Iceland,Europe,Northern Europe,1977.0,76.11,221823,19654.96247,NA,NA
+Iceland,Europe,Northern Europe,1982.0,76.99,233997,23269.6075,NA,NA
+Iceland,Europe,Northern Europe,1987.0,77.23,244676,26923.20628,NA,NA
+Iceland,Europe,Northern Europe,1992.0,78.77,259012,25144.39201,NA,NA
+Iceland,Europe,Northern Europe,1997.0,78.95,271192,28061.09966,NA,NA
+Iceland,Europe,Northern Europe,2002.0,80.5,288030,31163.20196,NA,NA
+Iceland,Europe,Northern Europe,2007.0,81.757,301931,36180.78919,NA,NA
+India,Asia,Southern Asia,1952.0,37.373,372000000,546.5657493,Strongly Democratic,Democratic
+India,Asia,Southern Asia,1957.0,40.249,409000000,590.061996,Strongly Democratic,Democratic
+India,Asia,Southern Asia,1962.0,43.605,454000000,658.3471509,Strongly Democratic,Democratic
+India,Asia,Southern Asia,1967.0,47.193,506000000,700.7706107,Strongly Democratic,Democratic
+India,Asia,Southern Asia,1972.0,50.651,567000000,724.032527,Strongly Democratic,Democratic
+India,Asia,Southern Asia,1977.0,54.208,634000000,813.337323,Strongly Democratic,Democratic
+India,Asia,Southern Asia,1982.0,56.596,708000000,855.7235377,Strongly Democratic,Democratic
+India,Asia,Southern Asia,1987.0,58.553,788000000,976.5126756,Strongly Democratic,Democratic
+India,Asia,Southern Asia,1992.0,60.223,872000000,1164.406809,Strongly Democratic,Democratic
+India,Asia,Southern Asia,1997.0,61.765,959000000,1458.817442,Strongly Democratic,Democratic
+India,Asia,Southern Asia,2002.0,62.879,1034172547,1746.769454,Strongly Democratic,Democratic
+India,Asia,Southern Asia,2007.0,64.698,1110396331,2452.210407,Strongly Democratic,Democratic
+Indonesia,Asia,South-Eastern Asia,1952.0,37.468,82052000,749.6816546,Middle of the Road,Middle of the Road
+Indonesia,Asia,South-Eastern Asia,1957.0,39.918,90124000,858.9002707,Middle of the Road,Middle of the Road
+Indonesia,Asia,South-Eastern Asia,1962.0,42.518,99028000,849.2897701,Mildly Autocratic,Autocratic
+Indonesia,Asia,South-Eastern Asia,1967.0,45.964,109343000,762.4317721,Strongly Autocratic,Autocratic
+Indonesia,Asia,South-Eastern Asia,1972.0,49.203,121282000,1111.107907,Strongly Autocratic,Autocratic
+Indonesia,Asia,South-Eastern Asia,1977.0,52.702,136725000,1382.702056,Strongly Autocratic,Autocratic
+Indonesia,Asia,South-Eastern Asia,1982.0,56.159,153343000,1516.872988,Strongly Autocratic,Autocratic
+Indonesia,Asia,South-Eastern Asia,1987.0,60.137,169276000,1748.356961,Strongly Autocratic,Autocratic
+Indonesia,Asia,South-Eastern Asia,1992.0,62.681,184816000,2383.140898,Strongly Autocratic,Autocratic
+Indonesia,Asia,South-Eastern Asia,1997.0,66.041,199278000,3119.335603,Strongly Autocratic,Autocratic
+Indonesia,Asia,South-Eastern Asia,2002.0,68.588,211060000,2873.91287,Mildly Democratic,Democratic
+Indonesia,Asia,South-Eastern Asia,2007.0,70.65,223547000,3540.651564,Strongly Democratic,Democratic
+Iran,Asia,Southern Asia,1952.0,44.869,17272000,3035.326002,Middle of the Road,Middle of the Road
+Iran,Asia,Southern Asia,1957.0,47.181,19792000,3290.257643,Strongly Autocratic,Autocratic
+Iran,Asia,Southern Asia,1962.0,49.325,22874000,4187.329802,Strongly Autocratic,Autocratic
+Iran,Asia,Southern Asia,1967.0,52.469,26538000,5906.731805,Strongly Autocratic,Autocratic
+Iran,Asia,Southern Asia,1972.0,55.234,30614000,9613.818607,Strongly Autocratic,Autocratic
+Iran,Asia,Southern Asia,1977.0,57.702,35480679,11888.59508,Strongly Autocratic,Autocratic
+Iran,Asia,Southern Asia,1982.0,59.62,43072751,7608.334602,Mildly Autocratic,Autocratic
+Iran,Asia,Southern Asia,1987.0,63.04,51889696,6642.881371,Mildly Autocratic,Autocratic
+Iran,Asia,Southern Asia,1992.0,65.742,60397973,7235.653188,Mildly Autocratic,Autocratic
+Iran,Asia,Southern Asia,1997.0,68.042,63327987,8263.590301,Mildly Democratic,Democratic
+Iran,Asia,Southern Asia,2002.0,69.451,66907826,9240.761975,Mildly Democratic,Democratic
+Iran,Asia,Southern Asia,2007.0,70.964,69453570,11605.71449,Mildly Autocratic,Autocratic
+Iraq,Asia,Western Asia,1952.0,45.32,5441766,4129.766056,Mildly Autocratic,Autocratic
+Iraq,Asia,Western Asia,1957.0,48.437,6248643,6229.333562,Mildly Autocratic,Autocratic
+Iraq,Asia,Western Asia,1962.0,51.457,7240260,8341.737815,Mildly Autocratic,Autocratic
+Iraq,Asia,Western Asia,1967.0,54.459,8519282,8931.459811,Mildly Autocratic,Autocratic
+Iraq,Asia,Western Asia,1972.0,56.95,10061506,9576.037596,Strongly Autocratic,Autocratic
+Iraq,Asia,Western Asia,1977.0,60.413,11882916,14688.23507,Strongly Autocratic,Autocratic
+Iraq,Asia,Western Asia,1982.0,62.038,14173318,14517.90711,Strongly Autocratic,Autocratic
+Iraq,Asia,Western Asia,1987.0,65.044,16543189,11643.57268,Strongly Autocratic,Autocratic
+Iraq,Asia,Western Asia,1992.0,59.461,17861905,3745.640687,Strongly Autocratic,Autocratic
+Iraq,Asia,Western Asia,1997.0,58.811,20775703,3076.239795,Strongly Autocratic,Autocratic
+Iraq,Asia,Western Asia,2002.0,57.046,24001816,4390.717312,Strongly Autocratic,Autocratic
+Iraq,Asia,Western Asia,2007.0,59.545,27499638,4471.061906,Middle of the Road,Middle of the Road
+Ireland,Europe,Northern Europe,1952.0,66.91,2952156,5210.280328,Strongly Democratic,Democratic
+Ireland,Europe,Northern Europe,1957.0,68.9,2878220,5599.077872,Strongly Democratic,Democratic
+Ireland,Europe,Northern Europe,1962.0,70.29,2830000,6631.597314,Strongly Democratic,Democratic
+Ireland,Europe,Northern Europe,1967.0,71.08,2900100,7655.568963,Strongly Democratic,Democratic
+Ireland,Europe,Northern Europe,1972.0,71.28,3024400,9530.772896,Strongly Democratic,Democratic
+Ireland,Europe,Northern Europe,1977.0,72.03,3271900,11150.98113,Strongly Democratic,Democratic
+Ireland,Europe,Northern Europe,1982.0,73.1,3480000,12618.32141,Strongly Democratic,Democratic
+Ireland,Europe,Northern Europe,1987.0,74.36,3539900,13872.86652,Strongly Democratic,Democratic
+Ireland,Europe,Northern Europe,1992.0,75.467,3557761,17558.81555,Strongly Democratic,Democratic
+Ireland,Europe,Northern Europe,1997.0,76.122,3667233,24521.94713,Strongly Democratic,Democratic
+Ireland,Europe,Northern Europe,2002.0,77.783,3879155,34077.04939,Strongly Democratic,Democratic
+Ireland,Europe,Northern Europe,2007.0,78.885,4109086,40675.99635,Strongly Democratic,Democratic
+Israel,Asia,Western Asia,1952.0,65.39,1620914,4086.522128,Strongly Democratic,Democratic
+Israel,Asia,Western Asia,1957.0,67.84,1944401,5385.278451,Strongly Democratic,Democratic
+Israel,Asia,Western Asia,1962.0,69.39,2310904,7105.630706,Strongly Democratic,Democratic
+Israel,Asia,Western Asia,1967.0,70.75,2693585,8393.741404,Strongly Democratic,Democratic
+Israel,Asia,Western Asia,1972.0,71.63,3095893,12786.93223,Strongly Democratic,Democratic
+Israel,Asia,Western Asia,1977.0,73.06,3495918,13306.61921,Strongly Democratic,Democratic
+Israel,Asia,Western Asia,1982.0,74.45,3858421,15367.0292,Strongly Democratic,Democratic
+Israel,Asia,Western Asia,1987.0,75.6,4203148,17122.47986,Strongly Democratic,Democratic
+Israel,Asia,Western Asia,1992.0,76.93,4936550,18051.52254,Strongly Democratic,Democratic
+Israel,Asia,Western Asia,1997.0,78.269,5531387,20896.60924,Strongly Democratic,Democratic
+Israel,Asia,Western Asia,2002.0,79.696,6029529,21905.59514,Strongly Democratic,Democratic
+Israel,Asia,Western Asia,2007.0,80.745,6426679,25523.2771,Strongly Democratic,Democratic
+Italy,Europe,Southern Europe,1952.0,65.94,47666000,4931.404155,Strongly Democratic,Democratic
+Italy,Europe,Southern Europe,1957.0,67.81,49182000,6248.656232,Strongly Democratic,Democratic
+Italy,Europe,Southern Europe,1962.0,69.24,50843200,8243.58234,Strongly Democratic,Democratic
+Italy,Europe,Southern Europe,1967.0,71.06,52667100,10022.40131,Strongly Democratic,Democratic
+Italy,Europe,Southern Europe,1972.0,72.19,54365564,12269.27378,Strongly Democratic,Democratic
+Italy,Europe,Southern Europe,1977.0,73.48,56059245,14255.98475,Strongly Democratic,Democratic
+Italy,Europe,Southern Europe,1982.0,74.98,56535636,16537.4835,Strongly Democratic,Democratic
+Italy,Europe,Southern Europe,1987.0,76.42,56729703,19207.23482,Strongly Democratic,Democratic
+Italy,Europe,Southern Europe,1992.0,77.44,56840847,22013.64486,Strongly Democratic,Democratic
+Italy,Europe,Southern Europe,1997.0,78.82,57479469,24675.02446,Strongly Democratic,Democratic
+Italy,Europe,Southern Europe,2002.0,80.24,57926999,27968.09817,Strongly Democratic,Democratic
+Italy,Europe,Southern Europe,2007.0,80.546,58147733,28569.7197,Strongly Democratic,Democratic
+Jamaica,Americas,Caribbean,1952.0,58.53,1426095,2898.530881,NA,NA
+Jamaica,Americas,Caribbean,1957.0,62.61,1535090,4756.525781,NA,NA
+Jamaica,Americas,Caribbean,1962.0,65.61,1665128,5246.107524,Strongly Democratic,Democratic
+Jamaica,Americas,Caribbean,1967.0,67.51,1861096,6124.703451,Strongly Democratic,Democratic
+Jamaica,Americas,Caribbean,1972.0,69.0,1997616,7433.889293,Strongly Democratic,Democratic
+Jamaica,Americas,Caribbean,1977.0,70.11,2156814,6650.195573,Strongly Democratic,Democratic
+Jamaica,Americas,Caribbean,1982.0,71.21,2298309,6068.05135,Strongly Democratic,Democratic
+Jamaica,Americas,Caribbean,1987.0,71.77,2326606,6351.237495,Strongly Democratic,Democratic
+Jamaica,Americas,Caribbean,1992.0,71.766,2378618,7404.923685,Strongly Democratic,Democratic
+Jamaica,Americas,Caribbean,1997.0,72.262,2531311,7121.924704,Strongly Democratic,Democratic
+Jamaica,Americas,Caribbean,2002.0,72.047,2664659,6994.774861,Strongly Democratic,Democratic
+Jamaica,Americas,Caribbean,2007.0,72.567,2780132,7320.880262,Strongly Democratic,Democratic
+Japan,Asia,Eastern Asia,1952.0,63.03,86459025,3216.956347,Strongly Democratic,Democratic
+Japan,Asia,Eastern Asia,1957.0,65.5,91563009,4317.694365,Strongly Democratic,Democratic
+Japan,Asia,Eastern Asia,1962.0,68.73,95831757,6576.649461,Strongly Democratic,Democratic
+Japan,Asia,Eastern Asia,1967.0,71.43,100825279,9847.788607,Strongly Democratic,Democratic
+Japan,Asia,Eastern Asia,1972.0,73.42,107188273,14778.78636,Strongly Democratic,Democratic
+Japan,Asia,Eastern Asia,1977.0,75.38,113872473,16610.37701,Strongly Democratic,Democratic
+Japan,Asia,Eastern Asia,1982.0,77.11,118454974,19384.10571,Strongly Democratic,Democratic
+Japan,Asia,Eastern Asia,1987.0,78.67,122091325,22375.94189,Strongly Democratic,Democratic
+Japan,Asia,Eastern Asia,1992.0,79.36,124329269,26824.89511,Strongly Democratic,Democratic
+Japan,Asia,Eastern Asia,1997.0,80.69,125956499,28816.58499,Strongly Democratic,Democratic
+Japan,Asia,Eastern Asia,2002.0,82.0,127065841,28604.5919,Strongly Democratic,Democratic
+Japan,Asia,Eastern Asia,2007.0,82.603,127467972,31656.06806,Strongly Democratic,Democratic
+Jordan,Asia,Western Asia,1952.0,43.158,607914,1546.907807,Middle of the Road,Middle of the Road
+Jordan,Asia,Western Asia,1957.0,45.669,746559,1886.080591,Strongly Autocratic,Autocratic
+Jordan,Asia,Western Asia,1962.0,48.126,933559,2348.009158,Strongly Autocratic,Autocratic
+Jordan,Asia,Western Asia,1967.0,51.629,1255058,2741.796252,Strongly Autocratic,Autocratic
+Jordan,Asia,Western Asia,1972.0,56.528,1613551,2110.856309,Strongly Autocratic,Autocratic
+Jordan,Asia,Western Asia,1977.0,61.134,1937652,2852.351568,Strongly Autocratic,Autocratic
+Jordan,Asia,Western Asia,1982.0,63.739,2347031,4161.415959,Strongly Autocratic,Autocratic
+Jordan,Asia,Western Asia,1987.0,65.869,2820042,4448.679912,Strongly Autocratic,Autocratic
+Jordan,Asia,Western Asia,1992.0,68.015,3867409,3431.593647,Middle of the Road,Middle of the Road
+Jordan,Asia,Western Asia,1997.0,69.772,4526235,3645.379572,Middle of the Road,Middle of the Road
+Jordan,Asia,Western Asia,2002.0,71.263,5307470,3844.917194,Middle of the Road,Middle of the Road
+Jordan,Asia,Western Asia,2007.0,72.535,6053193,4519.461171,Mildly Autocratic,Autocratic
+Kenya,Africa,Eastern Africa,1952.0,42.27,6464046,853.540919,NA,NA
+Kenya,Africa,Eastern Africa,1957.0,44.686,7454779,944.4383152,NA,NA
+Kenya,Africa,Eastern Africa,1962.0,47.949,8678557,896.9663732,NA,NA
+Kenya,Africa,Eastern Africa,1967.0,50.654,10191512,1056.736457,Middle of the Road,Middle of the Road
+Kenya,Africa,Eastern Africa,1972.0,53.559,12044785,1222.359968,Strongly Autocratic,Autocratic
+Kenya,Africa,Eastern Africa,1977.0,56.155,14500404,1267.613204,Strongly Autocratic,Autocratic
+Kenya,Africa,Eastern Africa,1982.0,58.766,17661452,1348.225791,Strongly Autocratic,Autocratic
+Kenya,Africa,Eastern Africa,1987.0,59.339,21198082,1361.936856,Strongly Autocratic,Autocratic
+Kenya,Africa,Eastern Africa,1992.0,59.285,25020539,1341.921721,Mildly Autocratic,Autocratic
+Kenya,Africa,Eastern Africa,1997.0,54.407,28263827,1360.485021,Middle of the Road,Middle of the Road
+Kenya,Africa,Eastern Africa,2002.0,50.992,31386842,1287.514732,Strongly Democratic,Democratic
+Kenya,Africa,Eastern Africa,2007.0,54.11,35610177,1463.249282,Strongly Democratic,Democratic
+"Korea, Dem. Rep.",Asia,Eastern Asia,1952.0,50.056,8865488,1088.277758,Strongly Autocratic,Autocratic
+"Korea, Dem. Rep.",Asia,Eastern Asia,1957.0,54.081,9411381,1571.134655,Strongly Autocratic,Autocratic
+"Korea, Dem. Rep.",Asia,Eastern Asia,1962.0,56.656,10917494,1621.693598,Strongly Autocratic,Autocratic
+"Korea, Dem. Rep.",Asia,Eastern Asia,1967.0,59.942,12617009,2143.540609,Strongly Autocratic,Autocratic
+"Korea, Dem. Rep.",Asia,Eastern Asia,1972.0,63.983,14781241,3701.621503,Strongly Autocratic,Autocratic
+"Korea, Dem. Rep.",Asia,Eastern Asia,1977.0,67.159,16325320,4106.301249,Strongly Autocratic,Autocratic
+"Korea, Dem. Rep.",Asia,Eastern Asia,1982.0,69.1,17647518,4106.525293,Strongly Autocratic,Autocratic
+"Korea, Dem. Rep.",Asia,Eastern Asia,1987.0,70.647,19067554,4106.492315,Strongly Autocratic,Autocratic
+"Korea, Dem. Rep.",Asia,Eastern Asia,1992.0,69.978,20711375,3726.063507,Strongly Autocratic,Autocratic
+"Korea, Dem. Rep.",Asia,Eastern Asia,1997.0,67.727,21585105,1690.756814,Strongly Autocratic,Autocratic
+"Korea, Dem. Rep.",Asia,Eastern Asia,2002.0,66.662,22215365,1646.758151,Strongly Autocratic,Autocratic
+"Korea, Dem. Rep.",Asia,Eastern Asia,2007.0,67.297,23301725,1593.06548,Strongly Autocratic,Autocratic
+"Korea, Rep.",Asia,Eastern Asia,1952.0,47.453,20947571,1030.592226,Mildly Autocratic,Autocratic
+"Korea, Rep.",Asia,Eastern Asia,1957.0,52.681,22611552,1487.593537,Mildly Autocratic,Autocratic
+"Korea, Rep.",Asia,Eastern Asia,1962.0,55.292,26420307,1536.344387,Strongly Autocratic,Autocratic
+"Korea, Rep.",Asia,Eastern Asia,1967.0,57.716,30131000,2029.228142,Mildly Democratic,Democratic
+"Korea, Rep.",Asia,Eastern Asia,1972.0,62.612,33505000,3030.87665,Strongly Autocratic,Autocratic
+"Korea, Rep.",Asia,Eastern Asia,1977.0,64.766,36436000,4657.22102,Strongly Autocratic,Autocratic
+"Korea, Rep.",Asia,Eastern Asia,1982.0,67.123,39326000,5622.942464,Mildly Autocratic,Autocratic
+"Korea, Rep.",Asia,Eastern Asia,1987.0,69.81,41622000,8533.088805,Middle of the Road,Middle of the Road
+"Korea, Rep.",Asia,Eastern Asia,1992.0,72.244,43805450,12104.27872,Mildly Democratic,Democratic
+"Korea, Rep.",Asia,Eastern Asia,1997.0,74.647,46173816,15993.52796,Mildly Democratic,Democratic
+"Korea, Rep.",Asia,Eastern Asia,2002.0,77.045,47969150,19233.98818,Strongly Democratic,Democratic
+"Korea, Rep.",Asia,Eastern Asia,2007.0,78.623,49044790,23348.13973,Strongly Democratic,Democratic
+Kuwait,Asia,Western Asia,1952.0,55.565,160000,108382.3529,NA,NA
+Kuwait,Asia,Western Asia,1957.0,58.033,212846,113523.1329,NA,NA
+Kuwait,Asia,Western Asia,1962.0,60.47,358266,95458.11176,NA,NA
+Kuwait,Asia,Western Asia,1967.0,64.624,575003,80894.88326,Strongly Autocratic,Autocratic
+Kuwait,Asia,Western Asia,1972.0,67.712,841934,109347.867,Strongly Autocratic,Autocratic
+Kuwait,Asia,Western Asia,1977.0,69.343,1140357,59265.47714,Strongly Autocratic,Autocratic
+Kuwait,Asia,Western Asia,1982.0,71.309,1497494,31354.03573,Strongly Autocratic,Autocratic
+Kuwait,Asia,Western Asia,1987.0,74.174,1891487,28118.42998,Strongly Autocratic,Autocratic
+Kuwait,Asia,Western Asia,1992.0,75.19,1418095,34932.91959,Strongly Autocratic,Autocratic
+Kuwait,Asia,Western Asia,1997.0,76.156,1765345,40300.619960000004,Strongly Autocratic,Autocratic
+Kuwait,Asia,Western Asia,2002.0,76.904,2111561,35110.10566,Strongly Autocratic,Autocratic
+Kuwait,Asia,Western Asia,2007.0,77.588,2505559,47306.98978,Strongly Autocratic,Autocratic
+Lebanon,Asia,Western Asia,1952.0,55.928,1439529,4834.804067,Middle of the Road,Middle of the Road
+Lebanon,Asia,Western Asia,1957.0,59.489,1647412,6089.786934,Middle of the Road,Middle of the Road
+Lebanon,Asia,Western Asia,1962.0,62.094,1886848,5714.560611,Middle of the Road,Middle of the Road
+Lebanon,Asia,Western Asia,1967.0,63.87,2186894,6006.983042,Middle of the Road,Middle of the Road
+Lebanon,Asia,Western Asia,1972.0,65.421,2680018,7486.384341,Mildly Democratic,Democratic
+Lebanon,Asia,Western Asia,1977.0,66.099,3115787,8659.696836,Middle of the Road,Middle of the Road
+Lebanon,Asia,Western Asia,1982.0,66.983,3086876,7640.519521,Middle of the Road,Middle of the Road
+Lebanon,Asia,Western Asia,1987.0,67.926,3089353,5377.091329,Middle of the Road,Middle of the Road
+Lebanon,Asia,Western Asia,1992.0,69.292,3219994,6890.806854,Middle of the Road,Middle of the Road
+Lebanon,Asia,Western Asia,1997.0,70.265,3430388,8754.96385,Middle of the Road,Middle of the Road
+Lebanon,Asia,Western Asia,2002.0,71.028,3677780,9313.93883,Middle of the Road,Middle of the Road
+Lebanon,Asia,Western Asia,2007.0,71.993,3921278,10461.05868,Strongly Democratic,Democratic
+Lesotho,Africa,Southern Africa,1952.0,42.138,748747,298.8462121,NA,NA
+Lesotho,Africa,Southern Africa,1957.0,45.047,813338,335.9971151,NA,NA
+Lesotho,Africa,Southern Africa,1962.0,47.747,893143,411.8006266,NA,NA
+Lesotho,Africa,Southern Africa,1967.0,48.492,996380,498.6390265,Strongly Democratic,Democratic
+Lesotho,Africa,Southern Africa,1972.0,49.767,1116779,496.5815922,Strongly Autocratic,Autocratic
+Lesotho,Africa,Southern Africa,1977.0,52.208,1251524,745.3695408,Strongly Autocratic,Autocratic
+Lesotho,Africa,Southern Africa,1982.0,55.078,1411807,797.2631074,Strongly Autocratic,Autocratic
+Lesotho,Africa,Southern Africa,1987.0,57.18,1599200,773.9932141,Strongly Autocratic,Autocratic
+Lesotho,Africa,Southern Africa,1992.0,59.685,1803195,977.4862725,Strongly Autocratic,Autocratic
+Lesotho,Africa,Southern Africa,1997.0,55.558,1982823,1186.147994,Strongly Democratic,Democratic
+Lesotho,Africa,Southern Africa,2002.0,44.593,2046772,1275.184575,Strongly Democratic,Democratic
+Lesotho,Africa,Southern Africa,2007.0,42.592,2012649,1569.331442,Strongly Democratic,Democratic
+Liberia,Africa,Western Africa,1952.0,38.48,863308,575.5729961,Mildly Autocratic,Autocratic
+Liberia,Africa,Western Africa,1957.0,39.486,975950,620.9699901,Mildly Autocratic,Autocratic
+Liberia,Africa,Western Africa,1962.0,40.502,1112796,634.1951625,Mildly Autocratic,Autocratic
+Liberia,Africa,Western Africa,1967.0,41.536,1279406,713.6036483,Mildly Autocratic,Autocratic
+Liberia,Africa,Western Africa,1972.0,42.614,1482628,803.0054535,Mildly Autocratic,Autocratic
+Liberia,Africa,Western Africa,1977.0,43.764,1703617,640.3224383,Mildly Autocratic,Autocratic
+Liberia,Africa,Western Africa,1982.0,44.852,1956875,572.1995694,Strongly Autocratic,Autocratic
+Liberia,Africa,Western Africa,1987.0,46.027,2269414,506.1138573,Mildly Autocratic,Autocratic
+Liberia,Africa,Western Africa,1992.0,40.802,1912974,636.6229191,Middle of the Road,Middle of the Road
+Liberia,Africa,Western Africa,1997.0,42.221,2200725,609.17395079999994,Middle of the Road,Middle of the Road
+Liberia,Africa,Western Africa,2002.0,43.753,2814651,531.4823679,Middle of the Road,Middle of the Road
+Liberia,Africa,Western Africa,2007.0,45.678,3193942,414.5073415,Mildly Democratic,Democratic
+Libya,Africa,Northern Africa,1952.0,42.723,1019729,2387.54806,Strongly Autocratic,Autocratic
+Libya,Africa,Northern Africa,1957.0,45.289,1201578,3448.284395,Strongly Autocratic,Autocratic
+Libya,Africa,Northern Africa,1962.0,47.808,1441863,6757.030816,Strongly Autocratic,Autocratic
+Libya,Africa,Northern Africa,1967.0,50.227,1759224,18772.75169,Strongly Autocratic,Autocratic
+Libya,Africa,Northern Africa,1972.0,52.773,2183877,21011.49721,Strongly Autocratic,Autocratic
+Libya,Africa,Northern Africa,1977.0,57.442,2721783,21951.21176,Strongly Autocratic,Autocratic
+Libya,Africa,Northern Africa,1982.0,62.155,3344074,17364.27538,Strongly Autocratic,Autocratic
+Libya,Africa,Northern Africa,1987.0,66.234,3799845,11770.5898,Strongly Autocratic,Autocratic
+Libya,Africa,Northern Africa,1992.0,68.755,4364501,9640.138501,Strongly Autocratic,Autocratic
+Libya,Africa,Northern Africa,1997.0,71.555,4759670,9467.446056,Strongly Autocratic,Autocratic
+Libya,Africa,Northern Africa,2002.0,72.737,5368585,9534.677467,Strongly Autocratic,Autocratic
+Libya,Africa,Northern Africa,2007.0,73.952,6036914,12057.49928,Strongly Autocratic,Autocratic
+Madagascar,Africa,Eastern Africa,1952.0,36.681,4762912,1443.011715,NA,NA
+Madagascar,Africa,Eastern Africa,1957.0,38.865,5181679,1589.20275,NA,NA
+Madagascar,Africa,Eastern Africa,1962.0,40.848,5703324,1643.38711,Middle of the Road,Middle of the Road
+Madagascar,Africa,Eastern Africa,1967.0,42.881,6334556,1634.047282,Middle of the Road,Middle of the Road
+Madagascar,Africa,Eastern Africa,1972.0,44.851,7082430,1748.562982,Mildly Autocratic,Autocratic
+Madagascar,Africa,Eastern Africa,1977.0,46.881,8007166,1544.228586,Mildly Autocratic,Autocratic
+Madagascar,Africa,Eastern Africa,1982.0,48.969,9171477,1302.878658,Mildly Autocratic,Autocratic
+Madagascar,Africa,Eastern Africa,1987.0,49.35,10568642,1155.441948,Mildly Autocratic,Autocratic
+Madagascar,Africa,Eastern Africa,1992.0,52.214,12210395,1040.67619,Strongly Democratic,Democratic
+Madagascar,Africa,Eastern Africa,1997.0,54.978,14165114,986.2958956,Strongly Democratic,Democratic
+Madagascar,Africa,Eastern Africa,2002.0,57.286,16473477,894.6370822,Strongly Democratic,Democratic
+Madagascar,Africa,Eastern Africa,2007.0,59.443,19167654,1044.770126,Strongly Democratic,Democratic
+Malawi,Africa,Eastern Africa,1952.0,36.256,2917802,369.1650802,NA,NA
+Malawi,Africa,Eastern Africa,1957.0,37.207,3221238,416.3698064,NA,NA
+Malawi,Africa,Eastern Africa,1962.0,38.41,3628608,427.9010856,NA,NA
+Malawi,Africa,Eastern Africa,1967.0,39.487,4147252,495.5147806,Strongly Autocratic,Autocratic
+Malawi,Africa,Eastern Africa,1972.0,41.766,4730997,584.6219709,Strongly Autocratic,Autocratic
+Malawi,Africa,Eastern Africa,1977.0,43.767,5637246,663.2236766,Strongly Autocratic,Autocratic
+Malawi,Africa,Eastern Africa,1982.0,45.642,6502825,632.8039209,Strongly Autocratic,Autocratic
+Malawi,Africa,Eastern Africa,1987.0,47.457,7824747,635.5173634,Strongly Autocratic,Autocratic
+Malawi,Africa,Eastern Africa,1992.0,49.42,10014249,563.2000145,Strongly Autocratic,Autocratic
+Malawi,Africa,Eastern Africa,1997.0,47.495,10419991,692.2758103,Mildly Democratic,Democratic
+Malawi,Africa,Eastern Africa,2002.0,45.009,11824495,665.4231186,Mildly Democratic,Democratic
+Malawi,Africa,Eastern Africa,2007.0,48.303,13327079,759.3499101,Mildly Democratic,Democratic
+Malaysia,Asia,South-Eastern Asia,1952.0,48.463,6748378,1831.132894,NA,NA
+Malaysia,Asia,South-Eastern Asia,1957.0,52.102,7739235,1810.066992,Strongly Democratic,Democratic
+Malaysia,Asia,South-Eastern Asia,1962.0,55.737,8906385,2036.884944,Strongly Democratic,Democratic
+Malaysia,Asia,South-Eastern Asia,1967.0,59.371,10154878,2277.742396,Strongly Democratic,Democratic
+Malaysia,Asia,South-Eastern Asia,1972.0,63.01,11441462,2849.09478,Mildly Democratic,Democratic
+Malaysia,Asia,South-Eastern Asia,1977.0,65.256,12845381,3827.921571,Mildly Democratic,Democratic
+Malaysia,Asia,South-Eastern Asia,1982.0,68.0,14441916,4920.355951,Mildly Democratic,Democratic
+Malaysia,Asia,South-Eastern Asia,1987.0,69.5,16331785,5249.802653,Mildly Democratic,Democratic
+Malaysia,Asia,South-Eastern Asia,1992.0,70.693,18319502,7277.912802,Mildly Democratic,Democratic
+Malaysia,Asia,South-Eastern Asia,1997.0,71.938,20476091,10132.90964,Mildly Democratic,Democratic
+Malaysia,Asia,South-Eastern Asia,2002.0,73.044,22662365,10206.97794,Mildly Democratic,Democratic
+Malaysia,Asia,South-Eastern Asia,2007.0,74.241,24821286,12451.6558,Mildly Democratic,Democratic
+Mali,Africa,Western Africa,1952.0,33.685,3838168,452.3369807,NA,NA
+Mali,Africa,Western Africa,1957.0,35.307,4241884,490.3821867,NA,NA
+Mali,Africa,Western Africa,1962.0,36.936,4690372,496.1743428,Strongly Autocratic,Autocratic
+Mali,Africa,Western Africa,1967.0,38.487,5212416,545.0098873,Strongly Autocratic,Autocratic
+Mali,Africa,Western Africa,1972.0,39.977,5828158,581.3688761,Strongly Autocratic,Autocratic
+Mali,Africa,Western Africa,1977.0,41.714,6491649,686.3952693,Strongly Autocratic,Autocratic
+Mali,Africa,Western Africa,1982.0,43.916,6998256,618.0140641,Strongly Autocratic,Autocratic
+Mali,Africa,Western Africa,1987.0,46.364,7634008,684.1715576,Strongly Autocratic,Autocratic
+Mali,Africa,Western Africa,1992.0,48.388,8416215,739.014375,Strongly Democratic,Democratic
+Mali,Africa,Western Africa,1997.0,49.903,9384984,790.2579846,Mildly Democratic,Democratic
+Mali,Africa,Western Africa,2002.0,51.818,10580176,951.4097518,Strongly Democratic,Democratic
+Mali,Africa,Western Africa,2007.0,54.467,12031795,1042.581557,Strongly Democratic,Democratic
+Mauritania,Africa,Western Africa,1952.0,40.543,1022556,743.1159097,NA,NA
+Mauritania,Africa,Western Africa,1957.0,42.338,1076852,846.1202613,NA,NA
+Mauritania,Africa,Western Africa,1962.0,44.248,1146757,1055.896036,Strongly Autocratic,Autocratic
+Mauritania,Africa,Western Africa,1967.0,46.289,1230542,1421.145193,Strongly Autocratic,Autocratic
+Mauritania,Africa,Western Africa,1972.0,48.437,1332786,1586.851781,Strongly Autocratic,Autocratic
+Mauritania,Africa,Western Africa,1977.0,50.852,1456688,1497.492223,Strongly Autocratic,Autocratic
+Mauritania,Africa,Western Africa,1982.0,53.599,1622136,1481.150189,Strongly Autocratic,Autocratic
+Mauritania,Africa,Western Africa,1987.0,56.145,1841240,1421.603576,Strongly Autocratic,Autocratic
+Mauritania,Africa,Western Africa,1992.0,58.333,2119465,1361.369784,Mildly Autocratic,Autocratic
+Mauritania,Africa,Western Africa,1997.0,60.43,2444741,1483.136136,Mildly Autocratic,Autocratic
+Mauritania,Africa,Western Africa,2002.0,62.247,2828858,1579.019543,Mildly Autocratic,Autocratic
+Mauritania,Africa,Western Africa,2007.0,64.164,3270065,1803.151496,Mildly Democratic,Democratic
+Mauritius,Africa,Eastern Africa,1952.0,50.986,516556,1967.955707,NA,NA
+Mauritius,Africa,Eastern Africa,1957.0,58.089,609816,2034.037981,NA,NA
+Mauritius,Africa,Eastern Africa,1962.0,60.246,701016,2529.067487,NA,NA
+Mauritius,Africa,Eastern Africa,1967.0,61.557,789309,2475.387562,NA,NA
+Mauritius,Africa,Eastern Africa,1972.0,62.944,851334,2575.484158,Strongly Democratic,Democratic
+Mauritius,Africa,Eastern Africa,1977.0,64.93,913025,3710.982963,Strongly Democratic,Democratic
+Mauritius,Africa,Eastern Africa,1982.0,66.711,992040,3688.037739,Strongly Democratic,Democratic
+Mauritius,Africa,Eastern Africa,1987.0,68.74,1042663,4783.586903,Strongly Democratic,Democratic
+Mauritius,Africa,Eastern Africa,1992.0,69.745,1096202,6058.253846,Strongly Democratic,Democratic
+Mauritius,Africa,Eastern Africa,1997.0,70.736,1149818,7425.705295,Strongly Democratic,Democratic
+Mauritius,Africa,Eastern Africa,2002.0,71.954,1200206,9021.815894,Strongly Democratic,Democratic
+Mauritius,Africa,Eastern Africa,2007.0,72.801,1250882,10956.99112,Strongly Democratic,Democratic
+Mexico,Americas,Central America,1952.0,50.789,30144317,3478.125529,Mildly Autocratic,Autocratic
+Mexico,Americas,Central America,1957.0,55.19,35015548,4131.546641,Mildly Autocratic,Autocratic
+Mexico,Americas,Central America,1962.0,58.299,41121485,4581.609385,Mildly Autocratic,Autocratic
+Mexico,Americas,Central America,1967.0,60.11,47995559,5754.733883,Mildly Autocratic,Autocratic
+Mexico,Americas,Central America,1972.0,62.361,55984294,6809.40669,Mildly Autocratic,Autocratic
+Mexico,Americas,Central America,1977.0,65.032,63759976,7674.929108,Mildly Autocratic,Autocratic
+Mexico,Americas,Central America,1982.0,67.405,71640904,9611.147541,Mildly Autocratic,Autocratic
+Mexico,Americas,Central America,1987.0,69.498,80122492,8688.156003,Mildly Autocratic,Autocratic
+Mexico,Americas,Central America,1992.0,71.455,88111030,9472.384295,Middle of the Road,Middle of the Road
+Mexico,Americas,Central America,1997.0,73.67,95895146,9767.29753,Mildly Democratic,Democratic
+Mexico,Americas,Central America,2002.0,74.902,102479927,10742.44053,Strongly Democratic,Democratic
+Mexico,Americas,Central America,2007.0,76.195,108700891,11977.57496,Strongly Democratic,Democratic
+Mongolia,Asia,Eastern Asia,1952.0,42.244,800663,786.5668575,Strongly Autocratic,Autocratic
+Mongolia,Asia,Eastern Asia,1957.0,45.248,882134,912.6626085,Strongly Autocratic,Autocratic
+Mongolia,Asia,Eastern Asia,1962.0,48.251,1010280,1056.353958,Strongly Autocratic,Autocratic
+Mongolia,Asia,Eastern Asia,1967.0,51.253,1149500,1226.04113,Strongly Autocratic,Autocratic
+Mongolia,Asia,Eastern Asia,1972.0,53.754,1320500,1421.741975,Strongly Autocratic,Autocratic
+Mongolia,Asia,Eastern Asia,1977.0,55.491,1528000,1647.511665,Strongly Autocratic,Autocratic
+Mongolia,Asia,Eastern Asia,1982.0,57.489,1756032,2000.603139,Strongly Autocratic,Autocratic
+Mongolia,Asia,Eastern Asia,1987.0,60.222,2015133,2338.008304,Strongly Autocratic,Autocratic
+Mongolia,Asia,Eastern Asia,1992.0,61.271,2312802,1785.402016,Strongly Democratic,Democratic
+Mongolia,Asia,Eastern Asia,1997.0,63.625,2494803,1902.2521,Strongly Democratic,Democratic
+Mongolia,Asia,Eastern Asia,2002.0,65.033,2674234,2140.739323,Strongly Democratic,Democratic
+Mongolia,Asia,Eastern Asia,2007.0,66.803,2874127,3095.772271,Strongly Democratic,Democratic
+Montenegro,Europe,Southern Europe,1952.0,59.164,413834,2647.585601,Strongly Autocratic,Autocratic
+Montenegro,Europe,Southern Europe,1957.0,61.448,442829,3682.259903,Strongly Autocratic,Autocratic
+Montenegro,Europe,Southern Europe,1962.0,63.728,474528,4649.593785,Strongly Autocratic,Autocratic
+Montenegro,Europe,Southern Europe,1967.0,67.178,501035,5907.850937,Strongly Autocratic,Autocratic
+Montenegro,Europe,Southern Europe,1972.0,70.636,527678,7778.414017,Strongly Autocratic,Autocratic
+Montenegro,Europe,Southern Europe,1977.0,73.066,560073,9595.929905,Strongly Autocratic,Autocratic
+Montenegro,Europe,Southern Europe,1982.0,74.101,562548,11222.58762,Mildly Autocratic,Autocratic
+Montenegro,Europe,Southern Europe,1987.0,74.865,569473,11732.51017,Mildly Autocratic,Autocratic
+Montenegro,Europe,Southern Europe,1992.0,75.435,621621,7003.339037,Mildly Autocratic,Autocratic
+Montenegro,Europe,Southern Europe,1997.0,75.445,692651,6465.613349,Mildly Autocratic,Autocratic
+Montenegro,Europe,Southern Europe,2002.0,73.981,720230,6557.194282,Strongly Democratic,Democratic
+Montenegro,Europe,Southern Europe,2007.0,74.543,684736,9253.896111,Strongly Democratic,Democratic
+Morocco,Africa,Northern Africa,1952.0,42.873,9939217,1688.20357,NA,NA
+Morocco,Africa,Northern Africa,1957.0,45.423,11406350,1642.002314,Mildly Autocratic,Autocratic
+Morocco,Africa,Northern Africa,1962.0,47.924,13056604,1566.353493,Mildly Autocratic,Autocratic
+Morocco,Africa,Northern Africa,1967.0,50.335,14770296,1711.04477,Strongly Autocratic,Autocratic
+Morocco,Africa,Northern Africa,1972.0,52.862,16660670,1930.194975,Strongly Autocratic,Autocratic
+Morocco,Africa,Northern Africa,1977.0,55.73,18396941,2370.619976,Strongly Autocratic,Autocratic
+Morocco,Africa,Northern Africa,1982.0,59.65,20198730,2702.620356,Strongly Autocratic,Autocratic
+Morocco,Africa,Northern Africa,1987.0,62.677,22987397,2755.046991,Strongly Autocratic,Autocratic
+Morocco,Africa,Northern Africa,1992.0,65.393,25798239,2948.047252,Strongly Autocratic,Autocratic
+Morocco,Africa,Northern Africa,1997.0,67.66,28529501,2982.101858,Strongly Autocratic,Autocratic
+Morocco,Africa,Northern Africa,2002.0,69.615,31167783,3258.495584,Mildly Autocratic,Autocratic
+Morocco,Africa,Northern Africa,2007.0,71.164,33757175,3820.17523,Mildly Autocratic,Autocratic
+Mozambique,Africa,Eastern Africa,1952.0,31.286,6446316,468.5260381,NA,NA
+Mozambique,Africa,Eastern Africa,1957.0,33.779,7038035,495.5868333,NA,NA
+Mozambique,Africa,Eastern Africa,1962.0,36.161,7788944,556.6863539,NA,NA
+Mozambique,Africa,Eastern Africa,1967.0,38.113,8680909,566.6691539,NA,NA
+Mozambique,Africa,Eastern Africa,1972.0,40.328,9809596,724.9178037,NA,NA
+Mozambique,Africa,Eastern Africa,1977.0,42.495,11127868,502.3197334,Strongly Autocratic,Autocratic
+Mozambique,Africa,Eastern Africa,1982.0,42.795,12587223,462.2114149,Strongly Autocratic,Autocratic
+Mozambique,Africa,Eastern Africa,1987.0,42.861,12891952,389.8761846,Strongly Autocratic,Autocratic
+Mozambique,Africa,Eastern Africa,1992.0,44.284,13160731,410.8968239,Mildly Autocratic,Autocratic
+Mozambique,Africa,Eastern Africa,1997.0,46.344,16603334,472.3460771,Mildly Democratic,Democratic
+Mozambique,Africa,Eastern Africa,2002.0,44.026,18473780,633.6179466,Mildly Democratic,Democratic
+Mozambique,Africa,Eastern Africa,2007.0,42.082,19951656,823.6856205,Mildly Democratic,Democratic
+Myanmar,Asia,South-Eastern Asia,1952.0,36.319,20092996,331.0,Strongly Democratic,Democratic
+Myanmar,Asia,South-Eastern Asia,1957.0,41.905,21731844,350.0,Strongly Democratic,Democratic
+Myanmar,Asia,South-Eastern Asia,1962.0,45.108,23634436,388.0,Mildly Autocratic,Autocratic
+Myanmar,Asia,South-Eastern Asia,1967.0,49.379,25870271,349.0,Strongly Autocratic,Autocratic
+Myanmar,Asia,South-Eastern Asia,1972.0,53.07,28466390,357.0,Strongly Autocratic,Autocratic
+Myanmar,Asia,South-Eastern Asia,1977.0,56.059,31528087,371.0,Mildly Autocratic,Autocratic
+Myanmar,Asia,South-Eastern Asia,1982.0,58.056,34680442,424.0,Strongly Autocratic,Autocratic
+Myanmar,Asia,South-Eastern Asia,1987.0,58.339,38028578,385.0,Strongly Autocratic,Autocratic
+Myanmar,Asia,South-Eastern Asia,1992.0,59.32,40546538,347.0,Strongly Autocratic,Autocratic
+Myanmar,Asia,South-Eastern Asia,1997.0,60.328,43247867,415.0,Strongly Autocratic,Autocratic
+Myanmar,Asia,South-Eastern Asia,2002.0,59.908,45598081,611.0,Strongly Autocratic,Autocratic
+Myanmar,Asia,South-Eastern Asia,2007.0,62.069,47761980,944.0,Strongly Autocratic,Autocratic
+Namibia,Africa,Southern Africa,1952.0,41.725,485831,2423.780443,NA,NA
+Namibia,Africa,Southern Africa,1957.0,45.226,548080,2621.448058,NA,NA
+Namibia,Africa,Southern Africa,1962.0,48.386,621392,3173.215595,NA,NA
+Namibia,Africa,Southern Africa,1967.0,51.159,706640,3793.694753,NA,NA
+Namibia,Africa,Southern Africa,1972.0,53.867,821782,3746.080948,NA,NA
+Namibia,Africa,Southern Africa,1977.0,56.437,977026,3876.485958,NA,NA
+Namibia,Africa,Southern Africa,1982.0,58.968,1099010,4191.100511,NA,NA
+Namibia,Africa,Southern Africa,1987.0,60.835,1278184,3693.731337,NA,NA
+Namibia,Africa,Southern Africa,1992.0,61.999,1554253,3804.537999,Mildly Democratic,Democratic
+Namibia,Africa,Southern Africa,1997.0,58.909,1774766,3899.52426,Mildly Democratic,Democratic
+Namibia,Africa,Southern Africa,2002.0,51.479,1972153,4072.324751,Mildly Democratic,Democratic
+Namibia,Africa,Southern Africa,2007.0,52.906,2055080,4811.060429,Mildly Democratic,Democratic
+Nepal,Asia,Southern Asia,1952.0,36.157,9182536,545.8657229,Strongly Autocratic,Autocratic
+Nepal,Asia,Southern Asia,1957.0,37.686,9682338,597.9363558,Mildly Autocratic,Autocratic
+Nepal,Asia,Southern Asia,1962.0,39.393,10332057,652.3968593,Strongly Autocratic,Autocratic
+Nepal,Asia,Southern Asia,1967.0,41.472,11261690,676.4422254,Strongly Autocratic,Autocratic
+Nepal,Asia,Southern Asia,1972.0,43.971,12412593,674.7881296,Strongly Autocratic,Autocratic
+Nepal,Asia,Southern Asia,1977.0,46.748,13933198,694.1124398,Strongly Autocratic,Autocratic
+Nepal,Asia,Southern Asia,1982.0,49.594,15796314,718.3730947,Middle of the Road,Middle of the Road
+Nepal,Asia,Southern Asia,1987.0,52.537,17917180,775.6324501,Middle of the Road,Middle of the Road
+Nepal,Asia,Southern Asia,1992.0,55.727,20326209,897.7403604,Mildly Democratic,Democratic
+Nepal,Asia,Southern Asia,1997.0,59.426,23001113,1010.892138,Mildly Democratic,Democratic
+Nepal,Asia,Southern Asia,2002.0,61.34,25873917,1057.206311,Mildly Autocratic,Autocratic
+Nepal,Asia,Southern Asia,2007.0,63.785,28901790,1091.359778,Mildly Democratic,Democratic
+Netherlands,Europe,Western Europe,1952.0,72.13,10381988,8941.571858,Strongly Democratic,Democratic
+Netherlands,Europe,Western Europe,1957.0,72.99,11026383,11276.19344,Strongly Democratic,Democratic
+Netherlands,Europe,Western Europe,1962.0,73.23,11805689,12790.84956,Strongly Democratic,Democratic
+Netherlands,Europe,Western Europe,1967.0,73.82,12596822,15363.25136,Strongly Democratic,Democratic
+Netherlands,Europe,Western Europe,1972.0,73.75,13329874,18794.74567,Strongly Democratic,Democratic
+Netherlands,Europe,Western Europe,1977.0,75.24,13852989,21209.0592,Strongly Democratic,Democratic
+Netherlands,Europe,Western Europe,1982.0,76.05,14310401,21399.46046,Strongly Democratic,Democratic
+Netherlands,Europe,Western Europe,1987.0,76.83,14665278,23651.32361,Strongly Democratic,Democratic
+Netherlands,Europe,Western Europe,1992.0,77.42,15174244,26790.94961,Strongly Democratic,Democratic
+Netherlands,Europe,Western Europe,1997.0,78.03,15604464,30246.13063,Strongly Democratic,Democratic
+Netherlands,Europe,Western Europe,2002.0,78.53,16122830,33724.75778,Strongly Democratic,Democratic
+Netherlands,Europe,Western Europe,2007.0,79.762,16570613,36797.93332,Strongly Democratic,Democratic
+New Zealand,Oceania,Australia and New Zealand,1952.0,69.39,1994794,10556.57566,Strongly Democratic,Democratic
+New Zealand,Oceania,Australia and New Zealand,1957.0,70.26,2229407,12247.39532,Strongly Democratic,Democratic
+New Zealand,Oceania,Australia and New Zealand,1962.0,71.24,2488550,13175.678,Strongly Democratic,Democratic
+New Zealand,Oceania,Australia and New Zealand,1967.0,71.52,2728150,14463.91893,Strongly Democratic,Democratic
+New Zealand,Oceania,Australia and New Zealand,1972.0,71.89,2929100,16046.03728,Strongly Democratic,Democratic
+New Zealand,Oceania,Australia and New Zealand,1977.0,72.22,3164900,16233.7177,Strongly Democratic,Democratic
+New Zealand,Oceania,Australia and New Zealand,1982.0,73.84,3210650,17632.4104,Strongly Democratic,Democratic
+New Zealand,Oceania,Australia and New Zealand,1987.0,74.32,3317166,19007.19129,Strongly Democratic,Democratic
+New Zealand,Oceania,Australia and New Zealand,1992.0,76.33,3437674,18363.32494,Strongly Democratic,Democratic
+New Zealand,Oceania,Australia and New Zealand,1997.0,77.55,3676187,21050.41377,Strongly Democratic,Democratic
+New Zealand,Oceania,Australia and New Zealand,2002.0,79.11,3908037,23189.80135,Strongly Democratic,Democratic
+New Zealand,Oceania,Australia and New Zealand,2007.0,80.204,4115771,25185.00911,Strongly Democratic,Democratic
+Nicaragua,Americas,Central America,1952.0,42.314,1165790,3112.363948,Strongly Autocratic,Autocratic
+Nicaragua,Americas,Central America,1957.0,45.432,1358828,3457.415947,Strongly Autocratic,Autocratic
+Nicaragua,Americas,Central America,1962.0,48.632,1590597,3634.364406,Strongly Autocratic,Autocratic
+Nicaragua,Americas,Central America,1967.0,51.884,1865490,4643.393534,Strongly Autocratic,Autocratic
+Nicaragua,Americas,Central America,1972.0,55.151,2182908,4688.593267,Strongly Autocratic,Autocratic
+Nicaragua,Americas,Central America,1977.0,57.47,2554598,5486.371089,Strongly Autocratic,Autocratic
+Nicaragua,Americas,Central America,1982.0,59.298,2979423,3470.338156,Mildly Autocratic,Autocratic
+Nicaragua,Americas,Central America,1987.0,62.008,3344353,2955.984375,Middle of the Road,Middle of the Road
+Nicaragua,Americas,Central America,1992.0,65.843,4017939,2170.151724,Mildly Democratic,Democratic
+Nicaragua,Americas,Central America,1997.0,68.426,4609572,2253.023004,Strongly Democratic,Democratic
+Nicaragua,Americas,Central America,2002.0,70.836,5146848,2474.548819,Strongly Democratic,Democratic
+Nicaragua,Americas,Central America,2007.0,72.899,5675356,2749.320965,Strongly Democratic,Democratic
+Niger,Africa,Western Africa,1952.0,37.444,3379468,761.879376,NA,NA
+Niger,Africa,Western Africa,1957.0,38.598,3692184,835.5234025,NA,NA
+Niger,Africa,Western Africa,1962.0,39.487,4076008,997.7661127,Strongly Autocratic,Autocratic
+Niger,Africa,Western Africa,1967.0,40.118,4534062,1054.384891,Strongly Autocratic,Autocratic
+Niger,Africa,Western Africa,1972.0,40.546,5060262,954.2092363,Strongly Autocratic,Autocratic
+Niger,Africa,Western Africa,1977.0,41.291,5682086,808.8970728,Strongly Autocratic,Autocratic
+Niger,Africa,Western Africa,1982.0,42.598,6437188,909.7221354,Strongly Autocratic,Autocratic
+Niger,Africa,Western Africa,1987.0,44.555,7332638,668.3000228,Strongly Autocratic,Autocratic
+Niger,Africa,Western Africa,1992.0,47.391,8392818,581.182725,Strongly Democratic,Democratic
+Niger,Africa,Western Africa,1997.0,51.313,9666252,580.3052092,Mildly Autocratic,Autocratic
+Niger,Africa,Western Africa,2002.0,54.496,11140655,601.0745012,Mildly Democratic,Democratic
+Niger,Africa,Western Africa,2007.0,56.867,12894865,619.6768924,Mildly Democratic,Democratic
+Nigeria,Africa,Western Africa,1952.0,36.324,33119096,1077.281856,NA,NA
+Nigeria,Africa,Western Africa,1957.0,37.802,37173340,1100.592563,NA,NA
+Nigeria,Africa,Western Africa,1962.0,39.36,41871351,1150.927478,Strongly Democratic,Democratic
+Nigeria,Africa,Western Africa,1967.0,41.04,47287752,1014.514104,Strongly Autocratic,Autocratic
+Nigeria,Africa,Western Africa,1972.0,42.821,53740085,1698.388838,Strongly Autocratic,Autocratic
+Nigeria,Africa,Western Africa,1977.0,44.514,62209173,1981.951806,Strongly Autocratic,Autocratic
+Nigeria,Africa,Western Africa,1982.0,45.826,73039376,1576.97375,Strongly Democratic,Democratic
+Nigeria,Africa,Western Africa,1987.0,46.886,81551520,1385.029563,Strongly Autocratic,Autocratic
+Nigeria,Africa,Western Africa,1992.0,47.472,93364244,1619.848217,Mildly Autocratic,Autocratic
+Nigeria,Africa,Western Africa,1997.0,47.464,106207839,1624.941275,Mildly Autocratic,Autocratic
+Nigeria,Africa,Western Africa,2002.0,46.608,119901274,1615.286395,Mildly Democratic,Democratic
+Nigeria,Africa,Western Africa,2007.0,46.859,135031164,2013.977305,Mildly Democratic,Democratic
+Norway,Europe,Northern Europe,1952.0,72.67,3327728,10095.42172,Strongly Democratic,Democratic
+Norway,Europe,Northern Europe,1957.0,73.44,3491938,11653.97304,Strongly Democratic,Democratic
+Norway,Europe,Northern Europe,1962.0,73.47,3638919,13450.40151,Strongly Democratic,Democratic
+Norway,Europe,Northern Europe,1967.0,74.08,3786019,16361.87647,Strongly Democratic,Democratic
+Norway,Europe,Northern Europe,1972.0,74.34,3933004,18965.05551,Strongly Democratic,Democratic
+Norway,Europe,Northern Europe,1977.0,75.37,4043205,23311.34939,Strongly Democratic,Democratic
+Norway,Europe,Northern Europe,1982.0,75.97,4114787,26298.63531,Strongly Democratic,Democratic
+Norway,Europe,Northern Europe,1987.0,75.89,4186147,31540.9748,Strongly Democratic,Democratic
+Norway,Europe,Northern Europe,1992.0,77.32,4286357,33965.66115,Strongly Democratic,Democratic
+Norway,Europe,Northern Europe,1997.0,78.32,4405672,41283.16433,Strongly Democratic,Democratic
+Norway,Europe,Northern Europe,2002.0,79.05,4535591,44683.97525,Strongly Democratic,Democratic
+Norway,Europe,Northern Europe,2007.0,80.196,4627926,49357.19017,Strongly Democratic,Democratic
+Oman,Asia,Western Asia,1952.0,37.578,507833,1828.230307,Mildly Autocratic,Autocratic
+Oman,Asia,Western Asia,1957.0,40.08,561977,2242.746551,Strongly Autocratic,Autocratic
+Oman,Asia,Western Asia,1962.0,43.165,628164,2924.638113,Strongly Autocratic,Autocratic
+Oman,Asia,Western Asia,1967.0,46.988,714775,4720.942687,Strongly Autocratic,Autocratic
+Oman,Asia,Western Asia,1972.0,52.143,829050,10618.03855,Strongly Autocratic,Autocratic
+Oman,Asia,Western Asia,1977.0,57.367,1004533,11848.34392,Strongly Autocratic,Autocratic
+Oman,Asia,Western Asia,1982.0,62.728,1301048,12954.79101,Strongly Autocratic,Autocratic
+Oman,Asia,Western Asia,1987.0,67.734,1593882,18115.22313,Strongly Autocratic,Autocratic
+Oman,Asia,Western Asia,1992.0,71.197,1915208,18616.70691,Strongly Autocratic,Autocratic
+Oman,Asia,Western Asia,1997.0,72.499,2283635,19702.05581,Strongly Autocratic,Autocratic
+Oman,Asia,Western Asia,2002.0,74.193,2713462,19774.83687,Strongly Autocratic,Autocratic
+Oman,Asia,Western Asia,2007.0,75.64,3204897,22316.19287,Strongly Autocratic,Autocratic
+Pakistan,Asia,Southern Asia,1952.0,43.436,41346560,684.5971438,Mildly Democratic,Democratic
+Pakistan,Asia,Southern Asia,1957.0,45.557,46679944,747.0835292,Strongly Democratic,Democratic
+Pakistan,Asia,Southern Asia,1962.0,47.67,53100671,803.3427418,Middle of the Road,Middle of the Road
+Pakistan,Asia,Southern Asia,1967.0,49.8,60641899,942.4082588,Middle of the Road,Middle of the Road
+Pakistan,Asia,Southern Asia,1972.0,51.929,69325921,1049.938981,Mildly Democratic,Democratic
+Pakistan,Asia,Southern Asia,1977.0,54.043,78152686,1175.921193,Strongly Autocratic,Autocratic
+Pakistan,Asia,Southern Asia,1982.0,56.158,91462088,1443.429832,Strongly Autocratic,Autocratic
+Pakistan,Asia,Southern Asia,1987.0,58.245,105186881,1704.686583,Mildly Autocratic,Autocratic
+Pakistan,Asia,Southern Asia,1992.0,60.838,120065004,1971.829464,Strongly Democratic,Democratic
+Pakistan,Asia,Southern Asia,1997.0,61.818,135564834,2049.350521,Strongly Democratic,Democratic
+Pakistan,Asia,Southern Asia,2002.0,63.61,153403524,2092.712441,Mildly Autocratic,Autocratic
+Pakistan,Asia,Southern Asia,2007.0,65.483,169270617,2605.94758,Middle of the Road,Middle of the Road
+Panama,Americas,Central America,1952.0,55.191,940080,2480.380334,Middle of the Road,Middle of the Road
+Panama,Americas,Central America,1957.0,59.201,1063506,2961.800905,Mildly Democratic,Democratic
+Panama,Americas,Central America,1962.0,61.817,1215725,3536.540301,Mildly Democratic,Democratic
+Panama,Americas,Central America,1967.0,64.071,1405486,4421.009084,Mildly Democratic,Democratic
+Panama,Americas,Central America,1972.0,66.216,1616384,5364.249663,Strongly Autocratic,Autocratic
+Panama,Americas,Central America,1977.0,68.681,1839782,5351.912144,Strongly Autocratic,Autocratic
+Panama,Americas,Central America,1982.0,70.472,2036305,7009.601598,Mildly Autocratic,Autocratic
+Panama,Americas,Central America,1987.0,71.523,2253639,7034.779161,Strongly Autocratic,Autocratic
+Panama,Americas,Central America,1992.0,72.462,2484997,6618.74305,Strongly Democratic,Democratic
+Panama,Americas,Central America,1997.0,73.738,2734531,7113.692252,Strongly Democratic,Democratic
+Panama,Americas,Central America,2002.0,74.712,2990875,7356.031934,Strongly Democratic,Democratic
+Panama,Americas,Central America,2007.0,75.537,3242173,9809.185636,Strongly Democratic,Democratic
+Paraguay,Americas,South America,1952.0,62.649,1555876,1952.308701,Mildly Autocratic,Autocratic
+Paraguay,Americas,South America,1957.0,63.196,1770902,2046.154706,Strongly Autocratic,Autocratic
+Paraguay,Americas,South America,1962.0,64.361,2009813,2148.027146,Strongly Autocratic,Autocratic
+Paraguay,Americas,South America,1967.0,64.951,2287985,2299.376311,Strongly Autocratic,Autocratic
+Paraguay,Americas,South America,1972.0,65.815,2614104,2523.337977,Strongly Autocratic,Autocratic
+Paraguay,Americas,South America,1977.0,66.353,2984494,3248.373311,Strongly Autocratic,Autocratic
+Paraguay,Americas,South America,1982.0,66.874,3366439,4258.503604,Strongly Autocratic,Autocratic
+Paraguay,Americas,South America,1987.0,67.378,3886512,3998.875695,Strongly Autocratic,Autocratic
+Paraguay,Americas,South America,1992.0,68.225,4483945,4196.411078,Strongly Democratic,Democratic
+Paraguay,Americas,South America,1997.0,69.4,5154123,4247.400261,Strongly Democratic,Democratic
+Paraguay,Americas,South America,2002.0,70.755,5884491,3783.674243,Strongly Democratic,Democratic
+Paraguay,Americas,South America,2007.0,71.752,6667147,4172.838464,Strongly Democratic,Democratic
+Peru,Americas,South America,1952.0,43.902,8025700,3758.523437,Middle of the Road,Middle of the Road
+Peru,Americas,South America,1957.0,46.263,9146100,4245.256698,Mildly Democratic,Democratic
+Peru,Americas,South America,1962.0,49.096,10516500,4957.037982,Mildly Autocratic,Autocratic
+Peru,Americas,South America,1967.0,51.445,12132200,5788.09333,Mildly Democratic,Democratic
+Peru,Americas,South America,1972.0,55.448,13954700,5937.827283,Strongly Autocratic,Autocratic
+Peru,Americas,South America,1977.0,58.447,15990099,6281.290855,Strongly Autocratic,Autocratic
+Peru,Americas,South America,1982.0,61.406,18125129,6434.501797,Strongly Democratic,Democratic
+Peru,Americas,South America,1987.0,64.134,20195924,6360.9434440000005,Strongly Democratic,Democratic
+Peru,Americas,South America,1992.0,66.458,22430449,4446.380924,Mildly Autocratic,Autocratic
+Peru,Americas,South America,1997.0,68.386,24748122,5838.347657,Middle of the Road,Middle of the Road
+Peru,Americas,South America,2002.0,69.906,26769436,5909.020073,Strongly Democratic,Democratic
+Peru,Americas,South America,2007.0,71.421,28674757,7408.905561,Strongly Democratic,Democratic
+Philippines,Asia,South-Eastern Asia,1952.0,47.752,22438691,1272.880995,Mildly Democratic,Democratic
+Philippines,Asia,South-Eastern Asia,1957.0,51.334,26072194,1547.944844,Mildly Democratic,Democratic
+Philippines,Asia,South-Eastern Asia,1962.0,54.757,30325264,1649.552153,Mildly Democratic,Democratic
+Philippines,Asia,South-Eastern Asia,1967.0,56.393,35356600,1814.12743,Mildly Democratic,Democratic
+Philippines,Asia,South-Eastern Asia,1972.0,58.065,40850141,1989.37407,Strongly Autocratic,Autocratic
+Philippines,Asia,South-Eastern Asia,1977.0,60.06,46850962,2373.204287,Strongly Autocratic,Autocratic
+Philippines,Asia,South-Eastern Asia,1982.0,62.082,53456774,2603.273765,Strongly Autocratic,Autocratic
+Philippines,Asia,South-Eastern Asia,1987.0,64.151,60017788,2189.634995,Strongly Democratic,Democratic
+Philippines,Asia,South-Eastern Asia,1992.0,66.458,67185766,2279.324017,Strongly Democratic,Democratic
+Philippines,Asia,South-Eastern Asia,1997.0,68.564,75012988,2536.534925,Strongly Democratic,Democratic
+Philippines,Asia,South-Eastern Asia,2002.0,70.303,82995088,2650.921068,Strongly Democratic,Democratic
+Philippines,Asia,South-Eastern Asia,2007.0,71.688,91077287,3190.481016,Strongly Democratic,Democratic
+Poland,Europe,Eastern Europe,1952.0,61.31,25730551,4029.329699,Strongly Autocratic,Autocratic
+Poland,Europe,Eastern Europe,1957.0,65.77,28235346,4734.253019,Strongly Autocratic,Autocratic
+Poland,Europe,Eastern Europe,1962.0,67.64,30329617,5338.752143,Strongly Autocratic,Autocratic
+Poland,Europe,Eastern Europe,1967.0,69.61,31785378,6557.152776,Strongly Autocratic,Autocratic
+Poland,Europe,Eastern Europe,1972.0,70.85,33039545,8006.506993,Strongly Autocratic,Autocratic
+Poland,Europe,Eastern Europe,1977.0,70.67,34621254,9508.141454,Strongly Autocratic,Autocratic
+Poland,Europe,Eastern Europe,1982.0,71.32,36227381,8451.531004,Strongly Autocratic,Autocratic
+Poland,Europe,Eastern Europe,1987.0,70.98,37740710,9082.351172,Mildly Autocratic,Autocratic
+Poland,Europe,Eastern Europe,1992.0,70.99,38370697,7738.881247,Strongly Democratic,Democratic
+Poland,Europe,Eastern Europe,1997.0,72.75,38654957,10159.58368,Strongly Democratic,Democratic
+Poland,Europe,Eastern Europe,2002.0,74.67,38625976,12002.23908,Strongly Democratic,Democratic
+Poland,Europe,Eastern Europe,2007.0,75.563,38518241,15389.92468,Strongly Democratic,Democratic
+Portugal,Europe,Southern Europe,1952.0,59.82,8526050,3068.319867,Strongly Autocratic,Autocratic
+Portugal,Europe,Southern Europe,1957.0,61.51,8817650,3774.571743,Strongly Autocratic,Autocratic
+Portugal,Europe,Southern Europe,1962.0,64.39,9019800,4727.954889,Strongly Autocratic,Autocratic
+Portugal,Europe,Southern Europe,1967.0,66.6,9103000,6361.517993,Strongly Autocratic,Autocratic
+Portugal,Europe,Southern Europe,1972.0,69.26,8970450,9022.247417,Strongly Autocratic,Autocratic
+Portugal,Europe,Southern Europe,1977.0,70.41,9662600,10172.48572,Strongly Democratic,Democratic
+Portugal,Europe,Southern Europe,1982.0,72.77,9859650,11753.84291,Strongly Democratic,Democratic
+Portugal,Europe,Southern Europe,1987.0,74.06,9915289,13039.30876,Strongly Democratic,Democratic
+Portugal,Europe,Southern Europe,1992.0,74.86,9927680,16207.26663,Strongly Democratic,Democratic
+Portugal,Europe,Southern Europe,1997.0,75.97,10156415,17641.03156,Strongly Democratic,Democratic
+Portugal,Europe,Southern Europe,2002.0,77.29,10433867,19970.90787,Strongly Democratic,Democratic
+Portugal,Europe,Southern Europe,2007.0,78.098,10642836,20509.64777,Strongly Democratic,Democratic
+Puerto Rico,Americas,Caribbean,1952.0,64.28,2227000,3081.959785,NA,NA
+Puerto Rico,Americas,Caribbean,1957.0,68.54,2260000,3907.156189,NA,NA
+Puerto Rico,Americas,Caribbean,1962.0,69.62,2448046,5108.34463,NA,NA
+Puerto Rico,Americas,Caribbean,1967.0,71.1,2648961,6929.277714,NA,NA
+Puerto Rico,Americas,Caribbean,1972.0,72.16,2847132,9123.041742,NA,NA
+Puerto Rico,Americas,Caribbean,1977.0,73.44,3080828,9770.524921,NA,NA
+Puerto Rico,Americas,Caribbean,1982.0,73.75,3279001,10330.98915,NA,NA
+Puerto Rico,Americas,Caribbean,1987.0,74.63,3444468,12281.34191,NA,NA
+Puerto Rico,Americas,Caribbean,1992.0,73.911,3585176,14641.58711,NA,NA
+Puerto Rico,Americas,Caribbean,1997.0,74.917,3759430,16999.4333,NA,NA
+Puerto Rico,Americas,Caribbean,2002.0,77.778,3859606,18855.60618,NA,NA
+Puerto Rico,Americas,Caribbean,2007.0,78.746,3942491,19328.70901,NA,NA
+Reunion,Africa,Eastern Africa,1952.0,52.724,257700,2718.885295,NA,NA
+Reunion,Africa,Eastern Africa,1957.0,55.09,308700,2769.451844,NA,NA
+Reunion,Africa,Eastern Africa,1962.0,57.666,358900,3173.72334,NA,NA
+Reunion,Africa,Eastern Africa,1967.0,60.542,414024,4021.175739,NA,NA
+Reunion,Africa,Eastern Africa,1972.0,64.274,461633,5047.658563,NA,NA
+Reunion,Africa,Eastern Africa,1977.0,67.064,492095,4319.804067,NA,NA
+Reunion,Africa,Eastern Africa,1982.0,69.885,517810,5267.219353,NA,NA
+Reunion,Africa,Eastern Africa,1987.0,71.913,562035,5303.377488,NA,NA
+Reunion,Africa,Eastern Africa,1992.0,73.615,622191,6101.255823,NA,NA
+Reunion,Africa,Eastern Africa,1997.0,74.772,684810,6071.941411,NA,NA
+Reunion,Africa,Eastern Africa,2002.0,75.744,743981,6316.1652,NA,NA
+Reunion,Africa,Eastern Africa,2007.0,76.442,798094,7670.122558,NA,NA
+Romania,Europe,Eastern Europe,1952.0,61.05,16630000,3144.613186,Strongly Autocratic,Autocratic
+Romania,Europe,Eastern Europe,1957.0,64.1,17829327,3943.370225,Strongly Autocratic,Autocratic
+Romania,Europe,Eastern Europe,1962.0,66.8,18680721,4734.997586,Strongly Autocratic,Autocratic
+Romania,Europe,Eastern Europe,1967.0,66.8,19284814,6470.866545,Strongly Autocratic,Autocratic
+Romania,Europe,Eastern Europe,1972.0,69.21,20662648,8011.414402,Strongly Autocratic,Autocratic
+Romania,Europe,Eastern Europe,1977.0,69.46,21658597,9356.39724,Strongly Autocratic,Autocratic
+Romania,Europe,Eastern Europe,1982.0,69.66,22356726,9605.314053,Strongly Autocratic,Autocratic
+Romania,Europe,Eastern Europe,1987.0,69.53,22686371,9696.273295,Strongly Autocratic,Autocratic
+Romania,Europe,Eastern Europe,1992.0,69.36,22797027,6598.409903,Mildly Democratic,Democratic
+Romania,Europe,Eastern Europe,1997.0,69.72,22562458,7346.547557,Strongly Democratic,Democratic
+Romania,Europe,Eastern Europe,2002.0,71.322,22404337,7885.360081,Strongly Democratic,Democratic
+Romania,Europe,Eastern Europe,2007.0,72.476,22276056,10808.47561,Strongly Democratic,Democratic
+Rwanda,Africa,Eastern Africa,1952.0,40.0,2534927,493.3238752,NA,NA
+Rwanda,Africa,Eastern Africa,1957.0,41.5,2822082,540.2893983,NA,NA
+Rwanda,Africa,Eastern Africa,1962.0,43.0,3051242,597.4730727,Mildly Autocratic,Autocratic
+Rwanda,Africa,Eastern Africa,1967.0,44.1,3451079,510.9637142,Mildly Autocratic,Autocratic
+Rwanda,Africa,Eastern Africa,1972.0,44.6,3992121,590.5806638,Mildly Autocratic,Autocratic
+Rwanda,Africa,Eastern Africa,1977.0,45.0,4657072,670.0806011,Strongly Autocratic,Autocratic
+Rwanda,Africa,Eastern Africa,1982.0,46.218,5507565,881.5706467,Strongly Autocratic,Autocratic
+Rwanda,Africa,Eastern Africa,1987.0,44.02,6349365,847.991217,Strongly Autocratic,Autocratic
+Rwanda,Africa,Eastern Africa,1992.0,23.599,7290203,737.0685949,Strongly Autocratic,Autocratic
+Rwanda,Africa,Eastern Africa,1997.0,36.087,7212583,589.9445051,Mildly Autocratic,Autocratic
+Rwanda,Africa,Eastern Africa,2002.0,43.413,7852401,785.6537648,Mildly Autocratic,Autocratic
+Rwanda,Africa,Eastern Africa,2007.0,46.242,8860588,863.0884639,Mildly Autocratic,Autocratic
+Sao Tome and Principe,Africa,Middle Africa,1952.0,46.471,60011,879.5835855,NA,NA
+Sao Tome and Principe,Africa,Middle Africa,1957.0,48.945,61325,860.7369026,NA,NA
+Sao Tome and Principe,Africa,Middle Africa,1962.0,51.893,65345,1071.551119,NA,NA
+Sao Tome and Principe,Africa,Middle Africa,1967.0,54.425,70787,1384.840593,NA,NA
+Sao Tome and Principe,Africa,Middle Africa,1972.0,56.48,76595,1532.985254,NA,NA
+Sao Tome and Principe,Africa,Middle Africa,1977.0,58.55,86796,1737.561657,NA,NA
+Sao Tome and Principe,Africa,Middle Africa,1982.0,60.351,98593,1890.218117,NA,NA
+Sao Tome and Principe,Africa,Middle Africa,1987.0,61.728,110812,1516.525457,NA,NA
+Sao Tome and Principe,Africa,Middle Africa,1992.0,62.742,125911,1428.777814,NA,NA
+Sao Tome and Principe,Africa,Middle Africa,1997.0,63.306,145608,1339.076036,NA,NA
+Sao Tome and Principe,Africa,Middle Africa,2002.0,64.337,170372,1353.09239,NA,NA
+Sao Tome and Principe,Africa,Middle Africa,2007.0,65.528,199579,1598.435089,NA,NA
+Saudi Arabia,Asia,Western Asia,1952.0,39.875,4005677,6459.554823,Strongly Autocratic,Autocratic
+Saudi Arabia,Asia,Western Asia,1957.0,42.868,4419650,8157.591248,Strongly Autocratic,Autocratic
+Saudi Arabia,Asia,Western Asia,1962.0,45.914,4943029,11626.41975,Strongly Autocratic,Autocratic
+Saudi Arabia,Asia,Western Asia,1967.0,49.901,5618198,16903.04886,Strongly Autocratic,Autocratic
+Saudi Arabia,Asia,Western Asia,1972.0,53.886,6472756,24837.42865,Strongly Autocratic,Autocratic
+Saudi Arabia,Asia,Western Asia,1977.0,58.69,8128505,34167.7626,Strongly Autocratic,Autocratic
+Saudi Arabia,Asia,Western Asia,1982.0,63.012,11254672,33693.17525,Strongly Autocratic,Autocratic
+Saudi Arabia,Asia,Western Asia,1987.0,66.295,14619745,21198.26136,Strongly Autocratic,Autocratic
+Saudi Arabia,Asia,Western Asia,1992.0,68.768,16945857,24841.61777,Strongly Autocratic,Autocratic
+Saudi Arabia,Asia,Western Asia,1997.0,70.533,21229759,20586.69019,Strongly Autocratic,Autocratic
+Saudi Arabia,Asia,Western Asia,2002.0,71.626,24501530,19014.54118,Strongly Autocratic,Autocratic
+Saudi Arabia,Asia,Western Asia,2007.0,72.777,27601038,21654.83194,Strongly Autocratic,Autocratic
+Senegal,Africa,Western Africa,1952.0,37.278,2755589,1450.356983,NA,NA
+Senegal,Africa,Western Africa,1957.0,39.329,3054547,1567.653006,NA,NA
+Senegal,Africa,Western Africa,1962.0,41.454,3430243,1654.988723,Mildly Autocratic,Autocratic
+Senegal,Africa,Western Africa,1967.0,43.563,3965841,1612.404632,Strongly Autocratic,Autocratic
+Senegal,Africa,Western Africa,1972.0,45.815,4588696,1597.712056,Strongly Autocratic,Autocratic
+Senegal,Africa,Western Africa,1977.0,48.879,5260855,1561.769116,Mildly Autocratic,Autocratic
+Senegal,Africa,Western Africa,1982.0,52.379,6147783,1518.479984,Middle of the Road,Middle of the Road
+Senegal,Africa,Western Africa,1987.0,55.769,7171347,1441.72072,Middle of the Road,Middle of the Road
+Senegal,Africa,Western Africa,1992.0,58.196,8307920,1367.899369,Middle of the Road,Middle of the Road
+Senegal,Africa,Western Africa,1997.0,60.187,9535314,1392.368347,Middle of the Road,Middle of the Road
+Senegal,Africa,Western Africa,2002.0,61.6,10870037,1519.635262,Strongly Democratic,Democratic
+Senegal,Africa,Western Africa,2007.0,63.062,12267493,1712.472136,Strongly Democratic,Democratic
+Serbia,Europe,Southern Europe,1952.0,57.996,6860147,3581.459448,Strongly Autocratic,Autocratic
+Serbia,Europe,Southern Europe,1957.0,61.685,7271135,4981.090891,Strongly Autocratic,Autocratic
+Serbia,Europe,Southern Europe,1962.0,64.531,7616060,6289.629157,Strongly Autocratic,Autocratic
+Serbia,Europe,Southern Europe,1967.0,66.914,7971222,7991.707066,Strongly Autocratic,Autocratic
+Serbia,Europe,Southern Europe,1972.0,68.7,8313288,10522.06749,Strongly Autocratic,Autocratic
+Serbia,Europe,Southern Europe,1977.0,70.3,8686367,12980.66956,Strongly Autocratic,Autocratic
+Serbia,Europe,Southern Europe,1982.0,70.162,9032824,15181.0927,Mildly Autocratic,Autocratic
+Serbia,Europe,Southern Europe,1987.0,71.218,9230783,15870.87851,Mildly Autocratic,Autocratic
+Serbia,Europe,Southern Europe,1992.0,71.659,9826397,9325.068238,Mildly Autocratic,Autocratic
+Serbia,Europe,Southern Europe,1997.0,72.232,10336594,7914.320304,Mildly Autocratic,Autocratic
+Serbia,Europe,Southern Europe,2002.0,73.213,10111559,7236.075251,Strongly Democratic,Democratic
+Serbia,Europe,Southern Europe,2007.0,74.002,10150265,9786.534714,Strongly Democratic,Democratic
+Sierra Leone,Africa,Western Africa,1952.0,30.331,2143249,879.7877358,NA,NA
+Sierra Leone,Africa,Western Africa,1957.0,31.57,2295678,1004.484437,NA,NA
+Sierra Leone,Africa,Western Africa,1962.0,32.767,2467895,1116.639877,Mildly Democratic,Democratic
+Sierra Leone,Africa,Western Africa,1967.0,34.113,2662190,1206.043465,Strongly Autocratic,Autocratic
+Sierra Leone,Africa,Western Africa,1972.0,35.4,2879013,1353.759762,Mildly Autocratic,Autocratic
+Sierra Leone,Africa,Western Africa,1977.0,36.788,3140897,1348.285159,Mildly Autocratic,Autocratic
+Sierra Leone,Africa,Western Africa,1982.0,38.445,3464522,1465.010784,Strongly Autocratic,Autocratic
+Sierra Leone,Africa,Western Africa,1987.0,40.006,3868905,1294.447788,Strongly Autocratic,Autocratic
+Sierra Leone,Africa,Western Africa,1992.0,38.333,4260884,1068.696278,Strongly Autocratic,Autocratic
+Sierra Leone,Africa,Western Africa,1997.0,39.897,4578212,574.6481576,Middle of the Road,Middle of the Road
+Sierra Leone,Africa,Western Africa,2002.0,41.012,5359092,699.489713,Mildly Democratic,Democratic
+Sierra Leone,Africa,Western Africa,2007.0,42.568,6144562,862.5407561,Strongly Democratic,Democratic
+Singapore,Asia,South-Eastern Asia,1952.0,60.396,1127000,2315.138227,NA,NA
+Singapore,Asia,South-Eastern Asia,1957.0,63.179,1445929,2843.104409,NA,NA
+Singapore,Asia,South-Eastern Asia,1962.0,65.798,1750200,3674.735572,Strongly Democratic,Democratic
+Singapore,Asia,South-Eastern Asia,1967.0,67.946,1977600,4977.41854,Middle of the Road,Middle of the Road
+Singapore,Asia,South-Eastern Asia,1972.0,69.521,2152400,8597.756202,Middle of the Road,Middle of the Road
+Singapore,Asia,South-Eastern Asia,1977.0,70.795,2325300,11210.08948,Middle of the Road,Middle of the Road
+Singapore,Asia,South-Eastern Asia,1982.0,71.76,2651869,15169.16112,Middle of the Road,Middle of the Road
+Singapore,Asia,South-Eastern Asia,1987.0,73.56,2794552,18861.53081,Middle of the Road,Middle of the Road
+Singapore,Asia,South-Eastern Asia,1992.0,75.788,3235865,24769.8912,Middle of the Road,Middle of the Road
+Singapore,Asia,South-Eastern Asia,1997.0,77.158,3802309,33519.4766,Middle of the Road,Middle of the Road
+Singapore,Asia,South-Eastern Asia,2002.0,78.77,4197776,36023.1054,Middle of the Road,Middle of the Road
+Singapore,Asia,South-Eastern Asia,2007.0,79.972,4553009,47143.17964,Middle of the Road,Middle of the Road
+Slovak Republic,Europe,Eastern Europe,1952.0,64.36,3558137,5074.659104,Strongly Autocratic,Autocratic
+Slovak Republic,Europe,Eastern Europe,1957.0,67.45,3844277,6093.26298,Strongly Autocratic,Autocratic
+Slovak Republic,Europe,Eastern Europe,1962.0,70.33,4237384,7481.107598,Strongly Autocratic,Autocratic
+Slovak Republic,Europe,Eastern Europe,1967.0,70.98,4442238,8412.902397,Strongly Autocratic,Autocratic
+Slovak Republic,Europe,Eastern Europe,1972.0,70.35,4593433,9674.167626,Strongly Autocratic,Autocratic
+Slovak Republic,Europe,Eastern Europe,1977.0,70.45,4827803,10922.66404,Strongly Autocratic,Autocratic
+Slovak Republic,Europe,Eastern Europe,1982.0,70.8,5048043,11348.54585,Strongly Autocratic,Autocratic
+Slovak Republic,Europe,Eastern Europe,1987.0,71.08,5199318,12037.26758,Strongly Autocratic,Autocratic
+Slovak Republic,Europe,Eastern Europe,1992.0,71.38,5302888,9498.467723,Strongly Democratic,Democratic
+Slovak Republic,Europe,Eastern Europe,1997.0,72.71,5383010,12126.23065,Strongly Democratic,Democratic
+Slovak Republic,Europe,Eastern Europe,2002.0,73.8,5410052,13638.77837,Strongly Democratic,Democratic
+Slovak Republic,Europe,Eastern Europe,2007.0,74.663,5447502,18678.31435,Strongly Democratic,Democratic
+Slovenia,Europe,Southern Europe,1952.0,65.57,1489518,4215.041741,Strongly Autocratic,Autocratic
+Slovenia,Europe,Southern Europe,1957.0,67.85,1533070,5862.276629,Strongly Autocratic,Autocratic
+Slovenia,Europe,Southern Europe,1962.0,69.15,1582962,7402.303395,Strongly Autocratic,Autocratic
+Slovenia,Europe,Southern Europe,1967.0,69.18,1646912,9405.489397,Strongly Autocratic,Autocratic
+Slovenia,Europe,Southern Europe,1972.0,69.82,1694510,12383.4862,Strongly Autocratic,Autocratic
+Slovenia,Europe,Southern Europe,1977.0,70.97,1746919,15277.03017,Strongly Autocratic,Autocratic
+Slovenia,Europe,Southern Europe,1982.0,71.063,1861252,17866.72175,Mildly Autocratic,Autocratic
+Slovenia,Europe,Southern Europe,1987.0,72.25,1945870,18678.53492,Mildly Autocratic,Autocratic
+Slovenia,Europe,Southern Europe,1992.0,73.64,1999210,14214.71681,Strongly Democratic,Democratic
+Slovenia,Europe,Southern Europe,1997.0,75.13,2011612,17161.10735,Strongly Democratic,Democratic
+Slovenia,Europe,Southern Europe,2002.0,76.66,2011497,20660.01936,Strongly Democratic,Democratic
+Slovenia,Europe,Southern Europe,2007.0,77.926,2009245,25768.25759,Strongly Democratic,Democratic
+Somalia,Africa,Eastern Africa,1952.0,32.978,2526994,1135.749842,NA,NA
+Somalia,Africa,Eastern Africa,1957.0,34.977,2780415,1258.147413,NA,NA
+Somalia,Africa,Eastern Africa,1962.0,36.981,3080153,1369.488336,Strongly Democratic,Democratic
+Somalia,Africa,Eastern Africa,1967.0,38.977,3428839,1284.73318,Strongly Democratic,Democratic
+Somalia,Africa,Eastern Africa,1972.0,40.973,3840161,1254.576127,Strongly Autocratic,Autocratic
+Somalia,Africa,Eastern Africa,1977.0,41.974,4353666,1450.992513,Strongly Autocratic,Autocratic
+Somalia,Africa,Eastern Africa,1982.0,42.955,5828892,1176.807031,Strongly Autocratic,Autocratic
+Somalia,Africa,Eastern Africa,1987.0,44.501,6921858,1093.244963,Strongly Autocratic,Autocratic
+Somalia,Africa,Eastern Africa,1992.0,39.658,6099799,926.9602964,Middle of the Road,Middle of the Road
+Somalia,Africa,Eastern Africa,1997.0,43.795,6633514,930.5964284,Middle of the Road,Middle of the Road
+Somalia,Africa,Eastern Africa,2002.0,45.936,7753310,882.0818218,Middle of the Road,Middle of the Road
+Somalia,Africa,Eastern Africa,2007.0,48.159,9118773,926.1410683,Middle of the Road,Middle of the Road
+South Africa,Africa,Southern Africa,1952.0,45.009,14264935,4725.295531,Mildly Democratic,Democratic
+South Africa,Africa,Southern Africa,1957.0,47.985,16151549,5487.104219,Mildly Democratic,Democratic
+South Africa,Africa,Southern Africa,1962.0,49.951,18356657,5768.729717,Mildly Democratic,Democratic
+South Africa,Africa,Southern Africa,1967.0,51.927,20997321,7114.477971,Mildly Democratic,Democratic
+South Africa,Africa,Southern Africa,1972.0,53.696,23935810,7765.962636,Mildly Democratic,Democratic
+South Africa,Africa,Southern Africa,1977.0,55.527,27129932,8028.651439,Mildly Democratic,Democratic
+South Africa,Africa,Southern Africa,1982.0,58.161,31140029,8568.266228,Mildly Democratic,Democratic
+South Africa,Africa,Southern Africa,1987.0,60.834,35933379,7825.823398,Mildly Democratic,Democratic
+South Africa,Africa,Southern Africa,1992.0,61.888,39964159,7225.069258,Mildly Democratic,Democratic
+South Africa,Africa,Southern Africa,1997.0,60.236,42835005,7479.188244,Strongly Democratic,Democratic
+South Africa,Africa,Southern Africa,2002.0,53.365,44433622,7710.946444,Strongly Democratic,Democratic
+South Africa,Africa,Southern Africa,2007.0,49.339,43997828,9269.657808,Strongly Democratic,Democratic
+Spain,Europe,Southern Europe,1952.0,64.94,28549870,3834.034742,Strongly Autocratic,Autocratic
+Spain,Europe,Southern Europe,1957.0,66.66,29841614,4564.80241,Strongly Autocratic,Autocratic
+Spain,Europe,Southern Europe,1962.0,69.69,31158061,5693.843879,Strongly Autocratic,Autocratic
+Spain,Europe,Southern Europe,1967.0,71.44,32850275,7993.512294,Strongly Autocratic,Autocratic
+Spain,Europe,Southern Europe,1972.0,73.06,34513161,10638.75131,Strongly Autocratic,Autocratic
+Spain,Europe,Southern Europe,1977.0,74.39,36439000,13236.92117,Mildly Democratic,Democratic
+Spain,Europe,Southern Europe,1982.0,76.3,37983310,13926.16997,Strongly Democratic,Democratic
+Spain,Europe,Southern Europe,1987.0,76.9,38880702,15764.98313,Strongly Democratic,Democratic
+Spain,Europe,Southern Europe,1992.0,77.57,39549438,18603.06452,Strongly Democratic,Democratic
+Spain,Europe,Southern Europe,1997.0,78.77,39855442,20445.29896,Strongly Democratic,Democratic
+Spain,Europe,Southern Europe,2002.0,79.78,40152517,24835.47166,Strongly Democratic,Democratic
+Spain,Europe,Southern Europe,2007.0,80.941,40448191,28821.0637,Strongly Democratic,Democratic
+Sri Lanka,Asia,Southern Asia,1952.0,57.593,7982342,1083.53203,Strongly Democratic,Democratic
+Sri Lanka,Asia,Southern Asia,1957.0,61.456,9128546,1072.546602,Strongly Democratic,Democratic
+Sri Lanka,Asia,Southern Asia,1962.0,62.192,10421936,1074.47196,Strongly Democratic,Democratic
+Sri Lanka,Asia,Southern Asia,1967.0,64.266,11737396,1135.514326,Strongly Democratic,Democratic
+Sri Lanka,Asia,Southern Asia,1972.0,65.042,13016733,1213.39553,Strongly Democratic,Democratic
+Sri Lanka,Asia,Southern Asia,1977.0,65.949,14116836,1348.775651,Strongly Democratic,Democratic
+Sri Lanka,Asia,Southern Asia,1982.0,68.757,15410151,1648.079789,Mildly Democratic,Democratic
+Sri Lanka,Asia,Southern Asia,1987.0,69.011,16495304,1876.766827,Mildly Democratic,Democratic
+Sri Lanka,Asia,Southern Asia,1992.0,70.379,17587060,2153.739222,Mildly Democratic,Democratic
+Sri Lanka,Asia,Southern Asia,1997.0,70.457,18698655,2664.477257,Mildly Democratic,Democratic
+Sri Lanka,Asia,Southern Asia,2002.0,70.815,19576783,3015.378833,Mildly Democratic,Democratic
+Sri Lanka,Asia,Southern Asia,2007.0,72.396,20378239,3970.095407,Mildly Democratic,Democratic
+Sudan,Africa,Northern Africa,1952.0,38.635,8504667,1615.991129,NA,NA
+Sudan,Africa,Northern Africa,1957.0,39.624,9753392,1770.337074,Strongly Democratic,Democratic
+Sudan,Africa,Northern Africa,1962.0,40.87,11183227,1959.593767,Strongly Autocratic,Autocratic
+Sudan,Africa,Northern Africa,1967.0,42.858,12716129,1687.997641,Strongly Democratic,Democratic
+Sudan,Africa,Northern Africa,1972.0,45.083,14597019,1659.652775,Strongly Autocratic,Autocratic
+Sudan,Africa,Northern Africa,1977.0,47.8,17104986,2202.988423,Strongly Autocratic,Autocratic
+Sudan,Africa,Northern Africa,1982.0,50.338,20367053,1895.544073,Strongly Autocratic,Autocratic
+Sudan,Africa,Northern Africa,1987.0,51.744,24725960,1507.819159,Strongly Democratic,Democratic
+Sudan,Africa,Northern Africa,1992.0,53.556,28227588,1492.197043,Strongly Autocratic,Autocratic
+Sudan,Africa,Northern Africa,1997.0,55.373,32160729,1632.210764,Strongly Autocratic,Autocratic
+Sudan,Africa,Northern Africa,2002.0,56.369,37090298,1993.398314,Mildly Autocratic,Autocratic
+Sudan,Africa,Northern Africa,2007.0,58.556,42292929,2602.394995,Mildly Autocratic,Autocratic
+Swaziland,Africa,Southern Africa,1952.0,41.407,290243,1148.376626,NA,NA
+Swaziland,Africa,Southern Africa,1957.0,43.424,326741,1244.708364,NA,NA
+Swaziland,Africa,Southern Africa,1962.0,44.992,370006,1856.182125,NA,NA
+Swaziland,Africa,Southern Africa,1967.0,46.633,420690,2613.101665,NA,NA
+Swaziland,Africa,Southern Africa,1972.0,49.552,480105,3364.836625,Middle of the Road,Middle of the Road
+Swaziland,Africa,Southern Africa,1977.0,52.537,551425,3781.410618,Strongly Autocratic,Autocratic
+Swaziland,Africa,Southern Africa,1982.0,55.561,649901,3895.384018,Strongly Autocratic,Autocratic
+Swaziland,Africa,Southern Africa,1987.0,57.678,779348,3984.839812,Strongly Autocratic,Autocratic
+Swaziland,Africa,Southern Africa,1992.0,58.474,962344,3553.0224,Strongly Autocratic,Autocratic
+Swaziland,Africa,Southern Africa,1997.0,54.289,1054486,3876.76846,Strongly Autocratic,Autocratic
+Swaziland,Africa,Southern Africa,2002.0,43.869,1130269,4128.116943,Strongly Autocratic,Autocratic
+Swaziland,Africa,Southern Africa,2007.0,39.613,1133066,4513.480643,Strongly Autocratic,Autocratic
+Sweden,Europe,Northern Europe,1952.0,71.86,7124673,8527.844662,Strongly Democratic,Democratic
+Sweden,Europe,Northern Europe,1957.0,72.49,7363802,9911.878226,Strongly Democratic,Democratic
+Sweden,Europe,Northern Europe,1962.0,73.37,7561588,12329.44192,Strongly Democratic,Democratic
+Sweden,Europe,Northern Europe,1967.0,74.16,7867931,15258.29697,Strongly Democratic,Democratic
+Sweden,Europe,Northern Europe,1972.0,74.72,8122293,17832.02464,Strongly Democratic,Democratic
+Sweden,Europe,Northern Europe,1977.0,75.44,8251648,18855.72521,Strongly Democratic,Democratic
+Sweden,Europe,Northern Europe,1982.0,76.42,8325260,20667.38125,Strongly Democratic,Democratic
+Sweden,Europe,Northern Europe,1987.0,77.19,8421403,23586.92927,Strongly Democratic,Democratic
+Sweden,Europe,Northern Europe,1992.0,78.16,8718867,23880.01683,Strongly Democratic,Democratic
+Sweden,Europe,Northern Europe,1997.0,79.39,8897619,25266.59499,Strongly Democratic,Democratic
+Sweden,Europe,Northern Europe,2002.0,80.04,8954175,29341.63093,Strongly Democratic,Democratic
+Sweden,Europe,Northern Europe,2007.0,80.884,9031088,33859.74835,Strongly Democratic,Democratic
+Switzerland,Europe,Western Europe,1952.0,69.62,4815000,14734.23275,Strongly Democratic,Democratic
+Switzerland,Europe,Western Europe,1957.0,70.56,5126000,17909.48973,Strongly Democratic,Democratic
+Switzerland,Europe,Western Europe,1962.0,71.32,5666000,20431.0927,Strongly Democratic,Democratic
+Switzerland,Europe,Western Europe,1967.0,72.77,6063000,22966.14432,Strongly Democratic,Democratic
+Switzerland,Europe,Western Europe,1972.0,73.78,6401400,27195.11304,Strongly Democratic,Democratic
+Switzerland,Europe,Western Europe,1977.0,75.39,6316424,26982.29052,Strongly Democratic,Democratic
+Switzerland,Europe,Western Europe,1982.0,76.21,6468126,28397.71512,Strongly Democratic,Democratic
+Switzerland,Europe,Western Europe,1987.0,77.41,6649942,30281.70459,Strongly Democratic,Democratic
+Switzerland,Europe,Western Europe,1992.0,78.03,6995447,31871.5303,Strongly Democratic,Democratic
+Switzerland,Europe,Western Europe,1997.0,79.37,7193761,32135.32301,Strongly Democratic,Democratic
+Switzerland,Europe,Western Europe,2002.0,80.62,7361757,34480.95771,Strongly Democratic,Democratic
+Switzerland,Europe,Western Europe,2007.0,81.701,7554661,37506.41907,Strongly Democratic,Democratic
+Syria,Asia,Western Asia,1952.0,45.883,3661549,1643.485354,Strongly Autocratic,Autocratic
+Syria,Asia,Western Asia,1957.0,48.284,4149908,2117.234893,Strongly Democratic,Democratic
+Syria,Asia,Western Asia,1962.0,50.305,4834621,2193.037133,Middle of the Road,Middle of the Road
+Syria,Asia,Western Asia,1967.0,53.655,5680812,1881.923632,Strongly Autocratic,Autocratic
+Syria,Asia,Western Asia,1972.0,57.296,6701172,2571.423014,Strongly Autocratic,Autocratic
+Syria,Asia,Western Asia,1977.0,61.195,7932503,3195.484582,Strongly Autocratic,Autocratic
+Syria,Asia,Western Asia,1982.0,64.59,9410494,3761.837715,Strongly Autocratic,Autocratic
+Syria,Asia,Western Asia,1987.0,66.974,11242847,3116.774285,Strongly Autocratic,Autocratic
+Syria,Asia,Western Asia,1992.0,69.249,13219062,3340.542768,Strongly Autocratic,Autocratic
+Syria,Asia,Western Asia,1997.0,71.527,15081016,4014.238972,Strongly Autocratic,Autocratic
+Syria,Asia,Western Asia,2002.0,73.053,17155814,4090.925331,Strongly Autocratic,Autocratic
+Syria,Asia,Western Asia,2007.0,74.143,19314747,4184.548089,Strongly Autocratic,Autocratic
+Taiwan,Asia,Eastern Asia,1952.0,58.5,8550362,1206.947913,Strongly Autocratic,Autocratic
+Taiwan,Asia,Eastern Asia,1957.0,62.4,10164215,1507.86129,Strongly Autocratic,Autocratic
+Taiwan,Asia,Eastern Asia,1962.0,65.2,11918938,1822.879028,Strongly Autocratic,Autocratic
+Taiwan,Asia,Eastern Asia,1967.0,67.5,13648692,2643.858681,Strongly Autocratic,Autocratic
+Taiwan,Asia,Eastern Asia,1972.0,69.39,15226039,4062.523897,Strongly Autocratic,Autocratic
+Taiwan,Asia,Eastern Asia,1977.0,70.59,16785196,5596.519826,Strongly Autocratic,Autocratic
+Taiwan,Asia,Eastern Asia,1982.0,72.16,18501390,7426.354774,Strongly Autocratic,Autocratic
+Taiwan,Asia,Eastern Asia,1987.0,73.4,19757799,11054.56175,Middle of the Road,Middle of the Road
+Taiwan,Asia,Eastern Asia,1992.0,74.26,20686918,15215.6579,Strongly Democratic,Democratic
+Taiwan,Asia,Eastern Asia,1997.0,75.25,21628605,20206.82098,Strongly Democratic,Democratic
+Taiwan,Asia,Eastern Asia,2002.0,76.99,22454239,23235.42329,Strongly Democratic,Democratic
+Taiwan,Asia,Eastern Asia,2007.0,78.4,23174294,28718.27684,Strongly Democratic,Democratic
+Tanzania,Africa,Eastern Africa,1952.0,41.215,8322925,716.6500721,NA,NA
+Tanzania,Africa,Eastern Africa,1957.0,42.974,9452826,698.5356073,NA,NA
+Tanzania,Africa,Eastern Africa,1962.0,44.246,10863958,722.0038073,Mildly Autocratic,Autocratic
+Tanzania,Africa,Eastern Africa,1967.0,45.757,12607312,848.2186575,Mildly Autocratic,Autocratic
+Tanzania,Africa,Eastern Africa,1972.0,47.62,14706593,915.9850592,Mildly Autocratic,Autocratic
+Tanzania,Africa,Eastern Africa,1977.0,49.919,17129565,962.4922932,Mildly Autocratic,Autocratic
+Tanzania,Africa,Eastern Africa,1982.0,50.608,19844382,874.2426069,Mildly Autocratic,Autocratic
+Tanzania,Africa,Eastern Africa,1987.0,51.535,23040630,831.8220794,Mildly Autocratic,Autocratic
+Tanzania,Africa,Eastern Africa,1992.0,50.44,26605473,825.682454,Mildly Autocratic,Autocratic
+Tanzania,Africa,Eastern Africa,1997.0,48.466,30686889,789.1862231,Middle of the Road,Middle of the Road
+Tanzania,Africa,Eastern Africa,2002.0,49.651,34593779,899.0742111,Middle of the Road,Middle of the Road
+Tanzania,Africa,Eastern Africa,2007.0,52.517,38139640,1107.482182,Middle of the Road,Middle of the Road
+Thailand,Asia,South-Eastern Asia,1952.0,50.848,21289402,757.7974177,Mildly Autocratic,Autocratic
+Thailand,Asia,South-Eastern Asia,1957.0,53.63,25041917,793.5774148,Mildly Autocratic,Autocratic
+Thailand,Asia,South-Eastern Asia,1962.0,56.061,29263397,1002.199172,Strongly Autocratic,Autocratic
+Thailand,Asia,South-Eastern Asia,1967.0,58.285,34024249,1295.46066,Strongly Autocratic,Autocratic
+Thailand,Asia,South-Eastern Asia,1972.0,60.405,39276153,1524.358936,Strongly Autocratic,Autocratic
+Thailand,Asia,South-Eastern Asia,1977.0,62.494,44148285,1961.224635,Middle of the Road,Middle of the Road
+Thailand,Asia,South-Eastern Asia,1982.0,64.597,48827160,2393.219781,Middle of the Road,Middle of the Road
+Thailand,Asia,South-Eastern Asia,1987.0,66.084,52910342,2982.653773,Middle of the Road,Middle of the Road
+Thailand,Asia,South-Eastern Asia,1992.0,67.298,56667095,4616.896545,Strongly Democratic,Democratic
+Thailand,Asia,South-Eastern Asia,1997.0,67.521,60216677,5852.625497,Strongly Democratic,Democratic
+Thailand,Asia,South-Eastern Asia,2002.0,68.564,62806748,5913.187529,Strongly Democratic,Democratic
+Thailand,Asia,South-Eastern Asia,2007.0,70.616,65068149,7458.396327,Middle of the Road,Middle of the Road
+Togo,Africa,Western Africa,1952.0,38.596,1219113,859.8086567,NA,NA
+Togo,Africa,Western Africa,1957.0,41.208,1357445,925.9083202,NA,NA
+Togo,Africa,Western Africa,1962.0,43.922,1528098,1067.53481,Mildly Autocratic,Autocratic
+Togo,Africa,Western Africa,1967.0,46.769,1735550,1477.59676,Strongly Autocratic,Autocratic
+Togo,Africa,Western Africa,1972.0,49.759,2056351,1649.660188,Strongly Autocratic,Autocratic
+Togo,Africa,Western Africa,1977.0,52.887,2308582,1532.776998,Strongly Autocratic,Autocratic
+Togo,Africa,Western Africa,1982.0,55.471,2644765,1344.577953,Strongly Autocratic,Autocratic
+Togo,Africa,Western Africa,1987.0,56.941,3154264,1202.201361,Strongly Autocratic,Autocratic
+Togo,Africa,Western Africa,1992.0,58.061,3747553,1034.298904,Mildly Autocratic,Autocratic
+Togo,Africa,Western Africa,1997.0,58.39,4320890,982.2869243,Middle of the Road,Middle of the Road
+Togo,Africa,Western Africa,2002.0,57.561,4977378,886.2205765,Middle of the Road,Middle of the Road
+Togo,Africa,Western Africa,2007.0,58.42,5701579,882.9699438,Mildly Autocratic,Autocratic
+Trinidad and Tobago,Americas,Caribbean,1952.0,59.1,662850,3023.271928,NA,NA
+Trinidad and Tobago,Americas,Caribbean,1957.0,61.8,764900,4100.3934,NA,NA
+Trinidad and Tobago,Americas,Caribbean,1962.0,64.9,887498,4997.523971,Strongly Democratic,Democratic
+Trinidad and Tobago,Americas,Caribbean,1967.0,65.4,960155,5621.368472,Strongly Democratic,Democratic
+Trinidad and Tobago,Americas,Caribbean,1972.0,65.9,975199,6619.551419,Strongly Democratic,Democratic
+Trinidad and Tobago,Americas,Caribbean,1977.0,68.3,1039009,7899.554209,Strongly Democratic,Democratic
+Trinidad and Tobago,Americas,Caribbean,1982.0,68.832,1116479,9119.528607,Strongly Democratic,Democratic
+Trinidad and Tobago,Americas,Caribbean,1987.0,69.582,1191336,7388.597823,Strongly Democratic,Democratic
+Trinidad and Tobago,Americas,Caribbean,1992.0,69.862,1183669,7370.990932,Strongly Democratic,Democratic
+Trinidad and Tobago,Americas,Caribbean,1997.0,69.465,1138101,8792.573126,Strongly Democratic,Democratic
+Trinidad and Tobago,Americas,Caribbean,2002.0,68.976,1101832,11460.60023,Strongly Democratic,Democratic
+Trinidad and Tobago,Americas,Caribbean,2007.0,69.819,1056608,18008.50924,Strongly Democratic,Democratic
+Tunisia,Africa,Northern Africa,1952.0,44.6,3647735,1468.475631,NA,NA
+Tunisia,Africa,Northern Africa,1957.0,47.1,3950849,1395.232468,NA,NA
+Tunisia,Africa,Northern Africa,1962.0,49.579,4286552,1660.30321,Strongly Autocratic,Autocratic
+Tunisia,Africa,Northern Africa,1967.0,52.053,4786986,1932.360167,Strongly Autocratic,Autocratic
+Tunisia,Africa,Northern Africa,1972.0,55.602,5303507,2753.285994,Strongly Autocratic,Autocratic
+Tunisia,Africa,Northern Africa,1977.0,59.837,6005061,3120.876811,Strongly Autocratic,Autocratic
+Tunisia,Africa,Northern Africa,1982.0,64.048,6734098,3560.233174,Strongly Autocratic,Autocratic
+Tunisia,Africa,Northern Africa,1987.0,66.894,7724976,3810.419296,Mildly Autocratic,Autocratic
+Tunisia,Africa,Northern Africa,1992.0,70.001,8523077,4332.720164,Mildly Autocratic,Autocratic
+Tunisia,Africa,Northern Africa,1997.0,71.973,9231669,4876.798614,Mildly Autocratic,Autocratic
+Tunisia,Africa,Northern Africa,2002.0,73.042,9770575,5722.895655,Mildly Autocratic,Autocratic
+Tunisia,Africa,Northern Africa,2007.0,73.923,10276158,7092.923025,Mildly Autocratic,Autocratic
+Turkey,Europe,Western Asia,1952.0,43.585,22235677,1969.10098,Strongly Democratic,Democratic
+Turkey,Europe,Western Asia,1957.0,48.079,25670939,2218.754257,Mildly Democratic,Democratic
+Turkey,Europe,Western Asia,1962.0,52.098,29788695,2322.869908,Strongly Democratic,Democratic
+Turkey,Europe,Western Asia,1967.0,54.336,33411317,2826.356387,Strongly Democratic,Democratic
+Turkey,Europe,Western Asia,1972.0,57.005,37492953,3450.69638,Middle of the Road,Middle of the Road
+Turkey,Europe,Western Asia,1977.0,59.507,42404033,4269.122326,Strongly Democratic,Democratic
+Turkey,Europe,Western Asia,1982.0,61.036,47328791,4241.356344,Mildly Autocratic,Autocratic
+Turkey,Europe,Western Asia,1987.0,63.108,52881328,5089.043686,Strongly Democratic,Democratic
+Turkey,Europe,Western Asia,1992.0,66.146,58179144,5678.348271,Strongly Democratic,Democratic
+Turkey,Europe,Western Asia,1997.0,68.835,63047647,6601.429915,Strongly Democratic,Democratic
+Turkey,Europe,Western Asia,2002.0,70.845,67308928,6508.085718,Strongly Democratic,Democratic
+Turkey,Europe,Western Asia,2007.0,71.777,71158647,8458.276384,Strongly Democratic,Democratic
+Uganda,Africa,Eastern Africa,1952.0,39.978,5824797,734.753484,NA,NA
+Uganda,Africa,Eastern Africa,1957.0,42.571,6675501,774.3710692,NA,NA
+Uganda,Africa,Eastern Africa,1962.0,45.344,7688797,767.2717398,Strongly Democratic,Democratic
+Uganda,Africa,Eastern Africa,1967.0,48.051,8900294,908.9185217,Mildly Autocratic,Autocratic
+Uganda,Africa,Eastern Africa,1972.0,51.016,10190285,950.735869,Strongly Autocratic,Autocratic
+Uganda,Africa,Eastern Africa,1977.0,50.35,11457758,843.7331372,Strongly Autocratic,Autocratic
+Uganda,Africa,Eastern Africa,1982.0,49.849,12939400,682.2662268,Mildly Democratic,Democratic
+Uganda,Africa,Eastern Africa,1987.0,51.509,15283050,617.7244065,Strongly Autocratic,Autocratic
+Uganda,Africa,Eastern Africa,1992.0,48.825,18252190,644.1707969,Strongly Autocratic,Autocratic
+Uganda,Africa,Eastern Africa,1997.0,44.578,21210254,816.559081,Mildly Autocratic,Autocratic
+Uganda,Africa,Eastern Africa,2002.0,47.813,24739869,927.7210018,Mildly Autocratic,Autocratic
+Uganda,Africa,Eastern Africa,2007.0,51.542,29170398,1056.380121,Middle of the Road,Middle of the Road
+United Kingdom,Europe,Northern Europe,1952.0,69.18,50430000,9979.508487,Strongly Democratic,Democratic
+United Kingdom,Europe,Northern Europe,1957.0,70.42,51430000,11283.17795,Strongly Democratic,Democratic
+United Kingdom,Europe,Northern Europe,1962.0,70.76,53292000,12477.17707,Strongly Democratic,Democratic
+United Kingdom,Europe,Northern Europe,1967.0,71.36,54959000,14142.85089,Strongly Democratic,Democratic
+United Kingdom,Europe,Northern Europe,1972.0,72.01,56079000,15895.11641,Strongly Democratic,Democratic
+United Kingdom,Europe,Northern Europe,1977.0,72.76,56179000,17428.74846,Strongly Democratic,Democratic
+United Kingdom,Europe,Northern Europe,1982.0,74.04,56339704,18232.42452,Strongly Democratic,Democratic
+United Kingdom,Europe,Northern Europe,1987.0,75.007,56981620,21664.78767,Strongly Democratic,Democratic
+United Kingdom,Europe,Northern Europe,1992.0,76.42,57866349,22705.09254,Strongly Democratic,Democratic
+United Kingdom,Europe,Northern Europe,1997.0,77.218,58808266,26074.53136,Strongly Democratic,Democratic
+United Kingdom,Europe,Northern Europe,2002.0,78.471,59912431,29478.99919,Strongly Democratic,Democratic
+United Kingdom,Europe,Northern Europe,2007.0,79.425,60776238,33203.26128,Strongly Democratic,Democratic
+United States,Americas,Northern America,1952.0,68.44,157553000,13990.48208,Strongly Democratic,Democratic
+United States,Americas,Northern America,1957.0,69.49,171984000,14847.12712,Strongly Democratic,Democratic
+United States,Americas,Northern America,1962.0,70.21,186538000,16173.14586,Strongly Democratic,Democratic
+United States,Americas,Northern America,1967.0,70.76,198712000,19530.36557,Strongly Democratic,Democratic
+United States,Americas,Northern America,1972.0,71.34,209896000,21806.03594,Strongly Democratic,Democratic
+United States,Americas,Northern America,1977.0,73.38,220239000,24072.63213,Strongly Democratic,Democratic
+United States,Americas,Northern America,1982.0,74.65,232187835,25009.55914,Strongly Democratic,Democratic
+United States,Americas,Northern America,1987.0,75.02,242803533,29884.35041,Strongly Democratic,Democratic
+United States,Americas,Northern America,1992.0,76.09,256894189,32003.93224,Strongly Democratic,Democratic
+United States,Americas,Northern America,1997.0,76.81,272911760,35767.43303,Strongly Democratic,Democratic
+United States,Americas,Northern America,2002.0,77.31,287675526,39097.09955,Strongly Democratic,Democratic
+United States,Americas,Northern America,2007.0,78.242,301139947,42951.65309,Strongly Democratic,Democratic
+Uruguay,Americas,South America,1952.0,66.071,2252965,5716.766744,Strongly Democratic,Democratic
+Uruguay,Americas,South America,1957.0,67.044,2424959,6150.772969,Strongly Democratic,Democratic
+Uruguay,Americas,South America,1962.0,68.253,2598466,5603.357717,Strongly Democratic,Democratic
+Uruguay,Americas,South America,1967.0,68.468,2748579,5444.61962,Strongly Democratic,Democratic
+Uruguay,Americas,South America,1972.0,68.673,2829526,5703.408898,Mildly Autocratic,Autocratic
+Uruguay,Americas,South America,1977.0,69.481,2873520,6504.339663,Strongly Autocratic,Autocratic
+Uruguay,Americas,South America,1982.0,70.805,2953997,6920.223051,Strongly Autocratic,Autocratic
+Uruguay,Americas,South America,1987.0,71.918,3045153,7452.398969,Strongly Democratic,Democratic
+Uruguay,Americas,South America,1992.0,72.752,3149262,8137.004775,Strongly Democratic,Democratic
+Uruguay,Americas,South America,1997.0,74.223,3262838,9230.240708,Strongly Democratic,Democratic
+Uruguay,Americas,South America,2002.0,75.307,3363085,7727.002004,Strongly Democratic,Democratic
+Uruguay,Americas,South America,2007.0,76.384,3447496,10611.46299,Strongly Democratic,Democratic
+Venezuela,Americas,South America,1952.0,55.088,5439568,7689.799761,Mildly Autocratic,Autocratic
+Venezuela,Americas,South America,1957.0,57.907,6702668,9802.466526,Mildly Autocratic,Autocratic
+Venezuela,Americas,South America,1962.0,60.77,8143375,8422.974165,Mildly Democratic,Democratic
+Venezuela,Americas,South America,1967.0,63.479,9709552,9541.474188,Mildly Democratic,Democratic
+Venezuela,Americas,South America,1972.0,65.712,11515649,10505.25966,Strongly Democratic,Democratic
+Venezuela,Americas,South America,1977.0,67.456,13503563,13143.95095,Strongly Democratic,Democratic
+Venezuela,Americas,South America,1982.0,68.557,15620766,11152.41011,Strongly Democratic,Democratic
+Venezuela,Americas,South America,1987.0,70.19,17910182,9883.584648,Strongly Democratic,Democratic
+Venezuela,Americas,South America,1992.0,71.15,20265563,10733.92631,Strongly Democratic,Democratic
+Venezuela,Americas,South America,1997.0,72.146,22374398,10165.49518,Strongly Democratic,Democratic
+Venezuela,Americas,South America,2002.0,72.766,24287670,8605.047831,Mildly Democratic,Democratic
+Venezuela,Americas,South America,2007.0,73.747,26084662,11415.80569,Mildly Democratic,Democratic
+Vietnam,Asia,South-Eastern Asia,1952.0,40.412,26246839,605.0664917,NA,NA
+Vietnam,Asia,South-Eastern Asia,1957.0,42.887,28998543,676.2854478,NA,NA
+Vietnam,Asia,South-Eastern Asia,1962.0,45.363,33796140,772.0491602,NA,NA
+Vietnam,Asia,South-Eastern Asia,1967.0,47.838,39463910,637.1232887,NA,NA
+Vietnam,Asia,South-Eastern Asia,1972.0,50.254,44655014,699.5016441,NA,NA
+Vietnam,Asia,South-Eastern Asia,1977.0,55.764,50533506,713.5371196,Strongly Autocratic,Autocratic
+Vietnam,Asia,South-Eastern Asia,1982.0,58.816,56142181,707.2357863,Strongly Autocratic,Autocratic
+Vietnam,Asia,South-Eastern Asia,1987.0,62.82,62826491,820.7994449,Strongly Autocratic,Autocratic
+Vietnam,Asia,South-Eastern Asia,1992.0,67.662,69940728,989.0231487,Strongly Autocratic,Autocratic
+Vietnam,Asia,South-Eastern Asia,1997.0,70.672,76048996,1385.896769,Strongly Autocratic,Autocratic
+Vietnam,Asia,South-Eastern Asia,2002.0,73.017,80908147,1764.456677,Strongly Autocratic,Autocratic
+Vietnam,Asia,South-Eastern Asia,2007.0,74.249,85262356,2441.576404,Strongly Autocratic,Autocratic
+West Bank and Gaza,Asia,Western Asia,1952.0,43.16,1030585,1515.592329,NA,NA
+West Bank and Gaza,Asia,Western Asia,1957.0,45.671,1070439,1827.067742,NA,NA
+West Bank and Gaza,Asia,Western Asia,1962.0,48.127,1133134,2198.956312,NA,NA
+West Bank and Gaza,Asia,Western Asia,1967.0,51.631,1142636,2649.715007,NA,NA
+West Bank and Gaza,Asia,Western Asia,1972.0,56.532,1089572,3133.409277,NA,NA
+West Bank and Gaza,Asia,Western Asia,1977.0,60.765,1261091,3682.831494,NA,NA
+West Bank and Gaza,Asia,Western Asia,1982.0,64.406,1425876,4336.032082,NA,NA
+West Bank and Gaza,Asia,Western Asia,1987.0,67.046,1691210,5107.197384,NA,NA
+West Bank and Gaza,Asia,Western Asia,1992.0,69.718,2104779,6017.654756,NA,NA
+West Bank and Gaza,Asia,Western Asia,1997.0,71.096,2826046,7110.667619,NA,NA
+West Bank and Gaza,Asia,Western Asia,2002.0,72.37,3389578,4515.487575,NA,NA
+West Bank and Gaza,Asia,Western Asia,2007.0,73.422,4018332,3025.349798,NA,NA
+"Yemen, Rep.",Asia,Western Asia,1952.0,32.548,4963829,781.7175761,NA,NA
+"Yemen, Rep.",Asia,Western Asia,1957.0,33.97,5498090,804.8304547,NA,NA
+"Yemen, Rep.",Asia,Western Asia,1962.0,35.18,6120081,825.6232006,NA,NA
+"Yemen, Rep.",Asia,Western Asia,1967.0,36.984,6740785,862.4421463,NA,NA
+"Yemen, Rep.",Asia,Western Asia,1972.0,39.848,7407075,1265.047031,NA,NA
+"Yemen, Rep.",Asia,Western Asia,1977.0,44.175,8403990,1829.765177,NA,NA
+"Yemen, Rep.",Asia,Western Asia,1982.0,49.113,9657618,1977.55701,NA,NA
+"Yemen, Rep.",Asia,Western Asia,1987.0,52.922,11219340,1971.741538,NA,NA
+"Yemen, Rep.",Asia,Western Asia,1992.0,55.599,13367997,1879.496673,Mildly Autocratic,Autocratic
+"Yemen, Rep.",Asia,Western Asia,1997.0,58.02,15826497,2117.484526,Middle of the Road,Middle of the Road
+"Yemen, Rep.",Asia,Western Asia,2002.0,60.308,18701257,2234.820827,Middle of the Road,Middle of the Road
+"Yemen, Rep.",Asia,Western Asia,2007.0,62.698,22211743,2280.769906,Middle of the Road,Middle of the Road
+Zambia,Africa,Eastern Africa,1952.0,42.038,2672000,1147.388831,NA,NA
+Zambia,Africa,Eastern Africa,1957.0,44.077,3016000,1311.956766,NA,NA
+Zambia,Africa,Eastern Africa,1962.0,46.023,3421000,1452.725766,NA,NA
+Zambia,Africa,Eastern Africa,1967.0,47.768,3900000,1777.077318,Middle of the Road,Middle of the Road
+Zambia,Africa,Eastern Africa,1972.0,50.107,4506497,1773.498265,Strongly Autocratic,Autocratic
+Zambia,Africa,Eastern Africa,1977.0,51.386,5216550,1588.688299,Strongly Autocratic,Autocratic
+Zambia,Africa,Eastern Africa,1982.0,51.821,6100407,1408.678565,Strongly Autocratic,Autocratic
+Zambia,Africa,Eastern Africa,1987.0,50.821,7272406,1213.315116,Strongly Autocratic,Autocratic
+Zambia,Africa,Eastern Africa,1992.0,46.1,8381163,1210.884633,Mildly Democratic,Democratic
+Zambia,Africa,Eastern Africa,1997.0,40.238,9417789,1071.353818,Middle of the Road,Middle of the Road
+Zambia,Africa,Eastern Africa,2002.0,39.193,10595811,1071.613938,Mildly Democratic,Democratic
+Zambia,Africa,Eastern Africa,2007.0,42.384,11746035,1271.211593,Mildly Democratic,Democratic
+Zimbabwe,Africa,Eastern Africa,1952.0,48.451,3080907,406.8841148,NA,NA
+Zimbabwe,Africa,Eastern Africa,1957.0,50.469,3646340,518.7642681,NA,NA
+Zimbabwe,Africa,Eastern Africa,1962.0,52.358,4277736,527.2721818,NA,NA
+Zimbabwe,Africa,Eastern Africa,1967.0,53.995,4995432,569.7950712,NA,NA
+Zimbabwe,Africa,Eastern Africa,1972.0,55.635,5861135,799.3621758,Mildly Democratic,Democratic
+Zimbabwe,Africa,Eastern Africa,1977.0,57.674,6642107,685.5876821,Mildly Democratic,Democratic
+Zimbabwe,Africa,Eastern Africa,1982.0,60.363,7636524,788.8550411,Mildly Democratic,Democratic
+Zimbabwe,Africa,Eastern Africa,1987.0,62.351,9216418,706.1573059,Mildly Autocratic,Autocratic
+Zimbabwe,Africa,Eastern Africa,1992.0,60.377,10704340,693.4207856,Mildly Autocratic,Autocratic
+Zimbabwe,Africa,Eastern Africa,1997.0,46.809,11404948,792.4499603,Mildly Autocratic,Autocratic
+Zimbabwe,Africa,Eastern Africa,2002.0,39.989,11926563,672.0386227,Mildly Autocratic,Autocratic
+Zimbabwe,Africa,Eastern Africa,2007.0,43.487,12311143,469.7092981,Mildly Autocratic,Autocratic

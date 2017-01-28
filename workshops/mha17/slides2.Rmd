@@ -1,0 +1,432 @@
+---
+title: MHA Statistics Course - Day 2
+subtitle: Pacific University
+author: "<br> Dr. Chester Ismay <br> Email: chester@pacificu.edu"
+date: '2017/01/27 <br><br> Slides available at <font style="text-transform: lowercase;"><http://bit.ly/mha17-day2></font>'
+output: 
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: monokai
+      highlightLines: true
+    countIncrementalSlides: false
+    css: example.css
+  # revealjs::revealjs_presentation:
+  #   theme: beige
+  #   highlight: tango
+  #   center: true
+  #   fig_width: 9.5
+  #   fig_height: 4.5
+  #   fig.align: center
+  #   transition: slide
+  #   background_transition: zoom
+  #   slide_level: 1
+---
+
+```{r include=FALSE}
+options(digits = 3)
+```
+
+
+layout: true
+
+.footer[These slides available at <http://bit.ly/mha17-day2>]
+
+---
+
+#  Recall Hans Rosling's 4 minute presentation
+
+- What are the most important things you remember from the video from yesterday?
+
+- How did Hans use data viz to tell the story he wanted to tell?
+
+- What did you learn from the workshop yesterday?
+
+---
+
+# Workshop Agenda - Saturday
+
+- Part 4: Simulating Randomness
+  - Random sampling 
+  - Common terms of inference
+  - Simulation
+  - Sampling distribution
+- Part 5: Inferential Statistics
+  - Hypothesis testing
+  - Confidence intervals
+- Part 6: Workshop Review
+
+
+???
+
+---
+
+# Sampling seen as tasting soup
+
+## Key terms
+
+- population/sample
+- sampling
+- representative sample
+- bias
+- generalizability
+- parameter/statistic
+
+---
+
+# Sampling seen as tasting soup
+
+[<img src="img/noodle.jpg" style="width:800px;">](http://clv.h-cdn.co/assets/cm/15/10/1600x800/54f4a5bf1042a_-_chicken-noodle-soup-recipe.jpg)
+
+---
+
+# Visualizing sampling
+
+- Let's explore data on profiles of [San Francisco OKCupid users](https://github.com/rudeboybert/okcupiddata).
+
+- This data contains information about/questions asked of 59,946 OkCupid users who were
+  - living within 25 miles of San Francisco, 
+  - had active profiles on June 26, 2012, 
+  - were online in the previous year, and 
+  - had at least one picture in their profile.
+
+---
+
+# Visualizing sampling
+
+- Let's think of these 59,946 users as our <u>population</u>
+--
+
+  - Visualize their self-reported heights in inches
+--
+
+  - Then take samples from the population of heights and visualize those
+
+---
+
+class: center: middle
+
+### The population
+
+#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Self-reported heights of San Francisco OKCupid users in 2012
+
+```{r echo=FALSE, fig.width=9, fig.height=5.5, message=FALSE}
+library(okcupiddata)
+data(profiles)
+library(tidyverse)
+profiles_subset <- profiles %>% filter(between(height, 55, 80))
+ggplot(data = profiles_subset, mapping = aes(x = height)) +
+  geom_histogram(bins = 20, color = "white") +
+  labs(x = "\nHeight (in inches)") +
+  scale_x_continuous(breaks = seq(54, 82, 2)) +
+  theme(axis.text=element_text(size=18),
+        axis.title=element_text(size=20,face="bold"))
+```
+
+---
+
+
+### One random sample
+
+#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Self-reported heights of 100 San Francisco OKCupid users in 2012
+
+```{r echo=FALSE, fig.width=9, fig.height=5.5, message=FALSE}
+library(mosaic)
+set.seed(2017)
+profiles_sample1 <- profiles_subset %>% 
+  resample(size = 100, replace = FALSE)
+ggplot(data = profiles_sample1, mapping = aes(x = height)) +
+  geom_histogram(bins = 20, color = "white", fill = "blue") +
+  coord_cartesian(xlim = c(55, 80)) +
+  labs(x = "\nHeight (in inches)") +
+  scale_x_continuous(breaks = seq(54, 82, 2)) +
+  theme(axis.text=element_text(size=18),
+        axis.title=element_text(size=20,face="bold"))
+```
+
+---
+
+
+### Another random sample
+
+#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Self-reported heights of 100 San Francisco OKCupid users in 2012
+
+```{r echo=FALSE, fig.width=9, fig.height=5.5, message=FALSE}
+library(mosaic)
+profiles_sample2 <- profiles_subset %>% 
+  resample(size = 100, replace = FALSE)
+ggplot(data = profiles_sample2, mapping = aes(x = height)) +
+  geom_histogram(bins = 20, color = "white", fill = "forestgreen") +
+  coord_cartesian(xlim = c(55, 80)) +
+  labs(x = "\nHeight (in inches)") +
+  scale_x_continuous(breaks = seq(54, 82, 2)) +
+  theme(axis.text=element_text(size=18),
+        axis.title=element_text(size=20,face="bold"))
+```
+
+
+---
+
+
+### One more random sample
+
+#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Self-reported heights of 100 San Francisco OKCupid users in 2012
+
+```{r echo=FALSE, fig.width=9, fig.height=5.5, message=FALSE}
+profiles_sample3 <- profiles_subset %>% 
+  resample(size = 100, replace = FALSE)
+ggplot(data = profiles_sample3, mapping = aes(x = height)) +
+  geom_histogram(bins = 20, color = "white", fill = "brown") +
+  coord_cartesian(xlim = c(55, 80)) +
+  labs(x = "\nHeight (in inches)") +
+  scale_x_continuous(breaks = seq(54, 82, 2)) +
+  theme(axis.text=element_text(size=18),
+        axis.title=element_text(size=20,face="bold"))
+```
+
+---
+
+### A convenience sample
+
+#### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Self-reported heights of 100 San Francisco OKCupid users in 2012
+--
+
+```{r echo=FALSE, fig.width=9, fig.height=5.5, message=FALSE}
+profiles_sample4 <- profiles_subset %>% filter(height >= 72)
+ggplot(data = profiles_sample4, mapping = aes(x = height)) +
+  geom_histogram(bins = 20, color = "white", fill = "red") +
+    coord_cartesian(xlim = c(55, 80)) +
+  labs(x = "\nHeight (in inches)") +
+  scale_x_continuous(breaks = seq(54, 82, 2)) +
+  theme(axis.text=element_text(size=18),
+        axis.title=element_text(size=20,face="bold"))
+```
+
+
+---
+
+# The sampling distribution of the mean
+
+- Let's suppose we were interested in estimating the mean height of all OKCupid San Francisco profiles.  To do so, we could look at the mean of the height variable in our first sample:
+
+- Mean of sample 1: `r profiles_sample1 %>% summarize(mean(height))` inches
+
+---
+
+# The sampling distribution of the mean
+
+- Or we could have just used the mean of sample 2
+- Mean of sample 2: `r profiles_sample2 %>% summarize(mean(height))` inches
+
+---
+
+# The sampling distribution of the mean
+
+- Or the mean of sample 3
+- Mean of sample 3: `r profiles_sample3 %>% summarize(mean(height))` inches
+
+---
+
+# The sampling distribution of the mean
+
+- Or the mean of sample 4?
+- Mean of sample 4: `r profiles_sample4 %>% summarize(mean(height))` inches
+
+---
+
+# The sampling distribution of the mean
+
+- The fact that the estimate of our population mean changes based on the sample selected is called <u>sampling variability</u>.  
+
+- You can view the sampling variability by looking at sample means from many different samples in what is known as <u>the sampling distribution of the mean</u>.
+
+---
+
+# The sampling distribution of the mean
+
+#### Mean height (inches) from random samples of OKCupid profile heights
+
+```{r cache=TRUE, echo=FALSE, fig.width=9, fig.height=5.5, message=FALSE}
+many_sample_means <- do(10000) *
+  (profiles_subset %>% 
+  resample(size = 100, replace = FALSE) %>% 
+  summarize(mean_height = mean(height)))
+ggplot(data = many_sample_means, mapping = aes(x = mean_height)) +
+  geom_histogram(bins = 20, color = "white", fill = "black") +
+  labs(x = "\n Mean Height (in inches)") +
+  scale_x_continuous(breaks = seq(67, 70, 0.5)) +
+  theme(axis.text=element_text(size=18),
+        axis.title=element_text(size=20,face="bold"))
+```
+
+---
+
+# Gapminder data
+
+### We will be working with data derived from the data Hans Rosling gave in his presentation from yesterday.
+
+- You can view the full data set in interactive form [here](http://ismayc.github.io/workshops/mha17/materials/gapminder_full.html)
+
+- Please download the CSV of this data to your computer [here](http://ismayc.github.io/workshops/mha17/materials/gapminder_full.csv)
+
+---
+
+# Comparisons to make based on inference
+
+1. Was the proportion of Autocratic countries lower in 2007 than in 1957?
+1. Did European countries have a statistically different mean GDP per capita in 2002 than Asian countries?
+1. Was the mean life expectancy for countries in South America in 2007 greater than 75 years?
+1. Were the majority of African countries in 1962 Democratic?
+
+
+---
+
+class: center, middle
+
+# BREAK TIME
+
+### Think about two other statistical questions you could answer based on this data and write them down.
+
+---
+
+# The Lady Tasting Tea
+
+- Read over the exerpt from the book _The Lady Tasting Tea_ by David Salsburg [here](https://ismayc.github.io/moderndiver-book/6-sim.html#simulation)  
+
+- Read up until the _**Learning check**_
+
+### Salsburg, David. 2001. The Lady Tasting Tea: _How Statistics Revolutionized Science in the Twentieth Century_. First Edition. New York, NY: W.H. Freeman.
+
+---
+
+class: center, middle
+
+# Using [StatKey](http://www.lock5stat.com/StatKey/index.html)
+
+# DEMO
+
+---
+
+# There is Only One (Hypothesis) Test
+
+
+[<img src="img/ht.png" style="width:800px;">](http://allendowney.blogspot.com/2016/06/there-is-still-only-one-test.html)
+
+---
+
+# BREAK TIME
+
+## What do the different pieces of the diagram look like for each of our questions?
+
+1. Was the proportion of Autocratic countries lower in 2007 than in 1957?
+1. Did European countries have a statistically different mean GDP per capita in 2002 than Asian countries?
+1. Was the mean life expectancy for countries in South America in 2007 greater than 75 years?
+1. Were the majority of African countries in 1962 Democratic?
+
+---
+
+## Four common types of problems in inference
+
+- Test for Single Mean
+- Test for Single Proportion
+- Test for Difference in Means
+- Test for Difference in Proportions
+
+--
+
+### Match each of these tests with the problems on the previous slide
+
+- To assist, think about 
+    - how many variables are in the problem
+    - what type of variable they each are
+---
+
+### Answers
+
+1. Was the proportion of Autocratic countries lower in 2007 than in 1957? - <u>Test for Difference in Proportions</u>
+--
+
+1. Did European countries have a statistically different mean GDP per capita in 2002 than Asian countries? - <u>Test for Difference in Means</u>
+--
+
+1. Was the mean life expectancy for countries in South America in 2007 greater than 75 years? - <u>Test for Single Mean</u>
+--
+
+1. Were the majority of African countries in 1962 Democratic? - <u>Test for Single Proportion</u>
+
+---
+
+## Was the proportion of Autocratic countries lower in 2007 than in 1957?
+
+### Test for Difference in Proportions
+
+- Data for this problem can be viewed interactively [here](http://ismayc.github.io/workshops/mha17/materials/difference_props.html)
+
+- The summarized data to be entered into StatKey is at the top of interactive data
+
+- Back into [StatKey](http://www.lock5stat.com/StatKey/index.html)
+
+---
+
+## Did European countries have a statistically different mean GDP per capita in 2002 than Asian countries?
+
+### Test for Difference in Means
+
+- Data for this problem can be viewed interactively [here](http://ismayc.github.io/workshops/mha17/materials/difference_means.html)
+
+- Download a CSV of this data to upload in StatKey [here](http://ismayc.github.io/workshops/mha17/materials/difference_means.csv)
+
+- Back into [StatKey](http://www.lock5stat.com/StatKey/index.html)
+
+---
+
+## Was the mean life expectancy for countries in South America in 2007 greater than 75 years?
+
+### Test for Single Mean
+
+- Data for this problem can be viewed interactively [here](http://ismayc.github.io/workshops/mha17/materials/one_mean.html)
+
+- Download a CSV of this data to upload in StatKey [here](http://ismayc.github.io/workshops/mha17/materials/one_mean.csv)
+
+- Back into [StatKey](http://www.lock5stat.com/StatKey/index.html)
+
+---
+
+## Were the majority of African countries in 1962 Democratic?
+
+### Test for Single Proportion
+
+
+- Data for this problem can be viewed interactively [here](http://ismayc.github.io/workshops/mha17/materials/one_prop.html)
+
+- Download a CSV of this data to upload in StatKey [here](http://ismayc.github.io/workshops/mha17/materials/one_prop.csv)
+
+- Back into [StatKey](http://www.lock5stat.com/StatKey/index.html)
+
+---
+
+# Resources
+
+- [ModernDive:  An Introduction to Statistical and Data Sciences via R](http://moderndive.com/)
+
+- Free DataCamp Course (in development)  <br>[Effective Data Storytelling using the tidyverse](https://www.datacamp.com/courses/3085)
+
+---
+
+# Reflection
+
+- What are the biggest take-aways from this workshop for you?
+- What advice would you give to future workshop attendees about the workshop?
+- What did you like most about the workshop?
+- What could be improved for future workshop participants?
+
+---
+
+# Thanks!
+
+- Slides created via the R package [<small>`xaringan`</small>](https://github.com/yihui/xaringan) by Yihui Xie.
+
+- Email me at <chester@pacificu.edu>
+
+- Source code for these slides is on [GitHub](https://github.com/ismayc/ismayc.github.io/tree/master/workshops/mha17) 
+

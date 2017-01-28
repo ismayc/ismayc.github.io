@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MHA Statistics Course - Day 2</title>
+    <meta charset="utf-8">
+    <meta name="author" content="  Dr. Chester Ismay   Email: chester@pacificu.edu" />
+    <link rel="stylesheet" href="example.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# MHA Statistics Course - Day 2
+## Pacific University
+### <br> Dr. Chester Ismay <br> Email: <a href="mailto:chester@pacificu.edu">chester@pacificu.edu</a>
+### 2017/01/27 <br><br> Slides available at <font style="text-transform: lowercase;"><a href="http://bit.ly/mha17-day2" class="uri">http://bit.ly/mha17-day2</a></font>
+
+---
+
+
+
+
+
+layout: true
+
+.footer[These slides available at &lt;http://bit.ly/mha17-day2&gt;]
+
+---
+
+#  Recall Hans Rosling's 4 minute presentation
+
+- What are the most important things you remember from the video from yesterday?
+
+- How did Hans use data viz to tell the story he wanted to tell?
+
+- What did you learn from the workshop yesterday?
+
+---
+
+# Workshop Agenda - Saturday
+
+- Part 4: Simulating Randomness
+  - Random sampling 
+  - Common terms of inference
+  - Simulation
+  - Sampling distribution
+- Part 5: Inferential Statistics
+  - Hypothesis testing
+  - Confidence intervals
+- Part 6: Workshop Review
+
+
+???
+
+---
+
+# Sampling seen as tasting soup
+
+## Key terms
+
+- population/sample
+- sampling
+- representative sample
+- bias
+- generalizability
+- parameter/statistic
+
+---
+
+# Sampling seen as tasting soup
+
+[&lt;img src="img/noodle.jpg" style="width:800px;"&gt;](http://clv.h-cdn.co/assets/cm/15/10/1600x800/54f4a5bf1042a_-_chicken-noodle-soup-recipe.jpg)
+
+---
+
+# Visualizing sampling
+
+- Let's explore data on profiles of [San Francisco OKCupid users](https://github.com/rudeboybert/okcupiddata).
+
+- This data contains information about/questions asked of 59,946 OkCupid users who were
+  - living within 25 miles of San Francisco, 
+  - had active profiles on June 26, 2012, 
+  - were online in the previous year, and 
+  - had at least one picture in their profile.
+
+---
+
+# Visualizing sampling
+
+- Let's think of these 59,946 users as our &lt;u&gt;population&lt;/u&gt;
+--
+
+  - Visualize their self-reported heights in inches
+--
+
+  - Then take samples from the population of heights and visualize those
+
+---
+
+class: center: middle
+
+### The population
+
+#### &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; Self-reported heights of San Francisco OKCupid users in 2012
+
+![](slides2_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+
+---
+
+
+### One random sample
+
+#### &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; Self-reported heights of 100 San Francisco OKCupid users in 2012
+
+![](slides2_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+
+---
+
+
+### Another random sample
+
+#### &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; Self-reported heights of 100 San Francisco OKCupid users in 2012
+
+![](slides2_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+
+
+---
+
+
+### One more random sample
+
+#### &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; Self-reported heights of 100 San Francisco OKCupid users in 2012
+
+![](slides2_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+
+---
+
+### A convenience sample
+
+#### &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; Self-reported heights of 100 San Francisco OKCupid users in 2012
+--
+
+![](slides2_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+
+
+---
+
+# The sampling distribution of the mean
+
+- Let's suppose we were interested in estimating the mean height of all OKCupid San Francisco profiles.  To do so, we could look at the mean of the height variable in our first sample:
+
+- Mean of sample 1: 68.85 inches
+
+---
+
+# The sampling distribution of the mean
+
+- Or we could have just used the mean of sample 2
+- Mean of sample 2: 68.65 inches
+
+---
+
+# The sampling distribution of the mean
+
+- Or the mean of sample 3
+- Mean of sample 3: 68.77 inches
+
+---
+
+# The sampling distribution of the mean
+
+- Or the mean of sample 4?
+- Mean of sample 4: 73.349 inches
+
+---
+
+# The sampling distribution of the mean
+
+- The fact that the estimate of our population mean changes based on the sample selected is called &lt;u&gt;sampling variability&lt;/u&gt;.  
+
+- You can view the sampling variability by looking at sample means from many different samples in what is known as &lt;u&gt;the sampling distribution of the mean&lt;/u&gt;.
+
+---
+
+# The sampling distribution of the mean
+
+#### Mean height (inches) from random samples of OKCupid profile heights
+
+![](slides2_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+
+---
+
+# Gapminder data
+
+### We will be working with data derived from the data Hans Rosling gave in his presentation from yesterday.
+
+- You can view the full data set in interactive form [here](http://ismayc.github.io/workshops/mha17/materials/gapminder_full.html)
+
+- Please download the CSV of this data to your computer [here](http://ismayc.github.io/workshops/mha17/materials/gapminder_full.csv)
+
+---
+
+# Comparisons to make based on inference
+
+1. Was the proportion of Autocratic countries lower in 2007 than in 1957?
+1. Did European countries have a statistically different mean GDP per capita in 2002 than Asian countries?
+1. Was the mean life expectancy for countries in South America in 2007 greater than 75 years?
+1. Were the majority of African countries in 1962 Democratic?
+
+
+---
+
+class: center, middle
+
+# BREAK TIME
+
+### Think about two other statistical questions you could answer based on this data and write them down.
+
+---
+
+# The Lady Tasting Tea
+
+- Read over the exerpt from the book _The Lady Tasting Tea_ by David Salsburg [here](https://ismayc.github.io/moderndiver-book/6-sim.html#simulation)  
+
+- Read up until the _**Learning check**_
+
+### Salsburg, David. 2001. The Lady Tasting Tea: _How Statistics Revolutionized Science in the Twentieth Century_. First Edition. New York, NY: W.H. Freeman.
+
+---
+
+class: center, middle
+
+# Using [StatKey](http://www.lock5stat.com/StatKey/index.html)
+
+# DEMO
+
+---
+
+# There is Only One (Hypothesis) Test
+
+
+[&lt;img src="img/ht.png" style="width:800px;"&gt;](http://allendowney.blogspot.com/2016/06/there-is-still-only-one-test.html)
+
+---
+
+# BREAK TIME
+
+## What do the different pieces of the diagram look like for each of our questions?
+
+1. Was the proportion of Autocratic countries lower in 2007 than in 1957?
+1. Did European countries have a statistically different mean GDP per capita in 2002 than Asian countries?
+1. Was the mean life expectancy for countries in South America in 2007 greater than 75 years?
+1. Were the majority of African countries in 1962 Democratic?
+
+---
+
+## Four common types of problems in inference
+
+- Test for Single Mean
+- Test for Single Proportion
+- Test for Difference in Means
+- Test for Difference in Proportions
+
+--
+
+### Match each of these tests with the problems on the previous slide
+
+- To assist, think about 
+    - how many variables are in the problem
+    - what type of variable they each are
+---
+
+### Answers
+
+1. Was the proportion of Autocratic countries lower in 2007 than in 1957? - &lt;u&gt;Test for Difference in Proportions&lt;/u&gt;
+--
+
+1. Did European countries have a statistically different mean GDP per capita in 2002 than Asian countries? - &lt;u&gt;Test for Difference in Means&lt;/u&gt;
+--
+
+1. Was the mean life expectancy for countries in South America in 2007 greater than 75 years? - &lt;u&gt;Test for Single Mean&lt;/u&gt;
+--
+
+1. Were the majority of African countries in 1962 Democratic? - &lt;u&gt;Test for Single Proportion&lt;/u&gt;
+
+---
+
+## Was the proportion of Autocratic countries lower in 2007 than in 1957?
+
+### Test for Difference in Proportions
+
+- Data for this problem can be viewed interactively [here](http://ismayc.github.io/workshops/mha17/materials/difference_props.html)
+
+- The summarized data to be entered into StatKey is at the top of interactive data
+
+- Back into [StatKey](http://www.lock5stat.com/StatKey/index.html)
+
+---
+
+## Did European countries have a statistically different mean GDP per capita in 2002 than Asian countries?
+
+### Test for Difference in Means
+
+- Data for this problem can be viewed interactively [here](http://ismayc.github.io/workshops/mha17/materials/difference_means.html)
+
+- Download a CSV of this data to upload in StatKey [here](http://ismayc.github.io/workshops/mha17/materials/difference_means.csv)
+
+- Back into [StatKey](http://www.lock5stat.com/StatKey/index.html)
+
+---
+
+## Was the mean life expectancy for countries in South America in 2007 greater than 75 years?
+
+### Test for Single Mean
+
+- Data for this problem can be viewed interactively [here](http://ismayc.github.io/workshops/mha17/materials/one_mean.html)
+
+- Download a CSV of this data to upload in StatKey [here](http://ismayc.github.io/workshops/mha17/materials/one_mean.csv)
+
+- Back into [StatKey](http://www.lock5stat.com/StatKey/index.html)
+
+---
+
+## Were the majority of African countries in 1962 Democratic?
+
+### Test for Single Proportion
+
+
+- Data for this problem can be viewed interactively [here](http://ismayc.github.io/workshops/mha17/materials/one_prop.html)
+
+- Download a CSV of this data to upload in StatKey [here](http://ismayc.github.io/workshops/mha17/materials/one_prop.csv)
+
+- Back into [StatKey](http://www.lock5stat.com/StatKey/index.html)
+
+---
+
+# Resources
+
+- [ModernDive:  An Introduction to Statistical and Data Sciences via R](http://moderndive.com/)
+
+- Free DataCamp Course (in development)  &lt;br&gt;[Effective Data Storytelling using the tidyverse](https://www.datacamp.com/courses/3085)
+
+---
+
+# Reflection
+
+- What are the biggest take-aways from this workshop for you?
+- What advice would you give to future workshop attendees about the workshop?
+- What did you like most about the workshop?
+- What could be improved for future workshop participants?
+
+---
+
+# Thanks!
+
+- Slides created via the R package [&lt;small&gt;`xaringan`&lt;/small&gt;](https://github.com/yihui/xaringan) by Yihui Xie.
+
+- Email me at &lt;chester@pacificu.edu&gt;
+
+- Source code for these slides is on [GitHub](https://github.com/ismayc/ismayc.github.io/tree/master/workshops/mha17)
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "monokai",
+"highlightLines": true
+});
+if (window.HTMLWidgets) slideshow.on('showSlide', function (slide) {setTimeout(function() {window.dispatchEvent(new Event('resize'));}, 100)});</script>
+
+  </body>
+</html>
