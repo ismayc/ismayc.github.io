@@ -8,7 +8,7 @@ permalink: /teaching/
 
 #### Spring 2017
 
-- <a href = "http://ismayc.github.io/soc301-s2017" target = "_blank">**SOC 301 - Social Statistics**</a>
+<a href = "http://ismayc.github.io/soc301_s2017" target = "_blank">**SOC 301 - Social Statistics**</a>
 
 - Tuesday and Thursday 2:45 - 4:20 PM in Price Hall, Room 214
 
