@@ -6,12 +6,14 @@ permalink: /teaching/
 
 ### Current courses
 
-#### Fall 2016
+#### Spring 2017
 
-[**SOC 301 - Social Statistics**]({{ site.baseurl }}/teaching/soc301-f2016/)
+<a href = "http://ismayc.github.io/soc301_s2017" target = "_blank">**SOC 301 - Social Statistics**</a>
 
-- MW 2:15 - 3:50 PM in Walter Annex, Room 101
+- Tuesday and Thursday 2:45 - 4:20 PM in Price Hall, Room 214
 
 ### Previous courses
 
-[MATH 141 at Reed College]({{ site.baseurl }}/teaching/past/)
+- [MATH 141 at Reed College]({{ site.baseurl }}/teaching/past/)
+
+- [SOC 301 at Pacific University - Fall 2016]({{ site.baseurl }}/teaching/soc301-f2016/)

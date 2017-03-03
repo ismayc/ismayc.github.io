@@ -1,0 +1,35 @@
+---
+title: "Difference in Means"
+output: html_document
+---
+
+## Did European countries have a statistically different mean GDP per capita in 2002 than Asian countries?
+
+```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
+library(DT)
+library(tidyverse)
+gapminder_full <- read_csv("gapminder_full.csv")
+```
+
+***
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+gap_two_means <- gapminder_full %>% filter(year == 2002) %>% 
+  filter(region %in% c("Europe", "Asia"))
+write_csv(gap_two_means, "difference_means.csv")
+```
+
+`r nrow(gap_two_means)` observations of `r ncol(gap_two_means)` variables
+
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+datatable(gap_two_means,
+  class = 'cell-border stripe',
+  rownames = FALSE,
+  filter = list(position = 'top'),
+  options = list(pageLength = nrow(gap_two_means), 
+    autoWidth = TRUE,
+    bInfo = FALSE,
+    paging = FALSE))
+```
+

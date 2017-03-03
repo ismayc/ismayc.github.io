@@ -1,0 +1,40 @@
+---
+title: "Difference in Proportions"
+output: html_document
+---
+
+## Was the proportion of Autocratic countries lower in 2007 than in 1957?
+
+```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
+library(DT)
+library(tidyverse)
+gapminder_full <- read_csv("gapminder_full.csv")
+prop_diff <-  gapminder_full %>% 
+  filter(year %in% c(1957, 2007)) %>% 
+  group_by(year) %>% 
+  summarize(autocratic_count = sum(basic_rank == "Autocratic", na.rm = TRUE),
+         overall_count = n()) 
+knitr::kable(prop_diff)
+```
+
+***
+
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+gap_two_props <- gapminder_full %>% filter(year %in% c(1957, 2007))
+```
+
+`r nrow(gap_two_props)` observations of `r ncol(gap_two_props)` variables
+
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+datatable(gap_two_props,
+  class = 'cell-border stripe',
+  rownames = FALSE,
+  filter = list(position = 'top'),
+  options = list(pageLength = nrow(gap_two_props), 
+    autoWidth = TRUE,
+    bInfo = FALSE,
+    paging = FALSE))
+```
+

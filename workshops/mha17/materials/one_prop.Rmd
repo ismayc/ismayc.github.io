@@ -1,0 +1,46 @@
+---
+title: "One Proportion"
+output: html_document
+---
+
+## Were the majority of African countries in 1962 Democratic?
+
+```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
+library(DT)
+library(tidyverse)
+gapminder_full <- read_csv("gapminder_full.csv")
+```
+
+***
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+gap_one_prop <- gapminder_full %>% filter(year == 1962) %>% 
+  filter(region %in% c("Africa")) %>% 
+  mutate(democratic = ifelse(basic_rank == "Democratic", "Democratic", "Not Democratic")) %>% 
+  na.omit()
+write_csv(gap_one_prop, "one_prop.csv")
+```
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+prop <- gap_one_prop %>% 
+  group_by(year) %>% 
+  summarize(democratic_count = sum(democratic == "Democratic", na.rm = TRUE),
+         overall_count = n()) 
+knitr::kable(prop)
+```
+
+
+`r nrow(gap_one_prop)` observations of `r ncol(gap_one_prop)` variables
+
+
+```{r echo=FALSE, warning=FALSE, message=FALSE}
+datatable(gap_one_prop,
+  class = 'cell-border stripe',
+  rownames = FALSE,
+  filter = list(position = 'top'),
+  options = list(pageLength = nrow(gap_one_prop), 
+    autoWidth = TRUE,
+    bInfo = FALSE,
+    paging = FALSE))
+```
+

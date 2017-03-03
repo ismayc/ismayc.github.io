@@ -1,0 +1,14 @@
+base
+needs
+tidyverse
+ggplot2
+tibble
+tidyr
+readr
+purrr
+dplyr
+okcupiddata
+lattice
+mosaicData
+Matrix
+mosaic
