@@ -287,7 +287,7 @@ We see here that the observed test statistic value is around 1.5 with $df = min(
 
 Let's investigate how the null distribution compares for the permutation testing results to what we use with the $t$ distribution in the traditional method.  To get the results on the same scale we will need to divide what we have in the null distribution of the permutation test ($\bar{X}_{sac} - \bar{X}_{cle}$) by the appropriate denominator to create a $T$ statistic:
 
-$$T = \dfrac{\bar{X}_{sac} - \bar{X_{cle}}}{\sqrt{(S_{sac}^2 / n_{sac}) + (S_{cle}^2 / n_{cle}) })}  $$
+$$T = \dfrac{\bar{X}_{sac} - \bar{X}_{cle}}{\sqrt{(S_{sac}^2 / n_{sac}) + (S_{cle}^2 / n_{cle}) })}  $$
 ```{r}
 null_distn <- null_distn %>%
   mutate(t_stat = diffmean / sqrt( (sd_sac^2 / n_sac) + (sd_cle^2 / n_cle) ))

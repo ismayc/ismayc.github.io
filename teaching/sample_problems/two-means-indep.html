@@ -475,7 +475,7 @@ We can use the `inference` function in the `oilabs` package to perform this anal
 <div id="comparing-the-null-distribution-for-traditional-and-non-traditional-methods" class="section level2">
 <h2>Comparing the null distribution for traditional and non-traditional methods</h2>
 <p>Let’s investigate how the null distribution compares for the permutation testing results to what we use with the <span class="math inline">\(t\)</span> distribution in the traditional method. To get the results on the same scale we will need to divide what we have in the null distribution of the permutation test (<span class="math inline">\(\bar{X}_{sac} - \bar{X}_{cle}\)</span>) by the appropriate denominator to create a <span class="math inline">\(T\)</span> statistic:</p>
-<p><span class="math display">\[T = \dfrac{\bar{X}_{sac} - \bar{X_{cle}}}{\sqrt{(S_{sac}^2 / n_{sac}) + (S_{cle}^2 / n_{cle}) })}  \]</span></p>
+<p><span class="math display">\[T = \dfrac{\bar{X}_{sac} - \bar{X}_{cle}}{\sqrt{(S_{sac}^2 / n_{sac}) + (S_{cle}^2 / n_{cle}) })}  \]</span></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">null_distn &lt;-<span class="st"> </span>null_distn %&gt;%
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">t_stat =</span> diffmean /<span class="st"> </span><span class="kw">sqrt</span>( (sd_sac^<span class="dv">2</span> /<span class="st"> </span>n_sac) +<span class="st"> </span>(sd_cle^<span class="dv">2</span> /<span class="st"> </span>n_cle) ))
 <span class="kw">ggplot</span>(<span class="dt">data =</span> null_distn, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> t_stat)) +
