@@ -124,6 +124,8 @@ Next we will assign some key values to variable names in R:
 ```{r stats}
 xbar_cle <- inc_summ$mean[1]
 xbar_sac <- inc_summ$mean[2]
+sd_cle <- inc_summ$sd[1]
+sd_sac <- inc_summ$sd[2]
 obs_diff <- xbar_sac - xbar_cle
 n_cle <- inc_summ$sample_size[1]
 n_sac <- inc_summ$sample_size[2]
@@ -280,6 +282,23 @@ inference(x = cleSac$metro_area,
 ```
 
 We see here that the observed test statistic value is around 1.5 with $df = min(212 - 1, 175 - 1) = 174$.  Recall that for large degrees of freedom, the $t$ distribution is roughly equal to the standard normal curve so our difference in `df` for the Satterthwaite and "min" variations doesn't really matter.
+
+## Comparing the null distribution for traditional and non-traditional methods
+
+Let's investigate how the null distribution compares for the permutation testing results to what we use with the $t$ distribution in the traditional method.  To get the results on the same scale we will need to divide what we have in the null distribution of the permutation test ($\bar{X}_{sac} - \bar{X}_{cle}$) by the appropriate denominator to create a $T$ statistic:
+
+$$T = \dfrac{\bar{X}_{sac} - \bar{X_{cle}}}{\sqrt{(S_{sac}^2 / n_{sac}) + (S_{cle}^2 / n_{cle}) })}  $$
+```{r}
+null_distn <- null_distn %>%
+  mutate(t_stat = diffmean / sqrt( (sd_sac^2 / n_sac) + (sd_cle^2 / n_cle) ))
+ggplot(data = null_distn, mapping = aes(x = t_stat)) +
+  geom_histogram(aes(y = ..density..), color = "white", binwidth = 0.3) +
+  stat_function(fun = dt,
+    args = list(df = min(n_sac - 1, n_cle - 1)), 
+    color = "royalblue", size = 2)
+```
+
+We see that the distributions very closely match up as we can expect since the assumptions were met for the traditional test.
 
 # Compute $p$-value
 
