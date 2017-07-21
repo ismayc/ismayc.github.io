@@ -15,7 +15,7 @@ I've led many workshops on using R and R Markdown at <a target="_blank" href="ht
 - dynamic web application frameworks using `shiny`
 - importing and tidying/reshaping data
 
-Slides from these workshops and other projects can be found on my <a target="_blank" href="http://www.rpubs.com/cismay">RPubs.com page</a>.
+Slides from many of these workshops and other projects can be found on my <a target="_blank" href="http://www.rpubs.com/cismay">RPubs.com page</a>.
 
 Revealjs slides from August 2016 talks are below:
 
@@ -24,4 +24,4 @@ Revealjs slides from August 2016 talks are below:
 
 - In May of 2016, Andrew Bray and I hosted a conference of Pacific Northwest educators along with eCOTS 2016.  Materials can be found [here]({{ site.baseurl }}/ecots2k16/).
 
-A listing of other talks and presentations I have given can be found in my [CV]({{ site.baseurl }}/extras/cv-2016-09.pdf).
+A listing of other talks and presentations I have given can be found in my (sorely in need of updating) [CV]({{ site.baseurl }}/extras/cv-2016-09.pdf).

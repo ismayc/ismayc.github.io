@@ -4,7 +4,7 @@ title: Projects
 permalink: /projects/
 ---
 
-At [Reed College](www.reed.edu), I'm working on the following projects
+At [Reed College](www.reed.edu), I worked on the following projects
 
   - [A MODERN DIVE into Data with R book](http://ismayc.github.io/moderndiver-book)
   - [Writing blogs about useful educational tools](http://blogs.reed.edu/ed-tech/author/cismay/)
