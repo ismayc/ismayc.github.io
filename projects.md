@@ -4,13 +4,20 @@ title: Projects
 permalink: /projects/
 ---
 
+- I've co-authored [Statistical Inference via Data Science: A ModernDive into R and the Tidyverse](https://www.moderndive.com) with [Albert Y. Kim](https://rudeboybert.rbind.io)
+- I've also co-authored or authored the following R packages
+  - [infer][https://infer.netlify.com]
+  - [fivethirtyeight][https://fivethirtyeight-r.netlify.com]
+  - [thesisdown][https://github.com/ismayc/thesisdown]
+  - [moderndive][https://moderndive.github.io/moderndive]
+  - [izzyuntappd][https://github.com/ismayc/izzyuntappd]
+
 At [Reed College](www.reed.edu), I worked on the following projects
 
-  - [A MODERN DIVE into Data with R book](http://ismayc.github.io/moderndiver-book)
   - [Writing blogs about useful educational tools](http://blogs.reed.edu/ed-tech/author/cismay/)
   - [R Markdown senior thesis template in a variety of formats](http://github.com/ismayc/thesisdown)
       + [Example layout of gitbook (HTML) version](http://ismayc.github.io/thesisdown_book)
-  - [Getting Used to R, RStudio, and R Markdown book](http://ismayc.github.io/rbasics-book)
+  - [Getting used to R, RStudio, and R Markdown book](https://rbasics.netlify.com)
   - [R Markdown templates and special functions for Chem 101/102](http://github.com/ismayc/chemistr)
   - [Data on all flights leaving PDX and SEA in 2014](http://github.com/ismayc/pnwflights14)
   - [GitHub organization for Reed community](http://github.com/Reedies)
