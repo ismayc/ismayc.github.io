@@ -6,11 +6,11 @@ permalink: /projects/
 
 - I've co-authored [Statistical Inference via Data Science: A ModernDive into R and the Tidyverse](https://www.moderndive.com) with [Albert Y. Kim](https://rudeboybert.rbind.io)
 - I've also co-authored or authored the following R packages
-  - [infer][https://infer.netlify.com]
-  - [fivethirtyeight][https://fivethirtyeight-r.netlify.com]
-  - [thesisdown][https://github.com/ismayc/thesisdown]
-  - [moderndive][https://moderndive.github.io/moderndive]
-  - [izzyuntappd][https://github.com/ismayc/izzyuntappd]
+  - [infer](https://infer.netlify.com)
+  - [fivethirtyeight](https://fivethirtyeight-r.netlify.com)
+  - [thesisdown](https://github.com/ismayc/thesisdown)
+  - [moderndive](https://moderndive.github.io/moderndive)
+  - [izzyuntappd](https://github.com/ismayc/izzyuntappd)
 
 At [Reed College](www.reed.edu), I worked on the following projects
 
