@@ -14,6 +14,7 @@ permalink: /projects/
 
 At [Reed College](www.reed.edu), I worked on the following projects
 
+  - How to create an R package that contains a simple R Markdown template is available [here]({{ site.baseurl }}/ecots2k16/template_pkg/)
   - [Writing blogs about useful educational tools](http://blogs.reed.edu/ed-tech/author/cismay/)
   - [R Markdown senior thesis template in a variety of formats](http://github.com/ismayc/thesisdown)
       + [Example layout of gitbook (HTML) version](http://ismayc.github.io/thesisdown_book)
