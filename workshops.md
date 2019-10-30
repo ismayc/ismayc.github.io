@@ -15,7 +15,7 @@ I've led many workshops on using R and R Markdown at <a target="_blank" href="ht
 - dynamic web application frameworks using `shiny`
 - importing and tidying/reshaping data
 
-Slides from many of these workshops and other projects can be found on my <a target="_blank" href="https://www.rpubs.com/cismay">RPubs.com page</a> and at <a target="_blank" href="https://github.com/ismayc/talks">on GitHub</a>.
+Slides from many of these workshops and other projects can be found on my <a target="_blank" href="https://www.rpubs.com/cismay">RPubs.com page</a> and <a target="_blank" href="https://github.com/ismayc/talks">on GitHub</a>.
 
 Revealjs slides from August 2016 talks are below:
 
