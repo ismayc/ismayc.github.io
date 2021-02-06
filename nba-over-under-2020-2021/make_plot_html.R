@@ -1,4 +1,4 @@
-setwd("~/Desktop/nba-over-under-2020-2021")
+setwd("~/Desktop/ismayc.github.io/nba-over-under-2020-2021")
 Sys.setenv(RSTUDIO_PANDOC = "/Applications/RStudio.app/Contents/MacOS/pandoc")
 
 cat(glue::glue("Starting at {Sys.time()}"))
