@@ -9,3 +9,7 @@ rmarkdown::render(
   output_dir = ".."
 )
 cat(glue::glue("Completed at {Sys.time()}\n\n"))
+
+system("git add --all *")
+system(paste0('git commit -m "Updated ', Sys.Date(), '"'))
+system("git push origin master")
