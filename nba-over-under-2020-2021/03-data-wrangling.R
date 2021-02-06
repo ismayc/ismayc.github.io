@@ -1,0 +1,135 @@
+library(tidyverse)
+library(plotly)
+library(here)
+library(glue)
+#library(zoo)
+
+standings <- here("rds", glue("standings_through_{Sys.Date() - 1}.rds")) %>% 
+  read_rds()
+
+game_results_raw <- here("rds", glue("game_results_raw_through_{Sys.Date() - 1}.rds")) %>% 
+  read_rds()
+
+game_results <- game_results_raw %>% 
+  mutate(win = if_else(slugTeam != slugTeamLoser, 1, 0),
+         loss = 1 - win) %>% 
+  group_by(nameTeam) %>% 
+  #  mutate(current_win_total = rollapplyr(win, 2, sum, partial = TRUE),
+  #         current_loss_total = rollapplyr(loss, 2, sum, partial = TRUE)) %>% 
+  mutate(
+    current_wins = cumsum(win),
+    current_losses = cumsum(loss),
+    current_win_perc = current_wins / (current_wins + current_losses) * 100
+  ) %>% 
+  rename(`Game Number` = numberGameTeamSeason,
+         `Team Name` = nameTeam,
+         `Game Date` = dateGame) %>% 
+  mutate(`Team Name` = str_replace_all(`Team Name`, "LA ", "Los Angeles ")) %>% 
+  arrange(`Team Name`)
+
+scores_tidy <- scores %>% 
+  pivot_longer(cols = away_score:home_score,
+               names_to = "location",
+               values_to = "score") %>% 
+  mutate(location = str_replace_all(location, "_score", "")) %>% 
+  mutate(
+    team_slug = if_else(location == "away", slug_away_team, slug_home_team),
+    opponent_slug = if_else(location == "away", slug_home_team, slug_away_team),
+    team_name = if_else(location == "away", away_team, home_team)
+  ) %>% 
+  rownames_to_column() %>% 
+  mutate(rowname = as.numeric(rowname)) %>% 
+  mutate(opponent_score = NA_integer_)
+
+for (i in seq_along(scores_tidy$score)) {
+  scores_tidy$opponent_score[i] <- ifelse(
+    scores_tidy$rowname[i] %% 2 == 1,
+    scores_tidy$score[i + 1],
+    scores_tidy$score[i - 1]
+  )
+}
+
+updated_schedule <- game_results %>% 
+  inner_join(
+    scores_tidy %>% 
+      select(game_id, game_date, team_name, score, opponent_score), 
+    by = c("Game Date" = "game_date", "Team Name" = "team_name")
+  ) %>% 
+  relocate(game_id, .after = `Game Date`) %>% 
+  mutate(final_score = paste0(score, "-", opponent_score)) %>% 
+  mutate(`Current Record` = paste0(current_wins, "-", current_losses)) %>% 
+  mutate(`Game Result` = paste0("\nGame Number: ", `Game Number`, "\n",
+                                "Game Date: ", `Game Date`, "\n",
+                                "Game Matchup: ", slugMatchup, "\n", 
+                                "Final Score: ", final_score))
+
+join_with_projections <- updated_schedule %>% 
+  inner_join(projections, by = c("Team Name" = "team")) %>% 
+  mutate(`Current Win %` = round(current_win_perc, 2),
+         `Vegas Insider Win Projection %` = round(percentage_projection, 2)) %>% 
+  mutate(over_under = case_when(
+    `Current Win %` > `Vegas Insider Win Projection %` ~ "OVER",
+    `Current Win %` < `Vegas Insider Win Projection %` ~ "UNDER",
+    TRUE                                               ~ "PUSH")
+  )
+
+# Pulling in picks
+days_in_season_to_today <- seq(from = as.Date("2020-12-22"), 
+                               to = as.Date(Sys.Date() - 1), 
+                               by = "days")
+teams <- unique(join_with_projections$`Team Name`)
+
+standings_grid <- crossing(team = teams, date = days_in_season_to_today) %>% 
+  left_join(join_with_projections %>% 
+              select(
+                `Team Name`, `Game Date`, starts_with("current"),
+                `Vegas Insider Win Projection %`, over_under,
+                -current_win_perc
+              ), 
+            by = c("team" = "Team Name", "date" = "Game Date")) %>% 
+  group_by(team) %>% 
+  fill(c(current_wins, current_losses, `Current Record`, `Current Win %`, 
+         over_under), 
+       .direction = "down") %>% 
+  fill(`Vegas Insider Win Projection %`, .direction = "downup") %>% 
+  replace_na(replace = list(current_wins = 0,
+                            current_losses = 0,
+                            `Current Record` = "0-0",
+                            `Current Win %` = NA_real_))
+
+with_picks <- standings_grid %>% 
+  inner_join(picks, by = "team") %>% 
+  mutate(current_projected_points = if_else(
+    over_under == choice,
+    wage,
+    -wage
+  ))
+
+player_projections_by_team <- with_picks %>% 
+  select(Date = date, Player = player, Team = team, starts_with("current"))
+
+projected_score <- player_projections_by_team %>% 
+  group_by(Date, Player) %>% 
+  summarize(
+    `Projected Total Points` = sum(current_projected_points, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+most_recent_results <- projected_score %>% 
+  mutate(days_from_today = as.numeric(difftime(Sys.Date(),
+                                               Date,
+                                               units = c("days")))) %>% 
+  filter(days_from_today == min(days_from_today))
+
+current_rankings <- most_recent_results %>% 
+  arrange(desc(`Projected Total Points`)) %>% 
+  pull(Player)
+
+# As a check to compare to Phil's report
+# previous_reported_results <- projected_score %>% 
+#   filter(Date == as.Date("2021-01-28")) %>% 
+#   arrange(desc(`Projected Total Points`))
+# 
+# previous_projected_scores <- player_projections_by_team %>% 
+#   filter(Date == as.Date("2021-01-28"))
+

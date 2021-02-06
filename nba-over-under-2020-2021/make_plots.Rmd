@@ -1,0 +1,186 @@
+---
+title: 'NBA Over/Under 2020-2021 Season'
+author: Chester Ismay
+output: html_document
+knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = encoding, output_file = file.path(dirname(inputFile), '2021-nba-over-under.html')) })
+---
+
+```{r setup, include=FALSE}
+source("01-03.R")
+knitr::opts_chunk$set(echo = FALSE)
+library(lubridate)
+```
+
+Last updated at `r Sys.time()`
+
+# {.tabset}
+
+## By team {.tabset}
+
+### By week
+
+```{r fig.height=10, fig.width=10}
+weekly_standings <- standings_grid %>% 
+  mutate(day_of_week = wday(date, label = TRUE)) %>% 
+  filter(day_of_week == "Mon") %>% 
+  select(-day_of_week) %>% 
+  rename(Date = date, `Team Name` = team)
+
+weekly_team_track <- ggplot(
+  weekly_standings,
+  aes(x = Date, y = `Current Win %`, label = `Current Record`)
+) +
+  geom_point() +
+  geom_line() +
+  geom_segment(aes(x = min(Date), xend = max(Date), 
+                   y = `Vegas Insider Win Projection %`, 
+                   yend = `Vegas Insider Win Projection %`),
+               color = "blue") +
+  facet_wrap(~ `Team Name`, nrow = 6) +
+  xlab("") +
+  ylab("") +
+  theme_bw()
+
+ggplotly(weekly_team_track, tooltip = c("Vegas Insider Win Projection %", 
+                                 "Current Win %", 
+                                 "Current Record",
+                                 "Date")) %>%
+  #  plotly::layout(margin = list(l = 30, r = 20, b = 5, t = 10))
+  layout(
+    margin = list(t = 120),
+    title = list(
+      text = paste("Team win percentage across season dates<br>",
+                   "versus Vegas Insider projection"),
+      font = list(size = 20)
+    ),
+    yaxis = list(
+      title = paste(
+        c("Current Win Percentage", rep("&nbsp;", 90), "<br>"), collapse = "")
+    ),
+    xaxis = list(
+      title = paste(
+        c(rep("&nbsp;", 100), "Date", "<br>"), collapse = "")
+    ))
+```
+
+
+### By game number
+
+```{r fig.height=10, fig.width=10}
+team_track <- ggplot(
+  join_with_projections,
+  aes(x = `Game Number`, y = `Current Win %`, label = `Current Record`,
+      text = `Game Result`)
+) +
+  geom_point() +
+  geom_line() +
+  geom_segment(aes(x = 1, xend = max(`Game Number`), 
+                   y = `Vegas Insider Win Projection %`, 
+                   yend = `Vegas Insider Win Projection %`),
+               color = "blue") +
+  facet_wrap(~ `Team Name`, nrow = 6) +
+  xlab("") + #Game Number") +
+  ylab("") + #<br><br>Current Win Percentage")
+  theme_bw()
+
+ggplotly(team_track, tooltip = c("Vegas Insider Win Projection %", 
+                                 "Current Win %", 
+                                 "Current Record",
+                                 "Game Result")) %>%
+  #  plotly::layout(margin = list(l = 30, r = 20, b = 5, t = 10))
+  layout(
+    margin = list(t = 120),
+    title = list(
+      text = paste("Team win percentage across games played <br>",
+                   "versus Vegas Insider projection"),
+      font = list(size = 20)
+    ),
+    yaxis = list(
+      title = paste(
+        c("Current Win Percentage", rep("&nbsp;", 90), "<br>"), collapse = "")
+    ),
+    xaxis = list(
+      title = paste(
+        c(rep("&nbsp;", 115), "Game Number", "<br>"), collapse = "")
+    ))
+```
+
+## Projected points for each player {.tabset}
+
+
+
+#### Games through `r Sys.Date() - 1`
+
+```{r}
+projected_score %>% 
+  arrange(desc(Date), desc(`Projected Total Points`)) %>% 
+  DT::datatable(options = list(pageLength = 8))
+```
+
+***
+
+### All together
+
+```{r fig.height=6, fig.width=10}
+projected_score_plot <- projected_score %>% 
+  mutate(Player = factor(x = Player, levels = current_rankings)) %>% 
+  ggplot(aes(
+    x = Date, y = `Projected Total Points`, color = Player)
+  ) +
+  geom_point() +
+  geom_line() +
+  xlab("") + 
+  ylab("") + 
+  scale_color_brewer(palette = "RdYlBu") +
+  theme_bw()
+
+ggplotly(projected_score_plot) %>% 
+  layout(
+    margin = list(t = 80),
+    title = list(
+      text = "Projected points over time",
+      font = list(size = 20)
+    ),
+    yaxis = list(
+      title = paste(
+        c(rep("&nbsp;", 15), "Projected Total Points",  
+          "<br>"), collapse = "")
+    ),
+    xaxis = list(
+      title = paste(
+        c(rep("&nbsp;", 9), "Date", "<br>"), collapse = "")
+    ))
+```
+
+### Small multiples
+
+```{r fig.height=6, fig.width=10}
+projected_score_facetted <- projected_score %>% 
+  mutate(Player = factor(x = Player, levels = current_rankings)) %>% 
+  ggplot(aes(
+    x = Date, y = `Projected Total Points`)
+  ) +
+  geom_point() +
+  geom_line() +
+  xlab("") + 
+  ylab("") + 
+  theme_bw() +
+  facet_wrap(~ Player, nrow = 2)
+
+ggplotly(projected_score_facetted) %>% 
+  layout(
+    margin = list(t = 80),
+    title = list(
+      text = "Projected points (sorted from current best to worst) over time",
+      font = list(size = 20)
+    ),
+    yaxis = list(
+      title = paste(
+        c("Projected Total Points", rep("&nbsp;", 30), "<br>"), collapse = "")
+    ),
+    xaxis = list(
+      title = paste(
+        c(rep("&nbsp;", 105), "Date", "<br>"), collapse = "")
+    ))
+```
+

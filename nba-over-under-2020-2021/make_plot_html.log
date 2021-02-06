@@ -1,0 +1,4 @@
+Fatal error: cannot open file '/Users/chester/Desktop/nba-over-under-2020-2021/make_plot_html.R': Operation not permitted
+Error: pandoc version 1.12.3 or higher is required and was not found (see the help page ?rmarkdown::pandoc_available).
+Execution halted
+
