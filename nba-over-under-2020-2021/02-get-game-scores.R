@@ -151,7 +151,7 @@ current_schedule <-
     data
   }
 
-scores <- current_schedule() %>% 
+scores <- nbastatR::current_schedule() %>% 
   filter(dateGame >= "2020-12-22") %>% 
   filter(!is.na(scoreAway)) %>% 
   mutate(is_home_winner = (isWinnerHome == 1),
