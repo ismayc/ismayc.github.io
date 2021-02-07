@@ -122,8 +122,10 @@ projected_score %>%
 ### All together
 
 ```{r fig.height=6, fig.width=10}
-projected_score_plot <- projected_score %>% 
-  mutate(Player = factor(x = Player, levels = current_rankings)) %>% 
+projected_score_highlight <- projected_score %>% 
+  mutate(Player = factor(x = Player, levels = current_rankings)) %>%
+  highlight_key(~Player)
+projected_score_plot <- projected_score_highlight %>% 
   ggplot(aes(
     x = Date, y = `Projected Total Points`, color = Player)
   ) +
@@ -134,7 +136,8 @@ projected_score_plot <- projected_score %>%
   scale_color_brewer(palette = "RdYlBu") +
   theme_bw()
 
-ggplotly(projected_score_plot) %>% 
+gg <- ggplotly(projected_score_plot, 
+                tooltip = c("Date", "Projected Total Points", "Player")) %>% 
   layout(
     margin = list(t = 80),
     title = list(
@@ -150,6 +153,9 @@ ggplotly(projected_score_plot) %>%
       title = paste(
         c(rep("&nbsp;", 9), "Date", "<br>"), collapse = "")
     ))
+highlight(gg, color = c("forestgreen"), 
+#          on = "plotly_hover", off = "plotly_deselect", 
+          dynamic = FALSE)
 ```
 
 ### Small multiples

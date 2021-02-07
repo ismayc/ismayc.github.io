@@ -7,7 +7,9 @@ library(glue)
 standings <- here("rds", glue("standings_through_{Sys.Date() - 1}.rds")) %>% 
   read_rds()
 
-game_results_raw <- here("rds", glue("game_results_raw_through_{Sys.Date() - 1}.rds")) %>% 
+game_results_raw <- here(
+  "rds", 
+  glue("game_results_raw_through_{Sys.Date() - 1}.rds")) %>% 
   read_rds()
 
 game_results <- game_results_raw %>% 
@@ -39,15 +41,9 @@ scores_tidy <- scores %>%
   ) %>% 
   rownames_to_column() %>% 
   mutate(rowname = as.numeric(rowname)) %>% 
-  mutate(opponent_score = NA_integer_)
-
-for (i in seq_along(scores_tidy$score)) {
-  scores_tidy$opponent_score[i] <- ifelse(
-    scores_tidy$rowname[i] %% 2 == 1,
-    scores_tidy$score[i + 1],
-    scores_tidy$score[i - 1]
-  )
-}
+  mutate(opponent_score = if_else(rowname %% 2 == 1,
+                                  lead(score),
+                                  lag(score)))
 
 updated_schedule <- game_results %>% 
   inner_join(
