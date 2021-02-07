@@ -19,7 +19,7 @@ Last updated at `r Sys.time()`
 
 ### By week
 
-```{r fig.height=10, fig.width=10, message=FALSE}
+```{r fig.height=10, fig.width=10, message=FALSE, warning=FALSE}
 weekly_standings <- standings_grid %>% 
   mutate(day_of_week = wday(date, label = TRUE)) %>% 
   filter(day_of_week == "Mon") %>% 
