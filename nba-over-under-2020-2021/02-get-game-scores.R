@@ -42,7 +42,7 @@ current_schedule <-
     json <-
       glue::glue("https://data.nba.net/prod/v2/{slug_year}/schedule.json") %>%
       as.character() %>%
-      fromJSON()
+      jsonlite::fromJSON()
     
     json_data <- json$league$standard
     

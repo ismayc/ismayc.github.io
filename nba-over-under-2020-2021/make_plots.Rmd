@@ -2,7 +2,7 @@
 title: 'NBA Over/Under 2020-2021 Season'
 author: Chester Ismay
 output: html_document
-knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = encoding, output_file = file.path(dirname(inputFile), '2021-nba-over-under.html')) })
+#knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = encoding, output_file = file.path('../2021-nba-over-under.html')) })
 ---
 
 ```{r setup, include=FALSE}
@@ -154,6 +154,7 @@ gg <- ggplotly(projected_score_plot,
         c(rep("&nbsp;", 9), "Date", "<br>"), collapse = "")
     ))
 highlight(gg, color = c("forestgreen"), 
+          off = "plotly_doubleclick",
 #          on = "plotly_hover", off = "plotly_deselect", 
           dynamic = FALSE)
 ```
