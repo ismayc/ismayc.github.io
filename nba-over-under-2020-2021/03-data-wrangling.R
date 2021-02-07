@@ -129,3 +129,23 @@ current_rankings <- most_recent_results %>%
 # previous_projected_scores <- player_projections_by_team %>% 
 #   filter(Date == as.Date("2021-01-28"))
 
+standings_with_projected <- standings %>% 
+  mutate(date = Sys.Date() - 1) %>% 
+  mutate(wins = as.numeric(wins),
+         losses = as.numeric(losses)) %>% 
+  mutate(current_win_perc = wins / (wins + losses) * 100) %>% 
+  inner_join(projections, by = c("team_name" = "team")) %>% 
+  select(-percentage_projection) %>% 
+  mutate(
+    remaining_games = 72 - (wins + losses),
+    wins_needed_for_over = ceiling(as.numeric(win_projection)) - wins,
+    winning_perc_for_over = wins_needed_for_over / remaining_games * 100
+  ) %>% 
+  mutate(differential = current_win_perc - winning_perc_for_over)
+
+remaining_check <- standings_with_projected %>% 
+  inner_join(picks, by = c("team_name" = "team"))
+
+chester_check <- remaining_check %>% 
+  filter(player == "Chester") %>% 
+  select(-player)
