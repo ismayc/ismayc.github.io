@@ -67,7 +67,12 @@ join_with_projections <- updated_schedule %>%
     `Current Win %` > `Vegas Insider Win Projection %` ~ "OVER",
     `Current Win %` < `Vegas Insider Win Projection %` ~ "UNDER",
     TRUE                                               ~ "PUSH")
-  )
+  ) %>% 
+  group_by(`Team Name`) %>% 
+  mutate(flipped = if_else(lag(over_under) != over_under, TRUE, NA),
+         flipped_today = if_else(as.Date(`Game Date`) == Sys.Date() - 1,
+                                 TRUE,
+                                 NA))
 
 # Pulling in picks
 days_in_season_to_today <- seq(from = as.Date("2020-12-22"), 

@@ -67,10 +67,12 @@ ggplotly(weekly_team_track, tooltip = c("Vegas Insider Win Projection %",
 ### By game number
 
 ```{r fig.height=10, fig.width=10}
-team_track <- ggplot(
-  join_with_projections,
-  aes(x = `Game Number`, y = `Current Win %`, label = `Current Record`,
-      text = `Game Result`)
+team_track <- join_with_projections %>% 
+  rename(`Over/Under \n Vegas \n Insider` = over_under) %>% 
+  ggplot(aes(x = `Game Number`, y = `Current Win %`, 
+                         label = `Current Record`,
+                         text = `Game Result`, 
+                         color = `Over/Under \n Vegas \n Insider`)
 ) +
   geom_point() +
   geom_line() +
@@ -81,7 +83,8 @@ team_track <- ggplot(
   facet_wrap(~ `Team Name`, nrow = 6) +
   xlab("") + #Game Number") +
   ylab("") + #<br><br>Current Win Percentage")
-  theme_bw()
+  theme_bw() +
+  scale_color_manual(values = c("forestgreen", "black", "deeppink"))
 
 ggplotly(team_track, tooltip = c("Vegas Insider Win Projection %", 
                                  "Current Win %", 

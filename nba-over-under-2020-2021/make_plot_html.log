@@ -160,3 +160,7 @@ output file: make_plots.knit.md
 
 Output created: /Users/chester/Desktop/ismayc.github.io/2021-nba-over-under.html
 Completed at 2021-02-08 10:41:22
+[master 37f6772] Updated 2021-02-08 10:41:22
+ 2 files changed, 75 insertions(+), 11 deletions(-)
+To https://github.com/ismayc/ismayc.github.io.git
+   c266811..37f6772  master -> master
