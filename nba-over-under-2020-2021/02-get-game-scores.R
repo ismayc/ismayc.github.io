@@ -154,8 +154,8 @@ current_schedule <-
 scores <- nbastatR::current_schedule() %>% 
   filter(dateGame >= "2020-12-22") %>% 
   filter(!is.na(scoreAway)) %>% 
-  mutate(is_home_winner = (isWinnerHome == 1),
-         is_away_winner = (isWinnerAway == 1)) %>% 
+#  mutate(is_home_winner = (isWinnerHome == 1),
+#         is_away_winner = (isWinnerAway == 1)) %>% 
   select(game_date = dateGame,
          game_id = idGame,
          slug_away_team = slugTeamAway,
@@ -163,9 +163,9 @@ scores <- nbastatR::current_schedule() %>%
          slug_home_team = slugTeamHome,
          home_team = nameTeamHome,
          away_score = scoreAway,
-         home_score = scoreHome,
-         is_home_winner,
-         is_away_winner
+         home_score = scoreHome#,
+#         is_home_winner,
+#         is_away_winner
   )
 
 
