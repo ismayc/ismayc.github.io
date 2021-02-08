@@ -1,18 +1,28 @@
-Starting at 2021-02-08 06:45:02
+   Starting at 2021-02-08 06:45:02
 
 processing file: make_plots.Rmd
-  |                                                                              |                                                                      |   0%  |                                                                              |.....                                                                 |   8%
+
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |.....                                                                 |   8%
   ordinary text without R code
 
-  |                                                                              |...........                                                           |  15%
+
+  |                                                                            
+  |...........                                                           |  15%
 label: setup (with options) 
 List of 1
  $ include: logi FALSE
 
-  |                                                                              |................                                                      |  23%
+
+  |                                                                            
+  |................                                                      |  23%
    inline R code fragments
 
-  |                                                                              |......................                                                |  31%
+
+  |                                                                            
+  |......................                                                |  31%
 label: unnamed-chunk-1 (with options) 
 List of 4
  $ fig.height: num 10
@@ -20,39 +30,57 @@ List of 4
  $ message   : logi FALSE
  $ warning   : logi FALSE
 
-  |                                                                              |...........................                                           |  38%
+
+  |                                                                            
+  |...........................                                           |  38%
   ordinary text without R code
 
-  |                                                                              |................................                                      |  46%
+
+  |                                                                            
+  |................................                                      |  46%
 label: unnamed-chunk-2 (with options) 
 List of 2
  $ fig.height: num 10
  $ fig.width : num 10
 
-  |                                                                              |......................................                                |  54%
+
+  |                                                                            
+  |......................................                                |  54%
    inline R code fragments
 
-  |                                                                              |...........................................                           |  62%
+
+  |                                                                            
+  |...........................................                           |  62%
 label: unnamed-chunk-3
-  |                                                                              |................................................                      |  69%
+
+  |                                                                            
+  |................................................                      |  69%
   ordinary text without R code
 
-  |                                                                              |......................................................                |  77%
+
+  |                                                                            
+  |......................................................                |  77%
 label: unnamed-chunk-4 (with options) 
 List of 2
  $ fig.height: num 6
  $ fig.width : num 10
 
-  |                                                                              |...........................................................           |  85%
+
+  |                                                                            
+  |...........................................................           |  85%
   ordinary text without R code
 
-  |                                                                              |.................................................................     |  92%
+
+  |                                                                            
+  |.................................................................     |  92%
 label: unnamed-chunk-5 (with options) 
 List of 2
  $ fig.height: num 6
  $ fig.width : num 10
 
-  |                                                                              |......................................................................| 100%
+
+  |                                                                            
+  |......................................................................| 100%
   ordinary text without R code
 
 
@@ -62,3 +90,9 @@ output file: make_plots.knit.md
 
 Output created: /Users/chester/Desktop/ismayc.github.io/2021-nba-over-under.html
 Completed at 2021-02-08 06:45:24
+[master 38fd1a1] Updated 2021-02-08 06:45:24
+ 5 files changed, 82 insertions(+), 98 deletions(-)
+ rewrite nba-over-under-2020-2021/make_plot_html.log (83%)
+ create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-02-07.rds
+ create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-02-07.rds
+fatal: could not read Username for 'https://github.com': Device not configured
