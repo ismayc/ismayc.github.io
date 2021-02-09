@@ -164,3 +164,67 @@ Completed at 2021-02-08 10:41:22
  2 files changed, 75 insertions(+), 11 deletions(-)
 To https://github.com/ismayc/ismayc.github.io.git
    c266811..37f6772  master -> master
+Starting at 2021-02-09 06:45:01
+
+processing file: make_plots.Rmd
+  |                                                                              |                                                                      |   0%  |                                                                              |.....                                                                 |   8%
+  ordinary text without R code
+
+  |                                                                              |...........                                                           |  15%
+label: setup (with options) 
+List of 1
+ $ include: logi FALSE
+
+  |                                                                              |................                                                      |  23%
+   inline R code fragments
+
+  |                                                                              |......................                                                |  31%
+label: unnamed-chunk-1 (with options) 
+List of 4
+ $ fig.height: num 10
+ $ fig.width : num 10
+ $ message   : logi FALSE
+ $ warning   : logi FALSE
+
+  |                                                                              |...........................                                           |  38%
+  ordinary text without R code
+
+  |                                                                              |................................                                      |  46%
+label: unnamed-chunk-2 (with options) 
+List of 2
+ $ fig.height: num 10
+ $ fig.width : num 10
+
+  |                                                                              |......................................                                |  54%
+   inline R code fragments
+
+  |                                                                              |...........................................                           |  62%
+label: unnamed-chunk-3
+  |                                                                              |................................................                      |  69%
+  ordinary text without R code
+
+  |                                                                              |......................................................                |  77%
+label: unnamed-chunk-4 (with options) 
+List of 2
+ $ fig.height: num 6
+ $ fig.width : num 10
+
+  |                                                                              |...........................................................           |  85%
+  ordinary text without R code
+
+  |                                                                              |.................................................................     |  92%
+label: unnamed-chunk-5 (with options) 
+List of 2
+ $ fig.height: num 6
+ $ fig.width : num 10
+
+  |                                                                              |......................................................................| 100%
+  ordinary text without R code
+
+
+output file: make_plots.knit.md
+
+/Applications/RStudio.app/Contents/MacOS/pandoc/pandoc +RTS -K512m -RTS make_plots.utf8.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /Users/chester/Desktop/ismayc.github.io/2021-nba-over-under.html --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmarkdown/lua/latex-div.lua --self-contained --standalone --section-divs --template /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable 'theme:bootstrap' --include-in-header /tmp/Rtmp3ttndX/rmarkdown-str12e2258c87bb0.html --mathjax --variable 'mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' 
+
+Output created: /Users/chester/Desktop/ismayc.github.io/2021-nba-over-under.html
+Completed at 2021-02-09 06:45:23
