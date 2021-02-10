@@ -49,7 +49,7 @@ ggplotly(weekly_team_track, tooltip = c("Vegas Insider Win Projection %",
                                  "Date")) %>%
   #  plotly::layout(margin = list(l = 30, r = 20, b = 5, t = 10))
   layout(
-    margin = list(t = 80),
+    margin = list(t = 120),
     title = list(
       text = paste("Team win percentage across season dates<br>",
                    "versus Vegas Insider projection"),
