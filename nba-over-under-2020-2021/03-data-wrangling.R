@@ -107,7 +107,24 @@ with_picks <- standings_grid %>%
   ))
 
 player_projections_by_team <- with_picks %>% 
-  select(Date = date, Player = player, Team = team, starts_with("current"))
+  select(Date = date, Player = player, Team = team, starts_with("current"),
+         `Vegas Insider Win Projection %`) %>% 
+  relocate(current_projected_points, 
+           .after = `Vegas Insider Win Projection %`)
+
+changes_in_player_projections <- player_projections_by_team %>% 
+  group_by(Player, Team) %>% 
+  mutate(
+    `Change in Points Since Yesterday` = current_projected_points - lag(current_projected_points)
+  ) %>% 
+  ungroup() %>% 
+  arrange(Date, Team, Player) %>% 
+  filter(`Change in Points Since Yesterday` != 0) %>% 
+  select(Date, Player, Team, `Current Record`, `Current Win %`, 
+         `Vegas Insider Win Projection %`, `Change in Points Since Yesterday`)
+
+rows_today <- changes_in_player_projections %>% 
+  filter(Date == Sys.Date() - 1)
 
 projected_score <- player_projections_by_team %>% 
   group_by(Date, Player) %>% 

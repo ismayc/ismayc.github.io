@@ -19,6 +19,8 @@ Last updated at `r Sys.time()`
 
 ### By week
 
+This plot is updated on Monday each week with the previous week's results.
+
 ```{r fig.height=10, fig.width=10, message=FALSE, warning=FALSE}
 weekly_standings <- standings_grid %>% 
   mutate(day_of_week = wday(date, label = TRUE)) %>% 
@@ -47,7 +49,7 @@ ggplotly(weekly_team_track, tooltip = c("Vegas Insider Win Projection %",
                                  "Date")) %>%
   #  plotly::layout(margin = list(l = 30, r = 20, b = 5, t = 10))
   layout(
-    margin = list(t = 120),
+    margin = list(t = 80),
     title = list(
       text = paste("Team win percentage across season dates<br>",
                    "versus Vegas Insider projection"),
@@ -192,5 +194,13 @@ ggplotly(projected_score_facetted) %>%
       title = paste(
         c(rep("&nbsp;", 105), "Date", "<br>"), collapse = "")
     ))
+```
+
+## Changes in projected points since yesterday
+
+```{r}
+changes_in_player_projections %>% 
+  arrange(desc(Date), Team, Player) %>% 
+  DT::datatable(options = list(pageLength = nrow(rows_today)))
 ```
 
