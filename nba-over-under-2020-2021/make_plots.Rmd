@@ -124,7 +124,7 @@ projected_score %>%
 
 ***
 
-#### Point explanations by team {.tabset}
+#### Point explanations by team for `r Sys.Date() - 1` {.tabset}
 
 ##### `r current_rankings[1]`
 
@@ -136,6 +136,7 @@ player_projections_by_team %>%
   filter(Player == current_rankings[1],
          Date == Sys.Date() - 1) %>% 
   arrange(desc(`Current Projected Points`)) %>% 
+  select(-Player, -Date) %>% 
   DT::datatable(options = list(pageLength = 30))
 ```
 
@@ -149,6 +150,7 @@ player_projections_by_team %>%
   filter(Player == current_rankings[2],
          Date == Sys.Date() - 1) %>% 
   arrange(desc(`Current Projected Points`)) %>% 
+  select(-Player, -Date) %>% 
   DT::datatable(options = list(pageLength = 30))
 ```
 
@@ -162,6 +164,7 @@ player_projections_by_team %>%
   filter(Player == current_rankings[3],
          Date == Sys.Date() - 1) %>% 
   arrange(desc(`Current Projected Points`)) %>% 
+  select(-Player, -Date) %>% 
   DT::datatable(options = list(pageLength = 30))
 ```
 
@@ -174,7 +177,8 @@ player_projections_by_team %>%
          `Current Losses` = current_losses) %>% 
   filter(Player == current_rankings[4],
          Date == Sys.Date() - 1) %>% 
-  arrange(desc(`Current Projected Points`)) %>% 
+  arrange(desc(`Current Projected Points`)) %>%
+  select(-Player, -Date) %>% 
   DT::datatable(options = list(pageLength = 30))
 ```
 
@@ -188,6 +192,7 @@ player_projections_by_team %>%
   filter(Player == current_rankings[5],
          Date == Sys.Date() - 1) %>% 
   arrange(desc(`Current Projected Points`)) %>% 
+  select(-Player, -Date) %>% 
   DT::datatable(options = list(pageLength = 30))
 ```
 
@@ -201,6 +206,7 @@ player_projections_by_team %>%
   filter(Player == current_rankings[6],
          Date == Sys.Date() - 1) %>% 
   arrange(desc(`Current Projected Points`)) %>% 
+  select(-Player, -Date) %>% 
   DT::datatable(options = list(pageLength = 30))
 ```
 
@@ -214,6 +220,7 @@ player_projections_by_team %>%
   filter(Player == current_rankings[7],
          Date == Sys.Date() - 1) %>% 
   arrange(desc(`Current Projected Points`)) %>% 
+  select(-Player, -Date) %>% 
   DT::datatable(options = list(pageLength = 30))
 ```
 
@@ -227,6 +234,7 @@ player_projections_by_team %>%
   filter(Player == current_rankings[8],
          Date == Sys.Date() - 1) %>% 
   arrange(desc(`Current Projected Points`)) %>% 
+  select(-Player, -Date) %>% 
   DT::datatable(options = list(pageLength = 30))
 ```
 

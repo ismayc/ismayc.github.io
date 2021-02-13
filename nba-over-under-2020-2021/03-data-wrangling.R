@@ -111,8 +111,11 @@ player_projections_by_team <- with_picks %>%
          `Vegas Insider Win Projection %`,
          `Current Over/Under` = over_under,
          `Over/Under Pick` = choice) %>% 
+  mutate(
+    `Win % - Vegas Insider` = `Current Win %` - `Vegas Insider Win Projection %`
+    ) %>% 
   relocate(current_projected_points, 
-           .after = `Over/Under Pick`)
+           .after = `Win % - Vegas Insider`)
 
 changes_in_player_projections <- player_projections_by_team %>% 
   group_by(Player, Team) %>% 
