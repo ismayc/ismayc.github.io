@@ -124,6 +124,116 @@ projected_score %>%
 
 ***
 
+#### Point explanations by team {.tabset}
+
+##### `r current_rankings[1]`
+
+```{r}
+player_projections_by_team %>% 
+  rename(`Current Projected Points` = current_projected_points,
+         `Current Wins` = current_wins,
+         `Current Losses` = current_losses) %>% 
+  filter(Player == current_rankings[1],
+         Date == Sys.Date() - 1) %>% 
+  arrange(desc(`Current Projected Points`)) %>% 
+  DT::datatable(options = list(pageLength = 30))
+```
+
+##### `r current_rankings[2]`
+
+```{r}
+player_projections_by_team %>% 
+  rename(`Current Projected Points` = current_projected_points,
+         `Current Wins` = current_wins,
+         `Current Losses` = current_losses) %>% 
+  filter(Player == current_rankings[2],
+         Date == Sys.Date() - 1) %>% 
+  arrange(desc(`Current Projected Points`)) %>% 
+  DT::datatable(options = list(pageLength = 30))
+```
+
+##### `r current_rankings[3]`
+
+```{r}
+player_projections_by_team %>% 
+  rename(`Current Projected Points` = current_projected_points,
+         `Current Wins` = current_wins,
+         `Current Losses` = current_losses) %>% 
+  filter(Player == current_rankings[3],
+         Date == Sys.Date() - 1) %>% 
+  arrange(desc(`Current Projected Points`)) %>% 
+  DT::datatable(options = list(pageLength = 30))
+```
+
+##### `r current_rankings[4]`
+
+```{r}
+player_projections_by_team %>% 
+  rename(`Current Projected Points` = current_projected_points,
+         `Current Wins` = current_wins,
+         `Current Losses` = current_losses) %>% 
+  filter(Player == current_rankings[4],
+         Date == Sys.Date() - 1) %>% 
+  arrange(desc(`Current Projected Points`)) %>% 
+  DT::datatable(options = list(pageLength = 30))
+```
+
+##### `r current_rankings[5]`
+
+```{r}
+player_projections_by_team %>% 
+  rename(`Current Projected Points` = current_projected_points,
+         `Current Wins` = current_wins,
+         `Current Losses` = current_losses) %>% 
+  filter(Player == current_rankings[5],
+         Date == Sys.Date() - 1) %>% 
+  arrange(desc(`Current Projected Points`)) %>% 
+  DT::datatable(options = list(pageLength = 30))
+```
+
+##### `r current_rankings[6]`
+
+```{r}
+player_projections_by_team %>% 
+  rename(`Current Projected Points` = current_projected_points,
+         `Current Wins` = current_wins,
+         `Current Losses` = current_losses) %>% 
+  filter(Player == current_rankings[6],
+         Date == Sys.Date() - 1) %>% 
+  arrange(desc(`Current Projected Points`)) %>% 
+  DT::datatable(options = list(pageLength = 30))
+```
+
+##### `r current_rankings[7]`
+
+```{r}
+player_projections_by_team %>% 
+  rename(`Current Projected Points` = current_projected_points,
+         `Current Wins` = current_wins,
+         `Current Losses` = current_losses) %>% 
+  filter(Player == current_rankings[7],
+         Date == Sys.Date() - 1) %>% 
+  arrange(desc(`Current Projected Points`)) %>% 
+  DT::datatable(options = list(pageLength = 30))
+```
+
+##### `r current_rankings[8]`
+
+```{r}
+player_projections_by_team %>% 
+  rename(`Current Projected Points` = current_projected_points,
+         `Current Wins` = current_wins,
+         `Current Losses` = current_losses) %>% 
+  filter(Player == current_rankings[8],
+         Date == Sys.Date() - 1) %>% 
+  arrange(desc(`Current Projected Points`)) %>% 
+  DT::datatable(options = list(pageLength = 30))
+```
+
+
+***
+
+
 ### All together
 
 ```{r fig.height=6, fig.width=10}
@@ -195,6 +305,8 @@ ggplotly(projected_score_facetted) %>%
         c(rep("&nbsp;", 105), "Date", "<br>"), collapse = "")
     ))
 ```
+
+
 
 ## Changes in projected points since yesterday
 

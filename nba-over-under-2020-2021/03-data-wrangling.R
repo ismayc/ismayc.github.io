@@ -108,9 +108,11 @@ with_picks <- standings_grid %>%
 
 player_projections_by_team <- with_picks %>% 
   select(Date = date, Player = player, Team = team, starts_with("current"),
-         `Vegas Insider Win Projection %`) %>% 
+         `Vegas Insider Win Projection %`,
+         `Current Over/Under` = over_under,
+         `Over/Under Pick` = choice) %>% 
   relocate(current_projected_points, 
-           .after = `Vegas Insider Win Projection %`)
+           .after = `Over/Under Pick`)
 
 changes_in_player_projections <- player_projections_by_team %>% 
   group_by(Player, Team) %>% 
