@@ -6,7 +6,8 @@ rmarkdown::render(
   input = "make_plots.Rmd",  
   output_format = "html_document",
   output_file = "2021-nba-over-under.html",
-  output_dir = ".."
+  output_dir = "..",
+  quiet = TRUE
 )
 cat(glue::glue("Completed at {Sys.time()}\n\n"))
 

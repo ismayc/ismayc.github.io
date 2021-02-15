@@ -833,3 +833,9 @@ output file: make_plots.knit.md
 
 Output created: /Users/chester/Desktop/ismayc.github.io/2021-nba-over-under.html
 Completed at 2021-02-15 06:45:24
+[master cd257ad] Updated 2021-02-15 06:45:25
+ 4 files changed, 148 insertions(+), 33 deletions(-)
+ create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-02-14.rds
+ create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-02-14.rds
+To https://github.com/ismayc/ismayc.github.io.git
+   61d59da..cd257ad  master -> master
