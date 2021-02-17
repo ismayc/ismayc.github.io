@@ -137,7 +137,7 @@ player_projections_by_team %>%
          Date == Sys.Date() - 1) %>% 
   arrange(desc(`Current Projected Points`)) %>% 
   select(-Player, -Date) %>% 
-  DT::datatable(options = list(pageLength = 30))
+  DT::datatable(options = list(pageLength = 30, dom = 'ft'))
 ```
 
 ##### `r current_rankings[2]`
@@ -151,7 +151,7 @@ player_projections_by_team %>%
          Date == Sys.Date() - 1) %>% 
   arrange(desc(`Current Projected Points`)) %>% 
   select(-Player, -Date) %>% 
-  DT::datatable(options = list(pageLength = 30))
+  DT::datatable(options = list(pageLength = 30, dom = 'ft'))
 ```
 
 ##### `r current_rankings[3]`
@@ -165,7 +165,7 @@ player_projections_by_team %>%
          Date == Sys.Date() - 1) %>% 
   arrange(desc(`Current Projected Points`)) %>% 
   select(-Player, -Date) %>% 
-  DT::datatable(options = list(pageLength = 30))
+  DT::datatable(options = list(pageLength = 30, dom = 'ft'))
 ```
 
 ##### `r current_rankings[4]`
@@ -179,7 +179,7 @@ player_projections_by_team %>%
          Date == Sys.Date() - 1) %>% 
   arrange(desc(`Current Projected Points`)) %>%
   select(-Player, -Date) %>% 
-  DT::datatable(options = list(pageLength = 30))
+  DT::datatable(options = list(pageLength = 30, dom = 'ft'))
 ```
 
 ##### `r current_rankings[5]`
@@ -193,7 +193,7 @@ player_projections_by_team %>%
          Date == Sys.Date() - 1) %>% 
   arrange(desc(`Current Projected Points`)) %>% 
   select(-Player, -Date) %>% 
-  DT::datatable(options = list(pageLength = 30))
+  DT::datatable(options = list(pageLength = 30, dom = 'ft'))
 ```
 
 ##### `r current_rankings[6]`
@@ -207,7 +207,7 @@ player_projections_by_team %>%
          Date == Sys.Date() - 1) %>% 
   arrange(desc(`Current Projected Points`)) %>% 
   select(-Player, -Date) %>% 
-  DT::datatable(options = list(pageLength = 30))
+  DT::datatable(options = list(pageLength = 30, dom = 'ft'))
 ```
 
 ##### `r current_rankings[7]`
@@ -221,7 +221,7 @@ player_projections_by_team %>%
          Date == Sys.Date() - 1) %>% 
   arrange(desc(`Current Projected Points`)) %>% 
   select(-Player, -Date) %>% 
-  DT::datatable(options = list(pageLength = 30))
+  DT::datatable(options = list(pageLength = 30, dom = 'ft'))
 ```
 
 ##### `r current_rankings[8]`
@@ -235,7 +235,7 @@ player_projections_by_team %>%
          Date == Sys.Date() - 1) %>% 
   arrange(desc(`Current Projected Points`)) %>% 
   select(-Player, -Date) %>% 
-  DT::datatable(options = list(pageLength = 30))
+  DT::datatable(options = list(pageLength = 30, dom = 'ft'))
 ```
 
 
@@ -318,9 +318,45 @@ ggplotly(projected_score_facetted) %>%
 
 ## Changes in projected points since yesterday
 
+```{r results="asis"}
+if (nrow(rows_today) == 0) {
+  cat(paste("There was no change in scores for all players based on the",
+            "outcomes of yesterday's games."))
+}
+```
+
 ```{r}
+if (nrow(rows_today)) {
 changes_in_player_projections %>% 
   arrange(desc(Date), Team, Player) %>% 
   DT::datatable(options = list(pageLength = nrow(rows_today)))
+}
+```
+
+```{r}
+yesterday_scores <- scores %>% 
+  filter(game_date == Sys.Date() - 1) %>% 
+  select(`Game Date` = game_date,
+         `Away Team` = away_team,
+         `Away Score` = away_score,
+         `Home Team` = home_team,
+         `Home Score` = home_score)
+```
+
+***
+
+```{r results="asis"}
+if (nrow(yesterday_scores)) {
+  cat("Yesterday's scores")
+} else {
+  cat("No NBA games were played yesterday.")
+}
+```
+
+```{r}
+if (nrow(yesterday_scores)) {
+  yesterday_scores %>% knitr::kable()
+#  DT::datatable(options = list(pageLength = nrow(yesterday_scores)))
+}
 ```
 
