@@ -44,9 +44,9 @@ weekly_team_track <- ggplot(
   theme_bw()
 
 ggplotly(weekly_team_track, tooltip = c("Vegas Insider Win Projection %", 
-                                 "Current Win %", 
-                                 "Current Record",
-                                 "Date")) %>%
+                                        "Current Win %", 
+                                        "Current Record",
+                                        "Date")) %>%
   #  plotly::layout(margin = list(l = 30, r = 20, b = 5, t = 10))
   layout(
     margin = list(t = 120),
@@ -72,10 +72,10 @@ ggplotly(weekly_team_track, tooltip = c("Vegas Insider Win Projection %",
 team_track <- join_with_projections %>% 
   rename(`Over/Under \n Vegas \n Insider` = over_under) %>% 
   ggplot(aes(x = `Game Number`, y = `Current Win %`, 
-                         label = `Current Record`,
-                         text = `Game Result`, 
-                         color = `Over/Under \n Vegas \n Insider`)
-) +
+             label = `Current Record`,
+             text = `Game Result`, 
+             color = `Over/Under \n Vegas \n Insider`)
+  ) +
   geom_point() +
   geom_line() +
   geom_segment(aes(x = 1, xend = max(`Game Number`), 
@@ -133,6 +133,13 @@ player_projections_by_team %>%
   rename(`Current Projected Points` = current_projected_points,
          `Current Wins` = current_wins,
          `Current Losses` = current_losses) %>% 
+  mutate(
+    `Wins To Go Over Vegas Insider` = 
+      ceiling(`Vegas Insider Win Projection %` / 100 * 72) - `Current Wins`,
+    `Winning % In Remaining Games Needed` = round(
+      `Wins To Go Over Vegas Insider` / 
+        (72 - `Current Wins` - `Current Losses`) * 100, 2),
+    .before = `Current Projected Points`) %>% 
   filter(Player == current_rankings[1],
          Date == Sys.Date() - 1) %>% 
   arrange(desc(`Current Projected Points`)) %>% 
@@ -147,6 +154,13 @@ player_projections_by_team %>%
   rename(`Current Projected Points` = current_projected_points,
          `Current Wins` = current_wins,
          `Current Losses` = current_losses) %>% 
+  mutate(
+    `Wins To Go Over Vegas Insider` = 
+      ceiling(`Vegas Insider Win Projection %` / 100 * 72) - `Current Wins`,
+    `Winning % In Remaining Games Needed` = round(
+      `Wins To Go Over Vegas Insider` / 
+        (72 - `Current Wins` - `Current Losses`) * 100, 2),
+    .before = `Current Projected Points`) %>% 
   filter(Player == current_rankings[2],
          Date == Sys.Date() - 1) %>% 
   arrange(desc(`Current Projected Points`)) %>% 
@@ -161,6 +175,13 @@ player_projections_by_team %>%
   rename(`Current Projected Points` = current_projected_points,
          `Current Wins` = current_wins,
          `Current Losses` = current_losses) %>% 
+  mutate(
+    `Wins To Go Over Vegas Insider` = 
+      ceiling(`Vegas Insider Win Projection %` / 100 * 72) - `Current Wins`,
+    `Winning % In Remaining Games Needed` = round(
+      `Wins To Go Over Vegas Insider` / 
+        (72 - `Current Wins` - `Current Losses`) * 100, 2),
+    .before = `Current Projected Points`) %>% 
   filter(Player == current_rankings[3],
          Date == Sys.Date() - 1) %>% 
   arrange(desc(`Current Projected Points`)) %>% 
@@ -175,6 +196,13 @@ player_projections_by_team %>%
   rename(`Current Projected Points` = current_projected_points,
          `Current Wins` = current_wins,
          `Current Losses` = current_losses) %>% 
+  mutate(
+    `Wins To Go Over Vegas Insider` = 
+      ceiling(`Vegas Insider Win Projection %` / 100 * 72) - `Current Wins`,
+    `Winning % In Remaining Games Needed` = round(
+      `Wins To Go Over Vegas Insider` / 
+        (72 - `Current Wins` - `Current Losses`) * 100, 2),
+    .before = `Current Projected Points`) %>% 
   filter(Player == current_rankings[4],
          Date == Sys.Date() - 1) %>% 
   arrange(desc(`Current Projected Points`)) %>%
@@ -189,6 +217,13 @@ player_projections_by_team %>%
   rename(`Current Projected Points` = current_projected_points,
          `Current Wins` = current_wins,
          `Current Losses` = current_losses) %>% 
+  mutate(
+    `Wins To Go Over Vegas Insider` = 
+      ceiling(`Vegas Insider Win Projection %` / 100 * 72) - `Current Wins`,
+    `Winning % In Remaining Games Needed` = round(
+      `Wins To Go Over Vegas Insider` / 
+        (72 - `Current Wins` - `Current Losses`) * 100, 2),
+    .before = `Current Projected Points`) %>% 
   filter(Player == current_rankings[5],
          Date == Sys.Date() - 1) %>% 
   arrange(desc(`Current Projected Points`)) %>% 
@@ -203,6 +238,13 @@ player_projections_by_team %>%
   rename(`Current Projected Points` = current_projected_points,
          `Current Wins` = current_wins,
          `Current Losses` = current_losses) %>% 
+  mutate(
+    `Wins To Go Over Vegas Insider` = 
+      ceiling(`Vegas Insider Win Projection %` / 100 * 72) - `Current Wins`,
+    `Winning % In Remaining Games Needed` = round(
+      `Wins To Go Over Vegas Insider` / 
+        (72 - `Current Wins` - `Current Losses`) * 100, 2),
+    .before = `Current Projected Points`) %>% 
   filter(Player == current_rankings[6],
          Date == Sys.Date() - 1) %>% 
   arrange(desc(`Current Projected Points`)) %>% 
@@ -217,6 +259,13 @@ player_projections_by_team %>%
   rename(`Current Projected Points` = current_projected_points,
          `Current Wins` = current_wins,
          `Current Losses` = current_losses) %>% 
+  mutate(
+    `Wins To Go Over Vegas Insider` = 
+      ceiling(`Vegas Insider Win Projection %` / 100 * 72) - `Current Wins`,
+    `Winning % In Remaining Games Needed` = round(
+      `Wins To Go Over Vegas Insider` / 
+        (72 - `Current Wins` - `Current Losses`) * 100, 2),
+    .before = `Current Projected Points`) %>% 
   filter(Player == current_rankings[7],
          Date == Sys.Date() - 1) %>% 
   arrange(desc(`Current Projected Points`)) %>% 
@@ -231,6 +280,13 @@ player_projections_by_team %>%
   rename(`Current Projected Points` = current_projected_points,
          `Current Wins` = current_wins,
          `Current Losses` = current_losses) %>% 
+  mutate(
+    `Wins To Go Over Vegas Insider` = 
+      ceiling(`Vegas Insider Win Projection %` / 100 * 72) - `Current Wins`,
+    `Winning % In Remaining Games Needed` = round(
+      `Wins To Go Over Vegas Insider` / 
+        (72 - `Current Wins` - `Current Losses`) * 100, 2),
+    .before = `Current Projected Points`) %>% 
   filter(Player == current_rankings[8],
          Date == Sys.Date() - 1) %>% 
   arrange(desc(`Current Projected Points`)) %>% 
@@ -260,7 +316,7 @@ projected_score_plot <- projected_score_highlight %>%
   theme_bw()
 
 gg <- ggplotly(projected_score_plot, 
-                tooltip = c("Date", "Projected Total Points", "Player")) %>% 
+               tooltip = c("Date", "Projected Total Points", "Player")) %>% 
   layout(
     margin = list(t = 80),
     title = list(
@@ -278,7 +334,7 @@ gg <- ggplotly(projected_score_plot,
     ))
 highlight(gg, color = c("forestgreen"), 
           off = "plotly_doubleclick",
-#          on = "plotly_hover", off = "plotly_deselect", 
+          #          on = "plotly_hover", off = "plotly_deselect", 
           dynamic = FALSE)
 ```
 
@@ -327,9 +383,9 @@ if (nrow(rows_today) == 0) {
 
 ```{r}
 if (nrow(rows_today)) {
-changes_in_player_projections %>% 
-  arrange(desc(Date), Team, Player) %>% 
-  DT::datatable(options = list(pageLength = nrow(rows_today)))
+  changes_in_player_projections %>% 
+    arrange(desc(Date), Team, Player) %>% 
+    DT::datatable(options = list(pageLength = nrow(rows_today)))
 }
 ```
 
@@ -356,7 +412,7 @@ if (nrow(yesterday_scores)) {
 ```{r}
 if (nrow(yesterday_scores)) {
   yesterday_scores %>% knitr::kable()
-#  DT::datatable(options = list(pageLength = nrow(yesterday_scores)))
+  #  DT::datatable(options = list(pageLength = nrow(yesterday_scores)))
 }
 ```
 
