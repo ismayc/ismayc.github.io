@@ -140,6 +140,7 @@ player_projections_by_team %>%
       `Wins To Go Over Vegas Insider` / 
         (72 - `Current Wins` - `Current Losses`) * 100, 2),
     .before = `Current Projected Points`) %>% 
+  select(-`Current Wins`, -`Current Losses`) %>% 
   filter(Player == current_rankings[1],
          Date == Sys.Date() - 1) %>% 
   arrange(desc(`Current Projected Points`)) %>% 
@@ -161,6 +162,7 @@ player_projections_by_team %>%
       `Wins To Go Over Vegas Insider` / 
         (72 - `Current Wins` - `Current Losses`) * 100, 2),
     .before = `Current Projected Points`) %>% 
+  select(-`Current Wins`, -`Current Losses`) %>% 
   filter(Player == current_rankings[2],
          Date == Sys.Date() - 1) %>% 
   arrange(desc(`Current Projected Points`)) %>% 
@@ -182,6 +184,7 @@ player_projections_by_team %>%
       `Wins To Go Over Vegas Insider` / 
         (72 - `Current Wins` - `Current Losses`) * 100, 2),
     .before = `Current Projected Points`) %>% 
+  select(-`Current Wins`, -`Current Losses`) %>% 
   filter(Player == current_rankings[3],
          Date == Sys.Date() - 1) %>% 
   arrange(desc(`Current Projected Points`)) %>% 
@@ -203,6 +206,7 @@ player_projections_by_team %>%
       `Wins To Go Over Vegas Insider` / 
         (72 - `Current Wins` - `Current Losses`) * 100, 2),
     .before = `Current Projected Points`) %>% 
+  select(-`Current Wins`, -`Current Losses`) %>% 
   filter(Player == current_rankings[4],
          Date == Sys.Date() - 1) %>% 
   arrange(desc(`Current Projected Points`)) %>%
@@ -224,6 +228,7 @@ player_projections_by_team %>%
       `Wins To Go Over Vegas Insider` / 
         (72 - `Current Wins` - `Current Losses`) * 100, 2),
     .before = `Current Projected Points`) %>% 
+  select(-`Current Wins`, -`Current Losses`) %>% 
   filter(Player == current_rankings[5],
          Date == Sys.Date() - 1) %>% 
   arrange(desc(`Current Projected Points`)) %>% 
@@ -245,6 +250,7 @@ player_projections_by_team %>%
       `Wins To Go Over Vegas Insider` / 
         (72 - `Current Wins` - `Current Losses`) * 100, 2),
     .before = `Current Projected Points`) %>% 
+  select(-`Current Wins`, -`Current Losses`) %>% 
   filter(Player == current_rankings[6],
          Date == Sys.Date() - 1) %>% 
   arrange(desc(`Current Projected Points`)) %>% 
@@ -266,6 +272,7 @@ player_projections_by_team %>%
       `Wins To Go Over Vegas Insider` / 
         (72 - `Current Wins` - `Current Losses`) * 100, 2),
     .before = `Current Projected Points`) %>% 
+  select(-`Current Wins`, -`Current Losses`) %>% 
   filter(Player == current_rankings[7],
          Date == Sys.Date() - 1) %>% 
   arrange(desc(`Current Projected Points`)) %>% 
@@ -287,6 +294,7 @@ player_projections_by_team %>%
       `Wins To Go Over Vegas Insider` / 
         (72 - `Current Wins` - `Current Losses`) * 100, 2),
     .before = `Current Projected Points`) %>% 
+  select(-`Current Wins`, -`Current Losses`) %>% 
   filter(Player == current_rankings[8],
          Date == Sys.Date() - 1) %>% 
   arrange(desc(`Current Projected Points`)) %>% 
