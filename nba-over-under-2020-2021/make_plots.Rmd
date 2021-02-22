@@ -110,6 +110,96 @@ ggplotly(team_track, tooltip = c("Vegas Insider Win Projection %",
     ))
 ```
 
+### Approaching win projection
+
+- If a team exceeds the win projection during the season, 
+"Wins Outcome Determined" will be shown as 
+<span style="color:forestgreen;">OVER.</span>
+- If a team is not able to win enough games to exceed the projection in the 
+number of games remaining, "Wins Outcome Determined" will change to 
+<span style="color:deeppink;">UNDER.</span>
+- If either of these outcomes are still possible, "Wins Outcome Determined" will
+remain as Not Yet.
+
+```{r fig.height=10, fig.width=10}
+team_wins_df <- join_with_projections %>% 
+  mutate(
+    `Over/Under Wins \n Vegas \n Insider` = current_wins > win_projection,
+    `Wins Needed` = ceiling(win_projection) - current_wins,
+    `Winning % In Remaining Games Needed` = round(
+      `Wins Needed` / (72 - current_wins - current_losses) * 100, 2),
+    `Wins \n Outcome \n Determined` = case_when(
+      `Winning % In Remaining Games Needed` <= 0 ~ "OVER",
+      `Winning % In Remaining Games Needed` >= 100 ~ "UNDER",
+      TRUE ~ "Not Yet"
+    )) %>% 
+  rename(`Current Win Total` = current_wins)
+
+current_team_wins_to_proj <- team_wins_df %>% 
+  group_by(`Team Name`) %>% 
+  slice_tail(n = 1) %>% 
+  arrange(`Wins Needed`) %>% 
+  pull(`Team Name`)
+team_wins_track <- team_wins_df %>% 
+  mutate(`Team Name` = factor(
+    `Team Name`, 
+    levels = current_team_wins_to_proj)
+  ) %>% 
+  ggplot(aes(x = `Game Number`, y = `Current Win Total`, 
+             label = `Current Record`,
+             text = `Game Result`,
+             color = `Wins \n Outcome \n Determined`)
+  ) +
+  geom_point() +
+  geom_line() +
+  geom_segment(aes(x = 1, xend = max(`Game Number`), 
+                   y = `Vegas Insider Win Projection %`, 
+                   yend = `Vegas Insider Win Projection %`),
+               color = "blue") +
+  #  annotate("text", x = 4, y = 25, aes(label = `Wins Needed`)) +
+  facet_wrap(~ `Team Name`, nrow = 6) +
+  xlab("") + #Game Number") +
+  ylab("") + #<br><br>Current Win Percentage")
+  theme_bw() +
+  scale_color_manual(values = c("black", "forestgreen", "deeppink"))
+
+ggplotly(team_wins_track, tooltip = c("Vegas Insider Win Projection %", 
+                                      "Current Win Total", 
+                                      "Current Record",
+                                      "Game Result")) %>%
+  #  plotly::layout(margin = list(l = 30, r = 20, b = 5, t = 10))
+  layout(
+    margin = list(t = 120),
+    title = list(
+      text = paste("Team cumulative wins across games played <br>",
+                   "versus Vegas Insider wins projection"),
+      font = list(size = 20)
+    ),
+    yaxis = list(
+      title = paste(
+        c("Current Win Total", rep("&nbsp;", 60), "<br>"), collapse = "")
+    ),
+    xaxis = list(
+      title = paste(
+        c(rep("&nbsp;", 115), "Game Number", "<br>"), collapse = "")
+    ))
+```
+
+***
+
+#### Vegas Insider Win Projections
+
+These projections were pulled from https://www.vegasinsider.com/nba/odds/win-totals/
+on 2020-11-30.
+
+```{r}
+projections %>% 
+  select(Team = team,
+         `Win Projection` = win_projection) %>% 
+  knitr::kable()
+```
+
+
 ## Projected points for each player {.tabset}
 
 
@@ -126,180 +216,110 @@ projected_score %>%
 
 #### Point explanations by team for `r Sys.Date() - 1` {.tabset}
 
+```{r}
+library(DT)
+player_table <- function(player_num) {
+  df <- player_projections_by_team %>% 
+    rename(`Current Projected Points` = current_projected_points,
+           `Current Wins` = current_wins,
+           `Current Losses` = current_losses) %>% 
+    mutate(
+      `Wins To Go Over Vegas Insider` = 
+        ceiling(`Vegas Insider Win Projection %` / 100 * 72) - `Current Wins`,
+      `Winning % In Remaining Games Needed` = round(
+        `Wins To Go Over Vegas Insider` / 
+          (72 - `Current Wins` - `Current Losses`) * 100, 2),
+      .before = `Current Projected Points`) %>% 
+    select(-`Current Wins`, -`Current Losses`) %>% 
+    filter(Player == current_rankings[player_num],
+           Date == Sys.Date() - 1) %>% 
+    arrange(desc(`Current Projected Points`)) %>% 
+    mutate(`Outcome Determined` = case_when(
+      `Winning % In Remaining Games Needed` <= 0 ~ "OVER",
+      `Winning % In Remaining Games Needed` >= 100 ~ "UNDER",
+      TRUE ~ NA_character_
+    ))  %>% 
+    select(-Player, -Date)
+  
+  if (sum(is.na(df$`Outcome Determined`)) == 30) {
+    df %>% 
+      select(-`Outcome Determined`) %>% 
+      datatable(options = list(pageLength = 30, dom = 'ft'))
+  } else {
+    df %>%
+      datatable(options = list(pageLength = 30, dom = 'ft')) %>%
+      formatStyle(
+        "Outcome Determined",
+        target = 'row',
+        backgroundColor = styleEqual(c("OVER", "UNDER", NA_character_), 
+                                     c("forestgreen", "deeppink", "white"))
+      )
+  }
+  
+  # brks <- quantile(
+  #   df$`Wins To Go Over Vegas Insider`, 
+  #   probs = seq(.05, .95, 0.1), 
+  #   na.rm = TRUE
+  # )
+  # clrs <- rev(brewer.pal(n = 11, name = "PiYG"))
+  # 
+  # df %>% 
+  #   datatable(options = list(pageLength = 30, dom = 'ft')) %>% 
+  #   formatStyle(
+  #     'Wins To Go Over Vegas Insider',
+  #     target = 'row',
+  #     backgroundColor = styleInterval(brks, clrs)
+  #   )
+}
+```
+
+
 ##### `r current_rankings[1]`
 
 ```{r}
-player_projections_by_team %>% 
-  rename(`Current Projected Points` = current_projected_points,
-         `Current Wins` = current_wins,
-         `Current Losses` = current_losses) %>% 
-  mutate(
-    `Wins To Go Over Vegas Insider` = 
-      ceiling(`Vegas Insider Win Projection %` / 100 * 72) - `Current Wins`,
-    `Winning % In Remaining Games Needed` = round(
-      `Wins To Go Over Vegas Insider` / 
-        (72 - `Current Wins` - `Current Losses`) * 100, 2),
-    .before = `Current Projected Points`) %>% 
-  select(-`Current Wins`, -`Current Losses`) %>% 
-  filter(Player == current_rankings[1],
-         Date == Sys.Date() - 1) %>% 
-  arrange(desc(`Current Projected Points`)) %>% 
-  select(-Player, -Date) %>% 
-  DT::datatable(options = list(pageLength = 30, dom = 'ft'))
+player_table(1)
 ```
 
 ##### `r current_rankings[2]`
 
 ```{r}
-player_projections_by_team %>% 
-  rename(`Current Projected Points` = current_projected_points,
-         `Current Wins` = current_wins,
-         `Current Losses` = current_losses) %>% 
-  mutate(
-    `Wins To Go Over Vegas Insider` = 
-      ceiling(`Vegas Insider Win Projection %` / 100 * 72) - `Current Wins`,
-    `Winning % In Remaining Games Needed` = round(
-      `Wins To Go Over Vegas Insider` / 
-        (72 - `Current Wins` - `Current Losses`) * 100, 2),
-    .before = `Current Projected Points`) %>% 
-  select(-`Current Wins`, -`Current Losses`) %>% 
-  filter(Player == current_rankings[2],
-         Date == Sys.Date() - 1) %>% 
-  arrange(desc(`Current Projected Points`)) %>% 
-  select(-Player, -Date) %>% 
-  DT::datatable(options = list(pageLength = 30, dom = 'ft'))
+player_table(2)
 ```
 
 ##### `r current_rankings[3]`
 
 ```{r}
-player_projections_by_team %>% 
-  rename(`Current Projected Points` = current_projected_points,
-         `Current Wins` = current_wins,
-         `Current Losses` = current_losses) %>% 
-  mutate(
-    `Wins To Go Over Vegas Insider` = 
-      ceiling(`Vegas Insider Win Projection %` / 100 * 72) - `Current Wins`,
-    `Winning % In Remaining Games Needed` = round(
-      `Wins To Go Over Vegas Insider` / 
-        (72 - `Current Wins` - `Current Losses`) * 100, 2),
-    .before = `Current Projected Points`) %>% 
-  select(-`Current Wins`, -`Current Losses`) %>% 
-  filter(Player == current_rankings[3],
-         Date == Sys.Date() - 1) %>% 
-  arrange(desc(`Current Projected Points`)) %>% 
-  select(-Player, -Date) %>% 
-  DT::datatable(options = list(pageLength = 30, dom = 'ft'))
+player_table(3)
 ```
 
 ##### `r current_rankings[4]`
 
 ```{r}
-player_projections_by_team %>% 
-  rename(`Current Projected Points` = current_projected_points,
-         `Current Wins` = current_wins,
-         `Current Losses` = current_losses) %>% 
-  mutate(
-    `Wins To Go Over Vegas Insider` = 
-      ceiling(`Vegas Insider Win Projection %` / 100 * 72) - `Current Wins`,
-    `Winning % In Remaining Games Needed` = round(
-      `Wins To Go Over Vegas Insider` / 
-        (72 - `Current Wins` - `Current Losses`) * 100, 2),
-    .before = `Current Projected Points`) %>% 
-  select(-`Current Wins`, -`Current Losses`) %>% 
-  filter(Player == current_rankings[4],
-         Date == Sys.Date() - 1) %>% 
-  arrange(desc(`Current Projected Points`)) %>%
-  select(-Player, -Date) %>% 
-  DT::datatable(options = list(pageLength = 30, dom = 'ft'))
+player_table(4)
 ```
 
 ##### `r current_rankings[5]`
 
 ```{r}
-player_projections_by_team %>% 
-  rename(`Current Projected Points` = current_projected_points,
-         `Current Wins` = current_wins,
-         `Current Losses` = current_losses) %>% 
-  mutate(
-    `Wins To Go Over Vegas Insider` = 
-      ceiling(`Vegas Insider Win Projection %` / 100 * 72) - `Current Wins`,
-    `Winning % In Remaining Games Needed` = round(
-      `Wins To Go Over Vegas Insider` / 
-        (72 - `Current Wins` - `Current Losses`) * 100, 2),
-    .before = `Current Projected Points`) %>% 
-  select(-`Current Wins`, -`Current Losses`) %>% 
-  filter(Player == current_rankings[5],
-         Date == Sys.Date() - 1) %>% 
-  arrange(desc(`Current Projected Points`)) %>% 
-  select(-Player, -Date) %>% 
-  DT::datatable(options = list(pageLength = 30, dom = 'ft'))
+player_table(5)
 ```
 
 ##### `r current_rankings[6]`
 
 ```{r}
-player_projections_by_team %>% 
-  rename(`Current Projected Points` = current_projected_points,
-         `Current Wins` = current_wins,
-         `Current Losses` = current_losses) %>% 
-  mutate(
-    `Wins To Go Over Vegas Insider` = 
-      ceiling(`Vegas Insider Win Projection %` / 100 * 72) - `Current Wins`,
-    `Winning % In Remaining Games Needed` = round(
-      `Wins To Go Over Vegas Insider` / 
-        (72 - `Current Wins` - `Current Losses`) * 100, 2),
-    .before = `Current Projected Points`) %>% 
-  select(-`Current Wins`, -`Current Losses`) %>% 
-  filter(Player == current_rankings[6],
-         Date == Sys.Date() - 1) %>% 
-  arrange(desc(`Current Projected Points`)) %>% 
-  select(-Player, -Date) %>% 
-  DT::datatable(options = list(pageLength = 30, dom = 'ft'))
+player_table(6)
 ```
 
 ##### `r current_rankings[7]`
 
 ```{r}
-player_projections_by_team %>% 
-  rename(`Current Projected Points` = current_projected_points,
-         `Current Wins` = current_wins,
-         `Current Losses` = current_losses) %>% 
-  mutate(
-    `Wins To Go Over Vegas Insider` = 
-      ceiling(`Vegas Insider Win Projection %` / 100 * 72) - `Current Wins`,
-    `Winning % In Remaining Games Needed` = round(
-      `Wins To Go Over Vegas Insider` / 
-        (72 - `Current Wins` - `Current Losses`) * 100, 2),
-    .before = `Current Projected Points`) %>% 
-  select(-`Current Wins`, -`Current Losses`) %>% 
-  filter(Player == current_rankings[7],
-         Date == Sys.Date() - 1) %>% 
-  arrange(desc(`Current Projected Points`)) %>% 
-  select(-Player, -Date) %>% 
-  DT::datatable(options = list(pageLength = 30, dom = 'ft'))
+player_table(7)
 ```
 
 ##### `r current_rankings[8]`
 
 ```{r}
-player_projections_by_team %>% 
-  rename(`Current Projected Points` = current_projected_points,
-         `Current Wins` = current_wins,
-         `Current Losses` = current_losses) %>% 
-  mutate(
-    `Wins To Go Over Vegas Insider` = 
-      ceiling(`Vegas Insider Win Projection %` / 100 * 72) - `Current Wins`,
-    `Winning % In Remaining Games Needed` = round(
-      `Wins To Go Over Vegas Insider` / 
-        (72 - `Current Wins` - `Current Losses`) * 100, 2),
-    .before = `Current Projected Points`) %>% 
-  select(-`Current Wins`, -`Current Losses`) %>% 
-  filter(Player == current_rankings[8],
-         Date == Sys.Date() - 1) %>% 
-  arrange(desc(`Current Projected Points`)) %>% 
-  select(-Player, -Date) %>% 
-  DT::datatable(options = list(pageLength = 30, dom = 'ft'))
+player_table(8)
 ```
 
 
