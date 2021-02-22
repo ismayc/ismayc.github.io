@@ -113,13 +113,13 @@ ggplotly(team_track, tooltip = c("Vegas Insider Win Projection %",
 ### Approaching win projection
 
 - If a team exceeds the win projection during the season, 
-"Wins Outcome Determined" will be shown as 
+**Wins Outcome Determined** will be shown as 
 <span style="color:forestgreen;">OVER.</span>
 - If a team is not able to win enough games to exceed the projection in the 
-number of games remaining, "Wins Outcome Determined" will change to 
+number of games remaining, **Wins Outcome Determined** will change to 
 <span style="color:deeppink;">UNDER.</span>
-- If either of these outcomes are still possible, "Wins Outcome Determined" will
-remain as Not Yet.
+- If either of these outcomes are still possible, **Wins Outcome Determined** 
+will remain as Not Yet.
 
 ```{r fig.height=10, fig.width=10}
 team_wins_df <- join_with_projections %>% 
