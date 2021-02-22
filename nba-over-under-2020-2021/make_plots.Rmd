@@ -110,7 +110,7 @@ ggplotly(team_track, tooltip = c("Vegas Insider Win Projection %",
     ))
 ```
 
-### Approaching win projection
+### Approaching win projection {#win-proj}
 
 - If a team exceeds the win projection during the season, 
 **Wins Outcome Determined** will be shown as 
