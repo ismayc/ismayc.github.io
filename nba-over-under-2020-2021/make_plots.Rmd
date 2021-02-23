@@ -121,7 +121,10 @@ number of games remaining, **Wins Outcome Determined** will change to
 - If either of these outcomes are still possible, **Wins Outcome Determined** 
 will remain as Not Yet.
 
+The purple square corresponds to the projected number of wins based on the current team winning percentage. The dotted purple line shows what this projection would look like from current outcomes.
+
 ```{r fig.height=10, fig.width=10}
+options(scipen = 99)
 team_wins_df <- join_with_projections %>% 
   mutate(
     `Over/Under Wins \n Vegas \n Insider` = current_wins > win_projection,
@@ -135,28 +138,61 @@ team_wins_df <- join_with_projections %>%
     )) %>% 
   rename(`Current Win Total` = current_wins)
 
-current_team_wins_to_proj <- team_wins_df %>% 
+current_team_wins_df <- team_wins_df %>% 
   group_by(`Team Name`) %>% 
   slice_tail(n = 1) %>% 
   arrange(`Wins Needed`) %>% 
+  mutate(`Remaining Games` = 72 - `Game Number`) %>% 
+  mutate(
+    `Expected Wins At Current Pace` = round(
+      `Remaining Games` * current_win_perc/100 + `Current Win Total`,
+      2)
+  ) %>% 
+  mutate(spread = `Expected Wins At Current Pace` - win_projection) %>% 
+  #  mutate(
+  #    projected_slope = (`Expected Wins At Current Pace` - `Current Win Total`) / 
+  #      (72 - `Game Number`),
+  #    projected_intercept = `Expected Wins At Current Pace` - 72 * projected_slope
+  #    ) %>% 
+  select(`Game Date`, `Team Name`, `Games Played` = `Game Number`,
+         `Remaining Games`, `Current Winning %` = current_win_perc,
+         `Current Win Total`,
+         `Expected Wins At Current Pace`,
+         `Vegas Insider Win Projection` = win_projection,
+         spread)#,
+#         projected_slope,
+#         projected_intercept)
+
+current_team_wins_to_proj <- current_team_wins_df %>% 
+  arrange(desc(spread)) %>% 
   pull(`Team Name`)
+
 team_wins_track <- team_wins_df %>% 
+  left_join(current_team_wins_df, 
+            by = c("Game Date", "Team Name", "Current Win Total")) %>% 
   mutate(`Team Name` = factor(
     `Team Name`, 
     levels = current_team_wins_to_proj)
   ) %>% 
-  ggplot(aes(x = `Game Number`, y = `Current Win Total`, 
-             label = `Current Record`,
+  ggplot(aes(label = `Current Record`,
              text = `Game Result`,
              color = `Wins \n Outcome \n Determined`)
   ) +
-  geom_point() +
-  geom_line() +
-  geom_segment(aes(x = 1, xend = max(`Game Number`), 
-                   y = `Vegas Insider Win Projection %`, 
-                   yend = `Vegas Insider Win Projection %`),
-               color = "blue") +
+  geom_segment(aes(x = `Game Number`, xend = 72,
+                   y = `Current Win Total`,
+                   yend = `Expected Wins At Current Pace`
+                   ),
+               linetype = "dashed",
+               color = "purple") +
+  scale_x_continuous(limits = c(1, 72)) + 
+  geom_point(mapping = aes(x = `Game Number`, y = `Current Win Total`)) +
+  geom_point(mapping = aes(x = 72, y = `Expected Wins At Current Pace`), 
+             color = "purple", shape = 15) +
   #  annotate("text", x = 4, y = 25, aes(label = `Wins Needed`)) +
+  geom_segment(aes(x = 1, xend = 72,
+                   y = `Vegas Insider Win Projection`,
+                   yend = `Vegas Insider Win Projection`),
+               color = "blue") +
   facet_wrap(~ `Team Name`, nrow = 6) +
   xlab("") + #Game Number") +
   ylab("") + #<br><br>Current Win Percentage")
@@ -164,6 +200,7 @@ team_wins_track <- team_wins_df %>%
   scale_color_manual(values = c("black", "forestgreen", "deeppink"))
 
 ggplotly(team_wins_track, tooltip = c("Vegas Insider Win Projection %", 
+                                      "Expected Wins At Current Pace",
                                       "Current Win Total", 
                                       "Current Record",
                                       "Game Result")) %>%
