@@ -12,6 +12,7 @@ rmarkdown::render(
 cat(glue::glue("Completed at {Sys.time()}\n\n"))
 
 # system("git config --global user.name 'Chester Ismay'")
+system("git pull")
 system("git add --all")
 system(paste0('git commit -m "Updated ', Sys.time(), '"'))
 system("git push origin master")
