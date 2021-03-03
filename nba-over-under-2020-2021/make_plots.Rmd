@@ -2,7 +2,7 @@
 title: 'NBA Over/Under 2020-2021 Season'
 author: Chester Ismay
 output: html_document
-#knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = encoding, output_file = file.path('../2021-nba-over-under.html')) })
+knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = encoding, output_file = file.path('../2021-nba-over-under.html')) })
 ---
 
 ```{r setup, include=FALSE}
@@ -266,7 +266,10 @@ player_table <- function(player_num) {
       `Winning % In Remaining Games Needed` = round(
         `Wins To Go Over Vegas Insider` / 
           (72 - `Current Wins` - `Current Losses`) * 100, 2),
-      .before = `Current Projected Points`) %>% 
+      .before = `Current Projected Points`,
+      `Losses to Go Under Vegas Insider` = 
+        72 - ceiling(`Vegas Insider Win Projection %` / 100 * 72) - 
+        `Current Losses`) %>% 
     select(-`Current Wins`, -`Current Losses`) %>% 
     filter(Player == current_rankings[player_num],
            Date == Sys.Date() - 1) %>% 
