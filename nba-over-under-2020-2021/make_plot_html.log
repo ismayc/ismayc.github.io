@@ -981,3 +981,17 @@ To https://github.com/ismayc/ismayc.github.io.git
    f2715df..2265255  master -> master
 Starting at 2021-03-03 06:45:01Completed at 2021-03-03 06:45:37
 Already up to date.
+[master db27497] Updated 2021-03-03 06:45:40
+ 4 files changed, 86 insertions(+), 3836 deletions(-)
+ create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-03-02.rds
+ create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-03-02.rds
+To https://github.com/ismayc/ismayc.github.io.git
+   e625e69..db27497  master -> master
+Starting at 2021-03-04 06:45:02Completed at 2021-03-04 06:45:38
+From https://github.com/ismayc/ismayc.github.io
+   db27497..5d36b1e  master     -> origin/master
+error: Your local changes to the following files would be overwritten by merge:
+	2021-nba-over-under.html
+Please commit your changes or stash them before you merge.
+Aborting
+Updating db27497..5d36b1e
