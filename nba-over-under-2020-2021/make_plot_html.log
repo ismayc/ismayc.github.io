@@ -995,3 +995,19 @@ error: Your local changes to the following files would be overwritten by merge:
 Please commit your changes or stash them before you merge.
 Aborting
 Updating db27497..5d36b1e
+[master f09c573] Updated 2021-03-04 06:45:41
+ 4 files changed, 106 insertions(+), 63 deletions(-)
+ create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-03-03.rds
+ create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-03-03.rds
+To https://github.com/ismayc/ismayc.github.io.git
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'https://ismayc:5855c67258c86eabf2a0a50e0446dd8dc0a1a411@github.com/ismayc/ismayc.github.io.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+Starting at 2021-03-05 06:45:01Completed at 2021-03-05 06:45:38
+error: Your local changes to the following files would be overwritten by merge:
+	2021-nba-over-under.html
+Please commit your changes or stash them before you merge.
+Aborting
