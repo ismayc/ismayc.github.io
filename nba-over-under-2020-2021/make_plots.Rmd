@@ -41,7 +41,8 @@ weekly_team_track <- ggplot(
   facet_wrap(~ `Team Name`, nrow = 6) +
   xlab("") +
   ylab("") +
-  theme_bw()
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 60))
 
 ggplotly(weekly_team_track, tooltip = c("Vegas Insider Win Projection %", 
                                         "Current Win %", 
@@ -267,7 +268,7 @@ player_table <- function(player_num) {
         `Wins To Go Over Vegas Insider` / 
           (72 - `Current Wins` - `Current Losses`) * 100, 2),
       .before = `Current Projected Points`,
-      `Losses to Go Under Vegas Insider` = 
+      `Losses To Go Under Vegas Insider` = 
         72 - ceiling(`Vegas Insider Win Projection %` / 100 * 72) - 
         `Current Losses`) %>% 
     select(-`Current Wins`, -`Current Losses`) %>% 
