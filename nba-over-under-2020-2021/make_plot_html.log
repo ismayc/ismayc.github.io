@@ -1110,3 +1110,11 @@ To https://github.com/ismayc/ismayc.github.io
    3e522e4..e7855dc  master -> master
 Starting at 2021-03-13 06:45:01Completed at 2021-03-13 06:45:27
 Already up to date.
+[master b72214a] Updated 2021-03-13 06:45:27
+ 4 files changed, 70 insertions(+), 93 deletions(-)
+ create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-03-12.rds
+ create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-03-12.rds
+To https://github.com/ismayc/ismayc.github.io
+   e7855dc..b72214a  master -> master
+Starting at 2021-03-14 06:45:01Completed at 2021-03-14 06:45:29
+Already up to date.
