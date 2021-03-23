@@ -1,7 +1,7 @@
 setwd("~/Desktop/ismayc.github.io/nba-over-under-2020-2021")
 Sys.setenv(RSTUDIO_PANDOC = "/Applications/RStudio.app/Contents/MacOS/pandoc")
 
-cat(glue::glue("Starting at {Sys.time()}\n"))
+cat(glue::glue("Starting at {Sys.time()}"), "\n")
 rmarkdown::render(
   input = "make_plots.Rmd",  
   output_format = "html_document",
@@ -9,9 +9,9 @@ rmarkdown::render(
   output_dir = "..",
   quiet = TRUE
 )
-cat(glue::glue("Completed at {Sys.time()}\n\n"))
+cat(glue::glue("Completed at {Sys.time()}"), "\n")
 
-# system("git config --global user.name 'Chester Ismay'")
+system("git config --global user.name 'Chester Ismay'")
 system("git pull")
 system("git add --all")
 system(paste0('git commit -m "Updated ', Sys.time(), '"'))
