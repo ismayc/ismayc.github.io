@@ -254,7 +254,7 @@ projected_score %>%
 
 #### Point explanations by team for `r Sys.Date() - 1` {.tabset}
 
-```{r}
+```{r message=FALSE}
 library(DT)
 player_table <- function(player_num) {
   df <- player_projections_by_team %>% 
