@@ -1126,3 +1126,14 @@ fatal: could not read Username for 'https://github.com': Device not configured
 Starting at 2021-03-23 10:12:00 
 Completed at 2021-03-23 10:12:15 
 Already up to date.
+[master 84148a4] Updated 2021-03-23 10:12:16
+ 3 files changed, 38 insertions(+), 32 deletions(-)
+fatal: could not read Username for 'https://github.com': Device not configured
+
+ Starting at 2021-03-23 10:22:00 
+Completed at 2021-03-23 10:22:15 
+Host key verification failed.
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.

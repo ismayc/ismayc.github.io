@@ -1,7 +1,7 @@
 setwd("~/Desktop/ismayc.github.io/nba-over-under-2020-2021")
 Sys.setenv(RSTUDIO_PANDOC = "/Applications/RStudio.app/Contents/MacOS/pandoc")
 
-cat(glue::glue("Starting at {Sys.time()}"), "\n")
+cat("\n", glue::glue("Starting at {Sys.time()}"), "\n")
 rmarkdown::render(
   input = "make_plots.Rmd",  
   output_format = "html_document",
