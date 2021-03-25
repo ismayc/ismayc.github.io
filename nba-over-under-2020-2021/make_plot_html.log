@@ -1154,3 +1154,17 @@ Already up to date.
 Warning: Permanently added the RSA host key for IP address '192.30.255.112' to the list of known hosts.
 To github.com:ismayc/ismayc.github.io.git
    f2a4868..e2184ac  master -> master
+
+ Starting at 2021-03-25 14:16:22 
+Completed at 2021-03-25 14:16:49 
+From github.com:ismayc/ismayc.github.io
+   0c7f0c1..35d1551  master     -> origin/master
+error: Your local changes to the following files would be overwritten by merge:
+	2021-nba-over-under.html
+Please commit your changes or stash them before you merge.
+error: The following untracked working tree files would be overwritten by merge:
+	nba-over-under-2020-2021/rds/game_results_raw_through_2021-03-24.rds
+	nba-over-under-2020-2021/rds/standings_through_2021-03-24.rds
+Please move or remove them before you merge.
+Aborting
+Updating 0c7f0c1..35d1551
