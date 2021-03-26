@@ -293,7 +293,7 @@ player_table <- function(player_num) {
         "Outcome Determined",
         target = 'row',
         backgroundColor = styleEqual(c("OVER", "UNDER", NA_character_), 
-                                     c("forestgreen", "deeppink", "white"))
+                                     c("lightgreen", "deeppink", "white"))
       )
   }
   
@@ -401,7 +401,7 @@ gg <- ggplotly(projected_score_plot,
       title = paste(
         c(rep("&nbsp;", 9), "Date", "<br>"), collapse = "")
     ))
-highlight(gg, color = c("forestgreen"), 
+highlight(gg, color = c("lightgreen"), 
           off = "plotly_doubleclick",
           #          on = "plotly_hover", off = "plotly_deselect", 
           dynamic = FALSE)
