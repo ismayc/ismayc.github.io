@@ -1187,3 +1187,27 @@ Already up to date.
  2 files changed, 35 insertions(+), 31 deletions(-)
 To github.com:ismayc/ismayc.github.io.git
    35d1551..6686778  master -> master
+
+ Starting at 2021-03-27 04:02:01 
+Completed at 2021-03-27 04:31:09 
+Already up to date.
+[master 74918b8] Updated 2021-03-27 04:31:11
+ 4 files changed, 106 insertions(+), 60 deletions(-)
+ create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-03-26.rds
+ create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-03-26.rds
+To github.com:ismayc/ismayc.github.io.git
+   6848ac1..74918b8  master -> master
+
+ Starting at 2021-03-28 04:02:00 
+Completed at 2021-03-28 04:31:08 
+Already up to date.
+[master da3d14c] Updated 2021-03-28 04:31:09
+ 4 files changed, 80 insertions(+), 85 deletions(-)
+ create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-03-27.rds
+ create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-03-27.rds
+To github.com:ismayc/ismayc.github.io.git
+   74918b8..da3d14c  master -> master
+
+ Starting at 2021-03-29 04:02:01 
+Completed at 2021-03-29 04:31:07 
+Already up to date.
