@@ -28,13 +28,13 @@ slug_lookup <- game_results_raw %>%
   arrange(slugTeam)
 
 .get_slug_year <- function() {
-    current_date <- Sys.Date()
-    current_year <- lubridate::year(current_date)
-    current_month <- lubridate::month(current_date)
-    slug_year <- dplyr::case_when(current_month >= 10 ~  current_year,
-                                  TRUE ~ current_year - 1)
-    slug_year
-  }
+  current_date <- Sys.Date()
+  current_year <- lubridate::year(current_date)
+  current_month <- lubridate::month(current_date)
+  slug_year <- dplyr::case_when(current_month >= 10 ~  current_year,
+                                TRUE ~ current_year - 1)
+  slug_year
+}
 
 current_schedule <-
   function() {
@@ -155,8 +155,8 @@ current_schedule <-
 scores <- nbastatR::current_schedule() %>% 
   filter(dateGame >= "2020-12-22") %>% 
   filter(!is.na(scoreAway)) %>% 
-#  mutate(is_home_winner = (isWinnerHome == 1),
-#         is_away_winner = (isWinnerAway == 1)) %>% 
+  #  mutate(is_home_winner = (isWinnerHome == 1),
+  #         is_away_winner = (isWinnerAway == 1)) %>% 
   select(game_date = dateGame,
          game_id = idGame,
          slug_away_team = slugTeamAway,
@@ -165,8 +165,8 @@ scores <- nbastatR::current_schedule() %>%
          home_team = nameTeamHome,
          away_score = scoreAway,
          home_score = scoreHome#,
-#         is_home_winner,
-#         is_away_winner
+         #         is_home_winner,
+         #         is_away_winner
   )
 
 
@@ -179,10 +179,34 @@ if(!file.exists(here("rds", glue("standings_through_{Sys.Date() - 1}.rds")))) {
     mutate(teamId = as.integer(teamId))
   team_lookup <- nba_teams()
   
-  standings <- standings_raw %>% 
+  standings_temp <- standings_raw %>% 
     inner_join(team_lookup, by = c("teamId" = "idTeam")) %>% 
     select(team_name = nameTeam, wins = win, losses = loss) %>% 
-    inner_join(meta, by = c("team_name" = "team"))
+    inner_join(meta, by = c("team_name" = "team")) %>% 
+    mutate(wins = as.integer(wins), losses = as.integer(losses)) %>% 
+    mutate(`Winning Pct` = round(wins / (wins + losses), 3)) %>% 
+    mutate(differential = wins - losses)
+  
+  top_differentials <- standings_temp %>% 
+    group_by(conference) %>% 
+    slice_max(n = 1, order_by = differential) %>% 
+    select(team_name, differential)
+  
+  standings <- standings_temp %>% 
+    group_by(conference) %>% 
+    mutate(top_diff =  if_else(
+      conference == "West",
+      top_differentials %>% filter(conference == "West") %>% pull(differential),
+      top_differentials %>% filter(conference == "East") %>% pull(differential))
+    ) %>% 
+    mutate(`Games Back` = (top_diff - differential) / 2) %>% 
+    select(-top_diff) %>% 
+    ungroup() %>% 
+    mutate(`Games Back` = if_else(
+      `Games Back` == 0, 
+      "-", 
+      sprintf("%.1f", round(`Games Back`, 1)))
+    )
   
   write_rds(standings, 
             here("rds", glue("standings_through_{Sys.Date() - 1}.rds")))
