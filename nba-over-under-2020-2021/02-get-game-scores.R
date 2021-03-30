@@ -181,7 +181,8 @@ if(!file.exists(here("rds", glue("standings_through_{Sys.Date() - 1}.rds")))) {
   
   standings <- standings_raw %>% 
     inner_join(team_lookup, by = c("teamId" = "idTeam")) %>% 
-    select(team_name = nameTeam, wins = win, losses = loss)
+    select(team_name = nameTeam, wins = win, losses = loss) %>% 
+    inner_join(meta, by = c("team_name" = "team"))
   
   write_rds(standings, 
             here("rds", glue("standings_through_{Sys.Date() - 1}.rds")))

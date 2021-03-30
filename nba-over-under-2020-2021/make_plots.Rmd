@@ -1,6 +1,6 @@
 ---
 title: 'NBA Over/Under 2020-2021 Season'
-author: Chester Ismay
+author: Created by Chester Ismay
 output: html_document
 knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = encoding, output_file = file.path('../2021-nba-over-under.html')) })
 ---
@@ -489,9 +489,6 @@ if (nrow(yesterday_scores)) {
 ```{r}
 schedule <- nbastatR::current_schedule() %>% 
   filter(dateGame >= "2020-12-22") %>% 
-#  filter(!is.na(scoreAway)) %>% 
-#  mutate(is_home_winner = (isWinnerHome == 1),
-#         is_away_winner = (isWinnerAway == 1)) %>% 
   select(game_date = dateGame,
          game_id = idGame,
          slug_away_team = slugTeamAway,
@@ -499,10 +496,6 @@ schedule <- nbastatR::current_schedule() %>%
          slug_home_team = slugTeamHome,
          home_team = nameTeamHome,
          start_time = hasBuzzerBeater
-#         away_score = scoreAway,
-#         home_score = scoreHome#,
-#         is_home_winner,
-#         is_away_winner
   )
 todays_games <- schedule %>% 
   filter(game_date == Sys.Date()) %>% 
@@ -529,5 +522,113 @@ if (nrow(todays_games)) {
 }
 ```
 
+## Current standings {.tabset}
+
+### By conference {.tabset}
+
+Note that tie breakers to determine playoff seeds are not currently set.
+
+#### Western
+
+```{r}
+standings %>% 
+  filter(conference == "West") %>% 
+  select(-conference) %>% 
+  arrange(desc(wins)) %>% 
+  rename(
+    Team = team_name, 
+    Wins = wins, 
+    Losses = losses, 
+    Division = division
+    ) %>% 
+  knitr::kable()
+```
+
+#### Eastern
+
+```{r}
+standings %>% 
+  filter(conference == "East") %>% 
+  select(-conference) %>% 
+  arrange(desc(wins)) %>% 
+  rename(
+    Team = team_name, 
+    Wins = wins, 
+    Losses = losses, 
+    Division = division
+    ) %>% 
+  knitr::kable()
+```
 
 
+### By division {.tabset}
+
+#### West {.tabset}
+
+##### Pacific
+
+```{r}
+standings %>% 
+  filter(division == "Pacific") %>% 
+  select(-conference, -division) %>% 
+  arrange(desc(wins)) %>% 
+  rename(Team = team_name, Wins = wins, Losses = losses) %>% 
+  knitr::kable()
+```
+
+##### Northwest
+
+```{r}
+standings %>% 
+  filter(division == "Northwest") %>% 
+  select(-conference, -division) %>% 
+  arrange(desc(wins)) %>% 
+  rename(Team = team_name, Wins = wins, Losses = losses) %>% 
+  knitr::kable()
+```
+
+##### Southwest
+
+```{r}
+standings %>% 
+  filter(division == "Southwest") %>% 
+  select(-conference, -division) %>% 
+  arrange(desc(wins)) %>% 
+  rename(Team = team_name, Wins = wins, Losses = losses) %>% 
+  knitr::kable()
+```
+
+#### East {.tabset}
+
+##### Central
+
+```{r}
+standings %>% 
+  filter(division == "Central") %>% 
+  select(-conference, -division) %>% 
+  arrange(desc(wins)) %>% 
+  rename(Team = team_name, Wins = wins, Losses = losses) %>% 
+  knitr::kable()
+```
+
+##### Atlantic
+
+```{r}
+standings %>% 
+  filter(division == "Atlantic") %>% 
+  select(-conference, -division) %>% 
+  arrange(desc(wins)) %>% 
+  rename(Team = team_name, Wins = wins, Losses = losses) %>% 
+  knitr::kable()
+```
+
+##### Southeast
+
+```{r}
+standings %>% 
+  filter(division == "Southeast") %>% 
+  select(-conference, -division) %>% 
+  arrange(desc(wins)) %>% 
+  rename(Team = team_name, Wins = wins, Losses = losses) %>% 
+  knitr::kable()
+```
