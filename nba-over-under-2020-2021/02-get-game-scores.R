@@ -190,15 +190,16 @@ if(!file.exists(here("rds", glue("standings_through_{Sys.Date() - 1}.rds")))) {
   top_differentials <- standings_temp %>% 
     group_by(conference) %>% 
     slice_max(n = 1, order_by = differential) %>% 
-    select(team_name, differential)
+    select(team_name, differential) %>% 
+    ungroup()
   
   standings <- standings_temp %>% 
-    group_by(conference) %>% 
-    mutate(top_diff =  if_else(
+    mutate(top_diff = ifelse(
       conference == "West",
       top_differentials %>% filter(conference == "West") %>% pull(differential),
       top_differentials %>% filter(conference == "East") %>% pull(differential))
     ) %>% 
+    group_by(conference) %>% 
     mutate(`Games Back` = (top_diff - differential) / 2) %>% 
     select(-top_diff) %>% 
     ungroup() %>% 
