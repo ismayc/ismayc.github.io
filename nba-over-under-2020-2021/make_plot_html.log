@@ -1221,3 +1221,62 @@ To github.com:ismayc/ismayc.github.io.git
  Starting at 2021-03-30 04:02:01 
 Completed at 2021-03-30 04:31:11 
 Already up to date.
+[master 1389d0c] Updated 2021-03-30 04:31:13
+ 4 files changed, 104 insertions(+), 88 deletions(-)
+ create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-03-29.rds
+ create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-03-29.rds
+To github.com:ismayc/ismayc.github.io.git
+   ddfd9f9..1389d0c  master -> master
+
+ Starting at 2021-03-31 04:02:01 
+Quitting from lines 9-12 (make_plots.Rmd) 
+Error: Problem with `mutate()` input `top_diff`.
+x `false` must be length 15 (length of `condition`) or one, not 2.
+i Input `top_diff` is `if_else(...)`.
+i The error occurred in group 1: conference = "East".
+Backtrace:
+     x
+  1. +-rmarkdown::render(...)
+  2. | \-knitr::knit(knit_input, knit_output, envir = envir, quiet = quiet)
+  3. |   \-knitr:::process_file(text, output)
+  4. |     +-base::withCallingHandlers(...)
+  5. |     +-knitr:::process_group(group)
+  6. |     \-knitr:::process_group.block(group)
+  7. |       \-knitr:::call_block(x)
+  8. |         \-knitr:::block_exec(params)
+  9. |           +-knitr:::in_dir(...)
+ 10. |           \-knitr:::evaluate(...)
+ 11. |             \-evaluate::evaluate(...)
+ 12. |               \-evaluate:::evaluate_call(...)
+ 13. |                 +-evaluate:::timing_fn(...)
+ 14. |                 +-base:::handle(...)
+ 15. |                 +-base::withCallingHandlers(...)
+ 16. |                 +-base::withVisible(eval(expr, envir, enclos))
+ 17. |                 \-base::eval(expr, envir, enclos)
+ 18. |                   \-base::eval(expr, envir, enclos)
+ 19. +-base::source("01-03.R")
+ 20. | +-base::withVisible(eval(ei, envir))
+ 21. | \-base::eval(ei, envir)
+ 22. |   \-base::eval(ei, envir)
+ 23. +-purrr::walk(r_files, source)
+ 24. | \-purrr::map(.x, .f, ...)
+ 25. |   \-base:::.f(.x[[i]], ...)
+ 26. |     +-base::withVisible(eval(ei, envir))
+ 27. |     \-base::eval(ei, envir)
+ 28. |       \-base::eval(ei, envir)
+ 29. +-`%>%`(...)
+ 30. +-dplyr::mutate(...)
+ 31. +-dplyr::ungroup(.)
+ 32. +-dplyr::select(., -top_diff)
+ 33. +-dplyr::mutate(., `Games Back` = (top_diff - differential)/2)
+ 34. +-dplyr::mutate(...)
+ 35. +-dplyr:::mutate.data.frame(...)
+ 36. | \-dplyr:::mutate_cols(.data, ...)
+ 37. |   +-base::withCallingHandlers(...)
+ 38. |   \-mask$eval_all_mutate(quo)
+ 39. \-dplyr::if_else(...)
+ 40.   \-dplyr:::replace_with(...)
+ 41.     \-dplyr:::check_length(val, x, name, reason)
+ 42.       \-dplyr:::check_length_val(...)
+ 43.         \-dplyr:::glubort(...)
+Execution halted
