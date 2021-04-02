@@ -134,7 +134,7 @@ team_wins_df <- join_with_projections %>%
       `Wins Needed` / (72 - current_wins - current_losses) * 100, 2),
     `Wins \n Outcome \n Determined` = case_when(
       `Winning % In Remaining Games Needed` <= 0 ~ "OVER",
-      `Winning % In Remaining Games Needed` >= 100 ~ "UNDER",
+      `Winning % In Remaining Games Needed` > 100 ~ "UNDER",
       TRUE ~ "Not Yet"
     )) %>% 
   rename(`Current Win Total` = current_wins)
@@ -182,9 +182,9 @@ team_wins_track <- team_wins_df %>%
   geom_segment(aes(x = `Game Number`, xend = 72,
                    y = `Current Win Total`,
                    yend = `Expected Wins At Current Pace`
-                   ),
-               linetype = "dashed",
-               color = "purple") +
+  ),
+  linetype = "dashed",
+  color = "purple") +
   scale_x_continuous(limits = c(1, 72)) + 
   geom_point(mapping = aes(x = `Game Number`, y = `Current Win Total`)) +
   geom_point(mapping = aes(x = 72, y = `Expected Wins At Current Pace`), 
@@ -236,6 +236,9 @@ projections %>%
          `Win Projection` = win_projection) %>% 
   knitr::kable()
 ```
+
+
+
 
 
 ## Projected points for each player {.tabset}
@@ -366,6 +369,39 @@ player_table(8)
 
 ***
 
+<!--
+***
+
+#### Point tracking by player
+-->
+
+```{r}
+picks_wide <- picks %>% 
+  unite("wage_choice", wage:choice, sep = " ") %>% 
+  pivot_wider(names_from = player, values_from = wage_choice) %>% 
+  inner_join(projections, by = "team") %>% 
+  inner_join(standings, by = c("team" = "team_name")) %>% 
+  mutate(percentage_projection = round(percentage_projection / 100, 3)) %>% 
+  select(-conference, -division, -`Games Back`, -differential) %>% 
+  mutate(loss_projection = 72 - win_projection, .after = win_projection) %>% 
+  mutate(outcome_determined = case_when(
+    wins > win_projection ~ "OVER",
+    losses > loss_projection ~ "UNDER",
+    TRUE ~ NA_character_))
+
+picks_wide %>% 
+  select(team:Phil, outcome_determined) %>% 
+  DT::datatable(options = list(pageLength = 30, dom = 'ft',
+                               columnDefs = list(list(targets = 10, visible = FALSE)))) %>% 
+  formatStyle(
+    "outcome_determined",
+    target = 'row',
+    backgroundColor = styleEqual(c("OVER", "UNDER", NA_character_), 
+                                 c("lightgreen", "deeppink", "white"))
+  )
+```
+
+***
 
 ### All together
 
@@ -542,7 +578,7 @@ standings %>%
     Wins = wins, 
     Losses = losses, 
     Division = division
-    ) %>% 
+  ) %>% 
   knitr::kable(align = c('l', 'l', 'r', 'r', 'r', 'r'))
 ```
 
@@ -560,7 +596,7 @@ standings %>%
     Wins = wins, 
     Losses = losses, 
     Division = division
-    ) %>% 
+  ) %>% 
   knitr::kable(align = c('l', 'l', 'r', 'r', 'r', 'r'))
 ```
 
