@@ -277,7 +277,7 @@ player_table <- function(player_num) {
     arrange(desc(`Current Projected Points`)) %>% 
     mutate(`Outcome Determined` = case_when(
       `Winning % In Remaining Games Needed` <= 0 ~ "OVER",
-      `Winning % In Remaining Games Needed` >= 100 ~ "UNDER",
+      `Winning % In Remaining Games Needed` > 100 ~ "UNDER",
       TRUE ~ NA_character_
     ))  %>% 
     select(-Player, -Date)
