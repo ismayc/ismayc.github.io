@@ -369,11 +369,7 @@ player_table(8)
 
 ***
 
-<!--
-***
-
 #### Point tracking by player
--->
 
 ```{r}
 picks_wide <- picks %>% 
@@ -391,8 +387,9 @@ picks_wide <- picks %>%
 
 picks_wide %>% 
   select(team:Phil, outcome_determined) %>% 
-  DT::datatable(options = list(pageLength = 30, dom = 'ft',
-                               columnDefs = list(list(targets = 10, visible = FALSE)))) %>% 
+  DT::datatable(options = list(
+    pageLength = 30, dom = 'ft',
+    columnDefs = list(list(targets = 10, visible = FALSE)))) %>% 
   formatStyle(
     "outcome_determined",
     target = 'row',
