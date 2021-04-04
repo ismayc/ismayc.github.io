@@ -371,7 +371,7 @@ player_table(8)
 
 #### Point tracking by player
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 picks_wide <- picks %>% 
   unite("wage_choice", wage:choice, sep = " ") %>% 
   pivot_wider(names_from = player, values_from = wage_choice) %>% 
@@ -383,17 +383,122 @@ picks_wide <- picks %>%
   mutate(outcome_determined = case_when(
     wins > win_projection ~ "OVER",
     losses > loss_projection ~ "UNDER",
-    TRUE ~ NA_character_))
+    TRUE ~ NA_character_)) %>% 
+  separate(
+    col = Chester, 
+    into = c("Chester", "chester_choice"), 
+    sep = " "
+  ) %>% 
+  separate(
+    col = Jake, 
+    into = c("Jake", "jake_choice"), 
+    sep = " "
+  ) %>% 
+  separate(
+    col = Jenelle, 
+    into = c("Jenelle", "jenelle_choice"), 
+    sep = " "
+  ) %>% 
+  separate(
+    col = Adonis, 
+    into = c("Adonis", "adonis_choice"), 
+    sep = " "
+  ) %>% 
+  separate(
+    col = Mike, 
+    into = c("Mike", "mike_choice"), 
+    sep = " "
+  ) %>% 
+  separate(
+    col = Mary, 
+    into = c("Mary", "mary_choice"), 
+    sep = " "
+  ) %>% 
+  separate(
+    col = Ryan, 
+    into = c("Ryan", "ryan_choice"), 
+    sep = " "
+  ) %>% 
+  separate(
+    col = Phil, 
+    into = c("Phil", "phil_choice"), 
+    sep = " "
+  ) %>% 
+  mutate(chester_correct = chester_choice == outcome_determined,
+         jake_correct = jake_choice == outcome_determined,
+         jenelle_correct = jenelle_choice == outcome_determined,
+         adonis_correct = adonis_choice == outcome_determined,
+         mike_correct = mike_choice == outcome_determined,
+         mary_correct = mary_choice == outcome_determined,
+         ryan_correct = ryan_choice == outcome_determined,
+         phil_correct = phil_choice == outcome_determined)
+
+cols_to_delete <- 10:ncol(picks_wide)
+do_not_show_list <-  as.list(cols_to_delete)
+
+for (i in seq_along(do_not_show_list)) {
+  names(do_not_show_list[[i]]) <- "targets"
+}
+
+for(i in (cols_to_delete - 9) ) {
+#  do_not_show_list[[i]]$targets <- as.list(cols_to_delete)[[i]]
+  do_not_show_list[[i]]$visible <- FALSE
+}
 
 picks_wide %>% 
-  select(team:Phil, outcome_determined) %>% 
+  select(team, Chester, Jake, Jenelle, Adonis, Mike, Mary, Ryan, Phil, 
+         everything()) %>% 
   DT::datatable(options = list(
     pageLength = 30, dom = 'ft',
-    columnDefs = list(list(targets = 10, visible = FALSE)))) %>% 
+    columnDefs = do_not_show_list
+      #list(list(targets = as.list(cols_to_delete), visible = FALSE))
+  )) %>% 
   formatStyle(
-    "outcome_determined",
-    target = 'row',
-    backgroundColor = styleEqual(c("OVER", "UNDER", NA_character_), 
+    "Chester", "chester_correct",
+    target = 'cell',
+    backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
+                                 c("lightgreen", "deeppink", "white"))
+  ) %>% 
+  formatStyle(
+    "Jake", "jake_correct",
+    target = 'cell',
+    backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
+                                 c("lightgreen", "deeppink", "white"))
+  ) %>% 
+  formatStyle(
+    "Jenelle", "jenelle_correct",
+    target = 'cell',
+    backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
+                                 c("lightgreen", "deeppink", "white"))
+  ) %>% 
+  formatStyle(
+    "Adonis", "adonis_correct",
+    target = 'cell',
+    backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
+                                 c("lightgreen", "deeppink", "white"))
+  ) %>% 
+  formatStyle(
+    "Mike", "mike_correct",
+    target = 'cell',
+    backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
+                                 c("lightgreen", "deeppink", "white"))
+  ) %>% 
+  formatStyle(
+    "Mary", "mary_correct",
+    target = 'cell',
+    backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
+                                 c("lightgreen", "deeppink", "white"))
+  ) %>% 
+  formatStyle(
+    "Ryan", "ryan_correct",
+    target = 'cell',
+    backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
+                                 c("lightgreen", "deeppink", "white"))
+  ) %>% 
+  formatStyle(
+    "Phil", "phil_correct",
+    target = 'cell',
+    backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
                                  c("lightgreen", "deeppink", "white"))
   )
 ```
