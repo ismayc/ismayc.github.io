@@ -1,6 +1,8 @@
 setwd("~/Desktop/ismayc.github.io/nba-over-under-2020-2021")
 Sys.setenv(RSTUDIO_PANDOC = "/Applications/RStudio.app/Contents/MacOS/pandoc")
 
+# update_page <- TRUE
+
 cat(glue::glue("Starting at {Sys.time()}"), "Pacific time", "\n")
 
 library(dplyr)
@@ -10,7 +12,7 @@ date_modified <- file.info(file.path("..", "2021-nba-over-under.html")) %>%
   pull(ctime) %>% 
   as.Date()
 
-if (date_modified != Sys.Date()) {
+if (date_modified != Sys.Date() || update_page) {
   rmarkdown::render(
     input = "make_plots.Rmd",  
     output_format = "html_document",
