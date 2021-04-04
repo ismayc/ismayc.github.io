@@ -431,7 +431,8 @@ picks_wide <- picks %>%
          mike_correct = mike_choice == outcome_determined,
          mary_correct = mary_choice == outcome_determined,
          ryan_correct = ryan_choice == outcome_determined,
-         phil_correct = phil_choice == outcome_determined)
+         phil_correct = phil_choice == outcome_determined) #%>% 
+#  mutate(across(Chester:Phil, ~as.integer(.x) * -1))
 
 cols_to_delete <- 10:ncol(picks_wide)
 do_not_show_list <-  as.list(cols_to_delete)
@@ -448,6 +449,7 @@ for(i in (cols_to_delete - 9) ) {
 picks_wide %>% 
   select(team, Chester, Jake, Jenelle, Adonis, Mike, Mary, Ryan, Phil, 
          everything()) %>% 
+  purrr::map_df(rev) %>% 
   DT::datatable(options = list(
     pageLength = 30, dom = 'ft',
     columnDefs = do_not_show_list
