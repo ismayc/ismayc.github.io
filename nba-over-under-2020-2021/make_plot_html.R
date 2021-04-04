@@ -1,7 +1,7 @@
 setwd("~/Desktop/ismayc.github.io/nba-over-under-2020-2021")
 Sys.setenv(RSTUDIO_PANDOC = "/Applications/RStudio.app/Contents/MacOS/pandoc")
 
-cat("\n", glue::glue("Starting at {Sys.time()}"), "\n")
+cat("\n", glue::glue("Starting at {Sys.time()}"), "Pacific time", "\n")
 
 library(dplyr)
 library(lubridate)
@@ -21,7 +21,7 @@ if (date_modified != Sys.Date()) {
 } else {
   cat("Webpage already created today", "\n")
 }
-cat(glue::glue("Completed at {Sys.time()}"), "\n")
+cat(glue::glue("Completed at {Sys.time()}"), "Pacific time", "\n")
 
 system("git config --global user.name 'Chester Ismay'")
 system("git pull")
