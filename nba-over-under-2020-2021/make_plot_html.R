@@ -1,7 +1,7 @@
 setwd("~/Desktop/ismayc.github.io/nba-over-under-2020-2021")
 Sys.setenv(RSTUDIO_PANDOC = "/Applications/RStudio.app/Contents/MacOS/pandoc")
 
-cat("\n", glue::glue("Starting at {Sys.time()}"), "Pacific time", "\n")
+cat(glue::glue("Starting at {Sys.time()}"), "Pacific time", "\n")
 
 library(dplyr)
 library(lubridate)
