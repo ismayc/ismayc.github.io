@@ -5,8 +5,8 @@ update_page <- FALSE
 
 cat(glue::glue("Starting at {Sys.time()}"), "Pacific time", "\n")
 
-library(dplyr)
-library(lubridate)
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(lubridate))
 
 date_modified <- file.info(file.path("..", "2021-nba-over-under.html")) %>% 
   pull(ctime) %>% 
