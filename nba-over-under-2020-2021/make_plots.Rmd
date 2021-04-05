@@ -285,20 +285,20 @@ player_table <- function(player_num) {
     ))  %>% 
     select(-Player, -Date)
   
-  if (sum(is.na(df$`Outcome Determined`)) == 30) {
-    df %>% 
-      select(-`Outcome Determined`) %>% 
-      datatable(options = list(pageLength = 30, dom = 'ft'))
-  } else {
+ # if (sum(is.na(df$`Outcome Determined`)) == 30) {
+ #   df %>% 
+ #     select(-`Outcome Determined`) %>% 
+ #     datatable(options = list(pageLength = 30, dom = 'ft'))
+ # } else {
     df %>%
-      datatable(options = list(pageLength = 30, dom = 'ft')) %>%
-      formatStyle(
-        "Outcome Determined",
-        target = 'row',
-        backgroundColor = styleEqual(c("OVER", "UNDER", NA_character_), 
-                                     c("lightgreen", "deeppink", "white"))
-      )
-  }
+      datatable(options = list(pageLength = 30, dom = 'ft')) # %>%
+      # formatStyle(
+      #   "Outcome Determined",
+      #   target = 'row',
+      #   backgroundColor = styleEqual(c("OVER", "UNDER", NA_character_), 
+      #                                c("lightgreen", "deeppink", "white"))
+      # )
+ # }
   
   # brks <- quantile(
   #   df$`Wins To Go Over Vegas Insider`, 
@@ -369,7 +369,7 @@ player_table(8)
 
 ***
 
-#### Point tracking by player
+#### Point wagers by player highlighted by outcome determined
 
 ```{r message=FALSE, warning=FALSE}
 picks_wide <- picks %>% 
