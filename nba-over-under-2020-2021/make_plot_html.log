@@ -1300,3 +1300,45 @@ Already up to date.
  2 files changed, 41 insertions(+), 31 deletions(-)
 To github.com:ismayc/ismayc.github.io.git
    7379979..778551f  master -> master
+Starting at 2021-04-05 04:02:01 Pacific time 
+
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+
+Attaching package: 'lubridate'
+
+The following objects are masked from 'package:base':
+
+    date, intersect, setdiff, union
+
+Error: object 'update_page' not found
+Execution halted
+Starting at 2021-04-05 05:01:01 Pacific time 
+
+Attaching package: 'dplyr'
+
+The following objects are masked from 'package:stats':
+
+    filter, lag
+
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+
+
+Attaching package: 'lubridate'
+
+The following objects are masked from 'package:base':
+
+    date, intersect, setdiff, union
+
+Error: object 'update_page' not found
+Execution halted

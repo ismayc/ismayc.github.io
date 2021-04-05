@@ -372,7 +372,7 @@ player_table(8)
 
 ***
 
-#### Point wagers by player highlighted by outcome determined
+#### Point wagers by player (highlighted by outcome determined)
 
 ```{r message=FALSE, warning=FALSE}
 picks_wide <- picks %>% 
