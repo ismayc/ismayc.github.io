@@ -5,7 +5,7 @@ output: html_document
 knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = encoding, output_file = file.path('../2021-nba-over-under.html')) })
 ---
 
-```{r setup, include=FALSE}
+```{r include=FALSE}
 source("01-03.R")
 knitr::opts_chunk$set(echo = FALSE)
 library(lubridate)

@@ -1342,3 +1342,21 @@ The following objects are masked from 'package:base':
 
 Error: object 'update_page' not found
 Execution halted
+Starting at 2021-04-06 04:02:01 Pacific time 
+Quitting from lines 9-12 (make_plots.Rmd) 
+Error in parse_block(g[-1], g[1], params.src, markdown_mode) : 
+  Duplicate chunk label 'setup', which has been used for the chunk:
+source("01-03.R")
+knitr::opts_chunk$set(echo = FALSE)
+library(lubridate)
+Calls: <Anonymous> ... process_file -> split_file -> lapply -> FUN -> parse_block
+Execution halted
+Starting at 2021-04-06 05:01:01 Pacific time 
+Quitting from lines 9-12 (make_plots.Rmd) 
+Error in parse_block(g[-1], g[1], params.src, markdown_mode) : 
+  Duplicate chunk label 'setup', which has been used for the chunk:
+source("01-03.R")
+knitr::opts_chunk$set(echo = FALSE)
+library(lubridate)
+Calls: <Anonymous> ... process_file -> split_file -> lapply -> FUN -> parse_block
+Execution halted
