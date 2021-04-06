@@ -1,5 +1,6 @@
 library(tidyverse)
 library(googlesheets)
+library(readxl)
 
 expected <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRVvszIE_nImQEeOG8684tsMhc72OkNb7QN9FDVSsagHpG3PnPQ_e4aQkyNdwt8pF27p6EgEztDvkVr/pub?gid=0&single=true&output=csv")
 
@@ -26,7 +27,7 @@ picks <- read_excel(path = "picks.xlsx", sheet = "picks")
 set.seed(NULL)
 start_time <- Sys.time()
 outcome_sims <- map_dfr(
-  1:10000, 
+  1:30000, 
   ~ {
     sim_prep <- picks %>% 
       inner_join(lookup_table, by = "team") %>% 
