@@ -1360,3 +1360,12 @@ knitr::opts_chunk$set(echo = FALSE)
 library(lubridate)
 Calls: <Anonymous> ... process_file -> split_file -> lapply -> FUN -> parse_block
 Execution halted
+Starting at 2021-04-07 04:02:01 Pacific time 
+There were 23 warnings (use warnings() to see them)
+Completed at 2021-04-07 04:31:15 Pacific time 
+From github.com:ismayc/ismayc.github.io
+   2dfc09f..63e1189  master     -> origin/master
+Updating 2dfc09f..63e1189
+Fast-forward
+ nba-over-under-2020-2021/explore-scenarios.R | 34 ++++++++++++++++------------
+ 1 file changed, 19 insertions(+), 15 deletions(-)
