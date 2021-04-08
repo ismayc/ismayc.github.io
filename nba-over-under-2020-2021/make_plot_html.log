@@ -1369,3 +1369,14 @@ Updating 2dfc09f..63e1189
 Fast-forward
  nba-over-under-2020-2021/explore-scenarios.R | 34 ++++++++++++++++------------
  1 file changed, 19 insertions(+), 15 deletions(-)
+[master 492f393] Updated 2021-04-07 04:31:17
+ 4 files changed, 199 insertions(+), 177 deletions(-)
+ create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-04-06.rds
+ create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-04-06.rds
+To github.com:ismayc/ismayc.github.io.git
+   63e1189..492f393  master -> master
+Starting at 2021-04-08 04:02:06 Pacific time 
+Starting at 2021-04-08 05:01:01 Pacific time 
+There were 23 warnings (use warnings() to see them)
+Completed at 2021-04-08 05:01:34 Pacific time 
+Already up to date.
