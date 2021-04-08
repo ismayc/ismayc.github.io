@@ -477,7 +477,7 @@ for(i in (cols_to_delete - 9) ) {
 }
 
 picks_wide %>% 
-  select(team, Chester, Jake, Jenelle, Adonis, Mike, Mary, Ryan, Phil, 
+  select(team, Adonis, Chester, Jake, Jenelle, Mary, Mike, Phil, Ryan, 
          everything()) %>% 
   purrr::map_df(rev) %>% 
   DT::datatable(options = list(
