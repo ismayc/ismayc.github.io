@@ -285,23 +285,23 @@ player_table <- function(player_num) {
     ))  %>% 
     select(-Player, -Date)
   
- # if (sum(is.na(df$`Outcome Determined`)) == 30) {
- #   df %>% 
- #     select(-`Outcome Determined`) %>% 
- #     datatable(options = list(pageLength = 30, dom = 'ft'))
- # } else {
-    df %>%
-      datatable(extensions = "FixedColumns",
-                options = list(pageLength = 30, dom = 'ft',
-                               fixedColumns = list(leftColumns = 2))
-                ) # %>%
-      # formatStyle(
-      #   "Outcome Determined",
-      #   target = 'row',
-      #   backgroundColor = styleEqual(c("OVER", "UNDER", NA_character_), 
-      #                                c("lightgreen", "deeppink", "white"))
-      # )
- # }
+  # if (sum(is.na(df$`Outcome Determined`)) == 30) {
+  #   df %>% 
+  #     select(-`Outcome Determined`) %>% 
+  #     datatable(options = list(pageLength = 30, dom = 'ft'))
+  # } else {
+  df %>%
+    datatable(extensions = "FixedColumns",
+              options = list(pageLength = 30, dom = 'ft',
+                             fixedColumns = list(leftColumns = 2))
+    ) # %>%
+  # formatStyle(
+  #   "Outcome Determined",
+  #   target = 'row',
+  #   backgroundColor = styleEqual(c("OVER", "UNDER", NA_character_), 
+  #                                c("lightgreen", "deeppink", "white"))
+  # )
+  # }
   
   # brks <- quantile(
   #   df$`Wins To Go Over Vegas Insider`, 
@@ -372,7 +372,7 @@ player_table(8)
 
 ***
 
-#### Point wagers by player (highlighted by outcome determined)
+#### Point wagers by player with OVER(↑) / UNDER(↓) choice (highlighted by outcome determined)
 
 ```{r message=FALSE, warning=FALSE}
 picks_wide <- picks %>% 
@@ -387,6 +387,10 @@ picks_wide <- picks %>%
     wins > win_projection ~ "OVER",
     losses > loss_projection ~ "UNDER",
     TRUE ~ NA_character_)) %>% 
+  mutate(team = case_when(
+    outcome_determined == "OVER" ~ paste(team, "↑"),
+    outcome_determined == "UNDER" ~ paste(team, "↓"),
+    TRUE ~ team)) %>% 
   separate(
     col = Chester, 
     into = c("Chester", "chester_choice"), 
@@ -434,8 +438,31 @@ picks_wide <- picks %>%
          mike_correct = mike_choice == outcome_determined,
          mary_correct = mary_choice == outcome_determined,
          ryan_correct = ryan_choice == outcome_determined,
-         phil_correct = phil_choice == outcome_determined) #%>% 
-#  mutate(across(Chester:Phil, ~as.integer(.x) * -1))
+         phil_correct = phil_choice == outcome_determined) %>% 
+  mutate(Chester = if_else(chester_choice == "OVER",
+                           paste(Chester, "↑"),
+                           paste(Chester, "↓"))) %>% 
+  mutate(Jake = if_else(jake_choice == "OVER",
+                        paste(Jake, "↑"),
+                        paste(Jake, "↓"))) %>% 
+  mutate(Jenelle = if_else(jenelle_choice == "OVER",
+                           paste(Jenelle, "↑"),
+                           paste(Jenelle, "↓"))) %>% 
+  mutate(Adonis = if_else(adonis_choice == "OVER",
+                          paste(Adonis, "↑"),
+                          paste(Adonis, "↓"))) %>% 
+  mutate(Mike = if_else(mike_choice == "OVER",
+                        paste(Mike, "↑"),
+                        paste(Mike, "↓"))) %>% 
+  mutate(Mary = if_else(mary_choice == "OVER",
+                        paste(Mary, "↑"),
+                        paste(Mary, "↓"))) %>% 
+  mutate(Ryan = if_else(ryan_choice == "OVER",
+                        paste(Ryan, "↑"),
+                        paste(Ryan, "↓"))) %>% 
+  mutate(Phil = if_else(phil_choice == "OVER",
+                        paste(Phil, "↑"),
+                        paste(Phil, "↓")))  
 
 cols_to_delete <- 10:ncol(picks_wide)
 do_not_show_list <-  as.list(cols_to_delete)
@@ -445,7 +472,7 @@ for (i in seq_along(do_not_show_list)) {
 }
 
 for(i in (cols_to_delete - 9) ) {
-#  do_not_show_list[[i]]$targets <- as.list(cols_to_delete)[[i]]
+  #  do_not_show_list[[i]]$targets <- as.list(cols_to_delete)[[i]]
   do_not_show_list[[i]]$visible <- FALSE
 }
 
@@ -456,55 +483,55 @@ picks_wide %>%
   DT::datatable(options = list(
     pageLength = 30, dom = 'ft',
     columnDefs = do_not_show_list
-      #list(list(targets = as.list(cols_to_delete), visible = FALSE))
+    #list(list(targets = as.list(cols_to_delete), visible = FALSE))
   )) %>% 
   formatStyle(
     "Chester", "chester_correct",
     target = 'cell',
     backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
-                                 c("lightgreen", "deeppink", "white"))
+                                 c("lightgreen", "hotpink", "white"))
   ) %>% 
   formatStyle(
     "Jake", "jake_correct",
     target = 'cell',
     backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
-                                 c("lightgreen", "deeppink", "white"))
+                                 c("lightgreen", "hotpink", "white"))
   ) %>% 
   formatStyle(
     "Jenelle", "jenelle_correct",
     target = 'cell',
     backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
-                                 c("lightgreen", "deeppink", "white"))
+                                 c("lightgreen", "hotpink", "white"))
   ) %>% 
   formatStyle(
     "Adonis", "adonis_correct",
     target = 'cell',
     backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
-                                 c("lightgreen", "deeppink", "white"))
+                                 c("lightgreen", "hotpink", "white"))
   ) %>% 
   formatStyle(
     "Mike", "mike_correct",
     target = 'cell',
     backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
-                                 c("lightgreen", "deeppink", "white"))
+                                 c("lightgreen", "hotpink", "white"))
   ) %>% 
   formatStyle(
     "Mary", "mary_correct",
     target = 'cell',
     backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
-                                 c("lightgreen", "deeppink", "white"))
+                                 c("lightgreen", "hotpink", "white"))
   ) %>% 
   formatStyle(
     "Ryan", "ryan_correct",
     target = 'cell',
     backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
-                                 c("lightgreen", "deeppink", "white"))
+                                 c("lightgreen", "hotpink", "white"))
   ) %>% 
   formatStyle(
     "Phil", "phil_correct",
     target = 'cell',
     backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
-                                 c("lightgreen", "deeppink", "white"))
+                                 c("lightgreen", "hotpink", "white"))
   )
 ```
 
