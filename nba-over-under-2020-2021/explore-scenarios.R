@@ -27,7 +27,7 @@ picks <- read_excel(path = "picks.xlsx", sheet = "picks")
 set.seed(NULL)
 start_time <- Sys.time()
 outcome_sims <- map_dfr(
-  1:30000, 
+  1:40000, 
   ~ {
     sim_prep <- picks %>% 
       inner_join(lookup_table, by = "team") %>% 
@@ -54,7 +54,8 @@ outcome_sims <- map_dfr(
     
     out$rank <- 1:8
     
-    out
+    out %>% 
+      mutate(playoffs = rank <= 4)
   }
 ) 
 end_time <- Sys.time()
@@ -66,6 +67,7 @@ outcome_sims %>%
             mean_expected_total = mean(expected_total),
             sd_expected_total = sd(expected_total),
             median_rank = median(rank),
-            mean_rank = mean(rank)) %>% 
+            mean_rank = mean(rank),
+            prob_playoffs = mean(playoffs == TRUE) * 100) %>% 
   arrange(desc(median_expected_total))
 
