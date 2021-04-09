@@ -3,7 +3,7 @@ Sys.setenv(RSTUDIO_PANDOC = "/Applications/RStudio.app/Contents/MacOS/pandoc")
 
 update_page <- FALSE
 
-cat("\n\n")
+cat("\n")
 cat(glue::glue("Starting at {Sys.time()}"), "Pacific time", "\n")
 
 suppressPackageStartupMessages(library(dplyr))
