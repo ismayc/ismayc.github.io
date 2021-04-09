@@ -462,9 +462,13 @@ picks_wide <- picks %>%
                         paste(Ryan, "↓"))) %>% 
   mutate(Phil = if_else(phil_choice == "OVER",
                         paste(Phil, "↑"),
-                        paste(Phil, "↓")))  
+                        paste(Phil, "↓"))) %>% 
+  rename(`Win Target` = win_projection) %>% 
+  relocate(`Win Target`, .after = team)
+```
 
-cols_to_delete <- 10:ncol(picks_wide)
+```{r message=FALSE, warning=FALSE}
+cols_to_delete <- 10:(ncol(picks_wide) - 1)
 do_not_show_list <-  as.list(cols_to_delete)
 
 for (i in seq_along(do_not_show_list)) {
@@ -476,11 +480,21 @@ for(i in (cols_to_delete - 9) ) {
   do_not_show_list[[i]]$visible <- FALSE
 }
 
+point_levels <- rep(seq(15, 6, by = -1), 2) %>% 
+  sort(decreasing = TRUE) %>% 
+  paste(c("↑", "↓"))
+
 picks_wide %>% 
-  select(team, Adonis, Chester, Jake, Jenelle, Mary, Mike, Phil, Ryan, 
+  select(Team = team, `Win Target`, 
+         Adonis, Chester, Jake, Jenelle, Mary, Mike, Phil, Ryan, 
          everything()) %>% 
-  purrr::map_df(rev) %>% 
-  DT::datatable(options = list(
+  # Doesn't actually sort in DT
+  mutate_at(.vars = c("Adonis", "Chester", "Jake", "Jenelle",
+                      "Mary", "Mike", "Phil", "Ryan"), 
+            .funs = ~ factor(.x, levels = point_levels)) %>% 
+#  purrr::map_df(rev) %>% 
+  arrange(Team) %>% 
+  DT::datatable(rownames = FALSE, options = list(
     pageLength = 30, dom = 'ft',
     columnDefs = do_not_show_list
     #list(list(targets = as.list(cols_to_delete), visible = FALSE))
@@ -532,7 +546,13 @@ picks_wide %>%
     target = 'cell',
     backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
                                  c("lightgreen", "hotpink", "white"))
-  )
+  ) %>% 
+  formatStyle(
+    "Team", target = 'cell', backgroundColor = "white"
+  ) %>% 
+  formatStyle(
+    "Win Target", target = 'cell', backgroundColor = "white"
+  )  
 ```
 
 ***
