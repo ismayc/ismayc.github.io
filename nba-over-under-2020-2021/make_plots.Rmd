@@ -9,6 +9,7 @@ knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = e
 source("01-03.R")
 knitr::opts_chunk$set(echo = FALSE)
 library(lubridate)
+library(DT)
 ```
 
 Last updated at `r Sys.time()` US Pacific time
@@ -255,6 +256,194 @@ projected_score %>%
 
 ***
 
+
+#### Point wagers by player with OVER(↑) / UNDER(↓) choice (highlighted by outcome determined)
+
+```{r message=FALSE, warning=FALSE}
+picks_wide <- picks %>% 
+  unite("wage_choice", wage:choice, sep = " ") %>% 
+  pivot_wider(names_from = player, values_from = wage_choice) %>% 
+  inner_join(projections, by = "team") %>% 
+  inner_join(standings, by = c("team" = "team_name")) %>% 
+  mutate(percentage_projection = round(percentage_projection / 100, 3)) %>% 
+  select(-conference, -division, -`Games Back`, -differential) %>% 
+  mutate(loss_projection = 72 - win_projection, .after = win_projection) %>% 
+  mutate(outcome_determined = case_when(
+    wins > win_projection ~ "OVER",
+    losses > loss_projection ~ "UNDER",
+    TRUE ~ NA_character_)) %>% 
+  mutate(team = case_when(
+    outcome_determined == "OVER" ~ paste(team, "↑"),
+    outcome_determined == "UNDER" ~ paste(team, "↓"),
+    TRUE ~ team)) %>% 
+  separate(
+    col = Chester, 
+    into = c("Chester_points", "chester_choice"), 
+    sep = " "
+  ) %>% 
+  separate(
+    col = Jake, 
+    into = c("Jake_points", "jake_choice"), 
+    sep = " "
+  ) %>% 
+  separate(
+    col = Jenelle, 
+    into = c("Jenelle_points", "jenelle_choice"), 
+    sep = " "
+  ) %>% 
+  separate(
+    col = Adonis, 
+    into = c("Adonis_points", "adonis_choice"), 
+    sep = " "
+  ) %>% 
+  separate(
+    col = Mike, 
+    into = c("Mike_points", "mike_choice"), 
+    sep = " "
+  ) %>% 
+  separate(
+    col = Mary, 
+    into = c("Mary_points", "mary_choice"), 
+    sep = " "
+  ) %>% 
+  separate(
+    col = Ryan, 
+    into = c("Ryan_points", "ryan_choice"), 
+    sep = " "
+  ) %>% 
+  separate(
+    col = Phil, 
+    into = c("Phil_points", "phil_choice"), 
+    sep = " "
+  ) %>% 
+  mutate(chester_correct = chester_choice == outcome_determined,
+         jake_correct = jake_choice == outcome_determined,
+         jenelle_correct = jenelle_choice == outcome_determined,
+         adonis_correct = adonis_choice == outcome_determined,
+         mike_correct = mike_choice == outcome_determined,
+         mary_correct = mary_choice == outcome_determined,
+         ryan_correct = ryan_choice == outcome_determined,
+         phil_correct = phil_choice == outcome_determined) %>% 
+  mutate(Chester = if_else(chester_choice == "OVER",
+                           paste(Chester_points, "↑"),
+                           paste(Chester_points, "↓"))) %>% 
+  mutate(Jake = if_else(jake_choice == "OVER",
+                        paste(Jake_points, "↑"),
+                        paste(Jake_points, "↓"))) %>% 
+  mutate(Jenelle = if_else(jenelle_choice == "OVER",
+                           paste(Jenelle_points, "↑"),
+                           paste(Jenelle_points, "↓"))) %>% 
+  mutate(Adonis = if_else(adonis_choice == "OVER",
+                          paste(Adonis_points, "↑"),
+                          paste(Adonis_points, "↓"))) %>% 
+  mutate(Mike = if_else(mike_choice == "OVER",
+                        paste(Mike_points, "↑"),
+                        paste(Mike_points, "↓"))) %>% 
+  mutate(Mary = if_else(mary_choice == "OVER",
+                        paste(Mary_points, "↑"),
+                        paste(Mary_points, "↓"))) %>% 
+  mutate(Ryan = if_else(ryan_choice == "OVER",
+                        paste(Ryan_points, "↑"),
+                        paste(Ryan_points, "↓"))) %>% 
+  mutate(Phil = if_else(phil_choice == "OVER",
+                        paste(Phil_points, "↑"),
+                        paste(Phil_points, "↓"))) %>% 
+  rename(`Win Target` = win_projection) %>% 
+  relocate(`Win Target`, .after = team)
+```
+
+```{r message=FALSE, warning=FALSE}
+cols_to_delete <- 10:(ncol(picks_wide) - 1)
+do_not_show_list <-  as.list(cols_to_delete)
+
+for (i in seq_along(do_not_show_list)) {
+  names(do_not_show_list[[i]]) <- "targets"
+}
+
+for(i in (cols_to_delete - 9) ) {
+  #  do_not_show_list[[i]]$targets <- as.list(cols_to_delete)[[i]]
+  do_not_show_list[[i]]$visible <- FALSE
+}
+
+point_levels <- rep(seq(15, 6, by = -1), 2) %>% 
+  sort(decreasing = TRUE)
+paste_levels <- point_levels %>% 
+  paste(c("↑", "↓"))
+
+picks_wide %>% 
+  select(Team = team, `Win Target`, 
+         Adonis, Chester, Jake, Jenelle, Mary, Mike, Phil, Ryan, 
+         everything()) %>% 
+  # Doesn't actually sort in DT
+  mutate_at(
+    .vars = c("Adonis", "Chester", "Jake", "Jenelle",
+              "Mary", "Mike", "Phil", "Ryan"), 
+    .funs = ~ factor(.x, levels = paste_levels)) %>% 
+  #  purrr::map_df(rev) %>% 
+  arrange(Team) %>% 
+  DT::datatable(rownames = FALSE, options = list(
+    pageLength = 30, dom = 'ft',
+    columnDefs = do_not_show_list
+    #list(list(targets = as.list(cols_to_delete), visible = FALSE))
+  )) %>% 
+  formatStyle(
+    "Chester", "chester_correct",
+    target = 'cell',
+    backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
+                                 c("lightgreen", "hotpink", "white"))
+  ) %>% 
+  formatStyle(
+    "Jake", "jake_correct",
+    target = 'cell',
+    backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
+                                 c("lightgreen", "hotpink", "white"))
+  ) %>% 
+  formatStyle(
+    "Jenelle", "jenelle_correct",
+    target = 'cell',
+    backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
+                                 c("lightgreen", "hotpink", "white"))
+  ) %>% 
+  formatStyle(
+    "Adonis", "adonis_correct",
+    target = 'cell',
+    backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
+                                 c("lightgreen", "hotpink", "white"))
+  ) %>% 
+  formatStyle(
+    "Mike", "mike_correct",
+    target = 'cell',
+    backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
+                                 c("lightgreen", "hotpink", "white"))
+  ) %>% 
+  formatStyle(
+    "Mary", "mary_correct",
+    target = 'cell',
+    backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
+                                 c("lightgreen", "hotpink", "white"))
+  ) %>% 
+  formatStyle(
+    "Ryan", "ryan_correct",
+    target = 'cell',
+    backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
+                                 c("lightgreen", "hotpink", "white"))
+  ) %>% 
+  formatStyle(
+    "Phil", "phil_correct",
+    target = 'cell',
+    backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
+                                 c("lightgreen", "hotpink", "white"))
+  ) %>% 
+  formatStyle(
+    "Team", target = 'cell', backgroundColor = "white"
+  ) %>% 
+  formatStyle(
+    "Win Target", target = 'cell', backgroundColor = "white"
+  )  
+```
+
+***
+
 #### Point explanations by team for `r Sys.Date() - 1` {.tabset}
 
 ```{r message=FALSE}
@@ -369,191 +558,6 @@ player_table(7)
 player_table(8)
 ```
 
-
-***
-
-#### Point wagers by player with OVER(↑) / UNDER(↓) choice (highlighted by outcome determined)
-
-```{r message=FALSE, warning=FALSE}
-picks_wide <- picks %>% 
-  unite("wage_choice", wage:choice, sep = " ") %>% 
-  pivot_wider(names_from = player, values_from = wage_choice) %>% 
-  inner_join(projections, by = "team") %>% 
-  inner_join(standings, by = c("team" = "team_name")) %>% 
-  mutate(percentage_projection = round(percentage_projection / 100, 3)) %>% 
-  select(-conference, -division, -`Games Back`, -differential) %>% 
-  mutate(loss_projection = 72 - win_projection, .after = win_projection) %>% 
-  mutate(outcome_determined = case_when(
-    wins > win_projection ~ "OVER",
-    losses > loss_projection ~ "UNDER",
-    TRUE ~ NA_character_)) %>% 
-  mutate(team = case_when(
-    outcome_determined == "OVER" ~ paste(team, "↑"),
-    outcome_determined == "UNDER" ~ paste(team, "↓"),
-    TRUE ~ team)) %>% 
-  separate(
-    col = Chester, 
-    into = c("Chester", "chester_choice"), 
-    sep = " "
-  ) %>% 
-  separate(
-    col = Jake, 
-    into = c("Jake", "jake_choice"), 
-    sep = " "
-  ) %>% 
-  separate(
-    col = Jenelle, 
-    into = c("Jenelle", "jenelle_choice"), 
-    sep = " "
-  ) %>% 
-  separate(
-    col = Adonis, 
-    into = c("Adonis", "adonis_choice"), 
-    sep = " "
-  ) %>% 
-  separate(
-    col = Mike, 
-    into = c("Mike", "mike_choice"), 
-    sep = " "
-  ) %>% 
-  separate(
-    col = Mary, 
-    into = c("Mary", "mary_choice"), 
-    sep = " "
-  ) %>% 
-  separate(
-    col = Ryan, 
-    into = c("Ryan", "ryan_choice"), 
-    sep = " "
-  ) %>% 
-  separate(
-    col = Phil, 
-    into = c("Phil", "phil_choice"), 
-    sep = " "
-  ) %>% 
-  mutate(chester_correct = chester_choice == outcome_determined,
-         jake_correct = jake_choice == outcome_determined,
-         jenelle_correct = jenelle_choice == outcome_determined,
-         adonis_correct = adonis_choice == outcome_determined,
-         mike_correct = mike_choice == outcome_determined,
-         mary_correct = mary_choice == outcome_determined,
-         ryan_correct = ryan_choice == outcome_determined,
-         phil_correct = phil_choice == outcome_determined) %>% 
-  mutate(Chester = if_else(chester_choice == "OVER",
-                           paste(Chester, "↑"),
-                           paste(Chester, "↓"))) %>% 
-  mutate(Jake = if_else(jake_choice == "OVER",
-                        paste(Jake, "↑"),
-                        paste(Jake, "↓"))) %>% 
-  mutate(Jenelle = if_else(jenelle_choice == "OVER",
-                           paste(Jenelle, "↑"),
-                           paste(Jenelle, "↓"))) %>% 
-  mutate(Adonis = if_else(adonis_choice == "OVER",
-                          paste(Adonis, "↑"),
-                          paste(Adonis, "↓"))) %>% 
-  mutate(Mike = if_else(mike_choice == "OVER",
-                        paste(Mike, "↑"),
-                        paste(Mike, "↓"))) %>% 
-  mutate(Mary = if_else(mary_choice == "OVER",
-                        paste(Mary, "↑"),
-                        paste(Mary, "↓"))) %>% 
-  mutate(Ryan = if_else(ryan_choice == "OVER",
-                        paste(Ryan, "↑"),
-                        paste(Ryan, "↓"))) %>% 
-  mutate(Phil = if_else(phil_choice == "OVER",
-                        paste(Phil, "↑"),
-                        paste(Phil, "↓"))) %>% 
-  rename(`Win Target` = win_projection) %>% 
-  relocate(`Win Target`, .after = team)
-```
-
-```{r message=FALSE, warning=FALSE}
-cols_to_delete <- 10:(ncol(picks_wide) - 1)
-do_not_show_list <-  as.list(cols_to_delete)
-
-for (i in seq_along(do_not_show_list)) {
-  names(do_not_show_list[[i]]) <- "targets"
-}
-
-for(i in (cols_to_delete - 9) ) {
-  #  do_not_show_list[[i]]$targets <- as.list(cols_to_delete)[[i]]
-  do_not_show_list[[i]]$visible <- FALSE
-}
-
-point_levels <- rep(seq(15, 6, by = -1), 2) %>% 
-  sort(decreasing = TRUE) %>% 
-  paste(c("↑", "↓"))
-
-picks_wide %>% 
-  select(Team = team, `Win Target`, 
-         Adonis, Chester, Jake, Jenelle, Mary, Mike, Phil, Ryan, 
-         everything()) %>% 
-  # Doesn't actually sort in DT
-  mutate_at(.vars = c("Adonis", "Chester", "Jake", "Jenelle",
-                      "Mary", "Mike", "Phil", "Ryan"), 
-            .funs = ~ factor(.x, levels = point_levels)) %>% 
-#  purrr::map_df(rev) %>% 
-  arrange(Team) %>% 
-  DT::datatable(rownames = FALSE, options = list(
-    pageLength = 30, dom = 'ft',
-    columnDefs = do_not_show_list
-    #list(list(targets = as.list(cols_to_delete), visible = FALSE))
-  )) %>% 
-  formatStyle(
-    "Chester", "chester_correct",
-    target = 'cell',
-    backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
-                                 c("lightgreen", "hotpink", "white"))
-  ) %>% 
-  formatStyle(
-    "Jake", "jake_correct",
-    target = 'cell',
-    backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
-                                 c("lightgreen", "hotpink", "white"))
-  ) %>% 
-  formatStyle(
-    "Jenelle", "jenelle_correct",
-    target = 'cell',
-    backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
-                                 c("lightgreen", "hotpink", "white"))
-  ) %>% 
-  formatStyle(
-    "Adonis", "adonis_correct",
-    target = 'cell',
-    backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
-                                 c("lightgreen", "hotpink", "white"))
-  ) %>% 
-  formatStyle(
-    "Mike", "mike_correct",
-    target = 'cell',
-    backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
-                                 c("lightgreen", "hotpink", "white"))
-  ) %>% 
-  formatStyle(
-    "Mary", "mary_correct",
-    target = 'cell',
-    backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
-                                 c("lightgreen", "hotpink", "white"))
-  ) %>% 
-  formatStyle(
-    "Ryan", "ryan_correct",
-    target = 'cell',
-    backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
-                                 c("lightgreen", "hotpink", "white"))
-  ) %>% 
-  formatStyle(
-    "Phil", "phil_correct",
-    target = 'cell',
-    backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
-                                 c("lightgreen", "hotpink", "white"))
-  ) %>% 
-  formatStyle(
-    "Team", target = 'cell', backgroundColor = "white"
-  ) %>% 
-  formatStyle(
-    "Win Target", target = 'cell', backgroundColor = "white"
-  )  
-```
 
 ***
 
