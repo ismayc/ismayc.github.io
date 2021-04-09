@@ -1380,3 +1380,25 @@ Starting at 2021-04-08 05:01:01 Pacific time
 There were 23 warnings (use warnings() to see them)
 Completed at 2021-04-08 05:01:34 Pacific time 
 Already up to date.
+[master 7ea9b68] Updated 2021-04-08 05:01:36
+ 4 files changed, 221 insertions(+), 215 deletions(-)
+ create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-04-07.rds
+ create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-04-07.rds
+To github.com:ismayc/ismayc.github.io.git
+   492f393..7ea9b68  master -> master
+Starting at 2021-04-09 04:02:08 Pacific time 
+Quitting from lines 9-12 (make_plots.Rmd) 
+Error in curl::curl_fetch_memory(url, handle = handle) : 
+  Timeout was reached: [stats.nba.com] Connection timed out after 10142 milliseconds
+Calls: <Anonymous> ... request_fetch -> request_fetch.write_memory -> <Anonymous>
+Execution halted
+Starting at 2021-04-09 05:01:01 Pacific time 
+There were 23 warnings (use warnings() to see them)
+Completed at 2021-04-09 05:01:32 Pacific time 
+From github.com:ismayc/ismayc.github.io
+   7ea9b68..20e2321  master     -> origin/master
+error: Your local changes to the following files would be overwritten by merge:
+	2021-nba-over-under.html
+Please commit your changes or stash them before you merge.
+Aborting
+Updating 7ea9b68..20e2321
