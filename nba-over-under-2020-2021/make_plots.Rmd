@@ -242,7 +242,7 @@ projections %>%
 
 
 
-## Projected points for each player {.tabset}
+## Projected points for each player {.tabset .active}
 
 
 
