@@ -771,7 +771,7 @@ standings %>%
 standings %>% 
   filter(division == "Pacific") %>% 
   select(-conference, -division) %>% 
-  arrange(desc(wins)) %>% 
+  arrange(desc(`Winning Pct`)) %>% 
   select(Team = team_name, Wins = wins, Losses = losses, `Winning Pct`) %>% 
   knitr::kable()
 ```
@@ -782,7 +782,7 @@ standings %>%
 standings %>% 
   filter(division == "Northwest") %>% 
   select(-conference, -division) %>% 
-  arrange(desc(wins)) %>% 
+  arrange(desc(`Winning Pct`)) %>% 
   select(Team = team_name, Wins = wins, Losses = losses, `Winning Pct`) %>% 
   knitr::kable()
 ```
@@ -793,7 +793,7 @@ standings %>%
 standings %>% 
   filter(division == "Southwest") %>% 
   select(-conference, -division) %>% 
-  arrange(desc(wins)) %>% 
+  arrange(desc(`Winning Pct`)) %>% 
   select(Team = team_name, Wins = wins, Losses = losses, `Winning Pct`) %>% 
   knitr::kable()
 ```
@@ -806,7 +806,7 @@ standings %>%
 standings %>% 
   filter(division == "Central") %>% 
   select(-conference, -division) %>% 
-  arrange(desc(wins)) %>% 
+  arrange(desc(`Winning Pct`)) %>% 
   select(Team = team_name, Wins = wins, Losses = losses, `Winning Pct`) %>% 
   knitr::kable()
 ```
@@ -817,7 +817,7 @@ standings %>%
 standings %>% 
   filter(division == "Atlantic") %>% 
   select(-conference, -division) %>% 
-  arrange(desc(wins)) %>% 
+  arrange(desc(`Winning Pct`)) %>% 
   select(Team = team_name, Wins = wins, Losses = losses, `Winning Pct`) %>% 
   knitr::kable()
 ```
@@ -828,7 +828,7 @@ standings %>%
 standings %>% 
   filter(division == "Southeast") %>% 
   select(-conference, -division) %>% 
-  arrange(desc(wins)) %>% 
+  arrange(desc(`Winning Pct`)) %>% 
   select(Team = team_name, Wins = wins, Losses = losses, `Winning Pct`) %>% 
   knitr::kable()
 ```
