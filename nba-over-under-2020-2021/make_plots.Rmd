@@ -360,9 +360,10 @@ for (i in seq_along(do_not_show_list)) {
   names(do_not_show_list[[i]]) <- "targets"
 }
 
+
 for(i in (cols_to_delete - 9) ) {
   #  do_not_show_list[[i]]$targets <- as.list(cols_to_delete)[[i]]
-  do_not_show_list[[i]]$visible <- FALSE
+  suppressWarnings(do_not_show_list[[i]]$visible <- FALSE)
 }
 
 point_levels <- rep(seq(15, 6, by = -1), 2) %>% 
