@@ -1417,3 +1417,9 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 Starting at 2021-04-10 05:01:01 Pacific time 
 Completed at 2021-04-10 05:01:36 Pacific time 
 Already up to date.
+[master 7cd5df0] Updated 2021-04-10 05:01:37
+ 5 files changed, 204 insertions(+), 197 deletions(-)
+ create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-04-09.rds
+ create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-04-09.rds
+To github.com:ismayc/ismayc.github.io.git
+   5d3d54f..7cd5df0  master -> master
