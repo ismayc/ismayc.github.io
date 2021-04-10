@@ -481,7 +481,8 @@ player_table <- function(player_num) {
   #     datatable(options = list(pageLength = 30, dom = 'ft'))
   # } else {
   df %>%
-    datatable(extensions = "FixedColumns",
+    datatable(rownames = FALSE,
+              extensions = "FixedColumns",
               options = list(pageLength = 30, dom = 'ft',
                              fixedColumns = list(leftColumns = 2))
     ) # %>%
