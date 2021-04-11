@@ -128,6 +128,8 @@ changes_in_player_projections <- player_projections_by_team %>%
   select(Date, Player, Team, `Current Record`, `Current Win %`, 
          `Vegas Insider Win Projection %`, `Change in Points Since Yesterday`)
 
+
+
 rows_today <- changes_in_player_projections %>% 
   filter(Date == Sys.Date() - 1)
 
@@ -137,6 +139,27 @@ projected_score <- player_projections_by_team %>%
     `Projected Total Points` = sum(current_projected_points, na.rm = TRUE),
     .groups = "drop"
   )
+
+player_projections_by_team <- player_projections_by_team %>% 
+  rename(`Current Projected Points` = current_projected_points,
+         `Current Wins` = current_wins,
+         `Current Losses` = current_losses) %>% 
+  mutate(
+    `Wins To Go Over Vegas Insider` = 
+      ceiling(`Vegas Insider Win Projection %` / 100 * 72) - `Current Wins`,
+    `Winning % In Remaining Games Needed` = round(
+      `Wins To Go Over Vegas Insider` / 
+        (72 - `Current Wins` - `Current Losses`) * 100, 2),
+    .before = `Current Projected Points`,
+    `Losses To Go Under Vegas Insider` = 
+      72 - ceiling(`Vegas Insider Win Projection %` / 100 * 72) - 
+      `Current Losses`) %>% 
+  select(-`Current Wins`, -`Current Losses`) %>% 
+  mutate(`Outcome Determined` = case_when(
+    `Winning % In Remaining Games Needed` <= 0 ~ "OVER",
+    `Winning % In Remaining Games Needed` > 100 ~ "UNDER",
+    TRUE ~ NA_character_
+  ))  
 
 most_recent_results <- projected_score %>% 
   mutate(days_from_today = as.numeric(difftime(Sys.Date(),

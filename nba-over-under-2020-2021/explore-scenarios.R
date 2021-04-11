@@ -1,22 +1,7 @@
 library(tidyverse)
-library(googlesheets)
 library(readxl)
 
 expected <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRVvszIE_nImQEeOG8684tsMhc72OkNb7QN9FDVSsagHpG3PnPQ_e4aQkyNdwt8pF27p6EgEztDvkVr/pub?gid=0&single=true&output=csv")
-
-# testing <- expected %>% 
-#   transmute(team, prob,
-#             Chester = if_else(chester_choice == expected, Chester, -Chester),
-#             Jake = if_else(jake_choice == expected, Jake, -Jake),
-#             Jenelle = if_else(jenelle_choice == expected, Jenelle, -Jenelle),
-#             Adonis	= if_else(adonis_choice == expected, Adonis, -Adonis),
-#             Mike	= if_else(mike_choice == expected, Mike, -Mike),
-#             Mary	= if_else(mary_choice == expected, Mary, -Mary),
-#             Ryan = if_else(ryan_choice == expected, Ryan, -Ryan),
-#             Phil	= if_else(phil_choice == expected, Phil, -Phil)) %>% 
-#   pivot_longer(cols = Chester:Phil,
-#                names_to = "player",
-#                values_to = "expected_points")
 
 # Simulate
 lookup_table <- expected %>% 

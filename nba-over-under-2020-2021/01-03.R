@@ -1,2 +1,2 @@
-r_files <- list.files(pattern = "+(.R)$")[c(-1, -5, -6)]
+r_files <- list.files(pattern = "+(.R)$")[2:4]
 purrr::walk(r_files, source)

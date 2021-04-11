@@ -451,28 +451,9 @@ picks_wide %>%
 library(DT)
 player_table <- function(player_num) {
   df <- player_projections_by_team %>% 
-    rename(`Current Projected Points` = current_projected_points,
-           `Current Wins` = current_wins,
-           `Current Losses` = current_losses) %>% 
-    mutate(
-      `Wins To Go Over Vegas Insider` = 
-        ceiling(`Vegas Insider Win Projection %` / 100 * 72) - `Current Wins`,
-      `Winning % In Remaining Games Needed` = round(
-        `Wins To Go Over Vegas Insider` / 
-          (72 - `Current Wins` - `Current Losses`) * 100, 2),
-      .before = `Current Projected Points`,
-      `Losses To Go Under Vegas Insider` = 
-        72 - ceiling(`Vegas Insider Win Projection %` / 100 * 72) - 
-        `Current Losses`) %>% 
-    select(-`Current Wins`, -`Current Losses`) %>% 
     filter(Player == current_rankings[player_num],
            Date == Sys.Date() - 1) %>% 
     arrange(desc(`Current Projected Points`)) %>% 
-    mutate(`Outcome Determined` = case_when(
-      `Winning % In Remaining Games Needed` <= 0 ~ "OVER",
-      `Winning % In Remaining Games Needed` > 100 ~ "UNDER",
-      TRUE ~ NA_character_
-    ))  %>% 
     select(-Player, -Date)
   
   # if (sum(is.na(df$`Outcome Determined`)) == 30) {
