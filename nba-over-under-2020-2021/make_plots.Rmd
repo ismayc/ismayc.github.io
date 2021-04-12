@@ -665,7 +665,11 @@ if (nrow(yesterday_scores)) {
 
 ```{r}
 schedule <- nbastatR::current_schedule() %>% 
-  filter(dateGame >= "2020-12-22") %>% 
+  filter(
+    dateGame >= "2020-12-22", 
+    # All-Star Game
+    dateGame != "2021-03-07"
+  ) %>% 
   select(game_date = dateGame,
          game_id = idGame,
          slug_away_team = slugTeamAway,
@@ -673,7 +677,8 @@ schedule <- nbastatR::current_schedule() %>%
          slug_home_team = slugTeamHome,
          home_team = nameTeamHome,
          start_time = hasBuzzerBeater
-  )
+  ) %>% 
+  mutate(is_complete = (game_date < Sys.Date()))
 todays_games <- schedule %>% 
   filter(game_date == Sys.Date()) %>% 
   select(`Game Date` = game_date,
