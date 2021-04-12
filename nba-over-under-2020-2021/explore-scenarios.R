@@ -1,7 +1,12 @@
 library(tidyverse)
 library(readxl)
+library(furrr)
+future::plan(multisession)
 
-expected <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRVvszIE_nImQEeOG8684tsMhc72OkNb7QN9FDVSsagHpG3PnPQ_e4aQkyNdwt8pF27p6EgEztDvkVr/pub?gid=0&single=true&output=csv")
+phil_probs <- "https://docs.google.com/spreadsheets/d/e/2PACX-1vRVvszIE_nImQEeOG8684tsMhc72OkNb7QN9FDVSsagHpG3PnPQ_e4aQkyNdwt8pF27p6EgEztDvkVr/pub?gid=136453584&single=true&output=csv"
+chester_probs <- "https://docs.google.com/spreadsheets/d/e/2PACX-1vRVvszIE_nImQEeOG8684tsMhc72OkNb7QN9FDVSsagHpG3PnPQ_e4aQkyNdwt8pF27p6EgEztDvkVr/pub?gid=0&single=true&output=csv"
+expected <- read_csv(chester_probs)
+# expected <- read_csv(phil_probs)
 
 # Simulate
 lookup_table <- expected %>% 
@@ -11,8 +16,8 @@ picks <- read_excel(path = "picks.xlsx", sheet = "picks")
 
 set.seed(NULL)
 start_time <- Sys.time()
-outcome_sims <- map_dfr(
-  1:40000, 
+outcome_sims <- future_map_dfr(
+  1:100000, 
   ~ {
     sim_prep <- picks %>% 
       inner_join(lookup_table, by = "team") %>% 
@@ -41,7 +46,9 @@ outcome_sims <- map_dfr(
     
     out %>% 
       mutate(playoffs = rank <= 4)
-  }
+  }, 
+  .progress = TRUE, 
+  .options = furrr_options(seed = TRUE)
 ) 
 end_time <- Sys.time()
 end_time - start_time
@@ -53,6 +60,7 @@ outcome_sims %>%
             sd_expected_total = sd(expected_total),
             median_rank = median(rank),
             mean_rank = mean(rank),
-            prob_playoffs = mean(playoffs == TRUE) * 100) %>% 
+            prob_playoffs = mean(playoffs == TRUE) * 100,
+            prob_one_rank = mean(rank == 1) *100) %>% 
   arrange(desc(median_expected_total))
 

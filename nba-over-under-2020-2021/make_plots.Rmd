@@ -324,36 +324,46 @@ picks_wide <- picks %>%
          mary_correct = mary_choice == outcome_determined,
          ryan_correct = ryan_choice == outcome_determined,
          phil_correct = phil_choice == outcome_determined) %>% 
-  mutate(Chester = if_else(chester_choice == "OVER",
-                           paste(Chester_points, knitr::asis_output("\U2193")),
-                           paste(Chester_points, knitr::asis_output("\U2191")))) %>% 
-  mutate(Jake = if_else(jake_choice == "OVER",
-                        paste(Jake_points, knitr::asis_output("\U2193")),
-                        paste(Jake_points, knitr::asis_output("\U2191")))) %>% 
-  mutate(Jenelle = if_else(jenelle_choice == "OVER",
-                           paste(Jenelle_points, knitr::asis_output("\U2193")),
-                           paste(Jenelle_points, knitr::asis_output("\U2191")))) %>% 
-  mutate(Adonis = if_else(adonis_choice == "OVER",
-                          paste(Adonis_points, knitr::asis_output("\U2193")),
-                          paste(Adonis_points, knitr::asis_output("\U2191")))) %>% 
-  mutate(Mike = if_else(mike_choice == "OVER",
-                        paste(Mike_points, knitr::asis_output("\U2193")),
-                        paste(Mike_points, knitr::asis_output("\U2191")))) %>% 
-  mutate(Mary = if_else(mary_choice == "OVER",
-                        paste(Mary_points, knitr::asis_output("\U2193")),
-                        paste(Mary_points, knitr::asis_output("\U2191")))) %>% 
-  mutate(Ryan = if_else(ryan_choice == "OVER",
-                        paste(Ryan_points, knitr::asis_output("\U2193")),
-                        paste(Ryan_points, knitr::asis_output("\U2191")))) %>% 
-  mutate(Phil = if_else(phil_choice == "OVER",
-                        paste(Phil_points, knitr::asis_output("\U2193")),
-                        paste(Phil_points, knitr::asis_output("\U2191")))) %>% 
+  mutate(Chester = if_else(
+    chester_choice == "OVER",
+    paste(Chester_points, knitr::asis_output("\U2193")),
+    paste(Chester_points, knitr::asis_output("\U2191")))) %>% 
+  mutate(Jake = if_else(
+    jake_choice == "OVER",
+    paste(Jake_points, knitr::asis_output("\U2193")),
+    paste(Jake_points, knitr::asis_output("\U2191")))) %>% 
+  mutate(Jenelle = if_else(
+    jenelle_choice == "OVER",
+    paste(Jenelle_points, knitr::asis_output("\U2193")),
+    paste(Jenelle_points, knitr::asis_output("\U2191")))) %>% 
+  mutate(Adonis = if_else(
+    adonis_choice == "OVER",
+    paste(Adonis_points, knitr::asis_output("\U2193")),
+    paste(Adonis_points, knitr::asis_output("\U2191")))) %>% 
+  mutate(Mike = if_else(
+    mike_choice == "OVER",
+    paste(Mike_points, knitr::asis_output("\U2193")),
+    paste(Mike_points, knitr::asis_output("\U2191")))) %>% 
+  mutate(Mary = if_else(
+    mary_choice == "OVER",
+    paste(Mary_points, knitr::asis_output("\U2193")),
+    paste(Mary_points, knitr::asis_output("\U2191")))) %>% 
+  mutate(Ryan = if_else(
+    ryan_choice == "OVER",
+    paste(Ryan_points, knitr::asis_output("\U2193")),
+    paste(Ryan_points, knitr::asis_output("\U2191")))) %>% 
+  mutate(Phil = if_else(
+    phil_choice == "OVER",
+    paste(Phil_points, knitr::asis_output("\U2193")),
+    paste(Phil_points, knitr::asis_output("\U2191")))) %>% 
   rename(`Win Target` = win_projection) %>% 
-  relocate(`Win Target`, .after = team)
+  select(Team = team, `Current Wins` = wins, `Win Target`, 
+         Adonis, Chester, Jake, Jenelle, Mary, Mike, Phil, Ryan, 
+         everything())
 ```
 
 ```{r message=FALSE, warning=FALSE}
-cols_to_delete <- 10:(ncol(picks_wide) - 1)
+cols_to_delete <- 11:(ncol(picks_wide) - 1)
 do_not_show_list <-  as.list(cols_to_delete)
 
 for (i in seq_along(do_not_show_list)) {
@@ -361,7 +371,7 @@ for (i in seq_along(do_not_show_list)) {
 }
 
 
-for(i in (cols_to_delete - 9) ) {
+for(i in (cols_to_delete - 10) ) {
   #  do_not_show_list[[i]]$targets <- as.list(cols_to_delete)[[i]]
   suppressWarnings(do_not_show_list[[i]]$visible <- FALSE)
 }
@@ -372,9 +382,6 @@ paste_levels <- point_levels %>%
   paste(c(knitr::asis_output("\U2193"), knitr::asis_output("\U2191")))
 
 picks_wide %>% 
-  select(Team = team, `Win Target`, 
-         Adonis, Chester, Jake, Jenelle, Mary, Mike, Phil, Ryan, 
-         everything()) %>% 
   # Doesn't actually sort in DT
   mutate_at(
     .vars = c("Adonis", "Chester", "Jake", "Jenelle",
@@ -440,6 +447,9 @@ picks_wide %>%
   ) %>% 
   formatStyle(
     "Win Target", target = 'cell', backgroundColor = "white"
+  )  %>% 
+  formatStyle(
+    "Current Wins", target = 'cell', backgroundColor = "white"
   )  
 ```
 
