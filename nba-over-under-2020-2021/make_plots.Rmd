@@ -677,6 +677,7 @@ if (nrow(yesterday_scores)) {
 schedule <- nbastatR::current_schedule() %>% 
   filter(
     dateGame >= "2020-12-22", 
+    dateGame <= "2021-05-16",
     # All-Star Game
     dateGame != "2021-03-07"
   ) %>% 
