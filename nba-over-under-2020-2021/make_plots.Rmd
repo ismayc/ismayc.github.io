@@ -381,6 +381,21 @@ point_levels <- rep(seq(15, 6, by = -1), 2) %>%
 paste_levels <- point_levels %>% 
   paste(c(knitr::asis_output("\U2191"), knitr::asis_output("\U2193")))
 
+# sketch <- htmltools::withTags(table(
+#   class = 'display',
+#   thead(
+#     tr(
+#       th(colspan = 3, style = "border-right: solid 2px;", 'Win Target'),
+#       th(colspan = 2, 'Adonis')
+#     ),
+#     tr(
+#       th("Team"),
+#       th("Current Wins"),
+#       th(style = "border-right: solid 2px;", "Win Target")
+#     )
+#   )
+# ))
+
 picks_wide %>% 
   # Doesn't actually sort in DT
   mutate_at(
@@ -391,7 +406,8 @@ picks_wide %>%
   arrange(Team) %>% 
   DT::datatable(rownames = FALSE, options = list(
     pageLength = 30, dom = 'ft',
-    columnDefs = do_not_show_list
+    columnDefs = do_not_show_list#,
+ #   container = sketch
     #list(list(targets = as.list(cols_to_delete), visible = FALSE))
   )) %>% 
   formatStyle(
@@ -446,11 +462,12 @@ picks_wide %>%
     "Team", target = 'cell', backgroundColor = "white"
   ) %>% 
   formatStyle(
-    "Win Target", target = 'cell', backgroundColor = "white"
-  )  %>% 
+    "Win Target", target = 'cell', backgroundColor = "white", 
+    `border-right` = "solid 2px"
+  ) %>% 
   formatStyle(
     "Current Wins", target = 'cell', backgroundColor = "white"
-  )  
+  ) 
 ```
 
 ***
