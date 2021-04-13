@@ -15,6 +15,7 @@ date_modified <- file.info(file.path("..", "2021-nba-over-under.html")) %>%
   as.Date()
 
 system("git config --global user.name 'Chester Ismay'")
+system("git remote set-url origin git@github.com:ismayc/ismayc.github.io.git")
 system("git pull")
 
 if (date_modified != Sys.Date() || update_page) {
