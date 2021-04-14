@@ -17,7 +17,7 @@ picks <- read_excel(path = "picks.xlsx", sheet = "picks")
 set.seed(NULL)
 start_time <- Sys.time()
 outcome_sims <- future_map_dfr(
-  1:100000, 
+  1:200000, 
   ~ {
     sim_prep <- picks %>% 
       inner_join(lookup_table, by = "team") %>% 
