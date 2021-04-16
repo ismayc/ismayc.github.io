@@ -1482,3 +1482,19 @@ Starting at 2021-04-15 05:01:01 Pacific time
 Already up to date.
 Webpage already created today 
 Completed at 2021-04-15 05:01:04 Pacific time 
+[master 4e5c606] Updated 2021-04-15 05:01:04
+ 1 file changed, 11 insertions(+)
+To github.com:ismayc/ismayc.github.io.git
+   4d20b74..4e5c606  master -> master
+
+Starting at 2021-04-16 04:02:02 Pacific time 
+Already up to date.
+Quitting from lines 694-716 (make_plots.Rmd) 
+Error in open.connection(con, "rb") : 
+  LibreSSL SSL_read: SSL_ERROR_SYSCALL, errno 54
+Calls: <Anonymous> ... datasource_connection -> read_connection -> open -> open.connection
+Execution halted
+
+Starting at 2021-04-16 05:01:00 Pacific time 
+Already up to date.
+Completed at 2021-04-16 05:01:34 Pacific time 
