@@ -1498,3 +1498,17 @@ Execution halted
 Starting at 2021-04-16 05:01:00 Pacific time 
 Already up to date.
 Completed at 2021-04-16 05:01:34 Pacific time 
+[master 4b70eaa] Updated 2021-04-16 05:01:34
+ 4 files changed, 182 insertions(+), 180 deletions(-)
+ create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-04-15.rds
+ create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-04-15.rds
+To github.com:ismayc/ismayc.github.io.git
+   4e5c606..4b70eaa  master -> master
+
+Starting at 2021-04-17 04:02:00 Pacific time 
+ssh: Could not resolve hostname github.com: nodename nor servname provided, or not known
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+Completed at 2021-04-17 04:46:47 Pacific time 
