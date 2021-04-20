@@ -1532,3 +1532,12 @@ From github.com:ismayc/ismayc.github.io
    5bdc702..b010b9f  master     -> origin/master
 Already up to date.
 Completed at 2021-04-19 04:31:27 Pacific time 
+[master eda522c] Updated 2021-04-19 04:31:27
+ 4 files changed, 217 insertions(+), 187 deletions(-)
+ create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-04-18.rds
+ create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-04-18.rds
+To github.com:ismayc/ismayc.github.io.git
+   b010b9f..eda522c  master -> master
+client_loop: send disconnect: Broken pipe
+fatal: the remote end hung up unexpectedly
+fatal: the remote end hung up unexpectedly
