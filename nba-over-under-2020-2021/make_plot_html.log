@@ -1541,3 +1541,15 @@ To github.com:ismayc/ismayc.github.io.git
 client_loop: send disconnect: Broken pipe
 fatal: the remote end hung up unexpectedly
 fatal: the remote end hung up unexpectedly
+
+Starting at 2021-04-22 05:01:38 Pacific time 
+ssh: connect to host github.com port 22: Undefined error: 0
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+Quitting from lines 9-13 (make_plots.Rmd) 
+Error in curl::curl_fetch_memory(url, handle = handle) : 
+  Could not resolve host: stats.nba.com
+Calls: <Anonymous> ... request_fetch -> request_fetch.write_memory -> <Anonymous>
+Execution halted
