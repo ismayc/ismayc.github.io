@@ -3,7 +3,9 @@ library(readxl)
 library(furrr)
 future::plan(multisession)
 
-num_sims <- 200000
+num_sims <- 10000
+
+picks <- read_excel(path = "picks.xlsx", sheet = "picks")
 
 phil_probs <- "https://docs.google.com/spreadsheets/d/e/2PACX-1vRVvszIE_nImQEeOG8684tsMhc72OkNb7QN9FDVSsagHpG3PnPQ_e4aQkyNdwt8pF27p6EgEztDvkVr/pub?gid=136453584&single=true&output=csv"
 chester_probs <- "https://docs.google.com/spreadsheets/d/e/2PACX-1vRVvszIE_nImQEeOG8684tsMhc72OkNb7QN9FDVSsagHpG3PnPQ_e4aQkyNdwt8pF27p6EgEztDvkVr/pub?gid=0&single=true&output=csv"
@@ -22,55 +24,33 @@ chester_probs_df <- picks %>%
     str_detect(team, "Suns") ~ 100,
     str_detect(team, "Bucks") ~ 0,
     str_detect(team, "Heat") ~ 0,
+    str_detect(team, "Spurs") ~ 100,    
     str_detect(team, "wolves") ~ 1,
     str_detect(team, "Magic") ~ 1,
-    str_detect(team, "Spurs") ~ 99,
     str_detect(team, "Pacers") ~ 1,
     str_detect(team, "76ers") ~ 90,
-    str_detect(team, "Lakers") ~ 10,  
-    str_detect(team, "Thunder") ~ 90,
-    str_detect(team, "Pelicans") ~ 15,
-    str_detect(team, "Grizzlies") ~ 90,
-    str_detect(team, "Pistons") ~ 10, #20,
+    str_detect(team, "Lakers") ~ 1,  
+    str_detect(team, "Thunder") ~ 85,
+    str_detect(team, "Pelicans") ~ 3,
+    str_detect(team, "Grizzlies") ~ 97,
+    str_detect(team, "Pistons") ~ 15, #20,
     
     str_detect(team, "Clippers") ~ 70,
     str_detect(team, "Blazers") ~ 50,
     str_detect(team, "Nets") ~ 80,
     str_detect(team, "Cavaliers") ~ 80,
     str_detect(team, "Hawks") ~ 75,
-    str_detect(team, "Bulls") ~ 75, #60,
-    str_detect(team, "Kings") ~ 75, #60,
-    str_detect(team, "Nuggets") ~ 40, #45,
-    str_detect(team, "Mavericks") ~ 5, #55,
-    str_detect(team, "Warriors") ~ 5, #25,
+    str_detect(team, "Bulls") ~ 60,
+    str_detect(team, "Kings") ~ 60,
+    str_detect(team, "Nuggets") ~ 45,
+    str_detect(team, "Mavericks") ~ 25,
+    str_detect(team, "Warriors") ~ 25,
     str_detect(team, "Wizards") ~ 55
   )) %>% 
   mutate(likely_result = case_when(
-    prob >= 90 ~ "OVER",
+    prob >= 85 ~ "OVER",
     prob <= 15 ~ "UNDER",
     TRUE ~ "TBD"))
-
-prob_list <- as.list(x = chester_probs_df$prob)
-names(prob_list) <- chester_probs_df$team
-
-by_five <- function(start, end) {
-  seq(start, end, 5)
-}
-
-prob_list$`Brooklyn Nets` <- by_five(40, 85)
-prob_list$`Los Angeles Clippers` <- by_five(40, 90)
-prob_list$`Portland Trail Blazers` <- by_five(40, 80)
-prob_list$`Cleveland Cavaliers` <- by_five(55, 90)
-prob_list$`Atlanta Hawks` <- by_five(45, 90)
-prob_list$`Chicago Bulls` <- by_five(30, 80)
-prob_list$`Sacramento Kings` <- by_five(25, 80)
-prob_list$`Denver Nuggets` <- by_five(40, 80)
-prob_list$`Dallas Mavericks` <- by_five(5, 60)
-prob_list$`Golden State Warriors` <- by_five(5, 80)
-prob_list$`Washington Wizards` <- by_five(25, 75)
-
-chester_probs_df <- chester_probs_df %>% 
-  mutate(prob_list = prob_list)
 
 picks_test <- picks %>% 
   inner_join(chester_probs_df %>% select(team, likely_result), by = "team") %>% 
@@ -85,6 +65,27 @@ picks_test  %>%
   summarize(projected_total = sum(projected_points, na.rm = TRUE)) %>% 
   arrange(desc(projected_total))
 
+prob_list <- as.list(x = chester_probs_df$prob)
+names(prob_list) <- chester_probs_df$team
+
+by_five <- function(start, end) {
+  seq(start, end, 5)
+}
+
+# prob_list$`Brooklyn Nets` <- by_five(40, 85)
+# prob_list$`Los Angeles Clippers` <- by_five(40, 90)
+# prob_list$`Portland Trail Blazers` <- by_five(40, 80)
+# prob_list$`Cleveland Cavaliers` <- by_five(55, 90)
+# prob_list$`Atlanta Hawks` <- by_five(45, 90)
+# prob_list$`Chicago Bulls` <- by_five(30, 80)
+# prob_list$`Sacramento Kings` <- by_five(25, 80)
+# prob_list$`Denver Nuggets` <- by_five(40, 80)
+# prob_list$`Dallas Mavericks` <- by_five(5, 60)
+prob_list$`Golden State Warriors` <- by_five(5, 80)
+# prob_list$`Washington Wizards` <- by_five(25, 75)
+
+chester_probs_df <- chester_probs_df %>% 
+  mutate(prob_list = prob_list)
 
 # Simulate
 expected <- chester_probs_df
@@ -99,14 +100,12 @@ if ("prob_list" %in% names(expected)) {
     select(team, expected, prob)
 }
 
-picks <- read_excel(path = "picks.xlsx", sheet = "picks")
-
-set.seed(2021)
+set.seed(NULL)
 start_time <- Sys.time()
 outcome_sims <- future_map_dfr(
   1:num_sims, 
   ~ {
-    if("prob_list" %in% names(sim_prep)) {
+    if("prob_list" %in% names(lookup_table)) {
       sim_prep <- picks %>% 
         inner_join(lookup_table, by = "team") %>% 
         select(team, expected, prob_list) %>% 
@@ -117,9 +116,12 @@ outcome_sims <- future_map_dfr(
       
       for(i in seq_len(nrow(sim_prep))) {
         
-        pull_prob <- sample(sim_prep$prob_list[i][[1]],
-                            size = 1)
-        
+        if(length(sim_prep$prob_list[i]) == 1) {
+          pull_prob <- sim_prep$prob_list[i][[1]]
+        } else {
+          pull_prob <- sample(sim_prep$prob_list[i][[1]], size = 1)
+        }
+          
         sim_prep$sim[i] <- sample(
           x = c("OVER", "UNDER"), 
           size = 1,
