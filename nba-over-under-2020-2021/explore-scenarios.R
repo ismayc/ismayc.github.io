@@ -3,7 +3,7 @@ library(readxl)
 library(furrr)
 future::plan(multisession)
 
-num_sims <- 10000
+num_sims <- 5000
 
 picks <- read_excel(path = "picks.xlsx", sheet = "picks")
 
@@ -24,33 +24,45 @@ chester_probs_df <- picks %>%
     str_detect(team, "Suns") ~ 100,
     str_detect(team, "Bucks") ~ 0,
     str_detect(team, "Heat") ~ 0,
-    str_detect(team, "Spurs") ~ 100,    
+    str_detect(team, "Magic") ~ 0,
+    str_detect(team, "Spurs") ~ 100,  
+    str_detect(team, "Lakers") ~ 0, 
+    
     str_detect(team, "wolves") ~ 1,
-    str_detect(team, "Magic") ~ 1,
     str_detect(team, "Pacers") ~ 1,
     str_detect(team, "76ers") ~ 90,
-    str_detect(team, "Lakers") ~ 1,  
     str_detect(team, "Thunder") ~ 85,
     str_detect(team, "Pelicans") ~ 3,
-    str_detect(team, "Grizzlies") ~ 97,
-    str_detect(team, "Pistons") ~ 15, #20,
+    str_detect(team, "Grizzlies") ~ 99,
+    str_detect(team, "Hawks") ~ 90,
+    str_detect(team, "Clippers") ~ 85,
+    str_detect(team, "Cavaliers") ~ 85,
+    str_detect(team, "Nets") ~ 85,  
     
-    str_detect(team, "Clippers") ~ 70,
-    str_detect(team, "Blazers") ~ 50,
-    str_detect(team, "Nets") ~ 80,
-    str_detect(team, "Cavaliers") ~ 80,
-    str_detect(team, "Hawks") ~ 75,
+    str_detect(team, "Pistons") ~ 20,  
+    str_detect(team, "Blazers") ~ 25,
     str_detect(team, "Bulls") ~ 60,
     str_detect(team, "Kings") ~ 60,
-    str_detect(team, "Nuggets") ~ 45,
+    str_detect(team, "Nuggets") ~ 60,
     str_detect(team, "Mavericks") ~ 25,
-    str_detect(team, "Warriors") ~ 25,
-    str_detect(team, "Wizards") ~ 55
+    str_detect(team, "Warriors") ~ 75,
+    str_detect(team, "Wizards") ~ 70
   )) %>% 
   mutate(likely_result = case_when(
     prob >= 85 ~ "OVER",
     prob <= 15 ~ "UNDER",
-    TRUE ~ "TBD"))
+    TRUE ~ "TBD")) %>% 
+  mutate(likely_result = case_when(
+    str_detect(team, "Pistons") ~ "UNDER",  
+    str_detect(team, "Blazers") ~ "UNDER",
+    str_detect(team, "Bulls") ~ "OVER",
+    str_detect(team, "Kings") ~ "UNDER",
+    str_detect(team, "Nuggets") ~ "OVER",
+    str_detect(team, "Mavericks") ~ "UNDER",
+    str_detect(team, "Warriors") ~ "OVER",
+    str_detect(team, "Wizards") ~ "UNDER",
+    TRUE ~ likely_result
+  ))
 
 picks_test <- picks %>% 
   inner_join(chester_probs_df %>% select(team, likely_result), by = "team") %>% 
@@ -58,11 +70,12 @@ picks_test <- picks %>%
     (choice == likely_result) & (likely_result != "TBD") ~ wage,
     (choice != likely_result) & (likely_result != "TBD") ~ -wage,
     TRUE ~ NA_real_
-  )) 
+  ))
 
-picks_test  %>% 
+picks_test %>% 
   group_by(player) %>% 
-  summarize(projected_total = sum(projected_points, na.rm = TRUE)) %>% 
+  summarize(projected_total = sum(projected_points, na.rm = TRUE),
+            count = n()) %>% 
   arrange(desc(projected_total))
 
 prob_list <- as.list(x = chester_probs_df$prob)
@@ -81,7 +94,7 @@ by_five <- function(start, end) {
 # prob_list$`Sacramento Kings` <- by_five(25, 80)
 # prob_list$`Denver Nuggets` <- by_five(40, 80)
 # prob_list$`Dallas Mavericks` <- by_five(5, 60)
-prob_list$`Golden State Warriors` <- by_five(5, 80)
+# prob_list$`Golden State Warriors` <- by_five(5, 80)
 # prob_list$`Washington Wizards` <- by_five(25, 75)
 
 chester_probs_df <- chester_probs_df %>% 
