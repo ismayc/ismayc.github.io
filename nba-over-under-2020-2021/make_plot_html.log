@@ -1635,3 +1635,25 @@ hint: or --ff-only on the command line to override the configured default per
 hint: invocation.
 Already up to date.
 Completed at 2021-04-30 04:31:31 Pacific time 
+[master 960616c] Updated 2021-04-30 04:31:31
+ 4 files changed, 186 insertions(+), 180 deletions(-)
+ create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-04-29.rds
+ create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-04-29.rds
+To github.com:ismayc/ismayc.github.io.git
+   cab388f..960616c  master -> master
+
+Starting at 2021-05-01 05:01:01 Pacific time 
+hint: Pulling without specifying how to reconcile divergent branches is
+hint: discouraged. You can squelch this message by running one of the following
+hint: commands sometime before your next pull:
+hint: 
+hint:   git config pull.rebase false  # merge (the default strategy)
+hint:   git config pull.rebase true   # rebase
+hint:   git config pull.ff only       # fast-forward only
+hint: 
+hint: You can replace "git config" with "git config --global" to set a default
+hint: preference for all repositories. You can also pass --rebase, --no-rebase,
+hint: or --ff-only on the command line to override the configured default per
+hint: invocation.
+Already up to date.
+Completed at 2021-05-01 05:02:05 Pacific time 
