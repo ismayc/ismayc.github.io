@@ -1657,3 +1657,9 @@ hint: or --ff-only on the command line to override the configured default per
 hint: invocation.
 Already up to date.
 Completed at 2021-05-01 05:02:05 Pacific time 
+[master fcbe2fd] Updated 2021-05-01 05:02:06
+ 4 files changed, 226 insertions(+), 178 deletions(-)
+ create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-04-30.rds
+ create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-04-30.rds
+To github.com:ismayc/ismayc.github.io.git
+   960616c..fcbe2fd  master -> master
