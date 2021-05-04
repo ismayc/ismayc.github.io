@@ -8,24 +8,39 @@
 #
 
 library(shiny)
+library(readxl)
+library(tidyverse)
+library(kableExtra)
 
-picks <- read_excel(path = "../picks.xlsx", sheet = "picks")
+picks <- read_excel(path = "picks.xlsx", sheet = "picks")
 
-over_under_choice <- function(input_id, choices = c("OVER", "UNDER"), 
-                              selected = choices[1]) {
-    selectInput(
-        inputId = input_id,
-        #        label = str_c(str_to_sentence(input_id), ":"),
-        label = str_c(
-            chester_probs_df %>% 
-                filter(str_detect(team, input_id)) %>% 
-                pull(team),
-            ":"),
-        choices = choices,
-        selected = selected,
-        width = '35%',
-        selectize = FALSE,
-        size = 2)
+over_under_choice <- function(
+    input_id, choices = c("OVER", "UNDER"), selected = choices[1]
+) {
+    fluidRow(
+        tags$head(
+            tags$style(
+                type="text/css", 
+                "label.control-label, .selectize-control.single{ display: table-cell; text-align: center; vertical-align: middle; } .form-group { display: table-row;}")
+        ),
+        column(2),
+        div(style="display: inline-block;vertical-align:top; width: 300px;",
+            selectInput(
+                inputId = input_id,
+                #        label = str_c(str_to_sentence(input_id), ":"),
+                label = str_c(
+                    picks %>% 
+                        distinct(team) %>% 
+                        filter(str_detect(team, input_id)) %>% 
+                        pull(team),
+                    ":"),
+                choices = choices,
+                selected = selected,
+                width = '35%',
+                selectize = FALSE,
+                size = 1)
+        )
+    )
 }
 
 # Define UI for application that draws a histogram
@@ -40,49 +55,54 @@ ui <- fluidPage(
     sidebarLayout(
         sidebarPanel(
             width = 4,
+            h5("Outcome still to be determined"),
             over_under_choice("Hawks"),
-            over_under_choice("Celtics", choices = "UNDER"),
             over_under_choice("Nets"),
-            over_under_choice("Hornets", choices = "OVER"),
             over_under_choice("Bulls"),
             over_under_choice("Cavaliers"),
             over_under_choice("Mavericks", selected = "UNDER"),
             over_under_choice("Nuggets"),
             over_under_choice("Pistons", selected = "UNDER"),
             over_under_choice("Warriors"),
-            over_under_choice("Rockets", choices = "UNDER"),
-            over_under_choice("Pacers", selected = "UNDER"),
             over_under_choice("Clippers"),
-            over_under_choice("Lakers", selected = "UNDER"),
-            over_under_choice("Grizzlies"),
+            over_under_choice("Thunder"),
+            over_under_choice("76ers"),
+            over_under_choice("Blazers", selected = "UNDER"),
+            over_under_choice("Kings"),
+            br(),
+            h5("Outcome determined"),
+            over_under_choice("Celtics", choices = "UNDER"),
+            over_under_choice("Hornets", choices = "OVER"),
+            over_under_choice("Pacers", choices = "UNDER"),
+            over_under_choice("Rockets", choices = "UNDER"),
+            over_under_choice("Lakers", choices = "UNDER"),
+            over_under_choice("Grizzlies", choices = "OVER"),
             over_under_choice("Heat", choices = "UNDER"),
             over_under_choice("Bucks", choices = "UNDER"),
-            over_under_choice("Timberwolves", selected = "UNDER"),
-            over_under_choice("Pelicans", selected = "UNDER"),
+            over_under_choice("Timberwolves", choices = "UNDER"),
+            over_under_choice("Pelicans", choices = "UNDER"),
             over_under_choice("Knicks", choices = "OVER"),
-            over_under_choice("Thunder"),
             over_under_choice("Magic", choices = "UNDER"),
-            over_under_choice("76ers"),
             over_under_choice("Suns", choices = "OVER"),
-            over_under_choice("Blazers", choices = "UNDER"),
-            over_under_choice("Kings"),
             over_under_choice("Spurs", choices = "OVER"),
             over_under_choice("Raptors", choices = "UNDER"),
             over_under_choice("Jazz", choices = "OVER"),
-            over_under_choice("Wizards")
+            over_under_choice("Wizards", choices = "OVER")
         ),
         
         # Show a plot of the generated distribution
         mainPanel(
+            width = 2,
             tableOutput("point_table")
         )
     )
 )
 
-# Define server logic required to draw a histogram
+# Define server logic
 server <- function(input, output) {
     
-    output$point_table <- renderTable({
+    output$point_table <- function() {
+#        renderTable({
         
         chester_probs_df <- picks %>% 
             distinct(team) %>% 
@@ -144,8 +164,11 @@ server <- function(input, output) {
                 `Points Total` = as.integer(sum(projected_points, na.rm = TRUE))
             ) %>% 
             arrange(desc(`Points Total`)) %>% 
-            mutate(Rank = 1:8, .before = Player)
-    })
+            mutate(Rank = 1:8, .before = Player) %>% 
+            knitr::kable() %>% 
+            kableExtra::kable_styling("striped", full_width = F) %>%
+            kableExtra::row_spec(4, extra_css = "border-bottom: 1px solid")
+    }#)
 }
 
 # Run the application 
