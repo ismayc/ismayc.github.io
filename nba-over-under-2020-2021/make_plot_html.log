@@ -1705,3 +1705,26 @@ fatal: Could not read from remote repository.
 Please make sure you have the correct access rights
 and the repository exists.
 Completed at 2021-05-04 04:31:14 Pacific time 
+[master acd8c11] Updated 2021-05-04 04:31:15
+ 4 files changed, 222 insertions(+), 202 deletions(-)
+ create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-05-03.rds
+ create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-05-03.rds
+To github.com:ismayc/ismayc.github.io.git
+   5f51a09..acd8c11  master -> master
+
+Starting at 2021-05-04 05:01:00 Pacific time 
+hint: Pulling without specifying how to reconcile divergent branches is
+hint: discouraged. You can squelch this message by running one of the following
+hint: commands sometime before your next pull:
+hint: 
+hint:   git config pull.rebase false  # merge (the default strategy)
+hint:   git config pull.rebase true   # rebase
+hint:   git config pull.ff only       # fast-forward only
+hint: 
+hint: You can replace "git config" with "git config --global" to set a default
+hint: preference for all repositories. You can also pass --rebase, --no-rebase,
+hint: or --ff-only on the command line to override the configured default per
+hint: invocation.
+Already up to date.
+Webpage already created today 
+Completed at 2021-05-04 05:01:04 Pacific time 
