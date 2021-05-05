@@ -1467,3 +1467,268 @@ Completed at 2021-04-13 05:01:04 Pacific time
  1 file changed, 9 insertions(+)
 To github.com:ismayc/ismayc.github.io.git
    345802b..5b74910  master -> master
+
+Starting at 2021-04-15 04:30:47 Pacific time 
+Already up to date.
+Completed at 2021-04-15 04:31:27 Pacific time 
+[master 4d20b74] Updated 2021-04-15 04:31:27
+ 4 files changed, 229 insertions(+), 237 deletions(-)
+ create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-04-14.rds
+ create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-04-14.rds
+To github.com:ismayc/ismayc.github.io.git
+   4961f36..4d20b74  master -> master
+
+Starting at 2021-04-15 05:01:01 Pacific time 
+Already up to date.
+Webpage already created today 
+Completed at 2021-04-15 05:01:04 Pacific time 
+[master 4e5c606] Updated 2021-04-15 05:01:04
+ 1 file changed, 11 insertions(+)
+To github.com:ismayc/ismayc.github.io.git
+   4d20b74..4e5c606  master -> master
+
+Starting at 2021-04-16 04:02:02 Pacific time 
+Already up to date.
+Quitting from lines 694-716 (make_plots.Rmd) 
+Error in open.connection(con, "rb") : 
+  LibreSSL SSL_read: SSL_ERROR_SYSCALL, errno 54
+Calls: <Anonymous> ... datasource_connection -> read_connection -> open -> open.connection
+Execution halted
+
+Starting at 2021-04-16 05:01:00 Pacific time 
+Already up to date.
+Completed at 2021-04-16 05:01:34 Pacific time 
+[master 4b70eaa] Updated 2021-04-16 05:01:34
+ 4 files changed, 182 insertions(+), 180 deletions(-)
+ create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-04-15.rds
+ create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-04-15.rds
+To github.com:ismayc/ismayc.github.io.git
+   4e5c606..4b70eaa  master -> master
+
+Starting at 2021-04-17 04:02:00 Pacific time 
+ssh: Could not resolve hostname github.com: nodename nor servname provided, or not known
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+Completed at 2021-04-17 04:46:47 Pacific time 
+[master 5bdc702] Updated 2021-04-17 04:46:47
+ 4 files changed, 238 insertions(+), 206 deletions(-)
+ create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-04-16.rds
+ create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-04-16.rds
+To github.com:ismayc/ismayc.github.io.git
+   4b70eaa..5bdc702  master -> master
+
+Starting at 2021-04-18 04:02:01 Pacific time 
+Already up to date.
+Completed at 2021-04-18 04:31:29 Pacific time 
+[master b010b9f] Updated 2021-04-18 04:31:29
+ 4 files changed, 187 insertions(+), 199 deletions(-)
+ create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-04-17.rds
+ create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-04-17.rds
+
+Starting at 2021-04-19 04:02:01 Pacific time 
+From github.com:ismayc/ismayc.github.io
+   5bdc702..b010b9f  master     -> origin/master
+Already up to date.
+Completed at 2021-04-19 04:31:27 Pacific time 
+[master eda522c] Updated 2021-04-19 04:31:27
+ 4 files changed, 217 insertions(+), 187 deletions(-)
+ create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-04-18.rds
+ create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-04-18.rds
+To github.com:ismayc/ismayc.github.io.git
+   b010b9f..eda522c  master -> master
+client_loop: send disconnect: Broken pipe
+fatal: the remote end hung up unexpectedly
+fatal: the remote end hung up unexpectedly
+
+Starting at 2021-04-22 05:01:38 Pacific time 
+ssh: connect to host github.com port 22: Undefined error: 0
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+Quitting from lines 9-13 (make_plots.Rmd) 
+Error in curl::curl_fetch_memory(url, handle = handle) : 
+  Could not resolve host: stats.nba.com
+Calls: <Anonymous> ... request_fetch -> request_fetch.write_memory -> <Anonymous>
+Execution halted
+
+Starting at 2021-04-28 04:02:02 Pacific time 
+hint: Pulling without specifying how to reconcile divergent branches is
+hint: discouraged. You can squelch this message by running one of the following
+hint: commands sometime before your next pull:
+hint: 
+hint:   git config pull.rebase false  # merge (the default strategy)
+hint:   git config pull.rebase true   # rebase
+hint:   git config pull.ff only       # fast-forward only
+hint: 
+hint: You can replace "git config" with "git config --global" to set a default
+hint: preference for all repositories. You can also pass --rebase, --no-rebase,
+hint: or --ff-only on the command line to override the configured default per
+hint: invocation.
+Already up to date.
+Completed at 2021-04-28 04:31:24 Pacific time 
+[master 306764d] Updated 2021-04-28 04:31:24
+ 6 files changed, 379 insertions(+), 201 deletions(-)
+ create mode 100644 nba-over-under-2020-2021/points-calculator/app.R
+ create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-04-27.rds
+ create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-04-27.rds
+To github.com:ismayc/ismayc.github.io.git
+   60e818a..306764d  master -> master
+
+Starting at 2021-04-28 05:01:01 Pacific time 
+hint: Pulling without specifying how to reconcile divergent branches is
+hint: discouraged. You can squelch this message by running one of the following
+hint: commands sometime before your next pull:
+hint: 
+hint:   git config pull.rebase false  # merge (the default strategy)
+hint:   git config pull.rebase true   # rebase
+hint:   git config pull.ff only       # fast-forward only
+hint: 
+hint: You can replace "git config" with "git config --global" to set a default
+hint: preference for all repositories. You can also pass --rebase, --no-rebase,
+hint: or --ff-only on the command line to override the configured default per
+hint: invocation.
+Already up to date.
+Webpage already created today 
+Completed at 2021-04-28 05:01:04 Pacific time 
+[master 384a449] Updated 2021-04-28 05:01:04
+ 1 file changed, 24 insertions(+)
+To github.com:ismayc/ismayc.github.io.git
+   306764d..384a449  master -> master
+
+Starting at 2021-04-29 05:01:00 Pacific time 
+hint: Pulling without specifying how to reconcile divergent branches is
+hint: discouraged. You can squelch this message by running one of the following
+hint: commands sometime before your next pull:
+hint: 
+hint:   git config pull.rebase false  # merge (the default strategy)
+hint:   git config pull.rebase true   # rebase
+hint:   git config pull.ff only       # fast-forward only
+hint: 
+hint: You can replace "git config" with "git config --global" to set a default
+hint: preference for all repositories. You can also pass --rebase, --no-rebase,
+hint: or --ff-only on the command line to override the configured default per
+hint: invocation.
+Already up to date.
+Completed at 2021-04-29 05:01:39 Pacific time 
+[master cab388f] Updated 2021-04-29 05:01:40
+ 4 files changed, 235 insertions(+), 212 deletions(-)
+ create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-04-28.rds
+ create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-04-28.rds
+To github.com:ismayc/ismayc.github.io.git
+   384a449..cab388f  master -> master
+
+Starting at 2021-04-30 04:02:01 Pacific time 
+hint: Pulling without specifying how to reconcile divergent branches is
+hint: discouraged. You can squelch this message by running one of the following
+hint: commands sometime before your next pull:
+hint: 
+hint:   git config pull.rebase false  # merge (the default strategy)
+hint:   git config pull.rebase true   # rebase
+hint:   git config pull.ff only       # fast-forward only
+hint: 
+hint: You can replace "git config" with "git config --global" to set a default
+hint: preference for all repositories. You can also pass --rebase, --no-rebase,
+hint: or --ff-only on the command line to override the configured default per
+hint: invocation.
+Already up to date.
+Completed at 2021-04-30 04:31:31 Pacific time 
+[master 960616c] Updated 2021-04-30 04:31:31
+ 4 files changed, 186 insertions(+), 180 deletions(-)
+ create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-04-29.rds
+ create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-04-29.rds
+To github.com:ismayc/ismayc.github.io.git
+   cab388f..960616c  master -> master
+
+Starting at 2021-05-01 05:01:01 Pacific time 
+hint: Pulling without specifying how to reconcile divergent branches is
+hint: discouraged. You can squelch this message by running one of the following
+hint: commands sometime before your next pull:
+hint: 
+hint:   git config pull.rebase false  # merge (the default strategy)
+hint:   git config pull.rebase true   # rebase
+hint:   git config pull.ff only       # fast-forward only
+hint: 
+hint: You can replace "git config" with "git config --global" to set a default
+hint: preference for all repositories. You can also pass --rebase, --no-rebase,
+hint: or --ff-only on the command line to override the configured default per
+hint: invocation.
+Already up to date.
+Completed at 2021-05-01 05:02:05 Pacific time 
+[master fcbe2fd] Updated 2021-05-01 05:02:06
+ 4 files changed, 226 insertions(+), 178 deletions(-)
+ create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-04-30.rds
+ create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-04-30.rds
+To github.com:ismayc/ismayc.github.io.git
+   960616c..fcbe2fd  master -> master
+
+Starting at 2021-05-03 05:01:01 Pacific time 
+hint: Pulling without specifying how to reconcile divergent branches is
+hint: discouraged. You can squelch this message by running one of the following
+hint: commands sometime before your next pull:
+hint: 
+hint:   git config pull.rebase false  # merge (the default strategy)
+hint:   git config pull.rebase true   # rebase
+hint:   git config pull.ff only       # fast-forward only
+hint: 
+hint: You can replace "git config" with "git config --global" to set a default
+hint: preference for all repositories. You can also pass --rebase, --no-rebase,
+hint: or --ff-only on the command line to override the configured default per
+hint: invocation.
+Already up to date.
+Completed at 2021-05-03 05:01:28 Pacific time 
+[master 5f51a09] Updated 2021-05-03 05:01:28
+ 4 files changed, 215 insertions(+), 213 deletions(-)
+ create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-05-02.rds
+ create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-05-02.rds
+To github.com:ismayc/ismayc.github.io.git
+   5dc6094..5f51a09  master -> master
+
+Starting at 2021-05-04 04:02:00 Pacific time 
+hint: Pulling without specifying how to reconcile divergent branches is
+hint: discouraged. You can squelch this message by running one of the following
+hint: commands sometime before your next pull:
+hint: 
+hint:   git config pull.rebase false  # merge (the default strategy)
+hint:   git config pull.rebase true   # rebase
+hint:   git config pull.ff only       # fast-forward only
+hint: 
+hint: You can replace "git config" with "git config --global" to set a default
+hint: preference for all repositories. You can also pass --rebase, --no-rebase,
+hint: or --ff-only on the command line to override the configured default per
+hint: invocation.
+ssh_dispatch_run_fatal: Connection to 192.30.255.112 port 22: Network is down
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+Completed at 2021-05-04 04:31:14 Pacific time 
+[master acd8c11] Updated 2021-05-04 04:31:15
+ 4 files changed, 222 insertions(+), 202 deletions(-)
+ create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-05-03.rds
+ create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-05-03.rds
+To github.com:ismayc/ismayc.github.io.git
+   5f51a09..acd8c11  master -> master
+
+Starting at 2021-05-04 05:01:00 Pacific time 
+hint: Pulling without specifying how to reconcile divergent branches is
+hint: discouraged. You can squelch this message by running one of the following
+hint: commands sometime before your next pull:
+hint: 
+hint:   git config pull.rebase false  # merge (the default strategy)
+hint:   git config pull.rebase true   # rebase
+hint:   git config pull.ff only       # fast-forward only
+hint: 
+hint: You can replace "git config" with "git config --global" to set a default
+hint: preference for all repositories. You can also pass --rebase, --no-rebase,
+hint: or --ff-only on the command line to override the configured default per
+hint: invocation.
+Already up to date.
+Webpage already created today 
+Completed at 2021-05-04 05:01:04 Pacific time 
+[master 9a9acc2] Updated 2021-05-04 05:01:04
+ 1 file changed, 23 insertions(+)
+To github.com:ismayc/ismayc.github.io.git
+   acd8c11..9a9acc2  master -> master

@@ -356,8 +356,8 @@ picks_wide <- picks %>%
     phil_choice == "OVER",
     paste(Phil_points, knitr::asis_output("\U2191")),
     paste(Phil_points, knitr::asis_output("\U2193")))) %>% 
-  rename(`Win Target` = win_projection) %>% 
-  select(Team = team, `Current Wins` = wins, `Win Target`, 
+  rename(`Target Wins` = win_projection) %>% 
+  select(Team = team, `Current Wins` = wins, `Target Wins`, 
          Adonis, Chester, Jake, Jenelle, Mary, Mike, Phil, Ryan, 
          everything())
 ```
@@ -385,13 +385,13 @@ paste_levels <- point_levels %>%
 #   class = 'display',
 #   thead(
 #     tr(
-#       th(colspan = 3, style = "border-right: solid 2px;", 'Win Target'),
+#       th(colspan = 3, style = "border-right: solid 2px;", 'Target Wins'),
 #       th(colspan = 2, 'Adonis')
 #     ),
 #     tr(
 #       th("Team"),
 #       th("Current Wins"),
-#       th(style = "border-right: solid 2px;", "Win Target")
+#       th(style = "border-right: solid 2px;", "Target Wins")
 #     )
 #   )
 # ))
@@ -462,7 +462,7 @@ picks_wide %>%
     "Team", target = 'cell', backgroundColor = "white"
   ) %>% 
   formatStyle(
-    "Win Target", target = 'cell', backgroundColor = "white", 
+    "Target Wins", target = 'cell', backgroundColor = "white", 
     `border-right` = "solid 2px"
   ) %>% 
   formatStyle(
