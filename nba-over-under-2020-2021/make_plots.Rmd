@@ -235,7 +235,8 @@ on 2020-11-30.
 projections %>% 
   select(Team = team,
          `Win Projection` = win_projection) %>% 
-  knitr::kable()
+  knitr::kable() %>% 
+  kableExtra::kable_styling("striped", full_width = F)
 ```
 
 
@@ -407,7 +408,7 @@ picks_wide %>%
   DT::datatable(rownames = FALSE, options = list(
     pageLength = 30, dom = 'ft',
     columnDefs = do_not_show_list#,
- #   container = sketch
+    #   container = sketch
     #list(list(targets = as.list(cols_to_delete), visible = FALSE))
   )) %>% 
   formatStyle(
@@ -684,7 +685,8 @@ if (nrow(yesterday_scores)) {
 
 ```{r}
 if (nrow(yesterday_scores)) {
-  yesterday_scores %>% knitr::kable()
+  yesterday_scores %>% knitr::kable() %>% 
+    kableExtra::kable_styling("striped", full_width = F)
   #  DT::datatable(options = list(pageLength = nrow(yesterday_scores)))
 }
 ```
@@ -727,7 +729,8 @@ if (nrow(todays_games)) {
 
 ```{r}
 if (nrow(todays_games)) {
-  todays_games %>% knitr::kable()
+  todays_games %>% knitr::kable() %>% 
+    kableExtra::kable_styling("striped", full_width = F)
   #  DT::datatable(options = list(pageLength = nrow(yesterday_scores)))
 }
 ```
@@ -753,7 +756,8 @@ standings %>%
     Losses = losses, 
     Division = division
   ) %>% 
-  knitr::kable(align = c('l', 'l', 'r', 'r', 'r', 'r'))
+  knitr::kable(align = c('l', 'l', 'r', 'r', 'r', 'r')) %>% 
+  kableExtra::kable_styling("striped", full_width = F)
 ```
 
 #### Eastern
@@ -771,7 +775,8 @@ standings %>%
     Losses = losses, 
     Division = division
   ) %>% 
-  knitr::kable(align = c('l', 'l', 'r', 'r', 'r', 'r'))
+  knitr::kable(align = c('l', 'l', 'r', 'r', 'r', 'r')) %>% 
+  kableExtra::kable_styling("striped", full_width = F)
 ```
 
 
@@ -787,7 +792,8 @@ standings %>%
   select(-conference, -division) %>% 
   arrange(desc(`Winning Pct`)) %>% 
   select(Team = team_name, Wins = wins, Losses = losses, `Winning Pct`) %>% 
-  knitr::kable()
+  knitr::kable() %>% 
+  kableExtra::kable_styling("striped", full_width = F)
 ```
 
 ##### Northwest
@@ -798,7 +804,8 @@ standings %>%
   select(-conference, -division) %>% 
   arrange(desc(`Winning Pct`)) %>% 
   select(Team = team_name, Wins = wins, Losses = losses, `Winning Pct`) %>% 
-  knitr::kable()
+  knitr::kable() %>% 
+  kableExtra::kable_styling("striped", full_width = F)
 ```
 
 ##### Southwest
@@ -809,7 +816,8 @@ standings %>%
   select(-conference, -division) %>% 
   arrange(desc(`Winning Pct`)) %>% 
   select(Team = team_name, Wins = wins, Losses = losses, `Winning Pct`) %>% 
-  knitr::kable()
+  knitr::kable() %>% 
+  kableExtra::kable_styling("striped", full_width = F)
 ```
 
 #### East {.tabset}
@@ -822,7 +830,8 @@ standings %>%
   select(-conference, -division) %>% 
   arrange(desc(`Winning Pct`)) %>% 
   select(Team = team_name, Wins = wins, Losses = losses, `Winning Pct`) %>% 
-  knitr::kable()
+  knitr::kable() %>% 
+  kableExtra::kable_styling("striped", full_width = F)
 ```
 
 ##### Atlantic
@@ -833,7 +842,8 @@ standings %>%
   select(-conference, -division) %>% 
   arrange(desc(`Winning Pct`)) %>% 
   select(Team = team_name, Wins = wins, Losses = losses, `Winning Pct`) %>% 
-  knitr::kable()
+  knitr::kable() %>% 
+  kableExtra::kable_styling("striped", full_width = F)
 ```
 
 ##### Southeast
@@ -844,5 +854,6 @@ standings %>%
   select(-conference, -division) %>% 
   arrange(desc(`Winning Pct`)) %>% 
   select(Team = team_name, Wins = wins, Losses = losses, `Winning Pct`) %>% 
-  knitr::kable()
+  knitr::kable() %>% 
+  kableExtra::kable_styling("striped", full_width = F)
 ```
