@@ -1732,3 +1732,19 @@ Completed at 2021-05-04 05:01:04 Pacific time
  1 file changed, 23 insertions(+)
 To github.com:ismayc/ismayc.github.io.git
    acd8c11..9a9acc2  master -> master
+
+Starting at 2021-05-06 04:02:01 Pacific time 
+
+Starting at 2021-05-06 05:01:00 Pacific time 
+From github.com:ismayc/ismayc.github.io
+   5103396..1048f88  master     -> origin/master
+Updating 5103396..1048f88
+Fast-forward
+ 2021-nba-over-under.html                         |  92 ++++++-------
+ nba-over-under-2020-2021/explore-scenarios.R     | 165 +++--------------------
+ nba-over-under-2020-2021/make_plots.Rmd          |  35 +++--
+ nba-over-under-2020-2021/points-calculator/app.R |   9 +-
+ nba-over-under-2020-2021/test/app.R              |  27 ----
+ 5 files changed, 91 insertions(+), 237 deletions(-)
+ delete mode 100644 nba-over-under-2020-2021/test/app.R
+Completed at 2021-05-06 05:01:34 Pacific time 
