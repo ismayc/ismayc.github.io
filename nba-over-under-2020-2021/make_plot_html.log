@@ -1748,3 +1748,15 @@ Fast-forward
  5 files changed, 91 insertions(+), 237 deletions(-)
  delete mode 100644 nba-over-under-2020-2021/test/app.R
 Completed at 2021-05-06 05:01:34 Pacific time 
+[master 42cb9d7] Updated 2021-05-06 05:01:34
+ 4 files changed, 240 insertions(+), 220 deletions(-)
+ create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-05-05.rds
+ create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-05-05.rds
+To github.com:ismayc/ismayc.github.io.git
+   1048f88..42cb9d7  master -> master
+kex_exchange_identification: read: Connection reset by peer
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+Completed at 2021-05-06 13:32:39 Pacific time 
