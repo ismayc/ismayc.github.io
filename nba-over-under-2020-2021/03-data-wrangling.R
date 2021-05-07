@@ -155,10 +155,11 @@ player_projections_by_team <- player_projections_by_team %>%
       72 - ceiling(`Vegas Insider Win Projection %` / 100 * 72) - 
       `Current Losses`) %>% 
   select(-`Current Wins`, -`Current Losses`) %>% 
-  mutate(`Outcome Determined` = case_when(
+  mutate(`Outcome Determined` = factor(case_when(
     `Winning % In Remaining Games Needed` <= 0 ~ "OVER",
     `Winning % In Remaining Games Needed` > 100 ~ "UNDER",
-    TRUE ~ NA_character_
+    TRUE ~ "not yet"),
+    levels = c("not yet", "OVER", "UNDER")
   ))  
 
 most_recent_results <- projected_score %>% 

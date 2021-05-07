@@ -377,6 +377,8 @@ for(i in (cols_to_delete - 10) ) {
   suppressWarnings(do_not_show_list[[i]]$visible <- FALSE)
 }
 
+do_not_show_list[[30]] <- list(width = '180px', targets = 0)
+
 point_levels <- rep(seq(15, 6, by = -1), 2) %>% 
   sort(decreasing = TRUE)
 paste_levels <- point_levels %>% 
@@ -407,6 +409,7 @@ picks_wide %>%
   arrange(Team) %>% 
   DT::datatable(rownames = FALSE, options = list(
     pageLength = 30, dom = 'ft',
+    autoWidth = TRUE, #scrollX = TRUE,
     columnDefs = do_not_show_list#,
     #   container = sketch
     #list(list(targets = as.list(cols_to_delete), visible = FALSE))
@@ -491,6 +494,7 @@ player_table <- function(player_num) {
   # } else {
   df %>%
     datatable(rownames = FALSE,
+              filter = 'top',
               extensions = "FixedColumns",
               options = list(pageLength = 30, dom = 'ft',
                              fixedColumns = list(leftColumns = 2))
