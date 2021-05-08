@@ -252,6 +252,14 @@ wins_needed <- player_projections_by_team %>%
     NA_real_,
     `Losses To Go Under Vegas Insider` 
   )) %>% 
+  separate(
+    col = `Current Record`, 
+    into = c("Wins", "Losses"), 
+    sep = "-",
+    remove = FALSE) %>% 
+  mutate(Wins = as.integer(Wins),
+         Losses = as.integer(Losses)) %>% 
+  mutate(`Remaining Games` = 72 - Wins - Losses) %>% 
   select(-`Winning % In Remaining Games Needed`)
 
 projections %>% 
@@ -260,8 +268,8 @@ projections %>%
          `Outcome Determined`,
          `Current Record`,
          `Win Projection` = win_projection,
-         `Wins To Go Over Vegas Insider`,
-         `Losses To Go Under Vegas Insider` 
+         `Remaining Games`,
+         `Wins To Go Over Vegas Insider`
   ) %>%  
   DT::datatable(
     rownames = FALSE,
