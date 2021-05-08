@@ -235,7 +235,8 @@ columns are based on games played through `r Sys.Date() - 1`.
 ```{r}
 wins_needed <- player_projections_by_team %>% 
   filter(Date == Sys.Date() - 1) %>% 
-  select(Date, Team, `Current Record`, `Wins To Go Over Vegas Insider`,
+  select(Date, Team, `Outcome Determined`,
+         `Current Record`, `Wins To Go Over Vegas Insider`,
          `Winning % In Remaining Games Needed`,
          `Losses To Go Under Vegas Insider`) %>% 
   distinct() %>% 
@@ -256,6 +257,7 @@ wins_needed <- player_projections_by_team %>%
 projections %>% 
   inner_join(wins_needed, by = c("team" = "Team")) %>% 
   select(Team = team,
+         `Outcome Determined`,
          `Current Record`,
          `Win Projection` = win_projection,
          `Wins To Go Over Vegas Insider`,
