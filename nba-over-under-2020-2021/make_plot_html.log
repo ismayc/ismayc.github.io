@@ -1780,3 +1780,18 @@ fatal: Could not read from remote repository.
 
 Please make sure you have the correct access rights
 and the repository exists.
+
+Starting at 2021-05-08 05:01:04 Pacific time 
+From github.com:ismayc/ismayc.github.io
+   5e502bf..cf49707  master     -> origin/master
+Updating 5e502bf..cf49707
+Fast-forward
+ 2021-nba-over-under.html                           | 417 +++++++++++----------
+ nba-over-under-2020-2021/explore-scenarios.R       |   2 +-
+ .../chesterismay/over-under-points-calculator.dcf  |   6 +-
+ .../rds/game_results_raw_through_2021-05-06.rds    | Bin 0 -> 202727 bytes
+ .../rds/standings_through_2021-05-06.rds           | Bin 0 -> 2880 bytes
+ 5 files changed, 217 insertions(+), 208 deletions(-)
+ create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-05-06.rds
+ create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-05-06.rds
+Completed at 2021-05-08 05:01:38 Pacific time 
