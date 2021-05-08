@@ -226,17 +226,49 @@ ggplotly(team_wins_track, tooltip = c("Vegas Insider Win Projection %",
 
 ***
 
-#### Vegas Insider Win Projections
+#### Vegas Insider Win Projections and Wins Needed
 
-These projections were pulled from https://www.vegasinsider.com/nba/odds/win-totals/
-on 2020-11-30.
+`Win Projection` was pulled from 
+https://www.vegasinsider.com/nba/odds/win-totals/ on 2020-11-30. The last two
+columns are based on games played through `r Sys.Date() - 1`.
 
 ```{r}
+wins_needed <- player_projections_by_team %>% 
+  filter(Date == Sys.Date() - 1) %>% 
+  select(Date, Team, `Current Record`, `Wins To Go Over Vegas Insider`,
+         `Winning % In Remaining Games Needed`,
+         `Losses To Go Under Vegas Insider`) %>% 
+  distinct() %>% 
+  mutate(`Wins To Go Over Vegas Insider` = if_else(
+    `Wins To Go Over Vegas Insider` <= 0 || 
+      `Winning % In Remaining Games Needed` > 100,
+    NA_real_,
+    `Wins To Go Over Vegas Insider`
+  )) %>% 
+  mutate(`Losses To Go Under Vegas Insider` = if_else(
+    `Losses To Go Under Vegas Insider` < 0 || 
+      is.na(`Wins To Go Over Vegas Insider`),
+    NA_real_,
+    `Losses To Go Under Vegas Insider` 
+  )) %>% 
+  select(-`Winning % In Remaining Games Needed`)
+
 projections %>% 
+  inner_join(wins_needed, by = c("team" = "Team")) %>% 
   select(Team = team,
-         `Win Projection` = win_projection) %>% 
-  knitr::kable() %>% 
-  kableExtra::kable_styling("striped", full_width = F)
+         `Current Record`,
+         `Win Projection` = win_projection,
+         `Wins To Go Over Vegas Insider`,
+         `Losses To Go Under Vegas Insider` 
+  ) %>%  
+  DT::datatable(
+    rownames = FALSE,
+    options = list(
+      pageLength = 30, 
+      dom = 'ft'
+    ))
+#  knitr::kable() %>% 
+#  kableExtra::kable_styling("striped", full_width = F)
 ```
 
 
