@@ -1795,3 +1795,9 @@ Fast-forward
  create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-05-06.rds
  create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-05-06.rds
 Completed at 2021-05-08 05:01:38 Pacific time 
+[master bc934d8] Updated 2021-05-08 05:01:38
+ 4 files changed, 273 insertions(+), 249 deletions(-)
+ create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-05-07.rds
+ create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-05-07.rds
+To github.com:ismayc/ismayc.github.io.git
+   cf49707..bc934d8  master -> master
