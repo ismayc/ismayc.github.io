@@ -1801,3 +1801,11 @@ Completed at 2021-05-08 05:01:38 Pacific time
  create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-05-07.rds
 To github.com:ismayc/ismayc.github.io.git
    cf49707..bc934d8  master -> master
+
+Starting at 2021-05-09 04:02:01 Pacific time 
+client_loop: send disconnect: Broken pipe
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+Completed at 2021-05-09 07:13:28 Pacific time 
