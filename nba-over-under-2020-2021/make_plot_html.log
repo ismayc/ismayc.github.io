@@ -1809,3 +1809,9 @@ fatal: Could not read from remote repository.
 Please make sure you have the correct access rights
 and the repository exists.
 Completed at 2021-05-09 07:13:28 Pacific time 
+[master f89a64e] Updated 2021-05-09 07:13:29
+ 4 files changed, 205 insertions(+), 235 deletions(-)
+ create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-05-08.rds
+ create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-05-08.rds
+To github.com:ismayc/ismayc.github.io.git
+   5c9b1cf..f89a64e  master -> master
