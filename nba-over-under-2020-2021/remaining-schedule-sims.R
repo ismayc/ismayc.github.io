@@ -49,7 +49,7 @@ set.seed(NULL)
 #start_time <- Sys.time()
 temp_list <- list()
 outcome_sims <- future_map_dfr(
-  1:10000, 
+  1:1000, 
   ~ {
     sim_prep <- picks %>% 
       inner_join(lookup_table, by = "team") %>% 
@@ -136,3 +136,19 @@ jenelle_not_nums <- sims_unnested %>%
 
 jenelle_not <- sims_unnested %>% 
   filter(num %in% jenelle_not_nums)
+
+# Adonis in
+adonis_nums <- sims_unnested %>% 
+  filter(player == "Adonis", playoffs == TRUE) %>% 
+  pull(num)
+
+adonis_in <- sims_unnested %>% 
+  filter(num %in% adonis_nums)
+
+# Ryan not in
+ryan_not_nums <- sims_unnested %>% 
+  filter(player == "Ryan", playoffs == FALSE) %>% 
+  pull(num)
+
+ryan_not <- sims_unnested %>% 
+  filter(num %in% ryan_not_nums)
