@@ -94,12 +94,14 @@ sims <- sims_tbl %>%
                    ~ .x %>% 
                      group_by(player) %>% 
                      summarize(expected_total = sum(sim_points),
-                               num_correct = sim_points > 5,
-                               num_15_correct = case_when(
-                                 wage == 15 && wage == sim_points ~ TRUE,
-                                 wage == 15 && wage != sim_points ~ FALSE,
-                                 TRUE ~ NA)) %>% 
-                     arrange(desc(expected_total)) %>% 
+                               num_correct = sum(sim_points > 5),
+                               num_15_correct = sum(
+                                 wage == 15 & sim_points == 15, 
+                                 na.rm = TRUE
+                               )) %>% 
+                     arrange(desc(expected_total),
+                             desc(num_correct),
+                             desc(num_15_correct)) %>% 
                      rownames_to_column(var = "rank") %>% 
                      mutate(rank = as.numeric(rank), .before = player) %>% 
                      mutate(playoffs = rank <= 4)
