@@ -49,7 +49,7 @@ set.seed(NULL)
 #start_time <- Sys.time()
 temp_list <- list()
 outcome_sims <- future_map_dfr(
-  1:1000, 
+  1:100, 
   ~ {
     sim_prep <- picks %>% 
       inner_join(lookup_table, by = "team") %>% 
@@ -93,7 +93,12 @@ sims <- sims_tbl %>%
   mutate(out = map(sim_prep, 
                    ~ .x %>% 
                      group_by(player) %>% 
-                     summarize(expected_total = sum(sim_points)) %>% 
+                     summarize(expected_total = sum(sim_points),
+                               num_correct = sim_points > 5,
+                               num_15_correct = case_when(
+                                 wage == 15 && wage == sim_points ~ TRUE,
+                                 wage == 15 && wage != sim_points ~ FALSE,
+                                 TRUE ~ NA)) %>% 
                      arrange(desc(expected_total)) %>% 
                      rownames_to_column(var = "rank") %>% 
                      mutate(rank = as.numeric(rank), .before = player) %>% 
