@@ -173,7 +173,9 @@ most_recent_results <- projected_score %>%
   filter(days_from_today == min(days_from_today))
 
 current_rankings <- most_recent_results %>% 
-  arrange(desc(`Projected Total Points`)) %>% 
+  arrange(desc(`Projected Total Points`),
+          desc(`Number Correct`),
+          desc(`Number (Wage 15) Correct`)) %>% 
   pull(Player)
 
 # As a check to compare to Phil's report
