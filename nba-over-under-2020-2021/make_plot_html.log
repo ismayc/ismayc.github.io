@@ -1834,3 +1834,14 @@ Fast-forward
  nba-over-under-2020-2021/remaining-schedule-sims.R | 14 ++++++++------
  1 file changed, 8 insertions(+), 6 deletions(-)
 Completed at 2021-05-15 04:02:41 Pacific time 
+[master 9912526] Updated 2021-05-15 04:02:41
+ 4 files changed, 201 insertions(+), 236 deletions(-)
+ create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-05-14.rds
+ create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-05-14.rds
+To github.com:ismayc/ismayc.github.io.git
+   3402f4a..9912526  master -> master
+
+Starting at 2021-05-15 05:01:03 Pacific time 
+Already up to date.
+Webpage already created today 
+Completed at 2021-05-15 05:01:05 Pacific time 
