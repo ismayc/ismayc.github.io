@@ -1825,3 +1825,12 @@ Completed at 2021-05-12 05:01:40 Pacific time
  create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-05-11.rds
 To github.com:ismayc/ismayc.github.io.git
    73af416..def99e1  master -> master
+
+Starting at 2021-05-15 04:02:01 Pacific time 
+From github.com:ismayc/ismayc.github.io
+   f693efa..3402f4a  master     -> origin/master
+Updating f693efa..3402f4a
+Fast-forward
+ nba-over-under-2020-2021/remaining-schedule-sims.R | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
+Completed at 2021-05-15 04:02:41 Pacific time 
