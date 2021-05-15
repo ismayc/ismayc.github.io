@@ -113,7 +113,7 @@ player_projections_by_team <- with_picks %>%
          `Over/Under Pick` = choice) %>% 
   mutate(
     `Win % - Vegas Insider` = round(`Current Win %` - `Vegas Insider Win Projection %`, 2)
-    ) %>% 
+  ) %>% 
   relocate(current_projected_points, 
            .after = `Win % - Vegas Insider`)
 
@@ -137,6 +137,10 @@ projected_score <- player_projections_by_team %>%
   group_by(Date, Player) %>% 
   summarize(
     `Projected Total Points` = sum(current_projected_points, na.rm = TRUE),
+    `Number Correct` = sum(current_projected_points > 0),
+    `Number (Wage 15) Correct` = sum(
+      current_projected_points == 15, na.rm = TRUE
+    ),
     .groups = "drop"
   )
 
