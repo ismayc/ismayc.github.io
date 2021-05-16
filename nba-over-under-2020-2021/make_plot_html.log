@@ -1849,3 +1849,14 @@ Completed at 2021-05-15 05:01:05 Pacific time
  1 file changed, 11 insertions(+)
 To github.com:ismayc/ismayc.github.io.git
    9912526..f4d1403  master -> master
+
+Starting at 2021-05-16 04:02:01 Pacific time 
+From github.com:ismayc/ismayc.github.io
+   df2c6d6..a8cbd43  master     -> origin/master
+Updating df2c6d6..a8cbd43
+Fast-forward
+ 2021-nba-over-under.html                     | 76 ++++++++++++++--------------
+ nba-over-under-2020-2021/03-data-wrangling.R | 10 +++-
+ nba-over-under-2020-2021/make_plots.Rmd      |  4 +-
+ 3 files changed, 49 insertions(+), 41 deletions(-)
+Completed at 2021-05-16 04:31:30 Pacific time 
