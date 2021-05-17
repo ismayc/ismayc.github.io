@@ -1860,3 +1860,13 @@ Fast-forward
  nba-over-under-2020-2021/make_plots.Rmd      |  4 +-
  3 files changed, 49 insertions(+), 41 deletions(-)
 Completed at 2021-05-16 04:31:30 Pacific time 
+[master f48502f] Updated 2021-05-16 04:31:30
+ 4 files changed, 288 insertions(+), 186 deletions(-)
+ create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-05-15.rds
+ create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-05-15.rds
+To github.com:ismayc/ismayc.github.io.git
+   a8cbd43..f48502f  master -> master
+
+Starting at 2021-05-17 04:02:00 Pacific time 
+Already up to date.
+Completed at 2021-05-17 04:31:20 Pacific time 
