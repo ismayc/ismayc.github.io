@@ -7,10 +7,10 @@
 
 # Site settings
 title: Chester Ismay
-email: chester.ismay@datarobot.com
-position:  Data Science Evangelist
-institution1: DataRobot
-inst_link1: https://www.datarobot.com
+email: chester.ismay@flatironschool.com
+position: Director of Data Science Education
+institution1: Flatiron School
+inst_link1: https://flatironschool.com/
 #description: > # this means to ignore newlines until "baseurl:"
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://chester.rbind.io" # the base hostname & protocol for your site
