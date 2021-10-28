@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Teaching
+title: Academic Teaching
 permalink: /teaching/
 ---
 
