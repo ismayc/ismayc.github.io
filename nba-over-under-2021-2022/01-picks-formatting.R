@@ -15,4 +15,5 @@ if(interactive())
   picks %>% arrange(player, desc(wage), choice) %>% View()
 
 # How many OVER and UNDER for each player?
-picks %>% count(player, choice)
+if(interactive())
+  picks %>% count(player, choice)

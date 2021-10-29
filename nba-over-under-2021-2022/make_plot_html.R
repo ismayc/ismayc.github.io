@@ -1,4 +1,4 @@
-#setwd("~/Desktop/ismayc.github.io/nba-over-under-2020-2021")
+#setwd("~/Desktop/ismayc.github.io/nba-over-under-2021-2022")
 Sys.setenv(RSTUDIO_PANDOC = "/Applications/RStudio.app/Contents/MacOS/pandoc")
 
 #update_page <- FALSE
