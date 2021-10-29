@@ -11,7 +11,8 @@ projections <- read_excel(path = "picks.xlsx", sheet = "projections") %>%
 meta <- read_excel(path = "picks.xlsx", sheet = "meta") 
 
 # Check picks follow rules
-picks %>% arrange(player, desc(wage), choice) %>% View()
+if(interactive())
+  picks %>% arrange(player, desc(wage), choice) %>% View()
 
 # How many OVER and UNDER for each player?
 picks %>% count(player, choice)

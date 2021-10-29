@@ -75,7 +75,7 @@ join_with_projections <- updated_schedule %>%
                                  NA))
 
 # Pulling in picks
-days_in_season_to_today <- seq(from = as.Date("2020-12-22"), 
+days_in_season_to_today <- seq(from = as.Date(nba_season_start_date), 
                                to = as.Date(Sys.Date() - 1), 
                                by = "days")
 teams <- unique(join_with_projections$`Team Name`)

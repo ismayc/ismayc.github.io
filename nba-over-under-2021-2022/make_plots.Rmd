@@ -1,8 +1,8 @@
 ---
-title: 'NBA Over/Under 2020-2021 Season'
+title: 'NBA Over/Under 2021-2022 Season'
 author: Created by Chester Ismay
 output: html_document
-knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = encoding, output_file = file.path('../2021-nba-over-under.html')) })
+knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = encoding, output_file = file.path('../2022-nba-over-under.html')) })
 ---
 
 ```{r include=FALSE}
@@ -229,7 +229,7 @@ ggplotly(team_wins_track, tooltip = c("Vegas Insider Win Projection %",
 #### Vegas Insider Win Projections and Wins Needed
 
 `Win Projection` was pulled from 
-https://www.vegasinsider.com/nba/odds/win-totals/ on 2020-11-30. The last two
+https://www.vegasinsider.com/nba/odds/win-totals/ on 2021-09-17. The last two
 columns are based on games played through `r Sys.Date() - 1`.
 
 ```{r}
@@ -743,10 +743,10 @@ if (nrow(yesterday_scores)) {
 ```{r}
 schedule <- nbastatR::current_schedule() %>% 
   filter(
-    dateGame >= "2020-12-22", 
-    dateGame <= "2021-05-16",
+    dateGame >= nba_season_start_date, 
+    dateGame <= nba_season_end_date,
     # All-Star Game
-    dateGame != "2021-03-07"
+    dateGame != all_star_game_date 
   ) %>% 
   select(game_date = dateGame,
          game_id = idGame,

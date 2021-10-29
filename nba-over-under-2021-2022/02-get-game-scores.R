@@ -7,6 +7,8 @@ library(here)
 library(glue)
 
 nba_season_start_date <- "2021-10-19"
+nba_season_end_date <- "2022-04-10"
+all_star_game_date <- "2022-02-20"
 Sys.setenv("VROOM_CONNECTION_SIZE" = 131072 * 2)
 season <- 2022
 
