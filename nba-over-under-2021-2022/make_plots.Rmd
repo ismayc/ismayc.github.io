@@ -402,6 +402,7 @@ picks_wide <- picks %>%
     paste(Phil_points, knitr::asis_output("\U2191")),
     paste(Phil_points, knitr::asis_output("\U2193")))) %>% 
   rename(`Target Wins` = win_projection) %>% 
+  select(-abbreviation) %>% 
   select(Team = team, `Current Wins` = wins, `Target Wins`, 
          Adonis, Chester, Jake, Jenelle, Mary, Mike, Phil, Ryan, 
          everything())
