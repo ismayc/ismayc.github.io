@@ -132,7 +132,7 @@ team_wins_df <- join_with_projections %>%
     `Over/Under Wins \n Vegas \n Insider` = current_wins > win_projection,
     `Wins Needed` = ceiling(win_projection) - current_wins,
     `Winning % In Remaining Games Needed` = round(
-      `Wins Needed` / (72 - current_wins - current_losses) * 100, 2),
+      `Wins Needed` / (num_games - current_wins - current_losses) * 100, 2),
     `Wins \n Outcome \n Determined` = case_when(
       `Winning % In Remaining Games Needed` <= 0 ~ "OVER",
       `Winning % In Remaining Games Needed` > 100 ~ "UNDER",
@@ -144,7 +144,7 @@ current_team_wins_df <- team_wins_df %>%
   group_by(`Team Name`) %>% 
   slice_tail(n = 1) %>% 
   arrange(`Wins Needed`) %>% 
-  mutate(`Remaining Games` = 72 - `Game Number`) %>% 
+  mutate(`Remaining Games` = num_games - `Game Number`) %>% 
   mutate(
     `Expected Wins At Current Pace` = round(
       `Remaining Games` * current_win_perc/100 + `Current Win Total`,
@@ -153,8 +153,8 @@ current_team_wins_df <- team_wins_df %>%
   mutate(spread = `Expected Wins At Current Pace` - win_projection) %>% 
   #  mutate(
   #    projected_slope = (`Expected Wins At Current Pace` - `Current Win Total`) / 
-  #      (72 - `Game Number`),
-  #    projected_intercept = `Expected Wins At Current Pace` - 72 * projected_slope
+  #      (num_games - `Game Number`),
+  #    projected_intercept = `Expected Wins At Current Pace` - num_games * projected_slope
   #    ) %>% 
   select(`Game Date`, `Team Name`, `Games Played` = `Game Number`,
          `Remaining Games`, `Current Winning %` = current_win_perc,
@@ -180,18 +180,18 @@ team_wins_track <- team_wins_df %>%
              text = `Game Result`,
              color = `Wins \n Outcome \n Determined`)
   ) +
-  geom_segment(aes(x = `Game Number`, xend = 72,
+  geom_segment(aes(x = `Game Number`, xend = num_games,
                    y = `Current Win Total`,
                    yend = `Expected Wins At Current Pace`
   ),
   linetype = "dashed",
   color = "purple") +
-  scale_x_continuous(limits = c(1, 72)) + 
+  scale_x_continuous(limits = c(1, num_games)) + 
   geom_point(mapping = aes(x = `Game Number`, y = `Current Win Total`)) +
-  geom_point(mapping = aes(x = 72, y = `Expected Wins At Current Pace`), 
+  geom_point(mapping = aes(x = num_games, y = `Expected Wins At Current Pace`), 
              color = "purple", shape = 15) +
   #  annotate("text", x = 4, y = 25, aes(label = `Wins Needed`)) +
-  geom_segment(aes(x = 1, xend = 72,
+  geom_segment(aes(x = 1, xend = num_games,
                    y = `Vegas Insider Win Projection`,
                    yend = `Vegas Insider Win Projection`),
                color = "blue") +
@@ -259,7 +259,7 @@ wins_needed <- player_projections_by_team %>%
     remove = FALSE) %>% 
   mutate(Wins = as.integer(Wins),
          Losses = as.integer(Losses)) %>% 
-  mutate(`Remaining Games` = 72 - Wins - Losses) %>% 
+  mutate(`Remaining Games` = num_games - Wins - Losses) %>% 
   select(-`Winning % In Remaining Games Needed`)
 
 projections %>% 
@@ -312,7 +312,7 @@ picks_wide <- picks %>%
   inner_join(standings, by = c("team" = "team_name")) %>% 
   mutate(percentage_projection = round(percentage_projection / 100, 3)) %>% 
   select(-conference, -division, -`Games Back`, -differential) %>% 
-  mutate(loss_projection = 72 - win_projection, .after = win_projection) %>% 
+  mutate(loss_projection = num_games - win_projection, .after = win_projection) %>% 
   mutate(outcome_determined = case_when(
     wins > win_projection ~ "OVER",
     losses > loss_projection ~ "UNDER",
