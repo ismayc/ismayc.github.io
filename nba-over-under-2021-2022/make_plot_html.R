@@ -1,8 +1,8 @@
 setwd("~/Desktop/Desktop - Chester’s MacBook Pro/ismayc.github.io/nba-over-under-2021-2022")
 Sys.setenv(RSTUDIO_PANDOC = "/Applications/RStudio.app/Contents/MacOS/pandoc")
 
-update_page <- FALSE
-#update_page <- TRUE
+#update_page <- FALSE
+update_page <- TRUE
 
 cat("\n")
 cat(glue::glue("Starting at {Sys.time()}"), "Pacific time", "\n")
