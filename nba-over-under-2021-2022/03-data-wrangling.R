@@ -150,13 +150,13 @@ player_projections_by_team <- player_projections_by_team %>%
          `Current Losses` = current_losses) %>% 
   mutate(
     `Wins To Go Over Vegas Insider` = 
-      ceiling(`Vegas Insider Win Projection %` / 100 * 72) - `Current Wins`,
+      ceiling(`Vegas Insider Win Projection %` / 100 * num_games) - `Current Wins`,
     `Winning % In Remaining Games Needed` = round(
       `Wins To Go Over Vegas Insider` / 
-        (72 - `Current Wins` - `Current Losses`) * 100, 2),
+        (num_games - `Current Wins` - `Current Losses`) * 100, 2),
     .before = `Current Projected Points`,
     `Losses To Go Under Vegas Insider` = 
-      72 - ceiling(`Vegas Insider Win Projection %` / 100 * 72) - 
+      num_games - ceiling(`Vegas Insider Win Projection %` / 100 * num_games) - 
       `Current Losses`) %>% 
   select(-`Current Wins`, -`Current Losses`) %>% 
   mutate(`Outcome Determined` = factor(case_when(
@@ -194,7 +194,7 @@ standings_with_projected <- standings %>%
   inner_join(projections, by = c("team_name" = "team")) %>% 
   select(-percentage_projection) %>% 
   mutate(
-    remaining_games = 72 - (wins + losses),
+    remaining_games = num_games - (wins + losses),
     wins_needed_for_over = ceiling(as.numeric(win_projection)) - wins,
     winning_perc_for_over = wins_needed_for_over / remaining_games * 100
   ) %>% 
