@@ -1,0 +1,11 @@
+
+Starting at 2021-11-04 20:58:00 Pacific time 
+Already up to date.
+Quitting from lines 9-14 (make_plots.Rmd) 
+Error in setwd("/Users/chester/Desktop/Desktop - Chester<U+2019>s MacBook Pro/ismayc.github.io/nba-over-under-2021-2022") : 
+  cannot change working directory
+Calls: <Anonymous> ... withCallingHandlers -> withVisible -> eval -> eval -> setwd
+In addition: Warning message:
+In native_encode(options$fig.path) :
+  some characters may not work under the current locale
+Execution halted
