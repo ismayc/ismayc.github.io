@@ -6,7 +6,7 @@ knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = e
 ---
 
 ```{r include=FALSE}
-source("01-03.R", local = TRUE)
+source("01-03.R")
 knitr::opts_chunk$set(echo = FALSE)
 library(lubridate)
 library(DT)

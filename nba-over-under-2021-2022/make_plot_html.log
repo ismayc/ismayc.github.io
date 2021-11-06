@@ -1,0 +1,14 @@
+Error in setwd("~/Desktop/Desktop - Chester\342\200\231s MacBook Pro/ismayc.github.io/nba-over-under-2021-2022") : 
+  cannot change working directory
+Execution halted
+
+Starting at 2021-11-06 11:47:00 Pacific time 
+fatal: not a git repository (or any of the parent directories): .git
+fatal: not in a git directory
+fatal: not a git repository (or any of the parent directories): .git
+Error in abs_path(input) : The file 'make_plots.Rmd' does not exist.
+Calls: <Anonymous> -> setwd -> dirname -> abs_path
+In addition: Warning message:
+In normalizePath(path, winslash = winslash, mustWork = mustWork) :
+  path[1]="make_plots.Rmd": No such file or directory
+Execution halted
