@@ -33,3 +33,9 @@ Everything up-to-date
 Starting at 2021-11-21 11:32:23 Pacific time 
 Already up to date.
 Completed at 2021-11-21 11:32:47 Pacific time 
+[master 81523f3] Updated 2021-11-21 11:32:47
+ 4 files changed, 221 insertions(+), 273 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2021-11-20.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2021-11-20.rds
+To github.com:ismayc/ismayc.github.io.git
+   509d2cc..81523f3  master -> master
