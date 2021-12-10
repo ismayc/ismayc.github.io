@@ -167,3 +167,36 @@ To github.com:ismayc/ismayc.github.io.git
 Starting at 2021-12-09 04:15:02 Pacific time 
 Already up to date.
 Completed at 2021-12-09 04:15:22 Pacific time 
+[master 6721e9d] Updated 2021-12-09 04:15:22
+ 4 files changed, 315 insertions(+), 276 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2021-12-08.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2021-12-08.rds
+To github.com:ismayc/ismayc.github.io.git
+   e4cda1d..6721e9d  master -> master
+
+Starting at 2021-12-10 04:15:01 Pacific time 
+Already up to date.
+Completed at 2021-12-10 04:15:19 Pacific time 
+fatal: Unable to create '/Users/chester/Desktop/ismayc.github.io/.git/index.lock': File exists.
+
+Another git process seems to be running in this repository, e.g.
+an editor opened by 'git commit'. Please make sure all processes
+are terminated then try again. If it still fails, a git process
+may have crashed in this repository earlier:
+remove the file manually to continue.
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   ../2022-nba-over-under.html
+	modified:   make_plot_html.log
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	rds/game_results_raw_through_2021-12-09.rds
+	rds/standings_through_2021-12-09.rds
+
+no changes added to commit (use "git add" and/or "git commit -a")
+Everything up-to-date
