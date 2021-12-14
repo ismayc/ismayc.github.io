@@ -210,3 +210,13 @@ Completed at 2021-12-11 04:15:30 Pacific time
  create mode 100644 nba-over-under-2021-2022/rds/standings_through_2021-12-10.rds
 To github.com:ismayc/ismayc.github.io.git
    8421e89..9d4a6a1  master -> master
+
+Starting at 2021-12-14 04:15:01 Pacific time 
+From github.com:ismayc/ismayc.github.io
+   7451f7b..c46c159  master     -> origin/master
+error: Your local changes to the following files would be overwritten by merge:
+	nba-over-under-2021-2022/make_plot_html.log
+Please commit your changes or stash them before you merge.
+Aborting
+Updating 7451f7b..c46c159
+Completed at 2021-12-14 04:15:22 Pacific time 
