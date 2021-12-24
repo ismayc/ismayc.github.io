@@ -304,3 +304,21 @@ To github.com:ismayc/ismayc.github.io.git
 Starting at 2021-12-23 04:05:01 Pacific time 
 Already up to date.
 Completed at 2021-12-23 04:05:26 Pacific time 
+[master b8a5072] Updated 2021-12-23 04:05:26
+ 4 files changed, 258 insertions(+), 165 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2021-12-22.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2021-12-22.rds
+To github.com:ismayc/ismayc.github.io.git
+   e4c31b0..b8a5072  master -> master
+
+Starting at 2021-12-24 04:05:00 Pacific time 
+From github.com:ismayc/ismayc.github.io
+   b8a5072..eddf531  master     -> origin/master
+Updating b8a5072..eddf531
+Fast-forward
+ coffee_ratings_full.feather | Bin 0 -> 794912 bytes
+ spotify_2000_2020.feather   | Bin 0 -> 8877584 bytes
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 coffee_ratings_full.feather
+ create mode 100644 spotify_2000_2020.feather
+Completed at 2021-12-24 04:05:29 Pacific time 
