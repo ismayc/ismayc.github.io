@@ -322,3 +322,13 @@ Fast-forward
  create mode 100644 coffee_ratings_full.feather
  create mode 100644 spotify_2000_2020.feather
 Completed at 2021-12-24 04:05:29 Pacific time 
+[master a53e6c4] Updated 2021-12-24 04:05:29
+ 4 files changed, 262 insertions(+), 329 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2021-12-23.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2021-12-23.rds
+To github.com:ismayc/ismayc.github.io.git
+   eddf531..a53e6c4  master -> master
+
+Starting at 2021-12-25 04:05:01 Pacific time 
+Already up to date.
+Completed at 2021-12-25 04:05:26 Pacific time 
