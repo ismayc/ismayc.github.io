@@ -478,3 +478,21 @@ error: Your local changes to the following files would be overwritten by merge:
 Please commit your changes or stash them before you merge.
 Aborting
 Completed at 2022-01-06 04:05:24 Pacific time 
+[master d953871] Updated 2022-01-06 04:05:24
+ 4 files changed, 307 insertions(+), 281 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-01-05.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-01-05.rds
+To github.com:ismayc/ismayc.github.io.git
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'github.com:ismayc/ismayc.github.io.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+Starting at 2022-01-07 04:05:00 Pacific time 
+error: Your local changes to the following files would be overwritten by merge:
+	nba-over-under-2021-2022/make_plot_html.log
+Please commit your changes or stash them before you merge.
+Aborting
+Completed at 2022-01-07 04:05:27 Pacific time 
