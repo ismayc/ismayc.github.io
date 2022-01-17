@@ -506,3 +506,13 @@ To github.com:ismayc/ismayc.github.io.git
 Starting at 2022-01-16 04:15:08 Pacific time 
 Already up to date.
 Completed at 2022-01-16 04:15:27 Pacific time 
+[master 05f0991] Updated 2022-01-16 04:15:28
+ 4 files changed, 237 insertions(+), 301 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-01-15.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-01-15.rds
+To github.com:ismayc/ismayc.github.io.git
+   60b1928..05f0991  master -> master
+
+Starting at 2022-01-17 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-01-17 04:15:21 Pacific time 
