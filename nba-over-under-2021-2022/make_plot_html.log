@@ -604,5 +604,16 @@ To github.com:ismayc/ismayc.github.io.git
    42f1ac8..ad6e59f  master -> master
 
 Starting at 2022-01-26 04:15:01 Pacific time 
+error: refs/heads/master does not point to a valid object!
+error: refs/remotes/origin/HEAD does not point to a valid object!
+error: refs/remotes/origin/master does not point to a valid object!
+error: refs/heads/master does not point to a valid object!
+error: refs/remotes/origin/HEAD does not point to a valid object!
+error: refs/remotes/origin/master does not point to a valid object!
+From github.com:ismayc/ismayc.github.io
+ * [new branch]        master     -> origin/master
 Already up to date.
-Completed at 2022-01-26 04:15:22 Pacific time 
+Quitting from lines 9-13 (make_plots.Rmd) 
+Error in library(nbastatR) : there is no package called 'nbastatR'
+Calls: <Anonymous> ... map -> .f -> withVisible -> eval -> eval -> library
+Execution halted
