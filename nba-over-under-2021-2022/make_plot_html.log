@@ -617,3 +617,7 @@ Quitting from lines 9-13 (make_plots.Rmd)
 Error in library(nbastatR) : there is no package called 'nbastatR'
 Calls: <Anonymous> ... map -> .f -> withVisible -> eval -> eval -> library
 Execution halted
+
+Starting at 2022-01-29 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-01-29 04:15:23 Pacific time 
