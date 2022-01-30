@@ -621,3 +621,13 @@ Execution halted
 Starting at 2022-01-29 04:15:01 Pacific time 
 Already up to date.
 Completed at 2022-01-29 04:15:23 Pacific time 
+[master ec13b9c7] Updated 2022-01-29 04:15:23
+ 4 files changed, 326 insertions(+), 239 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-01-28.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-01-28.rds
+To github.com:ismayc/ismayc.github.io.git
+   bc70b2c7..ec13b9c7  master -> master
+
+Starting at 2022-01-30 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-01-30 04:15:22 Pacific time 
