@@ -641,3 +641,25 @@ To github.com:ismayc/ismayc.github.io.git
 Starting at 2022-01-31 04:15:01 Pacific time 
 Already up to date.
 Completed at 2022-01-31 04:15:25 Pacific time 
+[master 9b3e04b8] Updated 2022-01-31 04:15:25
+ 4 files changed, 226 insertions(+), 182 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-01-30.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-01-30.rds
+To github.com:ismayc/ismayc.github.io.git
+   707005bc..9b3e04b8  master -> master
+
+Starting at 2022-02-01 04:15:01 Pacific time 
+ssh: connect to host github.com port 22: Undefined error: 0
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+Quitting from lines 9-13 (make_plots.Rmd) 
+Error in curl::curl_fetch_memory(url, handle = handle) : 
+  Could not resolve host: stats.nba.com
+Calls: <Anonymous> ... request_fetch -> request_fetch.write_memory -> <Anonymous>
+Execution halted
+
+Starting at 2022-02-02 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-02-02 04:15:23 Pacific time 
