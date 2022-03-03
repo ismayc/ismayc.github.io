@@ -15,7 +15,7 @@ season <- 2022
 if(!file.exists(here(
   "rds", glue("game_results_raw_through_{Sys.Date() - 1}.rds")))
 ) {
-  season <- game_logs(seasons = season)
+  season <- game_logs(seasons = season)   
   
   game_results_raw <- season %>% 
     distinct(slugSeason, nameTeam, dateGame, numberGameTeamSeason, 
@@ -158,9 +158,16 @@ current_schedule <-
     data
   }
 
+# scores_not_filled_in <- nbastatR::current_schedule() %>% 
+#   filter(dateGame >= nba_season_start_date, dateGame < Sys.Date()) %>% 
+#   filter(is.na(scoreAway))
+# 
+# if(nrow(scores_not_filled_in))
+#   stop("Scores not updated. Please review the `scores_not_filled_in` tibble.")
+
 scores <- nbastatR::current_schedule() %>% 
-  filter(dateGame >= nba_season_start_date) %>% 
-  filter(!is.na(scoreAway)) %>% 
+  filter(dateGame >= nba_season_start_date, dateGame < Sys.Date()) %>% 
+#  filter(!is.na(scoreAway)) %>% 
   #  mutate(is_home_winner = (isWinnerHome == 1),
   #         is_away_winner = (isWinnerAway == 1)) %>% 
   select(game_date = dateGame,
