@@ -1060,3 +1060,17 @@ To github.com:ismayc/ismayc.github.io.git
 Starting at 2022-03-16 04:15:01 Pacific time 
 Already up to date.
 Completed at 2022-03-16 04:15:23 Pacific time 
+[master 12edcc89] Updated 2022-03-16 04:15:24
+ 9 files changed, 327 insertions(+), 216 deletions(-)
+ rewrite nba-over-under-2021-2022/points-calculator/picks.xlsx (79%)
+ create mode 100644 nba-over-under-2021-2022/points-calculator/rsconnect/shinyapps.io/chesterismay/points-calculator.dcf
+ create mode 100644 nba-over-under-2021-2022/points-calculator/~$picks.xlsx
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-03-15.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-03-15.rds
+ create mode 100644 nba-over-under-2021-2022/rosters/player_analysis.R
+To github.com:ismayc/ismayc.github.io.git
+   af394669..12edcc89  master -> master
+
+Starting at 2022-03-17 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-03-17 04:15:25 Pacific time 
