@@ -49,7 +49,6 @@ ui <- fluidPage(
         sidebarPanel(
             width = 4,
             h5("Outcome still to be determined"),
-            over_under_choice("Hawks", selected = "UNDER"),
             over_under_choice("Celtics", selected = "OVER"),
             over_under_choice("Hornets", selected = "OVER"),
             over_under_choice("Mavericks", selected = "OVER"),
@@ -63,12 +62,12 @@ ui <- fluidPage(
             over_under_choice("Thunder", selected = "OVER"),
             over_under_choice("Magic", selected = "UNDER"),
             over_under_choice("76ers", selected = "UNDER"),
-            over_under_choice("Kings", selected = "UNDER"),
             over_under_choice("Spurs", selected = "UNDER"),
             over_under_choice("Jazz", selected = "UNDER"),
             over_under_choice("Wizards", selected = "UNDER"),
             br(),
             h5("Outcome determined"),
+            over_under_choice("Hawks", choices = "UNDER"),
             over_under_choice("Nets", choices = "UNDER"),
             over_under_choice("Bulls", choices = "OVER"),
             over_under_choice("Cavaliers", choices = "OVER"),
@@ -79,7 +78,8 @@ ui <- fluidPage(
             over_under_choice("Timberwolves", choices = "OVER"),
             over_under_choice("Knicks", choices = "UNDER"),
             over_under_choice("Suns", choices = "OVER"),
-            over_under_choice("Blazers", choices = "UNDER"),        
+            over_under_choice("Blazers", choices = "UNDER"), 
+            over_under_choice("Kings", choices = "UNDER"),
             over_under_choice("Raptors", choices = "OVER")
         ),
         
