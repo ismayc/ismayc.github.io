@@ -61,7 +61,7 @@ ui <- fluidPage(
             over_under_choice("Pelicans", selected = "UNDER"),
             over_under_choice("Thunder", selected = "OVER"),
             over_under_choice("Magic", selected = "UNDER"),
-            over_under_choice("76ers", selected = "UNDER"),
+            over_under_choice("76ers", selected = "OVER"),
             over_under_choice("Spurs", selected = "UNDER"),
             over_under_choice("Jazz", selected = "UNDER"),
             over_under_choice("Wizards", selected = "UNDER"),
