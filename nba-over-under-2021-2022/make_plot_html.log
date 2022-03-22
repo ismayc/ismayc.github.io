@@ -1125,3 +1125,12 @@ To github.com:ismayc/ismayc.github.io.git
 Starting at 2022-03-22 04:15:01 Pacific time 
 Already up to date.
 Completed at 2022-03-22 04:15:31 Pacific time 
+[master 6b817725] Updated 2022-03-22 04:15:39
+ 9 files changed, 328 insertions(+), 278 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/career_totals.R
+ create mode 100644 nba-over-under-2021-2022/career_totals.log
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-03-21.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-03-21.rds
+ create mode 100644 nba-over-under-2021-2022/rosters/career_totals.R
+To github.com:ismayc/ismayc.github.io.git
+   bb503897..6b817725  master -> master

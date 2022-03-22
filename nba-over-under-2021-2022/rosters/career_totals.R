@@ -5,7 +5,10 @@ library(tictoc)
 
 Sys.setenv("VROOM_CONNECTION_SIZE" = 100000000000)
 
-nba_players <- nbastatR::nba_players()
+#nba_players <- nbastatR::nba_players()
+#readr::write_rds(nba_players, "rosters/nba_players.rds")
+
+nba_players <- read_rds("rosters/nba_players.rds")
 
 cat("\n")
 cat(paste("Starting at", Sys.time()))
