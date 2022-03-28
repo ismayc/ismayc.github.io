@@ -10,6 +10,30 @@ Sys.setenv("VROOM_CONNECTION_SIZE" = 100000000000)
 
 nba_players <- read_rds("rosters/nba_players.rds")
 
+rm(dataPlayerCareerTotalsRegularSeason)
+career_stats_list <- nbastatR::players_careers(
+  player_ids = nba_players$idPlayer[1],
+  modes = "Totals"
+)#read_rds("~/Desktop/regular_season_career-1to500-2022-03-26.rds")
+
+#career_stats <- dataPlayerCareerTotalsRegularSeason
+#write_rds(career_stats, "~/Desktop/regular_season_career-1to1562-2022-03-26.rds")
+career_stats <- read_rds("~/Desktop/regular_season_career-1to1562-2022-03-26.rds")
+
+#for(i in 2:nrow(nba_players)) {
+for(i in 1617:nrow(nba_players)) {
+  career_stats_temp <- nbastatR::players_careers(
+    player_ids = nba_players$idPlayer[i],
+    modes = "Totals"
+  )
+  if(exists("dataPlayerCareerTotalsRegularSeason")){
+    career_stats <- dplyr::bind_rows(career_stats, dataPlayerCareerTotalsRegularSeason)
+    rm(dataPlayerCareerTotalsRegularSeason)
+  }
+}
+View(career_stats)
+
+# Old way
 cat("\n")
 cat(paste("Starting at", Sys.time()))
 cat("\n")
