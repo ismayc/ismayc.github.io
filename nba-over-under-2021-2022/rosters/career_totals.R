@@ -26,10 +26,12 @@ for(i in 1617:nrow(nba_players)) {
     player_ids = nba_players$idPlayer[i],
     modes = "Totals"
   )
+  Sys.sleep(5)
   if(exists("dataPlayerCareerTotalsRegularSeason")){
     career_stats <- dplyr::bind_rows(career_stats, dataPlayerCareerTotalsRegularSeason)
     rm(dataPlayerCareerTotalsRegularSeason)
   }
+  write_rds(career_stats, "~/Desktop/regular_season_career-iterating-2022-03-28.rds")
 }
 View(career_stats)
 
