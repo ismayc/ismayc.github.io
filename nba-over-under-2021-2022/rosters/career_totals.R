@@ -33,7 +33,6 @@ for(i in 1617:nrow(nba_players)) {
   }
   write_rds(career_stats, "~/Desktop/regular_season_career-iterating-2022-03-28.rds")
 }
-View(career_stats)
 
 # Old way
 cat("\n")
