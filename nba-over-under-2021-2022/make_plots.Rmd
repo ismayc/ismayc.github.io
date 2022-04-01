@@ -406,6 +406,7 @@ picks_wide <- picks %>%
   select(Team = team, `Current Wins` = wins, `Target Wins`, 
          Adonis, Chester, Jake, Jenelle, Mary, Mike, Phil, Ryan, 
          everything())
+readr::write_rds(picks_wide %>% select(Team, Adonis_points:ryan_choice), "picks_wide.rds")
 ```
 
 ```{r message=FALSE, warning=FALSE}
