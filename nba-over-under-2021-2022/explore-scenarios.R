@@ -29,7 +29,7 @@ picks <- read_excel(path = "picks.xlsx", sheet = "picks")
 set.seed(NULL)
 start_time <- Sys.time()
 outcome_sims <- future_map_dfr(
-  1:100000, 
+  1:5000000, 
   ~ {
     sim_prep <- picks %>% 
       inner_join(lookup_table, by = "team") %>% 
@@ -49,6 +49,8 @@ outcome_sims <- future_map_dfr(
       inner_join(sim_prep %>% select(team, sim), by = "team") %>% 
       mutate(sim_points = if_else(choice == sim, wage, -wage))
     
+    # Check if sims unique
+    
     out <- sims %>% 
       group_by(player) %>% 
       summarize(expected_total = sum(sim_points)) %>% 
@@ -66,7 +68,7 @@ outcome_sims <- future_map_dfr(
 end_time <- Sys.time()
 end_time - start_time
 
-outcome_sims %>% 
+View(outcome_sims %>% 
   group_by(player) %>% 
   summarize(median_expected_total = median(expected_total),
             mean_expected_total = mean(expected_total),
@@ -75,5 +77,5 @@ outcome_sims %>%
             mean_rank = mean(rank),
             prob_playoffs = mean(playoffs == TRUE) * 100,
             prob_one_rank = mean(rank == 1) *100) %>% 
-  arrange(desc(median_expected_total))
+  arrange(desc(median_expected_total)))
 
