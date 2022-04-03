@@ -49,7 +49,6 @@ ui <- fluidPage(
         sidebarPanel(
             width = 4,
             h5("Outcome still to be determined"),
-            over_under_choice("Mavericks", selected = "OVER"),
             over_under_choice("Nuggets", selected = "UNDER"),
             over_under_choice("Pistons", selected = "UNDER"),
             over_under_choice("Rockets", selected = "UNDER"),
@@ -67,6 +66,7 @@ ui <- fluidPage(
             over_under_choice("Hornets", choices = "OVER"),
             over_under_choice("Bulls", choices = "OVER"),
             over_under_choice("Cavaliers", choices = "OVER"),
+            over_under_choice("Mavericks", choices = "OVER"),
             over_under_choice("Warriors", choices = "OVER"),
             over_under_choice("Pacers", choices = "UNDER"),
             over_under_choice("Clippers", choices = "UNDER"),
