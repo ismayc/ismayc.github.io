@@ -211,136 +211,1046 @@ Completed at 2021-12-11 04:15:30 Pacific time
 To github.com:ismayc/ismayc.github.io.git
    8421e89..9d4a6a1  master -> master
 
-Starting at 2021-12-14 04:05:01 Pacific time 
-Already up to date.
-Completed at 2021-12-14 04:05:28 Pacific time 
-[master c46c159] Updated 2021-12-14 04:05:28
- 4 files changed, 241 insertions(+), 256 deletions(-)
+Starting at 2021-12-14 04:15:01 Pacific time 
+From github.com:ismayc/ismayc.github.io
+   7451f7b..c46c159  master     -> origin/master
+error: Your local changes to the following files would be overwritten by merge:
+	nba-over-under-2021-2022/make_plot_html.log
+Please commit your changes or stash them before you merge.
+Aborting
+Updating 7451f7b..c46c159
+Completed at 2021-12-14 04:15:22 Pacific time 
+[master 7a05102] Updated 2021-12-14 04:15:22
+ 4 files changed, 247 insertions(+), 256 deletions(-)
  create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2021-12-13.rds
  create mode 100644 nba-over-under-2021-2022/rds/standings_through_2021-12-13.rds
 To github.com:ismayc/ismayc.github.io.git
-   7451f7b..c46c159  master -> master
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'github.com:ismayc/ismayc.github.io.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 
-Starting at 2021-12-15 04:05:01 Pacific time 
-Already up to date.
-Completed at 2021-12-15 04:05:33 Pacific time 
-[master 4681513] Updated 2021-12-15 04:05:33
- 4 files changed, 196 insertions(+), 191 deletions(-)
+Starting at 2021-12-15 04:15:01 Pacific time 
+From github.com:ismayc/ismayc.github.io
+   c46c159..4681513  master     -> origin/master
+error: Your local changes to the following files would be overwritten by merge:
+  2022-nba-over-under.html nba-over-under-2021-2022/make_plot_html.log nba-over-under-2021-2022/rds/game_results_raw_through_2021-12-08.rds nba-over-under-2021-2022/rds/game_results_raw_through_2021-12-09.rds nba-over-under-2021-2022/rds/game_results_raw_through_2021-12-10.rds nba-over-under-2021-2022/rds/game_results_raw_through_2021-12-11.rds nba-over-under-2021-2022/rds/game_results_raw_through_2021-12-12.rds nba-over-under-2021-2022/rds/game_results_raw_through_2021-12-13.rds nba-over-under-2021-2022/rds/standings_through_2021-12-08.rds nba-over-under-2021-2022/rds/standings_through_2021-12-09.rds nba-over-under-2021-2022/rds/standings_through_2021-12-10.rds nba-over-under-2021-2022/rds/standings_through_2021-12-11.rds nba-over-under-2021-2022/rds/standings_through_2021-12-12.rds nba-over-under-2021-2022/rds/standings_through_2021-12-13.rds
+Completed at 2021-12-15 04:15:26 Pacific time 
+[master 14745a9] Updated 2021-12-15 04:15:27
+ 4 files changed, 204 insertions(+), 191 deletions(-)
  create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2021-12-14.rds
  create mode 100644 nba-over-under-2021-2022/rds/standings_through_2021-12-14.rds
 To github.com:ismayc/ismayc.github.io.git
-   c46c159..4681513  master -> master
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'github.com:ismayc/ismayc.github.io.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 
-Starting at 2021-12-16 04:05:01 Pacific time 
-Already up to date.
-Completed at 2021-12-16 04:05:31 Pacific time 
-[master 0e617ac] Updated 2021-12-16 04:05:31
- 4 files changed, 310 insertions(+), 248 deletions(-)
+Starting at 2021-12-16 04:15:01 Pacific time 
+From github.com:ismayc/ismayc.github.io
+   4681513..0e617ac  master     -> origin/master
+error: Your local changes to the following files would be overwritten by merge:
+	nba-over-under-2021-2022/make_plot_html.log
+Please commit your changes or stash them before you merge.
+Aborting
+Completed at 2021-12-16 04:15:41 Pacific time 
+[master dd4355a] Updated 2021-12-16 04:15:42
+ 4 files changed, 320 insertions(+), 248 deletions(-)
  create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2021-12-15.rds
  create mode 100644 nba-over-under-2021-2022/rds/standings_through_2021-12-15.rds
 To github.com:ismayc/ismayc.github.io.git
-   4681513..0e617ac  master -> master
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'github.com:ismayc/ismayc.github.io.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 
-Starting at 2021-12-17 04:05:04 Pacific time 
-Already up to date.
-Completed at 2021-12-17 04:05:31 Pacific time 
-[master 9a86950] Updated 2021-12-17 04:05:31
- 4 files changed, 190 insertions(+), 256 deletions(-)
- create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2021-12-16.rds
- create mode 100644 nba-over-under-2021-2022/rds/standings_through_2021-12-16.rds
-To github.com:ismayc/ismayc.github.io.git
-   0e617ac..9a86950  master -> master
-
-Starting at 2021-12-18 04:05:01 Pacific time 
-Already up to date.
-Completed at 2021-12-18 04:05:27 Pacific time 
-[master 34b7169] Updated 2021-12-18 04:05:27
- 4 files changed, 305 insertions(+), 241 deletions(-)
- create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2021-12-17.rds
- create mode 100644 nba-over-under-2021-2022/rds/standings_through_2021-12-17.rds
-To github.com:ismayc/ismayc.github.io.git
-   9a86950..34b7169  master -> master
-
-Starting at 2021-12-19 04:05:01 Pacific time 
-Already up to date.
-Completed at 2021-12-19 04:05:27 Pacific time 
-[master 1bfa4ff] Updated 2021-12-19 04:05:28
- 4 files changed, 260 insertions(+), 238 deletions(-)
- create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2021-12-18.rds
- create mode 100644 nba-over-under-2021-2022/rds/standings_through_2021-12-18.rds
-To github.com:ismayc/ismayc.github.io.git
-   34b7169..1bfa4ff  master -> master
-
-Starting at 2021-12-20 04:05:01 Pacific time 
-Already up to date.
-Completed at 2021-12-20 04:05:26 Pacific time 
-[master 3a4d0bb] Updated 2021-12-20 04:05:27
- 4 files changed, 202 insertions(+), 238 deletions(-)
+Starting at 2021-12-20 04:15:03 Pacific time 
+From github.com:ismayc/ismayc.github.io
+   0e617ac..3a4d0bb  master     -> origin/master
+error: Your local changes to the following files would be overwritten by merge:
+	nba-over-under-2021-2022/make_plot_html.log
+Please commit your changes or stash them before you merge.
+Aborting
+Completed at 2021-12-20 04:15:26 Pacific time 
+[master 8c81359] Updated 2021-12-20 04:15:26
+ 4 files changed, 328 insertions(+), 364 deletions(-)
  create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2021-12-19.rds
  create mode 100644 nba-over-under-2021-2022/rds/standings_through_2021-12-19.rds
 To github.com:ismayc/ismayc.github.io.git
-   1bfa4ff..3a4d0bb  master -> master
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'github.com:ismayc/ismayc.github.io.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 
-Starting at 2021-12-21 04:05:00 Pacific time 
-Already up to date.
-Completed at 2021-12-21 04:05:32 Pacific time 
-[master 2533239] Updated 2021-12-21 04:05:32
- 4 files changed, 189 insertions(+), 193 deletions(-)
+Starting at 2021-12-21 04:15:03 Pacific time 
+From github.com:ismayc/ismayc.github.io
+   3a4d0bb..2533239  master     -> origin/master
+error: Your local changes to the following files would be overwritten by merge:
+	nba-over-under-2021-2022/make_plot_html.log
+Please commit your changes or stash them before you merge.
+Aborting
+Completed at 2021-12-21 04:15:29 Pacific time 
+[master 6ad50a2] Updated 2021-12-21 04:15:29
+ 4 files changed, 199 insertions(+), 193 deletions(-)
  create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2021-12-20.rds
  create mode 100644 nba-over-under-2021-2022/rds/standings_through_2021-12-20.rds
 To github.com:ismayc/ismayc.github.io.git
-   3a4d0bb..2533239  master -> master
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'github.com:ismayc/ismayc.github.io.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 
-Starting at 2021-12-22 04:05:01 Pacific time 
-Already up to date.
-Completed at 2021-12-22 04:05:25 Pacific time 
-[master e4c31b0] Updated 2021-12-22 04:05:25
- 4 files changed, 164 insertions(+), 171 deletions(-)
- create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2021-12-21.rds
- create mode 100644 nba-over-under-2021-2022/rds/standings_through_2021-12-21.rds
-To github.com:ismayc/ismayc.github.io.git
-   2533239..e4c31b0  master -> master
+Starting at 2021-12-24 04:15:02 Pacific time 
+error: refs/heads/master does not point to a valid object!
+error: refs/remotes/origin/HEAD does not point to a valid object!
+error: refs/remotes/origin/master does not point to a valid object!
+error: refs/heads/master does not point to a valid object!
+error: refs/remotes/origin/HEAD does not point to a valid object!
+error: refs/remotes/origin/master does not point to a valid object!
+error: refs/heads/master does not point to a valid object!
+fatal: bad object HEAD
+error: github.com:ismayc/ismayc.github.io.git did not send all necessary objects
 
-Starting at 2021-12-23 04:05:01 Pacific time 
-Already up to date.
-Completed at 2021-12-23 04:05:26 Pacific time 
-[master b8a5072] Updated 2021-12-23 04:05:26
- 4 files changed, 258 insertions(+), 165 deletions(-)
- create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2021-12-22.rds
- create mode 100644 nba-over-under-2021-2022/rds/standings_through_2021-12-22.rds
-To github.com:ismayc/ismayc.github.io.git
-   e4c31b0..b8a5072  master -> master
+Quitting from lines 9-13 (make_plots.Rmd) 
+Error in library(nbastatR) : there is no package called 'nbastatR'
+Calls: <Anonymous> ... map -> .f -> withVisible -> eval -> eval -> library
+Execution halted
 
-Starting at 2021-12-24 04:05:00 Pacific time 
+Starting at 2021-12-25 04:16:20 Pacific time 
 From github.com:ismayc/ismayc.github.io
-   b8a5072..eddf531  master     -> origin/master
-Updating b8a5072..eddf531
-Fast-forward
- coffee_ratings_full.feather | Bin 0 -> 794912 bytes
- spotify_2000_2020.feather   | Bin 0 -> 8877584 bytes
- 2 files changed, 0 insertions(+), 0 deletions(-)
- create mode 100644 coffee_ratings_full.feather
- create mode 100644 spotify_2000_2020.feather
-Completed at 2021-12-24 04:05:29 Pacific time 
-[master a53e6c4] Updated 2021-12-24 04:05:29
- 4 files changed, 262 insertions(+), 329 deletions(-)
- create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2021-12-23.rds
- create mode 100644 nba-over-under-2021-2022/rds/standings_through_2021-12-23.rds
-To github.com:ismayc/ismayc.github.io.git
-   eddf531..a53e6c4  master -> master
-
-Starting at 2021-12-25 04:05:01 Pacific time 
-Already up to date.
-Completed at 2021-12-25 04:05:26 Pacific time 
-[master 3eab992] Updated 2021-12-25 04:05:26
- 4 files changed, 73 insertions(+), 184 deletions(-)
+   2533239..3eab992  master     -> origin/master
+error: Your local changes to the following files would be overwritten by merge:
+	nba-over-under-2021-2022/make_plot_html.log
+Please commit your changes or stash them before you merge.
+Aborting
+Completed at 2021-12-25 04:18:30 Pacific time 
+[master b61655a] Updated 2021-12-25 04:18:31
+ 4 files changed, 274 insertions(+), 378 deletions(-)
  create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2021-12-24.rds
  create mode 100644 nba-over-under-2021-2022/rds/standings_through_2021-12-24.rds
 To github.com:ismayc/ismayc.github.io.git
-   a53e6c4..3eab992  master -> master
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'github.com:ismayc/ismayc.github.io.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 
-Starting at 2021-12-26 04:05:00 Pacific time 
+Starting at 2021-12-27 04:15:03 Pacific time 
+From github.com:ismayc/ismayc.github.io
+   3eab992..5819101  master     -> origin/master
+error: Your local changes to the following files would be overwritten by merge:
+	nba-over-under-2021-2022/make_plot_html.log
+Please commit your changes or stash them before you merge.
+Aborting
+Completed at 2021-12-27 04:15:29 Pacific time 
+[master bd48c59] Updated 2021-12-27 04:15:29
+ 4 files changed, 416 insertions(+), 209 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2021-12-26.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2021-12-26.rds
+To github.com:ismayc/ismayc.github.io.git
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'github.com:ismayc/ismayc.github.io.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+Starting at 2021-12-28 04:15:01 Pacific time 
+error: Your local changes to the following files would be overwritten by merge:
+	nba-over-under-2021-2022/make_plot_html.log
+Please commit your changes or stash them before you merge.
+Aborting
+Completed at 2021-12-28 04:15:26 Pacific time 
+
+Starting at 2021-12-29 04:15:02 Pacific time 
 Already up to date.
+Completed at 2021-12-29 04:15:28 Pacific time 
+[master 5e1dc5c] Updated 2021-12-29 04:15:29
+ 4 files changed, 260 insertions(+), 225 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2021-12-28.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2021-12-28.rds
+To github.com:ismayc/ismayc.github.io.git
+   adb92bf..5e1dc5c  master -> master
+
+Starting at 2021-12-30 04:15:01 Pacific time 
+Already up to date.
+Completed at 2021-12-30 04:15:25 Pacific time 
+[master 898e0d9] Updated 2021-12-30 04:15:26
+ 4 files changed, 199 insertions(+), 258 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2021-12-29.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2021-12-29.rds
+To github.com:ismayc/ismayc.github.io.git
+   5e1dc5c..898e0d9  master -> master
+
+Starting at 2021-12-31 04:15:01 Pacific time 
+Already up to date.
+Completed at 2021-12-31 04:15:24 Pacific time 
+[master 001df4f] Updated 2021-12-31 04:15:24
+ 4 files changed, 182 insertions(+), 172 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2021-12-30.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2021-12-30.rds
+To github.com:ismayc/ismayc.github.io.git
+   898e0d9..001df4f  master -> master
+
+Starting at 2022-01-01 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-01-01 04:15:35 Pacific time 
+[master c73dc73] Updated 2022-01-01 04:15:35
+ 4 files changed, 306 insertions(+), 234 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2021-12-31.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2021-12-31.rds
+To github.com:ismayc/ismayc.github.io.git
+   001df4f..c73dc73  master -> master
+
+Starting at 2022-01-03 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-01-03 04:15:25 Pacific time 
+[master 881f4a1] Updated 2022-01-03 04:15:25
+ 4 files changed, 249 insertions(+), 187 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-01-02.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-01-02.rds
+To github.com:ismayc/ismayc.github.io.git
+   d117322..881f4a1  master -> master
+
+Starting at 2022-01-04 04:15:02 Pacific time 
+Already up to date.
+Completed at 2022-01-04 04:15:28 Pacific time 
+[master 67f4c7f] Updated 2022-01-04 04:15:29
+ 4 files changed, 256 insertions(+), 265 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-01-03.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-01-03.rds
+To github.com:ismayc/ismayc.github.io.git
+   881f4a1..67f4c7f  master -> master
+
+Starting at 2022-01-05 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-01-05 04:15:28 Pacific time 
+[master 3661bcd] Updated 2022-01-05 04:15:28
+ 4 files changed, 224 insertions(+), 215 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-01-04.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-01-04.rds
+To github.com:ismayc/ismayc.github.io.git
+   67f4c7f..3661bcd  master -> master
+
+Starting at 2022-01-09 04:15:03 Pacific time 
+Already up to date.
+Completed at 2022-01-09 04:15:25 Pacific time 
+[master c67ce0c] Updated 2022-01-09 04:15:26
+ 4 files changed, 229 insertions(+), 203 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-01-08.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-01-08.rds
+To github.com:ismayc/ismayc.github.io.git
+   b68ee6a..c67ce0c  master -> master
+
+Starting at 2022-01-10 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-01-10 04:15:23 Pacific time 
+[master b4fcc54] Updated 2022-01-10 04:15:26
+ 4 files changed, 288 insertions(+), 250 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-01-09.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-01-09.rds
+To github.com:ismayc/ismayc.github.io.git
+   c67ce0c..b4fcc54  master -> master
+
+Starting at 2022-01-11 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-01-11 04:15:29 Pacific time 
+[master 734a134] Updated 2022-01-11 04:15:34
+ 4 files changed, 176 insertions(+), 232 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-01-10.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-01-10.rds
+To github.com:ismayc/ismayc.github.io.git
+   b4fcc54..734a134  master -> master
+
+Starting at 2022-01-12 04:15:03 Pacific time 
+Already up to date.
+Completed at 2022-01-12 04:15:31 Pacific time 
+[master 16bcc34] Updated 2022-01-12 04:15:36
+ 4 files changed, 225 insertions(+), 191 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-01-11.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-01-11.rds
+To github.com:ismayc/ismayc.github.io.git
+   734a134..16bcc34  master -> master
+
+Starting at 2022-01-13 04:15:03 Pacific time 
+Already up to date.
+Completed at 2022-01-13 04:15:24 Pacific time 
+[master 92d7dec] Updated 2022-01-13 04:15:27
+ 4 files changed, 254 insertions(+), 248 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-01-12.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-01-12.rds
+To github.com:ismayc/ismayc.github.io.git
+   16bcc34..92d7dec  master -> master
+
+Starting at 2022-01-14 04:15:03 Pacific time 
+Already up to date.
+Completed at 2022-01-14 04:15:25 Pacific time 
+[master d166615] Updated 2022-01-14 04:15:32
+ 4 files changed, 190 insertions(+), 193 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-01-13.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-01-13.rds
+To github.com:ismayc/ismayc.github.io.git
+   92d7dec..d166615  master -> master
+
+Starting at 2022-01-16 04:15:08 Pacific time 
+Already up to date.
+Completed at 2022-01-16 04:15:27 Pacific time 
+[master 05f0991] Updated 2022-01-16 04:15:28
+ 4 files changed, 237 insertions(+), 301 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-01-15.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-01-15.rds
+To github.com:ismayc/ismayc.github.io.git
+   60b1928..05f0991  master -> master
+
+Starting at 2022-01-17 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-01-17 04:15:21 Pacific time 
+[master edf1ed7] Updated 2022-01-17 04:15:22
+ 4 files changed, 229 insertions(+), 208 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-01-16.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-01-16.rds
+To github.com:ismayc/ismayc.github.io.git
+   05f0991..edf1ed7  master -> master
+
+Starting at 2022-01-18 04:15:02 Pacific time 
+Already up to date.
+Completed at 2022-01-18 04:15:23 Pacific time 
+[master ed182b9] Updated 2022-01-18 04:15:29
+ 4 files changed, 304 insertions(+), 297 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-01-17.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-01-17.rds
+To github.com:ismayc/ismayc.github.io.git
+   edf1ed7..ed182b9  master -> master
+
+Starting at 2022-01-19 04:15:03 Pacific time 
+Already up to date.
+Completed at 2022-01-19 04:15:27 Pacific time 
+[master 715a03e] Updated 2022-01-19 04:15:27
+ 4 files changed, 176 insertions(+), 183 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-01-18.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-01-18.rds
+To github.com:ismayc/ismayc.github.io.git
+   ed182b9..715a03e  master -> master
+
+Starting at 2022-01-20 04:15:03 Pacific time 
+Already up to date.
+Completed at 2022-01-20 04:15:24 Pacific time 
+[master 799e405] Updated 2022-01-20 04:15:46
+ 4 files changed, 320 insertions(+), 263 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-01-19.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-01-19.rds
+To github.com:ismayc/ismayc.github.io.git
+   715a03e..799e405  master -> master
+
+Starting at 2022-01-21 04:15:04 Pacific time 
+Already up to date.
+Completed at 2022-01-21 04:15:26 Pacific time 
+[master d9999ba] Updated 2022-01-21 04:15:35
+ 4 files changed, 175 insertions(+), 223 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-01-20.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-01-20.rds
+To github.com:ismayc/ismayc.github.io.git
+   799e405..d9999ba  master -> master
+
+Starting at 2022-01-22 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-01-22 04:15:33 Pacific time 
+[master 68586ff] Updated 2022-01-22 04:15:34
+ 4 files changed, 290 insertions(+), 257 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-01-21.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-01-21.rds
+To github.com:ismayc/ismayc.github.io.git
+   d9999ba..68586ff  master -> master
+
+Starting at 2022-01-23 04:15:03 Pacific time 
+Already up to date.
+Completed at 2022-01-23 04:15:25 Pacific time 
+[master 940c332] Updated 2022-01-23 04:15:30
+ 4 files changed, 184 insertions(+), 198 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-01-22.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-01-22.rds
+To github.com:ismayc/ismayc.github.io.git
+   68586ff..940c332  master -> master
+
+Starting at 2022-01-24 04:15:03 Pacific time 
+Already up to date.
+Completed at 2022-01-24 04:15:25 Pacific time 
+[master 42f1ac8] Updated 2022-01-24 04:15:36
+ 4 files changed, 284 insertions(+), 236 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-01-23.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-01-23.rds
+To github.com:ismayc/ismayc.github.io.git
+   940c332..42f1ac8  master -> master
+
+Starting at 2022-01-25 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-01-25 04:15:25 Pacific time 
+[master ad6e59f] Updated 2022-01-25 04:15:32
+ 4 files changed, 187 insertions(+), 226 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-01-24.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-01-24.rds
+To github.com:ismayc/ismayc.github.io.git
+   42f1ac8..ad6e59f  master -> master
+
+Starting at 2022-01-26 04:15:01 Pacific time 
+error: refs/heads/master does not point to a valid object!
+error: refs/remotes/origin/HEAD does not point to a valid object!
+error: refs/remotes/origin/master does not point to a valid object!
+error: refs/heads/master does not point to a valid object!
+error: refs/remotes/origin/HEAD does not point to a valid object!
+error: refs/remotes/origin/master does not point to a valid object!
+From github.com:ismayc/ismayc.github.io
+ * [new branch]        master     -> origin/master
+Already up to date.
+Quitting from lines 9-13 (make_plots.Rmd) 
+Error in library(nbastatR) : there is no package called 'nbastatR'
+Calls: <Anonymous> ... map -> .f -> withVisible -> eval -> eval -> library
+Execution halted
+
+Starting at 2022-01-29 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-01-29 04:15:23 Pacific time 
+[master ec13b9c7] Updated 2022-01-29 04:15:23
+ 4 files changed, 326 insertions(+), 239 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-01-28.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-01-28.rds
+To github.com:ismayc/ismayc.github.io.git
+   bc70b2c7..ec13b9c7  master -> master
+
+Starting at 2022-01-30 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-01-30 04:15:22 Pacific time 
+[master 707005bc] Updated 2022-01-30 04:15:23
+ 4 files changed, 207 insertions(+), 254 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-01-29.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-01-29.rds
+To github.com:ismayc/ismayc.github.io.git
+   ec13b9c7..707005bc  master -> master
+
+Starting at 2022-01-31 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-01-31 04:15:25 Pacific time 
+[master 9b3e04b8] Updated 2022-01-31 04:15:25
+ 4 files changed, 226 insertions(+), 182 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-01-30.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-01-30.rds
+To github.com:ismayc/ismayc.github.io.git
+   707005bc..9b3e04b8  master -> master
+
+Starting at 2022-02-01 04:15:01 Pacific time 
+ssh: connect to host github.com port 22: Undefined error: 0
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+Quitting from lines 9-13 (make_plots.Rmd) 
+Error in curl::curl_fetch_memory(url, handle = handle) : 
+  Could not resolve host: stats.nba.com
+Calls: <Anonymous> ... request_fetch -> request_fetch.write_memory -> <Anonymous>
+Execution halted
+
+Starting at 2022-02-02 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-02-02 04:15:23 Pacific time 
+[master 51f1f2e3] Updated 2022-02-02 04:15:23
+ 4 files changed, 286 insertions(+), 267 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-02-01.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-02-01.rds
+To github.com:ismayc/ismayc.github.io.git
+   9b3e04b8..51f1f2e3  master -> master
+
+Starting at 2022-02-03 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-02-03 04:15:22 Pacific time 
+[master 14ee0fa2] Updated 2022-02-03 04:15:22
+ 4 files changed, 245 insertions(+), 242 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-02-02.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-02-02.rds
+To github.com:ismayc/ismayc.github.io.git
+   51f1f2e3..14ee0fa2  master -> master
+
+Starting at 2022-02-04 04:15:02 Pacific time 
+Already up to date.
+Completed at 2022-02-04 04:15:24 Pacific time 
+[master 43088090] Updated 2022-02-04 04:15:24
+ 4 files changed, 217 insertions(+), 216 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-02-03.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-02-03.rds
+To github.com:ismayc/ismayc.github.io.git
+   14ee0fa2..43088090  master -> master
+
+Starting at 2022-02-05 04:15:02 Pacific time 
+Already up to date.
+Completed at 2022-02-05 04:15:32 Pacific time 
+[master 6d6a437d] Updated 2022-02-05 04:15:36
+ 4 files changed, 241 insertions(+), 223 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-02-04.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-02-04.rds
+To github.com:ismayc/ismayc.github.io.git
+   43088090..6d6a437d  master -> master
+
+Starting at 2022-02-06 04:15:02 Pacific time 
+Already up to date.
+Completed at 2022-02-06 04:15:24 Pacific time 
+[master c84ac682] Updated 2022-02-06 04:15:25
+ 4 files changed, 195 insertions(+), 207 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-02-05.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-02-05.rds
+To github.com:ismayc/ismayc.github.io.git
+   6d6a437d..c84ac682  master -> master
+
+Starting at 2022-02-07 04:15:02 Pacific time 
+Already up to date.
+Completed at 2022-02-07 04:15:24 Pacific time 
+[master 492d6a3b] Updated 2022-02-07 04:15:30
+ 4 files changed, 234 insertions(+), 233 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-02-06.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-02-06.rds
+To github.com:ismayc/ismayc.github.io.git
+   c84ac682..492d6a3b  master -> master
+
+Starting at 2022-02-08 04:15:03 Pacific time 
+Already up to date.
+Completed at 2022-02-08 04:15:25 Pacific time 
+[master 286e1405] Updated 2022-02-08 04:15:32
+ 4 files changed, 227 insertions(+), 198 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-02-07.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-02-07.rds
+To github.com:ismayc/ismayc.github.io.git
+   492d6a3b..286e1405  master -> master
+
+Starting at 2022-02-09 04:15:03 Pacific time 
+Already up to date.
+Completed at 2022-02-09 04:15:28 Pacific time 
+[master 23e7d758] Updated 2022-02-09 04:15:39
+ 4 files changed, 265 insertions(+), 226 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-02-08.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-02-08.rds
+To github.com:ismayc/ismayc.github.io.git
+   286e1405..23e7d758  master -> master
+
+Starting at 2022-02-10 04:15:03 Pacific time 
+Already up to date.
+Completed at 2022-02-10 04:15:26 Pacific time 
+[master c213efce] Updated 2022-02-10 04:15:36
+ 4 files changed, 170 insertions(+), 214 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-02-09.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-02-09.rds
+To github.com:ismayc/ismayc.github.io.git
+   23e7d758..c213efce  master -> master
+
+Starting at 2022-02-11 04:15:03 Pacific time 
+Already up to date.
+Completed at 2022-02-11 04:15:29 Pacific time 
+[master fae441e8] Updated 2022-02-11 04:15:29
+ 4 files changed, 218 insertions(+), 190 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-02-10.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-02-10.rds
+To github.com:ismayc/ismayc.github.io.git
+   c213efce..fae441e8  master -> master
+
+Starting at 2022-02-12 04:15:03 Pacific time 
+Already up to date.
+Completed at 2022-02-12 04:15:26 Pacific time 
+[master 161658de] Updated 2022-02-12 04:15:27
+ 4 files changed, 236 insertions(+), 170 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-02-11.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-02-11.rds
+To github.com:ismayc/ismayc.github.io.git
+   fae441e8..161658de  master -> master
+
+Starting at 2022-02-13 04:15:02 Pacific time 
+Already up to date.
+Completed at 2022-02-13 04:15:26 Pacific time 
+[master d18da839] Updated 2022-02-13 04:15:26
+ 4 files changed, 250 insertions(+), 299 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-02-12.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-02-12.rds
+To github.com:ismayc/ismayc.github.io.git
+   161658de..d18da839  master -> master
+
+Starting at 2022-02-14 04:15:02 Pacific time 
+Already up to date.
+Completed at 2022-02-14 04:15:33 Pacific time 
+[master a362c03b] Updated 2022-02-14 04:15:34
+ 4 files changed, 151 insertions(+), 196 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-02-13.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-02-13.rds
+To github.com:ismayc/ismayc.github.io.git
+   d18da839..a362c03b  master -> master
+
+Starting at 2022-02-15 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-02-15 04:15:24 Pacific time 
+[master b58320df] Updated 2022-02-15 04:15:29
+ 4 files changed, 298 insertions(+), 197 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-02-14.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-02-14.rds
+To github.com:ismayc/ismayc.github.io.git
+   a362c03b..b58320df  master -> master
+
+Starting at 2022-02-16 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-02-16 04:15:26 Pacific time 
+[master 7058b88f] Updated 2022-02-16 04:15:26
+ 4 files changed, 249 insertions(+), 216 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-02-15.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-02-15.rds
+To github.com:ismayc/ismayc.github.io.git
+   b58320df..7058b88f  master -> master
+
+Starting at 2022-02-19 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-02-19 04:15:24 Pacific time 
+fatal: Unable to create '/Users/chester/Desktop/ismayc.github.io/.git/index.lock': File exists.
+
+Another git process seems to be running in this repository, e.g.
+an editor opened by 'git commit'. Please make sure all processes
+are terminated then try again. If it still fails, a git process
+may have crashed in this repository earlier:
+remove the file manually to continue.
+Everything up-to-date
+
+Starting at 2022-02-20 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-02-20 04:15:26 Pacific time 
+[master 49877b03] Updated 2022-02-20 04:15:26
+ 6 files changed, 56 insertions(+), 149 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-02-18.rds
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-02-19.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-02-18.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-02-19.rds
+To github.com:ismayc/ismayc.github.io.git
+   caa6db22..49877b03  master -> master
+
+Starting at 2022-02-21 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-02-21 04:15:25 Pacific time 
+[master c07ef184] Updated 2022-02-21 04:15:27
+ 4 files changed, 91 insertions(+), 39 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-02-20.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-02-20.rds
+To github.com:ismayc/ismayc.github.io.git
+   49877b03..c07ef184  master -> master
+
+Starting at 2022-02-22 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-02-22 04:15:25 Pacific time 
+[master abb428e8] Updated 2022-02-22 04:15:25
+ 4 files changed, 49 insertions(+), 79 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-02-21.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-02-21.rds
+To github.com:ismayc/ismayc.github.io.git
+   c07ef184..abb428e8  master -> master
+
+Starting at 2022-02-23 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-02-23 04:15:24 Pacific time 
+[master 88f27fe9] Updated 2022-02-23 04:15:24
+ 4 files changed, 48 insertions(+), 38 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-02-22.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-02-22.rds
+To github.com:ismayc/ismayc.github.io.git
+   abb428e8..88f27fe9  master -> master
+
+Starting at 2022-02-24 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-02-24 04:15:26 Pacific time 
+[master d2c0b43a] Updated 2022-02-24 04:15:26
+ 4 files changed, 167 insertions(+), 39 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-02-23.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-02-23.rds
+To github.com:ismayc/ismayc.github.io.git
+   88f27fe9..d2c0b43a  master -> master
+
+Starting at 2022-02-25 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-02-25 04:15:26 Pacific time 
+[master bcae3d48] Updated 2022-02-25 04:15:26
+ 4 files changed, 341 insertions(+), 162 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-02-24.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-02-24.rds
+To github.com:ismayc/ismayc.github.io.git
+   d2c0b43a..bcae3d48  master -> master
+
+Starting at 2022-02-26 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-02-26 04:15:26 Pacific time 
+[master 15cca367] Updated 2022-02-26 04:15:27
+ 4 files changed, 238 insertions(+), 220 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-02-25.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-02-25.rds
+To github.com:ismayc/ismayc.github.io.git
+   bcae3d48..15cca367  master -> master
+
+Starting at 2022-02-27 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-02-27 04:15:26 Pacific time 
+[master 97f9f33a] Updated 2022-02-27 04:15:26
+ 4 files changed, 200 insertions(+), 212 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-02-26.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-02-26.rds
+To github.com:ismayc/ismayc.github.io.git
+   15cca367..97f9f33a  master -> master
+
+Starting at 2022-02-28 04:15:00 Pacific time 
+Already up to date.
+Completed at 2022-02-28 04:15:26 Pacific time 
+[master 45433e53] Updated 2022-02-28 04:15:26
+ 4 files changed, 217 insertions(+), 203 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-02-27.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-02-27.rds
+To github.com:ismayc/ismayc.github.io.git
+   97f9f33a..45433e53  master -> master
+
+Starting at 2022-03-01 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-03-01 04:15:27 Pacific time 
+[master 403176e1] Updated 2022-03-01 04:15:27
+ 4 files changed, 219 insertions(+), 246 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-02-28.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-02-28.rds
+To github.com:ismayc/ismayc.github.io.git
+   238f3d9b..403176e1  master -> master
+
+Starting at 2022-03-02 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-03-02 04:15:25 Pacific time 
+[master 80e32bb6] Updated 2022-03-02 04:15:25
+ 4 files changed, 211 insertions(+), 190 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-03-01.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-03-01.rds
+To github.com:ismayc/ismayc.github.io.git
+   403176e1..80e32bb6  master -> master
+
+Starting at 2022-03-03 04:15:00 Pacific time 
+Already up to date.
+Completed at 2022-03-03 04:15:23 Pacific time 
+[master 5c3e8593] Updated 2022-03-03 04:15:23
+ 4 files changed, 168 insertions(+), 258 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-03-02.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-03-02.rds
+To github.com:ismayc/ismayc.github.io.git
+   80e32bb6..5c3e8593  master -> master
+
+Starting at 2022-03-04 04:15:02 Pacific time 
+Already up to date.
+Completed at 2022-03-04 04:15:25 Pacific time 
+[master 3de7e1f7] Updated 2022-03-04 04:15:25
+ 4 files changed, 227 insertions(+), 213 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-03-03.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-03-03.rds
+To github.com:ismayc/ismayc.github.io.git
+   ac896690..3de7e1f7  master -> master
+
+Starting at 2022-03-05 04:15:02 Pacific time 
+Already up to date.
+Completed at 2022-03-05 04:15:31 Pacific time 
+[master b845b769] Updated 2022-03-05 04:15:32
+ 4 files changed, 234 insertions(+), 232 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-03-04.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-03-04.rds
+To github.com:ismayc/ismayc.github.io.git
+   3de7e1f7..b845b769  master -> master
+
+Starting at 2022-03-06 04:16:11 Pacific time 
+Already up to date.
+Completed at 2022-03-06 04:25:42 Pacific time 
+[master 80763bd3] Updated 2022-03-06 04:27:29
+ 4 files changed, 196 insertions(+), 209 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-03-05.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-03-05.rds
+To github.com:ismayc/ismayc.github.io.git
+   b845b769..80763bd3  master -> master
+
+Starting at 2022-03-07 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-03-07 04:15:24 Pacific time 
+[master 5b271458] Updated 2022-03-07 04:15:24
+ 4 files changed, 235 insertions(+), 191 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-03-06.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-03-06.rds
+To github.com:ismayc/ismayc.github.io.git
+   80763bd3..5b271458  master -> master
+
+Starting at 2022-03-08 04:15:02 Pacific time 
+Already up to date.
+Completed at 2022-03-08 04:15:26 Pacific time 
+[master 1ba96297] Updated 2022-03-08 04:15:26
+ 4 files changed, 209 insertions(+), 227 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-03-07.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-03-07.rds
+To github.com:ismayc/ismayc.github.io.git
+   5b271458..1ba96297  master -> master
+
+Starting at 2022-03-09 04:15:02 Pacific time 
+Already up to date.
+Completed at 2022-03-09 04:15:34 Pacific time 
+[master 7daf25f8] Updated 2022-03-09 04:15:35
+ 4 files changed, 247 insertions(+), 187 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-03-08.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-03-08.rds
+To github.com:ismayc/ismayc.github.io.git
+   1ba96297..7daf25f8  master -> master
+
+Starting at 2022-03-11 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-03-11 04:15:29 Pacific time 
+[master 01569cf5] Updated 2022-03-11 04:15:29
+ 4 files changed, 148 insertions(+), 202 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-03-10.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-03-10.rds
+To github.com:ismayc/ismayc.github.io.git
+   31604312..01569cf5  master -> master
+
+Starting at 2022-03-12 04:15:36 Pacific time 
+Already up to date.
+Completed at 2022-03-12 04:21:55 Pacific time 
+[master 2a39a336] Updated 2022-03-12 04:26:10
+ 4 files changed, 320 insertions(+), 216 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-03-11.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-03-11.rds
+To github.com:ismayc/ismayc.github.io.git
+   01569cf5..2a39a336  master -> master
+
+Starting at 2022-03-13 04:15:03 Pacific time 
+Already up to date.
+Completed at 2022-03-13 04:15:28 Pacific time 
+[master 28ab2c1f] Updated 2022-03-13 04:15:29
+ 4 files changed, 202 insertions(+), 230 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-03-12.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-03-12.rds
+To github.com:ismayc/ismayc.github.io.git
+   2a39a336..28ab2c1f  master -> master
+
+Starting at 2022-03-14 04:15:03 Pacific time 
+From github.com:ismayc/ismayc.github.io
+   28ab2c1f..cb21b960  master     -> origin/master
+Updating 28ab2c1f..cb21b960
+Fast-forward
+Completed at 2022-03-14 04:15:57 Pacific time 
+[master 990e719f] Updated 2022-03-14 04:15:57
+ 4 files changed, 245 insertions(+), 200 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-03-13.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-03-13.rds
+To github.com:ismayc/ismayc.github.io.git
+   cb21b960..990e719f  master -> master
+
+Starting at 2022-03-15 04:15:03 Pacific time 
+Already up to date.
+Completed at 2022-03-15 04:15:44 Pacific time 
+[master af394669] Updated 2022-03-15 04:15:44
+ 4 files changed, 221 insertions(+), 264 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-03-14.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-03-14.rds
+To github.com:ismayc/ismayc.github.io.git
+   990e719f..af394669  master -> master
+
+Starting at 2022-03-16 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-03-16 04:15:23 Pacific time 
+[master 12edcc89] Updated 2022-03-16 04:15:24
+ 9 files changed, 327 insertions(+), 216 deletions(-)
+ rewrite nba-over-under-2021-2022/points-calculator/picks.xlsx (79%)
+ create mode 100644 nba-over-under-2021-2022/points-calculator/rsconnect/shinyapps.io/chesterismay/points-calculator.dcf
+ create mode 100644 nba-over-under-2021-2022/points-calculator/~$picks.xlsx
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-03-15.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-03-15.rds
+ create mode 100644 nba-over-under-2021-2022/rosters/player_analysis.R
+To github.com:ismayc/ismayc.github.io.git
+   af394669..12edcc89  master -> master
+
+Starting at 2022-03-17 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-03-17 04:15:25 Pacific time 
+[master 9fc4f41f] Updated 2022-03-17 04:15:25
+ 5 files changed, 275 insertions(+), 278 deletions(-)
+ delete mode 100644 nba-over-under-2021-2022/points-calculator/~$picks.xlsx
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-03-16.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-03-16.rds
+To github.com:ismayc/ismayc.github.io.git
+   12edcc89..9fc4f41f  master -> master
+
+Starting at 2022-03-18 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-03-18 04:15:23 Pacific time 
+[master 5204d669] Updated 2022-03-18 04:15:23
+ 4 files changed, 145 insertions(+), 168 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-03-17.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-03-17.rds
+To github.com:ismayc/ismayc.github.io.git
+   9fc4f41f..5204d669  master -> master
+
+Starting at 2022-03-19 04:15:03 Pacific time 
+Already up to date.
+Completed at 2022-03-19 04:15:29 Pacific time 
+[master 0cce5837] Updated 2022-03-19 04:15:29
+ 4 files changed, 316 insertions(+), 231 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-03-18.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-03-18.rds
+To github.com:ismayc/ismayc.github.io.git
+   5204d669..0cce5837  master -> master
+
+Starting at 2022-03-20 04:15:03 Pacific time 
+Already up to date.
+Completed at 2022-03-20 04:15:31 Pacific time 
+[master 865334e1] Updated 2022-03-20 04:15:31
+ 4 files changed, 174 insertions(+), 230 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-03-19.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-03-19.rds
+To github.com:ismayc/ismayc.github.io.git
+   0cce5837..865334e1  master -> master
+
+Starting at 2022-03-21 04:15:03 Pacific time 
+Already up to date.
+Completed at 2022-03-21 04:15:46 Pacific time 
+[master bb503897] Updated 2022-03-21 04:15:55
+ 4 files changed, 291 insertions(+), 195 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-03-20.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-03-20.rds
+To github.com:ismayc/ismayc.github.io.git
+   865334e1..bb503897  master -> master
+
+Starting at 2022-03-22 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-03-22 04:15:31 Pacific time 
+[master 6b817725] Updated 2022-03-22 04:15:39
+ 9 files changed, 328 insertions(+), 278 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/career_totals.R
+ create mode 100644 nba-over-under-2021-2022/career_totals.log
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-03-21.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-03-21.rds
+ create mode 100644 nba-over-under-2021-2022/rosters/career_totals.R
+To github.com:ismayc/ismayc.github.io.git
+   bb503897..6b817725  master -> master
+
+Starting at 2022-03-23 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-03-23 04:15:24 Pacific time 
+[master ce69e9f8] Updated 2022-03-23 04:15:24
+ 5 files changed, 200 insertions(+), 181 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-03-22.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-03-22.rds
+To github.com:ismayc/ismayc.github.io.git
+   83751d46..ce69e9f8  master -> master
+
+Starting at 2022-03-24 04:15:03 Pacific time 
+Already up to date.
+Completed at 2022-03-24 04:15:28 Pacific time 
+[master 77f7d63f] Updated 2022-03-24 04:15:28
+ 6 files changed, 289 insertions(+), 244 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-03-23.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-03-23.rds
+To github.com:ismayc/ismayc.github.io.git
+   ce69e9f8..77f7d63f  master -> master
+
+Starting at 2022-03-25 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-03-25 04:15:25 Pacific time 
+[master 7226f7b0] Updated 2022-03-25 04:15:25
+ 6 files changed, 182 insertions(+), 246 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-03-24.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-03-24.rds
+To github.com:ismayc/ismayc.github.io.git
+   77f7d63f..7226f7b0  master -> master
+
+Starting at 2022-03-26 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-03-26 04:15:29 Pacific time 
+[master a868f8e6] Updated 2022-03-26 04:15:30
+ 4 files changed, 228 insertions(+), 170 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-03-25.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-03-25.rds
+To github.com:ismayc/ismayc.github.io.git
+   7226f7b0..a868f8e6  master -> master
+
+Starting at 2022-03-27 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-03-27 04:15:38 Pacific time 
+[master 005b2353] Updated 2022-03-27 04:15:44
+ 5 files changed, 312 insertions(+), 214 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-03-26.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-03-26.rds
+To github.com:ismayc/ismayc.github.io.git
+   a868f8e6..005b2353  master -> master
+
+Starting at 2022-03-28 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-03-28 04:15:23 Pacific time 
+[master 6287d585] Updated 2022-03-28 04:15:23
+ 5 files changed, 256 insertions(+), 211 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-03-27.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-03-27.rds
+To github.com:ismayc/ismayc.github.io.git
+   005b2353..6287d585  master -> master
+
+Starting at 2022-03-29 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-03-29 04:15:30 Pacific time 
+[master a2d6ce90] Updated 2022-03-29 04:15:30
+ 5 files changed, 256 insertions(+), 266 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-03-28.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-03-28.rds
+To github.com:ismayc/ismayc.github.io.git
+   6287d585..a2d6ce90  master -> master
+
+Starting at 2022-03-30 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-03-30 04:15:24 Pacific time 
+[master 6ffbe7be] Updated 2022-03-30 04:15:24
+ 5 files changed, 234 insertions(+), 209 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-03-29.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-03-29.rds
+To github.com:ismayc/ismayc.github.io.git
+   a2d6ce90..6ffbe7be  master -> master
+
+Starting at 2022-03-31 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-03-31 04:15:24 Pacific time 
+[master f545c780] Updated 2022-03-31 04:15:24
+ 4 files changed, 296 insertions(+), 268 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-03-30.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-03-30.rds
+To github.com:ismayc/ismayc.github.io.git
+   6ffbe7be..f545c780  master -> master
+
+Starting at 2022-04-01 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-04-01 04:15:30 Pacific time 
+[master d5041891] Updated 2022-04-01 04:15:30
+ 11 files changed, 296 insertions(+), 243 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/picks_wide.csv
+ create mode 100644 nba-over-under-2021-2022/picks_wide.rds
+ create mode 100644 nba-over-under-2021-2022/picks_wide_input.csv
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-03-31.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-03-31.rds
+To github.com:ismayc/ismayc.github.io.git
+   f545c780..d5041891  master -> master
+
+Starting at 2022-04-02 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-04-02 04:15:24 Pacific time 
+[master 46d65ef1] Updated 2022-04-02 04:15:24
+ 4 files changed, 263 insertions(+), 234 deletions(-)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-04-01.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-04-01.rds
+To github.com:ismayc/ismayc.github.io.git
+   d5041891..46d65ef1  master -> master
+
+Starting at 2022-04-03 04:15:07 Pacific time 
+Already up to date.
+<<<<<<< HEAD
 Completed at 2021-12-26 04:05:25 Pacific time 
 [master 5819101] Updated 2021-12-26 04:05:25
  4 files changed, 308 insertions(+), 147 deletions(-)
@@ -2203,3 +3113,6 @@ error: Your local changes to the following files would be overwritten by merge:
 Please commit your changes or stash them before you merge.
 Aborting
 Completed at 2022-04-03 04:05:47 Pacific time 
+=======
+Completed at 2022-04-03 05:00:53 Pacific time 
+>>>>>>> fb72b9d2043f4bf35e622625209bc52dbd5e3e44
