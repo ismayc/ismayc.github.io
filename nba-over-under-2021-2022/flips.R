@@ -75,7 +75,7 @@ flips <- expand_grid(
   `Detroit Pistons` = c("OVER", "UNDER"),
   `Houston Rockets` = c("OVER", "UNDER"),
   `New Orleans Pelicans` = c("OVER", "UNDER"),
-  `Oklahoma City Thunder` = c("OVER", "UNDER"),
+#  `Oklahoma City Thunder` = c("OVER", "UNDER"),
   `Orlando Magic` = c("OVER", "UNDER"),
   `Philadelphia 76ers` = c("OVER", "UNDER"),
   `San Antonio Spurs` = c("OVER", "UNDER"),
