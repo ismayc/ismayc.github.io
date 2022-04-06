@@ -51,6 +51,32 @@ determined_points <- expected %>%
          phil_pts = if_else(phil_choice == expected, Phil, -Phil),
          ryan_pts = if_else(ryan_choice == expected, Ryan, -Ryan))
 
+determined_correct <- determined_points %>% 
+  summarize(adonis_correct = sum(adonis_pts > 0),
+            chester_correct = sum(chester_pts > 0),
+            jake_correct = sum(jake_pts > 0),
+            jenelle_correct = sum(jenelle_pts > 0),
+            mary_correct = sum(mary_pts > 0),
+            mike_correct = sum(mike_pts > 0),
+            phil_correct = sum(phil_pts > 0),
+            ryan_correct = sum(ryan_pts > 0)) %>% 
+  pivot_longer(cols = everything(), names_to = "player",
+               values_to = "Total Determined Correct Picks") %>% 
+  mutate(player = str_to_sentence(str_replace_all(player, "_correct", "")))
+
+correct_15s <- determined_points %>% 
+  summarize(adonis_correct_15s = sum(adonis_pts == 15),
+            chester_correct_15s = sum(chester_pts == 15),
+            jake_correct_15s = sum(jake_pts == 15),
+            jenelle_correct_15s = sum(jenelle_pts == 15),
+            mary_correct_15s = sum(mary_pts == 15),
+            mike_correct_15s = sum(mike_pts == 15),
+            phil_correct_15s = sum(phil_pts == 15),
+            ryan_correct_15s = sum(ryan_pts == 15)) %>% 
+  pivot_longer(cols = everything(), names_to = "player",
+               values_to = "Total Determined Correct Picks (Wage 15)") %>% 
+  mutate(player = str_to_sentence(str_replace_all(player, "_correct_15s", "")))
+  
 player_sums <- determined_points %>% 
   summarize(adonis_total = sum(adonis_pts),
             chester_total = sum(chester_pts),
@@ -62,7 +88,9 @@ player_sums <- determined_points %>%
             ryan_total = sum(ryan_pts)) %>% 
   pivot_longer(cols = everything(), names_to = "player", 
                values_to = "Total Determined Points") %>% 
-  mutate(player = str_to_sentence(str_replace_all(player, "_total", "")))
+  mutate(player = str_to_sentence(str_replace_all(player, "_total", ""))) %>% 
+  inner_join(determined_correct, by = "player") %>% 
+  inner_join(correct_15s, by = "player")
 
 # not_determined_wide <- not_determined %>% 
 #   mutate(result = NA_character_) %>% 
@@ -71,14 +99,14 @@ player_sums <- determined_points %>%
 # flips <- expand_grid(df = not_determined_wide, outcome = c("OVER", "UNDER"))
 
 flips <- expand_grid(
-  `Denver Nuggets` = c("OVER", "UNDER"),
+#  `Denver Nuggets` = c("OVER", "UNDER"),
   `Detroit Pistons` = c("OVER", "UNDER"),
-  `Houston Rockets` = c("OVER", "UNDER"),
+#  `Houston Rockets` = c("OVER", "UNDER"),
   `New Orleans Pelicans` = c("OVER", "UNDER"),
 #  `Oklahoma City Thunder` = c("OVER", "UNDER"),
   `Orlando Magic` = c("OVER", "UNDER"),
   `Philadelphia 76ers` = c("OVER", "UNDER"),
-  `San Antonio Spurs` = c("OVER", "UNDER"),
+#  `San Antonio Spurs` = c("OVER", "UNDER"),
   `Washington Wizards` = c("OVER", "UNDER")
 ) %>%
   mutate(outcome = row_number())
@@ -103,6 +131,34 @@ linked <- long_flips %>%
          phil_pts = if_else(phil_choice == result, Phil, -Phil),
          ryan_pts = if_else(ryan_choice == result, Ryan, -Ryan))
 
+determined_correct_sims <- linked %>% 
+  group_by(outcome) %>% 
+  summarize(adonis_correct = sum(adonis_pts > 0),
+            chester_correct = sum(chester_pts > 0),
+            jake_correct = sum(jake_pts > 0),
+            jenelle_correct = sum(jenelle_pts > 0),
+            mary_correct = sum(mary_pts > 0),
+            mike_correct = sum(mike_pts > 0),
+            phil_correct = sum(phil_pts > 0),
+            ryan_correct = sum(ryan_pts > 0)) %>% 
+  pivot_longer(cols = -outcome, names_to = "player",
+               values_to = "Total Simulated Correct Picks") %>% 
+  mutate(player = str_to_sentence(str_replace_all(player, "_correct", "")))
+
+correct_15s_sims <- linked %>% 
+  group_by(outcome) %>% 
+  summarize(adonis_correct_15s = sum(adonis_pts == 15),
+            chester_correct_15s = sum(chester_pts == 15),
+            jake_correct_15s = sum(jake_pts == 15),
+            jenelle_correct_15s = sum(jenelle_pts == 15),
+            mary_correct_15s = sum(mary_pts == 15),
+            mike_correct_15s = sum(mike_pts == 15),
+            phil_correct_15s = sum(phil_pts == 15),
+            ryan_correct_15s = sum(ryan_pts == 15)) %>% 
+  pivot_longer(cols = -outcome, names_to = "player",
+               values_to = "Total Simulated Correct Picks (Wage 15)") %>% 
+  mutate(player = str_to_sentence(str_replace_all(player, "_correct_15s", "")))
+
 player_sims <- linked %>% 
   group_by(outcome) %>% 
   summarize(adonis_total = sum(adonis_pts),
@@ -115,18 +171,34 @@ player_sims <- linked %>%
             ryan_total = sum(ryan_pts))  %>% 
    pivot_longer(cols = -outcome, names_to = "player", 
                 values_to = "Total Simulated Points") %>% 
-   mutate(player = str_to_sentence(str_replace_all(player, "_total", "")))
+   mutate(player = str_to_sentence(str_replace_all(player, "_total", ""))) %>% 
+   inner_join(determined_correct_sims, by = c("outcome", "player")) %>% 
+   inner_join(correct_15s_sims, by = c("outcome", "player"))
 
 remaining_outcomes <- player_sims %>% 
   inner_join(player_sums, by = "player") %>% 
-  mutate("Outcome Points" = `Total Determined Points` + `Total Simulated Points`)
+  mutate("Outcome Points" = `Total Determined Points` + `Total Simulated Points`,
+         "Outcome Correct Picks" = `Total Determined Correct Picks` + `Total Simulated Correct Picks`,
+         "Outcome Correct Wage 15 Picks" = `Total Determined Correct Picks (Wage 15)` + `Total Simulated Correct Picks (Wage 15)`) #%>% 
+#  group_by(outcome) %>% 
+#  arrange(desc(`Outcome Points`)) %>% 
+#  mutate(rank = rank(-`Outcome Points`)) %>% 
+#  mutate(rank = data.table::frank(-`Outcome Points`, -`Outcome Correct Picks`, 
+#                                  -`Outcome Correct Wage 15 Picks`,
+#                                  ties.method = "dense")) %>% 
+#  ungroup()
 
 out <- remaining_outcomes %>% 
   group_by(outcome, player) %>% 
-  summarize(expected_total = sum(`Outcome Points`)) %>% 
-  arrange(outcome, desc(expected_total)) %>% 
+  summarize(expected_total = sum(`Outcome Points`),
+            expected_correct_picks = sum(`Outcome Correct Picks`),
+            expected_correct_15_picks = sum(`Outcome Correct Wage 15 Picks`)) %>% 
+  arrange(outcome, desc(expected_total), desc(expected_correct_picks), 
+          desc(expected_correct_15_picks)) %>% 
   mutate(rank = 1:8,
          playoffs = rank <= 4)
+
+write_csv(out, "remaining_outcomes.csv")
 
 View(overalls <- out %>% 
        group_by(player) %>% 
@@ -136,7 +208,7 @@ View(overalls <- out %>%
                  median_rank = median(rank),
                  mean_rank = mean(rank),
                  prob_playoffs = mean(playoffs == TRUE) * 100,
-                 prob_one_rank = mean(rank == 1) *100,
+                 prob_one_rank = mean(rank == 1) * 100,
                  count = n()) %>% 
        arrange(desc(median_expected_total)))
 
