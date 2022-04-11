@@ -107,7 +107,7 @@ flips <- expand_grid(
 #  `Orlando Magic` = c("OVER", "UNDER"),
   `Philadelphia 76ers` = c("OVER", "UNDER"),
 #  `San Antonio Spurs` = c("OVER", "UNDER"),
-  `Washington Wizards` = c("OVER", "UNDER")
+#  `Washington Wizards` = c("OVER", "UNDER")
 ) %>%
   mutate(outcome = row_number())
 

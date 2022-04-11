@@ -3196,3 +3196,15 @@ To github.com:ismayc/ismayc.github.io.git
 Starting at 2022-04-10 04:15:01 Pacific time 
 Already up to date.
 Completed at 2022-04-10 04:15:28 Pacific time 
+[master a925153c] Updated 2022-04-10 04:15:28
+ 9 files changed, 295 insertions(+), 248 deletions(-)
+ rewrite nba-over-under-2021-2022/picks_wide.rds (88%)
+ create mode 100644 nba-over-under-2021-2022/rds/game_results_raw_through_2022-04-09.rds
+ create mode 100644 nba-over-under-2021-2022/rds/standings_through_2022-04-09.rds
+ rewrite nba-over-under-2021-2022/remaining_outcomes.csv (94%)
+To github.com:ismayc/ismayc.github.io.git
+   79ab692d..a925153c  master -> master
+
+Starting at 2022-04-11 04:15:01 Pacific time 
+Already up to date.
+Completed at 2022-04-11 04:15:23 Pacific time 
