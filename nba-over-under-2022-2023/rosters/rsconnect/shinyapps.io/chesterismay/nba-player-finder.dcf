@@ -1,0 +1,14 @@
+name: nba-player-finder
+title: nba-player-finder
+username:
+account: chesterismay
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 6979052
+bundleId: 6400293
+url: https://chesterismay.shinyapps.io/nba-player-finder/
+when: 1665685249.54052
+lastSyncTime: 1665685249.54054
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: ~$picks.xlsx|2022-09.15.js|2022-09.15.txt|nba_players.rds|players_2022.rds
