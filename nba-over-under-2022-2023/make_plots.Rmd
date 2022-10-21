@@ -305,7 +305,7 @@ projected_score %>%
 
 #### Point wagers by player with OVER(↑) / UNDER(↓) choice (highlighted by outcome determined)
 
-Note that the *Current Wins* column is currently not populating due to data.nba.net not having updated since October 12, 2022.
+Note that the *Current Wins* column is currently not populating due to https://data.nba.net not having updated since October 12, 2022.
 
 ```{r message=FALSE, warning=FALSE}
 picks_wide <- picks %>% 
@@ -436,7 +436,7 @@ for(i in (cols_to_delete - (num_players + 2)) ) {
   suppressWarnings(do_not_show_list[[i]]$visible <- FALSE)
 }
 
-do_not_show_list[[30]] <- list(width = '180px', targets = 0)
+do_not_show_list[[33]] <- list(width = '180px', targets = 0)
 
 point_levels <- rep(seq(15, 6, by = -1), 2) %>% 
   sort(decreasing = TRUE)

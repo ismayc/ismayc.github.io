@@ -3,7 +3,9 @@ library(readxl)
 
 num_games <- 82
 
-picks <- read_excel(path = "picks.xlsx", sheet = "picks")
+here::set_here("/Users/chester/Desktop/ismayc.github.io/nba-over-under-2022-2023")
+
+picks <- read_excel(path = here::here("picks.xlsx"), sheet = "picks")
 projections <- read_excel(path = "picks.xlsx", sheet = "projections") %>% 
   select(-conference) %>% 
   mutate(percentage_projection = win_projection / num_games * 100)
