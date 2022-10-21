@@ -10,6 +10,7 @@ source("01-03.R")
 knitr::opts_chunk$set(echo = FALSE)
 library(lubridate)
 library(DT)
+num_players <- 9
 ```
 
 Last updated at `r Sys.time()` US Pacific time
@@ -18,11 +19,11 @@ Last updated at `r Sys.time()` US Pacific time
 
 ## By team {.tabset}
 
-### By week
+### By week (Skipped until Week 2)
 
 This plot is updated on Monday each week with the previous week's results.
 
-```{r fig.height=10, fig.width=10, message=FALSE, warning=FALSE}
+```{r fig.height=10, fig.width=10, message=FALSE, warning=FALSE, eval=FALSE}
 weekly_standings <- standings_grid %>% 
   mutate(day_of_week = wday(date, label = TRUE)) %>% 
   filter(day_of_week == "Mon") %>% 
@@ -296,13 +297,15 @@ projected_score %>%
   arrange(desc(Date), desc(`Projected Total Points`), 
           desc(`Number Correct`),
           desc(`Number (Wage 15) Correct`)) %>% 
-  DT::datatable(options = list(pageLength = 8))
+  DT::datatable(options = list(pageLength = num_players))
 ```
 
 ***
 
 
 #### Point wagers by player with OVER(↑) / UNDER(↓) choice (highlighted by outcome determined)
+
+Note that the *Current Wins* column is currently not populating due to data.nba.net not having updated since October 12, 2022.
 
 ```{r message=FALSE, warning=FALSE}
 picks_wide <- picks %>% 
@@ -361,6 +364,11 @@ picks_wide <- picks %>%
     into = c("Phil_points", "phil_choice"), 
     sep = " "
   ) %>% 
+  separate(
+    col = Andy, 
+    into = c("Andy_points", "andy_choice"), 
+    sep = " "
+  ) %>% 
   mutate(chester_correct = chester_choice == outcome_determined,
          jake_correct = jake_choice == outcome_determined,
          jenelle_correct = jenelle_choice == outcome_determined,
@@ -368,7 +376,8 @@ picks_wide <- picks %>%
          mike_correct = mike_choice == outcome_determined,
          mary_correct = mary_choice == outcome_determined,
          ryan_correct = ryan_choice == outcome_determined,
-         phil_correct = phil_choice == outcome_determined) %>% 
+         phil_correct = phil_choice == outcome_determined,
+         andy_correct = andy_choice == outcome_determined) %>% 
   mutate(Chester = if_else(
     chester_choice == "OVER",
     paste(Chester_points, knitr::asis_output("\U2191")),
@@ -401,16 +410,20 @@ picks_wide <- picks %>%
     phil_choice == "OVER",
     paste(Phil_points, knitr::asis_output("\U2191")),
     paste(Phil_points, knitr::asis_output("\U2193")))) %>% 
+  mutate(Andy = if_else(
+    andy_choice == "OVER",
+    paste(Andy_points, knitr::asis_output("\U2191")),
+    paste(Andy_points, knitr::asis_output("\U2193")))) %>% 
   rename(`Target Wins` = win_projection) %>% 
   select(-abbreviation) %>% 
   select(Team = team, `Current Wins` = wins, `Target Wins`, 
-         Adonis, Chester, Jake, Jenelle, Mary, Mike, Phil, Ryan, 
+         Adonis, Andy, Chester, Jake, Jenelle, Mary, Mike, Phil, Ryan, 
          everything())
 readr::write_rds(picks_wide %>% select(Team, Adonis_points:ryan_choice), "picks_wide.rds")
 ```
 
 ```{r message=FALSE, warning=FALSE}
-cols_to_delete <- 11:(ncol(picks_wide) - 1)
+cols_to_delete <- (num_players+3):(ncol(picks_wide) - 1)
 do_not_show_list <-  as.list(cols_to_delete)
 
 for (i in seq_along(do_not_show_list)) {
@@ -418,7 +431,7 @@ for (i in seq_along(do_not_show_list)) {
 }
 
 
-for(i in (cols_to_delete - 10) ) {
+for(i in (cols_to_delete - (num_players + 2)) ) {
   #  do_not_show_list[[i]]$targets <- as.list(cols_to_delete)[[i]]
   suppressWarnings(do_not_show_list[[i]]$visible <- FALSE)
 }
@@ -448,7 +461,7 @@ paste_levels <- point_levels %>%
 picks_wide %>% 
   # Doesn't actually sort in DT
   mutate_at(
-    .vars = c("Adonis", "Chester", "Jake", "Jenelle",
+    .vars = c("Adonis", "Andy", "Chester", "Jake", "Jenelle",
               "Mary", "Mike", "Phil", "Ryan"), 
     .funs = ~ factor(.x, levels = paste_levels)) %>% 
   #  purrr::map_df(rev) %>% 
@@ -504,6 +517,12 @@ picks_wide %>%
   ) %>% 
   formatStyle(
     "Phil", "phil_correct",
+    target = 'cell',
+    backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
+                                 c("lightgreen", "hotpink", "white"))
+  ) %>% 
+  formatStyle(
+    "Andy", "andy_correct",
     target = 'cell',
     backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
                                  c("lightgreen", "hotpink", "white"))
@@ -617,6 +636,12 @@ player_table(7)
 
 ```{r}
 player_table(8)
+```
+
+##### `r current_rankings[9]`
+
+```{r}
+player_table(9)
 ```
 
 
