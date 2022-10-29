@@ -3237,3 +3237,38 @@ Quitting from lines 9-13 (make_plots.Rmd)
 Error in library(plotly) : there is no package called 'plotly'
 Calls: <Anonymous> ... map -> .f -> withVisible -> eval -> eval -> library
 Execution halted
+
+Starting at 2022-10-23 04:05:00 Pacific time 
+Already up to date.
+Error: pandoc version 1.12.3 or higher is required and was not found (see the help page ?rmarkdown::pandoc_available).
+Execution halted
+
+Starting at 2022-10-24 04:05:01 Pacific time 
+Already up to date.
+Error: pandoc version 1.12.3 or higher is required and was not found (see the help page ?rmarkdown::pandoc_available).
+Execution halted
+
+Starting at 2022-10-25 04:05:01 Pacific time 
+Already up to date.
+Error: pandoc version 1.12.3 or higher is required and was not found (see the help page ?rmarkdown::pandoc_available).
+Execution halted
+
+Starting at 2022-10-26 04:05:01 Pacific time 
+Already up to date.
+Error: pandoc version 1.12.3 or higher is required and was not found (see the help page ?rmarkdown::pandoc_available).
+Execution halted
+
+Starting at 2022-10-27 04:05:00 Pacific time 
+Already up to date.
+Error: pandoc version 1.12.3 or higher is required and was not found (see the help page ?rmarkdown::pandoc_available).
+Execution halted
+
+Starting at 2022-10-28 04:05:00 Pacific time 
+Already up to date.
+Error: pandoc version 1.12.3 or higher is required and was not found (see the help page ?rmarkdown::pandoc_available).
+Execution halted
+
+Starting at 2022-10-29 04:05:01 Pacific time 
+Already up to date.
+Error: pandoc version 1.12.3 or higher is required and was not found (see the help page ?rmarkdown::pandoc_available).
+Execution halted
