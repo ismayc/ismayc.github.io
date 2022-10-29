@@ -12,20 +12,84 @@ library(janitor)
 library(tidyverse)
 library(DT)
 
-players_2023 <- read_rds("players_2023.rds")
+# team_season_roster <- function (team = "Denver Nuggets", season = 2023, return_message = T) 
+# {
+#   if (!"team" %>% exists()) {
+#     stop("Please enter a team")
+#   }
+#   season_start <- season - 1
+#   slugSeason <- season_start %>% paste(season %>% substr(start = 3, 
+#                                                          stop = 4), sep = "-")
+#   if (!"df_dict_team_history" %>% exists()) {
+#     df_dict_team_history <- nba_franchise_history(only_active = T)
+#     assign("df_dict_team_history", df_dict_team_history, 
+#            envir = .GlobalEnv)
+#   }
+#   team_id <- df_dict_team_history %>% filter(nameTeam %>% str_detect(team)) %>% 
+#     pull(idTeam) %>% unique()
+#   json_url <- glue::glue("https://stats.nba.com/stats/commonteamroster?LeagueID=00&Season={slugSeason}&TeamID={team_id}") %>% 
+#     as.character()
+#   json_data <- json_url %>% nbastatR:::.curl_chinazi()
+#   Sys.sleep(5)
+#   names_roster <- json_data$resultSets$headers[1] %>% unlist() %>% 
+#     str_to_lower()
+#   data_roster <- json_data$resultSets$rowSet[1] %>% data.frame(stringsAsFactors = F) %>% 
+#     tibble::as_tibble()
+#   actual_names <- c("idTeam", "yearSeason", "idLeague", "namePlayer",
+#                     "firstNamePlayer","playerHandle",
+#                     "numberJerseySeason", "groupPosition", "height", 
+#                     "weightLBS", "dateBirth", "agePlayerSeason", "countSeasons", 
+#                     "nameSchool", "idPlayer", "transaction")[seq_along(names(data_roster))]
+#   data_roster <- data_roster %>% purrr::set_names(actual_names) %>% 
+#     mutate(slugSeason, nameTeam = team) %>% dplyr::select(slugSeason, 
+#                                                           yearSeason, nameTeam, everything())
+#   data_roster <- data_roster %>% mutate_at(c("idTeam", "yearSeason", 
+#                                              "idLeague", "weightLBS", "agePlayerSeason", "countSeasons", 
+#                                              "idPlayer"), funs(. %>% as.character() %>% readr::parse_number())) %>% 
+#     mutate(dateBirth = lubridate::mdy(dateBirth), 
+#            #         heightInches = heightInches %>% map_dbl(height_in_inches), 
+#            countSeasons = ifelse(countSeasons %>% is.na(), 0, countSeasons), 
+#            isRookie = ifelse(countSeasons ==  0, TRUE, FALSE)) %>% dplyr::select(-one_of(c("idLeague"))) %>% 
+#     suppressMessages() %>% suppressWarnings()
+#   if (return_message) {
+#     glue::glue("You got the {team}'s roster for the {slugSeason}") %>% 
+#       cat(fill = T)
+#   }
+#   data_roster
+# }
+
+# #write_rds(teams, "teams.rds")
+# teams <- read_rds("teams.rds")
+# players_2023_pulled <- purrr::map_dfr(
+#   teams, 
+#   team_season_roster, 
+#   season = 2023, return_message = TRUE)
+# 
+# write_rds(players_2023_pulled, "players_2023_pulled.rds")
+
+
+players_2023 <- read_rds("players_2023_pulled.rds")
 
 players_clean <- clean_names(players_2023) %>% 
+  rename(team = name_team) %>% 
   inner_join(readxl::read_excel("picks.xlsx", sheet = "meta"),
-             by = c("slug_team" = "abbreviation")) %>% 
-  relocate(team, conference, division, .after = slug_team) %>% 
-  select(name_player, team, conference, division, height_inches,
-         age = age_player, number_jersey, everything())
+             by = "team") %>% 
+  relocate(team, conference, division, .after = team) %>% 
+  select(name_player, team, conference, division, height,
+         age = age_player_season, 
+         number_jersey = number_jersey_season, 
+         everything())
 
 players_data <- players_clean %>% 
   select(player = name_player, team, conference, division, 
-         height_total_inches = height_inches, age, number_jersey) %>% 
-  mutate(height_feet = height_total_inches %/% 12,
-         height_inches = height_total_inches %% 12)
+         height, age, number_jersey) %>% 
+  separate(col = height, 
+           into = c("height_feet", "height_inches"),
+           sep = "-") %>% 
+  mutate(
+    height_feet = as.integer(height_feet),
+    height_inches = as.integer(height_inches),
+    height_total_inches = height_feet * 12 + height_inches)
 
 sw_teams <- players_data %>% 
   distinct(division, team) %>% 
@@ -62,7 +126,7 @@ ui <- fluidPage(
   
   # Application title
   titlePanel("NBA Player Finder"),
-  p("Player data was last pulled on 2022-07-28"),
+  p("Player data was last pulled on 2022-10-29"),
   
   # Sidebar with a slider input for number of bins 
   sidebarLayout(
@@ -74,10 +138,10 @@ ui <- fluidPage(
       conditionalPanel(
         condition = "input.conference == 'West'",
         checkboxGroupInput("division_west",
-                         "Division:",
-                         choices = c("Southwest", "Northwest", "Pacific"),
-                         selected = c("Southwest", "Northwest", "Pacific"))#NA_character_)
-        ),
+                           "Division:",
+                           choices = c("Southwest", "Northwest", "Pacific"),
+                           selected = c("Southwest", "Northwest", "Pacific"))#NA_character_)
+      ),
       conditionalPanel(
         condition = "input.conference == 'East'",
         checkboxGroupInput("division_east",
