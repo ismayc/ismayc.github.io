@@ -1,0 +1,10 @@
+
+Starting at 2022-10-31 04:05:00 Pacific time 
+From github.com:ismayc/ismayc.github.io
+   79b4e3c..c72b38e  master     -> origin/master
+Updating 79b4e3c..c72b38e
+Fast-forward
+ 2022-nba-over-under.html | 5429 ++++------------------------------------------
+ 1 file changed, 467 insertions(+), 4962 deletions(-)
+Error: pandoc version 1.12.3 or higher is required and was not found (see the help page ?rmarkdown::pandoc_available).
+Execution halted
