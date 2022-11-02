@@ -26,7 +26,7 @@ if (date_modified != Sys.Date() || update_page) {
   rmarkdown::render(
     input = "make_plots.Rmd",  
     output_format = "html_document",
-    output_file = "2022-nba-over-under.html",
+    output_file = "2023-nba-over-under.html",
     output_dir = "..",
     quiet = TRUE
   )
