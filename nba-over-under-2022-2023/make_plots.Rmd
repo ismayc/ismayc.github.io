@@ -254,7 +254,7 @@ ggplotly(team_wins_track, tooltip = c("Vegas Insider Win Projection %",
 #### Vegas Insider Win Projections and Wins Needed
 
 `Win Projection` was pulled from 
-https://www.vegasinsider.com/nba/odds/win-totals/ on 2021-09-17. The last two
+https://www.vegasinsider.com/nba/odds/win-totals/ prior to the season start. The last two
 columns are based on games played through `r Sys.Date() - 1`.
 
 ```{r}
