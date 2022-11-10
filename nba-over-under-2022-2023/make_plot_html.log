@@ -70,3 +70,24 @@ Fast-forward
  create mode 100644 nba-over-under-2022-2023/rds/standings_through_2022-11-06.rds
 Error: pandoc version 1.12.3 or higher is required and was not found (see the help page ?rmarkdown::pandoc_available).
 Execution halted
+
+Starting at 2022-11-09 04:05:01 Pacific time 
+Already up to date.
+Error: pandoc version 1.12.3 or higher is required and was not found (see the help page ?rmarkdown::pandoc_available).
+Execution halted
+
+Starting at 2022-11-10 04:05:01 Pacific time 
+From github.com:ismayc/ismayc.github.io
+   e797832..8543bcc  master     -> origin/master
+Updating e797832..8543bcc
+Fast-forward
+ 2023-nba-over-under.html                           |  733 +-
+ nba-over-under-2022-2023/current_year.csv          | 7866 ++++++++++----------
+ nba-over-under-2022-2023/picks_wide.rds            |  Bin 7369 -> 7369 bytes
+ .../rds/game_results_raw_through_2022-11-08.rds    |  Bin 0 -> 32558 bytes
+ .../rds/standings_through_2022-11-08.rds           |  Bin 0 -> 3217 bytes
+ 5 files changed, 4261 insertions(+), 4338 deletions(-)
+ create mode 100644 nba-over-under-2022-2023/rds/game_results_raw_through_2022-11-08.rds
+ create mode 100644 nba-over-under-2022-2023/rds/standings_through_2022-11-08.rds
+Error: pandoc version 1.12.3 or higher is required and was not found (see the help page ?rmarkdown::pandoc_available).
+Execution halted
