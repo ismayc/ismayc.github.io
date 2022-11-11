@@ -96,3 +96,22 @@ Starting at 2022-11-11 04:05:01 Pacific time
 Already up to date.
 Error: pandoc version 1.12.3 or higher is required and was not found (see the help page ?rmarkdown::pandoc_available).
 Execution halted
+
+Starting at 2022-11-11 13:21:00 Pacific time 
+Already up to date.
+[WARNING] Deprecated: --self-contained. use --embed-resources --standalone
+Warning message:
+`funs()` was deprecated in dplyr 0.8.0.
+Please use a list of either functions or lambdas: 
+
+  # Simple named list: 
+  list(mean = mean, median = median)
+
+  # Auto named with `tibble::lst()`: 
+  tibble::lst(mean, median)
+
+  # Using lambdas
+  list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))
+This warning is displayed once every 8 hours.
+Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated. 
+Completed at 2022-11-11 13:21:46 Pacific time 
