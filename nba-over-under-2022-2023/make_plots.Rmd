@@ -8,7 +8,7 @@ knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = e
 ```{r include=FALSE}
 #source("01-03.R")
 #Sys.setenv(RSTUDIO_PANDOC = "/Applications/RStudio.app/Contents/MacOS/pandoc")
-Sys.setenv(RSTUDIO_PANDOC = "/usr/local/bin/pandoc")
+#Sys.setenv(RSTUDIO_PANDOC = "/usr/local/bin/pandoc")
 
 r_files1 <- c("01-picks-formatting.R",
               "02a-get-game-scores.R")
