@@ -184,3 +184,8 @@ Starting at 2022-11-24 04:05:00 Pacific time
 Already up to date.
 Error: pandoc version 1.12.3 or higher is required and was not found (see the help page ?rmarkdown::pandoc_available).
 Execution halted
+
+Starting at 2022-11-25 04:05:00 Pacific time 
+Already up to date.
+Error: pandoc version 1.12.3 or higher is required and was not found (see the help page ?rmarkdown::pandoc_available).
+Execution halted
