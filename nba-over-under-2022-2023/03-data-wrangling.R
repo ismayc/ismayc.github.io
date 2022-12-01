@@ -141,6 +141,15 @@ projected_score <- player_projections_by_team %>%
     `Number (Wage 15) Correct` = sum(
       current_projected_points == 15, na.rm = TRUE
     ),
+    `Number (Wage 14) Correct` = sum(
+      current_projected_points == 14, na.rm = TRUE
+    ),
+    `Number (Wage 13) Correct` = sum(
+      current_projected_points == 13, na.rm = TRUE
+    ),
+    `Number (Wage 12) Correct` = sum(
+      current_projected_points == 12, na.rm = TRUE
+    ),
     .groups = "drop"
   )
 

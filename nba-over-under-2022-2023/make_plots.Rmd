@@ -320,7 +320,10 @@ projections %>%
 projected_score %>% 
   arrange(desc(Date), desc(`Projected Total Points`), 
           desc(`Number Correct`),
-          desc(`Number (Wage 15) Correct`)) %>% 
+          desc(`Number (Wage 15) Correct`),
+          desc(`Number (Wage 14) Correct`),
+          desc(`Number (Wage 13) Correct`),
+          desc(`Number (Wage 12) Correct`)) %>% 
   DT::datatable(options = list(pageLength = num_players))
 ```
 
