@@ -37,9 +37,8 @@ seasons_rosters <-
     all_data
   }
 
-
-
-#players_2023 <- nbastatR::seasons_rosters(seasons = 2023
+# players_2023 <- seasons_rosters(seasons = 2023)
+# players_2023 <- nbastatR::seasons_rosters(seasons = 2023)
 
 #write_rds(players_2023, "rosters/players_2023.rds")
 players_2023 <- read_rds("rosters/players_2023.rds")
