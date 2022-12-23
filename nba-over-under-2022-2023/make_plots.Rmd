@@ -13,7 +13,8 @@ knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = e
 r_files1 <- c("01-picks-formatting.R",
               "02a-get-game-scores.R")
 purrr::walk(r_files1, source)
-reticulate::source_python('~/Desktop/ismayc.github.io/nba-over-under-2022-2023/02b-get_game_scores.py')
+reticulate::source_python('02b-get_game_scores.py')
+#reticulate::source_python('~/Desktop/ismayc.github.io/nba-over-under-2022-2023/02b-get_game_scores.py')
 r_files2 <- c("02c-get-game-scores.R",
               "03-data-wrangling.R")
 purrr::walk(r_files2, source)

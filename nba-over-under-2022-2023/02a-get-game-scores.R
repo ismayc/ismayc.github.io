@@ -13,8 +13,8 @@ all_star_game_date <- "2022-02-19"
 Sys.setenv("VROOM_CONNECTION_SIZE" = 131072 * 2)
 season <- 2023
 
-setwd("/Users/chester/Desktop/ismayc.github.io/nba-over-under-2022-2023")
-here::set_here("/Users/chester/Desktop/ismayc.github.io/nba-over-under-2022-2023")
+#setwd("/Users/chester/Desktop/ismayc.github.io/nba-over-under-2022-2023")
+#here::set_here("/Users/chester/Desktop/ismayc.github.io/nba-over-under-2022-2023")
 
 if(!file.exists(here(
   "rds", glue("game_results_raw_through_{Sys.Date() - 1}.rds")))
