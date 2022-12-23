@@ -34,18 +34,18 @@ jobs:
 
       - name: Query dependencies
         run: |
-          install.packages('remotes')
-          install.packages('tidyverse')
-          install.packages('readxl')
+          install.packages('remotes', dependencies = TRUE)
+          install.packages('tidyverse', dependencies = TRUE)
+          install.packages('readxl', dependencies = TRUE)
           remotes::install_github("abresler/nbastatR")
-          install.packages('here')
-          install.packages('glue')
-          install.packages('reticulate')
+          install.packages('here', dependencies = TRUE)
+          install.packages('glue', dependencies = TRUE)
+          install.packages('reticulate', dependencies = TRUE)
           reticulate::py_install("nba_api", pip = TRUE)
           reticulate::py_install("pandas")
-          install.packages("plotly")
-          install.packages('rmarkdown')
-          install.packages('sessioninfo')
+          install.packages("plotly", dependencies = TRUE)
+          install.packages('rmarkdown', dependencies = TRUE)
+          install.packages('sessioninfo', dependencies = TRUE)
 #          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
 #          writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
         shell: Rscript {0}
@@ -57,10 +57,10 @@ jobs:
 #          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
 #          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
 
-      - name: Install dependencies
-        run: |
-          remotes::install_deps(dependencies = TRUE)
-        shell: Rscript {0}
+#      - name: Install dependencies
+#        run: |
+#          remotes::install_deps(dependencies = TRUE)
+#        shell: Rscript {0}
           
       - uses: r-lib/actions/setup-renv@v2          
           
