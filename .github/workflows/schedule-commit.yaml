@@ -3,7 +3,7 @@ on:
    - cron: "*/10 * * * *"  
 #   - cron: "0 4 * * *"
 
-name: render-rmarkdown-webpage
+# name: render-rmarkdown-webpage
 
 jobs:
   render-rmarkdown-webpage:
