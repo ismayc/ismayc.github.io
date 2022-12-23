@@ -3,8 +3,10 @@ on:
    - cron: "*/10 * * * *"  
 #   - cron: "0 4 * * *"
 
+name: render-rmarkdown-webpage
+
 jobs:
-  generate-data:
+  render-rmarkdown-webpage:
     runs-on: ${{ matrix.config.os }}
 
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
@@ -21,14 +23,14 @@ jobs:
       GITHUB_PAT: ${{ secrets.TOKEN }}
 
     steps:
+      - name: Checkout repo
       - uses: actions/checkout@v2
+      - with:
+          fetch-depth: 5
 
-      - uses: r-lib/actions/setup-r@master
-        with:
-          r-version: ${{ matrix.config.r }}
-          http-user-agent: ${{ matrix.config.http-user-agent }}
+      - uses: r-lib/actions/setup-r@v2
 
-      - uses: r-lib/actions/setup-pandoc@master
+      - uses: r-lib/actions/setup-pandoc@v2
 
       - name: Query dependencies
         run: |
