@@ -22,10 +22,10 @@ date_modified <- file.info(file.path("..", "2023-nba-over-under.html")) %>%
   pull(ctime) %>% 
   as.Date()
 
-system("git config --global user.name 'Chester Ismay'")
-system("git remote set-url origin git@github.com:ismayc/ismayc.github.io.git")
-system("git config pull.rebase false")
-system("git pull")
+# system("git config --global user.name 'Chester Ismay'")
+# system("git remote set-url origin git@github.com:ismayc/ismayc.github.io.git")
+# system("git config pull.rebase false")
+# system("git pull")
 
 if (date_modified != Sys.Date() || update_page) {
   rmarkdown::render(
@@ -40,6 +40,6 @@ if (date_modified != Sys.Date() || update_page) {
 }
 cat(glue::glue("Completed at {Sys.time()}"), "Pacific time", "\n")
 
-system("git add --all")
-system(paste0('git commit -m "Updated ', Sys.time(), '"'))
-system("git push origin master")
+# system("git add --all")
+# system(paste0('git commit -m "Updated ', Sys.time(), '"'))
+# system("git push origin master")

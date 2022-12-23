@@ -50,8 +50,6 @@ jobs:
 #          writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
         shell: Rscript {0}
 
-      - uses: r-lib/actions/setup-renv@v2
-
 #      - name: Cache R packages
 #        uses: actions/cache@v2
 #        with:
@@ -64,19 +62,24 @@ jobs:
           remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
           
+      - uses: r-lib/actions/setup-renv@v2          
+          
       - name: Build webpage
         run: |
           setwd("./nba-over-under-2022-2023")
           source("make_plot_html.R")
         shell: Rscript {0} 
         
-#      - name: Commit files
-#        run: |
-#          git config --local user.email "actions@github.com"
-#          git config --local user.name "GitHub Actions"
-#          git add --all
-#          git commit -am "add data"
-#          git push 
+      - name: Commit files
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git remote set-url origin git@github.com:ismayc/ismayc.github.io.git
+          git config pull.rebase false
+          git pull
+          git add --all
+          git commit -am "Update webpage"
+          git push origin master
 
       - name: Session info
         run: |
