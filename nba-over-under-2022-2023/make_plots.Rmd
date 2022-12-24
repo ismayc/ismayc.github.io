@@ -37,7 +37,7 @@ purrr::walk(r_files2, source)
 ```
 
 
-Last updated at `r Sys.time()` US Pacific time
+Last updated at `r Sys.time() - lubridate::hours(12)` US Pacific time
 
 # {.tabset}
 

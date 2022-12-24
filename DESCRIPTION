@@ -13,6 +13,4 @@ Depends:
   rmarkdown,
   DT,
   lubridate,
-  kableExtra,
-  sessioninfo
-Remotes: abresler/nbastatR
+  kableExtra

@@ -65,7 +65,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: rcmdcheck remotes reticulate glue
+          extra-packages: rcmdcheck remotes reticulate
 
       - uses: actions/setup-python@v4
         with:
@@ -103,6 +103,7 @@ jobs:
       - name: Session info
         run: |
           options(width = 100)
+          install.packages("sessioninfo")
           pkgs <- installed.packages()[, "Package"]
           sessioninfo::session_info(pkgs, include_base = TRUE)
         shell: Rscript {0}
