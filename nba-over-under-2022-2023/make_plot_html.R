@@ -9,11 +9,14 @@
 # Add RSTUDIO_PANDOC = /usr/local/bin/pandoc
 # Save file
 
+install.packages("glue")
+library(glue)
+
 #update_page <- FALSE
 update_page <- TRUE
 
 cat("\n")
-cat(glue::glue("Starting at {Sys.time()}"), "Pacific time", "\n")
+cat(glue("Starting at {Sys.time()}"), "Pacific time", "\n")
 
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(lubridate))
@@ -38,7 +41,7 @@ if (date_modified != Sys.Date() || update_page) {
 } else {
   cat("Webpage already created today", "\n")
 }
-cat(glue::glue("Completed at {Sys.time()}"), "Pacific time", "\n")
+cat(glue("Completed at {Sys.time()}"), "Pacific time", "\n")
 
 # system("git add --all")
 # system(paste0('git commit -m "Updated ', Sys.time(), '"'))

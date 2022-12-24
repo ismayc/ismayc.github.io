@@ -46,7 +46,7 @@ Last updated at `r Sys.time()` US Pacific time
 
 <!-- (Skipped until Week 2) -->
 
-This plot is updated on Monday each week with the previous week's results.
+This plot is updated early each week with the previous week's results.
 
 ```{r fig.height=10, fig.width=10, message=FALSE, warning=FALSE}
 weekly_standings <- standings_grid %>% 
