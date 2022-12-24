@@ -83,14 +83,14 @@ jobs:
           path_to_python <- virtualenv_python("r-reticulate")
           writeLines(sprintf("RETICULATE_PYTHON=%s", path_to_python),
                      Sys.getenv("GITHUB_ENV"))
-
-      - uses: r-lib/actions/setup-renv@v2          
           
       - name: Build webpage
         run: |
           setwd("./nba-over-under-2022-2023")
           source("make_plot_html.R")
         shell: Rscript {0} 
+
+      - uses: r-lib/actions/setup-renv@v2            
         
       - name: Commit files
         run: |
