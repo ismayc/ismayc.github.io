@@ -96,9 +96,9 @@ jobs:
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          git remote set-url origin git@github.com:ismayc/ismayc.github.io.git
-          git config pull.rebase false
-          git pull
+#          git remote set-url origin git@github.com:ismayc/ismayc.github.io.git
+#          git config pull.rebase false
+#          git pull
           git add --all
           git commit -am "Update webpage"
           git push origin master
