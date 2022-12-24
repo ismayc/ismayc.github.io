@@ -1,7 +1,7 @@
 on:
   schedule:
 #    - cron: "*/10 * * * *"
-    - cron: "0 4 * * *"
+    - cron: "0 4,8 * * *"
   push:
     branches: [main, master]
 
@@ -98,6 +98,7 @@ jobs:
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
+          git config pull.rebase false
           git pull
           git add --all
           git commit -am "Update webpage"
