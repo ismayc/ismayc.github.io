@@ -11,6 +11,7 @@ library(shiny)
 library(janitor)
 library(tidyverse)
 library(DT)
+library(tictoc)
 
 update <- FALSE
 
@@ -129,7 +130,7 @@ ui <- fluidPage(
   
   # Application title
   titlePanel("NBA Player Finder"),
-  p("Player data was last pulled on 2022-12-01"),
+  p("Player data was last pulled on 2022-12-23"),
   
   # Sidebar with a slider input for number of bins 
   sidebarLayout(
@@ -256,18 +257,19 @@ server <- function(input, output) {
   
   output$filteredTable <- renderDT({
     players_data %>% 
-      dplyr::filter(conference == input$conference,
-                    division %in% c(input$division_west, input$division_east),
-                    team %in% c(input$sw_team, input$nw_team, input$pac_team,
-                                input$se_team, input$atlantic_team, input$cen_team),
-                    between(
-                      height_total_inches,
-                      as.integer(input$min_feet) * 12 + as.integer(input$min_inches),
-                      as.integer(input$max_feet) * 12 + as.integer(input$max_inches)),
-                    between(age, input$age[1], input$age[2]),
-                    between(as.integer(number_jersey), 
-                            input$jersey[1],
-                            input$jersey[2])) %>% 
+      dplyr::filter(
+        conference == input$conference,
+        division %in% c(input$division_west, input$division_east),
+        team %in% c(input$sw_team, input$nw_team, input$pac_team,
+                    input$se_team, input$atlantic_team, input$cen_team),
+        between(
+          height_total_inches,
+          as.integer(input$min_feet) * 12 + as.integer(input$min_inches),
+          as.integer(input$max_feet) * 12 + as.integer(input$max_inches)),
+        between(age, input$age[1], input$age[2]),
+        between(as.integer(number_jersey), 
+                input$jersey[1],
+                input$jersey[2])) %>% 
       mutate(height = paste0(height_feet, "-", height_inches)) %>% 
       select(-height_total_inches, -height_feet, -height_inches)},
     options = list(pageLength = 100) #nrow(players_data))
