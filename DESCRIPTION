@@ -1,7 +1,7 @@
 Package: nba-over-under
 Title: This file exists for continuous integration to work for R-based repos
 Version: 0.0.1
-Imports: 
+Depends: 
   remotes,
   tidyverse,
   readxl,
