@@ -9,7 +9,6 @@
 # Add RSTUDIO_PANDOC = /usr/local/bin/pandoc
 # Save file
 
-install.packages("glue")
 library(glue)
 
 #update_page <- FALSE

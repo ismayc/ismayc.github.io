@@ -1,0 +1,14 @@
+Package: nba-over-under
+Title: This file exists for continuous integration to work for R-based repos
+Version: 0.0.1
+Imports: 
+  remotes,
+  tidyverse,
+  readxl,
+  here,
+  glue,
+  reticulate,
+  plotly,
+  rmarkdown,
+  sessioninfo
+Remotes: abresler/nbastatR
