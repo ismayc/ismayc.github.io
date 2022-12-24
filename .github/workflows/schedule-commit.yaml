@@ -65,7 +65,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: rcmdcheck remotes reticulate
+          extra-packages: rcmdcheck remotes reticulate glue
 
       - uses: actions/setup-python@v4
         with:
