@@ -9,8 +9,10 @@ Depends:
   glue,
   reticulate,
   plotly,
+  knitr,
   rmarkdown,
   DT,
   lubridate,
+  kableExtra,
   sessioninfo
 Remotes: abresler/nbastatR
