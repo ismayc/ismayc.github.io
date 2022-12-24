@@ -1,5 +1,10 @@
 # Match up with column names from nbastatR
-scores_temp1 <- read_csv("current_year.csv") %>% 
+library(reticulate)
+library(tibble)
+
+scores_temp1 <- as_tibble(py$games_22) %>% 
+  mutate(GAME_DATE = as.Date(GAME_DATE)) %>% 
+#scores_temp1 <- read_csv("current_year.csv") %>% 
   filter(GAME_DATE >= nba_season_start_date) %>% 
   select(TEAM_NAME, TEAM_ABBREVIATION, WL, PTS, GAME_ID,
          GAME_DATE, MATCHUP) 
