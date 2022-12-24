@@ -15,7 +15,7 @@ library(glue)
 update_page <- TRUE
 
 cat("\n")
-cat(glue("Starting at {Sys.time() - lubridate::hours(4)}"), "Pacific time", "\n")
+cat(glue("Starting at {Sys.time() - lubridate::hours(8)}"), "Pacific time", "\n")
 
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(lubridate))
@@ -40,7 +40,7 @@ if (date_modified != Sys.Date() || update_page) {
 } else {
   cat("Webpage already created today", "\n")
 }
-cat(glue("Completed at {Sys.time() - lubridate::hours(4)}"), "Pacific time", "\n")
+cat(glue("Completed at {Sys.time() - lubridate::hours(8)}"), "Pacific time", "\n")
 
 # system("git add --all")
 # system(paste0('git commit -m "Updated ', Sys.time(), '"'))
