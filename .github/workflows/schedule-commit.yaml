@@ -15,7 +15,7 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: ubuntu-latest,   r: 'release'}
+          - {os: macOS-latest,   r: 'release'}
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
@@ -32,8 +32,9 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@v2
 
-      - name: Query dependencies
+      - name: Install packages
         run: |
+          install.packages('curl', dependencies = TRUE)
           install.packages('remotes', dependencies = TRUE)
           install.packages('tidyverse', dependencies = TRUE)
           install.packages('readxl', dependencies = TRUE)
