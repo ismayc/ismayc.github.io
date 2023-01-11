@@ -14,7 +14,7 @@ library(DT)
 library(tictoc)
 library(nbastatR)
 
-update <- TRUE
+update <- FALSE
 date_added <- "2023-01-10"
 
 if (update){
