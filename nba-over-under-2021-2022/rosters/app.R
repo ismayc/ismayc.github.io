@@ -12,12 +12,16 @@ library(janitor)
 library(tidyverse)
 library(DT)
 library(tictoc)
+library(nbastatR)
 
-update <- FALSE
+update <- TRUE
+date_added <- "2023-01-10"
 
 if (update){
   team_season_roster <- function (team = "Denver Nuggets", season = 2023, return_message = T)
   {
+    if (!require("remotes")) { install.packages("remotes") }
+    if (!require("nbastatR")) { remotes::install_github("abresler/nbastatR") }
     if (!"team" %>% exists()) {
       stop("Please enter a team")
     }
@@ -130,7 +134,7 @@ ui <- fluidPage(
   
   # Application title
   titlePanel("NBA Player Finder"),
-  p("Player data was last pulled on 2022-12-23"),
+  p(paste("Player data was last pulled on", date_added)),
   
   # Sidebar with a slider input for number of bins 
   sidebarLayout(
