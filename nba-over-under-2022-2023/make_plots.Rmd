@@ -10,7 +10,8 @@ knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = e
 #Sys.setenv(RSTUDIO_PANDOC = "/Applications/RStudio.app/Contents/MacOS/pandoc")
 #Sys.setenv(RSTUDIO_PANDOC = "/usr/local/bin/pandoc")
 
-remotes::install_github("abresler/nbastatR")
+remotes::install_github("https://github.com/abresler/nbastatR/commit/f528c9d555ce3baf58e45c6b44318d92faa26b25")
+
 r_files1 <- c("01-picks-formatting.R",
               "02a-get-game-scores.R")
 purrr::walk(r_files1, source)
