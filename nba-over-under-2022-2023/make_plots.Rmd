@@ -802,7 +802,6 @@ if (nrow(yesterday_scores)) {
 }
 ```
 
-
 ```{r message=FALSE, warning=FALSE}
 schedule <- current_schedule() %>% 
   filter(
