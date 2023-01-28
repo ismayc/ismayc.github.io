@@ -2,7 +2,7 @@
 #devtools::install_github("abresler/nbastatR")
 
 library(tidyverse)
-library(nbastatR)
+# library(nbastatR)
 library(here)
 library(glue)
 
