@@ -70,7 +70,6 @@ ui <- fluidPage(
             over_under_choice("Timberwolves", selected = "OVER"),
             over_under_choice("Pelicans", selected = "OVER"),
             over_under_choice("Knicks", selected = "UNDER"),
-            over_under_choice("Thunder", selected = "OVER"),
             over_under_choice("Magic", selected = "OVER"),
             over_under_choice("76ers", selected = "UNDER"),
             over_under_choice("Suns", selected = "UNDER"),
@@ -81,8 +80,8 @@ ui <- fluidPage(
             over_under_choice("Jazz", selected = "UNDER"),
             over_under_choice("Wizards", selected = "OVER"),
             br(),
-#            h5("Outcome determined"),
-#            over_under_choice("Jazz", choices = "UNDER"),
+            h5("Outcome determined"),
+            over_under_choice("Thunder", choices = "OVER")
         ),
         
         # Show a plot of the generated distribution

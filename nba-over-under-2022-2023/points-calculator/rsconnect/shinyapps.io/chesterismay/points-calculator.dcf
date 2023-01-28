@@ -5,9 +5,9 @@ account: chesterismay
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 5862964
-bundleId: 6454361
+bundleId: 6783132
 url: https://chesterismay.shinyapps.io/points-calculator/
-when: 1667061640.3213
-lastSyncTime: 1667061640.32131
+when: 1674878202.01912
+lastSyncTime: 1674878202.01913
 asMultiple: FALSE
 asStatic: FALSE

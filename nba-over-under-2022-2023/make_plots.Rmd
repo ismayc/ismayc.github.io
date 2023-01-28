@@ -804,7 +804,7 @@ if (nrow(yesterday_scores)) {
 
 
 ```{r message=FALSE, warning=FALSE}
-schedule <- nbastatR::current_schedule() %>% 
+schedule <- current_schedule() %>% 
   filter(
     dateGame >= nba_season_start_date, 
     dateGame <= nba_season_end_date,
