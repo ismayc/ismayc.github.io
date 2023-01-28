@@ -13,4 +13,14 @@ Depends:
   rmarkdown,
   DT,
   lubridate,
-  kableExtra
+  kableExtra,
+  httr,
+  jsonlite,
+  magrittr,
+  curl,
+  memoise,
+  furrr,
+  future,
+  glue,
+  stringi,
+  rvest
