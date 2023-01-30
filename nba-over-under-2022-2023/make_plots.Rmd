@@ -12,6 +12,8 @@ knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = e
 
 #remotes::install_github("https://github.com/abresler/nbastatR/commit/f528c9d555ce3baf58e45c6b44318d92faa26b25", force = TRUE)
 
+Sys.setenv("VROOM_CONNECTION_SIZE" = 2e6)
+
 library(httr)
 library(jsonlite)
 library(tidyverse)
@@ -803,7 +805,11 @@ if (nrow(yesterday_scores)) {
 ```
 
 ```{r message=FALSE, warning=FALSE}
-schedule <- current_schedule() %>% 
+schedule_raw <- current_schedule() 
+```
+
+```{r message=FALSE, warning=FALSE}
+schedule <- schedule_raw %>% 
   filter(
     dateGame >= nba_season_start_date, 
     dateGame <= nba_season_end_date,

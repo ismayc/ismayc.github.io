@@ -17967,20 +17967,20 @@ current_schedule <-
     slug_year <-
       .get_slug_year()
     json <-
-      glue("https://data.nba.net/prod/v2/{slug_year}/schedule.json") %>%
+      glue::glue("https://data.nba.net/prod/v2/{slug_year}/schedule.json") %>%
       as.character() %>%
-      fromJSON()
-
+      jsonlite::fromJSON()
+    
     json_data <- json$league$standard
-
+    
     df_season_games <-
       json_data[!json_data %>% names() %in% c("period", "nugget", "hTeam", "vTeam", "watch", "playoffs")] %>%
       dplyr::as_tibble()
-
+    
     df_season_games <-
       df_season_games %>%
       select(1:10) %>%
-      set_names(
+      purrr::set_names(
         c(
           "slugGame",
           "idStageGame",
@@ -17994,12 +17994,12 @@ current_schedule <-
           "hasBuzzerBeater"
         )
       ) %>%
-      separate(slugGameCode,
+      tidyr::separate(slugGameCode,
                       into = c("idGame", "slugTeams"),
                       sep = "/")
     season <-
       df_season_games$idGame[[1]] %>% substr(1, 4) %>% as.numeric() + 1
-
+    
     df_season_games <-
       df_season_games %>%
       mutate(
@@ -18010,10 +18010,10 @@ current_schedule <-
       ) %>%
       mutate(
         idGame = slugGame %>% as.numeric(),
-        urlNBAGameBook = glue(
+        urlNBAGameBook = glue::glue(
           "https://data.nba.net/prod/v1/{dateSlugGame}/{dateSlugGame}_Book.pdf"
         ) %>% as.character(),
-        datetimeGame = parse_datetime(datetimeGame),
+        datetimeGame = readr::parse_datetime(datetimeGame),
         dateGame = lubridate::ymd(dateSlugGame)
       ) %>%
       mutate(idRow = 1:n()) %>%
@@ -18023,50 +18023,53 @@ current_schedule <-
              slugTeamAway,
              slugTeamHome,
              everything())
-
+    
     df_periods <-
       json_data$period %>%
       as_tibble() %>%
-      set_names(c("quarterMaxPlayed", "idSeasonType", "maxQuartersRegular")) %>%
+      purrr::set_names(c("quarterMaxPlayed", "idSeasonType", "maxQuartersRegular")) %>%
       mutate(
         hasOvertime = quarterMaxPlayed > 4,
         countOTQuarters =  quarterMaxPlayed - maxQuartersRegular,
         isComplete = !quarterMaxPlayed == 1
       ) %>%
       mutate(idRow = 1:n())
-
+    
     df_descriptions <-
       tibble(descriptionGame = json_data$nugget$text) %>%
       mutate(idRow = 1:n()) %>%
-      mutate_all(funs(ifelse(. == "", NA, .)))
-
+      #      mutate_all(funs(ifelse(. == "", NA, .)))
+      mutate(across(.fns = function(x) ifelse(x == "", NA, x)))
+    
     df_home <-
-      json_data$hTeam %>% flatten() %>% dplyr::as_tibble() %>%
-      set_names(c('idTeamHome', 'scoreHome', 'isWinnerHome', 'isLoserHome')) %>%
-      mutate_all(as.numeric) %>%
+      json_data$hTeam %>% #flatten() %>% dplyr::as_tibble() %>%
+      purrr::set_names(c('idTeamHome', 'scoreHome', 'isWinnerHome', 'isLoserHome')) %>%
+      mutate(across(.fns = as.numeric)) %>% 
+      #      mutate_all(as.numeric) %>%
       mutate(idRow = 1:n()) %>%
       left_join(nba_teams() %>% select(idTeamHome = idTeam, nameTeamHome = nameTeam)) %>%
       select(idTeamHome, nameTeamHome, everything()) %>%
       mutate(idRow = 1:n()) %>%
       suppressMessages()
-
+    
     df_away <-
-      json_data$vTeam %>% flatten() %>% dplyr::as_tibble() %>%
-      set_names(c('idTeamAway', 'scoreAway', 'isWinnerAway', 'isLoserAway')) %>%
-      mutate_all(as.numeric) %>%
+      json_data$vTeam %>% #flatten() %>% dplyr::as_tibble() %>%
+      purrr::set_names(c('idTeamAway', 'scoreAway', 'isWinnerAway', 'isLoserAway')) %>%
+      mutate(across(.fns = as.numeric)) %>% 
+      #      mutate_all(as.numeric) %>%
       mutate(idRow = 1:n()) %>%
       left_join(nba_teams() %>% select(idTeamAway = idTeam, nameTeamAway = nameTeam)) %>%
       select(idTeamAway, nameTeamAway, everything()) %>%
       mutate(idRow = 1:n()) %>%
       suppressMessages()
-
+    
     data <-
       list(df_season_games,
            df_periods,
            df_home,
            df_away,
            df_descriptions) %>%
-      reduce(left_join) %>%
+      purrr::reduce(left_join) %>%
       suppressMessages() %>%
       select(-idRow) %>%
       dplyr::select(idSeasonType,
@@ -18074,9 +18077,10 @@ current_schedule <-
                     timeEasternGame,
                     idGame,
                     everything())
-
+    
     data
   }
+
 
 #' NBA active coaching staffs
 #'

@@ -2,53 +2,79 @@
 library(reticulate)
 library(tibble)
 
-scores_temp1 <- as_tibble(py$games_22) %>% 
-  mutate(GAME_DATE = as.Date(GAME_DATE)) %>% 
-#scores_temp1 <- read_csv("current_year.csv") %>% 
+#scores_temp1 <- as_tibble(py$games_22) %>% 
+#  mutate(GAME_DATE = as.Date(GAME_DATE)) %>% 
+scores_temp1 <- read_csv("current_year.csv") %>% 
   filter(GAME_DATE >= nba_season_start_date) %>% 
   select(TEAM_NAME, TEAM_ABBREVIATION, WL, PTS, GAME_ID,
-         GAME_DATE, MATCHUP) 
+         GAME_DATE, MATCHUP) %>% 
+  arrange(GAME_ID) %>% 
+  inner_join(meta %>% select(abbreviation),
+             by = c("TEAM_ABBREVIATION" = "abbreviation"))
 
-scores_temp2 <- scores_temp1 %>% 
-  rename(dateGame = GAME_DATE,
-         idGame = GAME_ID) %>% 
+scores_temp_away <- scores_temp1 %>% 
+  filter(str_detect(string = MATCHUP, pattern = "vs.")) %>% 
+  separate(col = MATCHUP, into = c("slugTeamHome", "slugTeamAway"), 
+           sep = " vs. ") %>% 
+  rename(scoreHome = PTS,
+         nameTeamHome = TEAM_NAME) %>% 
+  select(-TEAM_ABBREVIATION, -WL)
+
+scores_temp_home <- scores_temp1 %>% 
+  filter(str_detect(string = MATCHUP, pattern = "@")) %>% 
   separate(col = MATCHUP, into = c("slugTeamAway", "slugTeamHome"), 
            sep = " @ ") %>% 
-  mutate(slugTeamAway = ifelse(str_detect(slugTeamAway, "vs."),
-                               NA_character_,
-                               slugTeamAway))
+  rename(scoreAway = PTS,
+         nameTeamAway = TEAM_NAME)%>% 
+  select(-TEAM_ABBREVIATION, -WL)
 
-home_away_lookup <- scores_temp2 %>% 
-  distinct(idGame, dateGame, slugTeamAway, slugTeamHome) %>% 
-  arrange(idGame) %>% 
-  na.omit()
+scores_joined <- scores_temp_away %>% 
+  inner_join(scores_temp_home, 
+             by = c("GAME_ID", "GAME_DATE", "slugTeamAway", "slugTeamHome")) %>%
+  select(idGame = GAME_ID, dateGame = GAME_DATE, slugTeamAway, slugTeamHome,
+         nameTeamAway, nameTeamHome, scoreAway, scoreHome)
 
-scores_temp3 <- scores_temp2 %>% 
-  select(-slugTeamAway, -slugTeamHome) %>% 
-  inner_join(home_away_lookup, by = c("idGame", "dateGame")) %>% 
-  inner_join(meta %>% select(team, abbreviation), 
-             by = c("slugTeamAway" = "abbreviation")) %>% 
-  rename(nameTeamAway = team) %>% 
-  inner_join(meta %>% select(team, abbreviation), 
-             by = c("slugTeamHome" = "abbreviation")) %>% 
-  rename(nameTeamHome = team) %>% 
-  mutate(scoreHome = ifelse(TEAM_ABBREVIATION == slugTeamHome, PTS, NA),
-         scoreAway = ifelse(TEAM_ABBREVIATION == slugTeamAway, PTS, NA))
-
-scores_distinct <- scores_temp3 %>% 
-  distinct(dateGame, idGame, slugTeamAway, slugTeamHome, nameTeamAway,
-           nameTeamHome, scoreHome, scoreAway) 
-
-scores_home <- scores_distinct %>% 
-  filter(!is.na(scoreHome))
-
-scores_away <- scores_distinct %>% 
-  filter(!is.na(scoreAway))
-
-scores_joined <- scores_home %>% 
-  select(-scoreAway) %>% 
-  inner_join(scores_away %>% select(idGame, scoreAway), by = "idGame") %>% 
-  relocate(scoreAway, .before = scoreHome)
+# 
+# scores_temp2 <- scores_temp1 %>% 
+#   rename(dateGame = GAME_DATE,
+#          idGame = GAME_ID) %>% 
+#   separate(col = MATCHUP, into = c("slugTeamAway", "slugTeamHome"), 
+#            sep = " @ ") %>% 
+#   mutate(slugTeamAway = ifelse(str_detect(slugTeamAway, "vs."),
+#                                NA_character_,
+#                                slugTeamAway))
+# 
+# home_away_lookup <- scores_temp2 %>% 
+#   distinct(idGame, dateGame, slugTeamAway, slugTeamHome) %>% 
+#   arrange(idGame) %>% 
+#   na.omit()
+# 
+# scores_temp3 <- scores_temp2 %>% 
+#   select(-slugTeamAway, -slugTeamHome) %>% 
+#   inner_join(home_away_lookup, by = c("idGame", "dateGame")) %>% 
+#   inner_join(meta %>% select(team, abbreviation), 
+#              by = c("slugTeamAway" = "abbreviation")) %>% 
+#   rename(nameTeamAway = team) %>% 
+#   inner_join(meta %>% select(team, abbreviation), 
+#              by = c("slugTeamHome" = "abbreviation")) %>% 
+#   rename(nameTeamHome = team) %>% 
+#   mutate(scoreHome = ifelse(TEAM_ABBREVIATION == slugTeamHome, PTS, NA),
+#          scoreAway = ifelse(TEAM_ABBREVIATION == slugTeamAway, PTS, NA))
+# 
+# scores_distinct <- scores_temp3 %>% 
+#   distinct(dateGame, idGame, slugTeamAway, slugTeamHome, nameTeamAway,
+#            nameTeamHome, scoreHome, scoreAway) 
+# 
+# scores_home <- scores_distinct %>% 
+#   filter(!is.na(scoreHome))
+# 
+# scores_away <- scores_distinct %>% 
+#   filter(!is.na(scoreAway))
+# 
+# scores_joined <- scores_home %>% 
+#   select(-scoreAway) %>% 
+#   inner_join(scores_away %>% select(idGame, scoreAway), by = "idGame") %>% 
+#   relocate(scoreAway, .before = scoreHome)
 
 scores <- scores_joined %>%
   select(game_date = dateGame,
