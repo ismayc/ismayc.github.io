@@ -2,7 +2,6 @@ library(tidyverse)
 library(plotly)
 library(here)
 library(glue)
-#library(zoo)
 
 standings <- here("rds", glue("standings_through_{Sys.Date() - 1}.rds")) %>% 
   read_rds()
