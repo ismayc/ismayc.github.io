@@ -13,9 +13,11 @@ library(tidyverse)
 library(DT)
 library(tictoc)
 library(nbastatR)
+library(httr)
+library(jsonlite)
 
 update <- FALSE
-date_added <- "2023-01-10"
+date_added <- "2023-02-09"
 
 if (update){
   team_season_roster <- function (team = "Denver Nuggets", season = 2023, return_message = T)
@@ -38,7 +40,7 @@ if (update){
     json_url <- glue::glue("https://stats.nba.com/stats/commonteamroster?LeagueID=00&Season={slugSeason}&TeamID={team_id}") %>%
       as.character()
     json_data <- json_url %>% nbastatR:::.curl_chinazi()
-    Sys.sleep(5)
+    Sys.sleep(3)
     names_roster <- json_data$resultSets$headers[1] %>% unlist() %>%
       str_to_lower()
     data_roster <- json_data$resultSets$rowSet[1] %>% data.frame(stringsAsFactors = F) %>%
@@ -61,7 +63,7 @@ if (update){
       suppressMessages() %>% suppressWarnings()
     if (return_message) {
       glue::glue("You got the {team}'s roster for the {slugSeason}") %>%
-        cat(fill = T)
+        cat(fill = TRUE)
     }
     data_roster
   }
