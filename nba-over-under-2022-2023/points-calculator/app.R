@@ -61,7 +61,6 @@ ui <- fluidPage(
             over_under_choice("Pistons", selected = "OVER"),
             over_under_choice("Warriors", selected = "OVER"),
             over_under_choice("Rockets", selected = "OVER"),
-            over_under_choice("Pacers", selected = "UNDER"),
             over_under_choice("Clippers", selected = "OVER"),
             over_under_choice("Lakers", selected = "UNDER"),
             over_under_choice("Grizzlies", selected = "OVER"),
@@ -80,6 +79,7 @@ ui <- fluidPage(
             over_under_choice("Wizards", selected = "OVER"),
             br(),
             h5("Outcome determined"),
+            over_under_choice("Pacers", choices = "OVER"),
             over_under_choice("Thunder", choices = "OVER"),
             over_under_choice("Jazz", choices = "OVER")
         ),
