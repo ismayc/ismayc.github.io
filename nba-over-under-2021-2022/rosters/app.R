@@ -16,8 +16,8 @@ library(nbastatR)
 library(httr)
 library(jsonlite)
 
-update <- FALSE
-date_added <- "2023-02-09"
+update <- TRUE
+date_added <- Sys.Date()
 
 if (update){
   team_season_roster <- function (team = "Denver Nuggets", season = 2023, return_message = T)
