@@ -38,6 +38,10 @@ scores_tidy <- scores %>%
     opponent_slug = if_else(location == "away", slug_home_team, slug_away_team),
     team_name = if_else(location == "away", away_team, home_team)
   ) %>% 
+  mutate(team_name = str_replace_all(
+    team_name,
+    "LA Clippers",
+    "Los Angeles Clippers")) %>%
   rownames_to_column() %>% 
   mutate(rowname = as.numeric(rowname)) %>% 
   mutate(opponent_score = if_else(rowname %% 2 == 1,
@@ -45,7 +49,7 @@ scores_tidy <- scores %>%
                                   lag(score)))
 
 updated_schedule <- game_results %>% 
-  inner_join(
+  left_join(
     scores_tidy %>% 
       select(game_id, game_date, team_name, score, opponent_score), 
     by = c("Game Date" = "game_date", "Team Name" = "team_name")
@@ -126,8 +130,6 @@ changes_in_player_projections <- player_projections_by_team %>%
   filter(`Change in Points Since Yesterday` != 0) %>% 
   select(Date, Player, Team, `Current Record`, `Current Win %`, 
          `Vegas Insider Win Projection %`, `Change in Points Since Yesterday`)
-
-
 
 rows_today <- changes_in_player_projections %>% 
   filter(Date == Sys.Date() - 1)
