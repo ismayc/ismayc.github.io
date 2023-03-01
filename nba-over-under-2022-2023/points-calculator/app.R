@@ -43,7 +43,7 @@ ui <- fluidPage(
     # Application title
     titlePanel("NBA Over/Under 2023 Point Calculations"),
     h3("Created by Chester Ismay"),
-    p(str_c("Last updated at ", Sys.time(), " HST")),
+    p(str_c("Last updated at ", Sys.time(), " PST")),
     
     # Sidebar
     sidebarLayout(
@@ -61,7 +61,6 @@ ui <- fluidPage(
             over_under_choice("Pistons", selected = "OVER"),
             over_under_choice("Warriors", selected = "OVER"),
             over_under_choice("Rockets", selected = "OVER"),
-            over_under_choice("Clippers", selected = "OVER"),
             over_under_choice("Lakers", selected = "UNDER"),
             over_under_choice("Grizzlies", selected = "OVER"),
             over_under_choice("Heat", selected = "UNDER"),
@@ -73,14 +72,15 @@ ui <- fluidPage(
             over_under_choice("76ers", selected = "UNDER"),
             over_under_choice("Suns", selected = "UNDER"),
             over_under_choice("Blazers", selected = "OVER"), 
-            over_under_choice("Kings", selected = "UNDER"),
             over_under_choice("Spurs", selected = "OVER"),
             over_under_choice("Raptors", selected = "OVER"),
             over_under_choice("Wizards", selected = "OVER"),
             br(),
             h5("Outcome determined"),
             over_under_choice("Pacers", choices = "OVER"),
+            over_under_choice("Clippers", choices = "UNDER"),
             over_under_choice("Thunder", choices = "OVER"),
+            over_under_choice("Kings", choices = "OVER"),
             over_under_choice("Jazz", choices = "OVER")
         ),
         
