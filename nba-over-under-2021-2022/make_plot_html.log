@@ -3277,3 +3277,96 @@ Starting at 2022-10-30 04:05:00 Pacific time
 Already up to date.
 Error: pandoc version 1.12.3 or higher is required and was not found (see the help page ?rmarkdown::pandoc_available).
 Execution halted
+
+Starting at 2023-02-15 04:15:03 Pacific time 
+From github.com:ismayc/ismayc.github.io
+   d7c3d06..cd850ce  master     -> origin/master
+Updating d7c3d06..cd850ce
+Fast-forward
+ 2023-nba-over-under.html                           |   682 +-
+ nba-over-under-2021-2022/rosters/app.R             |     4 +-
+ .../rosters/players_2023_pulled.rds                |   Bin 117105 -> 115245 bytes
+ .../chesterismay/nba-player-finder.dcf             |     6 +-
+ nba-over-under-2022-2023/current_year.csv          | 13010 ++++++++++---------
+ .../rds/game_results_raw_through_2023-02-09.rds    |   Bin 0 -> 169941 bytes
+ .../rds/game_results_raw_through_2023-02-10.rds    |   Bin 0 -> 172183 bytes
+ .../rds/game_results_raw_through_2023-02-11.rds    |   Bin 0 -> 174005 bytes
+ .../rds/game_results_raw_through_2023-02-12.rds    |   Bin 0 -> 174410 bytes
+ .../rds/game_results_raw_through_2023-02-13.rds    |   Bin 0 -> 176660 bytes
+ .../rds/game_results_raw_through_2023-02-14.rds    |   Bin 0 -> 177677 bytes
+ .../rds/standings_through_2023-02-09.rds           |   Bin 0 -> 3231 bytes
+ .../rds/standings_through_2023-02-10.rds           |   Bin 0 -> 3232 bytes
+ .../rds/standings_through_2023-02-11.rds           |   Bin 0 -> 3235 bytes
+ .../rds/standings_through_2023-02-12.rds           |   Bin 0 -> 3235 bytes
+ .../rds/standings_through_2023-02-13.rds           |   Bin 0 -> 3235 bytes
+ .../rds/standings_through_2023-02-14.rds           |   Bin 0 -> 3234 bytes
+ 17 files changed, 6935 insertions(+), 6767 deletions(-)
+ create mode 100644 nba-over-under-2022-2023/rds/game_results_raw_through_2023-02-09.rds
+ create mode 100644 nba-over-under-2022-2023/rds/game_results_raw_through_2023-02-10.rds
+ create mode 100644 nba-over-under-2022-2023/rds/game_results_raw_through_2023-02-11.rds
+ create mode 100644 nba-over-under-2022-2023/rds/game_results_raw_through_2023-02-12.rds
+ create mode 100644 nba-over-under-2022-2023/rds/game_results_raw_through_2023-02-13.rds
+ create mode 100644 nba-over-under-2022-2023/rds/game_results_raw_through_2023-02-14.rds
+ create mode 100644 nba-over-under-2022-2023/rds/standings_through_2023-02-09.rds
+ create mode 100644 nba-over-under-2022-2023/rds/standings_through_2023-02-10.rds
+ create mode 100644 nba-over-under-2022-2023/rds/standings_through_2023-02-11.rds
+ create mode 100644 nba-over-under-2022-2023/rds/standings_through_2023-02-12.rds
+ create mode 100644 nba-over-under-2022-2023/rds/standings_through_2023-02-13.rds
+ create mode 100644 nba-over-under-2022-2023/rds/standings_through_2023-02-14.rds
+Error: pandoc version 1.12.3 or higher is required and was not found (see the help page ?rmarkdown::pandoc_available).
+Execution halted
+
+Starting at 2023-02-20 04:15:03 Pacific time 
+From github.com:ismayc/ismayc.github.io
+   bcccb0c..a8724ea  master     -> origin/master
+Updating bcccb0c..a8724ea
+Fast-forward
+ 2023-nba-over-under.html                           |   156 +-
+ nba-over-under-2022-2023/current_year.csv          | 13020 ++++++++++---------
+ .../rds/game_results_raw_through_2023-02-17.rds    |   Bin 0 -> 180312 bytes
+ .../rds/game_results_raw_through_2023-02-18.rds    |   Bin 0 -> 180312 bytes
+ .../rds/game_results_raw_through_2023-02-19.rds    |   Bin 0 -> 180312 bytes
+ .../rds/standings_through_2023-02-17.rds           |   Bin 0 -> 3236 bytes
+ .../rds/standings_through_2023-02-18.rds           |   Bin 0 -> 3236 bytes
+ .../rds/standings_through_2023-02-19.rds           |   Bin 0 -> 3236 bytes
+ 8 files changed, 6557 insertions(+), 6619 deletions(-)
+ create mode 100644 nba-over-under-2022-2023/rds/game_results_raw_through_2023-02-17.rds
+ create mode 100644 nba-over-under-2022-2023/rds/game_results_raw_through_2023-02-18.rds
+ create mode 100644 nba-over-under-2022-2023/rds/game_results_raw_through_2023-02-19.rds
+ create mode 100644 nba-over-under-2022-2023/rds/standings_through_2023-02-17.rds
+ create mode 100644 nba-over-under-2022-2023/rds/standings_through_2023-02-18.rds
+ create mode 100644 nba-over-under-2022-2023/rds/standings_through_2023-02-19.rds
+Error: pandoc version 1.12.3 or higher is required and was not found (see the help page ?rmarkdown::pandoc_available).
+Execution halted
+
+Starting at 2023-02-26 04:15:01 Pacific time 
+From github.com:ismayc/ismayc.github.io
+   a8724ea..8e39f2f  master     -> origin/master
+Updating a8724ea..8e39f2f
+Fast-forward
+ 2023-nba-over-under.html                           |   740 +-
+ nba-over-under-2022-2023/current_year.csv          | 13368 ++++++++++---------
+ nba-over-under-2022-2023/picks_wide.rds            |   Bin 7381 -> 7385 bytes
+ .../rds/game_results_raw_through_2023-02-21.rds    |   Bin 0 -> 180312 bytes
+ .../rds/game_results_raw_through_2023-02-22.rds    |   Bin 0 -> 180312 bytes
+ .../rds/game_results_raw_through_2023-02-23.rds    |   Bin 0 -> 180312 bytes
+ .../rds/game_results_raw_through_2023-02-24.rds    |   Bin 0 -> 183786 bytes
+ .../rds/game_results_raw_through_2023-02-25.rds    |   Bin 0 -> 185198 bytes
+ .../rds/standings_through_2023-02-21.rds           |   Bin 0 -> 3236 bytes
+ .../rds/standings_through_2023-02-22.rds           |   Bin 0 -> 3236 bytes
+ .../rds/standings_through_2023-02-23.rds           |   Bin 0 -> 3238 bytes
+ .../rds/standings_through_2023-02-24.rds           |   Bin 0 -> 3237 bytes
+ .../rds/standings_through_2023-02-25.rds           |   Bin 0 -> 3236 bytes
+ 13 files changed, 7251 insertions(+), 6857 deletions(-)
+ create mode 100644 nba-over-under-2022-2023/rds/game_results_raw_through_2023-02-21.rds
+ create mode 100644 nba-over-under-2022-2023/rds/game_results_raw_through_2023-02-22.rds
+ create mode 100644 nba-over-under-2022-2023/rds/game_results_raw_through_2023-02-23.rds
+ create mode 100644 nba-over-under-2022-2023/rds/game_results_raw_through_2023-02-24.rds
+ create mode 100644 nba-over-under-2022-2023/rds/game_results_raw_through_2023-02-25.rds
+ create mode 100644 nba-over-under-2022-2023/rds/standings_through_2023-02-21.rds
+ create mode 100644 nba-over-under-2022-2023/rds/standings_through_2023-02-22.rds
+ create mode 100644 nba-over-under-2022-2023/rds/standings_through_2023-02-23.rds
+ create mode 100644 nba-over-under-2022-2023/rds/standings_through_2023-02-24.rds
+ create mode 100644 nba-over-under-2022-2023/rds/standings_through_2023-02-25.rds
+Error: pandoc version 1.12.3 or higher is required and was not found (see the help page ?rmarkdown::pandoc_available).
+Execution halted
