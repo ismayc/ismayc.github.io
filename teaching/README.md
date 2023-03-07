@@ -91,46 +91,7 @@ This part of the 'Course Spec' process is designed to help guide you through cou
 
 R will be the technology. The packages used in the course will largely be `devtools`, `usethis`, `roxygen2`, and `testthat`.
 
-Functions students will use include (beyond common `base` functions)
-- `dplyr::select()`
-- `dplyr::mutate()`
-- `dplyr::summarize()`
-- `dplyr::filter()`
-- `dplyr::group_by()`
-- `tidyselect::starts_with()`
-- `tidyselect::ends_with()`
-- `tidyselect::contains()`
-- `tidyselect::matches()`
-- `tidyselect::everything()`
-- `tidyselect::last_col()`
-- `dplyr::across()` (Note that this supersedes the family of scoped variants that the course Description mentioned.)
-- `dplyr::count()`
-- `tidyselect::where()`
-- `dplyr::rowwise()`
-- `dplyr::c_across()`
-- `dplyr::if_any()`
-- `dplyr::if_all()`
-- `dplyr::left_join()`
-- `dplyr::inner_join()`
-- `dplyr::anti_join()`
-- `generics::intersect()`
-- `generics::union()`
-- `dplyr::union_all()`
-- `generics::setdiff()`
-- `generics::setequal()`
-- ``base::`function`()``
-- ``rlang::`{{`()``
-- ``rlang::`!!`()``
-- ``rlang::`!!!`()``
-- `tidyselect::all_of()`
-- `tidyselect::any_of()`
-- ``rlang::`:=`()``
-- `ggplot2::ggplot()`
-- `ggplot2::aes()`
-- `ggplot2::geom_point()`
-- `base::paste()`
-- `rlang::as_label()`
-- `ggplot2::ggtitle()`
+Functions students will use are listed in the outline below.
 
 >Example from a course on keras. This example has only a few Python packages and goes into depth on the functions that will be used.
 >
@@ -146,23 +107,12 @@ Functions students will use include (beyond common `base` functions)
 >- GRU
 >- Bidirectional
 
-- [x] Add the packages students will use to the requirements.r file of this repository.
+- [ ] Add the packages students will use to the requirements.r file of this repository.
 
-I believe the r-shinyverse-prod:v1.1.1 includes `tidyverse` and that covers the functions listed above. ~~A couple data packages have been added as well.~~ The data packages were removed since the cleaned up versions of the data were added via
-RDS and FST files. The newest version of `dplyr` was also added as well as the `fst` package for reading in data.
 
 ### D. What terms or jargon will you define?
 
-- [x] Write a list of technical terms, jargon, and acronyms that will be used in the course and define them as well.
-
-- Intersection: those values in common between multiple data sources
-- Union: those values in any of multiple data sources
-- Set difference: those values in one data source but not in another
-- Environment variables: objects in R that are often created using `<-`
-- Data variables: columns in a data source
-- Indirection: when referring to the data variable as an argument to a function via an environment variable
-- Data masking: simplifying code so that data variables need not always have the `$` preceding them in code
-- Tidy evaluation: using non-quoted data variable names as function arguments
+- [ ] Write a list of technical terms, jargon, and acronyms that will be used in the course and define them as well.
 
 > Example from a course on pandas.
 >
@@ -173,10 +123,7 @@ RDS and FST files. The newest version of `dplyr` was also added as well as the `
 
 ### E. What analogies or heuristics will you use?
 
-- [x] Write a list of analogies for concepts, heuristics for best practices, and any other non-technical explanations of things that may be helpful to students _(minimum of two)_.
-
-- Tidy evaluation as Matryoshka dolls that need to be uncovered/unmasked.
-- Joins/set theory clause as different combinations of head hair (long, trimmed) and facial hair (shaved, beard, goatee).
+- [ ] Write a list of analogies for concepts, heuristics for best practices, and any other non-technical explanations of things that may be helpful to students _(minimum of two)_.
 
 >Example from a course on forecasting product demand. This analogy is likely intuitive to most people.
 >
@@ -185,10 +132,7 @@ RDS and FST files. The newest version of `dplyr` was also added as well as the `
 
 ### F. What mistakes or misconceptions do you expect? 
 
-- [x] Write a list of common mistakes _(minimum of two)_ that you think students will make. These can be programming mistakes, conceptual misunderstandings, or simply examples of things that are unintuitive. 
-
-- Mixing up when to use ``rlang::`{{`()`` or ``rlang::`!!`()``
-- Forgetting that some `tidyverse` functions expect quoted arguments (like `by` in `inner_join()`)
+- [ ] Write a list of common mistakes _(minimum of two)_ that you think students will make. These can be programming mistakes, conceptual misunderstandings, or simply examples of things that are unintuitive. 
 
 >Example from a course on generalized additive models:
 >
@@ -204,20 +148,6 @@ RDS and FST files. The newest version of `dplyr` was also added as well as the `
 ![teach_editor_datasets_upload](https://user-images.githubusercontent.com/20912644/44154482-d2e04b3a-a078-11e8-8ff9-2944fdcabeae.png)
 
 [Sources of data](https://instructor-support.datacamp.com/frequently-asked-questions-faq/datasets/sources-of-data) to get you started. Please avoid these [overused datasets](https://instructor-support.datacamp.com/frequently-asked-questions-faq/datasets/datasets-to-avoid).
-
-- Worldwide data from https://github.com/gshs-ornl/wbstats. This is stored on the Teach Editor as [world_bank_data.rds](https://assets.datacamp.com/production/repositories/5910/datasets/792572b0490e1e54d4a648945da16df4233a16fc/world_bank_data.rds). The dataset contains columns for a variety of countries across multiple years corresponding to nationwide reported including (but not limited to)
-  - infant mortality rate, 
-  - fertility rate, 
-  - percentage of electricity access, and
-  - rural population percentage,
-  - iso nation code (useful for joining)
-  - as well as geographic region and continent.
-- On the Teach Editor, [imf_data.fst](https://assets.datacamp.com/production/repositories/5910/datasets/a54719ec4270e4c4a73fe6877eaf875436a8c17d/imf_data.fst) from https://www.imf.org/en/Publications/WEO/weo-database/2021/April/download-entire-database. The dataset contains columns also for a variety of countries and includes information for multiple years and characteristics including (but not limited to)
-  - currency conversion rate compared to US dollar,
-  - volume of exports,
-  - total investment,
-  - iso nation code (useful for joining), and
-  - population.
 
 ## Step 2: Who is this course for?
 
