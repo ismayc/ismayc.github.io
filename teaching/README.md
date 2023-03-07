@@ -299,7 +299,7 @@ A typical lesson is comprised of:
 >         - Learn how to organize tests into a single `testthat` function call
 >         - Learn about what is meant by a testing context
 >         - Learn how to run unit tests and how to decipher the output
->     - FUNCTIONS introduced/used: `testthat::test_that()`, ``testthat::test_check()`, `testthat::test_examples()`, `testthat::test_check()`
+>     - FUNCTIONS introduced/used: `testthat::test_that()`,  `testthat::test_examples()`, `testthat::test_file()`, `testthat::test_package()`
 
 > Wrap-up video: Learn how to share your package on GitHub and how to use continuous integration with your package. (Note this could also be added in to Chapter 4, but I'm not of the mechanics of having students interface with this on DataCamp.)
 
@@ -455,3 +455,22 @@ The R package ecosystem is immense and can be intimidating to hop into.   Fear n
 *Which DataCamp courses cover topics that a student should be familiar with before attempting this course? Here are some examples:*
 
 - [Introduction to Writing Functions in R](https://learn.datacamp.com/courses/introduction-to-writing-functions-in-r)
+
+# Capstone exercise
+
+Congrats on making it to the last exercise in the course! You'll now use your knowledge of `testthat` to run all tests in your package.  Try it out!
+
+The `testthat` package has also been loaded for you in this exercise.
+
+<!-- Note this might be a multi-part exercise with this being the last step in the exercise. A previous step in the exercise could be to check all tests in a file and then this would test across multiple files. -->
+
+`@instructions`
+- Run all tests for the package via a single function call.
+
+`@solution`
+```{r}
+# Define custom function
+test_package("dcPackage")
+```
+
+<!-- Depending on the output of the run here, there will likely be a multiple choice exercise to compare this output to a previous exercise that had some errors that we needed to fix. -->
