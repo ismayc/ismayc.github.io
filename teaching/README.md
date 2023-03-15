@@ -301,7 +301,7 @@ A typical lesson is comprised of:
 >         - Learn how to run unit tests and how to decipher the output
 >     - FUNCTIONS introduced/used: `testthat::test_that()`,  `testthat::test_examples()`, `testthat::test_file()`, `testthat::test_package()`
 
-> Wrap-up video: Learn how to share your package on GitHub and how to use continuous integration with your package. (Note this could also be added in to Chapter 4, but I'm not of the mechanics of having students interface with this on DataCamp.)
+> Wrap-up video: Learn how to share your package on GitHub and how to use continuous integration with your package. (Note this could also be added in to Chapter 4, but I'm not sure of the mechanics of having students interface with this on DataCamp.)
 
 ## Step 4: Capstone exercises
 
