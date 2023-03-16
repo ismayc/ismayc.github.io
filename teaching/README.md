@@ -70,7 +70,7 @@ This part of the 'Course Spec' process is designed to help guide you through cou
 - Learn how to test for R function calls producing specific or non-specific messages
 - Learn how to test output of an R function matching the given output
 - Learn how to organize tests into a single `testthat` function call
-- Learn about what is meant by a testing context
+- ~Learn about what is meant by a testing context~ `context()` is no longer recommended
 - Learn how to run unit tests and how to decipher the output
 
 - Learn how to share your package on GitHub
@@ -271,14 +271,13 @@ A typical lesson is comprised of:
 >     - Functions introduced/used: Conceptual exercises and `roxygen2::roxygenize()`
 >   * Lesson 3.3: Vignette, vidi, vici
 >     - LEARNING OBJECTIVES:
->          - Learn how to look over vignettes for a particular installed package
 >          - Learn how to create a vignette in the `vignettes` directory
 >          - Learn how to add necessary vignette dependencies to `DESCRIPTION`
 >          - Learn the best practices on building the vignette
 >          - Learn how to read the vignette's metadata
 >          - Learn the difference between a vignette and an article
 >          - Learn how to build vignettes individually and all at once
->     - FUNCTIONS introduced/used: `utils::browseVignettes()`, `usethis::use_vignette()`, `rmarkdown::render()`, `devtools::build_vignettes()`
+>     - FUNCTIONS introduced/used: `usethis::use_vignette()`, `rmarkdown::render()`, `devtools::build_vignettes()`
 > 
 > CHAPTER 4: Ready for Testing
 >   * Lesson 4.1: Unit tests
@@ -297,11 +296,11 @@ A typical lesson is comprised of:
 >   * Lesson 4.3: More testing will be needed
 >     - LEARNING OBJECTIVES:
 >         - Learn how to organize tests into a single `testthat` function call
->         - Learn about what is meant by a testing context
+>         - ~Learn about what is meant by a testing context~ `context()` is no longer recommended
 >         - Learn how to run unit tests and how to decipher the output
->     - FUNCTIONS introduced/used: `testthat::test_that()`,  `testthat::test_examples()`, `testthat::test_file()`, `testthat::test_package()`
+>     - FUNCTIONS introduced/used: `testthat::test_that()`,  `testthat::test_example()`, `testthat::test_file()`, `testthat::test_package()`
 
-> Wrap-up video: Learn how to share your package on GitHub and how to use continuous integration with your package. (Note this could also be added in to Chapter 4, but I'm not sure of the mechanics of having students interface with this on DataCamp.)
+> Wrap-up video: Learn how to share your package on GitHub, how to use continuous integration with your package, and how to use `pkgdown` to build a website for your package.
 
 ## Step 4: Capstone exercises
 
