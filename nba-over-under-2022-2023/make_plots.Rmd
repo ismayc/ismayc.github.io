@@ -300,7 +300,7 @@ wins_needed <- player_projections_by_team %>%
   mutate(`Remaining Games` = num_games - Wins - Losses) %>% 
   select(-`Winning % In Remaining Games Needed`)
 
-projections %>% 
+out_table <- projections %>% 
   inner_join(wins_needed, by = c("team" = "Team")) %>% 
   select(Team = team,
          `Outcome Determined`,
@@ -308,7 +308,11 @@ projections %>%
          `Win Projection` = win_projection,
          `Remaining Games`,
          `Wins To Go Over Vegas Insider`
-  ) %>%  
+  ) 
+
+write_rds(out_table, paste0("determined_outcomes_", Sys.Date(), ".rds"))
+
+out_table %>%  
   DT::datatable(
     rownames = FALSE,
     options = list(

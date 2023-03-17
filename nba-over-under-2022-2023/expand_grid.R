@@ -1,0 +1,202 @@
+library(tidyr)
+library(dplyr)
+library(stringr)
+library(tidyverse)
+library(readxl)
+library(furrr)
+future::plan(multisession)
+
+#phil_probs <- "https://docs.google.com/spreadsheets/d/e/2PACX-1vRVvszIE_nImQEeOG8684tsMhc72OkNb7QN9FDVSsagHpG3PnPQ_e4aQkyNdwt8pF27p6EgEztDvkVr/pub?gid=136453584&single=true&output=csv"
+# picks <- readxl::read_excel(
+#   here::here("nba-over-under-2022-2023", "picks.xlsx"), 
+#   sheet = "picks")
+# picks_wide_points <- picks %>% 
+#   select(team:wage) %>% 
+#   pivot_wider(names_from = player,
+#               values_from = wage)
+# picks_wide_choice <- picks %>% 
+#   select(team, player, choice) %>% 
+#   pivot_wider(names_from = player,
+#               values_from = choice)
+# points_names <- names(picks_wide_points)[names(picks_wide_points) != "team"]
+# choice_names <- names(picks_wide_choice)[names(picks_wide_choice) != "team"]
+# 
+# points_names <- paste0(points_names, "_points")
+# choice_names <- paste0(stringr::str_to_lower(choice_names), "_choice")
+# 
+# names(picks_wide_points) <- c("team", points_names)
+# names(picks_wide_choice) <- c("team", choice_names)
+# 
+# picks_wide_new <- picks_wide_points %>% 
+#   inner_join(picks_wide_choice) 
+# 
+# picks_wide_new <- picks_wide_new[ , order(names(picks_wide_new))] %>% 
+#   relocate(team, everything())
+# 
+# readr::write_rds(
+#   picks_wide_new, 
+#   here::here("nba-over-under-2022-2023", "picks_wide_new.rds"))
+
+num_players <- 9
+
+picks_wide_new <- readr::read_rds(
+  here::here("nba-over-under-2022-2023", "picks_wide_new.rds")) %>% 
+  rename(Team = team)
+
+# Generate all possible results of flipping 17 coins
+possible_combinations <- expand_grid(!!!replicate(17, c("UNDER", "OVER"), 
+                                                  simplify = FALSE)) %>% 
+  mutate(`Charlotte Hornets` = "UNDER",
+         `Dallas Mavericks` = "UNDER",
+         `Detroit Pistons` = "UNDER",
+         `Golden State Warriors` = "UNDER",
+         `Indiana Pacers` = "OVER",
+         `Los Angeles Clippers` = "UNDER",
+         `Minnesota Timberwolves` = "UNDER",
+         `New York Knicks` = "OVER",
+         `Oklahoma City Thunder` = "OVER",
+         `Orlando Magic` = "OVER",
+         `Phoenix Suns` = "UNDER",
+         `Sacramento Kings` = "OVER",
+         `Utah Jazz` = "OVER") %>% 
+  rownames_to_column()
+
+# Assign the column names to each remaining NBA team
+# using things computed in the make_plots.Rmd file
+outcome_not_determined_teams <- read_rds("determined_outcomes_2023-03-16.rds") %>% 
+  filter(`Outcome Determined` == "not yet") %>% 
+  arrange(Team) %>% 
+  pull(Team)
+
+names(possible_combinations) <- c("sim", outcome_not_determined_teams,
+                                  "Charlotte Hornets",
+                                  "Dallas Mavericks",
+                                  "Detroit Pistons",
+                                  "Golden State Warriors",
+                                  "Indiana Pacers",
+                                  "Los Angeles Clippers",
+                                  "Minnesota Timberwolves",
+                                  "New York Knicks",
+                                  "Oklahoma City Thunder",
+                                  "Orlando Magic",
+                                  "Phoenix Suns",
+                                  "Sacramento Kings",
+                                  "Utah Jazz")
+
+# Might need to make it long then?
+long_outcomes <- possible_combinations %>% 
+  pivot_longer(cols = -sim, names_to = "Team", values_to = "outcome")
+
+# Enter each player pick in a column next to these (OVER/UNDER)
+# Enter each player wager in a column next to these (Could get from picks_wide)
+populated <- long_outcomes %>% 
+  inner_join(picks_wide_new) %>% 
+  mutate(sim = as.numeric(sim))
+
+# Compute the score for each player
+populated <- populated %>% 
+  mutate(Adonis_proj_points = if_else(outcome == adonis_choice,
+                                      Adonis_points,
+                                      -Adonis_points)) %>% 
+  mutate(Andy_proj_points = if_else(outcome == andy_choice,
+                                    Andy_points,
+                                    -Andy_points)) %>% 
+  mutate(Chester_proj_points = if_else(outcome == chester_choice,
+                                       Chester_points,
+                                       -Chester_points)) %>% 
+  mutate(Jake_proj_points = if_else(outcome == jake_choice,
+                                    Jake_points,
+                                    -Jake_points)) %>% 
+  mutate(Jenelle_proj_points = if_else(outcome == jenelle_choice,
+                                       Jenelle_points,
+                                       -Jenelle_points)) %>% 
+  mutate(Mary_proj_points = if_else(outcome == mary_choice,
+                                    Mary_points,
+                                    -Mary_points)) %>% 
+  mutate(Mike_proj_points = if_else(outcome == mike_choice,
+                                    Mike_points,
+                                    -Mike_points)) %>% 
+  mutate(Phil_proj_points = if_else(outcome == phil_choice,
+                                    Phil_points,
+                                    -Phil_points)) %>% 
+  mutate(Ryan_proj_points = if_else(outcome == ryan_choice,
+                                    Ryan_points,
+                                    -Ryan_points))
+
+populated_summarized <- populated %>% 
+  group_by(sim) %>% 
+  summarize(Adonis = sum(Adonis_proj_points),
+            Andy = sum(Andy_proj_points),
+            Chester = sum(Chester_proj_points),
+            Jake = sum(Jake_proj_points),
+            Jenelle = sum(Jenelle_proj_points),
+            Mary = sum(Mary_proj_points),
+            Mike = sum(Mike_proj_points),
+            Phil = sum(Phil_proj_points),
+            Ryan = sum(Ryan_proj_points)) %>% 
+  arrange(sim)
+
+populated_num_correct <- populated %>% 
+  group_by(sim) %>% 
+  summarize(Adonis_num_correct = sum(Adonis_proj_points > 5),
+            Andy_num_correct = sum(Andy_proj_points > 5),
+            Chester_num_correct = sum(Chester_proj_points > 5),
+            Jake_num_correct = sum(Jake_proj_points > 5),
+            Jenelle_num_correct = sum(Jenelle_proj_points > 5),
+            Mary_num_correct = sum(Mary_proj_points > 5),
+            Mike_num_correct = sum(Mike_proj_points > 5),
+            Phil_num_correct = sum(Phil_proj_points > 5),
+            Ryan_num_correct = sum(Ryan_proj_points > 5)) %>% 
+  arrange(sim)
+
+populated_15_correct <- populated %>% 
+  group_by(sim) %>% 
+  summarize(Adonis_15_correct = sum(Adonis_proj_points == 15),
+            Andy_15_correct = sum(Andy_proj_points == 15),
+            Chester_15_correct = sum(Chester_proj_points == 15),
+            Jake_15_correct = sum(Jake_proj_points == 15),
+            Jenelle_15_correct = sum(Jenelle_proj_points == 15),
+            Mary_15_correct = sum(Mary_proj_points == 15),
+            Mike_15_correct = sum(Mike_proj_points == 15),
+            Phil_15_correct = sum(Phil_proj_points == 15),
+            Ryan_15_correct = sum(Ryan_proj_points == 15)) %>% 
+  arrange(sim)
+
+populated_summarized_long <- populated_summarized %>% 
+  pivot_longer(-sim, names_to = "player", values_to = "total")
+
+populated_num_correct_long <- populated_num_correct %>% 
+  pivot_longer(-sim, names_to = "player", values_to = "number_correct") %>% 
+  mutate(player = str_replace_all(player, "_num_correct", ""))
+
+populated_15_correct_long <- populated_15_correct %>% 
+  pivot_longer(-sim, names_to = "player", values_to = "number_15_correct") %>% 
+  mutate(player = str_replace_all(player, "_15_correct", ""))
+
+populated_sum_long <- populated_summarized_long %>% 
+  left_join(populated_num_correct_long, by = c("sim", "player")) %>% 
+  left_join(populated_15_correct_long, by = c("sim", "player")) 
+
+scenarios <- populated_sum_long %>% 
+#  slice(1:(9*10)) %>% 
+  group_by(sim) %>% 
+  arrange(desc(total),  
+          desc(number_correct),
+          desc(number_15_correct), .by_group = TRUE) %>% 
+  ungroup() %>% 
+  rownames_to_column(var = "rank") %>% 
+  mutate(rank = as.numeric(rank) %% 9, .before = player)  %>% 
+  mutate(rank = if_else(rank == 0, 9, rank)) %>% 
+  mutate(playoffs = rank <= 4) %>% 
+  select(sim, everything())
+  
+scenarios_final <- scenarios %>%
+  group_by(player) %>% 
+  summarize(median_expected_total = median(total),
+            mean_expected_total = mean(total),
+            sd_expected_total = sd(total),
+            median_rank = median(rank),
+            mean_rank = mean(rank),
+            prob_playoffs = mean(playoffs == TRUE) * 100,
+            prob_one_rank = mean(rank == 1) * 100) %>% 
+  arrange(desc(median_expected_total))
