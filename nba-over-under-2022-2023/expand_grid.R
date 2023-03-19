@@ -95,7 +95,7 @@ possible_combinations <- expand_grid(!!!replicate(num_not_determined,
 #              `Portland Trail Blazers` = "UNDER",
     `Sacramento Kings` = "OVER",
 #        `Toronto Raptors` = "UNDER",
-    `Utah Jazz` = "OVER") %>% 
+    `Utah Jazz` = "OVER") %>% #15
   rownames_to_column()
 
 determined_teams <- sort(setdiff(teams, outcome_not_determined_teams))
