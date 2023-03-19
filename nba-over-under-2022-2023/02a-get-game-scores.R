@@ -51,7 +51,7 @@ slug_lookup <- game_results_raw %>%
 
 meta <- read_excel(path = "picks.xlsx", sheet = "meta") 
 
-# reticulate::virtualenv_create()
-# reticulate::use_virtualenv("r-reticulate")
-# reticulate::py_install("nba_api", pip = TRUE)
-# reticulate::py_install("pandas")
+reticulate::virtualenv_create()
+reticulate::use_virtualenv("r-reticulate")
+reticulate::py_install("nba_api", pip = TRUE)
+reticulate::py_install("pandas")

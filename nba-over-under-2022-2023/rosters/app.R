@@ -19,7 +19,7 @@ library(nbastatR)
 library(httr)
 library(jsonlite)
 
-update <- FALSE #TRUE
+update <- FALSE
 date_added <- Sys.Date()
 
 if (update){

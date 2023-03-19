@@ -3,8 +3,6 @@ library(dplyr)
 library(stringr)
 library(tidyverse)
 library(readxl)
-library(furrr)
-future::plan(multisession)
 
 #phil_probs <- "https://docs.google.com/spreadsheets/d/e/2PACX-1vRVvszIE_nImQEeOG8684tsMhc72OkNb7QN9FDVSsagHpG3PnPQ_e4aQkyNdwt8pF27p6EgEztDvkVr/pub?gid=136453584&single=true&output=csv"
 # picks <- readxl::read_excel(
@@ -43,45 +41,67 @@ picks_wide_new <- readr::read_rds(
   here::here("nba-over-under-2022-2023", "picks_wide_new.rds")) %>% 
   rename(Team = team)
 
-# Generate all possible results of flipping 17 coins
-possible_combinations <- expand_grid(!!!replicate(17, c("UNDER", "OVER"), 
-                                                  simplify = FALSE)) %>% 
-  mutate(`Charlotte Hornets` = "UNDER",
-         `Dallas Mavericks` = "UNDER",
-         `Detroit Pistons` = "UNDER",
-         `Golden State Warriors` = "UNDER",
-         `Indiana Pacers` = "OVER",
-         `Los Angeles Clippers` = "UNDER",
-         `Minnesota Timberwolves` = "UNDER",
-         `New York Knicks` = "OVER",
-         `Oklahoma City Thunder` = "OVER",
-         `Orlando Magic` = "OVER",
-         `Phoenix Suns` = "UNDER",
-         `Sacramento Kings` = "OVER",
-         `Utah Jazz` = "OVER") %>% 
-  rownames_to_column()
-
 # Assign the column names to each remaining NBA team
 # using things computed in the make_plots.Rmd file
-outcome_not_determined_teams <- read_rds("determined_outcomes_2023-03-16.rds") %>% 
+determined_so_far <- read_rds(
+  here::here("nba-over-under-2022-2023", "determined_outcomes_2023-03-19.rds")
+)
+
+teams <- determined_so_far %>% 
+  arrange(Team) %>% 
+  pull(Team)
+
+outcome_not_determined_teams <- determined_so_far %>% 
   filter(`Outcome Determined` == "not yet") %>% 
   arrange(Team) %>% 
   pull(Team)
 
+# outcome_not_determined_teams <- outcome_not_determined_teams[
+#   !(outcome_not_determined_teams %in% c("New Orleans Pelicans",
+#                                         "Brooklyn Nets",
+#                                         "Toronto Raptors",
+#                                         "Atlanta Hawks",
+#                                         "Chicago Bulls"#,
+#                                         "Portland Trail Blazers",
+#                                         "Cleveland Cavaliers"
+# ))]
+
+num_not_determined <- length(outcome_not_determined_teams)
+num_determined <- 30 - num_not_determined
+
+# Generate all possible results of flipping  coins
+possible_combinations <- expand_grid(!!!replicate(num_not_determined, 
+                                                  c("UNDER", "OVER"), 
+                                                  simplify = FALSE)) %>% 
+  mutate(
+#       `Atlanta Hawks` = "UNDER",
+#       `Brooklyn Nets` = "UNDER",
+    `Charlotte Hornets` = "UNDER",
+#        `Chicago Bulls` = "UNDER",
+#                `Cleveland Cavaliers` = "OVER",
+    `Dallas Mavericks` = "UNDER",
+    `Detroit Pistons` = "UNDER",
+    `Golden State Warriors` = "UNDER",
+    `Indiana Pacers` = "OVER",
+    `Los Angeles Clippers` = "UNDER",
+    `Los Angeles Lakers` = "UNDER",
+    `Minnesota Timberwolves` = "UNDER",
+    `Miami Heat` = " UNDER",
+#        `New Orleans Pelicans` = "UNDER",
+    `New York Knicks` = "OVER",
+    `Oklahoma City Thunder` = "OVER",
+    `Orlando Magic` = "OVER",
+    `Phoenix Suns` = "UNDER",
+#              `Portland Trail Blazers` = "UNDER",
+    `Sacramento Kings` = "OVER",
+#        `Toronto Raptors` = "UNDER",
+    `Utah Jazz` = "OVER") %>% 
+  rownames_to_column()
+
+determined_teams <- sort(setdiff(teams, outcome_not_determined_teams))
+
 names(possible_combinations) <- c("sim", outcome_not_determined_teams,
-                                  "Charlotte Hornets",
-                                  "Dallas Mavericks",
-                                  "Detroit Pistons",
-                                  "Golden State Warriors",
-                                  "Indiana Pacers",
-                                  "Los Angeles Clippers",
-                                  "Minnesota Timberwolves",
-                                  "New York Knicks",
-                                  "Oklahoma City Thunder",
-                                  "Orlando Magic",
-                                  "Phoenix Suns",
-                                  "Sacramento Kings",
-                                  "Utah Jazz")
+                                  determined_teams)
 
 # Might need to make it long then?
 long_outcomes <- possible_combinations %>% 
@@ -178,18 +198,18 @@ populated_sum_long <- populated_summarized_long %>%
   left_join(populated_15_correct_long, by = c("sim", "player")) 
 
 scenarios <- populated_sum_long %>% 
-#  slice(1:(9*10)) %>% 
+  #  slice(1:(9*10)) %>% 
   group_by(sim) %>% 
   arrange(desc(total),  
           desc(number_correct),
           desc(number_15_correct), .by_group = TRUE) %>% 
   ungroup() %>% 
   rownames_to_column(var = "rank") %>% 
-  mutate(rank = as.numeric(rank) %% 9, .before = player)  %>% 
-  mutate(rank = if_else(rank == 0, 9, rank)) %>% 
+  mutate(rank = as.numeric(rank) %% num_players, .before = player)  %>% 
+  mutate(rank = if_else(rank == 0, num_players, rank)) %>% 
   mutate(playoffs = rank <= 4) %>% 
   select(sim, everything())
-  
+
 scenarios_final <- scenarios %>%
   group_by(player) %>% 
   summarize(median_expected_total = median(total),
@@ -197,6 +217,54 @@ scenarios_final <- scenarios %>%
             sd_expected_total = sd(total),
             median_rank = median(rank),
             mean_rank = mean(rank),
+            num_sims = n(),
+            num_times_playoffs = sum(playoffs == TRUE),
             prob_playoffs = mean(playoffs == TRUE) * 100,
             prob_one_rank = mean(rank == 1) * 100) %>% 
   arrange(desc(median_expected_total))
+
+# Play time
+phil_1_sims <- scenarios %>%
+  filter(player == "Phil") %>%
+  filter(playoffs == TRUE, rank == 1) %>%
+  pull(sim)
+
+phil_1_scenarios <- populated %>%
+  filter(sim %in% phil_1_sims) %>%
+  select(sim, Team, outcome, Phil_points, Phil_proj_points) %>%
+  filter(Team %in% outcome_not_determined_teams)
+
+phil_needs_for_1 <- phil_playoff_scenarios %>%
+  select(-sim) %>%
+  distinct() %>%
+  arrange(Team)
+
+adonis_playoff_sims <- scenarios %>%
+  filter(player == "Adonis") %>%
+  filter(playoffs == TRUE) %>%
+  pull(sim)
+
+adonis_playoff_scenarios <- populated %>%
+  filter(sim %in% adonis_playoff_sims) %>%
+  select(sim, Team, outcome, Adonis_points, Adonis_proj_points) %>%
+  filter(Team %in% outcome_not_determined_teams)
+
+adonis_needs <- adonis_playoff_scenarios %>%
+  select(-sim) %>%
+  distinct() %>%
+  arrange(Team)
+
+chester_playoff_sims <- scenarios %>%
+  filter(player == "Chester") %>%
+  filter(playoffs == TRUE) %>%
+  pull(sim)
+
+chester_playoff_scenarios <- populated %>%
+  filter(sim %in% chester_playoff_sims) %>%
+  select(sim, Team, outcome, Chester_proj_points) %>%
+  filter(Team %in% outcome_not_determined_teams)
+
+chester_needs <- chester_playoff_scenarios %>%
+  select(-sim) %>%
+  distinct() %>%
+  arrange(Team)
