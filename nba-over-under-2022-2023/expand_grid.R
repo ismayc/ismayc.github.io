@@ -44,7 +44,8 @@ picks_wide_new <- readr::read_rds(
 # Assign the column names to each remaining NBA team
 # using things computed in the make_plots.Rmd file
 determined_so_far <- read_rds(
-  here::here("nba-over-under-2022-2023", "determined_outcomes_2023-03-19.rds")
+  here::here("nba-over-under-2022-2023", 
+             paste0("determined_outcomes_", Sys.Date(), ".rds"))
 )
 
 teams <- determined_so_far %>% 
@@ -56,52 +57,44 @@ outcome_not_determined_teams <- determined_so_far %>%
   arrange(Team) %>% 
   pull(Team)
 
+determined_teams <- determined_so_far %>% 
+  filter(`Outcome Determined` != "not yet") %>% 
+  select(Team, `Outcome Determined`)
+
+determined_teams_wide <- determined_teams %>% 
+  pivot_wider(names_from = Team, values_from = `Outcome Determined`)
+
 # outcome_not_determined_teams <- outcome_not_determined_teams[
 #   !(outcome_not_determined_teams %in% c("New Orleans Pelicans",
-#                                         "Brooklyn Nets",
-#                                         "Toronto Raptors",
-#                                         "Atlanta Hawks",
-#                                         "Chicago Bulls"#,
-#                                         "Portland Trail Blazers",
-#                                         "Cleveland Cavaliers"
-# ))]
+#                                         # "Atlanta Hawks",
+#                                         # "Chicago Bulls"#,
+#                                         # "Portland Trail Blazers",
+#                                         # "Cleveland Cavaliers"
+#   ))]
 
 num_not_determined <- length(outcome_not_determined_teams)
 num_determined <- 30 - num_not_determined
 
 # Generate all possible results of flipping  coins
-possible_combinations <- expand_grid(!!!replicate(num_not_determined, 
-                                                  c("UNDER", "OVER"), 
-                                                  simplify = FALSE)) %>% 
-  mutate(
-#       `Atlanta Hawks` = "UNDER",
-#       `Brooklyn Nets` = "UNDER",
-    `Charlotte Hornets` = "UNDER",
-#        `Chicago Bulls` = "UNDER",
-#                `Cleveland Cavaliers` = "OVER",
-    `Dallas Mavericks` = "UNDER",
-    `Detroit Pistons` = "UNDER",
-    `Golden State Warriors` = "UNDER",
-    `Indiana Pacers` = "OVER",
-    `Los Angeles Clippers` = "UNDER",
-    `Los Angeles Lakers` = "UNDER",
-    `Minnesota Timberwolves` = "UNDER",
-    `Miami Heat` = " UNDER",
-#        `New Orleans Pelicans` = "UNDER",
-    `New York Knicks` = "OVER",
-    `Oklahoma City Thunder` = "OVER",
-    `Orlando Magic` = "OVER",
-    `Phoenix Suns` = "UNDER",
-#              `Portland Trail Blazers` = "UNDER",
-    `Sacramento Kings` = "OVER",
-#        `Toronto Raptors` = "UNDER",
-    `Utah Jazz` = "OVER") %>% #15
+possible_combinations_out <- expand_grid(
+  !!!replicate(n = num_not_determined, 
+               expr = c("UNDER", "OVER"), 
+               simplify = FALSE)) %>% 
   rownames_to_column()
 
-determined_teams <- sort(setdiff(teams, outcome_not_determined_teams))
+names(possible_combinations_out) <- c("sim", outcome_not_determined_teams)
 
-names(possible_combinations) <- c("sim", outcome_not_determined_teams,
-                                  determined_teams)
+possible_combinations <- possible_combinations_out %>%                                     
+  bind_cols(determined_teams_wide) #%>% 
+  # mutate(`Brooklyn Nets` = "UNDER", .before = `Charlotte Hornets`) %>%
+  # #      `Atlanta Hawks` = "UNDER",
+  # #      `Chicago Bulls` = "UNDER",
+  # #               `Cleveland Cavaliers` = "OVER",
+  # #       `New Orleans Pelicans` = "UNDER",
+  # #             `Portland Trail Blazers` = "UNDER"
+  # ) #17
+
+# determined_teams <- sort(setdiff(teams, outcome_not_determined_teams))
 
 # Might need to make it long then?
 long_outcomes <- possible_combinations %>% 
