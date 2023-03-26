@@ -19,8 +19,8 @@ library(nbastatR)
 library(httr)
 library(jsonlite)
 
-update <- FALSE
-date_added <- Sys.Date()
+update <- FALSE #TRUE
+date_added <- "2023-03-21" #Sys.Date()
 
 if (update){
   team_season_roster <- function (team = "Denver Nuggets", season = 2023, return_message = T)
@@ -43,7 +43,7 @@ if (update){
     json_url <- glue::glue("https://stats.nba.com/stats/commonteamroster?LeagueID=00&Season={slugSeason}&TeamID={team_id}") %>%
       as.character()
     json_data <- json_url %>% nbastatR:::.curl_chinazi()
-    Sys.sleep(3)
+#    Sys.sleep(1)
     names_roster <- json_data$resultSets$headers[1] %>% unlist() %>%
       str_to_lower()
     data_roster <- json_data$resultSets$rowSet[1] %>% data.frame(stringsAsFactors = F) %>%

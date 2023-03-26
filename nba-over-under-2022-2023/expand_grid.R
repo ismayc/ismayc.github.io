@@ -66,7 +66,6 @@ determined_teams_wide <- determined_teams %>%
 
 # outcome_not_determined_teams <- outcome_not_determined_teams[
 #   !(outcome_not_determined_teams %in% c("New Orleans Pelicans",
-#                                         # "Atlanta Hawks",
 #                                         # "Chicago Bulls"#,
 #                                         # "Portland Trail Blazers",
 #                                         # "Cleveland Cavaliers"
@@ -86,9 +85,7 @@ names(possible_combinations_out) <- c("sim", outcome_not_determined_teams)
 
 possible_combinations <- possible_combinations_out %>%                                     
   bind_cols(determined_teams_wide) #%>% 
-  # mutate(`Brooklyn Nets` = "UNDER", .before = `Charlotte Hornets`) %>%
-  # #      `Atlanta Hawks` = "UNDER",
-  # #      `Chicago Bulls` = "UNDER",
+  # mutate(`Chicago Bulls` = "UNDER",
   # #               `Cleveland Cavaliers` = "OVER",
   # #       `New Orleans Pelicans` = "UNDER",
   # #             `Portland Trail Blazers` = "UNDER"
@@ -227,7 +224,7 @@ phil_1_scenarios <- populated %>%
   select(sim, Team, outcome, Phil_points, Phil_proj_points) %>%
   filter(Team %in% outcome_not_determined_teams)
 
-phil_needs_for_1 <- phil_playoff_scenarios %>%
+phil_needs_for_1 <- phil_1_scenarios %>%
   select(-sim) %>%
   distinct() %>%
   arrange(Team)
@@ -261,3 +258,5 @@ chester_needs <- chester_playoff_scenarios %>%
   select(-sim) %>%
   distinct() %>%
   arrange(Team)
+
+View(scenarios_final)
