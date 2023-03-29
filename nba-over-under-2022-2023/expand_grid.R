@@ -65,10 +65,7 @@ determined_teams_wide <- determined_teams %>%
   pivot_wider(names_from = Team, values_from = `Outcome Determined`)
 
 # outcome_not_determined_teams <- outcome_not_determined_teams[
-#   !(outcome_not_determined_teams %in% c("New Orleans Pelicans",
-#                                         # "Chicago Bulls"#,
-#                                         # "Portland Trail Blazers",
-#                                         # "Cleveland Cavaliers"
+#   !(outcome_not_determined_teams %in% c("New Orleans Pelicans"
 #   ))]
 
 num_not_determined <- length(outcome_not_determined_teams)
@@ -84,12 +81,9 @@ possible_combinations_out <- expand_grid(
 names(possible_combinations_out) <- c("sim", outcome_not_determined_teams)
 
 possible_combinations <- possible_combinations_out %>%                                     
-  bind_cols(determined_teams_wide) #%>% 
-  # mutate(`Chicago Bulls` = "UNDER",
-  # #               `Cleveland Cavaliers` = "OVER",
-  # #       `New Orleans Pelicans` = "UNDER",
-  # #             `Portland Trail Blazers` = "UNDER"
-  # ) #17
+  bind_cols(determined_teams_wide) #%>%
+  # mutate(`New Orleans Pelicans` = "UNDER", .before = `Oklahoma City Thunder`
+  # ) #24
 
 # determined_teams <- sort(setdiff(teams, outcome_not_determined_teams))
 
