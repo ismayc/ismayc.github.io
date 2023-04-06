@@ -64,9 +64,14 @@ determined_teams <- determined_so_far %>%
 determined_teams_wide <- determined_teams %>% 
   pivot_wider(names_from = Team, values_from = `Outcome Determined`)
 
-# outcome_not_determined_teams <- outcome_not_determined_teams[
-#   !(outcome_not_determined_teams %in% c("New Orleans Pelicans"
-#   ))]
+testing <- FALSE
+if (testing) {
+  outcome_not_determined_teams <- outcome_not_determined_teams[
+    !(outcome_not_determined_teams %in% c(
+      #    "San Antonio Spurs",
+      #    "Washington Wizards"#,
+    ))]
+}
 
 num_not_determined <- length(outcome_not_determined_teams)
 num_determined <- 30 - num_not_determined
@@ -82,8 +87,10 @@ names(possible_combinations_out) <- c("sim", outcome_not_determined_teams)
 
 possible_combinations <- possible_combinations_out %>%                                     
   bind_cols(determined_teams_wide) #%>%
-  # mutate(`New Orleans Pelicans` = "UNDER", .before = `Oklahoma City Thunder`
-  # ) #24
+  #  mutate(`San Antonio Spurs` = "UNDER", .after = `Sacramento Kings`) %>%   
+  #  mutate(`San Antonio Spurs` = "OVER", .after = `Sacramento Kings`) %>%  
+  #  mutate(`Washington Wizards` = "OVER", .after = `Toronto Raptors`) #%>%
+  #  mutate(`Washington Wizards` = "UNDER", .after = `Toronto Raptors`)  #28
 
 # determined_teams <- sort(setdiff(teams, outcome_not_determined_teams))
 
@@ -219,6 +226,26 @@ phil_1_scenarios <- populated %>%
   filter(Team %in% outcome_not_determined_teams)
 
 phil_needs_for_1 <- phil_1_scenarios %>%
+  select(-sim) %>%
+  distinct() %>%
+  arrange(Team)
+
+phil_playoff_sims <- scenarios %>%
+  filter(player == "Phil") %>%
+  filter(playoffs == TRUE) %>%
+  pull(sim)
+
+phil_playoff_scenarios <- populated %>%
+  filter(sim %in% phil_playoff_sims) %>%
+  select(sim, Team, outcome, Phil_points, Phil_proj_points) %>%
+  filter(Team %in% outcome_not_determined_teams)
+
+phil_nonplayoff_scenarios <- populated %>%
+  filter(!(sim %in% phil_playoff_sims)) %>%
+  select(sim, Team, outcome, Phil_points, Phil_proj_points) %>%
+  filter(Team %in% outcome_not_determined_teams)
+
+phil_needs <- phil_playoff_scenarios %>%
   select(-sim) %>%
   distinct() %>%
   arrange(Team)
