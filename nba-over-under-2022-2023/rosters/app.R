@@ -19,7 +19,7 @@ library(nbastatR)
 library(httr)
 library(jsonlite)
 
-update <- TRUE
+update <- FALSE
 date_added <- "2023-04-06" #Sys.Date()
 
 if (update){
