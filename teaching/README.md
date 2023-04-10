@@ -70,7 +70,7 @@ This part of the 'Course Spec' process is designed to help guide you through cou
 - Learn how to test for R function calls producing specific or non-specific messages
 - Learn how to test output of an R function matching the given output
 - Learn how to organize tests into a single `testthat` function call
-- ~Learn about what is meant by a testing context~ `context()` is no longer recommended
+- Learn about what is meant by a testing context
 - Learn how to run unit tests and how to decipher the output
 
 - Learn how to share your package on GitHub
@@ -114,6 +114,26 @@ Functions students will use are listed in the outline below.
 
 - [ ] Write a list of technical terms, jargon, and acronyms that will be used in the course and define them as well.
 
+- R package: A collection of functions, data, and documentation, bundled together to provide specific functionalities in R.
+- R script: A file containing R code, typically with a .R extension.
+0 R Markdown: A file format that combines R code and Markdown, a lightweight markup language, to create dynamic reports and documents.
+- Namespace: A way to organize and control the scope of names and functions within a package.
+- R Functions: Reusable pieces of code that perform specific tasks in R.
+- R Objects: Data structures used in R, such as vectors, matrices, lists, and data frames.
+- DESCRIPTION file: A metadata file that provides information about the package, such as the package name, version, author, and dependencies.
+- NAMESPACE file: A file that specifies the functions and objects exported by a package and the packages it depends on.
+- Roxygen2: A package that allows for in-line documentation of R code, generating Rd (R Documentation) files from comments.
+- Rd: R Documentation files, containing help pages for R functions and data sets.
+- `devtools::check()`: A command to verify the quality and compatibility of an R package, checking for errors and adherence to CRAN policies.
+- `devtools::build()`: A command to create a source package from the package source directory.
+- `devtools::install()`: A command to install an R package from its source package.
+- Unit testing: A process that involves testing individual functions or components of a package to ensure they work as expected.
+- testthat: An R package that provides a framework for writing and running unit tests.
+- Continuous Integration (CI): A practice in software development where code changes are frequently integrated into a shared repository, with automated testing and building to ensure the software remains stable and functional.
+- vignette: A long-form guide or tutorial included in an R package, often written using R Markdown, that demonstrates how to use the package.
+- LICENSE file: A file specifying the terms under which the package can be used, modified, and distributed.
+- Dependency: A package or software required for another package to function properly. Dependencies are usually listed in the DESCRIPTION file.
+
 > Example from a course on pandas.
 >
 > - Tabular data: data with rows and columns
@@ -125,6 +145,13 @@ Functions students will use are listed in the outline below.
 
 - [ ] Write a list of analogies for concepts, heuristics for best practices, and any other non-technical explanations of things that may be helpful to students _(minimum of two)_.
 
+- R packages as toolboxes: Explain R packages as toolboxes containing a set of specialized tools (functions) that can be used to perform specific tasks. Just like a carpenter's toolbox, R packages help users complete tasks more efficiently by providing pre-built functions.
+- Namespace as a phonebook: Describe the namespace as a phonebook that lists the names (functions and objects) and their contact information (package locations). This helps learners understand how namespaces prevent naming conflicts and control the scope of functions and objects.
+- DESCRIPTION file as a movie poster: Compare the DESCRIPTION file to a movie poster that provides essential information about a film, such as the title, director, cast, and release date. This analogy demonstrates the importance of the DESCRIPTION file in providing metadata about the R package.
+- Unit testing as quality control in manufacturing: Explain unit testing as quality control checks in a manufacturing process, ensuring each component works correctly before being assembled into the final product. This highlights the importance of testing individual functions for reliability and accuracy.
+- Continuous Integration as a conveyor belt: Describe Continuous Integration (CI) as a conveyor belt in a factory, where each code change is like a new product being added to the belt. As the products move down the line, they are tested and built automatically to ensure that they integrate seamlessly into the final product.
+- R Objects as containers: Explain R objects as containers that hold data of different shapes and sizes. For example, a vector can be a small box holding a single row of data, while a data frame is like a large container with multiple rows and columns.
+
 >Example from a course on forecasting product demand. This analogy is likely intuitive to most people.
 >
 >Signal and noise - It's like trying to hear someone across a crowded room. Remove the noise, and you can easily understand what they are telling you.
@@ -133,6 +160,13 @@ Functions students will use are listed in the outline below.
 ### F. What mistakes or misconceptions do you expect? 
 
 - [ ] Write a list of common mistakes _(minimum of two)_ that you think students will make. These can be programming mistakes, conceptual misunderstandings, or simply examples of things that are unintuitive. 
+
+- Confusing R scripts and R packages: Some learners may not initially understand the difference between R scripts and R packages. Plan to emphasize that R packages are organized collections of functions, data, and documentation, while R scripts are standalone files containing R code.
+- Overlooking the importance of documentation: Learners might underestimate the importance of documenting their code and writing clear help files, vignettes, and examples. Plan to stress the significance of proper documentation for user understanding and effective package maintenance.
+- Inadequate testing and error handling: Some learners may neglect to thoroughly test their functions and include proper error handling. Plan to encourage best practices for testing and error handling to ensure robust and reliable packages.
+- Namespace issues: Learners may struggle with understanding the concept of namespaces and their role in organizing and controlling the scope of functions and objects in a package. Plan to reiterate the purpose of namespaces and provide examples to clarify their usage.
+- Ignoring package dependencies: Learners might not fully grasp the importance of specifying package dependencies in the DESCRIPTION file. Plan to explain how dependencies ensure the correct functioning of their package and simplify installation for users.
+- Confusing package installation and package loading: Learners may not understand the difference between installing a package (using `install.packages()` or `devtools::install()`) and loading a package (using `library()`/`require()` or `devtools::load_all()` during development). Plan to clarify these differences and explain the implications of each action.
 
 >Example from a course on generalized additive models:
 >
@@ -271,13 +305,14 @@ A typical lesson is comprised of:
 >     - Functions introduced/used: Conceptual exercises and `roxygen2::roxygenize()`
 >   * Lesson 3.3: Vignette, vidi, vici
 >     - LEARNING OBJECTIVES:
+>          - Learn how to look over vignettes for a particular installed package
 >          - Learn how to create a vignette in the `vignettes` directory
 >          - Learn how to add necessary vignette dependencies to `DESCRIPTION`
 >          - Learn the best practices on building the vignette
 >          - Learn how to read the vignette's metadata
 >          - Learn the difference between a vignette and an article
 >          - Learn how to build vignettes individually and all at once
->     - FUNCTIONS introduced/used: `usethis::use_vignette()`, `rmarkdown::render()`, `devtools::build_vignettes()`
+>     - FUNCTIONS introduced/used: `utils::browseVignettes()`, `usethis::use_vignette()`, `rmarkdown::render()`, `devtools::build_vignettes()`
 > 
 > CHAPTER 4: Ready for Testing
 >   * Lesson 4.1: Unit tests
@@ -296,11 +331,11 @@ A typical lesson is comprised of:
 >   * Lesson 4.3: More testing will be needed
 >     - LEARNING OBJECTIVES:
 >         - Learn how to organize tests into a single `testthat` function call
->         - ~Learn about what is meant by a testing context~ `context()` is no longer recommended
+>         - Learn about what is meant by a testing context
 >         - Learn how to run unit tests and how to decipher the output
->     - FUNCTIONS introduced/used: `testthat::test_that()`,  `testthat::test_example()`, `testthat::test_file()`, `testthat::test_package()`
+>     - FUNCTIONS introduced/used: `testthat::test_that()`,  `testthat::test_examples()`, `testthat::test_file()`, `testthat::test_package()`
 
-> Wrap-up video: Learn how to share your package on GitHub, how to use continuous integration with your package, and how to use `pkgdown` to build a website for your package.
+> Wrap-up video: Learn how to share your package on GitHub and how to use continuous integration with your package. (Note this could also be added in to Chapter 4, but I'm not of the mechanics of having students interface with this on DataCamp.)
 
 ## Step 4: Capstone exercises
 
@@ -424,17 +459,7 @@ Add a one-paragraph description of the course in the Settings tab of the Course 
 
 Please review these guidelines when creating it: <https://instructor-support.datacamp.com/courses/course-design/datacamp-course-descriptions>. 
 
-The tidyverse includes a tremendous set of packages that make working with
-  data simple and fast. But have you ever tried to put dplyr functions inside
-  functions and been stuck with strange errors or unexpected results? Those
-  errors were likely due to tidy evaluation, which requires a little extra work
-  to handle. In programming with dplyr in R, you’ll be equipped with strategies
-  for solving these errors via the rlang package. You’ll also learn other
-  techniques for programming with dplyr using data from the World Bank and
-  International Monetary Fund to analyze worldwide trends throughout. You’ll be
-  a tidyverse function writing ninja by the end of the course!
-
-The R package ecosystem is immense and can be intimidating to hop into.   Fear not! Developing your own R package is a valuable skill, even if you never work with another collaborator on your code. It's also nowhere near as challenging as it used to be with a suite of modern tools at your disposal. Creating a package allows you to document your functions to improve their quality, to have a formal structure for your code and analyses, and to allow you to improve your functions while letting tests ensure that you haven't broken previous functionality. You'll learn all about these ideas and create your own package along the way in this course!
+The R package ecosystem is immense and can be intimidating to hop into. Fear not! Developing your own R package is a valuable skill, even if you never work with another collaborator on your code. It's also nowhere near as challenging as it used to be with a suite of modern tools at your disposal. Creating a package allows you to document your functions to improve their quality, to have a formal structure for your code and analyses, and to allow you to improve your functions while letting tests ensure that you haven't broken previous functionality. You'll learn all about these ideas and create your own package along the way in this course!
   
 
 > An example from a course analyzing survey data
