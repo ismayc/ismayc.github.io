@@ -50,8 +50,6 @@ ui <- fluidPage(
         sidebarPanel(
             width = 4,
             h5("Outcome still to be determined"),
-            over_under_choice("Spurs", selected = "UNDER"),
-            over_under_choice("Wizards", selected = "UNDER"),
             br(),
             h5("Outcome determined"),
             over_under_choice("Hawks", choices = "UNDER"),
@@ -80,8 +78,10 @@ ui <- fluidPage(
             over_under_choice("Suns", choices = "UNDER"),
             over_under_choice("Blazers", choices = "UNDER"), 
             over_under_choice("Kings", choices = "OVER"),
+            over_under_choice("Spurs", choices = "UNDER"),
             over_under_choice("Raptors", choices = "UNDER"),
-            over_under_choice("Jazz", choices = "OVER")
+            over_under_choice("Jazz", choices = "OVER"),
+            over_under_choice("Wizards", choices = "UNDER"),
         ),
         
         # Show a plot of the generated distribution

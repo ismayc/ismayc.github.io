@@ -87,10 +87,8 @@ names(possible_combinations_out) <- c("sim", outcome_not_determined_teams)
 
 possible_combinations <- possible_combinations_out %>%                                     
   bind_cols(determined_teams_wide) #%>%
-  #  mutate(`San Antonio Spurs` = "UNDER", .after = `Sacramento Kings`) %>%   
-  #  mutate(`San Antonio Spurs` = "OVER", .after = `Sacramento Kings`) %>%  
   #  mutate(`Washington Wizards` = "OVER", .after = `Toronto Raptors`) #%>%
-  #  mutate(`Washington Wizards` = "UNDER", .after = `Toronto Raptors`)  #28
+  #  mutate(`Washington Wizards` = "UNDER", .after = `Toronto Raptors`)  #29
 
 # determined_teams <- sort(setdiff(teams, outcome_not_determined_teams))
 
@@ -208,6 +206,8 @@ scenarios_final <- scenarios %>%
             sd_expected_total = sd(total),
             median_rank = median(rank),
             mean_rank = mean(rank),
+            highest_rank = min(rank),
+            lowest_rank = max(rank),
             num_sims = n(),
             num_times_playoffs = sum(playoffs == TRUE),
             prob_playoffs = mean(playoffs == TRUE) * 100,
