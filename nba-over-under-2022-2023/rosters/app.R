@@ -19,8 +19,9 @@ library(nbastatR)
 library(httr)
 library(jsonlite)
 
-update <- TRUE
-date_added <- "2023-04-06" #Sys.Date()
+update <- FALSE
+date_added <- "2023-04-16" 
+#date_added <- Sys.Date()
 
 if (update){
   team_season_roster <- function (team = "Denver Nuggets", season = 2023, return_message = T)
@@ -204,54 +205,81 @@ ui <- fluidPage(
                            choices = cen_teams,
                            selected = cen_teams)
       ),
-      fluidRow(
-        column(4, selectInput(
-          "min_feet",
-          "Minimum feet",
-          choices = sort(unique(players_data$height_feet)),
-          selected = 5)),
-        column(4, selectInput(
-          "min_inches",
-          "Minimum inches",
-          choices = sort(unique(players_data$height_inches)),
-          selected = min(players_data$height_total_inches, na.rm = TRUE) %% 12))
+      hr(),
+      checkboxInput("known_height",
+                    "Known Height",
+                    value = FALSE),
+      conditionalPanel(
+        condition = "input.known_height == true",
+        fluidRow(
+          column(4, selectInput(
+            "chosen_feet",
+            "Chosen feet",
+            choices = sort(unique(players_data$height_feet)),
+            selected = 6)),
+          column(4, selectInput(
+            "chosen_inches",
+            "Chosen inches",
+            choices = sort(unique(players_data$height_inches)),
+            selected = 6))
+        )),
+      conditionalPanel(
+        condition = "input.known_height != true",    
+        fluidRow(
+          column(4, selectInput(
+            "min_feet",
+            "Minimum feet",
+            choices = sort(unique(players_data$height_feet)),
+            selected = 5)),
+          column(4, selectInput(
+            "min_inches",
+            "Minimum inches",
+            choices = sort(unique(players_data$height_inches)),
+            selected = min(players_data$height_total_inches, na.rm = TRUE) %% 12))
+        )),
+      conditionalPanel(
+        condition = "input.known_height != true",  
+        fluidRow(
+          column(4, selectInput(
+            "max_feet",
+            "Maximum feet",
+            choices = sort(unique(players_data$height_feet)),
+            selected = 7)),
+          column(4, selectInput(
+            "max_inches",
+            "Maximum inches",
+            choices = sort(unique(players_data$height_inches)),
+            selected = max(players_data$height_total_inches, na.rm = TRUE) %% 12))
+        )
       ),
-      fluidRow(
-        column(4, selectInput(
-          "max_feet",
-          "Maximum feet",
-          choices = sort(unique(players_data$height_feet)),
-          selected = 7)),
-        column(4, selectInput(
-          "max_inches",
-          "Maximum inches",
-          choices = sort(unique(players_data$height_inches)),
-          selected = max(players_data$height_total_inches, na.rm = TRUE) %% 12))
+      checkboxInput("known_jersey",
+                    "Known Jersey",
+                    value = FALSE),
+      conditionalPanel("input.known_jersey == true",
+                       numericInput("input_jersey", 
+                                    label = "Jersey Number",
+                                    value = 12,
+                                    min = 0,
+                                    max = 99
+                       )),
+      conditionalPanel("input.known_jersey != true",      
+                       sliderInput("slider_jersey", "Jersey", min = 0, max = 99, value = c(0, 99))
       ),
-      sliderInput("age", "Age", min = min(players_data$age),
-                  max = 45, #max(players_data$age),
-                  value = c(min(players_data$age), 45)), #max(players_data$age))),
-      #       selectInput("min_age",
-      #             "Minimum age",
-      #             choices = sort(unique(players_data$age)),
-      #             selected = min(players_data$age)),
-      # selectInput("max_age",
-      #             "Maximum age",
-      #             choices = sort(unique(players_data$age)),
-      #             selected = max(players_data$age)),
-      sliderInput("jersey", "Jersey", min = 0, max = 99, value = c(0, 99)),
-      # selectInput("min_jersey",
-      #             "Minimum jersey",
-      #             choices = sort(unique(players_data$number_jersey)),
-      #             selected = "00"),
-      # selectInput("max_jersey",
-      #             "Maximum jersey",
-      #             choices = sort(unique(players_data$number_jersey)),
-      #             selected = "99"),
-      # selectInput("team",
-      #             "Team:",
-      #             choices = unique(players_data$team),
-      #             selected = "Dallas Mavericks"),
+      checkboxInput("known_age",
+                    "Known Age",
+                    value = FALSE),      
+      conditionalPanel("input.known_age == true",
+                       numericInput("input_age", 
+                                    label = "Age",
+                                    value = 25,
+                                    min = min(players_data$age),
+                                    max = max(players_data$age)
+                       )),
+      conditionalPanel("input.known_age != true",
+                       sliderInput("slider_age", "Age", min = min(players_data$age),
+                                   max(players_data$age),
+                                   value = c(min(players_data$age), max(players_data$age)))
+      )
     ),
     
     # Show a plot of the generated distribution
@@ -271,17 +299,37 @@ server <- function(input, output) {
         division %in% c(input$division_west, input$division_east),
         team %in% c(input$sw_team, input$nw_team, input$pac_team,
                     input$se_team, input$atlantic_team, input$cen_team),
-        between(
-          height_total_inches,
-          as.integer(input$min_feet) * 12 + as.integer(input$min_inches),
-          as.integer(input$max_feet) * 12 + as.integer(input$max_inches)),
-        between(age, input$age[1], input$age[2]),
-        between(as.integer(number_jersey), 
-                input$jersey[1],
-                input$jersey[2])) %>% 
+        {
+          if (input$known_height){
+            height_total_inches == as.integer(input$chosen_feet) * 12 + as.integer(input$chosen_inches)
+          } else {
+            between(
+              height_total_inches,
+              as.integer(input$min_feet) * 12 + as.integer(input$min_inches),
+              as.integer(input$max_feet) * 12 + as.integer(input$max_inches))}
+        },
+        {
+          if (input$known_age) {
+            age == input$input_age
+          } else {
+            between(age, input$slider_age[1], input$slider_age[2])
+          }
+        },
+        {
+          if (input$known_jersey) {
+            as.integer(number_jersey) == input$input_jersey
+          } else { 
+            between(as.integer(number_jersey), 
+                    input$slider_jersey[1],
+                    input$slider_jersey[2])
+          }
+        }
+      ) %>% 
       mutate(height = paste0(height_feet, "-", height_inches)) %>% 
-      select(-height_total_inches, -height_feet, -height_inches)},
-    options = list(pageLength = 100) #nrow(players_data))
+      select(-height_total_inches, -height_feet, -height_inches)
+    #   }
+  },
+  options = list(pageLength = 100) #nrow(players_data))
   )
 }
 
