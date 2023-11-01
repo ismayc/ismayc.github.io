@@ -1,10 +1,10 @@
-# 2022-23 games
+# 2023-24 games
 
 from nba_api.stats.endpoints import leaguegamefinder
-
+year = '2023'
 gamefinder = leaguegamefinder.LeagueGameFinder()
 games = gamefinder.get_data_frames()[0]
 
-# Subset the games to when the last 4 digits of SEASON_ID were 2022.
-games_22 = games[games.SEASON_ID.str[-4:] == '2022']
+# Subset the games to when the last 4 digits of SEASON_ID were current year start.
+games_22 = games[games.SEASON_ID.str[-4:] == year]
 games_22.to_csv("current_year.csv")

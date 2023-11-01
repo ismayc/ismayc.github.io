@@ -1,8 +1,8 @@
 ---
-title: 'NBA Over/Under 2022-2023 Season'
+title: 'NBA Over/Under 2023-2024 Season'
 author: Created by Chester Ismay
 output: html_document
-knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = encoding, output_file = file.path('../2023-nba-over-under.html')) })
+knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = encoding, output_file = file.path('../2024-nba-over-under.html')) })
 ---
 
 ```{r include=FALSE}
@@ -45,7 +45,7 @@ purrr::walk(r_files2, source)
 knitr::opts_chunk$set(echo = FALSE)
 library(lubridate)
 library(DT)
-num_players <- 9
+num_players <- 8
 ```
 
 Last updated at `r Sys.time() - lubridate::hours(8)` US Pacific time
@@ -56,9 +56,9 @@ Last updated at `r Sys.time() - lubridate::hours(8)` US Pacific time
 
 ### By week
 
-<!-- (Skipped until Week 2) -->
+<!-- (Skipped until Week 2)  -->
 
-This plot is updated early each week with the previous week's results.
+This plot is updated early each week with the previous week's results. 
 
 ```{r fig.height=10, fig.width=10, message=FALSE, warning=FALSE}
 weekly_standings <- standings_grid %>% 
@@ -376,11 +376,11 @@ picks_wide <- picks %>%
     into = c("Jake_points", "jake_choice"), 
     sep = " "
   ) %>% 
-  separate(
-    col = Jenelle, 
-    into = c("Jenelle_points", "jenelle_choice"), 
-    sep = " "
-  ) %>% 
+  # separate(
+  #   col = Jenelle, 
+  #   into = c("Jenelle_points", "jenelle_choice"), 
+  #   sep = " "
+  # ) %>% 
   separate(
     col = Adonis, 
     into = c("Adonis_points", "adonis_choice"), 
@@ -413,7 +413,7 @@ picks_wide <- picks %>%
   ) %>% 
   mutate(chester_correct = chester_choice == outcome_determined,
          jake_correct = jake_choice == outcome_determined,
-         jenelle_correct = jenelle_choice == outcome_determined,
+#         jenelle_correct = jenelle_choice == outcome_determined,
          adonis_correct = adonis_choice == outcome_determined,
          mike_correct = mike_choice == outcome_determined,
          mary_correct = mary_choice == outcome_determined,
@@ -428,10 +428,10 @@ picks_wide <- picks %>%
     jake_choice == "OVER",
     paste(Jake_points, knitr::asis_output("\U2191")),
     paste(Jake_points, knitr::asis_output("\U2193")))) %>% 
-  mutate(Jenelle = if_else(
-    jenelle_choice == "OVER",
-    paste(Jenelle_points, knitr::asis_output("\U2191")),
-    paste(Jenelle_points, knitr::asis_output("\U2193")))) %>% 
+  # mutate(Jenelle = if_else(
+  #   jenelle_choice == "OVER",
+  #   paste(Jenelle_points, knitr::asis_output("\U2191")),
+  #   paste(Jenelle_points, knitr::asis_output("\U2193")))) %>% 
   mutate(Adonis = if_else(
     adonis_choice == "OVER",
     paste(Adonis_points, knitr::asis_output("\U2191")),
@@ -459,8 +459,8 @@ picks_wide <- picks %>%
   rename(`Target Wins` = win_projection) %>% 
   select(-abbreviation) %>% 
   select(Team = team, `Current Wins` = wins, `Target Wins`, 
-         Adonis, Andy, Chester, Jake, Jenelle, Mary, Mike, Phil, Ryan, 
-         everything())
+         Adonis, Andy, Chester, Jake, #Jenelle, 
+         Mary, Mike, Phil, Ryan, everything())
 readr::write_rds(picks_wide %>% select(Team, Adonis_points:ryan_choice), "picks_wide.rds")
 ```
 
@@ -478,7 +478,8 @@ for(i in (cols_to_delete - (num_players + 2)) ) {
   suppressWarnings(do_not_show_list[[i]]$visible <- FALSE)
 }
 
-do_not_show_list[[33]] <- list(width = '180px', targets = 0)
+#do_not_show_list[[33]] <- list(width = '180px', targets = 0)
+do_not_show_list[[30]] <- list(width = '180px', targets = 0)
 
 point_levels <- rep(seq(15, 6, by = -1), 2) %>% 
   sort(decreasing = TRUE)
@@ -503,7 +504,7 @@ paste_levels <- point_levels %>%
 picks_wide %>% 
   # Doesn't actually sort in DT
   mutate_at(
-    .vars = c("Adonis", "Andy", "Chester", "Jake", "Jenelle",
+    .vars = c("Adonis", "Andy", "Chester", "Jake", #"Jenelle",
               "Mary", "Mike", "Phil", "Ryan"), 
     .funs = ~ factor(.x, levels = paste_levels)) %>% 
   #  purrr::map_df(rev) %>% 
@@ -527,12 +528,12 @@ picks_wide %>%
     backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
                                  c("lightgreen", "hotpink", "white"))
   ) %>% 
-  formatStyle(
-    "Jenelle", "jenelle_correct",
-    target = 'cell',
-    backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
-                                 c("lightgreen", "hotpink", "white"))
-  ) %>% 
+  # formatStyle(
+  #   "Jenelle", "jenelle_correct",
+  #   target = 'cell',
+  #   backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
+  #                                c("lightgreen", "hotpink", "white"))
+  # ) %>% 
   formatStyle(
     "Adonis", "adonis_correct",
     target = 'cell',
@@ -808,11 +809,11 @@ if (nrow(yesterday_scores)) {
 }
 ```
 
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, eval=FALSE}
 schedule_raw <- current_schedule() 
 ```
 
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, eval=FALSE}
 schedule <- schedule_raw %>% 
   filter(
     dateGame >= nba_season_start_date, 
@@ -839,7 +840,7 @@ todays_games <- schedule %>%
 
 ***
 
-```{r results="asis"}
+```{r results="asis", eval=FALSE}
 if (nrow(todays_games)) {
   cat("Today's games")
 } else {
@@ -847,7 +848,7 @@ if (nrow(todays_games)) {
 }
 ```
 
-```{r}
+```{r, eval=FALSE}
 if (nrow(todays_games)) {
   todays_games %>% knitr::kable() %>% 
     kableExtra::kable_styling("striped", full_width = F)

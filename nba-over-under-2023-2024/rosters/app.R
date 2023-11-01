@@ -20,11 +20,12 @@ library(httr)
 library(jsonlite)
 
 update <- FALSE
-date_added <- "2023-04-16" 
+date_added <- "2023-10-24"
+season <- 2024
 #date_added <- Sys.Date()
 
 if (update){
-  team_season_roster <- function (team = "Denver Nuggets", season = 2023, return_message = T)
+  team_season_roster <- function (team = "Denver Nuggets", season = season, return_message = T)
   {
     if (!require("remotes")) { install.packages("remotes") }
     if (!require("nbastatR")) { remotes::install_github("abresler/nbastatR") }
@@ -74,17 +75,17 @@ if (update){
   
   #write_rds(teams, "teams.rds")
   teams <- read_rds("teams.rds")
-  players_2023_pulled <- purrr::map_dfr(
+  players_season_pulled <- purrr::map_dfr(
     teams,
     team_season_roster,
-    season = 2023, return_message = TRUE)
+    season = season, return_message = TRUE)
   
-  write_rds(players_2023_pulled, "players_2023_pulled.rds")
+  write_rds(players_season_pulled, "players_season_pulled.rds")
 }
 
-players_2023 <- read_rds("players_2023_pulled.rds")
+players_season <- read_rds("players_season_pulled.rds")
 
-players_clean <- clean_names(players_2023) %>% 
+players_clean <- clean_names(players_season) %>% 
   rename(team = name_team) %>% 
   inner_join(readxl::read_excel("picks.xlsx", sheet = "meta"),
              by = "team") %>% 
