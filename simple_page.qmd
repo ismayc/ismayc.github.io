@@ -1,0 +1,14 @@
+---
+title: "Video Content with Links"
+format: html
+---
+
+```{r}
+#| include: false
+library(vembedr)
+```
+
+```{r}
+#| echo: false
+embed_url("https://us06web.zoom.us/rec/play/_ozjcUxKC3-SvSI1msRWMJ4_rdCjMcvzpGULcRi_q0BqMxBoYtOn5ROFsXPhw8Rf2GW3mhWS1UH-3CT4.RnD2nWsS4f6gycpL?canPlayFromShare=true&from=share_recording_detail&continueMode=true&componentName=rec-play&originRequestUrl=https%3A%2F%2Fus06web.zoom.us%2Frec%2Fshare%2FgGFWZ13TCwCPysfYRml22rw6rmVSGzLabMbxqoxvqUJcosbrFHlNvPHgphssJIjS.n2oDEocKOVRJDnxN")
+```
