@@ -809,15 +809,8 @@ if (nrow(yesterday_scores)) {
 }
 ```
 
-<<<<<<< HEAD
-
-
-```{r message=FALSE, warning=FALSE, eval=FALSE}
-schedule_raw <- current_schedule() 
-=======
 ```{r message=FALSE, warning=FALSE}
 schedule <- read_csv("schedule-2023-24.csv")
->>>>>>> 0d3b55d2d57ef39f30af4cd59e375e488405b381
 ```
 
 ```{r message=FALSE, warning=FALSE}
