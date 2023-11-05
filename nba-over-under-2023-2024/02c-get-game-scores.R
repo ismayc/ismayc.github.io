@@ -10,7 +10,8 @@ scores_temp1 <- read_csv("current_year.csv") %>%
          GAME_DATE, MATCHUP) %>% 
   arrange(GAME_ID) %>% 
   inner_join(meta %>% select(abbreviation),
-             by = c("TEAM_ABBREVIATION" = "abbreviation"))
+             by = c("TEAM_ABBREVIATION" = "abbreviation"))|> 
+  filter(GAME_DATE < Sys.Date())
 
 scores_temp_away <- scores_temp1 %>% 
   filter(str_detect(string = MATCHUP, pattern = "vs.")) %>% 
