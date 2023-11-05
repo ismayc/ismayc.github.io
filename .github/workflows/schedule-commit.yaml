@@ -101,12 +101,12 @@ jobs:
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          git remote set-url origin https://github.com/username/repo.git
+          git remote set-url origin https://github.com/ismayc/ismayc.github.io.git
           git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
 
       - name: Push changes
         run: |
-          git commit -am "Commit message"
+          git commit -am "GitHub Actions NBA page build"
           git push origin main        
           
       - name: Session info
