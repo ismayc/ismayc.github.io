@@ -809,6 +809,8 @@ if (nrow(yesterday_scores)) {
 }
 ```
 
+
+
 ```{r message=FALSE, warning=FALSE, eval=FALSE}
 schedule_raw <- current_schedule() 
 ```
