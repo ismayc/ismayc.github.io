@@ -88,15 +88,21 @@ jobs:
           
       - name: Build webpage
         run: |
-          install.packages("here")
-          here::set_here("nba-over-under-2023-2024")
-          source("nba-over-under-2023-2024/make_plot_html.R")
+          setwd("./nba-over-under-2023-2024")
+          source("make_plot_html.R")
         shell: Rscript {0} 
+        with:
+          repository: ismayc/ismayc.github.io
+          token: ${{ secrets.TOKEN }}
+#          path: nba-over-under-2023-2024
 
       - uses: r-lib/actions/setup-renv@v2            
 
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          repository: ismayc/ismayc.github.io
+          token: ${{ secrets.TOKEN }}
 
       - name: Configure Git
         run: |
