@@ -67,6 +67,7 @@ jobs:
       - name: Install and activate renv
         run: |
           install.packages("renv")
+          renv::upgrade()
           renv::activate()
         shell: Rscript {0}
       - name: Cache packages
@@ -80,7 +81,6 @@ jobs:
       - name: Restore packages
         shell: Rscript {0}
         run: |
-          if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
           renv::restore()
 # New code end
 
