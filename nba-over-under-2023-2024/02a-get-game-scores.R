@@ -8,8 +8,8 @@ library(glue)
 
 # https://www.nba.com/news/key-dates
 nba_season_start_date <- "2023-10-24"
-nba_season_end_date <- "2023-04-14"
-all_star_game_date <- "2023-02-18"
+nba_season_end_date <- "2024-04-14"
+all_star_game_date <- "2024-02-18"
 Sys.setenv("VROOM_CONNECTION_SIZE" = 131072 * 2)
 season <- 2024
 

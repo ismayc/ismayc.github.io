@@ -809,40 +809,29 @@ if (nrow(yesterday_scores)) {
 }
 ```
 
+<<<<<<< HEAD
 
 
 ```{r message=FALSE, warning=FALSE, eval=FALSE}
 schedule_raw <- current_schedule() 
+=======
+```{r message=FALSE, warning=FALSE}
+schedule <- read_csv("schedule-2023-24.csv")
+>>>>>>> 0d3b55d2d57ef39f30af4cd59e375e488405b381
 ```
 
-```{r message=FALSE, warning=FALSE, eval=FALSE}
-schedule <- schedule_raw %>% 
-  filter(
-    dateGame >= nba_season_start_date, 
-    dateGame <= nba_season_end_date,
-    # All-Star Game
-    dateGame != all_star_game_date 
-  ) %>% 
-  select(game_date = dateGame,
-         game_id = idGame,
-         slug_away_team = slugTeamAway,
-         away_team = nameTeamAway,
-         slug_home_team = slugTeamHome,
-         home_team = nameTeamHome,
-         start_time = hasBuzzerBeater
-  ) %>% 
-  mutate(is_complete = (game_date < Sys.Date()))
+```{r message=FALSE, warning=FALSE}
 todays_games <- schedule %>% 
   filter(game_date == Sys.Date()) %>% 
   select(`Game Date` = game_date,
-         `Start Time` = start_time,
+         `Start Time (Eastern)` = start_time,
          `Away Team` = away_team,
          `Home Team` = home_team)
 ```
 
 ***
 
-```{r results="asis", eval=FALSE}
+```{r results="asis"}
 if (nrow(todays_games)) {
   cat("Today's games")
 } else {
@@ -850,7 +839,7 @@ if (nrow(todays_games)) {
 }
 ```
 
-```{r, eval=FALSE}
+```{r}
 if (nrow(todays_games)) {
   todays_games %>% knitr::kable() %>% 
     kableExtra::kable_styling("striped", full_width = F)
