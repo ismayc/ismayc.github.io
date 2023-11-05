@@ -1,3 +1,4 @@
+# For running locally every day uncomment next line
 # setwd("~/Desktop/ismayc.github.io/nba-over-under-2023-2024")
 
 #here::i_am("nba-over-under-2021-2022.Rproj")
@@ -32,10 +33,13 @@ date_modified <- file.info(file.path("..", paste0(year, "-nba-over-under.html"))
 
 if (date_modified != Sys.Date() || update_page) {
   rmarkdown::render(
+    # Remove directory if running locally
     input = "nba-over-under-2023-2024/make_plots.Rmd",  
     output_format = "html_document",
     output_file = paste0(year, "-nba-over-under.html"),
 #    output_dir = "..",
+    # Uncomment line above if running locally (Or maybe can just change
+    # to ismayc.github.io as working directory?)
     output_dir = ".",
     quiet = TRUE
   )

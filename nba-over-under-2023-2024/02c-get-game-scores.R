@@ -87,7 +87,8 @@ scores <- scores_joined %>%
          home_score = scoreHome#,
          #         is_home_winner,
          #         is_away_winner
-  )
+  ) |> 
+  filter(game_date < Sys.Date())
 
 standings_temp <- scores_temp1 %>%
   group_by(TEAM_NAME) %>%
