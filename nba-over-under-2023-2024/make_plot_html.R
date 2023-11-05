@@ -1,4 +1,4 @@
-setwd("~/Desktop/ismayc.github.io/nba-over-under-2023-2024")
+# setwd("~/Desktop/ismayc.github.io/nba-over-under-2023-2024")
 
 #here::i_am("nba-over-under-2021-2022.Rproj")
 #Sys.setenv(RSTUDIO_PANDOC = "/Applications/RStudio.app/Contents/MacOS/pandoc")
