@@ -101,8 +101,7 @@ jobs:
  
       - name: Build webpage
         run: |
-#          setwd("./nba-over-under-2023-2024")
-          source("make_plot_html.R")
+          source("nba-over-under-2023-2024/make_plot_html.R")
         shell: Rscript {0} 
 
       - uses: r-lib/actions/setup-renv@v2            
