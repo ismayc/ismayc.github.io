@@ -93,17 +93,22 @@ jobs:
         shell: Rscript {0} 
 
       - uses: r-lib/actions/setup-renv@v2            
-        
-      - name: Commit files
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Configure Git
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          git config pull.rebase false
-          git pull
-          git add --all
-          git commit -am "Update webpage"
-          git push origin master
+          git remote set-url origin https://github.com/username/repo.git
+          git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
 
+      - name: Push changes
+        run: |
+          git commit -am "Commit message"
+          git push origin main        
+          
       - name: Session info
         run: |
           options(width = 100)
