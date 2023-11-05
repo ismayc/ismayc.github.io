@@ -91,10 +91,6 @@ jobs:
           setwd("./nba-over-under-2023-2024")
           source("make_plot_html.R")
         shell: Rscript {0} 
-        with:
-          repository: ismayc/ismayc.github.io
-          token: ${{ secrets.TOKEN }}
-#          path: nba-over-under-2023-2024
 
       - uses: r-lib/actions/setup-renv@v2            
 
