@@ -2,8 +2,8 @@ on:
   schedule:
 #    - cron: "*/10 * * * *"
     - cron: "0 8,13 * * *"
-  push:
-    branches: [main, master]
+#  push:
+#    branches: [main, master]
 
 name: build-nba-webpage
 
