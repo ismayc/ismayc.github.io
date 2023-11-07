@@ -681,9 +681,7 @@ player_table(7)
 player_table(8)
 ```
 
-##### `r current_rankings[9]`
-
-```{r}
+```{r, eval=FALSE}
 player_table(9)
 ```
 
