@@ -66,230 +66,256 @@ game_date,away_team,home_team,start_time,is_complete
 2023-11-01,Memphis Grizzlies,Utah Jazz,9:00p,TRUE
 2023-11-01,Sacramento Kings,Golden State Warriors,10:00p,TRUE
 2023-11-01,Los Angeles Clippers,Los Angeles Lakers,10:00p,TRUE
-2023-11-02,Toronto Raptors,Philadelphia 76ers,7:00p,FALSE
-2023-11-02,Detroit Pistons,New Orleans Pelicans,8:00p,FALSE
-2023-11-02,Orlando Magic,Utah Jazz,9:00p,FALSE
-2023-11-02,San Antonio Spurs,Phoenix Suns,10:00p,FALSE
-2023-11-03,Cleveland Cavaliers,Indiana Pacers,7:00p,FALSE
-2023-11-03,New York Knicks,Milwaukee Bucks,7:30p,FALSE
-2023-11-03,Brooklyn Nets,Chicago Bulls,8:00p,FALSE
-2023-11-03,Washington Wizards,Miami Heat,8:00p,FALSE
-2023-11-03,Golden State Warriors,Oklahoma City Thunder,8:00p,FALSE
-2023-11-03,Dallas Mavericks,Denver Nuggets,10:00p,FALSE
-2023-11-03,Memphis Grizzlies,Portland Trail Blazers,10:00p,FALSE
-2023-11-04,Phoenix Suns,Philadelphia 76ers,1:00p,FALSE
-2023-11-04,Charlotte Hornets,Indiana Pacers,7:00p,FALSE
-2023-11-04,Atlanta Hawks,New Orleans Pelicans,7:00p,FALSE
-2023-11-04,Los Angeles Lakers,Orlando Magic,7:00p,FALSE
-2023-11-04,Boston Celtics,Brooklyn Nets,8:00p,FALSE
-2023-11-04,Sacramento Kings,Houston Rockets,8:00p,FALSE
-2023-11-04,Utah Jazz,Minnesota Timberwolves,8:00p,FALSE
-2023-11-04,Chicago Bulls,Denver Nuggets,9:00p,FALSE
-2023-11-05,Phoenix Suns,Detroit Pistons,3:00p,FALSE
-2023-11-05,Toronto Raptors,San Antonio Spurs,3:30p,FALSE
-2023-11-05,Golden State Warriors,Cleveland Cavaliers,6:00p,FALSE
-2023-11-05,Charlotte Hornets,Dallas Mavericks,7:30p,FALSE
-2023-11-05,Memphis Grizzlies,Portland Trail Blazers,9:00p,FALSE
-2023-11-06,Golden State Warriors,Detroit Pistons,7:00p,FALSE
-2023-11-06,San Antonio Spurs,Indiana Pacers,7:00p,FALSE
-2023-11-06,Dallas Mavericks,Orlando Magic,7:00p,FALSE
-2023-11-06,Washington Wizards,Philadelphia 76ers,7:00p,FALSE
-2023-11-06,Milwaukee Bucks,Brooklyn Nets,7:30p,FALSE
-2023-11-06,Los Angeles Lakers,Miami Heat,7:30p,FALSE
-2023-11-06,Los Angeles Clippers,New York Knicks,7:30p,FALSE
-2023-11-06,Utah Jazz,Chicago Bulls,8:00p,FALSE
-2023-11-06,Sacramento Kings,Houston Rockets,8:00p,FALSE
-2023-11-06,Boston Celtics,Minnesota Timberwolves,8:00p,FALSE
-2023-11-06,Atlanta Hawks,Oklahoma City Thunder,8:00p,FALSE
-2023-11-06,New Orleans Pelicans,Denver Nuggets,9:00p,FALSE
-2023-11-08,Washington Wizards,Charlotte Hornets,7:00p,FALSE
-2023-11-08,Utah Jazz,Indiana Pacers,7:00p,FALSE
-2023-11-08,Boston Celtics,Philadelphia 76ers,7:00p,FALSE
-2023-11-08,Los Angeles Clippers,Brooklyn Nets,7:30p,FALSE
-2023-11-08,San Antonio Spurs,New York Knicks,7:30p,FALSE
-2023-11-08,Phoenix Suns,Chicago Bulls,8:00p,FALSE
-2023-11-08,Los Angeles Lakers,Houston Rockets,8:00p,FALSE
-2023-11-08,Miami Heat,Memphis Grizzlies,8:00p,FALSE
-2023-11-08,Detroit Pistons,Milwaukee Bucks,8:00p,FALSE
-2023-11-08,New Orleans Pelicans,Minnesota Timberwolves,8:00p,FALSE
-2023-11-08,Cleveland Cavaliers,Oklahoma City Thunder,8:00p,FALSE
-2023-11-08,Toronto Raptors,Dallas Mavericks,8:30p,FALSE
-2023-11-08,Golden State Warriors,Denver Nuggets,10:00p,FALSE
-2023-11-08,Portland Trail Blazers,Sacramento Kings,10:00p,FALSE
-2023-11-09,Milwaukee Bucks,Indiana Pacers,7:00p,FALSE
-2023-11-09,Atlanta Hawks,Orlando Magic,9:30p,FALSE
-2023-11-10,Philadelphia 76ers,Detroit Pistons,7:00p,FALSE
-2023-11-10,Charlotte Hornets,Washington Wizards,7:00p,FALSE
-2023-11-10,Brooklyn Nets,Boston Celtics,7:30p,FALSE
-2023-11-10,New Orleans Pelicans,Houston Rockets,8:00p,FALSE
-2023-11-10,Utah Jazz,Memphis Grizzlies,8:00p,FALSE
-2023-11-10,Minnesota Timberwolves,San Antonio Spurs,8:00p,FALSE
-2023-11-10,Los Angeles Clippers,Dallas Mavericks,8:30p,FALSE
-2023-11-10,Los Angeles Lakers,Phoenix Suns,10:00p,FALSE
-2023-11-10,Oklahoma City Thunder,Sacramento Kings,10:00p,FALSE
-2023-11-11,Milwaukee Bucks,Orlando Magic,6:00p,FALSE
-2023-11-11,Toronto Raptors,Boston Celtics,7:00p,FALSE
-2023-11-11,Miami Heat,Atlanta Hawks,7:30p,FALSE
-2023-11-11,Cleveland Cavaliers,Golden State Warriors,8:30p,FALSE
-2023-11-12,Charlotte Hornets,New York Knicks,12:00p,FALSE
-2023-11-12,Washington Wizards,Brooklyn Nets,3:00p,FALSE
-2023-11-12,Memphis Grizzlies,Los Angeles Clippers,3:30p,FALSE
-2023-11-12,Indiana Pacers,Philadelphia 76ers,6:00p,FALSE
-2023-11-12,Detroit Pistons,Chicago Bulls,7:00p,FALSE
-2023-11-12,Denver Nuggets,Houston Rockets,7:00p,FALSE
-2023-11-12,Dallas Mavericks,New Orleans Pelicans,7:00p,FALSE
-2023-11-12,Miami Heat,San Antonio Spurs,7:00p,FALSE
-2023-11-12,Oklahoma City Thunder,Phoenix Suns,8:00p,FALSE
-2023-11-12,Minnesota Timberwolves,Golden State Warriors,8:30p,FALSE
-2023-11-12,Portland Trail Blazers,Los Angeles Lakers,10:00p,FALSE
-2023-11-13,New York Knicks,Boston Celtics,7:30p,FALSE
-2023-11-13,Washington Wizards,Toronto Raptors,7:30p,FALSE
-2023-11-13,Chicago Bulls,Milwaukee Bucks,8:00p,FALSE
-2023-11-13,Cleveland Cavaliers,Sacramento Kings,10:00p,FALSE
-2023-11-14,Miami Heat,Charlotte Hornets,7:00p,FALSE
-2023-11-14,Atlanta Hawks,Detroit Pistons,7:00p,FALSE
-2023-11-14,Indiana Pacers,Philadelphia 76ers,7:00p,FALSE
-2023-11-14,Orlando Magic,Brooklyn Nets,7:30p,FALSE
-2023-11-14,San Antonio Spurs,Oklahoma City Thunder,7:30p,FALSE
-2023-11-14,Dallas Mavericks,New Orleans Pelicans,8:00p,FALSE
-2023-11-14,Portland Trail Blazers,Utah Jazz,9:00p,FALSE
-2023-11-14,Los Angeles Clippers,Denver Nuggets,10:00p,FALSE
-2023-11-14,Minnesota Timberwolves,Golden State Warriors,10:00p,FALSE
-2023-11-14,Memphis Grizzlies,Los Angeles Lakers,10:30p,FALSE
-2023-11-15,Dallas Mavericks,Washington Wizards,7:00p,FALSE
-2023-11-15,New York Knicks,Atlanta Hawks,7:30p,FALSE
-2023-11-15,Boston Celtics,Philadelphia 76ers,7:30p,FALSE
-2023-11-15,Milwaukee Bucks,Toronto Raptors,7:30p,FALSE
-2023-11-15,Orlando Magic,Chicago Bulls,8:00p,FALSE
-2023-11-15,Minnesota Timberwolves,Phoenix Suns,9:00p,FALSE
-2023-11-15,Sacramento Kings,Los Angeles Lakers,10:00p,FALSE
-2023-11-15,Cleveland Cavaliers,Portland Trail Blazers,10:00p,FALSE
-2023-11-16,Brooklyn Nets,Miami Heat,7:30p,FALSE
-2023-11-16,Oklahoma City Thunder,Golden State Warriors,10:00p,FALSE
-2023-11-17,Milwaukee Bucks,Charlotte Hornets,7:00p,FALSE
-2023-11-17,New York Knicks,Washington Wizards,7:00p,FALSE
-2023-11-17,Philadelphia 76ers,Atlanta Hawks,7:30p,FALSE
-2023-11-17,Detroit Pistons,Cleveland Cavaliers,7:30p,FALSE
-2023-11-17,Sacramento Kings,San Antonio Spurs,7:30p,FALSE
-2023-11-17,Boston Celtics,Toronto Raptors,7:30p,FALSE
-2023-11-17,Orlando Magic,Chicago Bulls,8:00p,FALSE
-2023-11-17,Denver Nuggets,New Orleans Pelicans,8:00p,FALSE
-2023-11-17,Los Angeles Lakers,Portland Trail Blazers,10:00p,FALSE
-2023-11-17,Phoenix Suns,Utah Jazz,10:00p,FALSE
-2023-11-17,Houston Rockets,Los Angeles Clippers,10:30p,FALSE
-2023-11-18,New York Knicks,Charlotte Hornets,6:00p,FALSE
-2023-11-18,Minnesota Timberwolves,New Orleans Pelicans,7:00p,FALSE
-2023-11-18,Miami Heat,Chicago Bulls,8:00p,FALSE
-2023-11-18,Dallas Mavericks,Milwaukee Bucks,8:00p,FALSE
-2023-11-18,Memphis Grizzlies,San Antonio Spurs,8:00p,FALSE
-2023-11-18,Oklahoma City Thunder,Golden State Warriors,8:30p,FALSE
-2023-11-19,Philadelphia 76ers,Brooklyn Nets,3:00p,FALSE
-2023-11-19,Detroit Pistons,Toronto Raptors,4:00p,FALSE
-2023-11-19,Orlando Magic,Indiana Pacers,5:00p,FALSE
-2023-11-19,Denver Nuggets,Cleveland Cavaliers,6:00p,FALSE
-2023-11-19,Sacramento Kings,Dallas Mavericks,7:30p,FALSE
-2023-11-19,Boston Celtics,Memphis Grizzlies,8:00p,FALSE
-2023-11-19,Phoenix Suns,Utah Jazz,8:00p,FALSE
-2023-11-19,Oklahoma City Thunder,Portland Trail Blazers,9:00p,FALSE
-2023-11-19,Houston Rockets,Los Angeles Lakers,9:30p,FALSE
-2023-11-20,Boston Celtics,Charlotte Hornets,7:00p,FALSE
-2023-11-20,Denver Nuggets,Detroit Pistons,7:00p,FALSE
-2023-11-20,Milwaukee Bucks,Washington Wizards,7:00p,FALSE
-2023-11-20,Miami Heat,Chicago Bulls,8:00p,FALSE
-2023-11-20,New York Knicks,Minnesota Timberwolves,8:00p,FALSE
-2023-11-20,Sacramento Kings,New Orleans Pelicans,8:00p,FALSE
-2023-11-20,Los Angeles Clippers,San Antonio Spurs,8:00p,FALSE
-2023-11-20,Houston Rockets,Golden State Warriors,10:00p,FALSE
-2023-11-21,Toronto Raptors,Orlando Magic,7:00p,FALSE
-2023-11-21,Indiana Pacers,Atlanta Hawks,7:30p,FALSE
-2023-11-21,Cleveland Cavaliers,Philadelphia 76ers,7:30p,FALSE
-2023-11-21,Portland Trail Blazers,Phoenix Suns,9:00p,FALSE
-2023-11-21,Utah Jazz,Los Angeles Lakers,10:00p,FALSE
-2023-11-22,Washington Wizards,Charlotte Hornets,7:00p,FALSE
-2023-11-22,Denver Nuggets,Orlando Magic,7:00p,FALSE
-2023-11-22,Brooklyn Nets,Atlanta Hawks,7:30p,FALSE
-2023-11-22,Milwaukee Bucks,Boston Celtics,7:30p,FALSE
-2023-11-22,Miami Heat,Cleveland Cavaliers,7:30p,FALSE
-2023-11-22,Toronto Raptors,Indiana Pacers,7:30p,FALSE
-2023-11-22,Memphis Grizzlies,Houston Rockets,8:00p,FALSE
-2023-11-22,Philadelphia 76ers,Minnesota Timberwolves,8:00p,FALSE
-2023-11-22,Sacramento Kings,New Orleans Pelicans,8:00p,FALSE
-2023-11-22,Chicago Bulls,Oklahoma City Thunder,8:00p,FALSE
-2023-11-22,Los Angeles Clippers,San Antonio Spurs,8:00p,FALSE
-2023-11-22,Golden State Warriors,Phoenix Suns,10:00p,FALSE
-2023-11-22,Utah Jazz,Portland Trail Blazers,10:00p,FALSE
-2023-11-22,Dallas Mavericks,Los Angeles Lakers,10:30p,FALSE
-2023-11-24,Boston Celtics,Orlando Magic,2:30p,FALSE
-2023-11-24,Phoenix Suns,Memphis Grizzlies,5:00p,FALSE
-2023-11-24,Miami Heat,New York Knicks,7:30p,FALSE
-2023-11-24,Chicago Bulls,Toronto Raptors,7:30p,FALSE
-2023-11-24,Denver Nuggets,Houston Rockets,8:00p,FALSE
-2023-11-24,Detroit Pistons,Indiana Pacers,8:00p,FALSE
-2023-11-24,Washington Wizards,Milwaukee Bucks,8:00p,FALSE
-2023-11-24,Sacramento Kings,Minnesota Timberwolves,8:00p,FALSE
-2023-11-24,San Antonio Spurs,Golden State Warriors,10:00p,FALSE
-2023-11-24,New Orleans Pelicans,Los Angeles Clippers,10:30p,FALSE
-2023-11-25,Philadelphia 76ers,Oklahoma City Thunder,5:00p,FALSE
-2023-11-25,Miami Heat,Brooklyn Nets,6:00p,FALSE
-2023-11-25,Atlanta Hawks,Washington Wizards,7:00p,FALSE
-2023-11-25,Los Angeles Lakers,Cleveland Cavaliers,7:30p,FALSE
-2023-11-25,New Orleans Pelicans,Utah Jazz,9:30p,FALSE
-2023-11-25,Dallas Mavericks,Los Angeles Clippers,10:30p,FALSE
-2023-11-26,Portland Trail Blazers,Milwaukee Bucks,3:30p,FALSE
-2023-11-26,Atlanta Hawks,Boston Celtics,6:00p,FALSE
-2023-11-26,Minnesota Timberwolves,Memphis Grizzlies,6:00p,FALSE
-2023-11-26,Phoenix Suns,New York Knicks,6:00p,FALSE
-2023-11-26,Charlotte Hornets,Orlando Magic,6:00p,FALSE
-2023-11-26,Chicago Bulls,Brooklyn Nets,7:30p,FALSE
-2023-11-26,Toronto Raptors,Cleveland Cavaliers,7:30p,FALSE
-2023-11-26,San Antonio Spurs,Denver Nuggets,8:00p,FALSE
-2023-11-27,Washington Wizards,Detroit Pistons,7:00p,FALSE
-2023-11-27,Portland Trail Blazers,Indiana Pacers,7:00p,FALSE
-2023-11-27,Los Angeles Lakers,Philadelphia 76ers,7:00p,FALSE
-2023-11-27,New Orleans Pelicans,Utah Jazz,9:00p,FALSE
-2023-11-27,Denver Nuggets,Los Angeles Clippers,10:30p,FALSE
-2023-11-28,Chicago Bulls,Boston Celtics,7:30p,FALSE
-2023-11-28,Toronto Raptors,Brooklyn Nets,7:30p,FALSE
-2023-11-28,Atlanta Hawks,Cleveland Cavaliers,7:30p,FALSE
-2023-11-28,Milwaukee Bucks,Miami Heat,7:30p,FALSE
-2023-11-28,Charlotte Hornets,New York Knicks,7:30p,FALSE
-2023-11-28,Oklahoma City Thunder,Minnesota Timberwolves,8:00p,FALSE
-2023-11-28,Houston Rockets,Dallas Mavericks,8:30p,FALSE
-2023-11-28,Golden State Warriors,Sacramento Kings,10:00p,FALSE
-2023-11-29,Los Angeles Lakers,Detroit Pistons,7:00p,FALSE
-2023-11-29,Washington Wizards,Orlando Magic,7:00p,FALSE
-2023-11-29,Phoenix Suns,Toronto Raptors,7:30p,FALSE
-2023-11-29,Utah Jazz,Memphis Grizzlies,8:00p,FALSE
-2023-11-29,Philadelphia 76ers,New Orleans Pelicans,8:00p,FALSE
-2023-11-29,Houston Rockets,Denver Nuggets,9:00p,FALSE
-2023-11-29,Los Angeles Clippers,Sacramento Kings,10:00p,FALSE
-2023-11-30,Portland Trail Blazers,Cleveland Cavaliers,7:00p,FALSE
-2023-11-30,Charlotte Hornets,Brooklyn Nets,7:30p,FALSE
-2023-11-30,Indiana Pacers,Miami Heat,7:30p,FALSE
-2023-11-30,Detroit Pistons,New York Knicks,7:30p,FALSE
-2023-11-30,Milwaukee Bucks,Chicago Bulls,8:00p,FALSE
-2023-11-30,Utah Jazz,Minnesota Timberwolves,8:00p,FALSE
-2023-11-30,Los Angeles Lakers,Oklahoma City Thunder,8:00p,FALSE
-2023-11-30,Atlanta Hawks,San Antonio Spurs,8:00p,FALSE
-2023-11-30,Los Angeles Clippers,Golden State Warriors,10:00p,FALSE
-2023-12-01,Washington Wizards,Orlando Magic,7:00p,FALSE
-2023-12-01,Philadelphia 76ers,Boston Celtics,7:30p,FALSE
-2023-12-01,Memphis Grizzlies,Dallas Mavericks,7:30p,FALSE
-2023-12-01,New York Knicks,Toronto Raptors,7:30p,FALSE
-2023-12-01,San Antonio Spurs,New Orleans Pelicans,8:00p,FALSE
-2023-12-01,Denver Nuggets,Phoenix Suns,10:00p,FALSE
-2023-12-02,Golden State Warriors,Los Angeles Clippers,4:00p,FALSE
-2023-12-02,Minnesota Timberwolves,Charlotte Hornets,5:00p,FALSE
-2023-12-02,Orlando Magic,Brooklyn Nets,7:00p,FALSE
-2023-12-02,Cleveland Cavaliers,Detroit Pistons,7:00p,FALSE
-2023-12-02,New Orleans Pelicans,Chicago Bulls,8:00p,FALSE
-2023-12-02,Indiana Pacers,Miami Heat,8:00p,FALSE
-2023-12-02,Atlanta Hawks,Milwaukee Bucks,8:00p,FALSE
-2023-12-02,Oklahoma City Thunder,Dallas Mavericks,9:00p,FALSE
-2023-12-02,Memphis Grizzlies,Phoenix Suns,9:00p,FALSE
-2023-12-02,Portland Trail Blazers,Utah Jazz,9:30p,FALSE
-2023-12-02,Denver Nuggets,Sacramento Kings,10:00p,FALSE
-2023-12-02,Houston Rockets,Los Angeles Lakers,10:30p,FALSE
+2023-11-02,Toronto Raptors,Philadelphia 76ers,7:00p,TRUE
+2023-11-02,Detroit Pistons,New Orleans Pelicans,8:00p,TRUE
+2023-11-02,Orlando Magic,Utah Jazz,9:00p,TRUE
+2023-11-02,San Antonio Spurs,Phoenix Suns,10:00p,TRUE
+2023-11-03,Cleveland Cavaliers,Indiana Pacers,7:00p,TRUE
+2023-11-03,New York Knicks,Milwaukee Bucks,7:30p,TRUE
+2023-11-03,Brooklyn Nets,Chicago Bulls,8:00p,TRUE
+2023-11-03,Washington Wizards,Miami Heat,8:00p,TRUE
+2023-11-03,Golden State Warriors,Oklahoma City Thunder,8:00p,TRUE
+2023-11-03,Dallas Mavericks,Denver Nuggets,10:00p,TRUE
+2023-11-03,Memphis Grizzlies,Portland Trail Blazers,10:00p,TRUE
+2023-11-04,Phoenix Suns,Philadelphia 76ers,1:00p,TRUE
+2023-11-04,Charlotte Hornets,Indiana Pacers,7:00p,TRUE
+2023-11-04,Atlanta Hawks,New Orleans Pelicans,7:00p,TRUE
+2023-11-04,Los Angeles Lakers,Orlando Magic,7:00p,TRUE
+2023-11-04,Boston Celtics,Brooklyn Nets,8:00p,TRUE
+2023-11-04,Sacramento Kings,Houston Rockets,8:00p,TRUE
+2023-11-04,Utah Jazz,Minnesota Timberwolves,8:00p,TRUE
+2023-11-04,Chicago Bulls,Denver Nuggets,9:00p,TRUE
+2023-11-05,Phoenix Suns,Detroit Pistons,3:00p,TRUE
+2023-11-05,Toronto Raptors,San Antonio Spurs,3:30p,TRUE
+2023-11-05,Golden State Warriors,Cleveland Cavaliers,6:00p,TRUE
+2023-11-05,Charlotte Hornets,Dallas Mavericks,7:30p,TRUE
+2023-11-05,Memphis Grizzlies,Portland Trail Blazers,9:00p,TRUE
+2023-11-06,Golden State Warriors,Detroit Pistons,7:00p,TRUE
+2023-11-06,San Antonio Spurs,Indiana Pacers,7:00p,TRUE
+2023-11-06,Dallas Mavericks,Orlando Magic,7:00p,TRUE
+2023-11-06,Washington Wizards,Philadelphia 76ers,7:00p,TRUE
+2023-11-06,Milwaukee Bucks,Brooklyn Nets,7:30p,TRUE
+2023-11-06,Los Angeles Lakers,Miami Heat,7:30p,TRUE
+2023-11-06,Los Angeles Clippers,New York Knicks,7:30p,TRUE
+2023-11-06,Utah Jazz,Chicago Bulls,8:00p,TRUE
+2023-11-06,Sacramento Kings,Houston Rockets,8:00p,TRUE
+2023-11-06,Boston Celtics,Minnesota Timberwolves,8:00p,TRUE
+2023-11-06,Atlanta Hawks,Oklahoma City Thunder,8:00p,TRUE
+2023-11-06,New Orleans Pelicans,Denver Nuggets,9:00p,TRUE
+2023-11-08,Washington Wizards,Charlotte Hornets,7:00p,TRUE
+2023-11-08,Utah Jazz,Indiana Pacers,7:00p,TRUE
+2023-11-08,Boston Celtics,Philadelphia 76ers,7:00p,TRUE
+2023-11-08,Los Angeles Clippers,Brooklyn Nets,7:30p,TRUE
+2023-11-08,San Antonio Spurs,New York Knicks,7:30p,TRUE
+2023-11-08,Phoenix Suns,Chicago Bulls,8:00p,TRUE
+2023-11-08,Los Angeles Lakers,Houston Rockets,8:00p,TRUE
+2023-11-08,Miami Heat,Memphis Grizzlies,8:00p,TRUE
+2023-11-08,Detroit Pistons,Milwaukee Bucks,8:00p,TRUE
+2023-11-08,New Orleans Pelicans,Minnesota Timberwolves,8:00p,TRUE
+2023-11-08,Cleveland Cavaliers,Oklahoma City Thunder,8:00p,TRUE
+2023-11-08,Toronto Raptors,Dallas Mavericks,8:30p,TRUE
+2023-11-08,Golden State Warriors,Denver Nuggets,10:00p,TRUE
+2023-11-08,Portland Trail Blazers,Sacramento Kings,10:00p,TRUE
+2023-11-09,Milwaukee Bucks,Indiana Pacers,7:00p,TRUE
+2023-11-09,Atlanta Hawks,Orlando Magic,9:30p,TRUE
+2023-11-10,Philadelphia 76ers,Detroit Pistons,7:00p,TRUE
+2023-11-10,Charlotte Hornets,Washington Wizards,7:00p,TRUE
+2023-11-10,Brooklyn Nets,Boston Celtics,7:30p,TRUE
+2023-11-10,New Orleans Pelicans,Houston Rockets,8:00p,TRUE
+2023-11-10,Utah Jazz,Memphis Grizzlies,8:00p,TRUE
+2023-11-10,Minnesota Timberwolves,San Antonio Spurs,8:00p,TRUE
+2023-11-10,Los Angeles Clippers,Dallas Mavericks,8:30p,TRUE
+2023-11-10,Los Angeles Lakers,Phoenix Suns,10:00p,TRUE
+2023-11-10,Oklahoma City Thunder,Sacramento Kings,10:00p,TRUE
+2023-11-11,Milwaukee Bucks,Orlando Magic,6:00p,TRUE
+2023-11-11,Toronto Raptors,Boston Celtics,7:00p,TRUE
+2023-11-11,Miami Heat,Atlanta Hawks,7:30p,TRUE
+2023-11-11,Cleveland Cavaliers,Golden State Warriors,8:30p,TRUE
+2023-11-12,Charlotte Hornets,New York Knicks,12:00p,TRUE
+2023-11-12,Washington Wizards,Brooklyn Nets,3:00p,TRUE
+2023-11-12,Memphis Grizzlies,Los Angeles Clippers,3:30p,TRUE
+2023-11-12,Indiana Pacers,Philadelphia 76ers,6:00p,TRUE
+2023-11-12,Detroit Pistons,Chicago Bulls,7:00p,TRUE
+2023-11-12,Denver Nuggets,Houston Rockets,7:00p,TRUE
+2023-11-12,Dallas Mavericks,New Orleans Pelicans,7:00p,TRUE
+2023-11-12,Miami Heat,San Antonio Spurs,7:00p,TRUE
+2023-11-12,Oklahoma City Thunder,Phoenix Suns,8:00p,TRUE
+2023-11-12,Minnesota Timberwolves,Golden State Warriors,8:30p,TRUE
+2023-11-12,Portland Trail Blazers,Los Angeles Lakers,10:00p,TRUE
+2023-11-13,New York Knicks,Boston Celtics,7:30p,TRUE
+2023-11-13,Washington Wizards,Toronto Raptors,7:30p,TRUE
+2023-11-13,Chicago Bulls,Milwaukee Bucks,8:00p,TRUE
+2023-11-13,Cleveland Cavaliers,Sacramento Kings,10:00p,TRUE
+2023-11-14,Miami Heat,Charlotte Hornets,7:00p,TRUE
+2023-11-14,Atlanta Hawks,Detroit Pistons,7:00p,TRUE
+2023-11-14,Indiana Pacers,Philadelphia 76ers,7:00p,TRUE
+2023-11-14,Orlando Magic,Brooklyn Nets,7:30p,TRUE
+2023-11-14,San Antonio Spurs,Oklahoma City Thunder,7:30p,TRUE
+2023-11-14,Dallas Mavericks,New Orleans Pelicans,8:00p,TRUE
+2023-11-14,Portland Trail Blazers,Utah Jazz,9:00p,TRUE
+2023-11-14,Los Angeles Clippers,Denver Nuggets,10:00p,TRUE
+2023-11-14,Minnesota Timberwolves,Golden State Warriors,10:00p,TRUE
+2023-11-14,Memphis Grizzlies,Los Angeles Lakers,10:30p,TRUE
+2023-11-15,Dallas Mavericks,Washington Wizards,7:00p,TRUE
+2023-11-15,New York Knicks,Atlanta Hawks,7:30p,TRUE
+2023-11-15,Boston Celtics,Philadelphia 76ers,7:30p,TRUE
+2023-11-15,Milwaukee Bucks,Toronto Raptors,7:30p,TRUE
+2023-11-15,Orlando Magic,Chicago Bulls,8:00p,TRUE
+2023-11-15,Minnesota Timberwolves,Phoenix Suns,9:00p,TRUE
+2023-11-15,Sacramento Kings,Los Angeles Lakers,10:00p,TRUE
+2023-11-15,Cleveland Cavaliers,Portland Trail Blazers,10:00p,TRUE
+2023-11-16,Brooklyn Nets,Miami Heat,7:30p,TRUE
+2023-11-16,Oklahoma City Thunder,Golden State Warriors,10:00p,TRUE
+2023-11-17,Milwaukee Bucks,Charlotte Hornets,7:00p,TRUE
+2023-11-17,New York Knicks,Washington Wizards,7:00p,TRUE
+2023-11-17,Philadelphia 76ers,Atlanta Hawks,7:30p,TRUE
+2023-11-17,Detroit Pistons,Cleveland Cavaliers,7:30p,TRUE
+2023-11-17,Sacramento Kings,San Antonio Spurs,7:30p,TRUE
+2023-11-17,Boston Celtics,Toronto Raptors,7:30p,TRUE
+2023-11-17,Orlando Magic,Chicago Bulls,8:00p,TRUE
+2023-11-17,Denver Nuggets,New Orleans Pelicans,8:00p,TRUE
+2023-11-17,Los Angeles Lakers,Portland Trail Blazers,10:00p,TRUE
+2023-11-17,Phoenix Suns,Utah Jazz,10:00p,TRUE
+2023-11-17,Houston Rockets,Los Angeles Clippers,10:30p,TRUE
+2023-11-18,New York Knicks,Charlotte Hornets,6:00p,TRUE
+2023-11-18,Minnesota Timberwolves,New Orleans Pelicans,7:00p,TRUE
+2023-11-18,Miami Heat,Chicago Bulls,8:00p,TRUE
+2023-11-18,Dallas Mavericks,Milwaukee Bucks,8:00p,TRUE
+2023-11-18,Memphis Grizzlies,San Antonio Spurs,8:00p,TRUE
+2023-11-18,Oklahoma City Thunder,Golden State Warriors,8:30p,TRUE
+2023-11-19,Philadelphia 76ers,Brooklyn Nets,3:00p,TRUE
+2023-11-19,Detroit Pistons,Toronto Raptors,4:00p,TRUE
+2023-11-19,Orlando Magic,Indiana Pacers,5:00p,TRUE
+2023-11-19,Denver Nuggets,Cleveland Cavaliers,6:00p,TRUE
+2023-11-19,Sacramento Kings,Dallas Mavericks,7:30p,TRUE
+2023-11-19,Boston Celtics,Memphis Grizzlies,8:00p,TRUE
+2023-11-19,Phoenix Suns,Utah Jazz,8:00p,TRUE
+2023-11-19,Oklahoma City Thunder,Portland Trail Blazers,9:00p,TRUE
+2023-11-19,Houston Rockets,Los Angeles Lakers,9:30p,TRUE
+2023-11-20,Boston Celtics,Charlotte Hornets,7:00p,TRUE
+2023-11-20,Denver Nuggets,Detroit Pistons,7:00p,TRUE
+2023-11-20,Milwaukee Bucks,Washington Wizards,7:00p,TRUE
+2023-11-20,Miami Heat,Chicago Bulls,8:00p,TRUE
+2023-11-20,New York Knicks,Minnesota Timberwolves,8:00p,TRUE
+2023-11-20,Sacramento Kings,New Orleans Pelicans,8:00p,TRUE
+2023-11-20,Los Angeles Clippers,San Antonio Spurs,8:00p,TRUE
+2023-11-20,Houston Rockets,Golden State Warriors,10:00p,TRUE
+2023-11-21,Toronto Raptors,Orlando Magic,7:00p,TRUE
+2023-11-21,Indiana Pacers,Atlanta Hawks,7:30p,TRUE
+2023-11-21,Cleveland Cavaliers,Philadelphia 76ers,7:30p,TRUE
+2023-11-21,Portland Trail Blazers,Phoenix Suns,9:00p,TRUE
+2023-11-21,Utah Jazz,Los Angeles Lakers,10:00p,TRUE
+2023-11-22,Washington Wizards,Charlotte Hornets,7:00p,TRUE
+2023-11-22,Denver Nuggets,Orlando Magic,7:00p,TRUE
+2023-11-22,Brooklyn Nets,Atlanta Hawks,7:30p,TRUE
+2023-11-22,Milwaukee Bucks,Boston Celtics,7:30p,TRUE
+2023-11-22,Miami Heat,Cleveland Cavaliers,7:30p,TRUE
+2023-11-22,Toronto Raptors,Indiana Pacers,7:30p,TRUE
+2023-11-22,Memphis Grizzlies,Houston Rockets,8:00p,TRUE
+2023-11-22,Philadelphia 76ers,Minnesota Timberwolves,8:00p,TRUE
+2023-11-22,Sacramento Kings,New Orleans Pelicans,8:00p,TRUE
+2023-11-22,Chicago Bulls,Oklahoma City Thunder,8:00p,TRUE
+2023-11-22,Los Angeles Clippers,San Antonio Spurs,8:00p,TRUE
+2023-11-22,Golden State Warriors,Phoenix Suns,10:00p,TRUE
+2023-11-22,Utah Jazz,Portland Trail Blazers,10:00p,TRUE
+2023-11-22,Dallas Mavericks,Los Angeles Lakers,10:30p,TRUE
+2023-11-24,Boston Celtics,Orlando Magic,2:30p,TRUE
+2023-11-24,Phoenix Suns,Memphis Grizzlies,5:00p,TRUE
+2023-11-24,Miami Heat,New York Knicks,7:30p,TRUE
+2023-11-24,Chicago Bulls,Toronto Raptors,7:30p,TRUE
+2023-11-24,Denver Nuggets,Houston Rockets,8:00p,TRUE
+2023-11-24,Detroit Pistons,Indiana Pacers,8:00p,TRUE
+2023-11-24,Washington Wizards,Milwaukee Bucks,8:00p,TRUE
+2023-11-24,Sacramento Kings,Minnesota Timberwolves,8:00p,TRUE
+2023-11-24,San Antonio Spurs,Golden State Warriors,10:00p,TRUE
+2023-11-24,New Orleans Pelicans,Los Angeles Clippers,10:30p,TRUE
+2023-11-25,Philadelphia 76ers,Oklahoma City Thunder,5:00p,TRUE
+2023-11-25,Miami Heat,Brooklyn Nets,6:00p,TRUE
+2023-11-25,Atlanta Hawks,Washington Wizards,7:00p,TRUE
+2023-11-25,Los Angeles Lakers,Cleveland Cavaliers,7:30p,TRUE
+2023-11-25,New Orleans Pelicans,Utah Jazz,9:30p,TRUE
+2023-11-25,Dallas Mavericks,Los Angeles Clippers,10:30p,TRUE
+2023-11-26,Portland Trail Blazers,Milwaukee Bucks,3:30p,TRUE
+2023-11-26,Atlanta Hawks,Boston Celtics,6:00p,TRUE
+2023-11-26,Minnesota Timberwolves,Memphis Grizzlies,6:00p,TRUE
+2023-11-26,Phoenix Suns,New York Knicks,6:00p,TRUE
+2023-11-26,Charlotte Hornets,Orlando Magic,6:00p,TRUE
+2023-11-26,Chicago Bulls,Brooklyn Nets,7:30p,TRUE
+2023-11-26,Toronto Raptors,Cleveland Cavaliers,7:30p,TRUE
+2023-11-26,San Antonio Spurs,Denver Nuggets,8:00p,TRUE
+2023-11-27,Washington Wizards,Detroit Pistons,7:00p,TRUE
+2023-11-27,Portland Trail Blazers,Indiana Pacers,7:00p,TRUE
+2023-11-27,Los Angeles Lakers,Philadelphia 76ers,7:00p,TRUE
+2023-11-27,New Orleans Pelicans,Utah Jazz,9:00p,TRUE
+2023-11-27,Denver Nuggets,Los Angeles Clippers,10:30p,TRUE
+2023-11-28,Chicago Bulls,Boston Celtics,7:30p,TRUE
+2023-11-28,Toronto Raptors,Brooklyn Nets,7:30p,TRUE
+2023-11-28,Atlanta Hawks,Cleveland Cavaliers,7:30p,TRUE
+2023-11-28,Milwaukee Bucks,Miami Heat,7:30p,TRUE
+2023-11-28,Charlotte Hornets,New York Knicks,7:30p,TRUE
+2023-11-28,Oklahoma City Thunder,Minnesota Timberwolves,8:00p,TRUE
+2023-11-28,Houston Rockets,Dallas Mavericks,8:30p,TRUE
+2023-11-28,Golden State Warriors,Sacramento Kings,10:00p,TRUE
+2023-11-29,Los Angeles Lakers,Detroit Pistons,7:00p,TRUE
+2023-11-29,Washington Wizards,Orlando Magic,7:00p,TRUE
+2023-11-29,Phoenix Suns,Toronto Raptors,7:30p,TRUE
+2023-11-29,Utah Jazz,Memphis Grizzlies,8:00p,TRUE
+2023-11-29,Philadelphia 76ers,New Orleans Pelicans,8:00p,TRUE
+2023-11-29,Houston Rockets,Denver Nuggets,9:00p,TRUE
+2023-11-29,Los Angeles Clippers,Sacramento Kings,10:00p,TRUE
+2023-11-30,Portland Trail Blazers,Cleveland Cavaliers,7:00p,TRUE
+2023-11-30,Charlotte Hornets,Brooklyn Nets,7:30p,TRUE
+2023-11-30,Indiana Pacers,Miami Heat,7:30p,TRUE
+2023-11-30,Detroit Pistons,New York Knicks,7:30p,TRUE
+2023-11-30,Milwaukee Bucks,Chicago Bulls,8:00p,TRUE
+2023-11-30,Utah Jazz,Minnesota Timberwolves,8:00p,TRUE
+2023-11-30,Los Angeles Lakers,Oklahoma City Thunder,8:00p,TRUE
+2023-11-30,Atlanta Hawks,San Antonio Spurs,8:00p,TRUE
+2023-11-30,Los Angeles Clippers,Golden State Warriors,10:00p,TRUE
+2023-12-01,Washington Wizards,Orlando Magic,7:00p,TRUE
+2023-12-01,Philadelphia 76ers,Boston Celtics,7:30p,TRUE
+2023-12-01,Memphis Grizzlies,Dallas Mavericks,7:30p,TRUE
+2023-12-01,New York Knicks,Toronto Raptors,7:30p,TRUE
+2023-12-01,San Antonio Spurs,New Orleans Pelicans,8:00p,TRUE
+2023-12-01,Denver Nuggets,Phoenix Suns,10:00p,TRUE
+2023-12-02,Golden State Warriors,Los Angeles Clippers,4:00p,TRUE
+2023-12-02,Minnesota Timberwolves,Charlotte Hornets,5:00p,TRUE
+2023-12-02,Orlando Magic,Brooklyn Nets,7:00p,TRUE
+2023-12-02,Cleveland Cavaliers,Detroit Pistons,7:00p,TRUE
+2023-12-02,New Orleans Pelicans,Chicago Bulls,8:00p,TRUE
+2023-12-02,Indiana Pacers,Miami Heat,8:00p,TRUE
+2023-12-02,Atlanta Hawks,Milwaukee Bucks,8:00p,TRUE
+2023-12-02,Oklahoma City Thunder,Dallas Mavericks,9:00p,TRUE
+2023-12-02,Memphis Grizzlies,Phoenix Suns,9:00p,TRUE
+2023-12-02,Portland Trail Blazers,Utah Jazz,9:30p,TRUE
+2023-12-02,Denver Nuggets,Sacramento Kings,10:00p,TRUE
+2023-12-02,Houston Rockets,Los Angeles Lakers,10:30p,TRUE
+2023-12-04,Boston Celtics,Indiana Pacers,7:30p,TRUE
+2023-12-04,New Orleans Pelicans,Sacramento Kings,10:00p,TRUE
+2023-12-05,New York Knicks,Milwaukee Bucks,7:30p,FALSE
+2023-12-05,Phoenix Suns,Los Angeles Lakers,10:00p,FALSE
+2023-12-06,Orlando Magic,Cleveland Cavaliers,7:00p,FALSE
+2023-12-06,Memphis Grizzlies,Detroit Pistons,7:00p,FALSE
+2023-12-06,Philadelphia 76ers,Washington Wizards,7:00p,FALSE
+2023-12-06,Brooklyn Nets,Atlanta Hawks,7:30p,FALSE
+2023-12-06,San Antonio Spurs,Minnesota Timberwolves,7:30p,FALSE
+2023-12-06,Miami Heat,Toronto Raptors,7:30p,FALSE
+2023-12-06,Charlotte Hornets,Chicago Bulls,8:00p,FALSE
+2023-12-06,Oklahoma City Thunder,Houston Rockets,8:00p,FALSE
+2023-12-06,Utah Jazz,Dallas Mavericks,8:30p,FALSE
+2023-12-06,Portland Trail Blazers,Golden State Warriors,10:00p,FALSE
+2023-12-06,Denver Nuggets,Los Angeles Clippers,10:00p,FALSE
+2023-12-08,Toronto Raptors,Charlotte Hornets,7:00p,FALSE
+2023-12-08,Detroit Pistons,Orlando Magic,7:00p,FALSE
+2023-12-08,Atlanta Hawks,Philadelphia 76ers,7:00p,FALSE
+2023-12-08,Washington Wizards,Brooklyn Nets,7:30p,FALSE
+2023-12-08,Minnesota Timberwolves,Memphis Grizzlies,8:00p,FALSE
+2023-12-08,Cleveland Cavaliers,Miami Heat,8:00p,FALSE
+2023-12-08,Golden State Warriors,Oklahoma City Thunder,8:00p,FALSE
+2023-12-08,Chicago Bulls,San Antonio Spurs,8:30p,FALSE
+2023-12-08,Houston Rockets,Denver Nuggets,9:00p,FALSE
+2023-12-08,Dallas Mavericks,Portland Trail Blazers,10:00p,FALSE
+2023-12-08,Los Angeles Clippers,Utah Jazz,10:00p,FALSE
 2023-12-11,Miami Heat,Charlotte Hornets,7:00p,FALSE
 2023-12-11,Indiana Pacers,Detroit Pistons,7:00p,FALSE
 2023-12-11,Cleveland Cavaliers,Orlando Magic,7:00p,FALSE
@@ -380,8 +406,8 @@ game_date,away_team,home_team,start_time,is_complete
 2023-12-21,Los Angeles Clippers,Oklahoma City Thunder,8:00p,FALSE
 2023-12-21,Los Angeles Lakers,Minnesota Timberwolves,9:00p,FALSE
 2023-12-21,Washington Wizards,Portland Trail Blazers,10:00p,FALSE
-2023-12-22,Denver Nuggets,Brooklyn Nets,6:30p,FALSE
 2023-12-22,Toronto Raptors,Philadelphia 76ers,7:00p,FALSE
+2023-12-22,Denver Nuggets,Brooklyn Nets,7:30p,FALSE
 2023-12-22,Dallas Mavericks,Houston Rockets,8:00p,FALSE
 2023-12-22,Atlanta Hawks,Miami Heat,8:00p,FALSE
 2023-12-22,Washington Wizards,Golden State Warriors,10:00p,FALSE

@@ -1,8 +1,10 @@
 library(tidyverse)
 library(readxl)
 
-oct <- read_excel("sportsref_download.xlsx")
+# oct <- read_excel("sportsref_download.xlsx")
 
+# Open each of the XLS files in Excel and save them as XLSX files instead
+# Then run the code below
 excel_schedule_files <- list.files(pattern = "*.xlsx", full.names = TRUE)
 
 schedule_raw <- purrr::map_dfr(excel_schedule_files, read_excel) |> 
