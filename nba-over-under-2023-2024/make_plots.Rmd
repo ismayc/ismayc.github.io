@@ -413,7 +413,7 @@ picks_wide <- picks %>%
   ) %>% 
   mutate(chester_correct = chester_choice == outcome_determined,
          jake_correct = jake_choice == outcome_determined,
-#         jenelle_correct = jenelle_choice == outcome_determined,
+         #         jenelle_correct = jenelle_choice == outcome_determined,
          adonis_correct = adonis_choice == outcome_determined,
          mike_correct = mike_choice == outcome_determined,
          mary_correct = mary_choice == outcome_determined,
@@ -808,7 +808,8 @@ if (nrow(yesterday_scores)) {
 ```
 
 ```{r message=FALSE, warning=FALSE}
-schedule <- read_csv("schedule-2023-24.csv")
+schedule <- read_csv("schedule-2023-24.csv") |> 
+  select(-is_complete)
 ```
 
 ```{r message=FALSE, warning=FALSE}
@@ -838,11 +839,130 @@ if (nrow(todays_games)) {
 }
 ```
 
+```{r results="asis"}
+if (nrow(todays_games)) {
+  cat("Potential switches in Over/Under status based on the results of today's games:")
+}
+```
+
+```{r results="asis"}
+if (nrow(todays_games)) {
+  # Initialize a variable to track if any changes have been found
+  any_changes_found <- FALSE
+
+  # Function to simulate a game outcome and update standings
+  simulate_game_outcome <- function(standings, winner, loser) {
+    standings %>%
+      mutate(wins = if_else(team_name == winner, wins + 1, wins),
+             losses = if_else(team_name == loser, losses + 1, losses),
+             `Winning Pct` = wins / (wins + losses))
+  }
+  
+  # Total number of games in the season (for NBA, typically 82)
+  num_games <- 82
+  
+  # Extract the current Over/Under status for each team based on the latest date
+  current_over_under <- player_projections_by_team %>%
+    arrange(Team, desc(Date)) %>%
+    group_by(Team) %>%
+    slice(1) %>%
+    ungroup() %>%
+    select(Team, `Current Over/Under`)
+  
+  # Function to print potential changes in Over/Under status
+  print_status_change <- function(simulated_standings, game_winner, current_over_under, projections) {
+    changes <- simulated_standings %>%
+      mutate(Projected_Wins = round(`Winning Pct` * num_games, 0)) %>%
+      left_join(projections, by = c("team_name" = "team")) %>%
+      mutate(Over_Under_Simulated = if_else(Projected_Wins > win_projection, "OVER", "UNDER")) %>%
+      left_join(current_over_under, by = c("team_name" = "Team")) %>%
+      filter((Over_Under_Simulated == "OVER" & `Current Over/Under` == "UNDER") |
+             (Over_Under_Simulated == "UNDER" & `Current Over/Under` == "OVER")) %>%
+      select(team_name, `Current Over/Under`, Over_Under_Simulated)
+    
+    if(nrow(changes) > 0) {
+      # Mark that changes have been found
+      any_changes_found <<- TRUE
+      walk(seq_len(nrow(changes)), function(i) {
+        row <- changes[i, ]
+        cat(glue("- If the {game_winner} win today, the {row$team_name} change from {row$`Current Over/Under`} to {row$Over_Under_Simulated}."))
+      })
+    }
+  }
+
+  # Iterate over today's games and simulate outcomes
+  for(i in 1:nrow(todays_games)) {
+    away_team <- todays_games$`Away Team`[i]
+    home_team <- todays_games$`Home Team`[i]
+    
+    # Simulate away team win and check for potential Over/Under status changes
+    standings_away_win <- simulate_game_outcome(standings, away_team, home_team)
+    print_status_change(standings_away_win, away_team, current_over_under, projections)
+    
+    # Simulate home team win and check for potential Over/Under status changes
+    standings_home_win <- simulate_game_outcome(standings, home_team, away_team)
+    print_status_change(standings_home_win, home_team, current_over_under, projections)
+  }
+
+  # After all simulations, check if any changes were found
+  if(!any_changes_found) {
+    cat("It is not possible for a change in Over/Under status based on the outcome of today's game(s).\n")
+  }
+}
+
+```
+
 ## Current standings {.tabset}
 
 ### By conference {.tabset}
 
 Note that tie breakers to determine playoff seeds are not currently set.
+
+```{r}
+# 1. Prepare Winning Percentages
+# 'standings' data frame has the winning percentages in the 'Winning Pct' column
+winning_pct <- standings |>
+  select(team_name, Winning_Pct = `Winning Pct`)
+
+# 2. Filter Remaining Schedule
+# Find the latest game date from 'scores_tidy'
+latest_game_date <- max(scores_tidy$game_date)
+
+# Filter the 'schedule' for games after the latest game date
+remaining_schedule <- schedule |>
+  filter(game_date > latest_game_date)
+
+# 3. Calculate Remaining SOS for Each Team
+# Combine the remaining schedule with the winning percentages of the opponents
+remaining_schedule_with_wp <- remaining_schedule |>
+  left_join(winning_pct, by = c("away_team" = "team_name")) |>
+  rename(AwayTeamWP = Winning_Pct) |>
+  left_join(winning_pct, by = c("home_team" = "team_name")) |>
+  rename(HomeTeamWP = Winning_Pct)
+
+# Calculate the total winning percentage of opponents for home games
+home_sos <- remaining_schedule_with_wp %>%
+  group_by(home_team) %>%
+  summarise(Total_Opponent_WP = sum(AwayTeamWP, na.rm = TRUE),
+            Total_Games = n())
+
+# Calculate the total winning percentage of opponents for away games
+away_sos <- remaining_schedule_with_wp %>%
+  group_by(away_team) %>%
+  summarise(Total_Opponent_WP = sum(HomeTeamWP, na.rm = TRUE),
+            Total_Games = n())
+
+# Combine the SOS for home and away
+combined_sos <- bind_rows(home_sos %>% rename(team = home_team), 
+                          away_sos %>% rename(team = away_team)) %>%
+  group_by(team) %>%
+  summarise(Total_Opponent_WP = sum(Total_Opponent_WP),
+            Total_Games = sum(Total_Games)) %>%
+  mutate(`Remaining Opponent Winning Percentage` = round(Total_Opponent_WP / Total_Games * 100, 3))
+
+standings <- standings |> 
+  inner_join(combined_sos |> select(-Total_Opponent_WP, -Total_Games), by = c("team_name" = "team"))
+```
 
 #### Western
 

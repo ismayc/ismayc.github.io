@@ -20,7 +20,7 @@ library(httr)
 library(jsonlite)
 
 update <- FALSE
-date_added <- "2023-11-03"
+date_added <- "2024-02-09"
 season <- 2024
 #date_added <- Sys.Date()
 
