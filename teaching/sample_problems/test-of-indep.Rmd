@@ -1,0 +1,151 @@
+---
+title: "Chi-Square - Test of Independence Example"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cerulean
+    highlight: pygments
+---
+
+
+```{r setup, include=FALSE}
+pkg <- c("tidyr", "dplyr", "ggplot2", 
+  "knitr", "rmarkdown", "readr", 
+  "DT","devtools", "broom")
+
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+
+if (length(new.pkg)) {
+  install.packages(new.pkg, repos = "http://cran.rstudio.com")
+}
+
+lapply(pkg, library, character.only = TRUE)
+
+if(!require(oilabs))
+  devtools::install_github("ismayc/oilabs")
+
+options(digits = 5, scipen = 99)
+```
+
+# Problem Statement
+
+A random sample of 500 U.S. adults were questioned regarding their political affiliation (`democrat` or `republican`) and opinion on a tax reform bill (`favor`, `indifferent`, `opposed`). Based on this sample, do we have reason to believe that political party and opinion on the bill are related? [Tweaked a bit from https://onlinecourses.science.psu.edu/stat500/node/56]
+
+# Competing Hypotheses
+
+## In words
+
+- Null hypothesis: There is no association between the opinion on a tax reform bill and political affiliation for US adults.
+
+- Alternative hypothesis:  There is an association between the opinion on a tax reform bill and political affiliation for US adults.
+
+## Another way in words
+
+- Null hypothesis: The long-run probability that a US adult who favors the bill and identifies as Democrat is the **same** as the long-run
+probability that a US adult who is indifferent towards the bill and identifies as Democrat, which is the **same** as the long-run probability that a US adult who is opposed to the bill and identifies as Democrat. In other words all three long-run probabilities are actually the same.  (We choose `democrat` as a "success" here, but choosing `republican` would yield the same results.)
+
+- Alternative hypothesis:  At least one of these parameter (long-run) probabilities is different from the others
+
+## In symbols (with annotations)
+
+- $H_0: P_{favor} = P_{indifferent} =  P_{opposed}$, where $p$ represents the long-run probability of being a Democrat.
+- $H_A$: At least one of these parameter probabilities is different from the others
+
+## Set $\alpha$
+
+It's important to set the significance level before starting the testing using the data. Let's set the significance level at 5\% here.
+
+# Exploring the sample data
+
+```{r read_data, echo=FALSE}
+library(dplyr)
+library(knitr)
+library(ggplot2)
+library(oilabs)
+#download.file("https://raw.githubusercontent.com/ismayc/ismayc.github.io/master/teaching/sample_problems/party_tax.csv", destfile = "party_tax.csv")
+tax_opinion <- read.csv("party_tax.csv")
+```
+
+```{r summarize}
+table(tax_opinion$opinion, tax_opinion$party)
+```
+
+```{r mosaic}
+mosaicplot(table(tax_opinion$opinion, tax_opinion$party),
+           ylab = "Political Party", 
+           xlab = "Tax Reform Bill Opinion",
+           main = "Opinion vs Party",
+           color = c("purple", "forestgreen"))
+```
+
+```{r stacked_bar}
+qplot(x = party, data = tax_opinion, fill = opinion, geom = "bar")
+```
+
+## Guess about statistical significance
+
+We are looking to see if a difference exists in the heights of the bars corresponding to `democrat`.  Based solely on mosaic plot, we have reason to believe that a difference exists since the `favor` bar seems to be taller than the other two, BUT...it's important to use statistics to see if that difference is actually statistically significant!
+
+# Check conditions
+
+Remember that in order to use the short-cut (formula-based, theoretical) approach, we need to check that some conditions are met.
+
+1. _Independence_:  Each case that contributes a count to the table must be independent of all the other cases in the table.
+
+    This condition is met since cases were selected at random to observe.
+
+2. _Sample size_:  Each cell count must have at least 5 expected cases.
+
+    This is met by observing the table above.
+
+3. _Degrees of freedom_:  We need 3 or more columns in the table.
+
+    This is met by observing the table above.
+
+# Test statistic
+
+The test statistic is a random variable based on the sample data.  Here, we want to look for deviations from what we would expect cells in the table if the null hypothesis were true.  This requires us to calculate expected counts via
+
+$$\text{Expected Count}_{\text{row } i, \text{col } j} = \dfrac{\text{row } i \text{ total} \times \text{column } j \text{ total}}{\text{table total}}$$
+
+$X^2 = \sum_{\text{all cells in the table}} \dfrac{(\text{observed count} - \text{expected count})^2}{\text{expected count}}$
+
+Assuming the conditions outlined above are met, $X^2 \sim \chi^2(df = (R - 1) \times (C - 1))$ where $R$ is the number of rows in the table and $C$ is the number of columns.
+
+## Observed test statistic
+
+While one could compute this observed test statistic by "hand", the focus here is on the set-up of the problem and in understanding which formula for the test statistic applies.  We can use the `inference` function in the `oilabs` package to perform this analysis for us.
+
+```{r infer}
+inference(x = tax_opinion$party, 
+          y = tax_opinion$opinion, 
+          est = "proportion", 
+          alternative = "greater", 
+          type = "ht", 
+          method = "theoretical", 
+          eda_plot = FALSE, 
+          inf_plot = FALSE)
+```
+
+We see here that the $x^2_{obs}$ value is around 22 with $df = (2 - 1)(3 - 1) = 2$.  
+
+# Compute $p$-value
+
+The $p$-value---the probability of observing a $\chi^2_{df = 2}$ value of 22.2 or more in our null distribution---is 0.000015.  This can also be calculated in R directly:
+
+```{r pval}
+1 - pchisq(22.2, df = 2)
+```
+
+Note that we could also do this test directly without invoking the `inference` function using the `chisq.test` function.
+
+```{r chisq.test}
+chisq.test(x = table(tax_opinion$party, tax_opinion$opinion), correct = FALSE)
+```
+
+
+# State conclusion
+
+We, therefore, have sufficient evidence to reject the null hypothesis.  Our initial guess that a statistically significant difference existed in the proportions of Democrats across the three groups was backed up by this statistical analysis.  We do have evidence to suggest that there is a dependency between the position taken on the tax reform bill and political party for US adults, based on this sample.
+

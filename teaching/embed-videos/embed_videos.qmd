@@ -1,0 +1,16 @@
+---
+title: "Test embedding video"
+format: html
+---
+
+```{r}
+#| include: false
+library(vembedr)
+```
+
+```{r}
+#| echo: false
+# Include MGMT video at https://vimeo.com/218788505
+embed_vimeo("218788505")
+```
+

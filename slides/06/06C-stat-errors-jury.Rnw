@@ -1,0 +1,58 @@
+
+\documentclass[preview]{standalone}%[12pt]{article}
+\usepackage[margin=1.1in]{geometry}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage{sw20etpl}
+
+%TCIDATA{TCIstyle=book/book.lat,etpl,sw20etp}
+
+%TCIDATA{Created=Sat Aug 30 22:02:35 1997}
+%TCIDATA{LastRevised=Mon Sep 01 00:05:13 1997}
+
+%\input{tcilatex}
+\begin{document}
+
+\vspace*{0.1in}
+
+\begin{center}
+\begin{tabular}{|ll|c|c|}
+\hline
+& \multicolumn{1}{l|}{} & \multicolumn{2}{|c|}{\textbf{True State of Nature}} \\
+\cline{3-4}\cline{4-4}
+& \multicolumn{1}{l|}{} & Not Guilty & Guilty \\ \hline
+\multicolumn{1}{|c}{\textbf{Decision}} & \multicolumn{1}{|c|}{
+\begin{tabular}{l}
+\\ Not guilty \\ \\ \hline \\
+Guilty%
+\end{tabular}
+} & 
+\begin{tabular}{c}
+\begin{tabular}{c}
+\\CORRECT \\ 
+Innocent person set free
+\end{tabular} 
+\\ \\ \hline \\
+\begin{tabular}{c}
+WRONG (Type I error) \\ 
+Innocent person goes to jail%
+\end{tabular}
+\end{tabular}
+& 
+\begin{tabular}{c}
+\begin{tabular}{c}
+\\WRONG (Type II\ error) \\ 
+Guilty person set free
+\end{tabular}
+\\ \\ \hline \\
+\begin{tabular}{c}
+CORRECT \\ 
+Guilty person goes to jail
+\end{tabular}
+\end{tabular}
+\\  \hline
+\end{tabular}
+\end{center}
+
+\vspace*{0.1in}
+
+\end{document}

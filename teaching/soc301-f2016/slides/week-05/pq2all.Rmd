@@ -1,0 +1,1297 @@
+---
+title: "All practice problems for Quiz 2 on October 3"
+date: "Due on Monday, October 3, 2016 at 10 AM PDT"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+```{r include=FALSE}
+lc <- 0
+```
+
+
+<!-- Daniel -->
+
+# Problem `r lc <- lc + 1; lc`
+
+Before finishing and turning in any project, or sharing a project, it is recommended that you run this:
+
+- A. Code Code
+- B. Spell Check
+- C. Console editor
+- D. `?` function
+
+# Problem `r lc <- lc + 1; lc`
+
+Which one of these R chunk options dictates whether the code that produces the result should be printed before the corresponding R output:
+
+- A. `eval`
+- B. `include`
+- C. `echo`
+- D. `na.rm`
+
+# Problem `r lc <- lc + 1; lc`
+
+Which of the following is one way to correctly extract and list the `police_force_size` data from the `police_resid2` data frame: 
+
+- A. `police_resid2 + extract "police_force_size"`
+- B. `data = police_resid2, list = police_force size`
+- C. `police_resid2$police_force_size`
+- D. `police_resid2$c(police_force_size)`
+
+# Problem `r lc <- lc + 1; lc`
+
+What would be the most appropriate plot for a situation that was attempting to plot the number of text messages sent daily by gender?
+
+- A. Histogram
+- B. Scatterplot
+- C. Barplot
+- D. Boxplot
+
+# Problem `r lc <- lc + 1; lc`
+
+What R chunk would produce a faceted histogram that plots `age` by `orientation`, with a binwidth of 10, and with each orientation a different color?
+
+- A. 
+
+    ```{r include=FALSE}
+    library(okcupiddata)
+    library(ggplot2)
+    data(profiles)
+    ```
+
+
+    ```{r eval=FALSE}
+    ggplot(data = profiles, mapping = aes(x = age)) + 
+      geom_histogram(binwidth = 10, aes(fill = orientation)) +
+      facet_wrap(~ orientation)
+    ```
+
+- B. 
+
+    ```{r eval=FALSE}
+    ggplot(data = okcupiddata, mapping = aes(x = age)) +
+      geom_histogram(binwidth = 10, fill = orientation) +
+      facet_wrap(~ orientation)
+    ```
+
+- C.
+
+    ```{r eval=FALSE}
+    ggplot(data = profiles, mapping = aes(x = age)) +
+      geom_histogram(bins = 10, aes(fill = "orientation")) +
+      facet_wrap(~ orientation)
+    ```
+
+- D. 
+
+    ```{r eval=FALSE}
+    ggplot(data = okcupiddata, mapping = aes(x = age)) +
+      geom_bar(binwidth = 10, fill = orientation) +
+      facet_wrap(~ orientation)
+    ```
+
+
+<!-- Gray -->
+
+# Problem `r lc <- lc + 1; lc`
+
+You are asked to produce an appropriate plot for looking at the relationship between `age` and `height`. What kind of plot do you make?
+
+- A. Histogram
+- B. Scatterplot
+- C. Boxplot
+- D. Linegraph
+
+# Problem `r lc <- lc + 1; lc`
+
+What makes a data set tidy?
+
+- A. Each variable forms a column. 
+- B. Each observation forms a row. 
+- C. Each type of observational unit forms a table.
+- D. All of the above.
+
+# Problem `r lc <- lc + 1; lc`
+
+A boxplot is used for...
+
+- A. Two numerical variables.
+- B. Two categorical variables.
+- C. A numerical predictor and a categorical response.
+- D. A categorical predictor and a numerical response. 
+
+# Problem `r lc <- lc + 1; lc`
+
+What is faceting? 
+
+- A. It converts data units to physical units.
+- B. It creates small multiples of the same plot over a different numerical variable.
+- C. It creates small multiples of the same plot over a different categorical variable.
+- D. It dictates whether the code that produces the result should be printed before the corresponding R output.
+
+# Problem `r lc <- lc + 1; lc`
+
+Which of the following does `aes()`thetic *NOT* affect?
+
+- A. X/Y position
+- B. Depth
+- C. Color
+- D. Size
+
+<!-- Brittany -->
+
+# Problem `r lc <- lc + 1; lc`
+
+What is an appropriate graph to use when plotting a graph for two categorical variables?
+
+- A. Boxplot
+- B. Scatter plot
+- C. Histogram
+- D. Barplot
+
+# Problem `r lc <- lc + 1; lc`
+
+What is the most appropriate code for determining the relationship between `sex` and `age`?
+
+- A. 
+
+    ```{r eval=FALSE}
+    ggplot(data = profiles, mapping = aes(x = sex, y = age)) +
+      geom_boxplot()
+    ```
+
+- B. 
+
+    ```{r eval=FALSE}
+    ggplot(data = profiles, mapping = aes(x = sex, fill = name)) +
+      geom_bar()
+    ```
+
+- C.
+
+    ```{r eval=FALSE}
+    ggplot(data = profiles, mapping = aes(x = age, fill = sex)) +
+      geom_bar()
+    ```
+
+- D. 
+
+    ```{r eval=FALSE}
+    ggplot(data = profiles, mapping = aes(x = age, y = sex)) +
+      geom_boxplot()
+    ```
+
+# Problem `r lc <- lc + 1; lc`
+
+Why should scatterplots be jittered or points transparent?
+
+- A. For beauty reasons only
+- B. The data should only be jittered not also made transparent
+- C. Because it is easier to read by reducing overplotting
+- D. They shouldn't
+
+# Problem `r lc <- lc + 1; lc`
+
+What graph should be used when dealing with one categorical variable?
+
+- A. Histogram
+- B. Scatterplot
+- C. Barplot
+- D. Boxplot
+
+# Problem `r lc <- lc + 1; lc`
+
+Which R chunk produces the most appropriate faceted barplot of `carrier` based on `name`?
+
+```{r include=FALSE}
+library(dplyr)
+library(nycflights13)
+data(flights)
+data(airports)
+flights_namedports <- inner_join(flights, airports, by = c("origin" = "faa"))
+```
+
+- A.
+
+    ```{r eval=FALSE}
+    ggplot(data = flights_namedports, mapping = aes(x = carrier, fill = name)) +
+      geom_bar() +
+      facet_grid(name ~ .)
+    ```
+
+- B. 
+
+    ```{r eval=FALSE}
+    ggplot(data = flights_namedports, mapping = aes(x = name, fill = carrier)) +
+      geom_bar() +
+      facet_grid(. ~ name)
+    ```
+
+- C.
+
+    ```{r eval=FALSE}
+    ggplot(data = flights_namedports, mapping = aes(x = carrier, fill = name)) +
+      geom_bar() +
+      facet_grid(carrier ~ .)
+    ```
+
+- D. 
+
+    ```{r eval=FALSE}
+    ggplot(data = flights_namedports, mapping = aes(x = name, fill = carrier)) +
+      geom_bar() +
+      facet_grid(. ~ carrier)
+    ```
+  
+  
+<!-- Meaghan -->
+
+
+# Problem `r lc <- lc + 1; lc`
+
+What type of plot would be used for a categorical predictor and a numerical response?
+
+- A. faceted bar plot
+- B. scatter plot
+- C. box plot
+- D. histogram
+
+# Problem `r lc <- lc + 1; lc`
+
+Why do we use R?
+
+- A. R is free!
+- B. R is easily reproducible. 
+- C. R is set up to be so difficult that no one will succeed. 
+- D. A and B
+
+# Problem `r lc <- lc + 1; lc`
+
+Which of these codes is the most correct? 
+
+- A.
+
+    ```{r eval=FALSE}
+    ggplot(data = profiles, mapping = aes(x = drugs))
+      geom_bar(color = coral, fill = "green", na.rm = TRUE)
+    ```
+
+- B. 
+    
+    ```{r eval=FALSE}
+    ggplot(data=profiles, mapping= aes(x=drugs)) +
+      geom_bar(color= "coral", fill= "green", na.rm = FALSE)
+    ```
+
+- C.
+
+    ```{r eval=FALSE}
+    ggplot(data = profiles, mapping = aes(x = drugs)) +
+            geom_bar(color = "coral", fill = "green", na.rm = TRUE)
+    ```
+
+- D. 
+
+    ```{r eval=FALSE}
+    ggplot(mapping = (aes) x = drugs, data = profiles,) +
+            geom_bar(color = "coral", fill = "green", na.rm = TRUE)
+    ```
+  
+
+# Problem `r lc <- lc + 1; lc`
+
+When producing a code for a scatterplot, do we use the `fill` function or the `color` function to change the color of the points? 
+
+- A. You use both. 
+- B. `color`
+- C. Neither, you cannot use any type of color on a scatter plot. 
+- D. `fill`
+
+# Problem `r lc <- lc + 1; lc`
+
+Tidy data is...
+
+- A. When the data set is small. 
+- B. When things are organized in a nice and neat manner. 
+- C. When each variable forms a row, and the observational unit forms a column. 
+- D. When each variable forms a column, and the observational unit forms a row, and each type of observational unit forms a table.
+
+# Problem `r lc <- lc + 1; lc`
+
+What is one difference between a histogram and a bar plot?
+
+- A. A histogram has bars that touch, a bar plot has bars that do not touch.
+- B. A histogram has bars that touch, a bar plot has bars that are a different color, but also touch. 
+- C. A histogram has bars that do not touch, a bar plot has bars that do touch. 
+- D. A histogram is a large collection of dots, a bar plot is a line. 
+
+<!-- Cassie -->
+
+
+# Problem `r lc <- lc + 1; lc`
+
+The Code Editor/View Window is?
+
+- A. located at the bottom left corner.
+- B. serves as a place to view contents of files and objects in R.
+- C. your R sandbox.
+- D. all of the above.
+
+# Problem `r lc <- lc + 1; lc`
+
+If you would like to list many entries in a `vector` object, you can do so by?
+
+- A. entering `?c` in the R console
+- B. using the `View` function
+- C. both A and B
+- D. none of the above
+
+# Problem `r lc <- lc + 1; lc`
+
+Rules for naming objects in R include?
+
+- A. R is case-sensitive.
+- B. object names cannot begin with a number.
+- C. objects cannot contain symbols that are native to R or are used for mathematics.
+- D. all of the above.
+
+# Problem `r lc <- lc + 1; lc`
+
+`geom` refers to?
+
+- A. the X and Y position on a plot.
+- B. smoothing and binning values.
+- C. a type of plot.
+- D. adjustments.
+
+# Problem `r lc <- lc + 1; lc`
+
+Box plots are best for?
+
+- A. one categorical variable.
+- B. one numerical predictor and one numerical response.
+- C. one categorical predictor and one numerical response.
+- D. one categorical predictor and one categorical response.
+
+# Problem `r lc <- lc + 1; lc`
+
+One categorical variable is best displayed in which type of plot?
+
+- A. Histogram
+- B. Bar plot
+- C. Faceted bar plot
+- D. none of the above
+
+<!-- Griffin -->
+
+# Problem `r lc <- lc + 1; lc`
+
+What are the values given in a 5-number Summary?
+
+- A. Minimum, First Quartile, Mean, 3rd Quartile, Maximum
+- B. Low Outliers, First Quartile, Median, Third Quartile, High Outliers
+- C. Minimum, First Quartile, Median, Third Quartile, Maximum
+- D. First Quartile, Median, Third Quartile, Interquartile Range, Outliers
+
+# Problem `r lc <- lc + 1; lc`
+
+Which chunk produces the following graph with warning output?
+
+```{r echo=FALSE}
+ggplot(data=flights,mapping=aes(x=arr_delay))+
+  geom_histogram(binwidth=15,color="black",fill="gold")
+```
+
+
+- A.
+
+    ```{r eval=FALSE}
+    ggplot(data = flights, mapping = aes(x = arr_delay)) +
+      geom_histogram(bins = 1000, color = "black", fill = "gold")
+    ```
+
+- B. 
+    
+    ```{r eval=FALSE}
+    ggplot(data = flights, mapping = aes(x = arr_delay)) +
+      geom_bar(binwidth = 15, color = "black", fill = "gold")
+    ```
+
+- C.
+
+    ```{r eval=FALSE}
+    ggplot(data = flights, mapping = aes(x = arr_delay, fill = gold)) + 
+      geom_histogram(bins = 10, color = "black")
+    ```
+
+- D. 
+
+    ```{r eval=FALSE}
+    ggplot(data = flights, mapping=aes(x = arr_delay)) +
+      geom_histogram(binwidth = 100, color = black, fill = gold)
+    ```
+  
+# Problem `r lc <- lc + 1; lc`
+
+What are the correct definitions of the `echo`, `eval`, and `include` chunk options?
+
+- A. `echo` specifies whether the code AND its output should be in the resulting knitted document, `eval` specifies whether the code should be assessed or just displayed without its output, `include` dictates whether the code that produces the result should be printed before the corresponding R output.
+- B. `echo` specifies whether the code should be assessed or just displayed without its output, `eval` dictates whether the code that produces the result should be printed before the corresponding R output, `include` specifies whether the code AND its output should be in the resulting knitted document.
+- C. `echo` dictates whether the code that produces the result should be printed before the corresponding R output, `eval` specifies whether the code AND its output should be in the resulting knitted document, `include` specifies whether the code should be assessed or just displayed without its output.
+- D. `echo` dictates whether the code that produces the result should be printed before the corresponding R output, `eval` specifies whether the code should be assessed or just displayed without its output, `include` specifies whether the code AND its output should be in the resulting knitted document.
+
+# Problem `r lc <- lc + 1; lc`
+
+Given the `flights` data set, what plot would be most appropriate for comparing the variables `carrier` and `arr_delay`?
+
+- A. Faceted Barplot
+- B. Scatterplot
+- C. Boxplot
+- D. Faceted Histogram
+
+# Problem `r lc <- lc + 1; lc`
+
+What is NOT a feature of Tidy Data?
+
+- A. Rows correspond to observations
+- B. Data converted to Tidy data will be in Wide Format
+- C. Data converted to Tidy data will be in Long Format
+- D. Both A and B
+
+<!-- Xavier -->
+
+
+# Problem `r lc <- lc + 1; lc`
+
+What is not a reason we use R?
+
+- A. R only costs a few dollars to use
+- B. R is reproducible
+- C. R helps you find answers quickly
+- D. R makes it easy to collaborate
+
+# Problem `r lc <- lc + 1; lc`
+
+What is not the name of a type of graph?
+
+- A. Box plot
+- B. Flat plot
+- C. Histogram
+- D. Bar plot
+
+# Problem `r lc <- lc + 1; lc`
+
+Which one is not a panel seen on RStudio?
+
+- A. Checker
+- B. History
+- C. Console
+- D. Environment
+
+# Problem `r lc <- lc + 1; lc`
+
+What is not a key element of tidy data?
+
+- A. variables
+- B. values
+- C. observational unit
+- D. graph
+
+# Problem `r lc <- lc + 1; lc`
+
+What is not a component of Hadley Wickham's workflow graphic?
+
+- A. Untidy
+- B. Import
+- C. Communicate
+- D. Understand
+
+<!-- Kawita -->
+
+
+# Problem `r lc <- lc + 1; lc`
+
+Which one of the following is a valid R code for a faceted plot?
+
+- A. `facet_grid()`
+- B. `Facets()`
+- C. `facet_wrap()`
+- D. A and C
+
+# Problem `r lc <- lc + 1; lc`
+
+What plot would correspond to a data set that compares one continuous numerical variable to one categorical variable?
+
+- A. Bar plot
+- B. Histogram
+- C. Scatter plot
+- D. Box plot
+
+# Problem `r lc <- lc + 1; lc`
+
+When usually would be a good reason to use a line graph over a scatter plot?
+
+- A. When you want to connect the dots to make a picture of a puppy
+- B. When the x-axis is time and each time point corresponds to one y value
+- C. If you are comparing a numerical variable to a categorical variable
+- D. If the scatter plot code you enter results in an error
+
+# Problem `r lc <- lc + 1; lc`
+
+What does it mean to "jitter" the points on a plot?
+
+- A. To shake the points a bit on the plot
+- B. To remove some of the over-plotting
+- C. To add "random noise" to the points to better see them
+- D. All of the above
+
+# Problem `r lc <- lc + 1; lc`
+
+What reason did Naomi Robbins, author of “Creating More Effective Graphs”, for why we shouldn't use pie charts?
+
+- A. They do not look professional
+- B. We often overestimate angles greater than 90 degrees and we underestimate angles less than 90 degrees
+- C. Histograms are more efficient for categorical data and make it easier to analyze data
+- D. The word "pie" is a distraction from the data analysis
+
+<!-- Jenny -->
+
+
+# Problem `r lc <- lc + 1; lc`
+
+What are the main features of a tidy data set? 
+
+- A. Observational units form columns and variables are in the rows
+- B. All variables are in one column and observational units are in the rows
+- C. A single variable forms a single column and all observations are in a row
+- D. Each observation is in a row and each single variable is a column
+
+# Problem `r lc <- lc + 1; lc`
+
+If you want to plot two variables, where the explanatory is categorical and the response is numeric, which types of graphs would be appropriate to use?
+
+- A. Faceted barplot & faceted histogram 
+- B. Faceted histogram & line graph 
+- C. Boxplot & faceted barplot
+- D. Boxplot & faceted histogram 
+
+# Problem `r lc <- lc + 1; lc`
+
+If you want to plot two categorical variables which type of graph would be the most appropriate to use?
+
+- A. Boxplot
+- B. Bar plot
+- C. Faceted barplot
+- D. Faceted histogram 
+
+# Problem `r lc <- lc + 1; lc`
+
+What is the difference between a faceted histogram and a faceted barplot?
+
+- A. A faceted histogram is used for two categorical variables and a faceted barplot is best for one categorical and one numeric variable 
+- B. A faceted barplot is used for two categorical variables and a faceted histogram is used for a numeric explanatory variable and a categorical response variable 
+- C. A faceted barplot shows two categorical variables and a faceted histogram shows two numeric variables
+- D. A faceted histogram is for plotting a categorical explanatory variable and a numeric response variable while a faceted barplot is for plotting a categorical explanatory and categorical response variable
+
+# Problem `r lc <- lc + 1; lc`
+
+What is one thing the `factor` function does?
+
+- A. Counts how many pieces of data there are for a given variable 
+- B. Turns a continuous variable into a discrete variable 
+- C. Turns a discrete variable into a categorical variable
+- D. Tells you what type of variable (categorical, numeric, integer) something is
+
+# Problem `r lc <- lc + 1; lc`
+
+Which of these would produce a side by side barplot of `status` faceted by `sex` with `fill` color determined by `orientation`?
+
+- A.
+
+    ```{r eval=FALSE}
+    ggplot(data = profiles, aes(status, fill = orientation)) +
+      geom_bar() + 
+      facet_wrap(~sex) + 
+      (position = "dodge")
+    ```
+
+- B. 
+
+    ```{r eval=FALSE}
+    ggplot(data = profiles, aes(status, fill = orientation)) + 
+      geom_bar(position = "dodge") + 
+      facet_wrap(~sex) 
+    ```
+
+- C.
+    
+    ```{r eval=FALSE}
+    ggplot(data = profiles, aes(status, fill = orientation)) + 
+      geom_bar() + 
+      facet_wrap(~sex)
+    ```
+
+- D. 
+
+    ```{r eval=FALSE}
+    ggplot(data = profiles, aes(status, fill = orientation)) +
+      geom_bar(position = dodge) + 
+      facet_wrap(~sex)
+    ```
+
+
+# Problem `r lc <- lc + 1; lc`
+
+Which of these will give us rows 9 through 12 of the variable `distance` in the `flights` data set? 
+
+- A. `flights$distance[9:12]`
+- B. `flights$distance[-9:12]`
+- C. `flights$distance[c(9, 12)]`
+- D. `flights$distance [-c(8, 13)]`
+
+# Problem `r lc <- lc + 1; lc`
+
+Which of these plots is not used when the explanatory variable is categorical? 
+
+- A. Faceted barplot
+- B. Boxplot 
+- C. Faceted histogram 
+- D. Scatterplot
+
+<!-- Dinisa -->
+
+
+# Problem `r lc <- lc + 1; lc`
+
+If you were to compare two variables such as percentage of voters by region, what plot would you use to display this distribution of data?
+
+- A. Barplot
+- B. Boxplot
+- C. Histogram
+- D. Scatterplot
+
+# Problem `r lc <- lc + 1; lc`
+
+What is the purpose of *jittering* when you have a large mass of points in a **_Scatterplot_**?
+
+- A. This function helps when there is a large mass of points because it makes the plot look nicer and saves you from confusion.
+- B. This function helps when there is a large mass of points because it allows you to shake the points a bit on the plot and fix overplotting.
+- C. This function helps when there is a large mass of points because it allows you to add just a bit of random noise to the points to better see them.
+- D. All of the above.
+
+# Problem `r lc <- lc + 1; lc`
+
+What 2 functions are most crucial when producing a faceted barplot?
+
+- A.`factor` and `geom_bar` functions
+- B.`geom_bar` and `facet_grid` functions
+- C.`bins` and `facet_grid` functions
+- D. None of the above. 
+
+# Problem `r lc <- lc + 1; lc`
+
+Which of the following would be the result of running the following R code in the Console? 
+
+`> library(okcupiddata)`
+
+- A. R will load the `okcupiddata` package if the package is installed.
+- B. R will allow you to view the `okcupiddata` dataset.
+- C. It will allow you to remove the missing values in the `okcupiddata` dataset.
+- D. All of the above.
+
+# Problem `r lc <- lc + 1; lc`
+
+Why is the `labs` function useful in keeping your data distributions organized?
+
+- A.The `labs` function is useful because it allows you to label the **x** and **y** axis.
+- B.The `labs` function is useful because it allows you to change the default labels on the plot and add a title.
+- C.The `labs` function is useful because others are able to receive clarification of the data distribution, with the help of labels.
+- D. All of the above.
+
+<!-- Kelcie -->
+
+# Problem `r lc <- lc + 1; lc`
+
+How are tidy datasets formed?
+
+- A. Variables in columns, observations in rows and values in the table.
+- B. Values in columns, variables in rows and observations in the table.
+- C. Observations in columns, values in rows and variables in the table. 
+- D. None of the above. 
+
+# Problem `r lc <- lc + 1; lc`
+
+If a dataset called `class_examscore` included 10 students names and grades that they received on three exams, how would you extract the first five student names in the dataset?
+
+- A. `class_examscore$name[1:5]`
+- B. `class_examscore$name(c(1, 5))`
+- C. `class_examscore$name1:5`
+- D. None of the above 
+
+# Problem `r lc <- lc + 1; lc`
+
+A faceted barplot is most likely used when you are graphing....
+
+- A. Two categorical variables 
+- B. Two numerical variables
+- C. One categorical variables 
+- D. One numerical variables
+
+# Problem `r lc <- lc + 1; lc`
+
+To produce a histogram with 4 bins, fill color blue and border color green, what would the ending of the R chunk look like? 
+
+- A. `geom_histogram(bins = 4, color = "green", fill = "blue")`
+- B. `geom_histogram(bins = 4, color = green, fill = blue)`
+- C. `geom_histogram(bins = 4, color = "blue", fill = "green")`
+- D. `geom_histogram(bins = 4, color = blue, fill = green)`
+
+# Problem `r lc <- lc + 1; lc`
+
+When would sometimes using the median be better and more reliable than using the mean?
+
+- A. The outliers won't have a large impact on the median of values. 
+- B. You should never use the median, always use the mean of the values. 
+- C. The median may be a smaller value to the mean. 
+- D. The median is easier to obtain. 
+
+<!-- Liz -->
+
+# Problem `r lc <- lc + 1; lc`
+
+Which code below corresponds to a histogram with 10 bins, a black outline, and a blue fill
+(assuming the appropriate call to `ggplot` with a `+` was made just before this)? 
+
+- A. `ggplot(binwidth = 10, color = "white", fill = "forestgreen")`
+- B. `geom_histogram(binwidth = 10, color = "black", fill = "blue")`
+- C. `geom_histogram(bins = 10, color = "black", fill = "blue")`
+- D. `geom_boxplot(binwidth = 10, color = "black", fill = "blue")`
+
+# Problem `r lc <- lc + 1; lc`
+
+What is known as the five-number summary?
+
+- A. Minimum value, 1st quartile value, 2nd quartile value, 3rd quartile value, maximum value
+- B. The average of the first five numbers in the data set.
+- C. Minimum value, 1st quartile value, median, mean, 3rd quartile value
+- D. Minimum value, median, mean, maximum value, missing values
+
+# Problem `r lc <- lc + 1; lc`
+
+What is the biggest problem with pie charts compared to barplots?
+
+- A. Difficult to determine relative size of each piece because it is hard to judge angles.
+- B. Too many colors make it harder for someone to read the graph.
+- C. Uses percentages which is harder to analyze data with.
+- D. Pie charts are unable to weed out the unnecessary data points.
+
+# Problem `r lc <- lc + 1; lc`
+
+"`Error: could not function 'ggplot'`" appears in the R Console after running:
+
+```{r eval=FALSE}
+ggplot(data = alaska_flights, aes(x = dep_delay, y = arr_delay)) + 
+   geom_point(alpha = 0.2)
+```
+
+What needs to be done to fix this error?
+
+- A. You need to put `ggplot2` rather than `ggplot` in your code.
+- B. `ggplot` is a function in `ggplot2`, so you need to make sure `ggplot2` is loaded via `library(ggplot2)` in a chunk above this chunk.
+- C. The `g` in `ggplot` needs to be capitalized: (`Ggplot`)
+- D. None of the above.
+
+# Problem `r lc <- lc + 1; lc`
+
+What does the following code do when it is run in R? (assuming that we have downloaded the `police_resid2` data and loaded the `ggplot2` package)?
+
+```{r eval=FALSE}
+ggplot(data = police_resid2, mapping = aes(x = white)) +
+  geom_histogram(bins = 5, color = "white", fill = "red")
+```
+
+- A. Displays a graph with 5 red colored bins
+- B. Creates a histogram on the `white` variable using the `police_resid2` data
+- C. Highlights the border of the bars in the plot with white color
+- D. All the above
+
+<!-- Jessica -->
+
+# Problem `r lc <- lc + 1; lc`
+
+What does NOT make a dataset tidy?
+
+- A. Each variable forms a row. 
+- B. Each variable forms a column.
+- C. Each type of observational unit forms a table.
+- D. Each observation forms a row. 
+
+# Problem `r lc <- lc + 1; lc`
+
+Below are a few of the symbols and panes that are the most common within RStudio. Find the incorrect symbol or pane description. 
+
+- A. The assignment operator is denoted by `<-` . You can read this as putting your contents of the left-hand-side into an object name whenever it appears in the right-hand-side.
+- B. The "History" tab allows you to store all of the codes in a file and then "run" that code whenever needed. 
+- C. The "Viewer" tab shows the resulting HTML file created from the R Markdown "Knit."
+- D. The "Plots" tab allows you to create graphs and/or figures without any code. 
+
+# Problem `r lc <- lc + 1; lc`
+
+When would it be most appropriate to use a boxplot? 
+
+- A. To compare the distribution of one or more quantitative variables across multiple levels of one categorical variable.
+- B. To compare and contrast the distribution of one quantitative variable across multiple levels of one categorical variable.
+- C. To contrast the distribution of one quantitative variable across multiple levels of one categorical variable.
+- D. To visualize the frequency of different categories of a categorical variable.
+
+# Problem `r lc <- lc + 1; lc`
+
+What can be done when missing values from a data set need to be excluded from analysis? 
+
+- A. `na.rm = TRUE`
+- B. `narm = FALSE`
+- C. `na = TRUE`
+- D. `na.rm = FALSE`
+
+# Problem `r lc <- lc + 1; lc`
+
+Carefully analyze the code below:
+
+```{r eval=FALSE}
+if(!require("ggplot2"))
+  install.packages("ggplot2", repos = "http://cran.rstudio.org")
+library(ggplot2)
+ggplot(data = weather, mapping = aes(x = temp))
+```
+
+If you wanted to produce a histogram, would the code above plot a histogram? Why or why not?
+
+- A. Yes. The code above specifically allows RStudio to plot the dataset. 
+
+- B. No. The code just provided a backdrop. We need to be able to plot, thus we will follow up the code with a "+". As seen in the code below. 
+
+    ```{r eval=FALSE}
+    ggplot(data = weather, mapping = aes(x = temp)) +
+      geom_histogram()
+    ```
+
+- C. Yes. The code above has provided the backdrop and added the layer needed to plot. 
+
+- D. No. The code just provided a backdrop. We need to be able to plot, thus we will begin the following line with a "+". As seen in the code below. 
+
+    ```{r eval=FALSE}
+    ggplot(data = weather, mapping = aes(x = temp)) 
+      + geom_histogram()
+    ```
+
+<!-- Hunter -->
+
+# Problem `r lc <- lc + 1; lc`
+
+Which plot is appropriate to plot the relationship between `sex` and `education` in the `profiles` `okcupiddata` data set?
+
+- A. Barplot
+- B. Faceted Barplot 
+- C. Histogram
+- D. Faceted Histogram
+
+# Problem `r lc <- lc + 1; lc`
+
+Which code will correctly produce the appropriate plot (though it won't be a really nice thing to look at...) to plot `sex` and `education` in the `profiles` `okcupiddata` data set?
+
+- A.
+    
+    ```{r eval=FALSE}
+    ggplot(data = profiles, mapping = aes(x = education)) +
+     geom_histogram(aes(fill = education), na.rm = TRUE)
+    ```
+
+- B.
+
+    ```{r eval=FALSE}
+    ggplot(data = profiles, mapping = aes(x = education)) + 
+      geom_bar(aes(fill = "education"), na.rm = TRUE) +
+      facet_wrap(~sex)
+    ```
+
+- C.
+
+    ```{r eval=FALSE}
+    ggplot(data = profiles, mapping = aes(x = education))+
+     geom_bar(aes(fill = education), na.rm = TRUE) +
+      facet_wrap(~ethnicity)
+    ```
+
+- D. 
+
+    ```{r eval=FALSE}
+    ggplot(data = profiles, mapping = aes(x = education)) +
+      geom_bar(aes(fill = education), na.rm = TRUE) +
+      facet_wrap(~sex)
+    ```
+
+# Problem `r lc <- lc + 1; lc`
+
+What is the correct code to produce this graph?
+
+```{r, echo=FALSE, fig.width=10}
+ggplot(data = profiles, mapping = aes(x = smokes)) +
+  geom_bar(aes(fill = smokes), na.rm=TRUE) +
+  facet_wrap(~status)
+```
+
+- A. 
+
+    ```{r eval=FALSE}
+    ggplot(data = profiles, mapping = aes(x = smokes)) +
+      geom_bar(aes(fill = smokes), na.rm = TRUE) +
+      facet_wrap(~status)
+    ```
+
+- B.
+
+    ```{r eval=FALSE}
+    ggplot(data = profiles, mapping = aes(y = smokes)) +
+      geom_boxplot(aes(fill = smokes), na.rm = TRUE) +
+      facet_wrap(~status)
+    ```
+
+- C.
+
+    ```{r eval=FALSE}
+    ggplot(data = profiles, mapping = aes(x = smokes)) +
+      geom_bar(aes(fill= "smokes"), na.rm = TRUE) +
+      facet_wrap(~status)
+    ```
+
+- D.
+
+    ```{r eval=FALSE}
+    ggplot(data = profiles, mapping = aes(x = status)) +
+      geom_bar((aes(fill = smokes, na.rm = TRUE))) +
+      facet_wrap(~smokes)
+    ```
+
+<!-- Nani -->
+
+# Problem `r lc <- lc + 1; lc`
+
+How does the placement of a `~` affect the display of the plot? 
+For example, if it is `facet_grid(. ~ size)` compared to `facet_grid(size ~ .)`?
+
+- A. The placement of the `~` does not effect the plot display in this case.
+- B. The levels of `size` are displayed on the top of the graph with `(. ~ size)`
+- C. The levels of `size` are displayed on the right-hand-side of the graph `(size ~)`
+- D. Answers B and C
+
+# Problem `r lc <- lc + 1; lc`
+
+When a plot is skewed to the right it...? 
+
+- A. Has large humps on the left
+- B. Has large humps on the right
+- C. Is bell shaped
+- D. None of the above
+
+
+# Problem `r lc <- lc + 1; lc`
+
+When using two categorical variables, what is the most appropriate plot to use? 
+
+- A. Boxplot
+- B. Scatter-plot
+- C. Barplot
+- D. Faceted Bar
+
+
+# Problem `r lc <- lc + 1; lc`
+
+What precisely does the "box" of a boxplot represent?
+
+- A. 0th, 50th, and 100th percentiles
+- B. Below average, average, above average
+- C. 25th, 50th and 75th percentiles
+- D. Answers A and B
+
+
+# Problem `r lc <- lc + 1; lc`
+
+What is needed to make the following chunk of code correct? 
+
+```{r eval=FALSE}
+ggplot(data = profiles, mapping = aes(x = drugs)) +
+  geom_bar(color = "white", (fill = drugs), na.rm = TRUE)
+```
+
+- A. `(fill = "drugs")`
+- B. `, (na.rm = TRUE))`
+- C. `aes(fill = drugs)`
+- D. None of the above
+
+<!-- Wyatt -->
+
+
+# Problem `r lc <- lc + 1; lc`
+
+What is the `c` function used for?
+
+- A. Listing out entries and putting them into a vector object
+- B. Checking to see what type an object is
+- C. Categorizing different variables in a data set
+- D. Changing the color of histogram bins
+
+# Problem `r lc <- lc + 1; lc`
+
+How would we extract entries 2-34 from a variable of 72 entries?
+
+- A. `[c(2-34)]`
+- B. `[c(2,34)]`
+- C. `[-c(2,34)]`
+- D. `[2:34]`
+
+# Problem `r lc <- lc + 1; lc`
+
+Which of the following code is needed to produce a faceted histogram of `age` based on and colored by `sex` using the data set `profiles` from `okcupiddata`?
+
+- A. `mapping = aes(x = age, fill = sex)`
+- B. `mapping = aes(x = sex, fill = age)`
+- C. `mapping = aes(x = age, y = sex)`
+- D. `mapping = aes(x = sex, y = age)`
+
+# Problem `r lc <- lc + 1; lc`
+
+What type of graph is included in mapping two categorical variables?
+
+- A. Histogram
+- B. Barplot
+- C. Boxplot
+- D. Scatterplot
+
+# Problem `r lc <- lc + 1; lc`
+
+What function do I use to label/rename parts of a graph?
+
+- A. `aes`
+- B. `ggplot`
+- C. `labs`
+- D. `wrap`
+
+<!-- Emily -->
+
+
+# Problem `r lc <- lc + 1; lc`
+
+What are the five named graphics (5NG)?
+
+- A. Histograms, Boxplots, Pie chart, Scatter plot, Line graph
+- B. Boxplot, Scatter plot, Line plot, Histogram, Barplot
+- C. Scatter plot, Histogram, Boxplot, Pie chart, Pictograph
+- D. None of the above
+
+# Problem `r lc <- lc + 1; lc`
+
+Which code is correct for producing a histogram with the `rain` variable with specified bins and color with no warning messages?
+
+- A. 
+
+    ```{r eval=FALSE}
+    ggplot(data = weather, mapping = aes(x = rain)) +
+      geom_histogram(binwidth = 10, fill = "limegreen", color = "black", na.rm = TRUE)
+    ```
+
+- B. 
+
+    ```{r eval=FALSE}
+    ggplot(data = weather, mapping = aes(x = rain, y = humid)) +
+      geom_histogram(binwidth = 10, fill = "limegreen", color = "black", na.rm = TRUE)
+    ```
+
+- C. 
+
+    ```{r eval=FALSE}
+    ggplot(data = weather, mapping = aes(x = rain)) +
+      geom_boxplot(binwidth = 10, fill = "limegreen", color = "black", na.rm = TRUE)
+    ```
+
+- D.
+
+    ```{r eval=FALSE}
+    ggplot(data = weather, mapping = aes(x = rain)) +
+      geom_histogram(fill = "limegreen", color = "black", na.rm = TRUE)
+    ```
+
+
+# Problem `r lc <- lc + 1; lc`
+
+Which of the following is most appropriate for plotting the temperature in Oregon for the past month?
+
+- A. Box plot
+- B. Scatter plot
+- C. Faceted barplot
+- D. Histogram
+
+# Problem `r lc <- lc + 1; lc`
+
+What does skewed right mean when looking at a bar plot?
+
+- A. A majority of the data falls near the center of the graph
+- B. A majority of the data falls near the right side of the graph
+- C. A majority of the data falls near the left side of the graph
+- D. None of the above.
+
+# Problem `r lc <- lc + 1; lc`
+
+Which of the following is the best option for comparing the distributions of two variables that are not categorical?
+
+- A. You should never compare two variables
+- B. Histograms
+- C. Barplots
+- D. None of the above
+
+<!-- Rachel -->
+
+# Problem `r lc <- lc + 1; lc`
+
+How do you plot the relationship between `age` and `height`?
+
+- A. 
+
+    ```{r eval=FALSE}
+    ggplot(data = profiles, mapping = sex, height) +
+      geom_histogram()
+    ```
+
+- B.
+
+    ```{r eval=FALSE}
+    ggplot(data = profiles, aes(x = age, y = height)) + 
+      geom_bar()
+    ```
+
+- C.
+
+    ```{r eval=FALSE}
+    ggplot(data = profiles, aes(x = age, y = height)) + 
+      facet_histogram(na.rm = TRUE)
+    ```
+
+- D.
+
+    ```{r eval=FALSE}
+    ggplot(data = profiles, aes(x= age, y= height)) + 
+      geom_point(na.rm = TRUE)
+    ```
+
+
+# Problem `r lc <- lc + 1; lc`
+
+Which of the following would be most appropriate when plotting one numerical and one categorical variable?
+
+- A. Box Plot
+- B. Histogram
+- C. Bar plot
+- D. Faceted histogram
+
+# Problem `r lc <- lc + 1; lc`
+
+Which chunk would create a faceted histogram of `sex` and `age`, with border color pink, and fill color based on the values of `smokes`, and 20 bins?
+
+- A.
+
+    ```{r eval=FALSE}
+    ggplot(data = profiles, mapping = (x = age, y = sex)) +
+      geom_histogram(bins = 20, color = pink, fill = smokes)
+    ```
+
+- B.
+
+    ```{r eval=FALSE}
+    ggplot(data = profiles, mapping = aes(x = age)) +
+      geom_histogram(bins = 20, color = "pink", aes(fill = smokes)) +
+      facet_grid(~sex)
+    ```
+
+- C.
+
+    ```{r eval=FALSE}
+    ggplot(data = profiles, mapping = aes(x=age, y=sex)) +
+             geom_histogram(bins = 20, color = pink, fill = "smokes")
+    ```
+
+- D.
+
+    ```{r eval=FALSE}
+    ggplot(data=profiles, mapping=aes(x=age))+ 
+      geom_histogram(bins=20, color = "pink", aes(fill = smokes)) + 
+      facet_plot(sex)
+    ```
+
+
+# Problem `r lc <- lc + 1; lc`
+
+Why do we wrap things in `aes`?
+
+- A. It reminds R that the values specified vary and aren't fixed like a specific color.
+- B. Any specified color for fill or border needs to be wrapped in `aes`
+- C. All geometries must be wrapped to remind R that they plot values.
+- D. None of the above.
+
+# Problem `r lc <- lc + 1; lc`
+
+What is the biggest difference between a bar plot and a histogram?
+
+- A. Bar plot looks at 2 variables, histogram looks at 1
+- B. Histogram looks at 2 variables, bar plot looks at 1 variable
+- C. Histograms plot continuous variables, barplots plot categorical variables.
+- D. Histogram bars does not touch, barplot has continuous data and, thus, touching bars
+
+<!-- Max -->
+
+
+# Problem `r lc <- lc + 1; lc`
+
+What two types of variables do box plots compare? 
+
+- A. Categorical, Numerical
+- B. Categorical, categorical
+- C. Numerical, Numerical
+- D. All of the above
+
+# Problem `r lc <- lc + 1; lc`
+
+What does the code look like for a histogram?
+
+- A. `ggplot(data = , mapping = aes(x = )) + geom_histogram()`
+- B. `ggplot(data= , mapping = (x = )) + geom_histogram()`
+- C. `ggplot(data= , mapping = (aes=)) + geom_histogram ()`
+- D. `ggplot(data= , mapping = aes(x = )) + create_histogram()`
+
+# Problem `r lc <- lc + 1; lc`
+
+What types of variables does a scatterplot graph?
+
+- A. categorical, categorical
+- B. categorical, numerical
+- C. numerical, numerical
+- D. none of the above
+
+# Problem `r lc <- lc + 1; lc`
+
+How do you set the transparency of `point`s?
+
+- A. `alpha = `
+- B. `trans = `
+- C. `add = `
+- D. not possible
+
+# Problem `r lc <- lc + 1; lc`
+
+Why should you use a lineplot?
+
+- A. Great way to look at trends over time
+- B. You should never!
+- C. When you have a natural ordering to `x` and one corresponding value of `y` for each `x` value.
+- D. Both A and C

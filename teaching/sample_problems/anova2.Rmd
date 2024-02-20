@@ -1,0 +1,207 @@
+---
+title: "ANOVA Example 2"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cerulean
+    highlight: pygments
+references:
+- id: oi
+  title: OpenIntro Statistics, Third Edition
+  author:
+  - family: Diez
+    given: David
+  - family: Barr
+    given: Christopher
+  - family: Cetinkaya-Rundel
+    given: Mine
+  type: book
+  issued:
+    year: 2015
+---
+
+
+```{r setup, include=FALSE}
+pkg <- c("tidyr", "dplyr", "ggplot2", 
+  "knitr", "rmarkdown", "readr", 
+  "DT","devtools", "broom", "openintro")
+
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+
+if (length(new.pkg)) {
+  install.packages(new.pkg, repos = "http://cran.rstudio.com")
+}
+
+lapply(pkg, library, character.only = TRUE)
+
+if(!require(oilabs))
+  devtools::install_github("ismayc/oilabs", force = TRUE)
+
+options(digits = 5, scipen = 99)
+```
+
+# Problem Statement
+
+Chicken farming is a multi-billion dollar industry,
+and any methods that increase the growth rate of young chicks can reduce consumer costs while
+increasing company profits, possibly by millions of dollars. An experiment was conducted to
+measure and compare the effectiveness of various feed supplements on the growth rate of chickens.
+Newly hatched chicks were randomly allocated into six groups, and each group was given a different
+feed supplement. Do these data provide strong evidence that the average weights of chickens that were fed
+different crops are different? [Tweaked a bit from @oi [Chapter 5]]
+
+# Competing Hypotheses
+
+## In words
+
+- Null hypothesis: The long-run mean weights are the same under all six crops.
+
+- Alternative hypothesis:  At least one of the long-run mean weights is different.
+
+## Another way with words
+
+- Null hypothesis:  There is no association between feed type and weight in the population of interest.
+
+- Alternative hypothesis:  There is an association between the variables in the population.
+
+## In symbols (with annotations)
+
+- $H_0: \mu_{casein} = \mu_{horsebean} = \mu_{linseed} = \mu_{meatmeal} = \mu_{soybean} = \mu_{sunflower}$, where $\mu$ represents the long-run mean weight.
+- $H_A$: At least one of these parameter means is different from the others
+
+## Set $\alpha$
+
+It's important to set the significance level before starting the testing using the data. Let's set the significance level at 5\% here.
+
+# Exploring the sample data
+
+```{r read_data}
+library(dplyr)
+library(knitr)
+library(ggplot2)
+library(oilabs)
+library(openintro)
+data(chickwts)
+```
+
+```{r summarize}
+wgt_summ <- chickwts %>% group_by(feed) %>%
+  summarize(sample_size = n(),
+    mean = mean(weight),
+    sd = sd(weight),
+    minimum = min(weight),
+    lower_quartile = quantile(weight, 0.25),
+    median = median(weight),
+    upper_quartile = quantile(weight, 0.75),
+    max = max(weight))
+kable(wgt_summ)
+```
+
+
+The boxplot below also shows the mean for each group highlighted by the red dots.
+
+```{r boxplot}
+qplot(x = feed, y = weight, data = chickwts, geom = "boxplot") +
+      stat_summary(fun.y = "mean", geom = "point", color = "red")
+```
+
+
+## Guess about statistical significance
+
+We are looking to see if a difference exists in the mean weight of the six levels of the explanatory variable.  Based solely on the boxplot, we have reason to believe that a difference exists, but the overlap of the boxplots is a bit concerning.
+
+# Check conditions
+
+Remember that in order to use the shortcut (formula-based, theoretical) approach, we need to check that some conditions are met.
+
+1. _Independent observations_:  The observations are independent both within and across groups.
+
+    The random assignment assures that the observations are independent across groups, but without knowing anything more about the experimental design we aren't sure if random sampling was done.  We will assume so.
+
+2. _Approximately normal_:  The distribution of the response for each group should be normal or the sample sizes should be at least 30.
+
+```{r hist}
+qplot(x = weight, data = chickwts, geom = "histogram", facets = ~ feed, 
+      binwidth = 60, color = I("white"))
+```
+
+```{r qqplot}
+qplot(sample = weight, data = chickwts, facets = ~ feed)
+```
+
+We have some reason to doubt the normality assumption here since both the histograms and the qqplots show some deviation from a normal model fitting the data well for each group.  The sample sizes are also small.
+
+
+3. _Constant variance_:  The variance in the groups is about equal from one group to the next.
+
+    The standard deviances above are differing more than we would like across the groups.  They are all on the same order of magnitude, but it might be a stretch to assume that variance is constant.
+
+# Test statistic
+
+The test statistic is a random variable based on the sample data.  Here, we want to look at the ratio of variability **between** the groups over the variability **within** the groups.  This measure we will call $F$ and it represents a measure of the difference in means.  A big observed $F$ ratio corresponds to the variability between groups over-powering the variability within groups.  A small observed $F$ ratio means that the within group variability is much larger than the between group variability.
+
+$F$ is the defined as the ratio
+
+$$
+F = \frac{MSG}{MSE}.
+$$
+
+Here, $MSG$ is the within group variability.  As a formula,
+
+$$ MSG = \dfrac{\sum_{i = 1}^k n_i (\bar{X}_i - \bar{X})}{k - 1} $$ where $\bar{X}_i$ is the mean for each group $i$, and $\bar{X}$ is the overall mean.
+
+Notice that this is very similar to the variance for looking at the group means compared to the overall mean.  In other words, this is the **between** group variability.
+
+Also, note that $MSE$ can be thought of as a pooled variance estimate, which can be thought as a measure of the **within** group variability:
+
+$$MSE = \dfrac{\sum_{i, j} (X_{ij} - \bar{X}_j)^2}{n_{total} - k} $$
+
+where $n_{total} = n_1 + n_2 + \cdots + n_k$ with $n_i$ being the sample size of group $i$.
+
+## Observed test statistic
+
+While one could compute this observed test statistic by "hand", the focus here is on the set-up of the problem and in understanding which formula for the test statistic applies.  We can use the `inference` function in the `oilabs` package to perform this analysis for us.  Note that to obtain the `F value` given here, you divide the observed $MSG$ value of 46226 by the observed $MSE$ value of 3009.
+
+```{r}
+inference(x = chickwts$feed, 
+          y = chickwts$weight, 
+          est = "mean",
+          type = "ht", 
+          alternative = "greater", 
+          method = "theoretical",
+          eda_plot = FALSE, 
+          inf_plot = FALSE)
+```
+
+We see here that the $f_{obs}$ value is around 15.4 with $df_G = k - 1 = 6 - 1 = 5$ and $df_E = n_{total} - k   = 71 - 6 = 65$.
+
+# Compute $p$-value
+
+The $p$-value---the probability of observing an $F(df_G = 5, df_E = 65)$ value of 15.4 or more in our null distribution---is around 0.0000000006.  This can also be calculated in R directly:
+
+```{r}
+1 - pf(15.4, df1 = 5, df2 = 65)
+```
+
+
+Note that we could also do this test directly without invoking the `inference` function using the `aov` and `anova` functions.  `aov` stands for analysis of variance and its form is similar to what is done using the `lm` function with linear regression.  It fits an analysis of variance model to the data in the same way that `lm` fits a linear regression model to the data.  `anova` displays the resulting ANOVA table for the model fit.
+
+```{r}
+wgt_anova <- aov(formula = weight ~ feed, data = chickwts)
+anova(wgt_anova)
+```
+
+
+
+# State conclusion
+
+We, therefore, have sufficient evidence to reject the null hypothesis.  Our initial guess that a statistically significant difference existed in the means was backed by this statistical analysis.  We have evidence to suggest that weight of chickens is affected by
+feed given.
+
+# Final note
+
+With the conditions near being (or possibly) violated,  one should use randomization to compare our $p$-value there with the value here to see if the assumptions may have been violated.  One could also assess whether the sampling distribution of the $F$ statistic matches well with a Fisher's $F$ distribution using randomization as well.  If the conditions are reasonable, the next step would be to calculate pairwise analyses to better understand the reasons for the rejection of the null hypotheses in the ANOVA.
+
+---
+

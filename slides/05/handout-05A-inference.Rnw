@@ -1,0 +1,107 @@
+\documentclass[10pt]{article}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fancyhdr,url,hyperref}
+\usepackage{enumerate}
+
+\oddsidemargin 0in  %0.5in
+\topmargin     0in
+\leftmargin    0in
+\rightmargin   0in
+\textheight    9in
+\textwidth     6in %6in
+
+\pagestyle{fancy}
+
+\lhead{\textsc{MATH 141}}
+\chead{\textsc{Practice}}
+\lfoot{}
+\cfoot{}
+%\cfoot{\thepage}
+\rfoot{}
+\renewcommand{\headrulewidth}{0.2pt}
+\renewcommand{\footrulewidth}{0.0pt}
+
+\newcommand{\ans}{\vspace{0.25in}}
+\newcommand{\R}{{\sf R}\xspace}
+\newcommand{\cmd}[1]{\texttt{#1}}
+
+\title{MATH 141:\\Intro to Probability and Statistics}
+\author{Prof. Bray}
+\date{Spring 2016}
+
+\rhead{\textsc{February 22, 2016}}
+
+\begin{document}
+%\SweaveOpts{concordance=TRUE}
+
+\textbf{Is Yawning Contagious?} (statistical inference from first principles)  
+Big idea: is there an association between two variables?  An experiment conducted by MythBusters tested if a person can be subconsciously influenced into yawning if another person near them yawns. You can watch a relevant portion of the episode here:  \url{http://dsc.discovery.com/tv-shows/mythbusters/videos/is-yawning-contagious-minimyth.htm}.
+
+In this study 50 people were randomly assigned to two groups: 34 to a group where a person near them yawned (seeded) and 16 to a control group where there wasn't a yawn seed. The results are as follows:
+
+<<eval=TRUE, message=FALSE>>=
+seeded <- c(rep(0, 12), rep(1, 24), rep(0, 4), rep(1, 10))
+yawned <- c(rep(0, 36), rep(1, 14))
+table(seeded, yawned)
+@
+
+
+\begin{enumerate}
+  \item Here, what do you think is the explanatory variable?  Response variable? 
+  \ans
+  \item What is the probability of yawning, for the seeded group?
+  \ans
+  \item What is the probability of yawning, for the unseeded group?
+  \ans
+  \item If there were \emph{no association} between yawning and the proximity of another yawner, what would you expect the difference to be between these two probabilities?
+  \ans
+  \item Let $X$ be the number of people in the unseeded group that yawned.  What are the possible values for $X$?
+  \ans
+  \item In terms of $X$, what would be a more extreme result?  $X = $
+  \ans
+  \item What would another extreme result be?  $X = $
+\end{enumerate}
+
+\newpage
+
+\textbf{Group activity (groups of 4)} Sampling from this table, assuming that there is no association between exposure to yawning and yawning yourself.  
+\begin{enumerate}
+  \item From your two decks, make one single deck that has 50 cards: 36 black and 14 red (yawners).  Set the extra cards aside.
+  \item Shuffle deck well.
+  \item Deal the deck out into two piles: one of 16 (unseeded) and one of 34 (seeded).
+  \item Count up the number of red cards (yawners) in the pile of 16.
+  \item Repeat steps 2-4, five times, taking turns.
+  \item When your group is done, add your results to the board.
+\end{enumerate}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+  \hline
+  $x_1$ & $x_2$ & $x_3$ & $x_4$ & $x_5$ & $x_6$ \\
+  \hline
+  \hspace{0.75in} & \hspace{0.75in} & \hspace{0.75in} & \hspace{0.75in} & \hspace{0.75in} & \hspace{0.75in} \\[5ex]
+  \hline
+\end{tabular}
+\end{center}
+
+\vspace{2in}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+  \hline
+  0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 \\
+\end{tabular}
+\end{center}
+
+\begin{enumerate}
+  \item How many red cards would we expect (on average?)
+  \ans
+  \item What did we observe?
+  \ans
+  \item How would we summarize these results?   What is the big idea?
+  \ans
+\end{enumerate}
+
+
+\end{document}

@@ -1,0 +1,22 @@
+---
+title: "Week 3 Lab"
+author: "Chester Ismay"
+date: "February 9, 2016"
+output: html_document
+---
+
+***
+
+0. Load up the Labs page.  Get everyone to go there first.
+0. Load up my lab2
+  - Talk about creating an R script file
+  - Copy commands from lab2 code into script file
+  - Run commands in console
+  - Comment as I run them successfully
+  - Move them into an Rmd file
+  - You don't need to copy commands over and over again.
+  - When you create new data frames, it is often good practice to name them something different than the original
+  - When you just run select without assignment, it will print those results to the screen.
+1. Greetings and welcome to lab.  Today we will be using simulation
+to better understand probability.
+2. I'll let you hop into the problems.  I encourage you ask questions.

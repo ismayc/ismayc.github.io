@@ -1,0 +1,201 @@
+---
+title: "Untitled"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+pkg <- c("tidyr", "dplyr", "ggplot2", 
+  "knitr", "rmarkdown", "readr", 
+  "DT","devtools")
+
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+
+if (length(new.pkg)) {
+  install.packages(new.pkg, repos = "http://cran.rstudio.com")
+}
+
+lapply(pkg, library, character.only = TRUE)
+```
+
+
+## The Problem of Model Selection {.build}
+
+<div class="columns-2">
+
+<img src="http://www.evilenglish.net/wp-content/uploads/2014/07/needle_haystack.jpg" height="450px" width="350px" />
+
+A given data set can conceivably have been generated from infinitely
+many models.  Identifying the true model is like finding a piece of hay in a 
+haystack. Said another way, the model space is massive and the criterion for
+what constitutes the "best" model is ill-defined.
+
+</div>
+
+
+## The Problem of Model Selection {.build}
+
+**Best strategy**: Use domain knowledge to constrain the model space and/or
+build models that help you answer specific scientific questions.
+
+**Another common strategy:**
+
+1. Pick a criterion for "best".
+2. Decide how to explore the model space.
+3. Select "best" model in search area.
+
+**Tread Carefully!!!**  The second strategy can lead to myopic analysis, 
+overconfidence, and wrong-headed conclusions.
+
+
+## What do we mean by "best"? {.build}
+
+While we'd like to find the "true" model, in practice we just hope we're doing
+a good job at:
+
+1. Prediction
+2. Description
+
+
+## Synthetic example
+
+How smooth should our model be?
+
+```{r, echo=FALSE, fig.align='center', fig.width=6, fig.height=5}
+betas <- c(0, 1, 1, -4, 1)
+sigma <- 5
+n <- 40
+set.seed(110)
+x <- runif(n, 0, 5)
+EyGx <- betas[1] + betas[2]*x + betas[3]*x^2 + betas[4]*x^3 + betas[5]*x^4
+y <- EyGx + rnorm(n, 0, sigma)
+plot(y ~ x, pch = 16, col = "steelblue")
+```
+
+
+## Four candidates {.build}
+
+```{r fig.width=9}
+m1 <- lm(y ~ x)
+m2 <- lm(y ~ x + I(x^2))
+m3 <- lm(y ~ x + I(x^2) + I(x^3))
+m4 <- lm(y ~ x + I(x^2) + I(x^3) + I(x^4))
+```
+
+We can add *polynomial* terms to account for non-linear trends.
+
+
+## Four candidates
+
+```{r, echo=FALSE}
+# plotting function
+plot_m <- function(x, y, m) {
+  plot(y ~ x, pch = 16, col = "steelblue")
+  x_range <- par("xaxp")[1:2]
+  xx <- seq(x_range[1], x_range[2], length.out = 300)
+  yy <- predict(m, newdata = data.frame("x" = xx))
+  lines(xx, yy, lwd = 2, col = "orange")
+}
+```
+
+```{r, echo=FALSE, fig.align='center', fig.width=8, fig.height=6}
+par(mfrow = c(2, 2))
+plot_m(x, y, m1)
+plot_m(x, y, m2)
+plot_m(x, y, m3)
+plot_m(x, y, m4)
+```
+
+
+## $R^2$ {.build}
+
+One way to quantify the explanatory power of a model.
+
+$$ R^2 = \frac{SS_{reg}}{SS_{tot}} $$
+
+This captures the proportion of variability in the $y$ explained by our 
+regression model.
+
+
+## Comparing $R^2$ {.build}
+
+```{r}
+c(summary(m1)$r.squared,
+  summary(m2)$r.squared,
+  summary(m3)$r.squared,
+  summary(m4)$r.squared)
+```
+
+The observed data is best explained by the quartic model.  So
+that's the best model, right?
+
+
+## The BEST model!
+
+```{r, echo=FALSE, fig.align='center', fig.width=6, fig.height=5}
+mBEST <- lm(y ~ poly(x, 20))
+plot_m(x, y, mBEST)
+```
+
+
+## The BEST model! {.build}
+
+```{r}
+mBEST <- lm(y ~ poly(x, 20))
+c(summary(m1)$r.squared,
+  summary(m2)$r.squared,
+  summary(m3)$r.squared,
+  summary(m4)$r.squared,
+  summary(mBEST)$r.squared)
+```
+
+But surely that's not the best model...
+
+
+## Three Criteria
+
+1. $R^2$
+2. $R^2_{adj}$
+3. p-values
+
+- There are many others ($AIC$, $BIC$, $AIC_C$, ...).
+
+
+## $R^2_{adj}$ {.build}
+
+A measure of explanatory power of model:
+
+\[ R^2 = \frac{SS_{reg}}{SS_{tot}} = 1 - \frac{SS_{res}}{SS_{tot}} \]
+
+But like likelihood, it only goes up with added predictors, therefore we add a
+penalty.
+
+\[ R^2_{adj} = 1 - \frac{SS_{res}/(n - (p + 1))}{SS_{tot}/(n - 1)} \]
+
+
+## $R^2$ vs. $R^2_{adj}$ {.smaller}
+
+```{r}
+summary(mBEST)$r.squared
+summary(mBEST)$adj.r.squared
+```
+
+
+
+## {.smaller}
+
+```{r}
+poverty <- read.delim("poverty.txt", header = TRUE)
+m1 <- lm(Poverty ~ Graduates, data = poverty)
+summary(m1)
+```
+
+## {.smaller}
+
+```{r}
+poverty$Noise <- rnorm(nrow(poverty))
+m2 <- lm(Poverty ~ Graduates + Noise, data = poverty)
+summary(m2)
+```

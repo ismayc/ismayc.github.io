@@ -1,0 +1,157 @@
+---
+title: "SOC 301-01: Social Statistics"
+author: "Chester Ismay"
+output:
+  ioslides_presentation:
+    incremental: no
+    logo: ../figs/boxer.jpg
+    fig.align: center
+    widescreen: true
+subtitle: Data Basics / Installing R Packages
+---
+
+```{r include=FALSE}
+pkg <- c("devtools")
+
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+
+if (length(new.pkg)) {
+  install.packages(new.pkg, repos = "http://cran.rstudio.com")
+}
+
+if(!require("vembedr"))
+  devtools::install_github("ijlyttle/vembedr")
+
+pkg <- c(pkg, "vembedr")
+
+lapply(pkg, library, character.only = TRUE)
+```
+
+
+## Learning Quote of the Day {.flexbox .vcenter}
+
+> Trying to solve a problem before being taught the solution leads to better learning, even when errors are made in the attempt.
+
+- Peter C. Brown, _Make It Stick_
+
+<br>
+
+- Today's slides link : <http://ismayc.github.io/teaching/soc301-f2016/slides/week-01/01b.html>
+
+- Read over my responses to PS1 #6 and #7 in PS1 of [Problem Set FAQs](http://ismayc.github.io/teaching/soc301-f2016/ps-faq/)
+
+## Review PS1 in groups
+
+Get into groups of three (of your own choosing) and discuss (for around 10 minutes)
+how you answered the questions below.
+
+- **3**. What are five reasons why I am having you use R in this class?
+- **4**. Why is copy-and-pasting results to and from Microsoft Excel and Microsoft Word, for example, not a good sustainable workflow?
+
+## [R Markdown video](https://www.youtube.com/watch?v=lNWVQ2oxNho)
+
+```{r echo=FALSE}
+embed_youtube(id = "lNWVQ2oxNho")
+```
+
+
+## Review PS1 as a class
+
+- **5**. What steps fall in the Understand section of Hadley's workflow graphic?
+
+```{r echo=FALSE, fig.width=3}
+knitr::include_graphics("https://ismayc.github.io/moderndiver-book/images/tidy1.png")
+```
+
+## Review PS2 as a class
+
+- **6**. What questions do you have about the reading or about the course?
+
+    - I hope to always have a new PS ready for you after each class period.
+    - We will almost always spend time in the beginning of class going over answers to each PS.
+    - I hope to also address questions in FAQ documents [here](http://ismayc.github.io/teaching/soc301-f2016/ps-faq/).
+    - You'll have a better idea of what R is when you actually get to working with it.
+    - Feel free to look ahead in the book!
+
+## Review PS2 in groups
+
+- **7**. What concerns do you have about the course? How can I alleviate these concerns for you?
+
+## Review PS2 as a class
+
+- **7**. What concerns do you have about the course? How can I alleviate these concerns for you?
+
+    - You'll be given time in class on Monday to complete labs and ask questions.  I'll try to have the lab assignments ready on Thursdays just as your turn in your last lab.
+
+    - "How much outside work will be required in this class? It seems as if it will be a consistently heavy load of work."
+    
+    - I am happy to meet on a weekly basis with you as needed.  I want you to like R and use it after the class is done.  If you aren't enjoying the class or seeing the power of using it, I'm not doing my job well enough and we should talk about it.
+
+## My webpage <http://ismayc.github.io>
+
+- Syllabus in HTML and PDF at <http://ismayc.github.io/teaching/soc301-f2016/>
+- FAQ documents for Problem Sets : <http://ismayc.github.io/teaching/soc301-f2016/ps-faq/>
+
+## Interesting data sets
+
+- Spend some time in your groups brainstorming about a data set that you'd be interested in analyzing.
+- It doesn't have to exist and you don't all have to agree.  This is also about learning about the
+interests of others.
+- Clearly lay out the variables and sketch what the collected data might look like.
+    - What does each row correspond to?
+    - What does each column?
+
+## Supplementary Material
+
+<http://ismayc.github.io/rbasics-book>
+
+PDF version also available:  <https://ismayc.github.io/rbasics-book/rbasics.pdf>
+
+## RStudio Server
+
+<http://beta.rstudio.org>
+
+
+## Install packages
+
+```{r eval=FALSE}
+needed_pkgs <- c("nycflights13", "dplyr", "ggplot2", "knitr", 
+  "ggplot2movies", "dygraphs", "rmarkdown", "mosaic", "tibble")
+
+new.pkgs <- needed_pkgs[!(needed_pkgs %in% installed.packages())]
+
+if(length(new.pkgs)) {
+  install.packages(new.pkgs, repos = "http://cran.rstudio.com")
+}
+```
+
+
+## Practice problems
+
+- Can eating a yogurt a day cause you to lose weight?
+- Do males find females more attractive if they wear red?
+- Does louder music cause people to drink more beer?
+- Are lions more likely to attack after a full moon?
+
+1. What are the variable(s) in each question?
+2. Classify them as categorical or quantitative.
+3. Draw what a tidy data set might look for each problem to collect the needed data to answer these questions.
+
+## For next time (Monday)
+
+- Try to finish the install of the needed packages
+    - Remember that the code to install the packages is the first R chunk of code in Chapter 1 of [MODERN DIVE](https://ismayc.github.io/moderndiver-book)
+    - We won't actually need these packages until we start the Tidy Data chapter so if you have issues, just follow along with the Getting Used to R book.
+    
+- The packages are all installed if you can run the R chunk you've copied again and just get `>` waiting for you to enter something else.
+    
+- Read Chapters 3, 4, and 5 of [Getting Used to R](http://ismayc.github.io/rbasics-book)
+
+- We will be walking through many of the examples there and also doing some Plicker questions to check your understanding of variables and observational units.
+
+
+## Minute Papers
+
+- What did you learn about in class today?  What questions do you have?
+
+- What additional concerns do you have?  I understand they likely might not all be gone, but I'm always interested in how you think your learning is going.

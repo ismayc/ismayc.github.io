@@ -1,0 +1,81 @@
+---
+title: "SOC 301-01: Social Statistics"
+author: "Chester Ismay"
+output:
+  ioslides_presentation:
+    incremental: no
+    logo: ../figs/boxer.jpg
+    fig.align: center
+    widescreen: true
+subtitle: Data Viz - Histograms and Boxplots
+---
+
+
+## Learning Quote of the Day {.flexbox .vcenter}
+
+> A short study break—-five, ten, twenty minutes to check in on Facebook, respond to a few emails, check sports scores—-is the most effective technique learning scientists know of to help you solve a problem when you’re stuck.
+
+- Benedict Carey, _How We Learn: The Surprising Truth About When, Where, and Why It Happens_
+
+# Plicker time
+
+# Go over the LC questions
+
+## LC4.1 - LC4.4
+
+- Review your responses in partners
+
+## LC4.5 - LC4.9
+
+- Review your responses in partners
+    - Someone different than last time
+
+## LC4.10 - LC4.13
+
+- Review your responses in partners
+    - Someone different than both of the last two times
+
+# R problems for practice
+
+## Practice problem 1
+
+- Produce a histogram of the humidity recordings in the `weather` data frame with a bin width of 15 and white border color.
+
+- Use `?geom_histogram` to determine how to remove all missing values from the histogram and then do that.
+
+- Describe in a few sentences what this plot tells you.
+
+## Practice problem 2 (CHALLENGE)
+
+Produce the following histogram:
+
+```{r echo=FALSE, fig.height=3.5, fig.width=9.5, fig.pos="center"}
+library(nycflights13)
+library(ggplot2)
+ggplot(weather, aes(x = pressure)) + 
+  geom_histogram(bins = 12, na.rm = TRUE, color = "black",
+    fill = "yellowgreen") +
+  labs(x = "Atmospheric Pressure", y = "Frequency", title = "Atmospheric Pressure for NYC in 2013")
+```
+
+Note that you'll need to "add a layer" to the plot to change the horizontal and vertical axes using `+ labs()`.
+
+# Work on Lab 2
+
+
+## To do for next time
+
+- Finish Lab 2 by 3 PM tomorrow
+    - Make sure to let me know who you are working with and where the project is stored
+- Read Section 4.4 of [MODERN DIVE textbook](https://ismayc.github.io/moderndiver-book/4-viz.html#barplots)
+- Review comments on Lab 2
+    - Lab 2 revisions due on Thursday at 3 PM
+    - Make sure to Knit to HTML for full credit
+    - You must attempt all exercises in the lab for credit.  "I don't know how to do this." or "I'm not sure." are not valid reasons.  I'm here to help, but you have to take the initiative to reach out to me!
+- Complete [PS5](https://goo.gl/forms/ZEn8SSVtExPEdK7d2) by 10 AM on Wednesday
+
+## Plans for next time
+
+- Plicker questions over Sections 4.1 - 4.4
+- More review of plotting in R with practice problems
+- Time to ask questions about Lab 2

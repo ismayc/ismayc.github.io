@@ -1,0 +1,44 @@
+---
+title: "Week Three, Day 3"
+author: "Chester Ismay"
+date: "February 11, 2016"
+output: html_document
+---
+
+***
+
+```{r setup, include=FALSE}
+# List of useful packages
+pkg <- c("dplyr", "ggplot2", "knitr")
+
+# Check if packages are not installed and assign the
+# names of the uninstalled packages to the variable new.pkg
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+
+# If there are any packages in the list that aren't installed,
+# install them
+if (length(new.pkg)) {
+  install.packages(new.pkg, repos = "http://cran.rstudio.com")
+}
+
+# Load the packages into the current environment
+library(knitr)
+library(dplyr)
+library(ggplot2)
+
+# Set number of digits to display
+# options(digits = 3)
+```
+
+0. Update on PS3
+
+1. Go over cocaine example again
+  - Different ways to get the correct answer
+
+2. Have them work in pairs/threes on handout problems 1 and 2
+
+3. Go over problems in class
+
+4. Go to Plicker Qs after going over #2
+
+5. If time, have them work on #3 from the handout and go over the solution

@@ -1,0 +1,177 @@
+---
+title: "Simple Linear Regression Example"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cerulean
+    highlight: pygments
+references:
+- id: stat2
+  title: STAT2 - Building Models for a World of Data
+  author:
+  - family: Cannon
+    given: Ann R.
+  - family: Cobb
+    given: George W.
+  - family: Hartlaub
+    given: Bradley A.
+  - family: Legler
+    given: Julie M.
+  - family: Lock
+    given: Robin H.
+  - family: Moore
+    given: Thomas L.
+  - family: Rossman
+    given: Allan J.
+  - family: Witmer
+    given: Jeffrey A.
+  type: book
+  issued:
+    year: 2013
+---
+
+
+```{r setup, include=FALSE}
+pkg <- c("tidyr", "dplyr", "ggplot2", 
+  "knitr", "rmarkdown", "readr", 
+  "DT","devtools", "broom", "Stat2Data")
+
+new.pkg <- pkg[!(pkg %in% installed.packages())]
+
+if (length(new.pkg)) {
+  install.packages(new.pkg, repos = "http://cran.rstudio.com")
+}
+
+lapply(pkg, library, character.only = TRUE)
+
+if(!require(oilabs))
+  devtools::install_github("ismayc/oilabs", force = TRUE)
+
+options(digits = 5, scipen = 99)
+```
+
+# Problem Statement
+
+Priscilla Erickson from Kenyon College collected data on a stratified random sample of 116 Savannah sparrows at Kent Island.  The weight (in grams) and wing length (in mm) were obtained for birds from nests that were reduced, controlled, or enlarged.  Is wing length a significant linear predictor of weight for Savannah sparrows? [Tweaked a bit from @stat2 [Chapter 1]]
+
+# Competing Hypotheses
+
+## In words
+
+- Null hypothesis: The population slope of the least squares regression line modeling weight as a function of wing length is zero.
+
+- Alternative hypothesis:  The population slope of the least squares regression line modeling weight as a function of wing length is nonzero.
+
+## Another way with words
+
+- Null hypothesis:  There is no association between wing length and weight for Savannah sparrows.
+
+- Alternative hypothesis: There is an association between wing length and weight for Savannah sparrows.
+
+## In symbols (with annotations)
+
+- $H_0: \beta_1 = 0$, where $\beta_1$ represents the population slope of the least squares regression line modeling weight as a function of wing length.
+- $H_A: \beta_1 \ne 0$
+
+## Set $\alpha$
+
+It's important to set the significance level before starting the testing using the data. Let's set the significance level at 5\% here.
+
+# Exploring the sample data
+
+```{r read_data}
+library(dplyr)
+library(knitr)
+library(ggplot2)
+library(oilabs)
+library(Stat2Data)
+data(Sparrows)
+```
+
+The scatterplot below shows the relationship between wing length and weight.
+
+```{r boxplot}
+qplot(x = WingLength, y = Weight, data = Sparrows, geom = "point")
+```
+
+
+## Guess about statistical significance
+
+We are looking to see if `WingLength` is a significant linear predictor of `Weight`.  Based on the plot, it seems reasonable to guess that we will reject the null hypothesis here.
+
+# Check conditions
+
+Remember that in order to use the shortcut (formula-based, theoretical) approach, we need to check that some conditions are met.
+
+1. _Linear relationship between between response and predictors_:  You can check the scatterplot above to get a feel for a linear relationship between reasonable.  The preferred methodology is to look in the residual plot to see if the standardized residuals (errors) from the model fit are randomly distributed:
+
+    ```{r}
+    weight_wing_mod <- lm(Weight ~ WingLength, data = Sparrows)
+    qplot(x = .fitted, y = .stdresid, data = weight_wing_mod)
+    ```
+
+    There does not appear to be any pattern (quadratic, sinusoidal, exponential, etc.) in the residuals so this condition is met.
+
+2. _Independent observations and errors_:  If cases are selected at random, the independent observations condition is met.  If no time series-like patterns emerge in the residuals plot, the independent errors condition is met.
+
+    The birds were selected at random here so the independent observations condition is met.  We do not see any time series-like patterns in the residual plot above so that condition is met as well.
+
+3. _Nearly normal residuals_:  Check a Q-Q plot on the standardized residuals to see if they are approximately normally distributed.
+
+    ```{r}
+    qplot(sample = .stdresid, data = weight_wing_mod) + 
+    geom_abline(color = "blue")
+    ```
+
+    There are some small deviations from normality in the tails but this is a pretty excellent fit for normality of residuals.
+
+4. _Equal variances across explanatory variable_:  Check the residuals plot for fan-shaped patterns.
+
+    The residual plot above doesn't show any sort of fan shapes with variance pretty much constant throughout.
+
+# Test statistic
+
+The test statistic is a random variable based on the sample data. Here, we want to look at a way to estimate the population slope $\beta_1$.  A good guess is the sample slope $B_1$.  Recall that this sample slope is actually a random variable that will vary as different samples are (theoretically, would be) collected.  
+
+We next look at our fitted line from our sample of data:
+
+```{r fit}
+summary(weight_wing_mod)
+```
+
+We are looking to see how likely is it for us to have observed a sample slope of $b_{1, obs} = 0.4674$ or more extreme assuming that the population slope is 0 (assuming the null hypothesis is true).  If the conditions are met and assuming $H_0$ is true, we can "standardize" this original test statistic of $B_1$ into a $T$ statistic that follows a $t$ distribution with degrees of freedom equal to $df = n - k$ where $k$ is the number of parameters in the model:
+
+$$ T =\dfrac{ B_i - 0}{ {SE}_i } \sim t (df = n - 2) $$
+
+where ${SE}_i$ represents the standard deviation of the distribution of the sample slopes.
+
+## Observed test statistic
+
+While one could compute this observed test statistic by "hand", the focus here is on the set-up of the problem and in understanding which formula for the test statistic applies.  We can use the `lm` function here to fit a line and conduct the hypothesis test.  (We've already run this code earlier in the analysis, but it is shown here again for clarity.)
+
+```{r}
+weight_wing_mod <- lm(Weight ~ WingLength, data = Sparrows)
+summary(weight_wing_mod)
+```
+
+We see here that the $b_{1, obs}$ value is around 0.4674 which corresponds to a $t_{obs}$ value of 13.46.  If we wanted to interpret the meaning of $b_{1, obs}$ in the context of the problem we would say:
+
+> For every one millimeter increase in `WingLength`, we expect `Weight` to increase by 0.4674 grams.
+
+Note that an interpretation of the observed intercept can also be done: we expect a sparrow with zero wing length to have a weight of 1.3655 grams.  As this example shows, often the intercept interpretation does not make much sense.
+
+# Compute $p$-value
+
+The $p$-value---the probability of observing a $t_{114}$ value of 13.46 or more extreme in our null distribution---is essentially zero  This can also be calculated in R directly:
+
+```{r}
+2 * pt(13.46, df = 114, lower.tail = FALSE)
+```
+
+# State conclusion
+
+We, therefore, have sufficient evidence to reject the null hypothesis.  Our initial guess that `WingLength` is a significant linear predictor of `Weight` for this population of sparrows has supporting evidence. 
+
+---
+

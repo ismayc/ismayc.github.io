@@ -1,0 +1,11 @@
+country,region,subRegion,year,lifeExp,pop,gdpPercap,dem_rank,basic_rank
+Argentina,Americas,South America,2007.0,75.32,40301927,12779.37964,Strongly Democratic,Democratic
+Bolivia,Americas,South America,2007.0,65.554,9119152,3822.137084,Strongly Democratic,Democratic
+Brazil,Americas,South America,2007.0,72.39,190010647,9065.800825,Strongly Democratic,Democratic
+Chile,Americas,South America,2007.0,78.553,16284741,13171.63885,Strongly Democratic,Democratic
+Colombia,Americas,South America,2007.0,72.889,44227550,7006.580419,Strongly Democratic,Democratic
+Ecuador,Americas,South America,2007.0,74.994,13755680,6873.262326,Mildly Democratic,Democratic
+Paraguay,Americas,South America,2007.0,71.752,6667147,4172.838464,Strongly Democratic,Democratic
+Peru,Americas,South America,2007.0,71.421,28674757,7408.905561,Strongly Democratic,Democratic
+Uruguay,Americas,South America,2007.0,76.384,3447496,10611.46299,Strongly Democratic,Democratic
+Venezuela,Americas,South America,2007.0,73.747,26084662,11415.80569,Mildly Democratic,Democratic

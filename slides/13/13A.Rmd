@@ -1,0 +1,427 @@
+---
+title: "MATH 141"
+author: "Chester Ismay"
+output: 
+ ioslides_presentation:
+   incremental: true
+   keep_md: yes
+   logo: ../figs/griffin.png
+   widescreen: yes
+   html_preview: false
+subtitle: Bayesian Inference
+---
+
+<style type="text/css">
+    ol { list-style-type: upper-alpha; }
+</style>
+
+```{r setup, include=FALSE}
+library(knitr)
+library(rglwidget)
+options(digits=3, width=80)
+knitr::opts_chunk$set(echo = TRUE, fig.align = "center", warning = FALSE)
+library(rgl)
+knit_hooks$set(webgl = hook_webgl)
+library(dplyr)
+library(ggplot2)
+library(oilabs)
+library(openintro)
+library(plotly)
+```
+
+# Review of Logistic Regression
+
+## Logistic Regression for B
+
+$$spam \sim log(num\_char)$$
+
+```{r echo = FALSE, fig.width=6, fig.height = 4}
+qplot(x = log(num_char), y = spam, data = email, geom = "point",
+      alpha = I(.1), ylab = "spam") + stat_smooth(method = "glm", 
+                                                  method.args = list(family = "binomial"),
+                                                  se = FALSE)
+```
+
+
+## {.smaller}
+```{r}
+m1 <- glm(spam ~ log(num_char), data = email, family = "binomial")
+summary(m1)
+```
+
+
+## Interpreting Logistic Regression {.build}
+
+1. Each row of the summary output is still a hypothesis test on that parameter being 0.
+2. A positive slope estimate indicates that there is a positive association between that particular
+explanatory variable and the response.
+3. Each estimate is still conditional on the other variables held constant.
+
+## Transforming from the logit (Simple case)
+
+The logistic model approximates the $ln(odds)$ using a linear predictor $\beta_0 + \beta_1 X$. If we know
+$ln(P/(1-P)) = \beta_0 + \beta_1 X$, what is the formula for $P$?
+
+1. To go from $ln (odds)$ to $odds$, we use the exponential function $e^x$: $odds = e^{ln(odds)}$
+
+2. You can check that if $odds = P / (1 - P)$, then solving for $P$ gives $P = odds/ (1 + odds)$.
+
+- Putting 1 and 2 together gives \[ P = \dfrac{e^{ln(odds)}}{1 + e^{ln(odds)}} = \dfrac{e^{\beta_0 + \beta_1 X}}{1 + e^{\beta_0 + \beta_1 X}} = \dfrac{1}{1 + e^{-(\beta_0 + \beta_1 X)}}. \]
+
+<center>
+- The function $f(y) = 1/ (1 + e^{-y})$ is commonly known as the _logistic function_, thus, giving the name to logistic regression.
+</center>
+
+## A more sophisticated model {.build .smaller}
+
+```{r}
+m2 <- glm(spam ~ log(num_char) + to_multiple + attach + dollar + inherit + 
+            viagra, data = email, family = "binomial")
+summary(m2)
+```
+
+
+## Extending the model {.build}
+
+A GLM consists of three things:
+
+1. A linear combination of predictor variables
+2. A distribution of the response variable
+3. A link function between the two
+
+- MLR : Normal distribution, identity link function
+
+- Logistic Regression : Binomial distribution, logit link function
+
+- Poisson Regression : Poisson distribution, logarithm link function
+
+
+# Bayesian Inference
+
+##
+
+Please draw your own subjective distributions for the following events.
+
+1. The probability that Hillary Clinton will win the presidency.
+2. The probability that, on a given night, the sun has gone supernova.
+3. The total number of individual socks that you own.
+
+
+
+## Karl Broman's Socks {.flexbox .vcenter .build}
+
+<img src="../figs/broman-tweet.png" width="400px" />
+
+
+## Classical Hypothesis Test {.build}
+
+
+Assert a model
+
+- $H_0$: I have $N_{pairs}$ pairs of socks and $N_{singles}$ singletons leading to $N = 2 \cdot N_{pairs} + N_{singles}$. The first 11 socks that I pull out of the machine is a random sample from this population.
+
+Decide on a test statistic
+
+- The number of singletons in the sample: 11.
+
+Construct the sampling distribution
+
+- Probability theory or simulation.
+
+See where your observed stat lies in that distribution
+
+- Find the $p$-value if you like.
+
+
+
+## $H_0$ {.flexbox .vcenter .build}
+
+<img src="../figs/all-socks.png" height="400px" />
+
+$$N_{pairs} = 9; \quad N_{singles} = 5$$
+
+
+## Contructing the sampling dist. {.build}
+
+We'll use simulation.
+
+Create the population of socks:
+
+```{r}
+sock_pairs <- c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K")
+sock_singles <- c("l", "m", "n", "o", "p")
+socks <- c(rep(sock_pairs, each = 2), sock_singles)
+socks
+```
+
+
+## One draw from the machine {.build}
+
+```{r}
+picked_socks <- sample(socks, size = 11, replace = FALSE); picked_socks
+sock_counts <- table(picked_socks); sock_counts
+n_singles <- sum(sock_counts == 1); n_singles
+```
+
+
+## Our simulator {.flexbox .vcenter .build}
+
+<img src="../figs/washing-machine.png" height="400px" />
+
+
+## Constructing the sampling dist. {.build}
+
+```{r echo = FALSE}
+pick_socks <- function(N_pairs, N_singles, N_pick) {
+  N_sock_types <- N_pairs + N_singles
+  socks <- rep(1:N_sock_types, rep( 2:1, c(N_pairs, N_singles) ))
+  picked_socks <- sample(socks, 11)
+  sock_counts <- table(picked_socks)
+  n_singles <- sum(sock_counts == 1)
+  n_singles
+}
+set.seed(200)
+```
+
+```{r}
+pick_socks(N_pairs = 9, N_singles = 5, N_pick = 11)
+pick_socks(9, 5, 11)
+pick_socks(9, 5, 11)
+```
+
+Repeat many, many times...
+
+
+## The sampling distribution {.flexbox .vcenter}
+
+```{r echo = FALSE, cache = TRUE}
+sim_singles <- rep(0, 1000)
+
+for (i in 1:1000) {
+  sim_singles[i] <- pick_socks(9, 5, 11)
+}
+
+qplot(as.factor(sim_singles), geom = "bar", xlab = "number of singletons")
+```
+
+
+## The sampling distribution {.flexbox .vcenter}
+
+```{r echo = FALSE}
+qplot(as.factor(sim_singles), geom = "bar", xlab = "number of singletons") +
+  geom_vline(xintercept = 6, col = "tomato")
+```
+
+
+## The $p$-value {.build}
+
+Quantifying how far into the tails our observed count was.
+
+```{r}
+table(sim_singles)
+table(sim_singles)[6]/1000
+```
+
+```{r echo = FALSE}
+pval <- table(sim_singles)[6]/1000
+```
+
+Our two-tailed p-value is `r pval*2`.
+
+
+## Question
+
+What is the best definition for our $p$-value in probability notation?
+
+1. $\mathbb{P}$($H_0$ is true | data or more extreme) = `r pval`
+2. $\mathbb{P}$($H_0$ is true) = `r pval`
+3. $\mathbb{P}$(data or more extreme | $H_0$ is true) = `r pval`
+4. $\mathbb{P}$(data) = `r pval`
+
+
+## Question
+
+What is the best definition for our p-value in probability notation?
+
+1. $\mathbb{P}$($H_0$ is true | data or more extreme) = `r pval`
+2. $\mathbb{P}$($H_0$ is true) = `r pval`
+3. **$\mathbb{P}$(data or more extreme| $H_0$ is true) = `r pval`**
+4. $\mathbb{P}$(data) = `r pval`
+
+
+## The challenges with the classical method {.build}
+
+The result of a hypothesis test is a probability of the form:
+
+$$ \mathbb{P}(\textrm{ data or  more  extreme } | \ H_0 \textrm{ true }) $$
+
+while most people *think* they're getting
+
+$$ \mathbb{P}(\ H_0 \textrm{ true } | \textrm{ data  or  more  extreme}) $$
+
+How can we go from the former to the latter?
+
+
+## What we have {.flexbox .vcenter}
+<img src="../figs/classical-socks.png" width="800px" />
+
+
+## What we want {.flexbox .vcenter}
+<img src="../figs/bayes-socks.png" width="800px" />
+
+
+# Bayesian Modeling
+## Bayes Rule {.build}
+
+$$\mathbb{P}(A \ | \ B) = \frac{\mathbb{P}(A \textrm{ and } B)}{\mathbb{P}(B)} $$
+
+$$\mathbb{P}(A \ | \ B) = \frac{\mathbb{P}(B \ | \ A) \ \mathbb{P}(A)}{\mathbb{P}(B)} $$
+
+$$\mathbb{P}(model \ | \ data \, or \, more \, extreme) = \frac{\mathbb{P}(data \, or \, more \, extreme\ | \ model) \ \mathbb{P}(model)}{\mathbb{P}(data \, or \, more \, extreme)} $$
+
+What does it mean to think about $\mathbb{P}(model)$?
+
+##
+
+Please draw your own subjective distributions for the following events.
+
+1. The probability that Hillary Clinton will win the presidency.
+2. The probability that, on a given night, the sun has gone supernova.
+3. The total number of individual socks that you own.
+
+
+
+## Prior distribution {.build .flexbox .vcenter}
+
+A *prior distribution* is a probability distribution for a *parameter* that 
+summarizes the information that you have before seeing the data.
+
+```{r, cache = TRUE, echo = FALSE, warning=FALSE}
+x <- rnbinom(1e6, mu = 30, size = -30^2 / (30 - 15^2))
+(prior_n <- qplot(x, geom = "histogram", xlab = "number of socks", binwidth = 1, xlim = c(0, 100),
+      fill = I("darkgreen"), ylab = "prob. density", main = "P(parameter)"))
+```
+
+
+## Prior on proportion pairs {.flexbox .vcenter .build}
+
+```{r cache = TRUE, echo = FALSE}
+y <- rbeta(1e6, shape1 = 15, shape2 = 2)
+(prior_p <- qplot(y, geom = "histogram", xlab = "proportion of pairs", binwidth = .01, xlim = c(0, 1),
+      fill = I("darkgreen"), ylab = "prob. density", main = "P(parameter)"))
+```
+
+
+## {.flexbox .vcenter}
+<img src="../figs/abc1.png" height="550px" />
+
+
+## {.flexbox .vcenter}
+<img src="../figs/abc2.png" height="550px" />
+
+
+## {.flexbox .vcenter}
+<img src="../figs/abc3.png" height="550px" />
+
+
+## {.flexbox .vcenter}
+<img src="../figs/abc4.png" height="550px" />
+
+
+## {.flexbox .vcenter}
+<img src="../figs/abc5.png" height="550px" />
+
+
+## {.flexbox .vcenter}
+<img src="../figs/abc6.png" height="550px" />
+
+
+## {.flexbox .vcenter}
+<img src="../figs/abc7.png" height="550px" />
+
+
+## Full simulation {.build}
+
+```{r cache = TRUE, echo = FALSE}
+sock_sim <- t(replicate(100000, {
+  n_socks <- rnbinom(1, mu = 30, size = -30^2 / (30 - 15^2) )
+  prop_pairs <- rbeta(1, shape1 = 15, shape2 = 2)
+  n_pairs <- round(floor(n_socks / 2) * prop_pairs)
+  n_odd <- n_socks - n_pairs * 2
+  n_sock_types <- n_pairs + n_odd
+  socks <- rep(seq_len(n_sock_types), rep( 2:1, c(n_pairs, n_odd) ))
+  picked_socks <- sample(socks, size =  min(11, n_socks))
+  sock_counts <- table(picked_socks)
+  c(unique = sum(sock_counts == 1), pairs = sum(sock_counts == 2),
+    n_socks = n_socks, prop_pairs = prop_pairs)
+}))
+sock_sim <- as.data.frame(sock_sim)
+post_samples <- sock_sim %>%
+  filter(unique == 11, pairs == 0)
+```
+
+```{r}
+head(sock_sim, 3)
+sock_sim %>%
+  filter(unique == 11, pairs == 0) %>%
+  head(3)
+```
+
+
+## Proportion of pairs
+
+```{r echo = FALSE}
+multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
+  library(grid)
+
+  # Make a list from the ... arguments and plotlist
+  plots <- c(list(...), plotlist)
+
+  numPlots = length(plots)
+
+  # If layout is NULL, then use 'cols' to determine layout
+  if (is.null(layout)) {
+    # Make the panel
+    # ncol: Number of columns of plots
+    # nrow: Number of rows needed, calculated from # of cols
+    layout <- matrix(seq(1, cols * ceiling(numPlots/cols)),
+                    ncol = cols, nrow = ceiling(numPlots/cols))
+  }
+
+ if (numPlots==1) {
+    print(plots[[1]])
+
+  } else {
+    # Set up the page
+    grid.newpage()
+    pushViewport(viewport(layout = grid.layout(nrow(layout), ncol(layout))))
+
+    # Make each plot, in the correct location
+    for (i in 1:numPlots) {
+      # Get the i,j matrix positions of the regions that contain this subplot
+      matchidx <- as.data.frame(which(layout == i, arr.ind = TRUE))
+
+      print(plots[[i]], vp = viewport(layout.pos.row = matchidx$row,
+                                      layout.pos.col = matchidx$col))
+    }
+  }
+}
+```
+
+```{r cache = TRUE, echo = FALSE, fig.width = 8.5, warning=FALSE}
+post_p <- qplot(prop_pairs, data = post_samples, geom = "histogram", 
+                xlab = "proportion of pairs", binwidth = .01, xlim = c(0, 1),
+                fill = I("darkgreen"), ylab = "prob. density", main = "P(parameter|data)")
+multiplot(prior_p, post_p, layout = matrix(1:2, ncol = 2, byrow = TRUE))
+```
+
+
+## Number of socks
+
+```{r cache = TRUE, echo = FALSE, fig.width = 8.5, warning=FALSE}
+post_n <- qplot(n_socks, data = post_samples, geom = "histogram", 
+                xlab = "number of socks", binwidth = 1, xlim = c(0, 100),
+                fill = I("darkgreen"), ylab = "prob. density", main = "P(parameter|data)")
+multiplot(prior_n, post_n, layout = matrix(1:2, ncol = 2, byrow = TRUE))
+```
+

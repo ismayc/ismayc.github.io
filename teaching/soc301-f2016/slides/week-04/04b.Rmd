@@ -1,0 +1,98 @@
+---
+title: "SOC 301-01: Social Statistics"
+author: "Chester Ismay"
+output:
+  ioslides_presentation:
+    incremental: no
+    logo: ../figs/boxer.jpg
+    fig.align: center
+    widescreen: true
+subtitle: Data Viz - Histograms, Boxplots, and Barplots
+---
+
+
+## Learning Quote of the Day {.flexbox .vcenter}
+
+> Learning is not attained by chance, it must be sought for with ardor and diligence.
+
+- Abigail Adams
+
+## Theme of the course
+
+We’ll be working through problems together in class and discussing content from your reading assignments. This class may be different from other classes you take or your experiences in classrooms from the past. I prefer to think of myself as your guide on the side instead of the sage on the stage. I’m here to assist you as needed, but I don’t want to be the passer of all knowledge to you. In other words, I’m hoping to create an environment where you develop understanding based on each of your own needs rather than just dictating how and what to think to you.
+
+
+
+# Plicker time
+
+# Which plot for which problem set-up?
+
+## Question from PS5 - Question 1 {.flexbox .vcenter}
+
+Why do we still use the less efficient plots, like the side-by-side barplot, the stacked barplot, or even the pie-chart when there are much more effective plots, like the faceted barplot, to use? It just seems weird to me.
+
+## Question from PS5 - Question 2 {.flexbox .vcenter}
+
+`geom_bar(position = "dodge")` What does a dodge position? 
+
+## Question from PS5 - Question 3 {.flexbox .vcenter}
+
+When playing with the code in Rstudio for chapter 4 i kept getting the error message that “ggplot” is not a package. I then proceeded to look in my packages and found that i have “ggplot2”. Long story short, i still don’t know how to get “ggplot” and was wondering how i would go about doing that?
+
+# R problems for practice
+
+## Getting set-up
+
+- Create a new R Markdown file
+- Clean out all of the default text in the document
+- Save it as `dataviz-09-21.Rmd` in your LastnameFirstname folder
+- This is where you will be putting your chunks of code.
+
+## Practice problem 1
+
+- Produce a histogram of the humidity recordings in the `weather` data frame with 15 bins, missing values removed, fill with a color of your choosing, and a border color of your choosing.
+
+- Describe in a few sentences how this plot is different from the last plot.
+
+## Practice problem 2 (CHALLENGE)
+
+Produce the following boxplot:
+
+```{r echo=FALSE, fig.height=3.5, fig.width=9.5, fig.pos="center"}
+library(nycflights13)
+library(ggplot2)
+ggplot(weather, aes(x = origin, y = pressure, fill = origin)) + 
+  geom_boxplot(na.rm = TRUE, color = "orange") +
+  labs(x = "Airport", y = "Atmospheric Pressure", title = "Atmospheric Pressure By Airport in 2013")
+```
+
+- What does this plot tell us about how the response variable differs by the different levels of the explanatory variable?
+
+
+<!--
+## Practice problem 5 (CHALLENGE)
+
+Produce the following faceted boxplot:
+
+```{r echo=FALSE, fig.height=3}
+library(nycflights13)
+library(ggplot2)
+ggplot(weather, aes(x = origin, y = temp)) + 
+  geom_boxplot(na.rm = TRUE) +
+  labs(x = "Airport", y = "Temperature", title = "Temperature By Airport in 2013") +
+  facet_wrap(~ month)
+```
+
+-->
+
+# Finish Lab 2 / Start on Lab 3
+
+
+## To do for next time
+
+- Complete corrections for Lab 2 by 3 PM tomorrow
+- Read Sections 4.5 and 4.6 of [MODERN DIVE textbook](https://ismayc.github.io/moderndiver-book/4-viz.html#scatter-plots)
+- Complete [PS6](https://goo.gl/forms/7gc6EJCZ6TwgT2h02) by 10 AM on Monday
+- Begin work on Lab 3
+
+# Course (so far) evaluation    

@@ -1,0 +1,185 @@
+---
+title: "SOC 301-01: Social Statistics"
+author: "Chester Ismay"
+output:
+  ioslides_presentation:
+    incremental: no
+    logo: ../figs/boxer.jpg
+    fig.align: center
+    widescreen: true
+subtitle: Sampling/Resampling (Part 2)
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, fig.height = 4, fig.align = "center")
+```
+
+
+## Global Social Data
+
+Includes data from including the CIA World Factbook, the World Bank, the Association of Religion Data Archives, the United Nations Office on Drugs and Crime, the International Centre for Prison Studies, and the Stockholm International Peace Research Institute.
+
+- Let's imagine this data represents our population
+
+- We want to identify the mean percentage of women holding national office.
+
+```{r include=FALSE}
+library(haven)
+library(dplyr)
+global13_full <- read_sav("global13sdss_0.sav")
+global13 <- global13_full %>% select(country, FEMALEOFFICE)
+```
+
+```{r eval=FALSE}
+library(haven)
+library(dplyr)
+global13_full <- read_sav("/shared/isma5720@pacificu.edu/global13sdss_0.sav")
+global13 <- global13_full %>% select(country, FEMALEOFFICE)
+```
+
+
+## Plotting the population data
+
+```{r}
+library(ggplot2)
+global13 %>% ggplot(mapping = aes(x = FEMALEOFFICE)) +
+  geom_histogram(color = "white", bins = 10)
+```
+
+
+## Sampling
+
+- Let's use **sampling** to produce an estimate
+- Let's choose a sample of size 25
+
+```{r}
+library(mosaic); set.seed(2016)
+sample1 <- global13 %>% resample(size = 25, replace = FALSE)
+(mean_s1_f <- sample1 %>% summarize(mean_f = mean(FEMALEOFFICE)))
+```
+
+> - But this is just one sample?  We could produce many samples with different means.  Which one is correct?
+
+## Sampling distribution
+
+```{r}
+sample_means <- do(200) * 
+  global13 %>% resample(size = 25, replace = FALSE) %>% 
+  summarize(mean_f = mean(FEMALEOFFICE))
+sample_means
+```
+
+
+## Plot of sampling distribution
+
+```{r}
+library(ggplot2)
+sample_means %>% ggplot(mapping = aes(x = mean_f)) +
+  geom_histogram(color = "white", bins = 10)
+```
+
+## Mean of the sampling distribution
+
+The mean of the sampling distribution of means provides an estimate for our population mean:
+
+```{r}
+sample_means %>% summarize(mean_samp_dist = mean(mean_f))
+```
+
+Population mean
+
+```{r}
+global13 %>% summarize(pop_mean = mean(FEMALEOFFICE))
+```
+
+## Standard deviation of the sampling distribution
+
+The standard deviation of the sampling distribution of means (also known as the **standard error**) provides as estimate of how much variability we can expect in the means as we go from one sample to another.
+
+```{r}
+sample_means %>% summarize(std_error = sd(mean_f))
+```
+
+## How could we improve our estimate of the population mean?
+
+> - Increase the sample size
+> - Run more simulations (Instead of `do()`ing 200 we could `do()` 500, for example)
+
+## What if we didn't have the whole population?
+
+> We could **resample** one randomly selected sample to create a guess to what the sampling distribution might look like.
+
+> Important note:  The **bootstrap distribution** is an approximation of the sampling distribution.
+
+> The **bootstrap distribution** will always be centered near the original sample statistic so it is better used as an estimate of the shape of the sampling distribution and as an estimate of the standard error.
+
+## Bootstrap our original sample
+
+- Let's use our original sample from `global13` which we called `sample1`.
+- Let's look to see what one such `resample()` of `sample1` gives us:
+
+```{r}
+(boot1 <- sample1 %>% resample(orig.id = TRUE))
+```
+
+## Computing the bootstrap mean
+
+```{r}
+boot1 %>% summarize(boot_mean = mean(FEMALEOFFICE))
+```
+
+## Repeating this process
+
+Repeating this process over and over again, we can create a **bootstrap distribution** from the means of the **bootstrap samples**.
+
+```{r}
+boot_means <- do(200) * 
+  sample1 %>% resample(orig.id = TRUE) %>% 
+  summarize(boot_mean = mean(FEMALEOFFICE))
+```
+
+## Plotting the bootstrap distribution
+
+```{r}
+boot_means %>% ggplot(mapping = aes(x = boot_mean)) +
+  geom_histogram(color = "white", bins = 10)
+```
+
+## Using the bootstrap distribution 
+
+To estimate the population mean
+
+```{r}
+boot_means %>% summarize(mean_boot_dist = mean(boot_mean))
+```
+
+To estimate the **standard error**
+
+```{r}
+boot_means %>% summarize(sd_boot_dist = sd(boot_mean))
+```
+
+## Summary
+
+- This activity was meant to show you how the concepts of **sampling** and **resampling** interact
+
+- Bootstrapping works by allowing us to create a guess as to what the sampling distribution looks like.
+    - This allows us to test hypotheses and create confidence intervals on unknown population values.
+    - It also allows us to not necessarily worry about formulas and mathematical probability.
+    
+>    - It does still require us to have a random sample from our population as our **original sample** though.  *Why is that?*
+
+## Reason to be concerned
+
+- Remember that the original population distribution was right-skewed.  Therefore, the mean doesn't make sense as a measure and may be causing some problems.
+
+- Repeat the **sampling** and **bootstrapping** steps above.  This time using the median and the IQR instead of the mean and standard deviation.
+
+- Discuss the results for Wednesday.
+
+## To do for next time
+
+- Complete the problem on the previous slide.
+- Review the Quiz #4 practice problems at <http://ismayc.github.io/teaching/soc301-f2016/slides/week-11/ps12all.html>
+- Complete [PS13](https://goo.gl/forms/FkwFjUtkmHG0c0zQ2) by 10 AM on Wednesday, November 9
+- Begin working on the Exam 2 practice problems at <http://ismayc.github.io/teaching/soc301-f2016/Midterm-II-Practice.pdf>
