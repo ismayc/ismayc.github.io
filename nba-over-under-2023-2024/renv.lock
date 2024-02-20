@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "4.3.1",
+    "Version": "4.2.2",
     "Repositories": [
       {
         "Name": "CRAN",
@@ -9,9 +9,9 @@
     ]
   },
   "Python": {
-    "Version": "3.11.2",
+    "Version": "3.8.12",
     "Type": "virtualenv",
-    "Name": "/Users/Chester/.virtualenvs/r-reticulate"
+    "Name": "/Users/chester/.virtualenvs/r-reticulate"
   },
   "Packages": {
     "DBI": {
