@@ -1,9 +1,0 @@
----
-title: "Week Two, Day 1"
-author: "Chester Ismay"
-date: "September 7, 2016"
-output: html_document
----
-
-4. Why am I teaching you how to use R?
-    - Show them thesisdown

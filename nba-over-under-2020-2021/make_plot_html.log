@@ -1,1878 +1,0 @@
-   Starting at 2021-02-08 06:45:02
-
-processing file: make_plots.Rmd
-
-  |                                                                            
-  |                                                                      |   0%
-  |                                                                            
-  |.....                                                                 |   8%
-  ordinary text without R code
-
-
-  |                                                                            
-  |...........                                                           |  15%
-label: setup (with options) 
-List of 1
- $ include: logi FALSE
-
-
-  |                                                                            
-  |................                                                      |  23%
-   inline R code fragments
-
-
-  |                                                                            
-  |......................                                                |  31%
-label: unnamed-chunk-1 (with options) 
-List of 4
- $ fig.height: num 10
- $ fig.width : num 10
- $ message   : logi FALSE
- $ warning   : logi FALSE
-
-
-  |                                                                            
-  |...........................                                           |  38%
-  ordinary text without R code
-
-
-  |                                                                            
-  |................................                                      |  46%
-label: unnamed-chunk-2 (with options) 
-List of 2
- $ fig.height: num 10
- $ fig.width : num 10
-
-
-  |                                                                            
-  |......................................                                |  54%
-   inline R code fragments
-
-
-  |                                                                            
-  |...........................................                           |  62%
-label: unnamed-chunk-3
-
-  |                                                                            
-  |................................................                      |  69%
-  ordinary text without R code
-
-
-  |                                                                            
-  |......................................................                |  77%
-label: unnamed-chunk-4 (with options) 
-List of 2
- $ fig.height: num 6
- $ fig.width : num 10
-
-
-  |                                                                            
-  |...........................................................           |  85%
-  ordinary text without R code
-
-
-  |                                                                            
-  |.................................................................     |  92%
-label: unnamed-chunk-5 (with options) 
-List of 2
- $ fig.height: num 6
- $ fig.width : num 10
-
-
-  |                                                                            
-  |......................................................................| 100%
-  ordinary text without R code
-
-
-output file: make_plots.knit.md
-
-/Applications/RStudio.app/Contents/MacOS/pandoc/pandoc +RTS -K512m -RTS make_plots.utf8.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /Users/chester/Desktop/ismayc.github.io/2021-nba-over-under.html --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmarkdown/lua/latex-div.lua --self-contained --standalone --section-divs --template /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable 'theme:bootstrap' --include-in-header /tmp/Rtmp8PShfp/rmarkdown-strb386639a3963.html --mathjax --variable 'mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' 
-
-Output created: /Users/chester/Desktop/ismayc.github.io/2021-nba-over-under.html
-Completed at 2021-02-08 06:45:24
-[master 38fd1a1] Updated 2021-02-08 06:45:24
- 5 files changed, 82 insertions(+), 98 deletions(-)
- rewrite nba-over-under-2020-2021/make_plot_html.log (83%)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-02-07.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-02-07.rds
-fatal: could not read Username for 'https://github.com': Device not configured
-Starting at 2021-02-08 10:41:01
-
-processing file: make_plots.Rmd
-  |                                                                              |                                                                      |   0%  |                                                                              |.....                                                                 |   8%
-  ordinary text without R code
-
-  |                                                                              |...........                                                           |  15%
-label: setup (with options) 
-List of 1
- $ include: logi FALSE
-
-  |                                                                              |................                                                      |  23%
-   inline R code fragments
-
-  |                                                                              |......................                                                |  31%
-label: unnamed-chunk-1 (with options) 
-List of 4
- $ fig.height: num 10
- $ fig.width : num 10
- $ message   : logi FALSE
- $ warning   : logi FALSE
-
-  |                                                                              |...........................                                           |  38%
-  ordinary text without R code
-
-  |                                                                              |................................                                      |  46%
-label: unnamed-chunk-2 (with options) 
-List of 2
- $ fig.height: num 10
- $ fig.width : num 10
-
-  |                                                                              |......................................                                |  54%
-   inline R code fragments
-
-  |                                                                              |...........................................                           |  62%
-label: unnamed-chunk-3
-  |                                                                              |................................................                      |  69%
-  ordinary text without R code
-
-  |                                                                              |......................................................                |  77%
-label: unnamed-chunk-4 (with options) 
-List of 2
- $ fig.height: num 6
- $ fig.width : num 10
-
-  |                                                                              |...........................................................           |  85%
-  ordinary text without R code
-
-  |                                                                              |.................................................................     |  92%
-label: unnamed-chunk-5 (with options) 
-List of 2
- $ fig.height: num 6
- $ fig.width : num 10
-
-  |                                                                              |......................................................................| 100%
-  ordinary text without R code
-
-
-output file: make_plots.knit.md
-
-/Applications/RStudio.app/Contents/MacOS/pandoc/pandoc +RTS -K512m -RTS make_plots.utf8.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /Users/chester/Desktop/ismayc.github.io/2021-nba-over-under.html --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmarkdown/lua/latex-div.lua --self-contained --standalone --section-divs --template /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable 'theme:bootstrap' --include-in-header /tmp/RtmpAU2YeS/rmarkdown-strbc15233fbbc.html --mathjax --variable 'mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' 
-
-Output created: /Users/chester/Desktop/ismayc.github.io/2021-nba-over-under.html
-Completed at 2021-02-08 10:41:22
-[master 37f6772] Updated 2021-02-08 10:41:22
- 2 files changed, 75 insertions(+), 11 deletions(-)
-To https://github.com/ismayc/ismayc.github.io.git
-   c266811..37f6772  master -> master
-Starting at 2021-02-09 06:45:01
-
-processing file: make_plots.Rmd
-  |                                                                              |                                                                      |   0%  |                                                                              |.....                                                                 |   8%
-  ordinary text without R code
-
-  |                                                                              |...........                                                           |  15%
-label: setup (with options) 
-List of 1
- $ include: logi FALSE
-
-  |                                                                              |................                                                      |  23%
-   inline R code fragments
-
-  |                                                                              |......................                                                |  31%
-label: unnamed-chunk-1 (with options) 
-List of 4
- $ fig.height: num 10
- $ fig.width : num 10
- $ message   : logi FALSE
- $ warning   : logi FALSE
-
-  |                                                                              |...........................                                           |  38%
-  ordinary text without R code
-
-  |                                                                              |................................                                      |  46%
-label: unnamed-chunk-2 (with options) 
-List of 2
- $ fig.height: num 10
- $ fig.width : num 10
-
-  |                                                                              |......................................                                |  54%
-   inline R code fragments
-
-  |                                                                              |...........................................                           |  62%
-label: unnamed-chunk-3
-  |                                                                              |................................................                      |  69%
-  ordinary text without R code
-
-  |                                                                              |......................................................                |  77%
-label: unnamed-chunk-4 (with options) 
-List of 2
- $ fig.height: num 6
- $ fig.width : num 10
-
-  |                                                                              |...........................................................           |  85%
-  ordinary text without R code
-
-  |                                                                              |.................................................................     |  92%
-label: unnamed-chunk-5 (with options) 
-List of 2
- $ fig.height: num 6
- $ fig.width : num 10
-
-  |                                                                              |......................................................................| 100%
-  ordinary text without R code
-
-
-output file: make_plots.knit.md
-
-/Applications/RStudio.app/Contents/MacOS/pandoc/pandoc +RTS -K512m -RTS make_plots.utf8.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /Users/chester/Desktop/ismayc.github.io/2021-nba-over-under.html --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmarkdown/lua/latex-div.lua --self-contained --standalone --section-divs --template /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable 'theme:bootstrap' --include-in-header /tmp/Rtmp3ttndX/rmarkdown-str12e2258c87bb0.html --mathjax --variable 'mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' 
-
-Output created: /Users/chester/Desktop/ismayc.github.io/2021-nba-over-under.html
-Completed at 2021-02-09 06:45:23
-[master 26ed0b7] Updated 2021-02-09 06:45:23
- 4 files changed, 77 insertions(+), 13 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-02-08.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-02-08.rds
-To https://github.com/ismayc/ismayc.github.io.git
-   93e2cfa..26ed0b7  master -> master
-Starting at 2021-02-10 06:45:00
-
-processing file: make_plots.Rmd
-  |                                                                              |                                                                      |   0%  |                                                                              |.....                                                                 |   7%
-  ordinary text without R code
-
-  |                                                                              |.........                                                             |  13%
-label: setup (with options) 
-List of 1
- $ include: logi FALSE
-
-  |                                                                              |..............                                                        |  20%
-   inline R code fragments
-
-  |                                                                              |...................                                                   |  27%
-label: unnamed-chunk-1 (with options) 
-List of 4
- $ fig.height: num 10
- $ fig.width : num 10
- $ message   : logi FALSE
- $ warning   : logi FALSE
-
-  |                                                                              |.......................                                               |  33%
-  ordinary text without R code
-
-  |                                                                              |............................                                          |  40%
-label: unnamed-chunk-2 (with options) 
-List of 2
- $ fig.height: num 10
- $ fig.width : num 10
-
-  |                                                                              |.................................                                     |  47%
-   inline R code fragments
-
-  |                                                                              |.....................................                                 |  53%
-label: unnamed-chunk-3
-  |                                                                              |..........................................                            |  60%
-  ordinary text without R code
-
-  |                                                                              |...............................................                       |  67%
-label: unnamed-chunk-4 (with options) 
-List of 2
- $ fig.height: num 6
- $ fig.width : num 10
-
-  |                                                                              |...................................................                   |  73%
-  ordinary text without R code
-
-  |                                                                              |........................................................              |  80%
-label: unnamed-chunk-5 (with options) 
-List of 2
- $ fig.height: num 6
- $ fig.width : num 10
-
-  |                                                                              |.............................................................         |  87%
-  ordinary text without R code
-
-  |                                                                              |.................................................................     |  93%
-label: unnamed-chunk-6
-  |                                                                              |......................................................................| 100%
-  ordinary text without R code
-
-
-output file: make_plots.knit.md
-
-/Applications/RStudio.app/Contents/MacOS/pandoc/pandoc +RTS -K512m -RTS make_plots.utf8.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /Users/chester/Desktop/ismayc.github.io/2021-nba-over-under.html --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmarkdown/lua/latex-div.lua --self-contained --standalone --section-divs --template /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable 'theme:bootstrap' --include-in-header /tmp/Rtmp3KfUuq/rmarkdown-str1675b22d61c1f.html --mathjax --variable 'mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' 
-
-Output created: /Users/chester/Desktop/ismayc.github.io/2021-nba-over-under.html
-Completed at 2021-02-10 06:45:22
-[master 0710839] Updated 2021-02-10 06:45:22
- 4 files changed, 84 insertions(+), 15 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-02-09.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-02-09.rds
-To https://github.com/ismayc/ismayc.github.io.git
-   82ab1e9..0710839  master -> master
-Starting at 2021-02-11 06:45:01
-
-processing file: make_plots.Rmd
-  |                                                                              |                                                                      |   0%  |                                                                              |.....                                                                 |   7%
-  ordinary text without R code
-
-  |                                                                              |.........                                                             |  13%
-label: setup (with options) 
-List of 1
- $ include: logi FALSE
-
-  |                                                                              |..............                                                        |  20%
-   inline R code fragments
-
-  |                                                                              |...................                                                   |  27%
-label: unnamed-chunk-1 (with options) 
-List of 4
- $ fig.height: num 10
- $ fig.width : num 10
- $ message   : logi FALSE
- $ warning   : logi FALSE
-
-  |                                                                              |.......................                                               |  33%
-  ordinary text without R code
-
-  |                                                                              |............................                                          |  40%
-label: unnamed-chunk-2 (with options) 
-List of 2
- $ fig.height: num 10
- $ fig.width : num 10
-
-  |                                                                              |.................................                                     |  47%
-   inline R code fragments
-
-  |                                                                              |.....................................                                 |  53%
-label: unnamed-chunk-3
-  |                                                                              |..........................................                            |  60%
-  ordinary text without R code
-
-  |                                                                              |...............................................                       |  67%
-label: unnamed-chunk-4 (with options) 
-List of 2
- $ fig.height: num 6
- $ fig.width : num 10
-
-  |                                                                              |...................................................                   |  73%
-  ordinary text without R code
-
-  |                                                                              |........................................................              |  80%
-label: unnamed-chunk-5 (with options) 
-List of 2
- $ fig.height: num 6
- $ fig.width : num 10
-
-  |                                                                              |.............................................................         |  87%
-  ordinary text without R code
-
-  |                                                                              |.................................................................     |  93%
-label: unnamed-chunk-6
-  |                                                                              |......................................................................| 100%
-  ordinary text without R code
-
-
-output file: make_plots.knit.md
-
-/Applications/RStudio.app/Contents/MacOS/pandoc/pandoc +RTS -K512m -RTS make_plots.utf8.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /Users/chester/Desktop/ismayc.github.io/2021-nba-over-under.html --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmarkdown/lua/latex-div.lua --self-contained --standalone --section-divs --template /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable 'theme:bootstrap' --include-in-header /tmp/RtmpfLKiSr/rmarkdown-str4493186cbb87.html --mathjax --variable 'mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' 
-
-Output created: /Users/chester/Desktop/ismayc.github.io/2021-nba-over-under.html
-Completed at 2021-02-11 06:45:21
-[master 1b48d73] Updated 2021-02-11 06:45:21
- 4 files changed, 90 insertions(+), 15 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-02-10.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-02-10.rds
-To https://github.com/ismayc/ismayc.github.io.git
-   0710839..1b48d73  master -> master
-Starting at 2021-02-12 06:45:01
-
-processing file: make_plots.Rmd
-  |                                                                              |                                                                      |   0%  |                                                                              |.....                                                                 |   7%
-  ordinary text without R code
-
-  |                                                                              |.........                                                             |  13%
-label: setup (with options) 
-List of 1
- $ include: logi FALSE
-
-  |                                                                              |..............                                                        |  20%
-   inline R code fragments
-
-  |                                                                              |...................                                                   |  27%
-label: unnamed-chunk-1 (with options) 
-List of 4
- $ fig.height: num 10
- $ fig.width : num 10
- $ message   : logi FALSE
- $ warning   : logi FALSE
-
-  |                                                                              |.......................                                               |  33%
-  ordinary text without R code
-
-  |                                                                              |............................                                          |  40%
-label: unnamed-chunk-2 (with options) 
-List of 2
- $ fig.height: num 10
- $ fig.width : num 10
-
-  |                                                                              |.................................                                     |  47%
-   inline R code fragments
-
-  |                                                                              |.....................................                                 |  53%
-label: unnamed-chunk-3
-  |                                                                              |..........................................                            |  60%
-  ordinary text without R code
-
-  |                                                                              |...............................................                       |  67%
-label: unnamed-chunk-4 (with options) 
-List of 2
- $ fig.height: num 6
- $ fig.width : num 10
-
-  |                                                                              |...................................................                   |  73%
-  ordinary text without R code
-
-  |                                                                              |........................................................              |  80%
-label: unnamed-chunk-5 (with options) 
-List of 2
- $ fig.height: num 6
- $ fig.width : num 10
-
-  |                                                                              |.............................................................         |  87%
-  ordinary text without R code
-
-  |                                                                              |.................................................................     |  93%
-label: unnamed-chunk-6
-  |                                                                              |......................................................................| 100%
-  ordinary text without R code
-
-
-output file: make_plots.knit.md
-
-/Applications/RStudio.app/Contents/MacOS/pandoc/pandoc +RTS -K512m -RTS make_plots.utf8.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /Users/chester/Desktop/ismayc.github.io/2021-nba-over-under.html --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmarkdown/lua/latex-div.lua --self-contained --standalone --section-divs --template /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable 'theme:bootstrap' --include-in-header /tmp/RtmpU0YAqa/rmarkdown-str606f7b754a7f.html --mathjax --variable 'mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' 
-
-Output created: /Users/chester/Desktop/ismayc.github.io/2021-nba-over-under.html
-Completed at 2021-02-12 06:45:24
-[master 1a37593] Updated 2021-02-12 06:45:24
- 4 files changed, 90 insertions(+), 15 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-02-11.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-02-11.rds
-To https://github.com/ismayc/ismayc.github.io.git
-   1b48d73..1a37593  master -> master
-Starting at 2021-02-13 06:45:02
-
-processing file: make_plots.Rmd
-  |                                                                              |                                                                      |   0%  |                                                                              |.....                                                                 |   7%
-  ordinary text without R code
-
-  |                                                                              |.........                                                             |  13%
-label: setup (with options) 
-List of 1
- $ include: logi FALSE
-
-  |                                                                              |..............                                                        |  20%
-   inline R code fragments
-
-  |                                                                              |...................                                                   |  27%
-label: unnamed-chunk-1 (with options) 
-List of 4
- $ fig.height: num 10
- $ fig.width : num 10
- $ message   : logi FALSE
- $ warning   : logi FALSE
-
-  |                                                                              |.......................                                               |  33%
-  ordinary text without R code
-
-  |                                                                              |............................                                          |  40%
-label: unnamed-chunk-2 (with options) 
-List of 2
- $ fig.height: num 10
- $ fig.width : num 10
-
-  |                                                                              |.................................                                     |  47%
-   inline R code fragments
-
-  |                                                                              |.....................................                                 |  53%
-label: unnamed-chunk-3
-  |                                                                              |..........................................                            |  60%
-  ordinary text without R code
-
-  |                                                                              |...............................................                       |  67%
-label: unnamed-chunk-4 (with options) 
-List of 2
- $ fig.height: num 6
- $ fig.width : num 10
-
-  |                                                                              |...................................................                   |  73%
-  ordinary text without R code
-
-  |                                                                              |........................................................              |  80%
-label: unnamed-chunk-5 (with options) 
-List of 2
- $ fig.height: num 6
- $ fig.width : num 10
-
-  |                                                                              |.............................................................         |  87%
-  ordinary text without R code
-
-  |                                                                              |.................................................................     |  93%
-label: unnamed-chunk-6
-  |                                                                              |......................................................................| 100%
-  ordinary text without R code
-
-
-output file: make_plots.knit.md
-
-/Applications/RStudio.app/Contents/MacOS/pandoc/pandoc +RTS -K512m -RTS make_plots.utf8.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /Users/chester/Desktop/ismayc.github.io/2021-nba-over-under.html --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmarkdown/lua/latex-div.lua --self-contained --standalone --section-divs --template /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable 'theme:bootstrap' --include-in-header /tmp/RtmpH1dJp6/rmarkdown-str902f710faa22.html --mathjax --variable 'mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' 
-
-Output created: /Users/chester/Desktop/ismayc.github.io/2021-nba-over-under.html
-Completed at 2021-02-13 06:45:25
-fatal: Unable to create '/Users/chester/Desktop/ismayc.github.io/.git/index.lock': File exists.
-
-Another git process seems to be running in this repository, e.g.
-an editor opened by 'git commit'. Please make sure all processes
-are terminated then try again. If it still fails, a git process
-may have crashed in this repository earlier:
-remove the file manually to continue.
-Everything up-to-date
-Starting at 2021-02-13 10:41:01
-
-processing file: make_plots.Rmd
-  |                                                                              |                                                                      |   0%  |                                                                              |.....                                                                 |   7%
-  ordinary text without R code
-
-  |                                                                              |.........                                                             |  13%
-label: setup (with options) 
-List of 1
- $ include: logi FALSE
-
-  |                                                                              |..............                                                        |  20%
-   inline R code fragments
-
-  |                                                                              |...................                                                   |  27%
-label: unnamed-chunk-1 (with options) 
-List of 4
- $ fig.height: num 10
- $ fig.width : num 10
- $ message   : logi FALSE
- $ warning   : logi FALSE
-
-  |                                                                              |.......................                                               |  33%
-  ordinary text without R code
-
-  |                                                                              |............................                                          |  40%
-label: unnamed-chunk-2 (with options) 
-List of 2
- $ fig.height: num 10
- $ fig.width : num 10
-
-  |                                                                              |.................................                                     |  47%
-   inline R code fragments
-
-  |                                                                              |.....................................                                 |  53%
-label: unnamed-chunk-3
-  |                                                                              |..........................................                            |  60%
-  ordinary text without R code
-
-  |                                                                              |...............................................                       |  67%
-label: unnamed-chunk-4 (with options) 
-List of 2
- $ fig.height: num 6
- $ fig.width : num 10
-
-  |                                                                              |...................................................                   |  73%
-  ordinary text without R code
-
-  |                                                                              |........................................................              |  80%
-label: unnamed-chunk-5 (with options) 
-List of 2
- $ fig.height: num 6
- $ fig.width : num 10
-
-  |                                                                              |.............................................................         |  87%
-  ordinary text without R code
-
-  |                                                                              |.................................................................     |  93%
-label: unnamed-chunk-6
-  |                                                                              |......................................................................| 100%
-  ordinary text without R code
-
-
-output file: make_plots.knit.md
-
-/Applications/RStudio.app/Contents/MacOS/pandoc/pandoc +RTS -K512m -RTS make_plots.utf8.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /Users/chester/Desktop/ismayc.github.io/2021-nba-over-under.html --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmarkdown/lua/latex-div.lua --self-contained --standalone --section-divs --template /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable 'theme:bootstrap' --include-in-header /tmp/Rtmp3qTomv/rmarkdown-str99192c104485.html --mathjax --variable 'mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' 
-
-Output created: /Users/chester/Desktop/ismayc.github.io/2021-nba-over-under.html
-Completed at 2021-02-13 10:41:19
-[master 57484f5] Updated 2021-02-13 10:41:19
- 2 files changed, 82 insertions(+), 13 deletions(-)
-To https://github.com/ismayc/ismayc.github.io.git
-   d100dd9..57484f5  master -> master
-Starting at 2021-02-14 06:45:01
-
-processing file: make_plots.Rmd
-  |                                                                              |                                                                      |   0%  |                                                                              |..                                                                    |   3%
-  ordinary text without R code
-
-  |                                                                              |.....                                                                 |   6%
-label: setup (with options) 
-List of 1
- $ include: logi FALSE
-
-  |                                                                              |.......                                                               |  10%
-   inline R code fragments
-
-  |                                                                              |.........                                                             |  13%
-label: unnamed-chunk-1 (with options) 
-List of 4
- $ fig.height: num 10
- $ fig.width : num 10
- $ message   : logi FALSE
- $ warning   : logi FALSE
-
-  |                                                                              |...........                                                           |  16%
-  ordinary text without R code
-
-  |                                                                              |..............                                                        |  19%
-label: unnamed-chunk-2 (with options) 
-List of 2
- $ fig.height: num 10
- $ fig.width : num 10
-
-  |                                                                              |................                                                      |  23%
-   inline R code fragments
-
-  |                                                                              |..................                                                    |  26%
-label: unnamed-chunk-3
-  |                                                                              |....................                                                  |  29%
-   inline R code fragments
-
-  |                                                                              |.......................                                               |  32%
-label: unnamed-chunk-4
-  |                                                                              |.........................                                             |  35%
-   inline R code fragments
-
-  |                                                                              |...........................                                           |  39%
-label: unnamed-chunk-5
-  |                                                                              |.............................                                         |  42%
-   inline R code fragments
-
-  |                                                                              |................................                                      |  45%
-label: unnamed-chunk-6
-  |                                                                              |..................................                                    |  48%
-   inline R code fragments
-
-  |                                                                              |....................................                                  |  52%
-label: unnamed-chunk-7
-  |                                                                              |......................................                                |  55%
-   inline R code fragments
-
-  |                                                                              |.........................................                             |  58%
-label: unnamed-chunk-8
-  |                                                                              |...........................................                           |  61%
-   inline R code fragments
-
-  |                                                                              |.............................................                         |  65%
-label: unnamed-chunk-9
-  |                                                                              |...............................................                       |  68%
-   inline R code fragments
-
-  |                                                                              |..................................................                    |  71%
-label: unnamed-chunk-10
-  |                                                                              |....................................................                  |  74%
-   inline R code fragments
-
-  |                                                                              |......................................................                |  77%
-label: unnamed-chunk-11
-  |                                                                              |........................................................              |  81%
-  ordinary text without R code
-
-  |                                                                              |...........................................................           |  84%
-label: unnamed-chunk-12 (with options) 
-List of 2
- $ fig.height: num 6
- $ fig.width : num 10
-
-  |                                                                              |.............................................................         |  87%
-  ordinary text without R code
-
-  |                                                                              |...............................................................       |  90%
-label: unnamed-chunk-13 (with options) 
-List of 2
- $ fig.height: num 6
- $ fig.width : num 10
-
-  |                                                                              |.................................................................     |  94%
-  ordinary text without R code
-
-  |                                                                              |....................................................................  |  97%
-label: unnamed-chunk-14
-  |                                                                              |......................................................................| 100%
-  ordinary text without R code
-
-
-output file: make_plots.knit.md
-
-/Applications/RStudio.app/Contents/MacOS/pandoc/pandoc +RTS -K512m -RTS make_plots.utf8.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /Users/chester/Desktop/ismayc.github.io/2021-nba-over-under.html --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmarkdown/lua/latex-div.lua --self-contained --standalone --section-divs --template /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable 'theme:bootstrap' --include-in-header /tmp/RtmpyuVook/rmarkdown-strc6ac4a307ecb.html --mathjax --variable 'mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' 
-
-Output created: /Users/chester/Desktop/ismayc.github.io/2021-nba-over-under.html
-Completed at 2021-02-14 06:45:24
-[master 61d59da] Updated 2021-02-14 06:45:24
- 4 files changed, 166 insertions(+), 3797 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-02-13.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-02-13.rds
-To https://github.com/ismayc/ismayc.github.io.git
-   62d7152..61d59da  master -> master
-Starting at 2021-02-15 06:45:01
-
-processing file: make_plots.Rmd
-  |                                                                              |                                                                      |   0%  |                                                                              |..                                                                    |   3%
-  ordinary text without R code
-
-  |                                                                              |.....                                                                 |   6%
-label: setup (with options) 
-List of 1
- $ include: logi FALSE
-
-  |                                                                              |.......                                                               |  10%
-   inline R code fragments
-
-  |                                                                              |.........                                                             |  13%
-label: unnamed-chunk-1 (with options) 
-List of 4
- $ fig.height: num 10
- $ fig.width : num 10
- $ message   : logi FALSE
- $ warning   : logi FALSE
-
-  |                                                                              |...........                                                           |  16%
-  ordinary text without R code
-
-  |                                                                              |..............                                                        |  19%
-label: unnamed-chunk-2 (with options) 
-List of 2
- $ fig.height: num 10
- $ fig.width : num 10
-
-  |                                                                              |................                                                      |  23%
-   inline R code fragments
-
-  |                                                                              |..................                                                    |  26%
-label: unnamed-chunk-3
-  |                                                                              |....................                                                  |  29%
-   inline R code fragments
-
-  |                                                                              |.......................                                               |  32%
-label: unnamed-chunk-4
-  |                                                                              |.........................                                             |  35%
-   inline R code fragments
-
-  |                                                                              |...........................                                           |  39%
-label: unnamed-chunk-5
-  |                                                                              |.............................                                         |  42%
-   inline R code fragments
-
-  |                                                                              |................................                                      |  45%
-label: unnamed-chunk-6
-  |                                                                              |..................................                                    |  48%
-   inline R code fragments
-
-  |                                                                              |....................................                                  |  52%
-label: unnamed-chunk-7
-  |                                                                              |......................................                                |  55%
-   inline R code fragments
-
-  |                                                                              |.........................................                             |  58%
-label: unnamed-chunk-8
-  |                                                                              |...........................................                           |  61%
-   inline R code fragments
-
-  |                                                                              |.............................................                         |  65%
-label: unnamed-chunk-9
-  |                                                                              |...............................................                       |  68%
-   inline R code fragments
-
-  |                                                                              |..................................................                    |  71%
-label: unnamed-chunk-10
-  |                                                                              |....................................................                  |  74%
-   inline R code fragments
-
-  |                                                                              |......................................................                |  77%
-label: unnamed-chunk-11
-  |                                                                              |........................................................              |  81%
-  ordinary text without R code
-
-  |                                                                              |...........................................................           |  84%
-label: unnamed-chunk-12 (with options) 
-List of 2
- $ fig.height: num 6
- $ fig.width : num 10
-
-  |                                                                              |.............................................................         |  87%
-  ordinary text without R code
-
-  |                                                                              |...............................................................       |  90%
-label: unnamed-chunk-13 (with options) 
-List of 2
- $ fig.height: num 6
- $ fig.width : num 10
-
-  |                                                                              |.................................................................     |  94%
-  ordinary text without R code
-
-  |                                                                              |....................................................................  |  97%
-label: unnamed-chunk-14
-  |                                                                              |......................................................................| 100%
-  ordinary text without R code
-
-
-output file: make_plots.knit.md
-
-/Applications/RStudio.app/Contents/MacOS/pandoc/pandoc +RTS -K512m -RTS make_plots.utf8.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash --output /Users/chester/Desktop/ismayc.github.io/2021-nba-over-under.html --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmarkdown/lua/latex-div.lua --self-contained --standalone --section-divs --template /Library/Frameworks/R.framework/Versions/4.0/Resources/library/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable 'theme:bootstrap' --include-in-header /tmp/RtmpPz2eIc/rmarkdown-strcce3ae4a95d.html --mathjax --variable 'mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' 
-
-Output created: /Users/chester/Desktop/ismayc.github.io/2021-nba-over-under.html
-Completed at 2021-02-15 06:45:24
-[master cd257ad] Updated 2021-02-15 06:45:25
- 4 files changed, 148 insertions(+), 33 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-02-14.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-02-14.rds
-To https://github.com/ismayc/ismayc.github.io.git
-   61d59da..cd257ad  master -> master
-Starting at 2021-02-15 10:41:02Completed at 2021-02-15 10:41:23
-[master 5640900] Updated 2021-02-15 10:41:23
- 2 files changed, 30 insertions(+), 29 deletions(-)
-To https://github.com/ismayc/ismayc.github.io.git
-   b29d96b..5640900  master -> master
-Starting at 2021-02-16 06:45:01Completed at 2021-02-16 06:45:22
-[master 4a3d788] Updated 2021-02-16 06:45:23
- 4 files changed, 40 insertions(+), 39 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-02-15.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-02-15.rds
-To https://github.com/ismayc/ismayc.github.io.git
-   c03c09d..4a3d788  master -> master
-Starting at 2021-02-17 06:45:01Completed at 2021-02-17 06:46:05
-[master 62ddd6f] Updated 2021-02-17 06:46:07
- 4 files changed, 40 insertions(+), 33 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-02-16.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-02-16.rds
-To https://github.com/ismayc/ismayc.github.io.git
-   4a3d788..62ddd6f  master -> master
-Starting at 2021-02-18 06:45:01Completed at 2021-02-18 06:45:22
-[master fe88e49] Updated 2021-02-18 06:45:23
- 4 files changed, 112 insertions(+), 3821 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-02-17.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-02-17.rds
-To https://github.com/ismayc/ismayc.github.io.git
-   39b21f5..fe88e49  master -> master
-Starting at 2021-02-18 10:41:01Completed at 2021-02-18 10:41:18
-[master aaa6546] Updated 2021-02-18 10:41:18
- 2 files changed, 34 insertions(+), 27 deletions(-)
-To https://github.com/ismayc/ismayc.github.io.git
-   fe88e49..aaa6546  master -> master
-Starting at 2021-02-19 06:45:02Completed at 2021-02-19 06:45:23
-[master de32f84] Updated 2021-02-19 06:45:24
- 4 files changed, 50 insertions(+), 94 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-02-18.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-02-18.rds
-To https://github.com/ismayc/ismayc.github.io.git
-   aaa6546..de32f84  master -> master
-Starting at 2021-02-20 06:45:01Completed at 2021-02-20 06:45:26
-[master 32406a0] Updated 2021-02-20 06:45:26
- 4 files changed, 113 insertions(+), 3808 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-02-19.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-02-19.rds
-To https://github.com/ismayc/ismayc.github.io.git
-   d4830e9..32406a0  master -> master
-Starting at 2021-02-21 06:45:01Completed at 2021-02-21 06:45:27
-[master 6b81fa9] Updated 2021-02-21 06:45:27
- 4 files changed, 60 insertions(+), 81 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-02-20.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-02-20.rds
-To https://github.com/ismayc/ismayc.github.io.git
-   32406a0..6b81fa9  master -> master
-Starting at 2021-02-22 06:45:01Completed at 2021-02-22 06:45:25
-[master ea9149e] Updated 2021-02-22 06:45:26
- 4 files changed, 83 insertions(+), 55 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-02-21.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-02-21.rds
-To https://github.com/ismayc/ismayc.github.io.git
-   6b81fa9..ea9149e  master -> master
-Starting at 2021-02-23 06:45:01Completed at 2021-02-23 06:45:33
-[master 6898084] Updated 2021-02-23 06:45:33
- 4 files changed, 63 insertions(+), 76 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-02-22.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-02-22.rds
-To https://github.com/ismayc/ismayc.github.io.git
-   51bfc58..6898084  master -> master
-Starting at 2021-02-23 10:41:02Completed at 2021-02-23 10:41:33
-[master 18a70db] Updated 2021-02-23 10:41:33
- 2 files changed, 36 insertions(+), 29 deletions(-)
-To https://github.com/ismayc/ismayc.github.io.git
-   6898084..18a70db  master -> master
-Starting at 2021-02-24 06:45:01Completed at 2021-02-24 06:45:34
-[master 4f4e96a] Updated 2021-02-24 06:45:37
- 4 files changed, 92 insertions(+), 65 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-02-23.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-02-23.rds
-To https://github.com/ismayc/ismayc.github.io.git
-   18a70db..4f4e96a  master -> master
-Starting at 2021-02-24 10:41:01Completed at 2021-02-24 10:41:59
-[master 138bed3] Updated 2021-02-24 10:42:00
- 2 files changed, 52 insertions(+), 69 deletions(-)
-To https://github.com/ismayc/ismayc.github.io.git
-   4f4e96a..138bed3  master -> master
-Starting at 2021-02-25 06:45:01Completed at 2021-02-25 06:45:40
-[master 99f6263] Updated 2021-02-25 06:45:41
- 4 files changed, 83 insertions(+), 79 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-02-24.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-02-24.rds
-To https://github.com/ismayc/ismayc.github.io.git
-   138bed3..99f6263  master -> master
-Starting at 2021-02-26 06:45:02Completed at 2021-02-26 06:45:35
-[master 6736d43] Updated 2021-02-26 06:45:36
- 4 files changed, 68 insertions(+), 82 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-02-25.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-02-25.rds
-To https://github.com/ismayc/ismayc.github.io.git
-   99f6263..6736d43  master -> master
-Starting at 2021-02-26 10:41:02Completed at 2021-02-26 10:41:29
-[master 06a0fe8] Updated 2021-02-26 10:41:30
- 2 files changed, 36 insertions(+), 29 deletions(-)
-To https://github.com/ismayc/ismayc.github.io.git
-   6736d43..06a0fe8  master -> master
-Starting at 2021-02-27 06:45:02Completed at 2021-02-27 06:45:36
-[master 2ddf3b5] Updated 2021-02-27 06:45:38
- 4 files changed, 88 insertions(+), 61 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-02-26.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-02-26.rds
-To https://github.com/ismayc/ismayc.github.io.git
-   06a0fe8..2ddf3b5  master -> master
-Starting at 2021-02-28 06:45:02Completed at 2021-02-28 06:45:38
-[master b115ed0] Updated 2021-02-28 06:45:39
- 4 files changed, 78 insertions(+), 85 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-02-27.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-02-27.rds
-To https://github.com/ismayc/ismayc.github.io.git
-   2ddf3b5..b115ed0  master -> master
-Starting at 2021-02-28 10:41:02Completed at 2021-02-28 10:41:42
-[master 5976582] Updated 2021-02-28 10:41:42
- 2 files changed, 38 insertions(+), 31 deletions(-)
-To https://github.com/ismayc/ismayc.github.io.git
-   b115ed0..5976582  master -> master
-Starting at 2021-03-01 06:45:01Completed at 2021-03-01 06:45:33
-[master 3c0c668] Updated 2021-03-01 06:45:34
- 4 files changed, 84 insertions(+), 72 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-02-28.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-02-28.rds
-To https://github.com/ismayc/ismayc.github.io.git
-   5976582..3c0c668  master -> master
-Starting at 2021-03-01 10:41:01Completed at 2021-03-01 10:41:28
-[master f2715df] Updated 2021-03-01 10:41:30
- 2 files changed, 38 insertions(+), 31 deletions(-)
-To https://github.com/ismayc/ismayc.github.io.git
-   3c0c668..f2715df  master -> master
-Starting at 2021-03-02 06:45:01Completed at 2021-03-02 06:45:38
-[master 2265255] Updated 2021-03-02 06:45:39
- 4 files changed, 74 insertions(+), 76 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-03-01.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-03-01.rds
-To https://github.com/ismayc/ismayc.github.io.git
-   f2715df..2265255  master -> master
-Starting at 2021-03-03 06:45:01Completed at 2021-03-03 06:45:37
-Already up to date.
-[master db27497] Updated 2021-03-03 06:45:40
- 4 files changed, 86 insertions(+), 3836 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-03-02.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-03-02.rds
-To https://github.com/ismayc/ismayc.github.io.git
-   e625e69..db27497  master -> master
-Starting at 2021-03-04 06:45:02Completed at 2021-03-04 06:45:38
-From https://github.com/ismayc/ismayc.github.io
-   db27497..5d36b1e  master     -> origin/master
-error: Your local changes to the following files would be overwritten by merge:
-	2021-nba-over-under.html
-Please commit your changes or stash them before you merge.
-Aborting
-Updating db27497..5d36b1e
-[master f09c573] Updated 2021-03-04 06:45:41
- 4 files changed, 106 insertions(+), 63 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-03-03.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-03-03.rds
-To https://github.com/ismayc/ismayc.github.io.git
- ! [rejected]        master -> master (non-fast-forward)
-error: failed to push some refs to 'https://ismayc:5855c67258c86eabf2a0a50e0446dd8dc0a1a411@github.com/ismayc/ismayc.github.io.git'
-hint: Updates were rejected because the tip of your current branch is behind
-hint: its remote counterpart. Integrate the remote changes (e.g.
-hint: 'git pull ...') before pushing again.
-hint: See the 'Note about fast-forwards' in 'git push --help' for details.
-Starting at 2021-03-05 06:45:01Completed at 2021-03-05 06:45:38
-error: Your local changes to the following files would be overwritten by merge:
-	2021-nba-over-under.html
-Please commit your changes or stash them before you merge.
-Aborting
-[master a9ba3d9] Updated 2021-03-05 06:45:41
- 4 files changed, 98 insertions(+), 89 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-03-04.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-03-04.rds
-To https://github.com/ismayc/ismayc.github.io.git
- ! [rejected]        master -> master (non-fast-forward)
-error: failed to push some refs to 'https://ismayc:5855c67258c86eabf2a0a50e0446dd8dc0a1a411@github.com/ismayc/ismayc.github.io.git'
-hint: Updates were rejected because the tip of your current branch is behind
-hint: its remote counterpart. Integrate the remote changes (e.g.
-hint: 'git pull ...') before pushing again.
-hint: See the 'Note about fast-forwards' in 'git push --help' for details.
-Starting at 2021-03-05 10:41:02Completed at 2021-03-05 10:41:39
-Already up to date.
-[master 96cb8ca] Updated 2021-03-05 10:41:40
- 2 files changed, 33 insertions(+), 31 deletions(-)
-To https://github.com/ismayc/ismayc.github.io
-   9359af3..96cb8ca  master -> master
-Starting at 2021-03-06 06:45:01Completed at 2021-03-06 06:45:36
-Already up to date.
-[master d1c7f0e] Updated 2021-03-06 06:45:38
- 4 files changed, 41 insertions(+), 112 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-03-05.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-03-05.rds
-To https://github.com/ismayc/ismayc.github.io
-   96cb8ca..d1c7f0e  master -> master
-Starting at 2021-03-06 10:41:01Completed at 2021-03-06 10:41:44
-Already up to date.
-[master fc3a0c0] Updated 2021-03-06 10:41:45
- 2 files changed, 37 insertions(+), 29 deletions(-)
-To https://github.com/ismayc/ismayc.github.io
-   d1c7f0e..fc3a0c0  master -> master
-Starting at 2021-03-07 06:45:01Completed at 2021-03-07 06:45:36
-Already up to date.
-[master eccb6ad] Updated 2021-03-07 06:45:37
- 4 files changed, 39 insertions(+), 33 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-03-06.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-03-06.rds
-To https://github.com/ismayc/ismayc.github.io
-   fc3a0c0..eccb6ad  master -> master
-Starting at 2021-03-08 06:45:01Completed at 2021-03-08 06:45:30
-Already up to date.
-[master d72b007] Updated 2021-03-08 06:45:32
- 4 files changed, 62 insertions(+), 34 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-03-07.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-03-07.rds
-To https://github.com/ismayc/ismayc.github.io
-   eccb6ad..d72b007  master -> master
-Starting at 2021-03-09 06:45:01Completed at 2021-03-09 06:45:37
-Already up to date.
-[master 3a609cb] Updated 2021-03-09 06:45:39
- 4 files changed, 42 insertions(+), 54 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-03-08.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-03-08.rds
-To https://github.com/ismayc/ismayc.github.io
-   d72b007..3a609cb  master -> master
-Starting at 2021-03-09 10:41:01Completed at 2021-03-09 10:41:28
-Already up to date.
-[master c9e5e7b] Updated 2021-03-09 10:41:30
- 2 files changed, 37 insertions(+), 29 deletions(-)
-To https://github.com/ismayc/ismayc.github.io
-   3a609cb..c9e5e7b  master -> master
-Starting at 2021-03-10 06:45:01Completed at 2021-03-10 06:45:37
-Already up to date.
-[master 810d4a1] Updated 2021-03-10 06:45:39
- 4 files changed, 39 insertions(+), 33 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-03-09.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-03-09.rds
-To https://github.com/ismayc/ismayc.github.io
-   c9e5e7b..810d4a1  master -> master
-Starting at 2021-03-11 06:45:01Completed at 2021-03-11 06:45:36
-Already up to date.
-[master 5efc68a] Updated 2021-03-11 06:45:37
- 4 files changed, 76 insertions(+), 40 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-03-10.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-03-10.rds
-To https://github.com/ismayc/ismayc.github.io
-   810d4a1..5efc68a  master -> master
-Starting at 2021-03-11 10:41:01Completed at 2021-03-11 10:41:27
-Already up to date.
-[master 5aadf9b] Updated 2021-03-11 10:41:28
- 2 files changed, 39 insertions(+), 31 deletions(-)
-To https://github.com/ismayc/ismayc.github.io
-   5efc68a..5aadf9b  master -> master
-Starting at 2021-03-12 06:45:02Completed at 2021-03-12 06:45:31
-Already up to date.
-[master 3e522e4] Updated 2021-03-12 06:45:32
- 4 files changed, 117 insertions(+), 48 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-03-11.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-03-11.rds
-To https://github.com/ismayc/ismayc.github.io
-   5aadf9b..3e522e4  master -> master
-Starting at 2021-03-12 10:41:02Completed at 2021-03-12 10:41:33
-Already up to date.
-[master e7855dc] Updated 2021-03-12 10:41:34
- 2 files changed, 39 insertions(+), 31 deletions(-)
-To https://github.com/ismayc/ismayc.github.io
-   3e522e4..e7855dc  master -> master
-Starting at 2021-03-13 06:45:01Completed at 2021-03-13 06:45:27
-Already up to date.
-[master b72214a] Updated 2021-03-13 06:45:27
- 4 files changed, 70 insertions(+), 93 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-03-12.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-03-12.rds
-To https://github.com/ismayc/ismayc.github.io
-   e7855dc..b72214a  master -> master
-Starting at 2021-03-14 06:45:01Completed at 2021-03-14 06:45:29
-Already up to date.
-Starting at 2021-03-23 10:09:01Completed at 2021-03-23 10:09:17
-Already up to date.
-[master 358f72a] Updated 2021-03-23 10:09:18
- 2 files changed, 31 insertions(+), 29 deletions(-)
-fatal: could not read Username for 'https://github.com': Device not configured
-Starting at 2021-03-23 10:12:00 
-Completed at 2021-03-23 10:12:15 
-Already up to date.
-[master 84148a4] Updated 2021-03-23 10:12:16
- 3 files changed, 38 insertions(+), 32 deletions(-)
-fatal: could not read Username for 'https://github.com': Device not configured
-
- Starting at 2021-03-23 10:22:00 
-Completed at 2021-03-23 10:22:15 
-Host key verification failed.
-fatal: Could not read from remote repository.
-
-Please make sure you have the correct access rights
-and the repository exists.
-[master 249bb64] Updated 2021-03-23 10:22:16
- 3 files changed, 41 insertions(+), 30 deletions(-)
-Host key verification failed.
-fatal: Could not read from remote repository.
-
-Please make sure you have the correct access rights
-and the repository exists.
-
- Starting at 2021-03-23 10:27:00 
-Completed at 2021-03-23 10:27:17 
-Warning: Permanently added the RSA host key for IP address '192.30.255.113' to the list of known hosts.
-Already up to date.
-[master e2184ac] Updated 2021-03-23 10:27:19
- 2 files changed, 41 insertions(+), 29 deletions(-)
-Warning: Permanently added the RSA host key for IP address '192.30.255.112' to the list of known hosts.
-To github.com:ismayc/ismayc.github.io.git
-   f2a4868..e2184ac  master -> master
-
- Starting at 2021-03-25 14:16:22 
-Completed at 2021-03-25 14:16:49 
-From github.com:ismayc/ismayc.github.io
-   0c7f0c1..35d1551  master     -> origin/master
-error: Your local changes to the following files would be overwritten by merge:
-	2021-nba-over-under.html
-Please commit your changes or stash them before you merge.
-error: The following untracked working tree files would be overwritten by merge:
-	nba-over-under-2020-2021/rds/game_results_raw_through_2021-03-24.rds
-	nba-over-under-2020-2021/rds/standings_through_2021-03-24.rds
-Please move or remove them before you merge.
-Aborting
-Updating 0c7f0c1..35d1551
-[master c74c21f] Updated 2021-03-25 14:16:51
- 4 files changed, 114 insertions(+), 65 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-03-24.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-03-24.rds
-To github.com:ismayc/ismayc.github.io.git
- ! [rejected]        master -> master (non-fast-forward)
-error: failed to push some refs to 'git@github.com:ismayc/ismayc.github.io.git'
-hint: Updates were rejected because the tip of your current branch is behind
-hint: its remote counterpart. Integrate the remote changes (e.g.
-hint: 'git pull ...') before pushing again.
-hint: See the 'Note about fast-forwards' in 'git push --help' for details.
-
- Starting at 2021-03-25 14:20:07 
-Completed at 2021-03-25 14:20:27 
-Already up to date.
-[master 6686778] Updated 2021-03-25 14:20:28
- 2 files changed, 35 insertions(+), 31 deletions(-)
-To github.com:ismayc/ismayc.github.io.git
-   35d1551..6686778  master -> master
-
- Starting at 2021-03-27 04:02:01 
-Completed at 2021-03-27 04:31:09 
-Already up to date.
-[master 74918b8] Updated 2021-03-27 04:31:11
- 4 files changed, 106 insertions(+), 60 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-03-26.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-03-26.rds
-To github.com:ismayc/ismayc.github.io.git
-   6848ac1..74918b8  master -> master
-
- Starting at 2021-03-28 04:02:00 
-Completed at 2021-03-28 04:31:08 
-Already up to date.
-[master da3d14c] Updated 2021-03-28 04:31:09
- 4 files changed, 80 insertions(+), 85 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-03-27.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-03-27.rds
-To github.com:ismayc/ismayc.github.io.git
-   74918b8..da3d14c  master -> master
-
- Starting at 2021-03-29 04:02:01 
-Completed at 2021-03-29 04:31:07 
-Already up to date.
-[master 683b37f] Updated 2021-03-29 04:31:09
- 4 files changed, 67 insertions(+), 91 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-03-28.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-03-28.rds
-To github.com:ismayc/ismayc.github.io.git
-   da3d14c..683b37f  master -> master
-
- Starting at 2021-03-30 04:02:01 
-Completed at 2021-03-30 04:31:11 
-Already up to date.
-[master 1389d0c] Updated 2021-03-30 04:31:13
- 4 files changed, 104 insertions(+), 88 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-03-29.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-03-29.rds
-To github.com:ismayc/ismayc.github.io.git
-   ddfd9f9..1389d0c  master -> master
-
- Starting at 2021-03-31 04:02:01 
-Quitting from lines 9-12 (make_plots.Rmd) 
-Error: Problem with `mutate()` input `top_diff`.
-x `false` must be length 15 (length of `condition`) or one, not 2.
-i Input `top_diff` is `if_else(...)`.
-i The error occurred in group 1: conference = "East".
-Backtrace:
-     x
-  1. +-rmarkdown::render(...)
-  2. | \-knitr::knit(knit_input, knit_output, envir = envir, quiet = quiet)
-  3. |   \-knitr:::process_file(text, output)
-  4. |     +-base::withCallingHandlers(...)
-  5. |     +-knitr:::process_group(group)
-  6. |     \-knitr:::process_group.block(group)
-  7. |       \-knitr:::call_block(x)
-  8. |         \-knitr:::block_exec(params)
-  9. |           +-knitr:::in_dir(...)
- 10. |           \-knitr:::evaluate(...)
- 11. |             \-evaluate::evaluate(...)
- 12. |               \-evaluate:::evaluate_call(...)
- 13. |                 +-evaluate:::timing_fn(...)
- 14. |                 +-base:::handle(...)
- 15. |                 +-base::withCallingHandlers(...)
- 16. |                 +-base::withVisible(eval(expr, envir, enclos))
- 17. |                 \-base::eval(expr, envir, enclos)
- 18. |                   \-base::eval(expr, envir, enclos)
- 19. +-base::source("01-03.R")
- 20. | +-base::withVisible(eval(ei, envir))
- 21. | \-base::eval(ei, envir)
- 22. |   \-base::eval(ei, envir)
- 23. +-purrr::walk(r_files, source)
- 24. | \-purrr::map(.x, .f, ...)
- 25. |   \-base:::.f(.x[[i]], ...)
- 26. |     +-base::withVisible(eval(ei, envir))
- 27. |     \-base::eval(ei, envir)
- 28. |       \-base::eval(ei, envir)
- 29. +-`%>%`(...)
- 30. +-dplyr::mutate(...)
- 31. +-dplyr::ungroup(.)
- 32. +-dplyr::select(., -top_diff)
- 33. +-dplyr::mutate(., `Games Back` = (top_diff - differential)/2)
- 34. +-dplyr::mutate(...)
- 35. +-dplyr:::mutate.data.frame(...)
- 36. | \-dplyr:::mutate_cols(.data, ...)
- 37. |   +-base::withCallingHandlers(...)
- 38. |   \-mask$eval_all_mutate(quo)
- 39. \-dplyr::if_else(...)
- 40.   \-dplyr:::replace_with(...)
- 41.     \-dplyr:::check_length(val, x, name, reason)
- 42.       \-dplyr:::check_length_val(...)
- 43.         \-dplyr:::glubort(...)
-Execution halted
-
- Starting at 2021-04-03 04:02:01 
-
- Starting at 2021-04-04 04:02:01 
-Completed at 2021-04-04 04:02:28 
-Already up to date.
-[master 7379979] Updated 2021-04-04 04:02:29
- 4 files changed, 205 insertions(+), 220 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-04-03.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-04-03.rds
-To github.com:ismayc/ismayc.github.io.git
-   21474ad..7379979  master -> master
-
- Starting at 2021-04-04 05:01:00 
-Completed at 2021-04-04 05:01:19 
-Already up to date.
-[master 778551f] Updated 2021-04-04 05:01:20
- 2 files changed, 41 insertions(+), 31 deletions(-)
-To github.com:ismayc/ismayc.github.io.git
-   7379979..778551f  master -> master
-Starting at 2021-04-05 04:02:01 Pacific time 
-
-Attaching package: 'dplyr'
-
-The following objects are masked from 'package:stats':
-
-    filter, lag
-
-The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union
-
-
-Attaching package: 'lubridate'
-
-The following objects are masked from 'package:base':
-
-    date, intersect, setdiff, union
-
-Error: object 'update_page' not found
-Execution halted
-Starting at 2021-04-05 05:01:01 Pacific time 
-
-Attaching package: 'dplyr'
-
-The following objects are masked from 'package:stats':
-
-    filter, lag
-
-The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union
-
-
-Attaching package: 'lubridate'
-
-The following objects are masked from 'package:base':
-
-    date, intersect, setdiff, union
-
-Error: object 'update_page' not found
-Execution halted
-Starting at 2021-04-06 04:02:01 Pacific time 
-Quitting from lines 9-12 (make_plots.Rmd) 
-Error in parse_block(g[-1], g[1], params.src, markdown_mode) : 
-  Duplicate chunk label 'setup', which has been used for the chunk:
-source("01-03.R")
-knitr::opts_chunk$set(echo = FALSE)
-library(lubridate)
-Calls: <Anonymous> ... process_file -> split_file -> lapply -> FUN -> parse_block
-Execution halted
-Starting at 2021-04-06 05:01:01 Pacific time 
-Quitting from lines 9-12 (make_plots.Rmd) 
-Error in parse_block(g[-1], g[1], params.src, markdown_mode) : 
-  Duplicate chunk label 'setup', which has been used for the chunk:
-source("01-03.R")
-knitr::opts_chunk$set(echo = FALSE)
-library(lubridate)
-Calls: <Anonymous> ... process_file -> split_file -> lapply -> FUN -> parse_block
-Execution halted
-Starting at 2021-04-07 04:02:01 Pacific time 
-There were 23 warnings (use warnings() to see them)
-Completed at 2021-04-07 04:31:15 Pacific time 
-From github.com:ismayc/ismayc.github.io
-   2dfc09f..63e1189  master     -> origin/master
-Updating 2dfc09f..63e1189
-Fast-forward
- nba-over-under-2020-2021/explore-scenarios.R | 34 ++++++++++++++++------------
- 1 file changed, 19 insertions(+), 15 deletions(-)
-[master 492f393] Updated 2021-04-07 04:31:17
- 4 files changed, 199 insertions(+), 177 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-04-06.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-04-06.rds
-To github.com:ismayc/ismayc.github.io.git
-   63e1189..492f393  master -> master
-Starting at 2021-04-08 04:02:06 Pacific time 
-Starting at 2021-04-08 05:01:01 Pacific time 
-There were 23 warnings (use warnings() to see them)
-Completed at 2021-04-08 05:01:34 Pacific time 
-Already up to date.
-[master 7ea9b68] Updated 2021-04-08 05:01:36
- 4 files changed, 221 insertions(+), 215 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-04-07.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-04-07.rds
-To github.com:ismayc/ismayc.github.io.git
-   492f393..7ea9b68  master -> master
-Starting at 2021-04-09 04:02:08 Pacific time 
-Quitting from lines 9-12 (make_plots.Rmd) 
-Error in curl::curl_fetch_memory(url, handle = handle) : 
-  Timeout was reached: [stats.nba.com] Connection timed out after 10142 milliseconds
-Calls: <Anonymous> ... request_fetch -> request_fetch.write_memory -> <Anonymous>
-Execution halted
-Starting at 2021-04-09 05:01:01 Pacific time 
-There were 23 warnings (use warnings() to see them)
-Completed at 2021-04-09 05:01:32 Pacific time 
-From github.com:ismayc/ismayc.github.io
-   7ea9b68..20e2321  master     -> origin/master
-error: Your local changes to the following files would be overwritten by merge:
-	2021-nba-over-under.html
-Please commit your changes or stash them before you merge.
-Aborting
-Updating 7ea9b68..20e2321
-[master 6de3ead] Updated 2021-04-09 05:01:34
- 4 files changed, 206 insertions(+), 186 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-04-08.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-04-08.rds
-To github.com:ismayc/ismayc.github.io.git
- ! [rejected]        master -> master (non-fast-forward)
-error: failed to push some refs to 'git@github.com:ismayc/ismayc.github.io.git'
-hint: Updates were rejected because the tip of your current branch is behind
-hint: its remote counterpart. Integrate the remote changes (e.g.
-hint: 'git pull ...') before pushing again.
-hint: See the 'Note about fast-forwards' in 'git push --help' for details.
-
-Starting at 2021-04-10 05:01:01 Pacific time 
-Completed at 2021-04-10 05:01:36 Pacific time 
-Already up to date.
-[master 7cd5df0] Updated 2021-04-10 05:01:37
- 5 files changed, 204 insertions(+), 197 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-04-09.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-04-09.rds
-To github.com:ismayc/ismayc.github.io.git
-   5d3d54f..7cd5df0  master -> master
-
-Starting at 2021-04-12 04:30:45 Pacific time 
-Completed at 2021-04-12 04:31:42 Pacific time 
-Already up to date.
-[master 1114c7c] Updated 2021-04-12 04:31:54
- 4 files changed, 232 insertions(+), 213 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-04-11.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-04-11.rds
-
-Starting at 2021-04-12 05:01:00 Pacific time 
-Webpage already created today 
-Completed at 2021-04-12 05:01:02 Pacific time 
-Already up to date.
-[master bc321d4] Updated 2021-04-12 05:01:03
- 1 file changed, 9 insertions(+)
-To github.com:ismayc/ismayc.github.io.git
-   c0e9208..bc321d4  master -> master
-Connection reset by 192.30.255.112 port 22
-fatal: Could not read from remote repository.
-
-Please make sure you have the correct access rights
-and the repository exists.
-
-Starting at 2021-04-13 04:02:01 Pacific time 
-kex_exchange_identification: read: Connection reset by peer
-fatal: Could not read from remote repository.
-
-Please make sure you have the correct access rights
-and the repository exists.
-Webpage already created today 
-Completed at 2021-04-13 04:30:49 Pacific time 
-[master 345802b] Updated 2021-04-13 04:30:49
- 1 file changed, 14 insertions(+)
-To github.com:ismayc/ismayc.github.io.git
-   02e069d..345802b  master -> master
-
-Starting at 2021-04-13 05:01:01 Pacific time 
-Already up to date.
-Webpage already created today 
-Completed at 2021-04-13 05:01:04 Pacific time 
-[master 5b74910] Updated 2021-04-13 05:01:04
- 1 file changed, 9 insertions(+)
-To github.com:ismayc/ismayc.github.io.git
-   345802b..5b74910  master -> master
-
-Starting at 2021-04-15 04:30:47 Pacific time 
-Already up to date.
-Completed at 2021-04-15 04:31:27 Pacific time 
-[master 4d20b74] Updated 2021-04-15 04:31:27
- 4 files changed, 229 insertions(+), 237 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-04-14.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-04-14.rds
-To github.com:ismayc/ismayc.github.io.git
-   4961f36..4d20b74  master -> master
-
-Starting at 2021-04-15 05:01:01 Pacific time 
-Already up to date.
-Webpage already created today 
-Completed at 2021-04-15 05:01:04 Pacific time 
-[master 4e5c606] Updated 2021-04-15 05:01:04
- 1 file changed, 11 insertions(+)
-To github.com:ismayc/ismayc.github.io.git
-   4d20b74..4e5c606  master -> master
-
-Starting at 2021-04-16 04:02:02 Pacific time 
-Already up to date.
-Quitting from lines 694-716 (make_plots.Rmd) 
-Error in open.connection(con, "rb") : 
-  LibreSSL SSL_read: SSL_ERROR_SYSCALL, errno 54
-Calls: <Anonymous> ... datasource_connection -> read_connection -> open -> open.connection
-Execution halted
-
-Starting at 2021-04-16 05:01:00 Pacific time 
-Already up to date.
-Completed at 2021-04-16 05:01:34 Pacific time 
-[master 4b70eaa] Updated 2021-04-16 05:01:34
- 4 files changed, 182 insertions(+), 180 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-04-15.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-04-15.rds
-To github.com:ismayc/ismayc.github.io.git
-   4e5c606..4b70eaa  master -> master
-
-Starting at 2021-04-17 04:02:00 Pacific time 
-ssh: Could not resolve hostname github.com: nodename nor servname provided, or not known
-fatal: Could not read from remote repository.
-
-Please make sure you have the correct access rights
-and the repository exists.
-Completed at 2021-04-17 04:46:47 Pacific time 
-[master 5bdc702] Updated 2021-04-17 04:46:47
- 4 files changed, 238 insertions(+), 206 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-04-16.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-04-16.rds
-To github.com:ismayc/ismayc.github.io.git
-   4b70eaa..5bdc702  master -> master
-
-Starting at 2021-04-18 04:02:01 Pacific time 
-Already up to date.
-Completed at 2021-04-18 04:31:29 Pacific time 
-[master b010b9f] Updated 2021-04-18 04:31:29
- 4 files changed, 187 insertions(+), 199 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-04-17.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-04-17.rds
-
-Starting at 2021-04-19 04:02:01 Pacific time 
-From github.com:ismayc/ismayc.github.io
-   5bdc702..b010b9f  master     -> origin/master
-Already up to date.
-Completed at 2021-04-19 04:31:27 Pacific time 
-[master eda522c] Updated 2021-04-19 04:31:27
- 4 files changed, 217 insertions(+), 187 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-04-18.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-04-18.rds
-To github.com:ismayc/ismayc.github.io.git
-   b010b9f..eda522c  master -> master
-client_loop: send disconnect: Broken pipe
-fatal: the remote end hung up unexpectedly
-fatal: the remote end hung up unexpectedly
-
-Starting at 2021-04-22 05:01:38 Pacific time 
-ssh: connect to host github.com port 22: Undefined error: 0
-fatal: Could not read from remote repository.
-
-Please make sure you have the correct access rights
-and the repository exists.
-Quitting from lines 9-13 (make_plots.Rmd) 
-Error in curl::curl_fetch_memory(url, handle = handle) : 
-  Could not resolve host: stats.nba.com
-Calls: <Anonymous> ... request_fetch -> request_fetch.write_memory -> <Anonymous>
-Execution halted
-
-Starting at 2021-04-28 04:02:02 Pacific time 
-hint: Pulling without specifying how to reconcile divergent branches is
-hint: discouraged. You can squelch this message by running one of the following
-hint: commands sometime before your next pull:
-hint: 
-hint:   git config pull.rebase false  # merge (the default strategy)
-hint:   git config pull.rebase true   # rebase
-hint:   git config pull.ff only       # fast-forward only
-hint: 
-hint: You can replace "git config" with "git config --global" to set a default
-hint: preference for all repositories. You can also pass --rebase, --no-rebase,
-hint: or --ff-only on the command line to override the configured default per
-hint: invocation.
-Already up to date.
-Completed at 2021-04-28 04:31:24 Pacific time 
-[master 306764d] Updated 2021-04-28 04:31:24
- 6 files changed, 379 insertions(+), 201 deletions(-)
- create mode 100644 nba-over-under-2020-2021/points-calculator/app.R
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-04-27.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-04-27.rds
-To github.com:ismayc/ismayc.github.io.git
-   60e818a..306764d  master -> master
-
-Starting at 2021-04-28 05:01:01 Pacific time 
-hint: Pulling without specifying how to reconcile divergent branches is
-hint: discouraged. You can squelch this message by running one of the following
-hint: commands sometime before your next pull:
-hint: 
-hint:   git config pull.rebase false  # merge (the default strategy)
-hint:   git config pull.rebase true   # rebase
-hint:   git config pull.ff only       # fast-forward only
-hint: 
-hint: You can replace "git config" with "git config --global" to set a default
-hint: preference for all repositories. You can also pass --rebase, --no-rebase,
-hint: or --ff-only on the command line to override the configured default per
-hint: invocation.
-Already up to date.
-Webpage already created today 
-Completed at 2021-04-28 05:01:04 Pacific time 
-[master 384a449] Updated 2021-04-28 05:01:04
- 1 file changed, 24 insertions(+)
-To github.com:ismayc/ismayc.github.io.git
-   306764d..384a449  master -> master
-
-Starting at 2021-04-29 05:01:00 Pacific time 
-hint: Pulling without specifying how to reconcile divergent branches is
-hint: discouraged. You can squelch this message by running one of the following
-hint: commands sometime before your next pull:
-hint: 
-hint:   git config pull.rebase false  # merge (the default strategy)
-hint:   git config pull.rebase true   # rebase
-hint:   git config pull.ff only       # fast-forward only
-hint: 
-hint: You can replace "git config" with "git config --global" to set a default
-hint: preference for all repositories. You can also pass --rebase, --no-rebase,
-hint: or --ff-only on the command line to override the configured default per
-hint: invocation.
-Already up to date.
-Completed at 2021-04-29 05:01:39 Pacific time 
-[master cab388f] Updated 2021-04-29 05:01:40
- 4 files changed, 235 insertions(+), 212 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-04-28.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-04-28.rds
-To github.com:ismayc/ismayc.github.io.git
-   384a449..cab388f  master -> master
-
-Starting at 2021-04-30 04:02:01 Pacific time 
-hint: Pulling without specifying how to reconcile divergent branches is
-hint: discouraged. You can squelch this message by running one of the following
-hint: commands sometime before your next pull:
-hint: 
-hint:   git config pull.rebase false  # merge (the default strategy)
-hint:   git config pull.rebase true   # rebase
-hint:   git config pull.ff only       # fast-forward only
-hint: 
-hint: You can replace "git config" with "git config --global" to set a default
-hint: preference for all repositories. You can also pass --rebase, --no-rebase,
-hint: or --ff-only on the command line to override the configured default per
-hint: invocation.
-Already up to date.
-Completed at 2021-04-30 04:31:31 Pacific time 
-[master 960616c] Updated 2021-04-30 04:31:31
- 4 files changed, 186 insertions(+), 180 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-04-29.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-04-29.rds
-To github.com:ismayc/ismayc.github.io.git
-   cab388f..960616c  master -> master
-
-Starting at 2021-05-01 05:01:01 Pacific time 
-hint: Pulling without specifying how to reconcile divergent branches is
-hint: discouraged. You can squelch this message by running one of the following
-hint: commands sometime before your next pull:
-hint: 
-hint:   git config pull.rebase false  # merge (the default strategy)
-hint:   git config pull.rebase true   # rebase
-hint:   git config pull.ff only       # fast-forward only
-hint: 
-hint: You can replace "git config" with "git config --global" to set a default
-hint: preference for all repositories. You can also pass --rebase, --no-rebase,
-hint: or --ff-only on the command line to override the configured default per
-hint: invocation.
-Already up to date.
-Completed at 2021-05-01 05:02:05 Pacific time 
-[master fcbe2fd] Updated 2021-05-01 05:02:06
- 4 files changed, 226 insertions(+), 178 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-04-30.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-04-30.rds
-To github.com:ismayc/ismayc.github.io.git
-   960616c..fcbe2fd  master -> master
-
-Starting at 2021-05-03 05:01:01 Pacific time 
-hint: Pulling without specifying how to reconcile divergent branches is
-hint: discouraged. You can squelch this message by running one of the following
-hint: commands sometime before your next pull:
-hint: 
-hint:   git config pull.rebase false  # merge (the default strategy)
-hint:   git config pull.rebase true   # rebase
-hint:   git config pull.ff only       # fast-forward only
-hint: 
-hint: You can replace "git config" with "git config --global" to set a default
-hint: preference for all repositories. You can also pass --rebase, --no-rebase,
-hint: or --ff-only on the command line to override the configured default per
-hint: invocation.
-Already up to date.
-Completed at 2021-05-03 05:01:28 Pacific time 
-[master 5f51a09] Updated 2021-05-03 05:01:28
- 4 files changed, 215 insertions(+), 213 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-05-02.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-05-02.rds
-To github.com:ismayc/ismayc.github.io.git
-   5dc6094..5f51a09  master -> master
-
-Starting at 2021-05-04 04:02:00 Pacific time 
-hint: Pulling without specifying how to reconcile divergent branches is
-hint: discouraged. You can squelch this message by running one of the following
-hint: commands sometime before your next pull:
-hint: 
-hint:   git config pull.rebase false  # merge (the default strategy)
-hint:   git config pull.rebase true   # rebase
-hint:   git config pull.ff only       # fast-forward only
-hint: 
-hint: You can replace "git config" with "git config --global" to set a default
-hint: preference for all repositories. You can also pass --rebase, --no-rebase,
-hint: or --ff-only on the command line to override the configured default per
-hint: invocation.
-ssh_dispatch_run_fatal: Connection to 192.30.255.112 port 22: Network is down
-fatal: Could not read from remote repository.
-
-Please make sure you have the correct access rights
-and the repository exists.
-Completed at 2021-05-04 04:31:14 Pacific time 
-[master acd8c11] Updated 2021-05-04 04:31:15
- 4 files changed, 222 insertions(+), 202 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-05-03.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-05-03.rds
-To github.com:ismayc/ismayc.github.io.git
-   5f51a09..acd8c11  master -> master
-
-Starting at 2021-05-04 05:01:00 Pacific time 
-hint: Pulling without specifying how to reconcile divergent branches is
-hint: discouraged. You can squelch this message by running one of the following
-hint: commands sometime before your next pull:
-hint: 
-hint:   git config pull.rebase false  # merge (the default strategy)
-hint:   git config pull.rebase true   # rebase
-hint:   git config pull.ff only       # fast-forward only
-hint: 
-hint: You can replace "git config" with "git config --global" to set a default
-hint: preference for all repositories. You can also pass --rebase, --no-rebase,
-hint: or --ff-only on the command line to override the configured default per
-hint: invocation.
-Already up to date.
-Webpage already created today 
-Completed at 2021-05-04 05:01:04 Pacific time 
-[master 9a9acc2] Updated 2021-05-04 05:01:04
- 1 file changed, 23 insertions(+)
-To github.com:ismayc/ismayc.github.io.git
-   acd8c11..9a9acc2  master -> master
-
-Starting at 2021-05-06 04:02:01 Pacific time 
-
-Starting at 2021-05-06 05:01:00 Pacific time 
-From github.com:ismayc/ismayc.github.io
-   5103396..1048f88  master     -> origin/master
-Updating 5103396..1048f88
-Fast-forward
- 2021-nba-over-under.html                         |  92 ++++++-------
- nba-over-under-2020-2021/explore-scenarios.R     | 165 +++--------------------
- nba-over-under-2020-2021/make_plots.Rmd          |  35 +++--
- nba-over-under-2020-2021/points-calculator/app.R |   9 +-
- nba-over-under-2020-2021/test/app.R              |  27 ----
- 5 files changed, 91 insertions(+), 237 deletions(-)
- delete mode 100644 nba-over-under-2020-2021/test/app.R
-Completed at 2021-05-06 05:01:34 Pacific time 
-[master 42cb9d7] Updated 2021-05-06 05:01:34
- 4 files changed, 240 insertions(+), 220 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-05-05.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-05-05.rds
-To github.com:ismayc/ismayc.github.io.git
-   1048f88..42cb9d7  master -> master
-kex_exchange_identification: read: Connection reset by peer
-fatal: Could not read from remote repository.
-
-Please make sure you have the correct access rights
-and the repository exists.
-Completed at 2021-05-06 13:32:39 Pacific time 
-[master 3e07b93] Updated 2021-05-06 13:32:40
- 3 files changed, 118 insertions(+), 31 deletions(-)
-To github.com:ismayc/ismayc.github.io.git
-   42cb9d7..3e07b93  master -> master
-
-Starting at 2021-05-07 04:02:00 Pacific time 
-ssh_dispatch_run_fatal: Connection to 192.30.255.113 port 22: Network is down
-fatal: Could not read from remote repository.
-
-Please make sure you have the correct access rights
-and the repository exists.
-Webpage already created today 
-Completed at 2021-05-07 04:30:46 Pacific time 
-[master cb4989e] Updated 2021-05-07 04:30:46
- 6 files changed, 147 insertions(+), 84 deletions(-)
-ssh: connect to host github.com port 22: Undefined error: 0
-fatal: Could not read from remote repository.
-
-Please make sure you have the correct access rights
-and the repository exists.
-
-Starting at 2021-05-08 05:01:04 Pacific time 
-From github.com:ismayc/ismayc.github.io
-   5e502bf..cf49707  master     -> origin/master
-Updating 5e502bf..cf49707
-Fast-forward
- 2021-nba-over-under.html                           | 417 +++++++++++----------
- nba-over-under-2020-2021/explore-scenarios.R       |   2 +-
- .../chesterismay/over-under-points-calculator.dcf  |   6 +-
- .../rds/game_results_raw_through_2021-05-06.rds    | Bin 0 -> 202727 bytes
- .../rds/standings_through_2021-05-06.rds           | Bin 0 -> 2880 bytes
- 5 files changed, 217 insertions(+), 208 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-05-06.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-05-06.rds
-Completed at 2021-05-08 05:01:38 Pacific time 
-[master bc934d8] Updated 2021-05-08 05:01:38
- 4 files changed, 273 insertions(+), 249 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-05-07.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-05-07.rds
-To github.com:ismayc/ismayc.github.io.git
-   cf49707..bc934d8  master -> master
-
-Starting at 2021-05-09 04:02:01 Pacific time 
-client_loop: send disconnect: Broken pipe
-fatal: Could not read from remote repository.
-
-Please make sure you have the correct access rights
-and the repository exists.
-Completed at 2021-05-09 07:13:28 Pacific time 
-[master f89a64e] Updated 2021-05-09 07:13:29
- 4 files changed, 205 insertions(+), 235 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-05-08.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-05-08.rds
-To github.com:ismayc/ismayc.github.io.git
-   5c9b1cf..f89a64e  master -> master
-
-Starting at 2021-05-12 05:01:01 Pacific time 
-Already up to date.
-Completed at 2021-05-12 05:01:40 Pacific time 
-[master def99e1] Updated 2021-05-12 05:01:40
- 4 files changed, 269 insertions(+), 250 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-05-11.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-05-11.rds
-To github.com:ismayc/ismayc.github.io.git
-   73af416..def99e1  master -> master
-
-Starting at 2021-05-15 04:02:01 Pacific time 
-From github.com:ismayc/ismayc.github.io
-   f693efa..3402f4a  master     -> origin/master
-Updating f693efa..3402f4a
-Fast-forward
- nba-over-under-2020-2021/remaining-schedule-sims.R | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
-Completed at 2021-05-15 04:02:41 Pacific time 
-[master 9912526] Updated 2021-05-15 04:02:41
- 4 files changed, 201 insertions(+), 236 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-05-14.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-05-14.rds
-To github.com:ismayc/ismayc.github.io.git
-   3402f4a..9912526  master -> master
-
-Starting at 2021-05-15 05:01:03 Pacific time 
-Already up to date.
-Webpage already created today 
-Completed at 2021-05-15 05:01:05 Pacific time 
-[master f4d1403] Updated 2021-05-15 05:01:06
- 1 file changed, 11 insertions(+)
-To github.com:ismayc/ismayc.github.io.git
-   9912526..f4d1403  master -> master
-
-Starting at 2021-05-16 04:02:01 Pacific time 
-From github.com:ismayc/ismayc.github.io
-   df2c6d6..a8cbd43  master     -> origin/master
-Updating df2c6d6..a8cbd43
-Fast-forward
- 2021-nba-over-under.html                     | 76 ++++++++++++++--------------
- nba-over-under-2020-2021/03-data-wrangling.R | 10 +++-
- nba-over-under-2020-2021/make_plots.Rmd      |  4 +-
- 3 files changed, 49 insertions(+), 41 deletions(-)
-Completed at 2021-05-16 04:31:30 Pacific time 
-[master f48502f] Updated 2021-05-16 04:31:30
- 4 files changed, 288 insertions(+), 186 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-05-15.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-05-15.rds
-To github.com:ismayc/ismayc.github.io.git
-   a8cbd43..f48502f  master -> master
-
-Starting at 2021-05-17 04:02:00 Pacific time 
-Already up to date.
-Completed at 2021-05-17 04:31:20 Pacific time 
-[master c2d4aac] Updated 2021-05-17 04:31:20
- 4 files changed, 287 insertions(+), 353 deletions(-)
- create mode 100644 nba-over-under-2020-2021/rds/game_results_raw_through_2021-05-16.rds
- create mode 100644 nba-over-under-2020-2021/rds/standings_through_2021-05-16.rds
-To github.com:ismayc/ismayc.github.io.git
-   f48502f..c2d4aac  master -> master
