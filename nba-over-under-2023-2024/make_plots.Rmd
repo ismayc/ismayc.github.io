@@ -849,7 +849,7 @@ if (nrow(todays_games)) {
 if (nrow(todays_games)) {
   # Initialize a variable to track if any changes have been found
   any_changes_found <- FALSE
-
+  
   # Function to simulate a game outcome and update standings
   simulate_game_outcome <- function(standings, winner, loser) {
     standings %>%
@@ -870,38 +870,37 @@ if (nrow(todays_games)) {
     select(Team, `Current Over/Under`)
   
   # Function to print potential changes in Over/Under status
-print_status_change <- function(simulated_standings, game_winner, current_over_under, projections) {
-  changes <- simulated_standings %>%
-    mutate(Projected_Wins = round(`Winning Pct` * num_games, 0)) %>%
-    left_join(projections, by = c("team_name" = "team")) %>%
-    mutate(
-      Over_Under_Simulated = if_else(Projected_Wins > win_projection, "OVER", "UNDER"),
-      Wins_Remaining = num_games - (wins + losses),
-      Can_No_Longer_Win = wins + Wins_Remaining < win_projection,
-      Can_No_Longer_Lose = losses + Wins_Remaining < num_games - win_projection
-    ) %>%
-    left_join(current_over_under, by = c("team_name" = "Team")) %>%
-    filter((Over_Under_Simulated == "OVER" & `Current Over/Under` == "UNDER") |
-           (Over_Under_Simulated == "UNDER" & `Current Over/Under` == "OVER") |
-           Can_No_Longer_Win | Can_No_Longer_Lose) %>%
-    select(team_name, `Current Over/Under`, Over_Under_Simulated, Can_No_Longer_Win, Can_No_Longer_Lose)
-
-  if(nrow(changes) > 0) {
-    any_changes_found <<- TRUE
-    walk(seq_len(nrow(changes)), function(i) {
-      row <- changes[i, ]
-      if (row$Can_No_Longer_Win) {
-        cat(glue("- If losing today's game, the {row$team_name} clinches UNDER and can no longer reach the OVER projection.\n"))
-      } else if (row$Can_No_Longer_Lose) {
-        cat(glue("- If winning today's game, the {row$team_name} clinches OVER and can no longer go UNDER based on losses.\n"))
-      } else {
-        cat(glue("- If the {game_winner} win today, the {row$team_name} change from {row$`Current Over/Under`} to {row$Over_Under_Simulated}.\n"))
-      }
-    })
+  print_status_change <- function(simulated_standings, game_winner, current_over_under, projections) {
+    changes <- simulated_standings %>%
+      mutate(Projected_Wins = round(`Winning Pct` * num_games, 0)) %>%
+      left_join(projections, by = c("team_name" = "team")) %>%
+      mutate(
+        Over_Under_Simulated = if_else(Projected_Wins > win_projection, "OVER", "UNDER"),
+        Wins_Remaining = num_games - (wins + losses),
+        Can_No_Longer_Win = wins + Wins_Remaining < win_projection,
+        Can_No_Longer_Lose = losses + Wins_Remaining < num_games - win_projection
+      ) %>%
+      left_join(current_over_under, by = c("team_name" = "Team")) %>%
+      filter((Over_Under_Simulated == "OVER" & `Current Over/Under` == "UNDER") |
+               (Over_Under_Simulated == "UNDER" & `Current Over/Under` == "OVER") |
+               Can_No_Longer_Win | Can_No_Longer_Lose) %>%
+      select(team_name, `Current Over/Under`, Over_Under_Simulated, Can_No_Longer_Win, Can_No_Longer_Lose)
+    
+    if(nrow(changes) > 0) {
+      any_changes_found <<- TRUE
+      walk(seq_len(nrow(changes)), function(i) {
+        row <- changes[i, ]
+        if (row$Can_No_Longer_Win) {
+          cat(glue("- If losing today's game, the {row$team_name} clinches UNDER and can no longer reach the OVER projection.  \n"))
+        } else if (row$Can_No_Longer_Lose) {
+          cat(glue("- If winning today's game, the {row$team_name} clinches OVER and can no longer go UNDER based on losses.  \n"))
+        } else {
+          cat(glue("- If the {game_winner} win today, the {row$team_name} change from {row$`Current Over/Under`} to {row$Over_Under_Simulated}."), "\n")
+        }
+      })
+    }
   }
-}
-
-
+  
   # Iterate over today's games and simulate outcomes
   for(i in 1:nrow(todays_games)) {
     away_team <- todays_games$`Away Team`[i]
@@ -915,7 +914,7 @@ print_status_change <- function(simulated_standings, game_winner, current_over_u
     standings_home_win <- simulate_game_outcome(standings, home_team, away_team)
     print_status_change(standings_home_win, home_team, current_over_under, projections)
   }
-
+  
   # After all simulations, check if any changes were found
   if(!any_changes_found) {
     cat("It is not possible for a change in Over/Under status based on the outcome of today's game(s).\n")
