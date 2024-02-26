@@ -4,6 +4,7 @@ on:
     - cron: "0 8,13 * * *"
 #  push:
 #    branches: [main, master]
+  workflow_dispatch:
 
 name: build-nba-webpage
 
