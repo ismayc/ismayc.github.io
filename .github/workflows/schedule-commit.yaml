@@ -91,13 +91,15 @@ jobs:
           repository: ismayc/ismayc.github.io
           token: ${{ secrets.TOKEN }}
 
+      - name: Pull changes
+        run: git pull origin master
+
       - name: Configure Git
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
           git remote set-url origin https://github.com/ismayc/ismayc.github.io.git
           git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
-          git pull origin master
  
       - name: Build webpage
         run: |
