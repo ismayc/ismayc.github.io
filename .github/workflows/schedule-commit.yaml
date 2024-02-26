@@ -4,6 +4,7 @@ on:
     - cron: "0 8,13 * * *"
 #  push:
 #    branches: [main, master]
+  workflow_dispatch:
 
 name: build-nba-webpage
 
@@ -90,6 +91,9 @@ jobs:
         with:
           repository: ismayc/ismayc.github.io
           token: ${{ secrets.TOKEN }}
+
+      - name: Pull changes
+        run: git pull origin master
 
       - name: Configure Git
         run: |
