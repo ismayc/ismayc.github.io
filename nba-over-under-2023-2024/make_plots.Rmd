@@ -841,7 +841,7 @@ if (nrow(todays_games)) {
 
 ```{r results="asis"}
 if (nrow(todays_games)) {
-  cat("Potential switches in Over/Under status based on the results of today's games:")
+  cat("Potential switches/clinches in Over/Under status based on the results of today's games:")
 }
 ```
 
@@ -869,6 +869,14 @@ if (nrow(todays_games)) {
     ungroup() %>%
     select(Team, `Current Over/Under`)
   
+  # Extract the current clinched status for each team based on the latest date
+  current_clinched_status <- player_projections_by_team |> 
+    arrange(Team, desc(Date)) %>%
+    group_by(Team) %>%
+    slice(1) %>%
+    ungroup() %>%
+    select(Team, `Outcome Determined`)
+  
   # Function to print potential changes in Over/Under status
   print_status_change <- function(simulated_standings, game_winner, current_over_under, projections) {
     changes <- simulated_standings %>%
@@ -881,9 +889,11 @@ if (nrow(todays_games)) {
         Can_No_Longer_Lose = losses + Wins_Remaining < num_games - win_projection
       ) %>%
       left_join(current_over_under, by = c("team_name" = "Team")) %>%
-      filter((Over_Under_Simulated == "OVER" & `Current Over/Under` == "UNDER") |
+      left_join(current_clinched_status, by = c("team_name" = "Team")) |> 
+      filter(((Over_Under_Simulated == "OVER" & `Current Over/Under` == "UNDER") |
                (Over_Under_Simulated == "UNDER" & `Current Over/Under` == "OVER") |
-               Can_No_Longer_Win | Can_No_Longer_Lose) %>%
+               Can_No_Longer_Win | Can_No_Longer_Lose) &
+               (`Outcome Determined` == "not yet")) %>%
       select(team_name, `Current Over/Under`, Over_Under_Simulated, Can_No_Longer_Win, Can_No_Longer_Lose)
     
     if(nrow(changes) > 0) {
@@ -891,9 +901,9 @@ if (nrow(todays_games)) {
       walk(seq_len(nrow(changes)), function(i) {
         row <- changes[i, ]
         if (row$Can_No_Longer_Win) {
-          cat(glue("- If the {row$team_name} lose today's game, they clinch UNDER and can no longer reach the OVER projection.  \n"))
+          cat(glue("- If the {row$team_name} lose today's game, they clinch UNDER and can no longer reach the OVER projection."), "\n")
         } else if (row$Can_No_Longer_Lose) {
-          cat(glue("- If the {row$team_name} win todays's game, they clinch OVER and can no longer go UNDER based on losses.  \n"))
+          cat(glue("- If the {row$team_name} win today's game, they clinch OVER and can no longer go UNDER based on losses."), "\n")
         } else {
           cat(glue("- If the {game_winner} win today, the {row$team_name} change from {row$`Current Over/Under`} to {row$Over_Under_Simulated}."), "\n")
         }
@@ -920,7 +930,6 @@ if (nrow(todays_games)) {
     cat("It is not possible for a change in Over/Under status based on the outcome of today's game(s).\n")
   }
 }
-
 ```
 
 ## Current standings {.tabset}
