@@ -154,27 +154,46 @@ projected_score <- player_projections_by_team %>%
     .groups = "drop"
   )
 
-player_projections_by_team <- player_projections_by_team %>% 
-  rename(`Current Projected Points` = current_projected_points,
-         `Current Wins` = current_wins,
-         `Current Losses` = current_losses) %>% 
+player_projections_by_team <- player_projections_by_team %>%
+  rename(
+    `Current Projected Points` = current_projected_points,
+    `Current Wins` = current_wins,
+    `Current Losses` = current_losses
+  ) %>%
   mutate(
     `Wins To Go Over Vegas Insider` = 
       ceiling(`Vegas Insider Win Projection %` / 100 * num_games) - `Current Wins`,
     `Winning % In Remaining Games Needed` = round(
-      `Wins To Go Over Vegas Insider` / 
-        (num_games - `Current Wins` - `Current Losses`) * 100, 2),
-    .before = `Current Projected Points`,
-    `Losses To Go Under Vegas Insider` = 
-      num_games - ceiling(`Vegas Insider Win Projection %` / 100 * num_games) - 
-      `Current Losses`) %>% 
-  select(-`Current Wins`, -`Current Losses`) %>% 
+      `Wins To Go Over Vegas Insider` / (num_games - `Current Wins` - `Current Losses`) * 100, 2),
+    .before = `Current Projected Points`
+  ) %>%
   mutate(`Outcome Determined` = factor(case_when(
     `Winning % In Remaining Games Needed` <= 0 ~ "OVER",
     `Winning % In Remaining Games Needed` > 100 ~ "UNDER",
-    TRUE ~ "not yet"),
-    levels = c("not yet", "OVER", "UNDER")
-  ))  
+    TRUE ~ "not yet"
+  ), levels = c("not yet", "OVER", "UNDER")
+  ))  %>%
+  mutate(
+    `Losses To Go Under Vegas Insider` = 
+      num_games - ceiling(`Vegas Insider Win Projection %` / 100 * num_games) - `Current Losses`
+  ) %>%
+  mutate(`Winning % In Remaining Games Needed` = if_else(
+    `Losses To Go Under Vegas Insider` < 0 | `Winning % In Remaining Games Needed` > 100 | `Wins To Go Over Vegas Insider` <= 0,
+    NA_real_,
+    `Winning % In Remaining Games Needed`
+  )) %>%
+  mutate(`Wins To Go Over Vegas Insider` = if_else(
+    `Losses To Go Under Vegas Insider` < 0 | `Winning % In Remaining Games Needed` > 100 | `Wins To Go Over Vegas Insider` <= 0,
+    NA_real_,
+    `Wins To Go Over Vegas Insider`
+  )) %>%
+  mutate(`Losses To Go Under Vegas Insider` = if_else(
+    `Losses To Go Under Vegas Insider` < 0 | `Winning % In Remaining Games Needed` > 100 | `Wins To Go Over Vegas Insider` <= 0,
+    NA_real_,
+    `Losses To Go Under Vegas Insider`
+  )) %>%
+  select(-`Current Wins`, -`Current Losses`) 
+
 
 most_recent_results <- projected_score %>% 
   mutate(days_from_today = as.numeric(difftime(Sys.Date(),
