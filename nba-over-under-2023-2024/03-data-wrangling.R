@@ -175,7 +175,8 @@ player_projections_by_team <- player_projections_by_team %>%
   ))  %>%
   mutate(
     `Losses To Go Under Vegas Insider` = 
-      num_games - ceiling(`Vegas Insider Win Projection %` / 100 * num_games) - `Current Losses`
+      num_games - ceiling(`Vegas Insider Win Projection %` / 100 * num_games) - `Current Losses`,
+    .before = `Current Projected Points`
   ) %>%
   mutate(`Winning % In Remaining Games Needed` = if_else(
     `Losses To Go Under Vegas Insider` < 0 | `Winning % In Remaining Games Needed` > 100 | `Wins To Go Over Vegas Insider` <= 0,
@@ -228,6 +229,180 @@ standings_with_projected <- standings %>%
     winning_perc_for_over = wins_needed_for_over / remaining_games * 100
   ) %>% 
   mutate(differential = current_win_perc - winning_perc_for_over)
+
+# Playoff tie-breakers
+calculate_head_to_head <- function(tied_teams, scores_tidy) {
+  head_to_head_games <- scores_tidy %>%
+    filter(team_slug %in% tied_teams & opponent_slug %in% tied_teams) %>%
+    mutate(winner = if_else(score > opponent_score, team_slug, opponent_slug)) %>%
+    group_by(winner) %>%
+    summarise(wins = n(), .groups = 'drop') %>%
+    arrange(desc(wins))
+  
+  return(head_to_head_games)
+}
+
+calculate_division_record <- function(tied_teams, scores, teams_info) {
+  division_games <- scores %>%
+    filter((slug_away_team %in% tied_teams & slug_home_team %in% teams_info$division_teams) |
+             (slug_home_team %in% tied_teams & slug_away_team %in% teams_info$division_teams)) %>%
+    mutate(winner = if_else(score > opponent_score, team_slug, opponent_slug),
+           loser = if_else(score > opponent_score, opponent_slug, team_slug)) %>%
+    group_by(winner) %>%
+    summarise(wins = n()) %>%
+    right_join(scores %>%
+                 group_by(loser) %>%
+                 summarise(losses = n()), by = c("winner" = "loser")) %>%
+    mutate(total_games = wins + losses,
+           win_pct = wins / total_games) %>%
+    arrange(desc(win_pct))
+  
+  return(division_games)
+}
+
+calculate_conference_record <- function(tied_teams, scores, teams_info) {
+  conference_games <- scores %>%
+    filter((slug_away_team %in% tied_teams & slug_home_team %in% teams_info$conference_teams) |
+             (slug_home_team %in% tied_teams & slug_away_team %in% teams_info$conference_teams)) %>%
+    mutate(winner = if_else(score > opponent_score, team_slug, opponent_slug),
+           loser = if_else(score > opponent_score, opponent_slug, team_slug)) %>%
+    group_by(winner) %>%
+    summarise(wins = n()) %>%
+    right_join(scores %>%
+                 group_by(loser) %>%
+                 summarise(losses = n()), by = c("winner" = "loser")) %>%
+    mutate(total_games = wins + losses,
+           win_pct = wins / total_games) %>%
+    arrange(desc(win_pct))
+  
+  return(conference_games)
+}
+
+calculate_winning_pct_against_playoff_teams_conference <- function(tied_teams, scores, playoff_teams) {
+  playoff_games_conference <- scores %>%
+    filter((slug_away_team %in% tied_teams & slug_home_team %in% playoff_teams$conference_teams) |
+             (slug_home_team %in% tied_teams & slug_away_team %in% playoff_teams$conference_teams)) %>%
+    mutate(winner = if_else(score > opponent_score, team_slug, opponent_slug),
+           loser = if_else(score > opponent_score, opponent_slug, team_slug)) %>%
+    group_by(winner) %>%
+    summarise(wins = n()) %>%
+    right_join(scores %>%
+                 group_by(loser) %>%
+                 summarise(losses = n()), by = c("winner" = "loser")) %>%
+    mutate(total_games = wins + losses,
+           win_pct = wins / total_games) %>%
+    arrange(desc(win_pct))
+  
+  return(playoff_games_conference)
+}
+
+calculate_winning_pct_against_playoff_teams_opposing_conference <- function(tied_teams, scores, playoff_teams) {
+  playoff_games_opposing <- scores %>%
+    filter((slug_away_team %in% tied_teams & slug_home_team %in% playoff_teams$opposing_conference_teams) |
+             (slug_home_team %in% tied_teams & slug_away_team %in% playoff_teams$opposing_conference_teams)) %>%
+    mutate(winner = if_else(score > opponent_score, team_slug, opponent_slug),
+           loser = if_else(score > opponent_score, opponent_slug, team_slug)) %>%
+    group_by(winner) %>%
+    summarise(wins = n()) %>%
+    right_join(scores %>%
+                 group_by(loser) %>%
+                 summarise(losses = n()), by = c("winner" = "loser")) %>%
+    mutate(total_games = wins + losses,
+           win_pct = wins / total_games) %>%
+    arrange(desc(win_pct))
+  
+  return(playoff_games_opposing)
+}
+
+calculate_point_differential <- function(tied_teams, scores) {
+  point_diff <- scores %>%
+    filter(slug_away_team %in% tied_teams | slug_home_team %in% tied_teams) %>%
+    mutate(point_diff = if_else(slug_away_team %in% tied_teams, score - opponent_score, opponent_score - score),
+           team = if_else(slug_away_team %in% tied_teams, slug_away_team, slug_home_team)) %>%
+    group_by(team) %>%
+    summarise(total_point_diff = sum(point_diff)) %>%
+    arrange(desc(total_point_diff))
+  
+  return(point_diff)
+}
+
+is_tie_resolved <- function(tiebreaker_results) {
+  all_unique <- all(duplicated(tiebreaker_results$wins) == FALSE)
+  return(all_unique)
+}
+
+finalize_ranking <- function(tiebreaker_results, standings) {
+  if("wins" %in% names(standings) || "wins" %in% names(tiebreaker_results)) {
+    standings <- standings %>%
+      left_join(tiebreaker_results, by = c("team_name" = "winner", "wins")) # %>%
+      # mutate(rank = ifelse(!is.na(wins), rank(-wins, ties.method = "first"), NA_real_)) %>%
+      # arrange(conference, rank, `Winning Pct`, team_name) # %>%
+      # select(-wins, -rank)
+  }
+  return(standings)
+}
+
+playoff_teams <- standings %>%
+  arrange(conference, desc(`Winning Pct`)) %>%
+  group_by(conference) %>%
+  slice(1:6) %>%
+  ungroup()
+
+apply_tiebreakers <- function(tied_teams, scores_tidy, teams_info, playoff_teams, standings) {
+  # Head-to-Head
+  head_to_head_result <- calculate_head_to_head(tied_teams, scores_tidy)
+  if(is_tie_resolved(head_to_head_result)) {
+    return(finalize_ranking(head_to_head_result, standings))
+  }
+  
+  # Division Record
+  division_record_result <- calculate_division_record(tied_teams, scores_tidy, teams_info)
+  if(is_tie_resolved(division_record_result)) {
+    return(finalize_ranking(division_record_result, standings))
+  }
+  
+  # Conference Record
+  conference_record_result <- calculate_conference_record(tied_teams, scores_tidy, teams_info)
+  if(is_tie_resolved(conference_record_result)) {
+    return(finalize_ranking(conference_record_result, standings))
+  }
+  
+  # Winning Percentage Against Playoff Teams in Own Conference
+  wpct_against_playoff_teams_conference_result <- calculate_winning_pct_against_playoff_teams_conference(tied_teams, scores_tidy, playoff_teams)
+  if(is_tie_resolved(wpct_against_playoff_teams_conference_result)) {
+    return(finalize_ranking(wpct_against_playoff_teams_conference_result, standings))
+  }
+  
+  # Winning Percentage Against Playoff Teams in Opposing Conference
+  wpct_against_playoff_teams_opposing_result <- calculate_winning_pct_against_playoff_teams_opposing_conference(tied_teams, scores_tidy, playoff_teams)
+  if(is_tie_resolved(wpct_against_playoff_teams_opposing_result)) {
+    return(finalize_ranking(wpct_against_playoff_teams_opposing_result, standings))
+  }
+  
+  # Point Differential
+  point_differential_result <- calculate_point_differential(tied_teams, scores_tidy)
+  if(is_tie_resolved(point_differential_result)) {
+    return(finalize_ranking(point_differential_result, standings))
+  }
+  
+  return(standings)
+}
+
+# Extract tied teams as a list of character vectors
+tied_teams_list <- standings %>%
+  group_by(`Winning Pct`, conference) %>%
+  filter(n() > 1) %>%
+  summarise(team_names = list(team_name)) %>%
+  pull(team_names)
+
+# Iterate over each group of tied teams and apply tiebreakers
+for(team_group in tied_teams_list) {
+  standings <- apply_tiebreakers(team_group, scores_tidy, teams_info, playoff_teams, standings)
+}
+
+# Ensure division winners are in the top 4 seeds, adjusting the standings as necessary
+# The provided code for adjusting standings for division winners outside top 4 already performs this task
+
 
 remaining_check <- standings_with_projected %>% 
   inner_join(picks, by = c("team_name" = "team"))
