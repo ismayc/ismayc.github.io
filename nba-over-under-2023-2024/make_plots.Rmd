@@ -271,51 +271,6 @@ https://www.vegasinsider.com/nba/odds/win-totals/ prior to the season start. The
 columns are based on games played through `r Sys.Date() - 1`.
 
 ```{r}
-wins_needed <- player_projections_by_team %>% 
-  filter(Date == Sys.Date() - 1) %>% 
-  select(Date, Team, `Outcome Determined`,
-         `Current Record`, `Wins To Go Over Vegas Insider`,
-         `Winning % In Remaining Games Needed`,
-         `Losses To Go Under Vegas Insider`) %>% 
-  distinct() %>% 
-  mutate(`Wins To Go Over Vegas Insider` = if_else(
-    `Wins To Go Over Vegas Insider` <= 0 || 
-      `Winning % In Remaining Games Needed` > 100,
-    NA_real_,
-    `Wins To Go Over Vegas Insider`
-  )) %>% 
-  mutate(`Losses To Go Under Vegas Insider` = if_else(
-    `Losses To Go Under Vegas Insider` < 0 || 
-      is.na(`Wins To Go Over Vegas Insider`),
-    NA_real_,
-    `Losses To Go Under Vegas Insider` 
-  )) %>% 
-  separate(
-    col = `Current Record`, 
-    into = c("Wins", "Losses"), 
-    sep = "-",
-    remove = FALSE) %>% 
-  mutate(Wins = as.integer(Wins),
-         Losses = as.integer(Losses)) %>% 
-  mutate(`Remaining Games` = num_games - Wins - Losses) %>% 
-  select(-`Winning % In Remaining Games Needed`)
-
-out_table <- projections %>% 
-  inner_join(wins_needed, by = c("team" = "Team")) %>% 
-  select(Team = team,
-         `Outcome Determined`,
-         `Current Record`,
-         `Win Projection` = win_projection,
-         `Remaining Games`,
-         `Wins To Go Over Vegas Insider`
-  ) 
-
-write_rds(out_table, paste0("determined_outcomes_", Sys.Date(), ".rds"))
-
-invisible(file.copy(paste0("determined_outcomes_", Sys.Date(), ".rds"),
-          paste0("points-calculator/determined_outcomes_", Sys.Date(), ".rds"),
-          overwrite = TRUE))
-
 out_table %>%  
   DT::datatable(
     rownames = FALSE,
