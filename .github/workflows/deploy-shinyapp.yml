@@ -1,9 +1,9 @@
 name: Deploy Shiny App
 
 on:
-  schedule:
+  # schedule:
     # Runs every day at 5:15 AM Pacific
-    - cron: '15 13 * * *'
+  #  - cron: '15 13 * * *'
   workflow_dispatch:    
 
 jobs:
