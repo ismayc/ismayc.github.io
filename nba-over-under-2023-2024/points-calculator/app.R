@@ -8,9 +8,19 @@ library(kableExtra)
 picks <- read_excel(path = "picks.xlsx", sheet = "picks")
 num_players <- 8
 
-determined <- read_rds(paste0("determined_outcomes_", 
-                              as.Date(Sys.time() - lubridate::hours(8)), 
-                              ".rds")) |> 
+if (file.exists(paste0("determined_outcomes_", 
+                       as.Date(Sys.time()), 
+                       ".rds"))) {
+  temp <- read_rds(paste0("determined_outcomes_", 
+                          as.Date(Sys.time()), 
+                          ".rds"))
+} else {
+  temp <- read_rds(paste0("determined_outcomes_", 
+                          as.Date(Sys.time()) - lubridate::days(1), 
+                          ".rds"))
+}
+
+determined <- temp |> 
   select(Team, `Outcome Determined`) |> 
   mutate(Team = str_extract(Team, "\\w+$"))
 
