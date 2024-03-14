@@ -14,7 +14,7 @@ determined <- read_rds(paste0("determined_outcomes_",
   select(Team, `Outcome Determined`) |> 
   mutate(Team = str_extract(Team, "\\w+$"))
 
-determined[determined$Team == "Magic", ]$`Outcome Determined` <- "OVER"
+# determined[determined$Team == "Magic", ]$`Outcome Determined` <- "OVER"
 
 chester_picks <- picks |> 
   filter(player == "Chester") |> 
