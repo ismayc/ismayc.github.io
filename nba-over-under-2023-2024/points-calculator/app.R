@@ -15,9 +15,7 @@ if (file.exists(paste0("determined_outcomes_",
                           as.Date(Sys.time()), 
                           ".rds"))
 } else {
-  temp <- read_rds(paste0("determined_outcomes_", 
-                          as.Date(Sys.time()) - lubridate::days(1), 
-                          ".rds"))
+  temp <- read_rds(paste0("determined_outcomes_2024-03-13.rds"))
 }
 
 determined <- temp |> 
