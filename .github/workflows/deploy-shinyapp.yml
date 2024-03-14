@@ -11,6 +11,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      
+      - name: Remove existing R installation
+        run: |
+          sudo apt-get purge r-base r-recommended r-base-core
+          sudo apt-get autoremove
+      
+      - name: Install specific R version
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends software-properties-common dirmngr
+          sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 51716619E084DAB9
+          sudo add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/'
+          sudo apt-get update
+          sudo apt-get install -y r-base=4.3.2-1.2204.0 r-recommended=4.3.2-1.2204.0 r-base-core=4.3.2-1.2204.0
+
       - name: deploy
         uses: DeeNA95/shinyapps-deploy-github-action@v1
         with:
