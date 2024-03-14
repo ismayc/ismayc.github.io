@@ -1,0 +1,25 @@
+name: Deploy Shiny App
+
+on:
+  schedule:
+    # Runs every day at 5:15 AM Pacific
+    - cron: '15 13 * * *'
+  workflow_dispatch:    
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    container: rstudio/shiny:latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install rsconnect
+        run: R -e 'install.packages("rsconnect", repos="http://cran.rstudio.com/")'
+      - name: Deploy to shinyapps.io
+        env:
+          SHINYAPPS_ACCOUNT: ${{ secrets.SHINYAPPS_ACCOUNT }}
+          SHINYAPPS_TOKEN: ${{ secrets.SHINYAPPS_TOKEN }}
+          SHINYAPPS_SECRET: ${{ secrets.SHINYAPPS_SECRET }}
+        run: |
+          cd nba-over-under-2023-2024/points-calculator
+          R -e 'rsconnect::setAccountInfo(name="${{ secrets.SHINYAPPS_ACCOUNT }}", token="${{ secrets.SHINYAPPS_TOKEN }}", secret="${{ secrets.SHINYAPPS_SECRET }}")'
+          R -e 'rsconnect::deployApp(appName="over-under-points-calculator", appDir=".", account="${{ secrets.SHINYAPPS_ACCOUNT }}", server="shinyapps.io")'
