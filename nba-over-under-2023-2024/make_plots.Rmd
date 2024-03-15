@@ -800,12 +800,6 @@ if (nrow(todays_games)) {
 
 ```{r results="asis"}
 if (nrow(todays_games)) {
-  cat("Potential switches/clinches in Over/Under status based on the results of today's games:")
-}
-```
-
-```{r results="asis"}
-if (nrow(todays_games)) {
   # Initialize a variable to track if any changes have been found
   any_changes_found <- FALSE
   
@@ -857,6 +851,7 @@ if (nrow(todays_games)) {
     
     if(nrow(changes) > 0) {
       any_changes_found <<- TRUE
+      cat("Potential switches/clinches in Over/Under status based on the results of today's games:")
       walk(seq_len(nrow(changes)), function(i) {
         row <- changes[i, ]
         if (row$Can_No_Longer_Win) {
