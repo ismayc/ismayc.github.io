@@ -3,8 +3,11 @@ library(dplyr)
 library(stringr)
 library(tidyverse)
 library(readxl)
+library(disk.frame)
 
-year <- "2023-2024"
+# Setup disk.frame and allow it to use multiple cores
+setup_disk.frame(workers = 8)
+options(future.globals.maxSize = Inf)
 
 ## UNCOMMENT AND RUN TO START SIMULATIONS BUT THEN COMMENT AGAIN
 # picks <- readxl::read_excel("picks.xlsx", sheet = "picks")
@@ -73,28 +76,165 @@ if (testing) {
 num_not_determined <- length(outcome_not_determined_teams)
 num_determined <- 30 - num_not_determined
 
-# Generate all possible results of flipping  coins
+# Assuming possible_combinations_out is a data frame or tibble
+# First, create the new names vector, starting with "sim" and then the team names
+new_names <- c("sim", outcome_not_determined_teams)
+
+# Now, create a named vector for renaming, where names are current and values are new names
+# Since the first name is "rowname" and should be mapped to "sim", we start with that
+names_map <- setNames(new_names, names(possible_combinations_out))
+
+# Generate all possible results of flipping coins
 possible_combinations_out <- expand_grid(
   !!!replicate(n = num_not_determined, 
                expr = c("UNDER", "OVER"), 
                simplify = FALSE)) %>% 
-  rownames_to_column()
+  rownames_to_column() |> 
+  rename_with(~ names_map[.], everything())
 
-names(possible_combinations_out) <- c("sim", outcome_not_determined_teams)
+possible_combinations <- cbind(possible_combinations_out, determined_teams_wide)
 
-possible_combinations <- possible_combinations_out %>%                                     
-  bind_cols(determined_teams_wide) #%>%
-#  mutate(`Washington Wizards` = "OVER", .after = `Toronto Raptors`) #%>%
-#  mutate(`Washington Wizards` = "UNDER", .after = `Toronto Raptors`)  #29
+arrow::write_parquet(possible_combinations, "possible_combinations.parquet")
 
-long_outcomes <- possible_combinations %>% 
-  pivot_longer(cols = -sim, names_to = "Team", values_to = "outcome") 
+# Open the dataset
+dataset <- arrow::open_dataset("possible_combinations.parquet")
 
+# Column names to be reshaped, excluding 'sim'
+team_columns <- names(possible_combinations)[!names(possible_combinations) %in% "sim"]
+
+# # Function to process and write one column
+# process_and_write_column <- function(column_name, dataset, output_file) {
+#   # Select 'sim' and the current team column
+#   temp_df <- dataset %>%
+#     select(sim, !!column_name) %>%
+#     collect() %>%
+#     mutate(Team = column_name, outcome = get(column_name)) %>%
+#     select(sim, Team, outcome)
+#   
+#   # Write/Append the data to a Parquet file
+#   arrow::write_dataset(temp_df, output_file, format = "parquet", append = TRUE)
+# }
+# 
+# # Loop over each team column and process
+# for (team_col in team_columns) {
+#   process_and_write_column(team_col, dataset, "long_outcomes.parquet")
+# }
+
+library(dplyr)
+library(arrow)
+
+# Function to process one column and return the transformed chunk
+process_column <- function(column_name, dataset) {
+  # Select 'sim' and the current team column
+  temp_df <- dataset %>%
+    select(sim, !!column_name) %>%
+    collect() %>%
+    mutate(Team = column_name, outcome = get(column_name)) %>%
+    select(sim, Team, outcome)
+  
+  return(temp_df)
+}
+
+# Initialize a list to store all chunks
+all_chunks <- list()
+
+# Loop over each team column, process it, and store the chunk in the list
+for (team_col in team_columns) {
+  chunk <- process_column(team_col, dataset)
+  all_chunks[[team_col]] <- chunk
+}
+
+readr::write_rds(all_chunks, "all_chunks.rds")
+
+############
+# Restarting R, clearing memory, and trying to start fresh with memory
+
+library(tidyverse)
+
+# Function to process each chunk
+process_chunk <- function(chunk, picks_wide_new, con) {
+  processed_chunk <- chunk %>%
+    inner_join(picks_wide_new, by = c("Team" = "team")) %>%
+    mutate(sim = as.numeric(sim)) %>%
+    
+    # Compute the score for each player (repeat for each player as needed)
+    mutate(Adonis_proj_points = if_else(outcome == adonis_choice,
+                                        Adonis_points,
+                                        -Adonis_points)) %>% 
+    mutate(Andy_proj_points = if_else(outcome == andy_choice,
+                                      Andy_points,
+                                      -Andy_points)) %>% 
+    mutate(Chester_proj_points = if_else(outcome == chester_choice,
+                                         Chester_points,
+                                         -Chester_points)) %>% 
+    mutate(Jake_proj_points = if_else(outcome == jake_choice,
+                                      Jake_points,
+                                      -Jake_points)) %>% 
+    # mutate(Jenelle_proj_points = if_else(outcome == jenelle_choice,
+    #                                      Jenelle_points,
+    #                                      -Jenelle_points)) %>% 
+    mutate(Mary_proj_points = if_else(outcome == mary_choice,
+                                      Mary_points,
+                                      -Mary_points)) %>% 
+    mutate(Mike_proj_points = if_else(outcome == mike_choice,
+                                      Mike_points,
+                                      -Mike_points)) %>% 
+    mutate(Phil_proj_points = if_else(outcome == phil_choice,
+                                      Phil_points,
+                                      -Phil_points)) %>% 
+    mutate(Ryan_proj_points = if_else(outcome == ryan_choice,
+                                      Ryan_points,
+                                      -Ryan_points)) #%>% 
+  
+  # Write the processed chunk to the SQLite database
+  dbWriteTable(con, "populated", processed_chunk, 
+               append = TRUE, row.names = FALSE)
+  
+}
+
+picks_wide_new <- readr::read_rds("picks_wide_new.rds")
+all_chunks <- readr::read_rds("all_chunks.rds")
+
+library(DBI)
+library(RSQLite)
+
+# Create a new SQLite database or open a connection to an existing one
+con <- dbConnect(RSQLite::SQLite(), dbname = "nba_scenarios.sqlite")
+
+# If the table already exists and you want to overwrite or append, consider dropping it first
+dbExecute(con, "DROP TABLE IF EXISTS populated")
+
+for (i in 1:length(all_chunks)) {
+  process_chunk(all_chunks[[i]], picks_wide_new, con)
+}
+
+dbDisconnect(con)
+
+
+# Combine all results into a single dataframe
+populated_summarized <- bind_rows(results_list)
+
+# Old way
+long_outcomes <- possible_combinations |> 
+  pivot_longer(cols = -sim, names_to = "Team", values_to = "outcome")
+
+# Compute the score for each player (adjust with your specific logic)
+# Note: The operations will be executed when the data is collected or explicitly evaluated
+
+# When you need to collect the results, for example, to view or save them, use:
+# collected_results <- collect(populated)
+
+# If the result is too large to fit into memory, consider summarizing it in chunks,
+# or saving the disk.frame to disk and analyzing it in sections.
+
+# Join with 'picks_wide_new', assuming 'picks_wide_new' can fit into memory
 # Enter each player pick in a column next to these (OVER/UNDER)
 # Enter each player wager in a column next to these (Could get from picks_wide)
 populated <- long_outcomes %>% 
   inner_join(picks_wide_new) %>% 
   mutate(sim = as.numeric(sim))
+
+
 
 # Compute the score for each player
 populated <- populated %>% 
@@ -132,12 +272,14 @@ populated_summarized <- populated %>%
             Andy = sum(Andy_proj_points),
             Chester = sum(Chester_proj_points),
             Jake = sum(Jake_proj_points),
-#            Jenelle = sum(Jenelle_proj_points),
+            #            Jenelle = sum(Jenelle_proj_points),
             Mary = sum(Mary_proj_points),
             Mike = sum(Mike_proj_points),
             Phil = sum(Phil_proj_points),
             Ryan = sum(Ryan_proj_points)) %>% 
   arrange(sim)
+# Old way to here
+
 
 populated_num_correct <- populated %>% 
   group_by(sim) %>% 
@@ -145,7 +287,7 @@ populated_num_correct <- populated %>%
             Andy_num_correct = sum(Andy_proj_points > 5),
             Chester_num_correct = sum(Chester_proj_points > 5),
             Jake_num_correct = sum(Jake_proj_points > 5),
-#            Jenelle_num_correct = sum(Jenelle_proj_points > 5),
+            #            Jenelle_num_correct = sum(Jenelle_proj_points > 5),
             Mary_num_correct = sum(Mary_proj_points > 5),
             Mike_num_correct = sum(Mike_proj_points > 5),
             Phil_num_correct = sum(Phil_proj_points > 5),
@@ -158,7 +300,7 @@ populated_15_correct <- populated %>%
             Andy_15_correct = sum(Andy_proj_points == 15),
             Chester_15_correct = sum(Chester_proj_points == 15),
             Jake_15_correct = sum(Jake_proj_points == 15),
-#            Jenelle_15_correct = sum(Jenelle_proj_points == 15),
+            #            Jenelle_15_correct = sum(Jenelle_proj_points == 15),
             Mary_15_correct = sum(Mary_proj_points == 15),
             Mike_15_correct = sum(Mike_proj_points == 15),
             Phil_15_correct = sum(Phil_proj_points == 15),
@@ -209,69 +351,3 @@ scenarios_final <- scenarios %>%
   arrange(desc(median_expected_total))
 
 View(scenarios_final)
-
-# Play time
-# phil_1_sims <- scenarios %>%
-#   filter(player == "Phil") %>%
-#   filter(playoffs == TRUE, rank == 1) %>%
-#   pull(sim)
-# 
-# phil_1_scenarios <- populated %>%
-#   filter(sim %in% phil_1_sims) %>%
-#   select(sim, Team, outcome, Phil_points, Phil_proj_points) %>%
-#   filter(Team %in% outcome_not_determined_teams)
-# 
-# phil_needs_for_1 <- phil_1_scenarios %>%
-#   select(-sim) %>%
-#   distinct() %>%
-#   arrange(Team)
-# 
-# phil_playoff_sims <- scenarios %>%
-#   filter(player == "Phil") %>%
-#   filter(playoffs == TRUE) %>%
-#   pull(sim)
-# 
-# phil_playoff_scenarios <- populated %>%
-#   filter(sim %in% phil_playoff_sims) %>%
-#   select(sim, Team, outcome, Phil_points, Phil_proj_points) %>%
-#   filter(Team %in% outcome_not_determined_teams)
-# 
-# phil_nonplayoff_scenarios <- populated %>%
-#   filter(!(sim %in% phil_playoff_sims)) %>%
-#   select(sim, Team, outcome, Phil_points, Phil_proj_points) %>%
-#   filter(Team %in% outcome_not_determined_teams)
-# 
-# phil_needs <- phil_playoff_scenarios %>%
-#   select(-sim) %>%
-#   distinct() %>%
-#   arrange(Team)
-# 
-# adonis_playoff_sims <- scenarios %>%
-#   filter(player == "Adonis") %>%
-#   filter(playoffs == TRUE) %>%
-#   pull(sim)
-# 
-# adonis_playoff_scenarios <- populated %>%
-#   filter(sim %in% adonis_playoff_sims) %>%
-#   select(sim, Team, outcome, Adonis_points, Adonis_proj_points) %>%
-#   filter(Team %in% outcome_not_determined_teams)
-# 
-# adonis_needs <- adonis_playoff_scenarios %>%
-#   select(-sim) %>%
-#   distinct() %>%
-#   arrange(Team)
-# 
-# chester_playoff_sims <- scenarios %>%
-#   filter(player == "Chester") %>%
-#   filter(playoffs == TRUE) %>%
-#   pull(sim)
-# 
-# chester_playoff_scenarios <- populated %>%
-#   filter(sim %in% chester_playoff_sims) %>%
-#   select(sim, Team, outcome, Chester_proj_points) %>%
-#   filter(Team %in% outcome_not_determined_teams)
-# 
-# chester_needs <- chester_playoff_scenarios %>%
-#   select(-sim) %>%
-#   distinct() %>%
-#   arrange(Team)
