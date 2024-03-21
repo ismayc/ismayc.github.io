@@ -1,8 +1,12 @@
+library(tictoc)
+
+tic()
+
 library(tidyverse)
 library(readxl)
 #library(disk.frame)
 
-manual <- TRUE
+manual <- FALSE
 
 # Setup disk.frame and allow it to use multiple cores
 #setup_disk.frame(workers = 8)
@@ -101,10 +105,10 @@ possible_combinations_out <- possible_combinations_out |>
 
 possible_combinations <- cbind(possible_combinations_out, determined_teams_wide)
 
-# arrow::write_parquet(possible_combinations, "possible_combinations.parquet")
+arrow::write_parquet(possible_combinations, "possible_combinations.parquet")
 
 # Open the dataset
-# dataset <- arrow::open_dataset("possible_combinations.parquet")
+dataset <- arrow::open_dataset("possible_combinations.parquet")
 
 # Column names to be reshaped, excluding 'sim'
 team_columns <- names(possible_combinations)[!names(possible_combinations) %in% "sim"]
@@ -126,9 +130,6 @@ team_columns <- names(possible_combinations)[!names(possible_combinations) %in% 
 # for (team_col in team_columns) {
 #   process_and_write_column(team_col, dataset, "long_outcomes.parquet")
 # }
-
-library(dplyr)
-# library(arrow)
 
 # Function to process one column and return the transformed chunk
 process_column <- function(column_name, dataset) {
@@ -377,4 +378,6 @@ scenarios_final <- scenarios %>%
 
 View(scenarios_final)
 
-dbDisconnect(con)
+toc()
+# 19 teams - 279.734 sec elapsed
+# dbDisconnect(con)

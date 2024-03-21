@@ -3,13 +3,13 @@ library(dbplyr)
 
 teams_remaining <- 19
 # Create a new SQLite database or open a connection to an existing one
-con <- dbConnect(RSQLite::SQLite(), dbname = "nba_scenarios.sqlite")
+#con <- dbConnect(RSQLite::SQLite(), dbname = "nba_scenarios.sqlite")
 
 # Figure out how many scenarios there are including each of the OVER/UNDER
 # options for each team for each player
 
 # Reference the 'populated' table from the SQLite database
-populated <- tbl(con, "populated")
+#populated <- tbl(con, "populated")
 populated_collected <- collect(populated)
 
 #Play time
