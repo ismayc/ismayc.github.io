@@ -13,3 +13,6 @@ teaching/soc301-f2016/roster_files/*
 *2015.csv
 .DS_Store
 */NBA OVER.docx
+*/*.parquet
+*/*.sqlite
+*/all_chunks.rds
