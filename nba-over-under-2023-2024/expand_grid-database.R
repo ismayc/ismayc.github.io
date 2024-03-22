@@ -6,7 +6,7 @@ library(tidyverse)
 library(readxl)
 #library(disk.frame)
 
-manual <- FALSE
+manual <- TRUE
 
 # Setup disk.frame and allow it to use multiple cores
 #setup_disk.frame(workers = 8)
@@ -52,9 +52,11 @@ determined_so_far <- read_rds(
 )
 
 if (manual) {
-  determined_so_far[determined_so_far$Team == "Indiana Pacers", "Outcome Determined"] <- "OVER"
-  determined_so_far[determined_so_far$Team == "Boston Celtics", "Outcome Determined"] <- "OVER"
-  determined_so_far[determined_so_far$Team == "Toronto Raptors", "Outcome Determined"] <- "UNDER"
+  # determined_so_far[determined_so_far$Team == "Indiana Pacers", "Outcome Determined"] <- "OVER"
+  # determined_so_far[determined_so_far$Team == "Boston Celtics", "Outcome Determined"] <- "OVER"
+  # determined_so_far[determined_so_far$Team == "Toronto Raptors", "Outcome Determined"] <- "UNDER"
+  determined_so_far[determined_so_far$Team == "Brooklyn Nets", "Outcome Determined"] <- "UNDER"
+#  determined_so_far[determined_so_far$Team == "New Orleans Pelicans", "Outcome Determined"] <- "OVER"
 }
 
 teams <- determined_so_far %>% 
@@ -378,6 +380,6 @@ scenarios_final <- scenarios %>%
 
 View(scenarios_final)
 
-toc()
+toc(log = FALSE)
 # 19 teams - 279.734 sec elapsed
 # dbDisconnect(con)
