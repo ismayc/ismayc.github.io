@@ -6,7 +6,7 @@ library(tidyverse)
 library(readxl)
 #library(disk.frame)
 
-manual <- TRUE
+manual <- FALSE
 
 # Setup disk.frame and allow it to use multiple cores
 #setup_disk.frame(workers = 8)
@@ -55,7 +55,7 @@ if (manual) {
   # determined_so_far[determined_so_far$Team == "Indiana Pacers", "Outcome Determined"] <- "OVER"
   # determined_so_far[determined_so_far$Team == "Boston Celtics", "Outcome Determined"] <- "OVER"
   # determined_so_far[determined_so_far$Team == "Toronto Raptors", "Outcome Determined"] <- "UNDER"
-  determined_so_far[determined_so_far$Team == "Brooklyn Nets", "Outcome Determined"] <- "UNDER"
+#  determined_so_far[determined_so_far$Team == "Brooklyn Nets", "Outcome Determined"] <- "UNDER"
 #  determined_so_far[determined_so_far$Team == "New Orleans Pelicans", "Outcome Determined"] <- "OVER"
 }
 

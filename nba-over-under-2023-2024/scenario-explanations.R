@@ -1,15 +1,16 @@
 library(DBI)
 library(dbplyr)
+library(tidyverse)
 
-teams_remaining <- 18
+teams_remaining <- 16
 # Create a new SQLite database or open a connection to an existing one
-#con <- dbConnect(RSQLite::SQLite(), dbname = "nba_scenarios.sqlite")
+con <- dbConnect(RSQLite::SQLite(), dbname = "nba_scenarios.sqlite")
 
 # Figure out how many scenarios there are including each of the OVER/UNDER
 # options for each team for each player
 
 # Reference the 'populated' table from the SQLite database
-#populated <- tbl(con, "populated")
+populated <- tbl(con, "populated")
 populated_collected <- collect(populated)
 
 #Play time
@@ -80,14 +81,35 @@ chester_needs <- chester_playoff_scenarios %>%
   distinct() %>%
   arrange(Team)
 
-# Calculate the percentage of each outcome for Jake in the playoff scenarios
+chester_1_sims <- scenarios %>%
+  filter(player == "Chester") %>%
+  filter(playoffs == TRUE, rank == 1) %>%
+  pull(sim)
+
+chester_1_scenarios <- populated_collected %>%
+  filter(sim %in% chester_1_sims) %>%
+  select(sim, Team, outcome, Chester_proj_points) %>%
+  filter(Team %in% outcome_not_determined_teams)
+
+chester_needs_for_1 <- chester_1_scenarios %>%
+  select(-sim) %>%
+  distinct() %>%
+  arrange(Team)
+
+# Calculate the percentage of each outcome in the playoff scenarios
 chester_outcome_percentages <- chester_playoff_scenarios %>%
   group_by(Team, outcome) %>%
   summarise(outcome_count = n(), .groups = 'drop') %>%
   mutate(outcome_percentage = (outcome_count / sum(outcome_count)) * 100) %>%
   arrange(Team, desc(outcome_percentage))
 
-# View the percentages of each outcome for Jake
+chester_outcome1_percentages <- chester_playoff_scenarios %>%
+  group_by(Team, outcome) %>%
+  summarise(outcome_count = n(), .groups = 'drop') %>%
+  mutate(outcome_percentage = (outcome_count / sum(outcome_count)) * 100) %>%
+  arrange(Team, desc(outcome_percentage))
+
+# View the percentages of each outcome 
 View(chester_outcome_percentages)
 
 # Andy
@@ -170,7 +192,7 @@ jake_needs <- jake_playoff_scenarios %>%
   distinct() %>%
   arrange(Team)
 
-# Calculate the percentage of each outcome for Jake in the playoff scenarios
+# Calculate the percentage of each outcome in the playoff scenarios
 jake_outcome_percentages <- jake_playoff_scenarios %>%
   group_by(Team, outcome) %>%
   summarise(outcome_count = n(), .groups = 'drop') %>%
@@ -178,7 +200,7 @@ jake_outcome_percentages <- jake_playoff_scenarios %>%
   select(-outcome_count) %>%
   arrange(Team, desc(outcome_percentage))
 
-# View the percentages of each outcome for Jake
+# View the percentages of each outcome 
 print(jake_outcome_percentages)
 
 all(nrow(chester_needs) == 2 * teams_remaining, 
