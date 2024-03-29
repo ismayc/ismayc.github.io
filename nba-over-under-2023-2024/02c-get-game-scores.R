@@ -131,5 +131,10 @@ standings <- standings_temp %>%
     sprintf("%.1f", round(`Games Back`, 1)))
   )
 
+# Manual fix to reduce Lakers total wins by 1 and Pacers loss total by 1. 
+# The IST championship does not count towards regular season outcomes.
+standings[standings$abbreviation == "LAL", "wins"] <- standings[standings$abbreviation == "LAL", "wins"] - 1
+standings[standings$abbreviation == "IND", "losses"] <- standings[standings$abbreviation == "IND", "losses"] - 1
+
 write_rds(standings,
           here("rds", glue("standings_through_{Sys.Date() - 1}.rds")))

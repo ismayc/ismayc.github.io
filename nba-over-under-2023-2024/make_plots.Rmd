@@ -859,7 +859,7 @@ if (nrow(todays_games)) {
           cat(glue("- If the {row$team_name} win today's game, they clinch OVER and can no longer go UNDER based on losses."), "\n")
         } else if (game_winner == row$team_name) {
           cat(glue("- If the {game_winner} win today, they change from {row$`Current Over/Under`} to {row$Over_Under_Simulated}."), "\n")
-        } else {
+        } else if (game_winner != row$team_name) {
           cat(glue("- If the {game_winner} win today, the {row$team_name} change from {row$`Current Over/Under`} to {row$Over_Under_Simulated}."), "\n")
         }
       })
