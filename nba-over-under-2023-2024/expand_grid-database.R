@@ -6,7 +6,7 @@ library(tidyverse)
 library(readxl)
 #library(disk.frame)
 
-manual <- FALSE
+manual <- TRUE
 
 # Setup disk.frame and allow it to use multiple cores
 #setup_disk.frame(workers = 8)
@@ -52,11 +52,20 @@ determined_so_far <- read_rds(
 )
 
 if (manual) {
-  # determined_so_far[determined_so_far$Team == "Indiana Pacers", "Outcome Determined"] <- "OVER"
-  # determined_so_far[determined_so_far$Team == "Boston Celtics", "Outcome Determined"] <- "OVER"
-  # determined_so_far[determined_so_far$Team == "Toronto Raptors", "Outcome Determined"] <- "UNDER"
+# determined_so_far[determined_so_far$Team == "Indiana Pacers", "Outcome Determined"] <- "OVER"
+# determined_so_far[determined_so_far$Team == "Boston Celtics", "Outcome Determined"] <- "OVER"
+# determined_so_far[determined_so_far$Team == "Toronto Raptors", "Outcome Determined"] <- "UNDER"
 #  determined_so_far[determined_so_far$Team == "Brooklyn Nets", "Outcome Determined"] <- "UNDER"
 #  determined_so_far[determined_so_far$Team == "New Orleans Pelicans", "Outcome Determined"] <- "OVER"
+#  determined_so_far[determined_so_far$Team == "Phoenix Suns", "Outcome Determined"] <- "UNDER"
+#  determined_so_far[determined_so_far$Team == "Philadelphia 76ers", "Outcome Determined"] <- "UNDER"
+#  determined_so_far[determined_so_far$Team == "Los Angeles Clippers", "Outcome Determined"] <- "OVER"
+#  determined_so_far[determined_so_far$Team == "Dallas Mavericks", "Outcome Determined"] <- "OVER"
+
+  #  determined_so_far[determined_so_far$Team == "Golden State Warriors", "Outcome Determined"] <- "UNDER"
+#  determined_so_far[determined_so_far$Team == "Los Angeles Lakers", "Outcome Determined"] <- "OVER"
+#  determined_so_far[determined_so_far$Team == "New York Knicks", "Outcome Determined"] <- "OVER"
+#  determined_so_far[determined_so_far$Team == "Denver Nuggets", "Outcome Determined"] <- "OVER"
 }
 
 teams <- determined_so_far %>% 

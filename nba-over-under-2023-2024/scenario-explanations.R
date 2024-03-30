@@ -2,7 +2,7 @@ library(DBI)
 library(dbplyr)
 library(tidyverse)
 
-teams_remaining <- 16
+teams_remaining <- 12
 # Create a new SQLite database or open a connection to an existing one
 con <- dbConnect(RSQLite::SQLite(), dbname = "nba_scenarios.sqlite")
 
@@ -111,6 +111,7 @@ chester_outcome1_percentages <- chester_playoff_scenarios %>%
 
 # View the percentages of each outcome 
 View(chester_outcome_percentages)
+View(chester_outcome1_percentages)
 
 # Andy
 andy_playoff_sims <- scenarios %>%
