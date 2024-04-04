@@ -119,6 +119,25 @@
       ],
       "Hash": "45f0398006e83a5b10b72a90663d8d8c"
     },
+    "RSQLite": {
+      "Package": "RSQLite",
+      "Version": "2.3.5",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Requirements": [
+        "DBI",
+        "R",
+        "bit64",
+        "blob",
+        "cpp11",
+        "memoise",
+        "methods",
+        "pkgconfig",
+        "plogr",
+        "rlang"
+      ],
+      "Hash": "f5a75d57e0a3014a6ef537ac04a80fc6"
+    },
     "Rcpp": {
       "Package": "Rcpp",
       "Version": "1.0.12",
@@ -215,64 +234,6 @@
         "R"
       ],
       "Hash": "543776ae6848fde2f48ff3816d0628bc"
-    },
-    "benchmarkme": {
-      "Package": "benchmarkme",
-      "Version": "1.0.8",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "Matrix",
-        "R",
-        "benchmarkmeData",
-        "compiler",
-        "doParallel",
-        "dplyr",
-        "foreach",
-        "graphics",
-        "httr",
-        "methods",
-        "parallel",
-        "stringr",
-        "tibble",
-        "utils"
-      ],
-      "Hash": "eaa6ca07e7dfe815da4c1f62a425d9d2"
-    },
-    "benchmarkmeData": {
-      "Package": "benchmarkmeData",
-      "Version": "1.0.4",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R",
-        "dplyr",
-        "graphics",
-        "tibble",
-        "utils"
-      ],
-      "Hash": "03127f8e60281ab3c52f96bb98056dcb"
-    },
-    "bigassertr": {
-      "Package": "bigassertr",
-      "Version": "0.1.6",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "02a2208d425b3446e7ecf1eaa8dbcd44"
-    },
-    "bigreadr": {
-      "Package": "bigreadr",
-      "Version": "0.2.5",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "Rcpp",
-        "bigassertr",
-        "data.table",
-        "parallelly",
-        "utils"
-      ],
-      "Hash": "7d2cd7de56750f0fa7859c705c734dc0"
     },
     "bit": {
       "Package": "bit",
@@ -454,13 +415,13 @@
     },
     "codetools": {
       "Package": "codetools",
-      "Version": "0.2-19",
+      "Version": "0.2-20",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "R"
       ],
-      "Hash": "c089a619a7fae175d149d89164f8c7d8"
+      "Hash": "61e097f35917d342622f21cdc79c256e"
     },
     "colorspace": {
       "Package": "colorspace",
@@ -554,7 +515,7 @@
     },
     "dbplyr": {
       "Package": "dbplyr",
-      "Version": "2.4.0",
+      "Version": "2.5.0",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -578,7 +539,7 @@
         "vctrs",
         "withr"
       ],
-      "Hash": "59351f28a81f0742720b85363c4fdd61"
+      "Hash": "39b2e002522bfd258039ee4e889e0fd1"
     },
     "desc": {
       "Package": "desc",
@@ -618,49 +579,6 @@
         "utils"
       ],
       "Hash": "698ece7ba5a4fa4559e3d537e7ec3d31"
-    },
-    "disk.frame": {
-      "Package": "disk.frame",
-      "Version": "0.8.3",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R",
-        "Rcpp",
-        "arrow",
-        "benchmarkme",
-        "bigreadr",
-        "bit64",
-        "crayon",
-        "data.table",
-        "dplyr",
-        "fs",
-        "fst",
-        "future",
-        "future.apply",
-        "globals",
-        "glue",
-        "jsonlite",
-        "pryr",
-        "purrr",
-        "rlang",
-        "stringr"
-      ],
-      "Hash": "6c772ff560b6a3a206484f264299cd91"
-    },
-    "doParallel": {
-      "Package": "doParallel",
-      "Version": "1.0.17",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R",
-        "foreach",
-        "iterators",
-        "parallel",
-        "utils"
-      ],
-      "Hash": "451e5edf411987991ab6a5410c45011f"
     },
     "dplyr": {
       "Package": "dplyr",
@@ -780,19 +698,6 @@
       ],
       "Hash": "1a0a9a3d5083d0d573c4214576f1e690"
     },
-    "foreach": {
-      "Package": "foreach",
-      "Version": "1.5.2",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R",
-        "codetools",
-        "iterators",
-        "utils"
-      ],
-      "Hash": "618609b42c9406731ead03adf5379850"
-    },
     "fs": {
       "Package": "fs",
       "Version": "1.6.3",
@@ -803,29 +708,6 @@
         "methods"
       ],
       "Hash": "47b5f30c720c23999b913a1a635cf0bb"
-    },
-    "fst": {
-      "Package": "fst",
-      "Version": "0.9.8",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R",
-        "Rcpp",
-        "fstcore"
-      ],
-      "Hash": "34637e000c63c3de8d8aafceb82fd082"
-    },
-    "fstcore": {
-      "Package": "fstcore",
-      "Version": "0.9.18",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R",
-        "Rcpp"
-      ],
-      "Hash": "4c33c7202fcfe741cdea205570305630"
     },
     "furrr": {
       "Package": "furrr",
@@ -857,20 +739,6 @@
         "utils"
       ],
       "Hash": "e57e292737f7a4efa9d8a91c5908222c"
-    },
-    "future.apply": {
-      "Package": "future.apply",
-      "Version": "1.11.1",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R",
-        "future",
-        "globals",
-        "parallel",
-        "utils"
-      ],
-      "Hash": "455e00c16ec193c8edcf1b2b522b3288"
     },
     "gargle": {
       "Package": "gargle",
@@ -1228,17 +1096,6 @@
       ],
       "Hash": "0080607b4a1a7b28979aecef976d8bc2"
     },
-    "iterators": {
-      "Package": "iterators",
-      "Version": "1.0.14",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R",
-        "utils"
-      ],
-      "Hash": "8954069286b4b2b0d023d1b288dce978"
-    },
     "janitor": {
       "Package": "janitor",
       "Version": "2.2.0",
@@ -1363,7 +1220,7 @@
     },
     "lattice": {
       "Package": "lattice",
-      "Version": "0.22-5",
+      "Version": "0.22-6",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -1374,7 +1231,7 @@
         "stats",
         "utils"
       ],
-      "Hash": "7c5e89f04e72d6611c77451f6331a091"
+      "Hash": "cc5ac1ba4c238c7ca9fa6a87ca11a7e2"
     },
     "lazyeval": {
       "Package": "lazyeval",
@@ -1450,21 +1307,6 @@
         "stats"
       ],
       "Hash": "f04948de84602afc23bfa9f5427e954d"
-    },
-    "lobstr": {
-      "Package": "lobstr",
-      "Version": "1.1.2",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R",
-        "cpp11",
-        "crayon",
-        "methods",
-        "prettyunits",
-        "rlang"
-      ],
-      "Hash": "f2a94f8fc9db382a642e965339635ad6"
     },
     "lubridate": {
       "Package": "lubridate",
@@ -1790,6 +1632,13 @@
       ],
       "Hash": "876c618df5ae610be84356d5d7a5d124"
     },
+    "plogr": {
+      "Package": "plogr",
+      "Version": "0.2.0",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "09eb987710984fc2905c7129c7d85e65"
+    },
     "plotly": {
       "Package": "plotly",
       "Version": "4.10.4",
@@ -1912,21 +1761,6 @@
         "stats"
       ],
       "Hash": "0d8a15c9d000970ada1ab21405387dee"
-    },
-    "pryr": {
-      "Package": "pryr",
-      "Version": "0.1.6",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R",
-        "Rcpp",
-        "codetools",
-        "lobstr",
-        "methods",
-        "stringr"
-      ],
-      "Hash": "cfcbe960eca81ceca61df5fa622693de"
     },
     "ps": {
       "Package": "ps",
@@ -2427,14 +2261,14 @@
     },
     "tictoc": {
       "Package": "tictoc",
-      "Version": "1.2",
+      "Version": "1.2.1",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
         "R",
         "methods"
       ],
-      "Hash": "2c6c63f3f4f103d41cb2aae1ab1c7ce1"
+      "Hash": "646895a33d57984ce7534249bd9adf64"
     },
     "tidyr": {
       "Package": "tidyr",
