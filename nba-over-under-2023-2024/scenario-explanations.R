@@ -2,7 +2,7 @@ library(DBI)
 library(dbplyr)
 library(tidyverse)
 
-teams_remaining <- 12
+teams_remaining <- 11
 # Create a new SQLite database or open a connection to an existing one
 con <- dbConnect(RSQLite::SQLite(), dbname = "nba_scenarios.sqlite")
 
@@ -202,16 +202,16 @@ jake_outcome_percentages <- jake_playoff_scenarios %>%
   arrange(Team, desc(outcome_percentage))
 
 # View the percentages of each outcome 
-print(jake_outcome_percentages)
+# print(jake_outcome_percentages)
 
-all(nrow(chester_needs) == 2 * teams_remaining, 
+print(all(nrow(chester_needs) == 2 * teams_remaining, 
     nrow(andy_needs) == 2 * teams_remaining, 
     nrow(mary_needs) == 2 * teams_remaining, 
     nrow(mike_needs) == 2 * teams_remaining, 
     nrow(ryan_needs) == 2 * teams_remaining, 
     nrow(jake_needs) == 2 * teams_remaining, 
     nrow(phil_needs) == 2 * teams_remaining, 
-    nrow(adonis_needs) == 2 * teams_remaining)
+    nrow(adonis_needs) == 2 * teams_remaining))
 
 dbDisconnect(con)
 
