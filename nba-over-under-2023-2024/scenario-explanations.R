@@ -2,7 +2,7 @@ library(DBI)
 library(dbplyr)
 library(tidyverse)
 
-teams_remaining <- 9
+teams_remaining <- 8
 # Create a new SQLite database or open a connection to an existing one
 con <- dbConnect(RSQLite::SQLite(), dbname = "nba_scenarios.sqlite")
 
