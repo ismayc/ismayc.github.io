@@ -6,7 +6,7 @@ library(tidyverse)
 library(readxl)
 #library(disk.frame)
 
-manual <- TRUE
+manual <- FALSE
 
 # Setup disk.frame and allow it to use multiple cores
 #setup_disk.frame(workers = 8)
