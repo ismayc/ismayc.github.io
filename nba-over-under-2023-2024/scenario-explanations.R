@@ -2,7 +2,7 @@ library(DBI)
 library(dbplyr)
 library(tidyverse)
 
-teams_remaining <- 8
+teams_remaining <- 5
 # Create a new SQLite database or open a connection to an existing one
 con <- dbConnect(RSQLite::SQLite(), dbname = "nba_scenarios.sqlite")
 
@@ -49,6 +49,18 @@ phil_needs <- phil_playoff_scenarios %>%
   distinct() %>%
   arrange(Team)
 
+phil_outcome_percentages <- phil_playoff_scenarios %>%
+  group_by(Team, outcome) %>%
+  summarise(outcome_count = n(), .groups = 'drop') %>%
+  mutate(outcome_percentage = (outcome_count / sum(outcome_count)) * 100) %>%
+  arrange(Team, desc(outcome_percentage))
+
+phil_outcome1_percentages <- phil_1_scenarios %>%
+  group_by(Team, outcome) %>%
+  summarise(outcome_count = n(), .groups = 'drop') %>%
+  mutate(outcome_percentage = (outcome_count / sum(outcome_count)) * 100) %>%
+  arrange(Team, desc(outcome_percentage))
+
 # Adonis
 adonis_playoff_sims <- scenarios %>%
   filter(player == "Adonis") %>%
@@ -73,6 +85,11 @@ chester_playoff_sims <- scenarios %>%
 
 chester_playoff_scenarios <- populated_collected %>%
   filter(sim %in% chester_playoff_sims) %>%
+  select(sim, Team, outcome, Chester_proj_points) %>%
+  filter(Team %in% outcome_not_determined_teams)
+
+chester_nonplayoff_scenarios <- populated_collected %>%
+  filter(!(sim %in% chester_playoff_sims)) %>%
   select(sim, Team, outcome, Chester_proj_points) %>%
   filter(Team %in% outcome_not_determined_teams)
 
@@ -103,7 +120,7 @@ chester_outcome_percentages <- chester_playoff_scenarios %>%
   mutate(outcome_percentage = (outcome_count / sum(outcome_count)) * 100) %>%
   arrange(Team, desc(outcome_percentage))
 
-chester_outcome1_percentages <- chester_playoff_scenarios %>%
+chester_outcome1_percentages <- chester_1_scenarios %>%
   group_by(Team, outcome) %>%
   summarise(outcome_count = n(), .groups = 'drop') %>%
   mutate(outcome_percentage = (outcome_count / sum(outcome_count)) * 100) %>%
@@ -212,6 +229,22 @@ print(all(nrow(chester_needs) == 2 * teams_remaining,
     nrow(jake_needs) == 2 * teams_remaining, 
     nrow(phil_needs) == 2 * teams_remaining, 
     nrow(adonis_needs) == 2 * teams_remaining))
+
+library(dplyr)
+
+# Assuming your dataframe is called scenarios
+result <- scenarios %>%
+  filter(playoffs == TRUE) %>% # Step 1: Filter for playoffs == TRUE
+  group_by(sim) %>% # Step 2: Group by simulation
+  summarise(players_in_playoffs = toString(player)) %>% # Collect players in playoffs per simulation
+filter(grepl("Andy", players_in_playoffs) &
+         grepl("Chester", players_in_playoffs) &
+         grepl("Mary", players_in_playoffs) &
+         grepl("Adonis", players_in_playoffs))  %>% # Step 3: Check for all desired players
+ nrow() # Step 4: Count the simulations
+
+print(result)
+
 
 dbDisconnect(con)
 
