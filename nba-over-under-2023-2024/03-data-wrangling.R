@@ -231,7 +231,15 @@ standings_with_projected <- standings %>%
   mutate(differential = current_win_perc - winning_perc_for_over)
 
 wins_needed <- player_projections_by_team %>% 
-  filter(Date == Sys.Date() - 1) %>% 
+  filter(Date == Sys.Date() - 1) 
+
+# Manual fix to reduce Lakers total wins by 1 and increase losses by 1
+# Not sure what happened on 2024-04-09
+#wins_needed[wins_needed$Team == "Los Angeles Lakers", "Wins"] <- wins_needed[wins_needed$Team == "Los Angeles Lakers", "Wins"] - 1
+#wins_needed[wins_needed$Team == "Los Angeles Lakers", "Losses"] <- wins_needed[wins_needed$Team == "Los Angeles Lakers", "Losses"] + 1
+#wins_needed[wins_needed$Team == "Los Angeles Lakers", "Current Record"] <- "45-35" #paste0(wins_needed[wins_needed$Team == "Los Angeles Lakers", "Wins"], "-", wins_needed[wins_needed$Team == "Los Angeles Lakers", "Losses"])
+
+wins_needed <- wins_needed %>% 
   select(Date, Team, `Outcome Determined`,
          `Current Record`, `Wins To Go Over Vegas Insider`,
          `Winning % In Remaining Games Needed`,
@@ -258,6 +266,7 @@ wins_needed <- player_projections_by_team %>%
          Losses = as.integer(Losses)) %>% 
   mutate(`Remaining Games` = num_games - Wins - Losses) %>% 
   select(-`Winning % In Remaining Games Needed`)
+
 
 out_table <- projections %>% 
   inner_join(wins_needed, by = c("team" = "Team")) %>% 
