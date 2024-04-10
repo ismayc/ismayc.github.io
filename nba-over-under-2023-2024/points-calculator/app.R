@@ -8,6 +8,17 @@ library(kableExtra)
 picks <- read_excel(path = "picks.xlsx", sheet = "picks")
 num_players <- 8
 
+file_names <- list.files(pattern = "determined_outcomes")
+
+# Extract dates using regular expressions
+dates <- gsub("determined_outcomes_(.*)\\.rds", "\\1", file_names)
+
+# Convert the date strings to Date objects
+dates <- as.Date(dates)
+
+# Find the maximum date
+max_date <- max(dates)
+
 if (file.exists(paste0("determined_outcomes_", 
                        as.Date(Sys.time()), 
                        ".rds"))) {
@@ -16,7 +27,7 @@ if (file.exists(paste0("determined_outcomes_",
                           ".rds"))
 } else {
   temp <- read_rds(paste0("determined_outcomes_", 
-                          as.Date(Sys.time()) - 1, 
+                          max_date, 
                           ".rds"))
 }
 

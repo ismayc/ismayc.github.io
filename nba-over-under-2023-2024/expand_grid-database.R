@@ -70,9 +70,9 @@ if (manual) {
   #  determined_so_far[determined_so_far$Team == "Cleveland Cavaliers", "Outcome Determined"] <- "UNDER"
   
 #  determined_so_far[determined_so_far$Team == "Portland Trail Blazers", "Outcome Determined"] <- "UNDER"
-  determined_so_far[determined_so_far$Team == "Miami Heat", "Outcome Determined"] <- "UNDER"
-  determined_so_far[determined_so_far$Team == "Chicago Bulls", "Outcome Determined"] <- "OVER"
-#  determined_so_far[determined_so_far$Team == "Los Angeles Lakers", "Outcome Determined"] <- "OVER"
+#  determined_so_far[determined_so_far$Team == "Miami Heat", "Outcome Determined"] <- "UNDER"
+#  determined_so_far[determined_so_far$Team == "Chicago Bulls", "Outcome Determined"] <- "OVER"
+  determined_so_far[determined_so_far$Team == "Los Angeles Lakers", "Outcome Determined"] <- "UNDER"
 #  determined_so_far[determined_so_far$Team == "Sacramento Kings", "Outcome Determined"] <- "OVER"
 }
 
