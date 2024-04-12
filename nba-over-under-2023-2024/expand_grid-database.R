@@ -6,7 +6,7 @@ library(tidyverse)
 library(readxl)
 #library(disk.frame)
 
-manual <- FALSE
+manual <- TRUE
 
 # Setup disk.frame and allow it to use multiple cores
 #setup_disk.frame(workers = 8)
@@ -68,11 +68,11 @@ if (manual) {
 #  determined_so_far[determined_so_far$Team == "Denver Nuggets", "Outcome Determined"] <- "OVER"
   #  determined_so_far[determined_so_far$Team == "Atlanta Hawks", "Outcome Determined"] <- "UNDER"
   #  determined_so_far[determined_so_far$Team == "Cleveland Cavaliers", "Outcome Determined"] <- "UNDER"
-  
-#  determined_so_far[determined_so_far$Team == "Portland Trail Blazers", "Outcome Determined"] <- "UNDER"
-#  determined_so_far[determined_so_far$Team == "Miami Heat", "Outcome Determined"] <- "UNDER"
+  #  determined_so_far[determined_so_far$Team == "Miami Heat", "Outcome Determined"] <- "UNDER"
 #  determined_so_far[determined_so_far$Team == "Chicago Bulls", "Outcome Determined"] <- "OVER"
-  determined_so_far[determined_so_far$Team == "Los Angeles Lakers", "Outcome Determined"] <- "UNDER"
+    
+#  determined_so_far[determined_so_far$Team == "Portland Trail Blazers", "Outcome Determined"] <- "UNDER"
+#  determined_so_far[determined_so_far$Team == "Los Angeles Lakers", "Outcome Determined"] <- "UNDER"
 #  determined_so_far[determined_so_far$Team == "Sacramento Kings", "Outcome Determined"] <- "OVER"
 }
 
