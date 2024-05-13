@@ -51,7 +51,7 @@ seaborn==0.13.0
 simplejson==3.19.1
 six==1.16.0
 threadpoolctl==3.2.0
-tqdm==4.65.0
+tqdm==4.66.3
 traits==6.3.2
 tzdata==2023.3
 urllib3==2.2.1
