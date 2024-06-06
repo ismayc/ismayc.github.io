@@ -41,7 +41,7 @@ seasons_rosters <-
 # players_2023 <- nbastatR::seasons_rosters(seasons = 2023)
 
 #write_rds(players_2023, "rosters/players_2023.rds")
-players_2023 <- read_rds("rosters/players_2023.rds")
+players_2023 <- read_rds("players_2023.rds")
 
 players_clean <- clean_names(players_2023) %>% 
   inner_join(readxl::read_excel("picks.xlsx", sheet = "meta"),
@@ -52,7 +52,7 @@ players_clean <- clean_names(players_2023) %>%
 
 
 # 2022 analysis
-players_2022 <- read_rds("rosters/players_2022.rds")
+players_2022 <- seasons_rosters(seasons = 2022) #read_rds("players_2022.rds")
 
 mean_jersey <- mean(players_2022_clean$number_jersey, na.rm = TRUE)
 median_jersey <- median(players_2022_clean$number_jersey, na.rm = TRUE)
