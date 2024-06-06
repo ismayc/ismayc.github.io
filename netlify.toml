@@ -1,9 +1,7 @@
 [build]
-  command = "bundle install && bundle exec jekyll build"
+  command = "gem update --system && bundle install && bundle exec jekyll build"
   publish = "_site"
 
 [build.environment]
   RUBY_VERSION = "2.6.2"
 
-[build.lifecycle]
-  onbuild = "gem update --system"
