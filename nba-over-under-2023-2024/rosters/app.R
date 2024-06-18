@@ -20,7 +20,7 @@ library(httr)
 library(jsonlite)
 
 update <- FALSE
-date_added <- "2024-02-09"
+date_added <- "2024-05-04"
 season <- 2024
 #date_added <- Sys.Date()
 
@@ -150,6 +150,8 @@ ui <- fluidPage(
                   "Conference:",
                   choices = unique(players_data$conference),
                   selected = "West"),
+#      selectInput("team", "Team:", choices = NULL),  # Teams will be populated based on the selected conference
+      # Other inputs remain the same
       conditionalPanel(
         condition = "input.conference == 'West'",
         checkboxGroupInput("division_west",
