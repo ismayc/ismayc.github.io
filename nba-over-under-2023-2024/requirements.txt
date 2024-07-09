@@ -56,4 +56,4 @@ traits==6.3.2
 tzdata==2023.3
 urllib3==2.2.2
 yarl==1.8.2
-zipp==3.15.0
+zipp==3.19.1
