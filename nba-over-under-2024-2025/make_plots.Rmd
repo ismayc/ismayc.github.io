@@ -2,7 +2,7 @@
 title: 'NBA Over/Under 2023-2024 Season'
 author: Created by Chester Ismay
 output: html_document
-knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = encoding, output_file = file.path('../2024-nba-over-under.html')) })
+knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = encoding, output_file = file.path('../2025-nba-over-under.html')) })
 ---
 
 ```{r include=FALSE}
@@ -893,7 +893,7 @@ if (nrow(todays_games)) {
 
 Note that tie breakers to determine playoff seeds are not currently set.
 
-```{r}
+```{r eval=FALSE}
 # 1. Prepare Winning Percentages
 # 'standings' data frame has the winning percentages in the 'Winning Pct' column
 winning_pct <- standings |>
