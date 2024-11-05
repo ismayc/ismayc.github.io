@@ -1,9 +1,9 @@
 on:
   schedule:
 #    - cron: "*/10 * * * *"
-#    - cron: "0 8,13 * * *"
-#  push:
-#    branches: [main, master]
+    - cron: "0 8,13 * * *"
+  push:
+    branches: [main, master]
   workflow_dispatch:
 
 name: build-nba-webpage
@@ -104,7 +104,7 @@ jobs:
  
       - name: Build webpage
         run: |
-          source("nba-over-under-2023-2024/make_plot_html.R")
+          source("nba-over-under-2024-2025/make_plot_html.R")
         shell: Rscript {0} 
 
       - uses: r-lib/actions/setup-renv@v2            
