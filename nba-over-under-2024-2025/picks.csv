@@ -1,0 +1,241 @@
+team,player,wage,choice
+Atlanta Hawks,Adonis,15,UNDER
+Atlanta Hawks,Andy,10,OVER
+Atlanta Hawks,Chester,12,UNDER
+Atlanta Hawks,Jake,7,OVER
+Atlanta Hawks,Mary,6,UNDER
+Atlanta Hawks,Mike,7,OVER
+Atlanta Hawks,Phil,14,UNDER
+Atlanta Hawks,Ryan,8,OVER
+Boston Celtics,Adonis,8,UNDER
+Boston Celtics,Andy,14,UNDER
+Boston Celtics,Chester,11,UNDER
+Boston Celtics,Jake,9,UNDER
+Boston Celtics,Mary,14,OVER
+Boston Celtics,Mike,11,UNDER
+Boston Celtics,Phil,7,OVER
+Boston Celtics,Ryan,11,UNDER
+Brooklyn Nets,Adonis,14,UNDER
+Brooklyn Nets,Andy,15,UNDER
+Brooklyn Nets,Chester,7,UNDER
+Brooklyn Nets,Jake,14,UNDER
+Brooklyn Nets,Mary,13,UNDER
+Brooklyn Nets,Mike,12,UNDER
+Brooklyn Nets,Phil,10,UNDER
+Brooklyn Nets,Ryan,8,UNDER
+Charlotte Hornets,Adonis,15,UNDER
+Charlotte Hornets,Andy,6,UNDER
+Charlotte Hornets,Chester,6,UNDER
+Charlotte Hornets,Jake,14,OVER
+Charlotte Hornets,Mary,15,UNDER
+Charlotte Hornets,Mike,15,UNDER
+Charlotte Hornets,Phil,8,UNDER
+Charlotte Hornets,Ryan,6,UNDER
+Chicago Bulls,Adonis,10,UNDER
+Chicago Bulls,Andy,6,UNDER
+Chicago Bulls,Chester,10,OVER
+Chicago Bulls,Jake,15,UNDER
+Chicago Bulls,Mary,8,UNDER
+Chicago Bulls,Mike,15,UNDER
+Chicago Bulls,Phil,11,UNDER
+Chicago Bulls,Ryan,9,UNDER
+Cleveland Cavaliers,Adonis,6,OVER
+Cleveland Cavaliers,Andy,11,OVER
+Cleveland Cavaliers,Chester,11,OVER
+Cleveland Cavaliers,Jake,12,OVER
+Cleveland Cavaliers,Mary,12,OVER
+Cleveland Cavaliers,Mike,14,OVER
+Cleveland Cavaliers,Phil,13,OVER
+Cleveland Cavaliers,Ryan,8,OVER
+Detroit Pistons,Adonis,11,UNDER
+Detroit Pistons,Andy,7,OVER
+Detroit Pistons,Chester,6,OVER
+Detroit Pistons,Jake,15,OVER
+Detroit Pistons,Mary,9,OVER
+Detroit Pistons,Mike,13,OVER
+Detroit Pistons,Phil,15,OVER
+Detroit Pistons,Ryan,7,OVER
+Indiana Pacers,Adonis,7,OVER
+Indiana Pacers,Andy,8,UNDER
+Indiana Pacers,Chester,15,OVER
+Indiana Pacers,Jake,12,OVER
+Indiana Pacers,Mary,12,OVER
+Indiana Pacers,Mike,13,OVER
+Indiana Pacers,Phil,6,OVER
+Indiana Pacers,Ryan,12,OVER
+Miami Heat,Adonis,8,OVER
+Miami Heat,Andy,11,OVER
+Miami Heat,Chester,14,UNDER
+Miami Heat,Jake,7,OVER
+Miami Heat,Mary,7,OVER
+Miami Heat,Mike,11,UNDER
+Miami Heat,Phil,10,UNDER
+Miami Heat,Ryan,12,OVER
+Milwaukee Bucks,Adonis,10,UNDER
+Milwaukee Bucks,Andy,13,OVER
+Milwaukee Bucks,Chester,9,OVER
+Milwaukee Bucks,Jake,11,UNDER
+Milwaukee Bucks,Mary,8,UNDER
+Milwaukee Bucks,Mike,9,UNDER
+Milwaukee Bucks,Phil,12,UNDER
+Milwaukee Bucks,Ryan,13,OVER
+New York Knicks,Adonis,10,OVER
+New York Knicks,Andy,15,OVER
+New York Knicks,Chester,8,UNDER
+New York Knicks,Jake,9,OVER
+New York Knicks,Mary,11,UNDER
+New York Knicks,Mike,12,OVER
+New York Knicks,Phil,8,OVER
+New York Knicks,Ryan,15,OVER
+Orlando Magic,Adonis,12,UNDER
+Orlando Magic,Andy,11,UNDER
+Orlando Magic,Chester,14,OVER
+Orlando Magic,Jake,6,UNDER
+Orlando Magic,Mary,10,OVER
+Orlando Magic,Mike,6,UNDER
+Orlando Magic,Phil,6,OVER
+Orlando Magic,Ryan,13,UNDER
+Philadelphia 76ers,Adonis,9,OVER
+Philadelphia 76ers,Andy,13,UNDER
+Philadelphia 76ers,Chester,8,UNDER
+Philadelphia 76ers,Jake,9,UNDER
+Philadelphia 76ers,Mary,13,OVER
+Philadelphia 76ers,Mike,6,UNDER
+Philadelphia 76ers,Phil,11,OVER
+Philadelphia 76ers,Ryan,14,OVER
+Toronto Raptors,Adonis,13,UNDER
+Toronto Raptors,Andy,6,OVER
+Toronto Raptors,Chester,14,OVER
+Toronto Raptors,Jake,6,OVER
+Toronto Raptors,Mary,7,UNDER
+Toronto Raptors,Mike,7,UNDER
+Toronto Raptors,Phil,10,OVER
+Toronto Raptors,Ryan,6,UNDER
+Washington Wizards,Adonis,15,UNDER
+Washington Wizards,Andy,12,UNDER
+Washington Wizards,Chester,6,UNDER
+Washington Wizards,Jake,14,UNDER
+Washington Wizards,Mary,6,UNDER
+Washington Wizards,Mike,13,UNDER
+Washington Wizards,Phil,7,OVER
+Washington Wizards,Ryan,7,UNDER
+Dallas Mavericks,Adonis,6,OVER
+Dallas Mavericks,Andy,9,OVER
+Dallas Mavericks,Chester,13,OVER
+Dallas Mavericks,Jake,10,UNDER
+Dallas Mavericks,Mary,13,OVER
+Dallas Mavericks,Mike,8,OVER
+Dallas Mavericks,Phil,8,OVER
+Dallas Mavericks,Ryan,14,OVER
+Denver Nuggets,Adonis,7,UNDER
+Denver Nuggets,Andy,14,OVER
+Denver Nuggets,Chester,7,OVER
+Denver Nuggets,Jake,10,UNDER
+Denver Nuggets,Mary,12,OVER
+Denver Nuggets,Mike,14,UNDER
+Denver Nuggets,Phil,6,UNDER
+Denver Nuggets,Ryan,15,UNDER
+Golden State Warriors,Adonis,12,UNDER
+Golden State Warriors,Andy,7,OVER
+Golden State Warriors,Chester,10,OVER
+Golden State Warriors,Jake,8,OVER
+Golden State Warriors,Mary,9,UNDER
+Golden State Warriors,Mike,10,UNDER
+Golden State Warriors,Phil,12,OVER
+Golden State Warriors,Ryan,10,OVER
+Houston Rockets,Adonis,14,UNDER
+Houston Rockets,Andy,10,UNDER
+Houston Rockets,Chester,13,OVER
+Houston Rockets,Jake,12,OVER
+Houston Rockets,Mary,15,OVER
+Houston Rockets,Mike,10,UNDER
+Houston Rockets,Phil,9,OVER
+Houston Rockets,Ryan,7,UNDER
+Los Angeles Clippers,Adonis,12,UNDER
+Los Angeles Clippers,Andy,12,OVER
+Los Angeles Clippers,Chester,10,UNDER
+Los Angeles Clippers,Jake,15,UNDER
+Los Angeles Clippers,Mary,7,UNDER
+Los Angeles Clippers,Mike,12,UNDER
+Los Angeles Clippers,Phil,15,UNDER
+Los Angeles Clippers,Ryan,9,UNDER
+Los Angeles Lakers,Adonis,7,OVER
+Los Angeles Lakers,Andy,9,UNDER
+Los Angeles Lakers,Chester,12,OVER
+Los Angeles Lakers,Jake,13,UNDER
+Los Angeles Lakers,Mary,14,UNDER
+Los Angeles Lakers,Mike,15,UNDER
+Los Angeles Lakers,Phil,15,UNDER
+Los Angeles Lakers,Ryan,12,OVER
+Memphis Grizzlies,Adonis,9,UNDER
+Memphis Grizzlies,Andy,7,OVER
+Memphis Grizzlies,Chester,11,UNDER
+Memphis Grizzlies,Jake,13,OVER
+Memphis Grizzlies,Mary,10,OVER
+Memphis Grizzlies,Mike,7,OVER
+Memphis Grizzlies,Phil,9,UNDER
+Memphis Grizzlies,Ryan,11,OVER
+Minnesota Timberwolves,Adonis,6,UNDER
+Minnesota Timberwolves,Andy,13,UNDER
+Minnesota Timberwolves,Chester,12,UNDER
+Minnesota Timberwolves,Jake,8,UNDER
+Minnesota Timberwolves,Mary,6,OVER
+Minnesota Timberwolves,Mike,8,UNDER
+Minnesota Timberwolves,Phil,9,OVER
+Minnesota Timberwolves,Ryan,14,UNDER
+New Orleans Pelicans,Adonis,11,UNDER
+New Orleans Pelicans,Andy,8,UNDER
+New Orleans Pelicans,Chester,9,UNDER
+New Orleans Pelicans,Jake,8,OVER
+New Orleans Pelicans,Mary,8,UNDER
+New Orleans Pelicans,Mike,11,UNDER
+New Orleans Pelicans,Phil,12,OVER
+New Orleans Pelicans,Ryan,11,UNDER
+Oklahoma City Thunder,Adonis,14,OVER
+Oklahoma City Thunder,Andy,14,UNDER
+Oklahoma City Thunder,Chester,8,UNDER
+Oklahoma City Thunder,Jake,10,OVER
+Oklahoma City Thunder,Mary,15,OVER
+Oklahoma City Thunder,Mike,8,OVER
+Oklahoma City Thunder,Phil,14,OVER
+Oklahoma City Thunder,Ryan,15,OVER
+Phoenix Suns,Adonis,13,OVER
+Phoenix Suns,Andy,8,UNDER
+Phoenix Suns,Chester,13,UNDER
+Phoenix Suns,Jake,11,OVER
+Phoenix Suns,Mary,11,OVER
+Phoenix Suns,Mike,14,OVER
+Phoenix Suns,Phil,11,UNDER
+Phoenix Suns,Ryan,13,OVER
+Portland Trail Blazers,Adonis,13,UNDER
+Portland Trail Blazers,Andy,10,OVER
+Portland Trail Blazers,Chester,7,OVER
+Portland Trail Blazers,Jake,6,OVER
+Portland Trail Blazers,Mary,14,UNDER
+Portland Trail Blazers,Mike,10,UNDER
+Portland Trail Blazers,Phil,13,UNDER
+Portland Trail Blazers,Ryan,10,UNDER
+Sacramento Kings,Adonis,9,OVER
+Sacramento Kings,Andy,9,OVER
+Sacramento Kings,Chester,15,UNDER
+Sacramento Kings,Jake,7,OVER
+Sacramento Kings,Mary,9,OVER
+Sacramento Kings,Mike,9,OVER
+Sacramento Kings,Phil,7,UNDER
+Sacramento Kings,Ryan,10,UNDER
+San Antonio Spurs,Adonis,8,UNDER
+San Antonio Spurs,Andy,15,OVER
+San Antonio Spurs,Chester,15,OVER
+San Antonio Spurs,Jake,13,OVER
+San Antonio Spurs,Mary,10,OVER
+San Antonio Spurs,Mike,9,OVER
+San Antonio Spurs,Phil,14,UNDER
+San Antonio Spurs,Ryan,6,OVER
+Utah Jazz,Adonis,11,UNDER
+Utah Jazz,Andy,12,UNDER
+Utah Jazz,Chester,9,OVER
+Utah Jazz,Jake,11,OVER
+Utah Jazz,Mary,11,OVER
+Utah Jazz,Mike,6,UNDER
+Utah Jazz,Phil,13,UNDER
+Utah Jazz,Ryan,9,OVER
