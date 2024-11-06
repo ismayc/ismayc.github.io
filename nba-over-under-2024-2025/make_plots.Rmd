@@ -1,5 +1,5 @@
 ---
-title: 'NBA Over/Under 2023-2024 Season'
+title: 'NBA Over/Under 2024-2025 Season'
 author: Created by Chester Ismay
 output: html_document
 knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = encoding, output_file = file.path('../2025-nba-over-under.html')) })
