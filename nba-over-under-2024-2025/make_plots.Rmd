@@ -28,6 +28,7 @@ library(rvest)
 nbastatR_files <- list.files(path = "nbastatR-r-files",
                              full.names = TRUE)
 purrr::walk(nbastatR_files, source)
+this_year <- "2024-25"
 ```
 
 ```{r include=FALSE}
@@ -767,8 +768,11 @@ if (nrow(yesterday_scores)) {
 ```
 
 ```{r message=FALSE, warning=FALSE}
-schedule <- read_csv("schedule-2023-24.csv") |> 
-  select(-is_complete)
+schedule <- read_csv(paste0("schedule-", this_year,".csv")) |> 
+  rename(game_date = `Game Date`, start_time = `Start (ET)`,
+         away_team = `Visitor/Neutral`, home_team = `Home/Neutral`) |> 
+  select(game_date, start_time, away_team, home_team) |> 
+  mutate(game_date = lubridate::mdy(game_date))
 ```
 
 ```{r message=FALSE, warning=FALSE}
