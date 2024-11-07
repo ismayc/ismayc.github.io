@@ -82,9 +82,10 @@ jobs:
 
       - name: Push changes
         run: |
-          git commit -am "GitHub Actions NBA page build"
-          git push origin master        
-          
+          git add -A
+          git commit -m "GitHub Actions NBA page build" || echo "No changes to commit"
+          git push origin master
+     
       - name: Session info
         run: |
           options(width = 100)

@@ -9,9 +9,9 @@
     ]
   },
   "Python": {
-    "Version": "3.12.3",
+    "Version": "3.9.6",
     "Type": "virtualenv",
-    "Name": "/Users/chester/.virtualenvs/r-reticulate"
+    "Name": "r-reticulate"
   },
   "Packages": {
     "DBI": {
