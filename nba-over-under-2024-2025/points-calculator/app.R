@@ -5,7 +5,24 @@ library(readxl)
 library(tidyverse)
 library(kableExtra)
 
-picks <- read_excel(path = "picks.xlsx", sheet = "picks")
+# Get today's date
+today <- Sys.Date()
+
+# Extract the current year and month
+current_year <- as.integer(format(today, "%Y"))
+current_month <- as.integer(format(today, "%m"))
+
+# Check if the month is between October (10) and April (4)
+if (current_month >= 10 || current_month <= 4) {
+  # If today is between October and December, it's the current year-season
+  # If today is between January and April, it's the previous year-season
+  start_year <- ifelse(current_month >= 10, current_year, current_year - 1)
+  end_year <- start_year + 1
+  season_year <- paste(start_year, end_year, sep = "-")
+}
+
+
+picks <- read_excel(path = "../picks.xlsx", sheet = "picks")
 num_players <- 8
 
 file_names <- list.files(pattern = "determined_outcomes")
@@ -75,9 +92,23 @@ over_under_choice <- function(
 ui <- fluidPage(
   
   # Application title
-  titlePanel("NBA Over/Under 2023-2024 Point Calculations"),
+  titlePanel(paste("NBA Over/Under", season_year, "Point Calculations")),
   h3("Created by Chester Ismay"),
-  p(str_c("Last updated at ", format(Sys.time() - lubridate::hours(8), "%Y-%m-%d %H:%M:%S"), " US Pacific time")),
+  p(str_c("Last updated at ", format(Sys.time(), "%Y-%m-%d %H:%M:%S"), " US Arizona time")),
+  
+  tags$head(
+    tags$style(HTML("
+      /* Set the table headers to not wrap */
+      table.dataTable th {
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      /* Increase minimum width for headers */
+      table.dataTable th {
+        min-width: 50px;
+      }
+    "))
+  ),
   
   # Sidebar
   sidebarLayout(
@@ -330,12 +361,12 @@ ui <- fluidPage(
     # Show a plot of the generated distribution
     mainPanel(
       width = 2,
-      tableOutput("point_table")#,
- #     h4("Tie-breakers"),
- #      tableOutput("correct_table"),
- #      tableOutput("correct_15_table"),
- #      tableOutput("correct_14_table"),
- #      tableOutput("correct_13_table"),
+      DT::DTOutput("point_table")#,
+      #     h4("Tie-breakers"),
+      #      tableOutput("correct_table"),
+      #      tableOutput("correct_15_table"),
+      #      tableOutput("correct_14_table"),
+      #      tableOutput("correct_13_table"),
       #         fluidRow(
       #             column(width = 7, tableOutput("point_table")),
       #             column(width = 5, tableOutput("correct_table"))
@@ -347,399 +378,180 @@ ui <- fluidPage(
 # Define server logic
 server <- function(input, output, session) {
   
-  output$point_table <- function() {
-    #        renderTable({
-    
-    chester_probs_df <- picks %>% 
-      distinct(team) %>% 
-      arrange(team) %>% 
-      mutate(likely_result = case_when(
-        str_detect(team, "Pistons") ~ input$Pistons,  
-        str_detect(team, "Blazers") ~ input$Blazers,
-        str_detect(team, "Bulls") ~ input$Bulls,
-        str_detect(team, "Kings") ~ input$Kings,
-        str_detect(team, "Nuggets") ~ input$Nuggets,
-        str_detect(team, "Mavericks") ~ input$Mavericks,
-        str_detect(team, "Warriors") ~ input$Warriors,
-        str_detect(team, "Wizards") ~ input$Wizards,
-        str_detect(team, "Hawks") ~ input$Hawks,
-        str_detect(team, "Celtics") ~ input$Celtics,
-        str_detect(team, "Nets") ~ input$Nets,
-        str_detect(team, "Hornets") ~ input$Hornets,
-        str_detect(team, "Bulls") ~ input$Bulls,
-        str_detect(team, "Cavaliers") ~ input$Cavaliers,
-        str_detect(team, "Mavericks") ~ input$Mavericks,
-        str_detect(team, "Nuggets") ~ input$Nuggets,
-        str_detect(team, "Pistons") ~ input$Pistons,
-        str_detect(team, "Warriors") ~ input$Warriors,
-        str_detect(team, "Rockets") ~ input$Rockets,
-        str_detect(team, "Pacers") ~ input$Pacers,
-        str_detect(team, "Clippers") ~ input$Clippers,
-        str_detect(team, "Lakers") ~ input$Lakers,
-        str_detect(team, "Grizzlies") ~ input$Grizzlies,
-        str_detect(team, "Heat") ~ input$Heat,
-        str_detect(team, "Bucks") ~ input$Bucks,
-        str_detect(team, "Timberwolves") ~ input$Timberwolves,
-        str_detect(team, "Pelicans") ~ input$Pelicans,
-        str_detect(team, "Knicks") ~ input$Knicks,
-        str_detect(team, "Thunder") ~ input$Thunder,
-        str_detect(team, "Magic") ~ input$Magic,
-        str_detect(team, "76ers") ~ input$`76ers`,
-        str_detect(team, "Suns") ~ input$Suns,
-        str_detect(team, "Blazers") ~ input$Blazers,
-        str_detect(team, "Kings") ~ input$Kings,
-        str_detect(team, "Spurs") ~ input$Spurs,
-        str_detect(team, "Raptors") ~ input$Raptors,
-        str_detect(team, "Jazz") ~ input$Jazz,
-        str_detect(team, "Wizards") ~ input$Wizards
-      ))
-    
-    picks_test <- picks %>% 
-      inner_join(
-        chester_probs_df %>% select(team, likely_result), 
-        by = "team"
-      ) %>% 
-      mutate(projected_points = case_when(
-        (choice == likely_result) & (likely_result != "TBD") ~ wage,
-        (choice != likely_result) & (likely_result != "TBD") ~ -wage
-      ))
-    
-    num_correct <- picks_test %>% 
-      mutate(correct = projected_points > 0) %>% 
-      group_by(Player = player) %>% 
-      summarize(
-        `Number of Correct Picks` = as.integer(
-          sum(correct, na.rm = TRUE))
+  output$point_table <- # function() {
+    DT::renderDT({
+      
+      chester_probs_df <- picks %>% 
+        distinct(team) %>% 
+        arrange(team) %>% 
+        mutate(likely_result = case_when(
+          str_detect(team, "Pistons") ~ input$Pistons,  
+          str_detect(team, "Blazers") ~ input$Blazers,
+          str_detect(team, "Bulls") ~ input$Bulls,
+          str_detect(team, "Kings") ~ input$Kings,
+          str_detect(team, "Nuggets") ~ input$Nuggets,
+          str_detect(team, "Mavericks") ~ input$Mavericks,
+          str_detect(team, "Warriors") ~ input$Warriors,
+          str_detect(team, "Wizards") ~ input$Wizards,
+          str_detect(team, "Hawks") ~ input$Hawks,
+          str_detect(team, "Celtics") ~ input$Celtics,
+          str_detect(team, "Nets") ~ input$Nets,
+          str_detect(team, "Hornets") ~ input$Hornets,
+          str_detect(team, "Bulls") ~ input$Bulls,
+          str_detect(team, "Cavaliers") ~ input$Cavaliers,
+          str_detect(team, "Mavericks") ~ input$Mavericks,
+          str_detect(team, "Nuggets") ~ input$Nuggets,
+          str_detect(team, "Pistons") ~ input$Pistons,
+          str_detect(team, "Warriors") ~ input$Warriors,
+          str_detect(team, "Rockets") ~ input$Rockets,
+          str_detect(team, "Pacers") ~ input$Pacers,
+          str_detect(team, "Clippers") ~ input$Clippers,
+          str_detect(team, "Lakers") ~ input$Lakers,
+          str_detect(team, "Grizzlies") ~ input$Grizzlies,
+          str_detect(team, "Heat") ~ input$Heat,
+          str_detect(team, "Bucks") ~ input$Bucks,
+          str_detect(team, "Timberwolves") ~ input$Timberwolves,
+          str_detect(team, "Pelicans") ~ input$Pelicans,
+          str_detect(team, "Knicks") ~ input$Knicks,
+          str_detect(team, "Thunder") ~ input$Thunder,
+          str_detect(team, "Magic") ~ input$Magic,
+          str_detect(team, "76ers") ~ input$`76ers`,
+          str_detect(team, "Suns") ~ input$Suns,
+          str_detect(team, "Blazers") ~ input$Blazers,
+          str_detect(team, "Kings") ~ input$Kings,
+          str_detect(team, "Spurs") ~ input$Spurs,
+          str_detect(team, "Raptors") ~ input$Raptors,
+          str_detect(team, "Jazz") ~ input$Jazz,
+          str_detect(team, "Wizards") ~ input$Wizards
+        ))
+      
+      picks_test <- picks %>% 
+        inner_join(
+          chester_probs_df %>% select(team, likely_result), 
+          by = "team"
+        ) %>% 
+        mutate(projected_points = case_when(
+          (choice == likely_result) & (likely_result != "TBD") ~ wage,
+          (choice != likely_result) & (likely_result != "TBD") ~ -wage
+        ))
+      
+      num_correct <- picks_test %>% 
+        mutate(correct = projected_points > 0) %>% 
+        group_by(Player = player) %>% 
+        summarize(
+          `Number of Correct Picks` = as.integer(
+            sum(correct, na.rm = TRUE))
+        )
+      
+      num_15_correct <- picks_test %>% 
+        filter(wage == 15) %>% 
+        mutate(correct = projected_points > 0) %>% 
+        group_by(Player = player) %>% 
+        summarize(
+          `Correct Picks (Wage 15)` = as.integer(
+            sum(correct, na.rm = TRUE))
+        ) 
+      
+      num_14_correct <- picks_test %>% 
+        filter(wage == 14) %>% 
+        mutate(correct = projected_points > 0) %>% 
+        group_by(Player = player) %>% 
+        summarize(
+          `Correct Picks (Wage 14)` = as.integer(
+            sum(correct, na.rm = TRUE))
+        ) 
+      
+      num_13_correct <- picks_test %>% 
+        filter(wage == 13) %>% 
+        mutate(correct = projected_points > 0) %>% 
+        group_by(Player = player) %>% 
+        summarize(
+          `Correct Picks (Wage 13)` = as.integer(
+            sum(correct, na.rm = TRUE))
+        ) 
+      
+      final_table <- picks_test %>% 
+        group_by(Player = player) %>% 
+        summarize(
+          `Points Total` = as.integer(sum(projected_points, na.rm = TRUE))
+        ) %>% 
+        inner_join(num_correct, by = "Player") %>% 
+        inner_join(num_15_correct, by = "Player") %>% 
+        inner_join(num_14_correct, by = "Player") %>% 
+        inner_join(num_13_correct, by = "Player") %>% 
+        arrange(desc(`Points Total`), 
+                desc(`Number of Correct Picks`),
+                desc(`Correct Picks (Wage 15)`),
+                desc(`Correct Picks (Wage 14)`)) #%>% 
+      #     select(-`Number of Correct Picks`, -`Correct Picks (Wage 15)`,
+      #             -`Correct Picks (Wage 14)`) %>% 
+      #      mutate(Rank = 1:num_players, .before = Player)  %>% 
+      # knitr::kable() %>% 
+      # kableExtra::kable_styling("striped", full_width = FALSE) |> 
+      # kableExtra::column_spec(4, width = "300px", extra_css = "width: 300px !important;") %>% 
+      # kableExtra::column_spec(5, width = "300px", extra_css = "width: 300px !important;") |> 
+      # kableExtra::row_spec(4, extra_css = "border-bottom: 1px solid")  
+      
+      # Modify final_table to add a separator row
+      separator_row <- data.frame(
+        Player = "",  # Or any placeholder text for separation
+        `Points Total` = NA,
+        `Number of Correct Picks` = NA,
+        `Correct Picks (Wage 15)` = NA,
+        `Correct Picks (Wage 14)` = NA,
+        `Correct Picks (Wage 13)` = NA
       )
-    
-    num_15_correct <- picks_test %>% 
-      filter(wage == 15) %>% 
-      mutate(correct = projected_points > 0) %>% 
-      group_by(Player = player) %>% 
-      summarize(
-        `Correct Picks (Wage 15)` = as.integer(
-          sum(correct, na.rm = TRUE))
-      ) 
-    
-    num_14_correct <- picks_test %>% 
-      filter(wage == 14) %>% 
-      mutate(correct = projected_points > 0) %>% 
-      group_by(Player = player) %>% 
-      summarize(
-        `Correct Picks (Wage 14)` = as.integer(
-          sum(correct, na.rm = TRUE))
-      ) 
-    
-    num_13_correct <- picks_test %>% 
-      filter(wage == 13) %>% 
-      mutate(correct = projected_points > 0) %>% 
-      group_by(Player = player) %>% 
-      summarize(
-        `Correct Picks (Wage 13)` = as.integer(
-          sum(correct, na.rm = TRUE))
-      ) 
-    
-    picks_test %>% 
-      group_by(Player = player) %>% 
-      summarize(
-        `Points Total` = as.integer(sum(projected_points, na.rm = TRUE))
-      ) %>% 
-      inner_join(num_correct, by = "Player") %>% 
-      inner_join(num_15_correct, by = "Player") %>% 
-      inner_join(num_14_correct, by = "Player") %>% 
-      inner_join(num_13_correct, by = "Player") %>% 
-      arrange(desc(`Points Total`), 
-              desc(`Number of Correct Picks`),
-              desc(`Correct Picks (Wage 15)`),
-              desc(`Correct Picks (Wage 14)`)) %>% 
- #     select(-`Number of Correct Picks`, -`Correct Picks (Wage 15)`,
-#             -`Correct Picks (Wage 14)`) %>% 
-      mutate(Rank = 1:num_players, .before = Player) %>% 
-      knitr::kable() %>% 
-      kableExtra::kable_styling("striped", full_width = F) %>%
-      kableExtra::row_spec(4, extra_css = "border-bottom: 1px solid")
-  }#)
+      
+      # Add row numbers, skipping the separator row
+      row_numbers <- c("1", "2", "3", "4", NA, "5", "6", "7", "8")
+      
+      # Insert the separator row after the fourth row
+      final_table_with_separator <- bind_rows(
+        final_table[1:4, ],
+        separator_row,
+        final_table[5:nrow(final_table), ]
+      )  |> 
+        mutate(`Rank` = row_numbers) |> 
+        rename(
+          `Number of<br>Correct Picks` = `Number of Correct Picks`,
+          `Correct Picks<br>(Wage 15)` = `Correct Picks (Wage 15)`,
+          `Correct Picks<br>(Wage 14)` = `Correct Picks (Wage 14)`,
+          `Correct Picks<br>(Wage 13)` = `Correct Picks (Wage 13)`
+        ) |> 
+        select(`Rank`, Player, `Points Total`:`Correct Picks<br>(Wage 13)`)
+      
+      # Render with DT and minimal styling
+      DT::datatable(
+        final_table_with_separator, 
+        escape = FALSE,
+        options = list(
+          dom = 't',                  # Only show the table (no search, pagination, etc.)
+          paging = FALSE,             # Disable pagination
+          searching = FALSE,          # Disable search bar
+          info = FALSE,               # Remove table info
+          #     ordering = FALSE,           # Disable column sorting
+          autoWidth = FALSE#,           # Automatically adjust width for table
+          # columnDefs = list(
+          #   list(width = '1000px', targets = 0),   # Width for 'Rank'
+          #   list(width = '200px', targets = 1),   # Width for 'Player'
+          #   list(width = '120px', targets = 2),   # Width for 'Points Total'
+          #   list(width = '1500px', targets = 3),   # Width for 'Number of Correct Picks'
+          #   list(width = '150px', targets = 4),   # Width for 'Correct Picks (Wage 15)'
+          #   list(width = '150px', targets = 5),   # Width for 'Correct Picks (Wage 14)'
+          #   list(width = '150px', targets = 6)    # Width for 'Correct Picks (Wage 13)'
+          # )
+        ),         
+        rownames = FALSE,          # Remove row numbers displaying
+        style = "bootstrap")  %>%
+        DT::formatStyle(
+          'Player',
+          target = 'row',
+          backgroundColor = DT::styleEqual("", "black"), # Apply black background to the separator row
+          color = DT::styleEqual("", "white")            # Make text white to blend with black background
+        )
+    }) # end of renderDT
   
-  output$correct_table <- function() {
-    
-    chester_probs_df <- picks %>% 
-      distinct(team) %>% 
-      arrange(team) %>% 
-      mutate(likely_result = case_when(
-        str_detect(team, "Pistons") ~ input$Pistons,  
-        str_detect(team, "Blazers") ~ input$Blazers,
-        str_detect(team, "Bulls") ~ input$Bulls,
-        str_detect(team, "Kings") ~ input$Kings,
-        str_detect(team, "Nuggets") ~ input$Nuggets,
-        str_detect(team, "Mavericks") ~ input$Mavericks,
-        str_detect(team, "Warriors") ~ input$Warriors,
-        str_detect(team, "Wizards") ~ input$Wizards,
-        str_detect(team, "Hawks") ~ input$Hawks,
-        str_detect(team, "Celtics") ~ input$Celtics,
-        str_detect(team, "Nets") ~ input$Nets,
-        str_detect(team, "Hornets") ~ input$Hornets,
-        str_detect(team, "Bulls") ~ input$Bulls,
-        str_detect(team, "Cavaliers") ~ input$Cavaliers,
-        str_detect(team, "Mavericks") ~ input$Mavericks,
-        str_detect(team, "Nuggets") ~ input$Nuggets,
-        str_detect(team, "Pistons") ~ input$Pistons,
-        str_detect(team, "Warriors") ~ input$Warriors,
-        str_detect(team, "Rockets") ~ input$Rockets,
-        str_detect(team, "Pacers") ~ input$Pacers,
-        str_detect(team, "Clippers") ~ input$Clippers,
-        str_detect(team, "Lakers") ~ input$Lakers,
-        str_detect(team, "Grizzlies") ~ input$Grizzlies,
-        str_detect(team, "Heat") ~ input$Heat,
-        str_detect(team, "Bucks") ~ input$Bucks,
-        str_detect(team, "Timberwolves") ~ input$Timberwolves,
-        str_detect(team, "Pelicans") ~ input$Pelicans,
-        str_detect(team, "Knicks") ~ input$Knicks,
-        str_detect(team, "Thunder") ~ input$Thunder,
-        str_detect(team, "Magic") ~ input$Magic,
-        str_detect(team, "76ers") ~ input$`76ers`,
-        str_detect(team, "Suns") ~ input$Suns,
-        str_detect(team, "Blazers") ~ input$Blazers,
-        str_detect(team, "Kings") ~ input$Kings,
-        str_detect(team, "Spurs") ~ input$Spurs,
-        str_detect(team, "Raptors") ~ input$Raptors,
-        str_detect(team, "Jazz") ~ input$Jazz,
-        str_detect(team, "Wizards") ~ input$Wizards
-      ))
-    
-    picks_test <- picks %>% 
-      inner_join(
-        chester_probs_df %>% select(team, likely_result), 
-        by = "team"
-      ) %>% 
-      mutate(projected_points = case_when(
-        (choice == likely_result) & (likely_result != "TBD") ~ wage,
-        (choice != likely_result) & (likely_result != "TBD") ~ -wage
-      ))
-    
-    
-    picks_test %>% 
-      mutate(correct = projected_points > 0) %>% 
-      group_by(Player = player) %>% 
-      summarize(
-        `Correct Picks` = as.integer(
-          sum(correct, na.rm = TRUE))
-      ) %>% 
-      arrange(desc(`Correct Picks`)) %>% 
-      knitr::kable() %>% 
-      kableExtra::kable_styling("striped", full_width = T)
-  }
-  
-  output$correct_15_table <- function() {
-    
-    chester_probs_df <- picks %>% 
-      distinct(team) %>% 
-      arrange(team) %>% 
-      mutate(likely_result = case_when(
-        str_detect(team, "Pistons") ~ input$Pistons,  
-        str_detect(team, "Blazers") ~ input$Blazers,
-        str_detect(team, "Bulls") ~ input$Bulls,
-        str_detect(team, "Kings") ~ input$Kings,
-        str_detect(team, "Nuggets") ~ input$Nuggets,
-        str_detect(team, "Mavericks") ~ input$Mavericks,
-        str_detect(team, "Warriors") ~ input$Warriors,
-        str_detect(team, "Wizards") ~ input$Wizards,
-        str_detect(team, "Hawks") ~ input$Hawks,
-        str_detect(team, "Celtics") ~ input$Celtics,
-        str_detect(team, "Nets") ~ input$Nets,
-        str_detect(team, "Hornets") ~ input$Hornets,
-        str_detect(team, "Bulls") ~ input$Bulls,
-        str_detect(team, "Cavaliers") ~ input$Cavaliers,
-        str_detect(team, "Mavericks") ~ input$Mavericks,
-        str_detect(team, "Nuggets") ~ input$Nuggets,
-        str_detect(team, "Pistons") ~ input$Pistons,
-        str_detect(team, "Warriors") ~ input$Warriors,
-        str_detect(team, "Rockets") ~ input$Rockets,
-        str_detect(team, "Pacers") ~ input$Pacers,
-        str_detect(team, "Clippers") ~ input$Clippers,
-        str_detect(team, "Lakers") ~ input$Lakers,
-        str_detect(team, "Grizzlies") ~ input$Grizzlies,
-        str_detect(team, "Heat") ~ input$Heat,
-        str_detect(team, "Bucks") ~ input$Bucks,
-        str_detect(team, "Timberwolves") ~ input$Timberwolves,
-        str_detect(team, "Pelicans") ~ input$Pelicans,
-        str_detect(team, "Knicks") ~ input$Knicks,
-        str_detect(team, "Thunder") ~ input$Thunder,
-        str_detect(team, "Magic") ~ input$Magic,
-        str_detect(team, "76ers") ~ input$`76ers`,
-        str_detect(team, "Suns") ~ input$Suns,
-        str_detect(team, "Blazers") ~ input$Blazers,
-        str_detect(team, "Kings") ~ input$Kings,
-        str_detect(team, "Spurs") ~ input$Spurs,
-        str_detect(team, "Raptors") ~ input$Raptors,
-        str_detect(team, "Jazz") ~ input$Jazz,
-        str_detect(team, "Wizards") ~ input$Wizards
-      ))
-    
-    picks_test <- picks %>% 
-      inner_join(
-        chester_probs_df %>% select(team, likely_result), 
-        by = "team"
-      ) %>% 
-      mutate(projected_points = case_when(
-        (choice == likely_result) & (likely_result != "TBD") ~ wage,
-        (choice != likely_result) & (likely_result != "TBD") ~ -wage
-      ))
-    
-    
-    picks_test %>% 
-      filter(wage == 15) %>% 
-      mutate(correct = projected_points > 0) %>% 
-      group_by(Player = player) %>% 
-      summarize(
-        `Correct Picks (Wage 15)` = as.integer(
-          sum(correct, na.rm = TRUE))
-      ) %>% 
-      arrange(desc(`Correct Picks (Wage 15)`)) %>% 
-      knitr::kable() %>% 
-      kableExtra::kable_styling("striped", full_width = T)
-  }
-  
-  output$correct_14_table <- function() {
-    
-    chester_probs_df <- picks %>% 
-      distinct(team) %>% 
-      arrange(team) %>% 
-      mutate(likely_result = case_when(
-        str_detect(team, "Pistons") ~ input$Pistons,  
-        str_detect(team, "Blazers") ~ input$Blazers,
-        str_detect(team, "Bulls") ~ input$Bulls,
-        str_detect(team, "Kings") ~ input$Kings,
-        str_detect(team, "Nuggets") ~ input$Nuggets,
-        str_detect(team, "Mavericks") ~ input$Mavericks,
-        str_detect(team, "Warriors") ~ input$Warriors,
-        str_detect(team, "Wizards") ~ input$Wizards,
-        str_detect(team, "Hawks") ~ input$Hawks,
-        str_detect(team, "Celtics") ~ input$Celtics,
-        str_detect(team, "Nets") ~ input$Nets,
-        str_detect(team, "Hornets") ~ input$Hornets,
-        str_detect(team, "Bulls") ~ input$Bulls,
-        str_detect(team, "Cavaliers") ~ input$Cavaliers,
-        str_detect(team, "Mavericks") ~ input$Mavericks,
-        str_detect(team, "Nuggets") ~ input$Nuggets,
-        str_detect(team, "Pistons") ~ input$Pistons,
-        str_detect(team, "Warriors") ~ input$Warriors,
-        str_detect(team, "Rockets") ~ input$Rockets,
-        str_detect(team, "Pacers") ~ input$Pacers,
-        str_detect(team, "Clippers") ~ input$Clippers,
-        str_detect(team, "Lakers") ~ input$Lakers,
-        str_detect(team, "Grizzlies") ~ input$Grizzlies,
-        str_detect(team, "Heat") ~ input$Heat,
-        str_detect(team, "Bucks") ~ input$Bucks,
-        str_detect(team, "Timberwolves") ~ input$Timberwolves,
-        str_detect(team, "Pelicans") ~ input$Pelicans,
-        str_detect(team, "Knicks") ~ input$Knicks,
-        str_detect(team, "Thunder") ~ input$Thunder,
-        str_detect(team, "Magic") ~ input$Magic,
-        str_detect(team, "76ers") ~ input$`76ers`,
-        str_detect(team, "Suns") ~ input$Suns,
-        str_detect(team, "Blazers") ~ input$Blazers,
-        str_detect(team, "Kings") ~ input$Kings,
-        str_detect(team, "Spurs") ~ input$Spurs,
-        str_detect(team, "Raptors") ~ input$Raptors,
-        str_detect(team, "Jazz") ~ input$Jazz,
-        str_detect(team, "Wizards") ~ input$Wizards
-      ))
-    
-    picks_test <- picks %>% 
-      inner_join(
-        chester_probs_df %>% select(team, likely_result), 
-        by = "team"
-      ) %>% 
-      mutate(projected_points = case_when(
-        (choice == likely_result) & (likely_result != "TBD") ~ wage,
-        (choice != likely_result) & (likely_result != "TBD") ~ -wage
-      ))
-    
-    
-    picks_test %>% 
-      filter(wage == 14) %>% 
-      mutate(correct = projected_points > 0) %>% 
-      group_by(Player = player) %>% 
-      summarize(
-        `Correct Picks (Wage 14)` = as.integer(
-          sum(correct, na.rm = TRUE))
-      ) %>% 
-      arrange(desc(`Correct Picks (Wage 14)`)) %>% 
-      knitr::kable() %>% 
-      kableExtra::kable_styling("striped", full_width = T)
-  }
-  
-  output$correct_13_table <- function() {
-    
-    chester_probs_df <- picks %>% 
-      distinct(team) %>% 
-      arrange(team) %>% 
-      mutate(likely_result = case_when(
-        str_detect(team, "Pistons") ~ input$Pistons,  
-        str_detect(team, "Blazers") ~ input$Blazers,
-        str_detect(team, "Bulls") ~ input$Bulls,
-        str_detect(team, "Kings") ~ input$Kings,
-        str_detect(team, "Nuggets") ~ input$Nuggets,
-        str_detect(team, "Mavericks") ~ input$Mavericks,
-        str_detect(team, "Warriors") ~ input$Warriors,
-        str_detect(team, "Wizards") ~ input$Wizards,
-        str_detect(team, "Hawks") ~ input$Hawks,
-        str_detect(team, "Celtics") ~ input$Celtics,
-        str_detect(team, "Nets") ~ input$Nets,
-        str_detect(team, "Hornets") ~ input$Hornets,
-        str_detect(team, "Bulls") ~ input$Bulls,
-        str_detect(team, "Cavaliers") ~ input$Cavaliers,
-        str_detect(team, "Mavericks") ~ input$Mavericks,
-        str_detect(team, "Nuggets") ~ input$Nuggets,
-        str_detect(team, "Pistons") ~ input$Pistons,
-        str_detect(team, "Warriors") ~ input$Warriors,
-        str_detect(team, "Rockets") ~ input$Rockets,
-        str_detect(team, "Pacers") ~ input$Pacers,
-        str_detect(team, "Clippers") ~ input$Clippers,
-        str_detect(team, "Lakers") ~ input$Lakers,
-        str_detect(team, "Grizzlies") ~ input$Grizzlies,
-        str_detect(team, "Heat") ~ input$Heat,
-        str_detect(team, "Bucks") ~ input$Bucks,
-        str_detect(team, "Timberwolves") ~ input$Timberwolves,
-        str_detect(team, "Pelicans") ~ input$Pelicans,
-        str_detect(team, "Knicks") ~ input$Knicks,
-        str_detect(team, "Thunder") ~ input$Thunder,
-        str_detect(team, "Magic") ~ input$Magic,
-        str_detect(team, "76ers") ~ input$`76ers`,
-        str_detect(team, "Suns") ~ input$Suns,
-        str_detect(team, "Blazers") ~ input$Blazers,
-        str_detect(team, "Kings") ~ input$Kings,
-        str_detect(team, "Spurs") ~ input$Spurs,
-        str_detect(team, "Raptors") ~ input$Raptors,
-        str_detect(team, "Jazz") ~ input$Jazz,
-        str_detect(team, "Wizards") ~ input$Wizards
-      ))
-    
-    picks_test <- picks %>% 
-      inner_join(
-        chester_probs_df %>% select(team, likely_result), 
-        by = "team"
-      ) %>% 
-      mutate(projected_points = case_when(
-        (choice == likely_result) & (likely_result != "TBD") ~ wage,
-        (choice != likely_result) & (likely_result != "TBD") ~ -wage
-      ))
-    
-    
-    picks_test %>% 
-      filter(wage == 13) %>% 
-      mutate(correct = projected_points > 0) %>% 
-      group_by(Player = player) %>% 
-      summarize(
-        `Correct Picks (Wage 13)` = as.integer(
-          sum(correct, na.rm = TRUE))
-      ) %>% 
-      arrange(desc(`Correct Picks (Wage 13)`)) %>% 
-      knitr::kable() %>% 
-      kableExtra::kable_styling("striped", full_width = T)
-  }
-  
-}
+} # end of server
 
 # Run the application 
-shinyApp(ui = ui, server = server)
+shinyApp(ui = ui, server = server)  

@@ -45,10 +45,11 @@ if(!file.exists(here(
       
       # Determine the losing team based on the WL column
       slugTeamLoser = if_else(WL == "L", TEAM_ABBREVIATION, slugOpponent),
-      
-      # Calculate a unique game number (within the season) for each team
-      numberGameTeamSeason = row_number()
     ) %>%
+    # Sort by date
+    arrange(dateGame) %>%
+    # Calculate a unique game number (within the season) for each team
+    mutate(numberGameTeamSeason = row_number()) |> 
     # Select and reorder columns to match the target format
     select(
       slugSeason, dateGame, numberGameTeamSeason, nameTeam,

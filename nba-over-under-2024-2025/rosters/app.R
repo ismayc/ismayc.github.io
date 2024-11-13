@@ -19,8 +19,8 @@ library(nbastatR)
 library(httr)
 library(jsonlite)
 
-update <- TRUE
-date_added <- "2024-10-24"
+update <- FALSE
+date_added <- "2024-11-11"
 season <- 2025
 #date_added <- Sys.Date()
 
