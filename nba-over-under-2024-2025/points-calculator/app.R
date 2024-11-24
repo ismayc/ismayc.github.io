@@ -21,8 +21,9 @@ if (current_month >= 10 || current_month <= 4) {
   season_year <- paste(start_year, end_year, sep = "-")
 }
 
+# file.copy(from = "../picks.xlsx", to = "picks.xlsx", overwrite = TRUE)
 
-picks <- read_excel(path = "../picks.xlsx", sheet = "picks")
+picks <- read_excel(path = "picks.xlsx", sheet = "picks")
 num_players <- 8
 
 file_names <- list.files(pattern = "determined_outcomes")
