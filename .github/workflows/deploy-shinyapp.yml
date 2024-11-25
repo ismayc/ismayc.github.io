@@ -33,6 +33,11 @@ jobs:
       - name: Setup renv
         uses: r-lib/actions/setup-renv@v2  
 
+      # Debugging: Check renv lock file
+      - name: Validate renv lock file
+        run: |
+          cat renv.lock || echo "renv.lock file not found!"
+
       # Debugging: Check renv status
       - name: Check renv status
         run: |
@@ -43,11 +48,10 @@ jobs:
         run: |
           Rscript -e 'renv::restore()'
 
-      # Debugging: Verify renv lock file and installed packages
-      - name: Debug renv environment
+      # Debugging: Verify installed packages
+      - name: Debug installed packages
         run: |
-          Rscript -e 'renv::status()' \
-                 -e 'installed <- installed.packages(); print(installed[, c("Package", "Version")])'
+          Rscript -e 'installed <- installed.packages(); print(installed[, c("Package", "Version")])'
 
       # Install rsconnect for deployment
       - name: Install rsconnect
