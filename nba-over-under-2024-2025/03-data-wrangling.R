@@ -283,7 +283,7 @@ out_table <- projections %>%
 write_rds(out_table, paste0("determined_outcomes/determined_outcomes_", Sys.Date(), ".rds"))
 
 invisible(file.copy(paste0("determined_outcomes/determined_outcomes_", Sys.Date(), ".rds"),
-                    paste0("points-calculator/determined_outcomes_", Sys.Date(), ".rds"),
+                    paste0("over-under-points-calculator/determined_outcomes_", Sys.Date(), ".rds"),
                     overwrite = TRUE))
 
 
