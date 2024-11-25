@@ -49,7 +49,9 @@ if(!file.exists(here(
     # Sort by date
     arrange(dateGame) %>%
     # Calculate a unique game number (within the season) for each team
+    group_by(TEAM_NAME) |> 
     mutate(numberGameTeamSeason = row_number()) |> 
+    ungroup() |> 
     # Select and reorder columns to match the target format
     select(
       slugSeason, dateGame, numberGameTeamSeason, nameTeam,
