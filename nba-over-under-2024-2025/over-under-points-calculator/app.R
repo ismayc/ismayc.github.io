@@ -1,16 +1,10 @@
 # https://chesterismay.shinyapps.io/over-under-points-calculator/
 
-required_packages <- c("shiny", "readxl", "tidyverse", "kableExtra", "DT")
-
-install_if_missing <- function(packages) {
-  installed <- rownames(installed.packages())
-  to_install <- packages[!packages %in% installed]
-  if (length(to_install) > 0) {
-    install.packages(to_install)
-  }
-}
-
-install_if_missing(required_packages)
+if (!requireNamespace("shiny", quietly = TRUE)) install.packages("shiny")
+if (!requireNamespace("readxl", quietly = TRUE)) install.packages("readxl")
+if (!requireNamespace("tidyverse", quietly = TRUE)) install.packages("tidyverse")
+if (!requireNamespace("kableExtra", quietly = TRUE)) install.packages("kableExtra")
+if (!requireNamespace("DT", quietly = TRUE)) install.packages("DT")
 
 library(shiny)
 library(readxl)
