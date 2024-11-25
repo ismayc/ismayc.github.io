@@ -27,15 +27,6 @@ jobs:
           r-version: '4.4.1'  # Match the version supported by shinyapps.io
           use-public-rspm: true
 
-      # Add a file to force dependency detection
-      - name: Add dummy dependency file
-        run: |
-          echo 'library(shiny)' > dependencies.R
-          echo 'library(readxl)' >> dependencies.R
-          echo 'library(tidyverse)' >> dependencies.R
-          echo 'library(kableExtra)' >> dependencies.R
-          echo 'library(DT)' >> dependencies.R
-
       # Install rsconnect for deployment
       - name: Install rsconnect
         run: Rscript -e 'install.packages("rsconnect")'
@@ -48,4 +39,5 @@ jobs:
           SERVER: shinyapps.io
         run: |
           Rscript -e 'rsconnect::setAccountInfo("${{ secrets.SHINYAPPS_ACCOUNT }}", "${{ secrets.SHINYAPPS_TOKEN }}", "${{ secrets.SHINYAPPS_SECRET }}")' \
+                 -e 'install.packages(c("shiny", "readxl", "tidyverse", "kableExtra", "DT"), repos = "https://cran.rstudio.com/")' \
                  -e 'rsconnect::deployApp(appDir = "nba-over-under-2024-2025/over-under-points-calculator", appName = "${{ env.APPNAME }}", account = "${{ env.ACCOUNT }}", server = "${{ env.SERVER }}")'
