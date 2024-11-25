@@ -1,7 +1,7 @@
 on:
   schedule:
-    - cron: "*/10 * * * *"
-#    - cron: "0 8,13 * * *"
+ #   - cron: "*/10 * * * *"
+    - cron: "0 12 * * *"
   push:
     branches: [main, master]
   workflow_dispatch:
