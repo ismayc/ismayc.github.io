@@ -1,9 +1,22 @@
 # https://chesterismay.shinyapps.io/over-under-points-calculator/
 
+required_packages <- c("shiny", "readxl", "tidyverse", "kableExtra", "DT")
+
+install_if_missing <- function(packages) {
+  installed <- rownames(installed.packages())
+  to_install <- packages[!packages %in% installed]
+  if (length(to_install) > 0) {
+    install.packages(to_install)
+  }
+}
+
+install_if_missing(required_packages)
+
 library(shiny)
 library(readxl)
 library(tidyverse)
 library(kableExtra)
+library(DT)
 
 # Get today's date
 today <- Sys.Date()
@@ -362,7 +375,7 @@ ui <- fluidPage(
     # Show a plot of the generated distribution
     mainPanel(
       width = 2,
-      DT::DTOutput("point_table")#,
+      DTOutput("point_table")#,
       #     h4("Tie-breakers"),
       #      tableOutput("correct_table"),
       #      tableOutput("correct_15_table"),
@@ -380,7 +393,7 @@ ui <- fluidPage(
 server <- function(input, output, session) {
   
   output$point_table <- # function() {
-    DT::renderDT({
+    renderDT({
       
       chester_probs_df <- picks %>% 
         distinct(team) %>% 
@@ -522,7 +535,7 @@ server <- function(input, output, session) {
         select(`Rank`, Player, `Points Total`:`Correct Picks<br>(Wage 13)`)
       
       # Render with DT and minimal styling
-      DT::datatable(
+      datatable(
         final_table_with_separator, 
         escape = FALSE,
         options = list(
@@ -544,11 +557,11 @@ server <- function(input, output, session) {
         ),         
         rownames = FALSE,          # Remove row numbers displaying
         style = "bootstrap")  %>%
-        DT::formatStyle(
+        formatStyle(
           'Player',
           target = 'row',
-          backgroundColor = DT::styleEqual("", "black"), # Apply black background to the separator row
-          color = DT::styleEqual("", "white")            # Make text white to blend with black background
+          backgroundColor = styleEqual("", "black"), # Apply black background to the separator row
+          color = styleEqual("", "white")            # Make text white to blend with black background
         )
     }) # end of renderDT
   
