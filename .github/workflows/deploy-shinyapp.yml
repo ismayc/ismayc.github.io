@@ -29,18 +29,6 @@ jobs:
           r-version: '4.3.2'  # Match the version supported by shinyapps.io
           use-public-rspm: true
 
-      # Remove renv-related files
-      - name: Remove renv files
-        run: |
-          rm -rf renv.lock renv/
-
-      # Add .rscignore file
-      - name: Add .rscignore
-        run: |
-          echo ".Rprofile" > .rscignore
-          echo "renv/" >> .rscignore
-          echo "renv.lock" >> .rscignore
-
       # Install rsconnect for deployment
       - name: Install rsconnect
         run: Rscript -e 'install.packages("rsconnect")'
