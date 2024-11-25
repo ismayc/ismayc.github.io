@@ -66,4 +66,4 @@ jobs:
           SERVER: shinyapps.io
         run: |
           Rscript -e 'rsconnect::setAccountInfo("${{ secrets.SHINYAPPS_ACCOUNT }}", "${{ secrets.SHINYAPPS_TOKEN }}", "${{ secrets.SHINYAPPS_SECRET }}")' \
-                 -e 'rsconnect::deployApp(appDir = "nba-over-under-2024-2025/points-calculator", appName = "${{ env.APPNAME }}", account = "${{ env.ACCOUNT }}", server = "${{ env.SERVER }}")'
+                 -e 'rsconnect::deployApp(appDir = "nba-over-under-2024-2025/over-under-points-calculator", appName = "${{ env.APPNAME }}", account = "${{ env.ACCOUNT }}", server = "${{ env.SERVER }}")'
