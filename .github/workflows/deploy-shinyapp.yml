@@ -3,7 +3,7 @@ name: Deploy Shiny App
 on:
   push:
     branches: [main, master]
-  workflow_dispatch:    
+  workflow_dispatch:
 
 jobs:
   shiny-deploy:
@@ -29,38 +29,20 @@ jobs:
           r-version: '4.3.2'  # Adjust to match the version supported by shinyapps.io
           use-public-rspm: true
 
-      # Set up renv and restore dependencies
-      - name: Setup renv
-        uses: r-lib/actions/setup-renv@v2  
-
-      # Debugging: Check renv lock file
-      - name: Validate renv lock file
+      # Remove renv-related files
+      - name: Remove renv files
         run: |
-          cat renv.lock || echo "renv.lock file not found!"
-
-      # Debugging: Check renv status
-      - name: Check renv status
-        run: |
-          Rscript -e 'renv::status()' || true
-
-      # Restore renv environment
-      - name: Restore renv dependencies
-        run: |
-          Rscript -e 'renv::restore()'
-
-      # Debugging: Verify installed packages
-      - name: Debug installed packages
-        run: |
-          Rscript -e 'installed <- installed.packages(); print(installed[, c("Package", "Version")])'
+          rm -rf renv.lock renv/
 
       # Install rsconnect for deployment
       - name: Install rsconnect
         run: Rscript -e 'install.packages("rsconnect")'
 
-      # Debugging: Validate rsconnect setup
-      - name: Validate rsconnect setup
+      # Add .rscignore file
+      - name: Add .rscignore
         run: |
-          Rscript -e 'library(rsconnect); print("rsconnect is installed and loaded.")'
+          echo "renv/" > .rscignore
+          echo "renv.lock" >> .rscignore
 
       # Authorize and deploy app
       - name: Authorize and deploy app
