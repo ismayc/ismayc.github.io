@@ -8,8 +8,6 @@ on:
 jobs:
   shiny-deploy:
     runs-on: ubuntu-latest
-    env:
-      GITHUB_PAT: ${{ secrets.TOKEN }}
     steps:
       # Checkout repository
       - uses: actions/checkout@v4
@@ -28,6 +26,15 @@ jobs:
         with:
           r-version: '4.4.1'  # Match the version supported by shinyapps.io
           use-public-rspm: true
+
+      # Add a file to force dependency detection
+      - name: Add dummy dependency file
+        run: |
+          echo 'library(shiny)' > dependencies.R
+          echo 'library(readxl)' >> dependencies.R
+          echo 'library(tidyverse)' >> dependencies.R
+          echo 'library(kableExtra)' >> dependencies.R
+          echo 'library(DT)' >> dependencies.R
 
       # Install rsconnect for deployment
       - name: Install rsconnect
