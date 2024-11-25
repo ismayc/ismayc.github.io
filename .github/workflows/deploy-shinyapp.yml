@@ -38,8 +38,8 @@ jobs:
       - name: Install rsconnect
         run: Rscript -e 'install.packages("rsconnect")'
 
-      # Authorize and deploy app
-      - name: Authorize and deploy app
+      # Authorize and deploy first app
+      - name: Authorize and deploy points calculator app
         env:
           APPNAME: over-under-points-calculator
           ACCOUNT: ${{ secrets.SHINYAPPS_ACCOUNT }}
@@ -48,3 +48,15 @@ jobs:
           Rscript -e 'rsconnect::setAccountInfo("${{ secrets.SHINYAPPS_ACCOUNT }}", "${{ secrets.SHINYAPPS_TOKEN }}", "${{ secrets.SHINYAPPS_SECRET }}")' \
                  -e 'install.packages(c("shiny", "readxl", "tidyverse", "kableExtra", "DT"), repos = "https://cran.rstudio.com/")' \
                  -e 'rsconnect::deployApp(appDir = "nba-over-under-2024-2025/over-under-points-calculator", appName = "${{ env.APPNAME }}", account = "${{ env.ACCOUNT }}", server = "${{ env.SERVER }}")'
+
+      # Authorize and deploy first app
+      - name: Authorize and deploy player finder app
+        env:
+          APPNAME: nba-player-finder
+          ACCOUNT: ${{ secrets.SHINYAPPS_ACCOUNT }}
+          SERVER: shinyapps.io
+        run: |
+          Rscript -e 'rsconnect::setAccountInfo("${{ secrets.SHINYAPPS_ACCOUNT }}", "${{ secrets.SHINYAPPS_TOKEN }}", "${{ secrets.SHINYAPPS_SECRET }}")' \
+                 -e 'install.packages(c("shiny", "janitor", "tidyverse", "DT", "tictoc", "httr", "jsonlite", "remotes"), repos = "https://cran.rstudio.com/")' \
+                 -e 'remotes::install_github("abresler/nbastatR")' \
+                 -e 'rsconnect::deployApp(appDir = "nba-over-under-2024-2025/rosters", appName = "${{ env.APPNAME }}", account = "${{ env.ACCOUNT }}", server = "${{ env.SERVER }}")'
