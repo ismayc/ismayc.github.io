@@ -4,6 +4,8 @@ on:
   # schedule:
     # Runs every day at 5:15 AM Pacific
   #  - cron: '15 13 * * *'
+  push:
+    branches: [main, master]
   workflow_dispatch:    
 
 jobs:
@@ -20,6 +22,9 @@ jobs:
         with:
           r-version: '4.4.1' # Specify the previous version of R
           use-public-rspm: true
+
+      - name: Setup renv
+        uses: r-lib/actions/setup-renv@v2   
 
 #      - uses: r-lib/actions/setup-renv@v2
 #        with:
