@@ -1,9 +1,6 @@
 name: Deploy Shiny App
 
 on:
-  # schedule:
-    # Runs every day at 5:15 AM Pacific
-  #  - cron: '15 13 * * *'
   push:
     branches: [main, master]
   workflow_dispatch:    
@@ -14,62 +11,59 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.TOKEN }}
     steps:
+      # Checkout repository
       - uses: actions/checkout@v4
 
+      # Set up Pandoc for R Markdown rendering
       - uses: r-lib/actions/setup-pandoc@v2
 
+      # Install required system libraries
       - name: Install system libraries
         run: |
           sudo apt-get update
           sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev
 
+      # Set up R with a compatible version
       - uses: r-lib/actions/setup-r@v2
         with:
-          r-version: '4.4.1' # Specify the previous version of R
+          r-version: '4.3.2'  # Adjust to match the version supported by shinyapps.io
           use-public-rspm: true
 
+      # Set up renv and restore dependencies
       - name: Setup renv
-        uses: r-lib/actions/setup-renv@v2   
+        uses: r-lib/actions/setup-renv@v2  
 
-#      - uses: r-lib/actions/setup-renv@v2
-#        with:
-#         profile: '"shiny"'
+      # Debugging: Check renv status
+      - name: Check renv status
+        run: |
+          Rscript -e 'renv::status()' || true
 
+      # Restore renv environment
+      - name: Restore renv dependencies
+        run: |
+          Rscript -e 'renv::restore()'
+
+      # Debugging: Verify renv lock file and installed packages
+      - name: Debug renv environment
+        run: |
+          Rscript -e 'renv::status()' \
+                 -e 'installed <- installed.packages(); print(installed[, c("Package", "Version")])'
+
+      # Install rsconnect for deployment
       - name: Install rsconnect
-        run: install.packages("rsconnect")
-        shell: Rscript {0}
+        run: Rscript -e 'install.packages("rsconnect")'
 
+      # Debugging: Validate rsconnect setup
+      - name: Validate rsconnect setup
+        run: |
+          Rscript -e 'library(rsconnect); print("rsconnect is installed and loaded.")'
+
+      # Authorize and deploy app
       - name: Authorize and deploy app
         env:
-          # Provide your app name, account name, and server to be deployed below
           APPNAME: over-under-points-calculator
           ACCOUNT: ${{ secrets.SHINYAPPS_ACCOUNT }}
-          SERVER: shinyapps.io # server to deploy
+          SERVER: shinyapps.io
         run: |
-          rsconnect::setAccountInfo("${{ secrets.SHINYAPPS_ACCOUNT }}", "${{ secrets.SHINYAPPS_TOKEN }}", "${{ secrets.SHINYAPPS_SECRET }}")
-          rsconnect::deployApp(appDir = "nba-over-under-2024-2025/points-calculator", appName = "${{ env.APPNAME }}", account = "${{ env.ACCOUNT }}", server = "${{ env.SERVER }}")
-        shell: Rscript {0}
-
-# jobs:
-#   deploy:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v2
-#       
-#       - name: Remove existing R installation
-#         run: |
-#           sudo apt-get purge r-base r-recommended r-base-core
-#           sudo apt-get autoremove
-#       
-#       - name: Install specific R version
-#         run: |
-#           sudo apt install r-base=4.3.2-1.2204.0 r-recommended=4.3.2-1.2204.0 r-base-core=4.3.2-1.2204.0
-# 
-#       - name: deploy
-#         uses: DeeNA95/shinyapps-deploy-github-action@v1
-#         with:
-#           appDir: nba-over-under-2023-2024/points-calculator
-#           appName: over-under-points-calculator
-#           accountName: ${{ secrets.SHINYAPPS_ACCOUNT }}
-#           accountToken: ${{ secrets.SHINYAPPS_TOKEN }}
-#           accountSecret: ${{ secrets.SHINYAPPS_SECRET }}
+          Rscript -e 'rsconnect::setAccountInfo("${{ secrets.SHINYAPPS_ACCOUNT }}", "${{ secrets.SHINYAPPS_TOKEN }}", "${{ secrets.SHINYAPPS_SECRET }}")' \
+                 -e 'rsconnect::deployApp(appDir = "nba-over-under-2024-2025/points-calculator", appName = "${{ env.APPNAME }}", account = "${{ env.ACCOUNT }}", server = "${{ env.SERVER }}")'
