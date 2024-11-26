@@ -7,28 +7,28 @@ library(tibble)
 players <- tibble(
   name = c(
     # Guards
-    "Luka Doncic", "Shai Gilgeous-Alexander", "Jalen Brunson", "Tyrese Haliburton", 
-    "Stephen Curry", "Tyrese Maxey", "Devin Booker", "Donovan Mitchell", 
-    "Ja Morant", "Damian Lillard", "De’Aaron Fox", "Trae Young", "Kyrie Irving",
-    "Jamal Murray", "Cade Cunningham", "LaMelo Ball", "James Harden", "Derrick White", 
-    "Darius Garland", "Jrue Holiday", "Dejounte Murray", "Jalen Green", "Fred VanVleet",
-    "Coby White", "CJ McCollum", "D’Angelo Russell", "Immanuel Quickley", "Malik Monk", 
-    "Cam Thomas", "Donte DiVincenzo",
+    "Luka Doncic, DAL", "Shai Gilgeous-Alexander, OKC", "Jalen Brunson, NYK", "Tyrese Haliburton, IND", 
+    "Stephen Curry, GSW", "Tyrese Maxey, PHI", "Devin Booker, PHX", "Donovan Mitchell, CLE", 
+    "Ja Morant, MEM", "Damian Lillard, MIL", "De’Aaron Fox, SAC", "Trae Young, ATL", "Kyrie Irving, DAL",
+    "Jamal Murray, DEN", "Cade Cunningham, DET", "LaMelo Ball, CHA", "James Harden, LAC", "Derrick White, BOS", 
+    "Darius Garland, CLE", "Jrue Holiday, BOS", "Dejounte Murray, NOP", "Jalen Green, HOU", "Fred VanVleet, HOU",
+    "Coby White, CHI", "CJ McCollum, NOP", "D’Angelo Russell, LAL", "Immanuel Quickley, TOR", "Malik Monk, SAC", 
+    "Cam Thomas, BKN", "Donte DiVincenzo, MIN",
     # Wings
-    "Jayson Tatum", "Anthony Edwards", "Kevin Durant", "LeBron James", "Jaylen Brown",
-    "Kawhi Leonard", "Paul George", "Jimmy Butler", "Scottie Barnes", "Jalen Williams", 
-    "DeMar DeRozan", "Brandon Ingram", "Franz Wagner", "Desmond Bane", "Mikal Bridges",
-    "OG Anunoby", "Brandon Miller", "Zach LaVine", "Austin Reaves", "Michael Porter Jr.",
-    "Miles Bridges", "Jalen Johnson", "Tyler Herro", "Josh Giddey", "Bradley Beal", 
-    "Trey Murphy III", "Devin Vassell", "Herbert Jones", "Jaden McDaniels", "Josh Hart",
+    "Jayson Tatum, BOS", "Anthony Edwards, MIN", "Kevin Durant, PHX", "LeBron James, LAL", "Jaylen Brown, BOS",
+    "Kawhi Leonard, LAC", "Paul George, PHI", "Jimmy Butler, MIA", "Scottie Barnes, TOR", "Jalen Williams, OKC", 
+    "DeMar DeRozan, SAC", "Brandon Ingram, NOP", "Franz Wagner, ORL", "Desmond Bane, MEM", "Mikal Bridges, NYK",
+    "OG Anunoby, NYK", "Brandon Miller, CHA", "Zach LaVine, CHI", "Austin Reaves, LAL", "Michael Porter Jr., DEN",
+    "Miles Bridges, CHA", "Jalen Johnson, ATL", "Tyler Herro, MIA", "Josh Giddey, CHI", "Bradley Beal, PHX", 
+    "Trey Murphy III, NOP", "Devin Vassell, SAS", "Herbert Jones, NOP", "Jaden McDaniels, MIN", "Josh Hart, NYK",
     # Posts
-    "Nikola Jokic", "Giannis Antetokounmpo", "Joel Embiid", "Anthony Davis", 
-    "Victor Wembanyama", "Domantas Sabonis", "Zion Williamson", "Paolo Banchero", 
-    "Pascal Siakam", "Bam Adebayo", "Karl-Anthony Towns", "Rudy Gobert", "Lauri Markkanen",
-    "Julius Randle", "Alperen Sengun", "Chet Holmgren", "Jaren Jackson Jr.", 
-    "Kristaps Porzingis", "Evan Mobley", "Myles Turner", "Aaron Gordon", "Jarrett Allen", 
-    "Kyle Kuzma", "Jerami Grant", "Keegan Murray", "Jonathan Kuminga", "Jabari Smith Jr.",
-    "Nikola Vucevic", "Tobias Harris", "Naz Reid"
+    "Nikola Jokic, DEN", "Giannis Antetokounmpo, MIL", "Joel Embiid, PHI", "Anthony Davis, LAL", 
+    "Victor Wembanyama, SAS", "Domantas Sabonis, SAC", "Zion Williamson, NOP", "Paolo Banchero, ORL", 
+    "Pascal Siakam, IND", "Bam Adebayo, MIA", "Karl-Anthony Towns, NYK", "Rudy Gobert, MIN", "Lauri Markkanen, UTA",
+    "Julius Randle, MIN", "Alperen Sengun, HOU", "Chet Holmgren, OKC", "Jaren Jackson Jr., MEM", 
+    "Kristaps Porzingis, BOS", "Evan Mobley, CLE", "Myles Turner, IND", "Aaron Gordon, DEN", "Jarrett Allen, CLE", 
+    "Kyle Kuzma, WAS", "Jerami Grant, POR", "Keegan Murray, SAC", "Jonathan Kuminga, GSW", "Jabari Smith Jr., HOU",
+    "Nikola Vucevic, CHI", "Tobias Harris, DET", "Naz Reid, MIN"
   ),
   position = c(
     rep("Guard", 30), 
@@ -39,12 +39,25 @@ players <- tibble(
 
 # Assign colors based on position
 players$color <- ifelse(players$position == "Guard", "orange", 
-                        ifelse(players$position == "Wing", "green", "brown"))
+                        ifelse(players$position == "Wing", "blue", "grey"))
+
+# Snake draft order
+snake_order <- tibble(
+  pick_number = 1:60,
+  round = rep(1:10, each = 6),
+  player = unlist(lapply(1:10, function(r) {
+    if (r %% 2 == 1) {
+      c("Mary", "Jake", "Steve", "Chester", "Ryan", "Phil")
+    } else {
+      c("Phil", "Ryan", "Chester", "Steve", "Jake", "Mary")
+    }
+  }))
+)
 
 # UI
 ui <- fluidPage(
   useShinyjs(),
-  titlePanel("Fantasy Draft Board"),
+  titlePanel("2024-2025 Fantasy Draft Board"),
   
   # Main Layout: Three Columns for Available Players and Draft Board
   fluidRow(
@@ -52,14 +65,14 @@ ui <- fluidPage(
            h3("Guards"),
            div(
              id = "available_guards",
-             style = "display: flex; flex-wrap: wrap; height: 700px; overflow-y: auto; border: 1px solid #ccc; padding: 5px;",
+             style = "display: flex; flex-wrap: wrap; height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 0px;",
              lapply(which(players$position == "Guard"), function(i) {
                div(
                  id = paste0("player_", i),
                  class = "draggable",
-                 style = paste0("margin: 3px; padding: 2px 5px; background-color: ", players$color[i], 
-                                "; color: ", ifelse(players$color[i] == "brown", "white", "black"), 
-                                "; border-radius: 3px; font-size: 10px; cursor: pointer; width: 80px; height: 20px; text-align: center;"),
+                 style = paste0("margin: 1px; padding: 2px 5px; background-color: ", players$color[i], 
+                                "; color: black", #ifelse(players$color[i] == "brown", "black", "black"), 
+                                "; border-radius: 1px; font-size: 12px; cursor: pointer; width: 175px; height: 25px; text-align: center;"),
                  players$name[i]
                )
              })
@@ -69,14 +82,14 @@ ui <- fluidPage(
            h3("Wings"),
            div(
              id = "available_wings",
-             style = "display: flex; flex-wrap: wrap; height: 700px; overflow-y: auto; border: 1px solid #ccc; padding: 5px;",
+             style = "display: flex; flex-wrap: wrap; height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 0px;",
              lapply(which(players$position == "Wing"), function(i) {
                div(
                  id = paste0("player_", i),
                  class = "draggable",
-                 style = paste0("margin: 3px; padding: 2px 5px; background-color: ", players$color[i], 
-                                "; color: ", ifelse(players$color[i] == "brown", "white", "black"), 
-                                "; border-radius: 3px; font-size: 10px; cursor: pointer; width: 80px; height: 20px; text-align: center;"),
+                 style = paste0("margin: 1px; padding: 2px 5px; background-color: ", players$color[i], 
+                                "; color: white", #ifelse(players$color[i] == "brown", "white", "white"), 
+                                "; border-radius: 1px; font-size: 12px; cursor: pointer; width: 175px; height: 25px; text-align: center;"),
                  players$name[i]
                )
              })
@@ -86,14 +99,14 @@ ui <- fluidPage(
            h3("Posts"),
            div(
              id = "available_posts",
-             style = "display: flex; flex-wrap: wrap; height: 700px; overflow-y: auto; border: 1px solid #ccc; padding: 5px;",
+             style = "display: flex; flex-wrap: wrap; height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 0px;",
              lapply(which(players$position == "Post"), function(i) {
                div(
                  id = paste0("player_", i),
                  class = "draggable",
-                 style = paste0("margin: 3px; padding: 2px 5px; background-color: ", players$color[i], 
-                                "; color: ", ifelse(players$color[i] == "brown", "white", "black"), 
-                                "; border-radius: 3px; font-size: 10px; cursor: pointer; width: 80px; height: 20px; text-align: center;"),
+                 style = paste0("margin: 1px; padding: 2px 5px; background-color: ", players$color[i], 
+                                "; color: white", #ifelse(players$color[i] == "brown", "white", "white"), 
+                                "; border-radius: 1px; font-size: 12px; cursor: pointer; width: 175px; height: 25px; text-align: center;"),
                  players$name[i]
                )
              })
@@ -109,13 +122,18 @@ ui <- fluidPage(
                       style = "display: flex; flex-direction: row; justify-content: space-between;",
                       lapply(1:6, function(pick_in_round) {
                         pick_number <- (round - 1) * 6 + pick_in_round
+                        fantasy_player <- snake_order$player[pick_number]
                         div(
                           id = paste0("pick_", pick_number),
                           class = "dropzone",
-                          style = "min-height: 50px; border: 1px solid black; margin: 5px; padding: 5px; width: 12%; font-size: 12px; text-align: center;",
+                          style = "min-height: 50px; border: 1px solid black; margin: 0px; padding: 0px; width: 18%; font-size: 12px; text-align: center;",
                           div(
                             style = "font-weight: bold;",
                             paste("Pick", pick_number)
+                          ),
+                          div(
+                            style = "font-size: 10px; color: grey;",
+                            paste("Player:", fantasy_player)
                           )
                         )
                       })
@@ -123,6 +141,7 @@ ui <- fluidPage(
            })
     )
   )
+  
 )
 
 # Server
