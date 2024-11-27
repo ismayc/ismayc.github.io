@@ -102,7 +102,7 @@ ui <- fluidPage(
   # Application title
   titlePanel(paste("Point Calculations for NBA Over/Under", season_year)),
   h3("Created by Chester Ismay"),
-  p(str_c("Last updated at ", format(Sys.time(), "%Y-%m-%d %H:%M:%S"), " US Arizona time")),
+  p(str_c("Last updated on ", Sys.Date())),
   
   tags$head(
     tags$style(HTML("

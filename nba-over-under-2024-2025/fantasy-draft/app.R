@@ -41,11 +41,21 @@ ui <- fluidPage(
              # Text Input, Assign, and Undo Buttons
              fluidRow(
                column(12,
-                      selectizeInput("player_select", "Type a Player's Name:", choices = NULL, multiple = FALSE),
+                      selectizeInput("player_select", "Type a Player's Name:", choices = NULL, selected = NULL, multiple = FALSE),
                       actionButton("assign_button", "Assign Player"),
                       actionButton("undo_button", "Undo Last Pick")
                )
              ),
+             
+             # Add export and download button
+             fluidRow(
+               column(12,
+                      actionButton("export_button", "Export Draft Results"),
+                      downloadButton("download_csv", "Download CSV of Results")
+               )
+             ),
+             
+             
              
              # Main Layout: Three Columns for Available Players and Draft Board
              fluidRow(
@@ -121,7 +131,7 @@ server <- function(input, output, session) {
     if (pick <= 60) {
       HTML(paste("<i>Current Pick</i>:", "Pick", pick, "-", "Player:", snake_order$player[pick]))
     } else {
-      "Draft Complete"
+      "Draft Complete. Best of luck to you all on a great season!"
     }
   })
   
@@ -129,12 +139,16 @@ server <- function(input, output, session) {
   observe({
     available <- available_players()
     if (nrow(available) > 0) {
+      # Sort available players alphabetically by name
+      sorted_names <- available$name |> sort()
       updateSelectizeInput(session, "player_select", 
-                           choices = available$name, 
+                           choices = sorted_names, 
+                           selected = "",  # Ensure no default selection
                            server = TRUE)
     } else {
       updateSelectizeInput(session, "player_select", 
                            choices = NULL, 
+                           selected = "",  # Ensure it resets to blank
                            server = TRUE)
     }
   })
@@ -301,7 +315,7 @@ server <- function(input, output, session) {
   output$selections_ui <- renderUI({
     selections <- assigned_players()
     if (nrow(selections) == 0) {
-      return(h4("No players selected yet."))
+      return(div(h4("No players selected yet."), style = "margin-left: 20px;"))
     }
     
     lapply(unique(selections$fantasy_player), function(fantasy_player) {
@@ -325,6 +339,64 @@ server <- function(input, output, session) {
       })
     })
   })
+  
+  # Reactive value to store the export data
+  export_data <- reactiveVal(NULL)
+  
+  # Observe Export Button
+  observeEvent(input$export_button, {
+    selections <- assigned_players()
+    
+    if (nrow(selections) == 0) {
+      showModal(modalDialog(
+        title = "No Data to Export",
+        "There are no draft results to export."
+      ))
+      return()
+    }
+    
+    # Format the selections for export
+    formatted_data <- selections %>%
+      arrange(pick) %>%
+      rename(
+        draft_order = pick,
+        player = fantasy_player,
+        round = round,
+        nba_player_taken = name,
+        position = position
+      )
+    
+    # Save the formatted data to the reactive value
+    export_data(formatted_data)
+    
+    # Save as RDS
+#    saveRDS(formatted_data, "draft_selections.rds")
+    
+    showModal(modalDialog(
+      title = "Export Successful",
+      "Draft results are ready for download as CSV file."
+    ))
+  })
+  
+  # Download Handler for CSV
+  output$download_csv <- downloadHandler(
+    filename = function() {
+      paste("draft_selections", Sys.Date(), ".csv", sep = "")
+    },
+    content = function(file) {
+      data <- export_data()
+      if (!is.null(data)) {
+        write.csv(data, file, row.names = FALSE)
+      } else {
+        showModal(modalDialog(
+          title = "No Data to Download",
+          "There are no draft results to download."
+        ))
+      }
+    }
+  )
+  
+  
 }
 
 # App
