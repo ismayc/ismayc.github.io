@@ -1,30 +1,4 @@
-library(shiny)
-library(shinyjs)
-library(tibble)
-library(readr)
-library(dplyr)
-
-# Load player data by position
-players <- read_rds("players_ballot.rds")
-
-# Assign colors based on position
-players$color <- ifelse(players$position == "Guard", "orange", 
-                        ifelse(players$position == "Wing", "blue", "grey"))
-
-players$text_color <- ifelse(players$color %in% c("grey", "blue"), "white", "black")
-
-# Snake draft order
-snake_order <- tibble(
-  pick_number = 1:60,
-  round = rep(1:10, each = 6),
-  player = unlist(lapply(1:10, function(r) {
-    if (r %% 2 == 1) {
-      c("Mary", "Jake", "Steve", "Chester", "Ryan", "Phil")
-    } else {
-      c("Phil", "Ryan", "Chester", "Steve", "Jake", "Mary")
-    }
-  }))
-)
+source("00-prior.R")
 
 # UI
 ui <- fluidPage(
@@ -68,24 +42,39 @@ ui <- fluidPage(
              fluidRow(
                column(12, 
                       lapply(1:10, function(round) {
-                        column(12, h4(paste("Round", round)),
-                               div(
-                                 style = "display: flex; flex-direction: row; justify-content: space-between;",
-                                 lapply(1:6, function(pick_in_round) {
-                                   pick_number <- (round - 1) * 6 + pick_in_round
-                                   fantasy_player <- snake_order$player[pick_number]
+                        div(
+                          style = "margin-bottom: 20px;",
+                          column(12,
+                                 div(
+                                   style = "display: flex; justify-content: space-between; align-items: center;",
+                                   h4(paste("Round", round)),
+                                   actionButton(inputId = paste0("toggle_round_", round), label = "Hide/Show Picks", style = "margin-left: 10px;")
+                                 ),
+                                 div(
+                                   id = paste0("round_content_", round),
+                                   style = "margin-top: 10px;",
                                    div(
-                                     id = paste0("pick_", pick_number),
-                                     style = "min-height: 50px; border: 1px solid black; margin: 5px; padding: 5px; width: 20%; font-size: 12px; text-align: center;",
-                                     div(style = "font-weight: bold;", paste("Pick", pick_number)),
-                                     div(style = "font-size: 10px; color: grey;", paste("Player:", fantasy_player)),
-                                     div(id = paste0("assigned_player_", pick_number), style = "font-size: 12px; color: black;")
+                                     style = "display: flex; flex-direction: row; justify-content: space-between;",
+                                     lapply(1:6, function(pick_in_round) {
+                                       pick_number <- (round - 1) * 6 + pick_in_round
+                                       fantasy_player <- snake_order$player[pick_number]
+                                       div(
+                                         id = paste0("pick_", pick_number),
+                                         style = "min-height: 50px; border: 1px solid black; margin: 5px; padding: 5px; width: 20%; font-size: 12px; text-align: center;",
+                                         div(style = "font-weight: bold;", paste("Pick", pick_number)),
+                                         div(style = "font-size: 10px; color: grey;", paste("Player:", fantasy_player)),
+                                         div(id = paste0("assigned_player_", pick_number), style = "font-size: 12px; color: black;")
+                                       )
+                                     })
                                    )
-                                 })
-                               ))
+                                 )
+                          )
+                        )
                       })
                )
              )
+             
+             
     ),
     tabPanel("Selections",
              fluidRow(
@@ -113,6 +102,24 @@ server <- function(input, output, session) {
     fantasy_player = character(0), 
     stringsAsFactors = FALSE
   ))
+  
+  # Reactive value to track the visibility of rounds
+  round_visibility <- reactiveVal(rep(TRUE, 10))
+  
+  # Toggle visibility for each round
+  lapply(1:10, function(round) {
+    observeEvent(input[[paste0("toggle_round_", round)]], {
+      visibility <- round_visibility()
+      if (visibility[round]) {
+        shinyjs::hide(id = paste0("round_content_", round))
+      } else {
+        shinyjs::show(id = paste0("round_content_", round))
+      }
+      visibility[round] <- !visibility[round]
+      round_visibility(visibility)
+    })
+  })
+  
   
   # Reactive value for category counts
   category_counts <- reactiveVal(
@@ -381,7 +388,7 @@ server <- function(input, output, session) {
   # Download Handler for CSV
   output$download_csv <- downloadHandler(
     filename = function() {
-      paste("draft_selections", Sys.Date(), ".csv", sep = "")
+      paste("draft_selections-", Sys.Date(), ".csv", sep = "")
     },
     content = function(file) {
       data <- export_data()
