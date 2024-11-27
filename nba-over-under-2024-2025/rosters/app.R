@@ -5,12 +5,12 @@ library(janitor)
 library(tidyverse)
 library(DT)
 library(tictoc)
-library(nbastatR)
+#library(nbastatR)
 library(httr)
 library(jsonlite)
 
 update <- FALSE
-date_added <- "2024-11-24"
+date_added <- "2024-11-26"
 season <- 2025
 #date_added <- Sys.Date()
 
