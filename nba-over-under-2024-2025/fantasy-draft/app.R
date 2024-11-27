@@ -2,6 +2,7 @@ library(shiny)
 library(shinyjs)
 library(tibble)
 library(readr)
+library(dplyr)
 
 # Load player data by position
 players <- read_rds("players_ballot.rds")
@@ -10,7 +11,7 @@ players <- read_rds("players_ballot.rds")
 players$color <- ifelse(players$position == "Guard", "orange", 
                         ifelse(players$position == "Wing", "blue", "grey"))
 
-players$text_color <- ifelse(players$color %in% c("grey","blue"), "white", "black")
+players$text_color <- ifelse(players$color %in% c("grey", "blue"), "white", "black")
 
 # Snake draft order
 snake_order <- tibble(
@@ -30,77 +31,57 @@ ui <- fluidPage(
   useShinyjs(),
   titlePanel("2024-2025 Fantasy Draft Board"),
   
-  # Display current pick at the top
-  fluidRow(
-    column(12, h4(htmlOutput("current_pick_label")))
-  ),
-  
-  # Text Input, Assign, and Undo Buttons
-  fluidRow(
-    column(12,
-           selectizeInput("player_select", "Type a Player's Name:", choices = NULL, multiple = FALSE),
-           actionButton("assign_button", "Assign Player"),
-           actionButton("undo_button", "Undo Last Pick")
-    )
-  ),
-  
-  # Main Layout: Three Columns for Available Players and Draft Board
-  fluidRow(
-    column(4,  # Left Column: Guards
-           h3("Guards"),
-           div(
-             id = "available_guards",
-             style = "display: flex; flex-wrap: wrap; height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 0px;",
-             uiOutput("guards_ui")
-           )
-    ),
-    column(4,  # Middle Column: Wings
-           h3("Wings"),
-           div(
-             id = "available_wings",
-             style = "display: flex; flex-wrap: wrap; height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 0px;",
-             uiOutput("wings_ui")
-           )
-    ),
-    column(4,  # Right Column: Posts
-           h3("Posts"),
-           div(
-             id = "available_posts",
-             style = "display: flex; flex-wrap: wrap; height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 0px;",
-             uiOutput("posts_ui")
-           )
-    )
-  ),
-  
-  # Draft Board
-  fluidRow(
-    column(12, 
-           lapply(1:10, function(round) {
-             column(12, h4(paste("Round", round)),
-                    div(
-                      style = "display: flex; flex-direction: row; justify-content: space-between;",
-                      lapply(1:6, function(pick_in_round) {
-                        pick_number <- (round - 1) * 6 + pick_in_round
-                        fantasy_player <- snake_order$player[pick_number]
-                        div(
-                          id = paste0("pick_", pick_number),
-                          style = "min-height: 50px; border: 1px solid black; margin: 5px; padding: 5px; width: 20%; font-size: 12px; text-align: center;",
-                          div(
-                            style = "font-weight: bold;",
-                            paste("Pick", pick_number)
-                          ),
-                          div(
-                            style = "font-size: 10px; color: grey;",
-                            paste("Player:", fantasy_player)
-                          ),
-                          div(
-                            id = paste0("assigned_player_", pick_number),
-                            style = "font-size: 12px; color: black;"
-                          )
-                        )
+  tabsetPanel(
+    tabPanel("Draft Board",
+             # Display current pick at the top
+             fluidRow(
+               column(12, h4(htmlOutput("current_pick_label")))
+             ),
+             
+             # Text Input, Assign, and Undo Buttons
+             fluidRow(
+               column(12,
+                      selectizeInput("player_select", "Type a Player's Name:", choices = NULL, multiple = FALSE),
+                      actionButton("assign_button", "Assign Player"),
+                      actionButton("undo_button", "Undo Last Pick")
+               )
+             ),
+             
+             # Main Layout: Three Columns for Available Players and Draft Board
+             fluidRow(
+               column(4, h3("Guards"), div(id = "available_guards", uiOutput("guards_ui"))),
+               column(4, h3("Wings"), div(id = "available_wings", uiOutput("wings_ui"))),
+               column(4, h3("Posts"), div(id = "available_posts", uiOutput("posts_ui")))
+             ),
+             
+             # Draft Board
+             fluidRow(
+               column(12, 
+                      lapply(1:10, function(round) {
+                        column(12, h4(paste("Round", round)),
+                               div(
+                                 style = "display: flex; flex-direction: row; justify-content: space-between;",
+                                 lapply(1:6, function(pick_in_round) {
+                                   pick_number <- (round - 1) * 6 + pick_in_round
+                                   fantasy_player <- snake_order$player[pick_number]
+                                   div(
+                                     id = paste0("pick_", pick_number),
+                                     style = "min-height: 50px; border: 1px solid black; margin: 5px; padding: 5px; width: 20%; font-size: 12px; text-align: center;",
+                                     div(style = "font-weight: bold;", paste("Pick", pick_number)),
+                                     div(style = "font-size: 10px; color: grey;", paste("Player:", fantasy_player)),
+                                     div(id = paste0("assigned_player_", pick_number), style = "font-size: 12px; color: black;")
+                                   )
+                                 })
+                               ))
                       })
-                    ))
-           })
+               )
+             )
+    ),
+    tabPanel("Selections",
+             fluidRow(
+               column(12, h3("Selections by Fantasy Player")),
+               uiOutput("selections_ui")
+             )
     )
   )
 )
@@ -114,7 +95,14 @@ server <- function(input, output, session) {
   current_pick <- reactiveVal(1)
   
   # Reactive value to store assigned players
-  assigned_players <- reactiveVal(data.frame(pick = integer(0), name = character(0), stringsAsFactors = FALSE))
+  assigned_players <- reactiveVal(data.frame(
+    pick = integer(0), 
+    round = integer(0), 
+    name = character(0), 
+    position = character(0), 
+    fantasy_player = character(0), 
+    stringsAsFactors = FALSE
+  ))
   
   # Update current pick label
   output$current_pick_label <- renderText({
@@ -126,16 +114,16 @@ server <- function(input, output, session) {
     }
   })
   
-  # Update Available Players UI with Multi-Column Layout
+  # Update Available Players UI
   output$guards_ui <- renderUI({
     available <- available_players()
     guard_players <- available[available$position == "Guard", ]
     div(
-      style = "display: flex; flex-wrap: wrap; gap: 10px;",
+      style = "display: flex; flex-wrap: wrap; gap: 2px;",
       lapply(1:nrow(guard_players), function(i) {
         div(
-          style = paste0("flex: 1 1 calc(33% - 10px); margin: 0px; padding: 0px; background-color: ", guard_players$color[i], 
-                         "; color: ", guard_players$text_color[i], "; border-radius: 5px; font-size: 12px; text-align: center;"),
+          style = paste0("margin: 0px; padding: 0px; background-color: ", guard_players$color[i], 
+                         "; color: ", guard_players$text_color[i], "; border-radius: 5px; font-size: 12px; text-align: center; width: 175px; height: 25px;"),
           guard_players$name[i]
         )
       })
@@ -146,11 +134,11 @@ server <- function(input, output, session) {
     available <- available_players()
     wing_players <- available[available$position == "Wing", ]
     div(
-      style = "display: flex; flex-wrap: wrap; gap: 10px;",
+      style = "display: flex; flex-wrap: wrap; gap: 2px;",
       lapply(1:nrow(wing_players), function(i) {
         div(
-          style = paste0("flex: 1 1 calc(33% - 10px); margin: 0px; padding: 0px; background-color: ", wing_players$color[i], 
-                         "; color: ", wing_players$text_color[i], "; border-radius: 5px; font-size: 12px; text-align: center;"),
+          style = paste0("margin: 0px; padding: 0px; background-color: ", wing_players$color[i], 
+                         "; color: ", wing_players$text_color[i], "; border-radius: 5px; font-size: 12px; text-align: center; width: 175px; height: 25px;"),
           wing_players$name[i]
         )
       })
@@ -161,17 +149,16 @@ server <- function(input, output, session) {
     available <- available_players()
     post_players <- available[available$position == "Post", ]
     div(
-      style = "display: flex; flex-wrap: wrap; gap: 10px;",
+      style = "display: flex; flex-wrap: wrap; gap: 2px;",
       lapply(1:nrow(post_players), function(i) {
         div(
-          style = paste0("flex: 1 1 calc(33% - 10px); margin: 0px; padding: 0px; background-color: ", post_players$color[i], 
-                         "; color: ", post_players$text_color[i], "; border-radius: 5px; font-size: 12px; text-align: center;"),
+          style = paste0("margin: 0px; padding: 0px; background-color: ", post_players$color[i], 
+                         "; color: ", post_players$text_color[i], "; border-radius: 5px; font-size: 12px; text-align: center; width: 175px; height: 25px;"),
           post_players$name[i]
         )
       })
     )
   })
-  
   
   # Update Selectize Input
   observe({
@@ -195,8 +182,15 @@ server <- function(input, output, session) {
       )
       
       # Add player to assigned list
+      fantasy_player <- snake_order$player[pick]
       assigned_list <- assigned_players()
-      assigned_players(rbind(assigned_list, data.frame(pick = pick, name = selected_player)))
+      assigned_players(rbind(assigned_list, data.frame(
+        pick = pick,
+        round = snake_order$round[pick],
+        name = selected_player,
+        position = player_info$position,
+        fantasy_player = fantasy_player
+      )))
       
       # Remove player from available list
       updated_players <- all_players[all_players$name != selected_player, ]
@@ -240,6 +234,35 @@ server <- function(input, output, session) {
         "There are no picks to undo."
       ))
     }
+  })
+  
+  # Render Selections by Fantasy Player
+  output$selections_ui <- renderUI({
+    selections <- assigned_players()
+    if (nrow(selections) == 0) {
+      return(h4("No players selected yet."))
+    }
+    
+    lapply(unique(selections$fantasy_player), function(fantasy_player) {
+      player_selections <- selections[selections$fantasy_player == fantasy_player, ]
+      div(
+        style = "margin-left: 20px; margin-bottom: 20px;",
+        h4(fantasy_player),
+        tableOutput(outputId = paste0("table_", fantasy_player))
+      )
+    })
+  })
+  
+  observe({
+    selections <- assigned_players()
+    lapply(unique(selections$fantasy_player), function(fantasy_player) {
+      player_selections <- selections[selections$fantasy_player == fantasy_player, ]
+      output[[paste0("table_", fantasy_player)]] <- renderTable({
+        player_selections[, c("round", "pick", "name", "position")] |> 
+          mutate(pick = as.integer(pick)) |> 
+          rename(`overall pick` = pick)
+      })
+    })
   })
 }
 
