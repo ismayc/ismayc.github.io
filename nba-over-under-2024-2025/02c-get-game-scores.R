@@ -23,9 +23,9 @@ scores_temp1 <- read_csv("current_year.csv") %>%
   filter(GAME_DATE < Sys.Date())
 
 # Redo the analysis that used to be done in 02a-get-game-scores.R
-if(!file.exists(here(
-  "rds", glue("game_results_raw_through_{Sys.Date() - 1}.rds")))
-) {
+# if(!file.exists(here(
+#   "rds", glue("game_results_raw_through_{Sys.Date() - 1}.rds")))
+# ) {
   # Convert the scores_temp1 dataframe
   game_results_raw <- scores_temp1 %>%
     mutate(
@@ -60,11 +60,11 @@ if(!file.exists(here(
   
   write_rds(game_results_raw, 
             here("rds", glue("game_results_raw_through_{Sys.Date() - 1}.rds")))
-} else {
+#} else {
   game_results_raw <- read_rds(
     here("rds", glue("game_results_raw_through_{Sys.Date() - 1}.rds"))
   )
-}
+#}
 
 scores_temp_away <- scores_temp1 %>% 
   filter(str_detect(string = MATCHUP, pattern = "vs.")) %>% 
