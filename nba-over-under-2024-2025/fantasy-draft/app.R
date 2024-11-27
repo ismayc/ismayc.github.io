@@ -14,26 +14,36 @@ ui <- fluidPage(
              
              # Text Input, Assign, and Undo Buttons
              fluidRow(
-               column(12,
-                      selectizeInput("player_select", "Type a Player's Name:", choices = NULL, selected = NULL, multiple = FALSE),
-                      actionButton("assign_button", "Assign Player"),
-                      actionButton("undo_button", "Undo Last Pick")
+               column(3, 
+                      selectizeInput("player_select", "Type a Player's Name:", choices = NULL, selected = NULL, multiple = FALSE)
+               ),
+               column(9, 
+                      br(),
+                      div(
+                        style = "display: flex; align-items: center; gap: 10px;",
+                        actionButton("assign_button", "Assign Player"),
+                        actionButton("undo_button", "Undo Last Pick")
+                      )
                )
              ),
              
              # Add export and download button
              fluidRow(
-               column(12,
+               column(3,
+                      strong("Export Draft:"),
+                      br(),
                       actionButton("export_button", "Export Draft Results"),
                       downloadButton("download_csv", "Download CSV of Results")
-               )
-             ),
-             
-             # Add file input for importing draft and an import button
-             fluidRow(
-               column(12,
-                      fileInput("import_draft", "Import Previous Draft (CSV)", accept = c(".csv")),
+               ),
+               # Add file input for importing draft and an import button
+               column(9,
+                      column(4,
+                      fileInput("import_draft", "Import Previous Draft (CSV)", accept = c(".csv"))
+                      ),
+                      br(),
+                      column(5, 
                       actionButton("import_button", "Import Draft")
+                      )
                )
              ),
              
@@ -240,7 +250,7 @@ server <- function(input, output, session) {
           style = paste0("margin: 0px; padding: 0px; background-color: ", 
                          if (isTRUE(max_reached)) "lightgray" else post_players$color[i], 
                          "; color: ", 
-                         if (all(max_reached)) "darkgray" else post_players$text_color[i], 
+                         if (isTRUE(max_reached)) "darkgray" else post_players$text_color[i], 
                          "; border-radius: 5px; font-size: 12px; text-align: center; width: 175px; height: 25px;"),
           post_players$name[i]
         )
@@ -337,35 +347,59 @@ server <- function(input, output, session) {
       ))
     }
   })
-
-  # Render Selections by Fantasy Player
+  
+  # Three columns for selections table
   output$selections_ui <- renderUI({
     selections <- assigned_players()
+    
     if (nrow(selections) == 0) {
       return(div(h4("No players selected yet."), style = "margin-left: 20px;"))
     }
     
-    lapply(unique(selections$fantasy_player), function(fantasy_player) {
-      player_selections <- selections[selections$fantasy_player == fantasy_player, ]
-      div(
-        style = "margin-left: 20px; margin-bottom: 20px;",
-        h4(fantasy_player),
-        tableOutput(outputId = paste0("table_", fantasy_player))
-      )
-    })
+    # Get the unique fantasy players
+    fantasy_players <- unique(selections$fantasy_player)
+    
+    # Split fantasy players into three groups for columns
+    column_groups <- split(fantasy_players, cut(seq_along(fantasy_players), breaks = 3, labels = FALSE))
+    
+    # Create the layout for three columns
+    fluidRow(
+      lapply(column_groups, function(group) {
+        column(
+          width = 4,
+          lapply(group, function(player) {
+            player_selections <- selections[selections$fantasy_player == player, ] |> 
+              mutate(pick = as.integer(pick))
+            div(
+              style = "margin-bottom: 20px;",
+              h4(player),
+              tableOutput(outputId = paste0("table_", player))
+            )
+          })
+        )
+      })
+    )
   })
   
+  # Ensure table outputs for each player are dynamically generated
   observe({
     selections <- assigned_players()
-    lapply(unique(selections$fantasy_player), function(fantasy_player) {
-      player_selections <- selections[selections$fantasy_player == fantasy_player, ]
-      output[[paste0("table_", fantasy_player)]] <- renderTable({
-        player_selections[, c("round", "pick", "name", "position")] |> 
-          mutate(pick = as.integer(pick)) |> 
-          rename(`overall pick` = pick)
+    
+    if (nrow(selections) > 0) {
+      lapply(unique(selections$fantasy_player), function(fantasy_player) {
+        player_selections <- selections[selections$fantasy_player == fantasy_player, ] |> 
+          mutate(pick = as.integer(pick))
+        output[[paste0("table_", fantasy_player)]] <- renderTable({
+          player_selections[, c("round", "pick", "name", "position")] %>%
+            rename(`Overall Pick` = pick, `NBA Player` = name, Position = position)
+        })
       })
-    })
+    }
   })
+  
+  
+  
+  
   
   # Reactive value to store the export data
   export_data <- reactiveVal(NULL)
@@ -397,7 +431,7 @@ server <- function(input, output, session) {
     export_data(formatted_data)
     
     # Save as RDS
-#    saveRDS(formatted_data, "draft_selections.rds")
+    #    saveRDS(formatted_data, "draft_selections.rds")
     
     showModal(modalDialog(
       title = "Export Successful",
