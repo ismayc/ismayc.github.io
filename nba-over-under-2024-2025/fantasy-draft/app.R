@@ -55,7 +55,7 @@ ui <- fluidPage(
                                    style = "margin-top: 10px;",
                                    div(
                                      style = "display: flex; flex-direction: row; justify-content: space-between;",
-                                     lapply(1:6, function(pick_in_round) {
+                                     lapply(if (round %% 2 == 0) rev(1:6) else 1:6, function(pick_in_round) {
                                        pick_number <- (round - 1) * 6 + pick_in_round
                                        fantasy_player <- snake_order$player[pick_number]
                                        div(
@@ -73,8 +73,6 @@ ui <- fluidPage(
                       })
                )
              )
-             
-             
     ),
     tabPanel("Selections",
              fluidRow(
