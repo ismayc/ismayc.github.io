@@ -104,6 +104,17 @@ server <- function(input, output, session) {
     stringsAsFactors = FALSE
   ))
   
+  # Reactive value for category counts
+  category_counts <- reactiveVal(
+    data.frame(
+      fantasy_player = unique(snake_order$player),
+      Guard = 0,
+      Wing = 0,
+      Post = 0,
+      stringsAsFactors = FALSE
+    )
+  )
+  
   # Update current pick label
   output$current_pick_label <- renderText({
     pick <- current_pick()
@@ -114,16 +125,38 @@ server <- function(input, output, session) {
     }
   })
   
+  # Update Selectize Input
+  observe({
+    available <- available_players()
+    if (nrow(available) > 0) {
+      updateSelectizeInput(session, "player_select", 
+                           choices = available$name, 
+                           server = TRUE)
+    } else {
+      updateSelectizeInput(session, "player_select", 
+                           choices = NULL, 
+                           server = TRUE)
+    }
+  })
+  
+  
   # Update Available Players UI
   output$guards_ui <- renderUI({
     available <- available_players()
     guard_players <- available[available$position == "Guard", ]
+    fantasy_player <- snake_order$player[current_pick()]
+    counts <- category_counts()
+    max_reached <- counts[counts$fantasy_player == fantasy_player, "Guard"] >= 4
+    
     div(
       style = "display: flex; flex-wrap: wrap; gap: 2px;",
       lapply(1:nrow(guard_players), function(i) {
         div(
-          style = paste0("margin: 0px; padding: 0px; background-color: ", guard_players$color[i], 
-                         "; color: ", guard_players$text_color[i], "; border-radius: 5px; font-size: 12px; text-align: center; width: 175px; height: 25px;"),
+          style = paste0("margin: 0px; padding: 0px; background-color: ", 
+                         if (max_reached) "lightgray" else guard_players$color[i], 
+                         "; color: ", 
+                         if (max_reached) "darkgray" else guard_players$text_color[i], 
+                         "; border-radius: 5px; font-size: 12px; text-align: center; width: 175px; height: 25px;"),
           guard_players$name[i]
         )
       })
@@ -133,12 +166,19 @@ server <- function(input, output, session) {
   output$wings_ui <- renderUI({
     available <- available_players()
     wing_players <- available[available$position == "Wing", ]
+    fantasy_player <- snake_order$player[current_pick()]
+    counts <- category_counts()
+    max_reached <- counts[counts$fantasy_player == fantasy_player, "Wing"] >= 4
+    
     div(
       style = "display: flex; flex-wrap: wrap; gap: 2px;",
       lapply(1:nrow(wing_players), function(i) {
         div(
-          style = paste0("margin: 0px; padding: 0px; background-color: ", wing_players$color[i], 
-                         "; color: ", wing_players$text_color[i], "; border-radius: 5px; font-size: 12px; text-align: center; width: 175px; height: 25px;"),
+          style = paste0("margin: 0px; padding: 0px; background-color: ", 
+                         if (max_reached) "lightgray" else wing_players$color[i], 
+                         "; color: ", 
+                         if (max_reached) "darkgray" else wing_players$text_color[i], 
+                         "; border-radius: 5px; font-size: 12px; text-align: center; width: 175px; height: 25px;"),
           wing_players$name[i]
         )
       })
@@ -148,21 +188,23 @@ server <- function(input, output, session) {
   output$posts_ui <- renderUI({
     available <- available_players()
     post_players <- available[available$position == "Post", ]
+    fantasy_player <- snake_order$player[current_pick()]
+    counts <- category_counts()
+    max_reached <- counts[counts$fantasy_player == fantasy_player, "Post"] >= 4
+    
     div(
       style = "display: flex; flex-wrap: wrap; gap: 2px;",
       lapply(1:nrow(post_players), function(i) {
         div(
-          style = paste0("margin: 0px; padding: 0px; background-color: ", post_players$color[i], 
-                         "; color: ", post_players$text_color[i], "; border-radius: 5px; font-size: 12px; text-align: center; width: 175px; height: 25px;"),
+          style = paste0("margin: 0px; padding: 0px; background-color: ", 
+                         if (max_reached) "lightgray" else post_players$color[i], 
+                         "; color: ", 
+                         if (max_reached) "darkgray" else post_players$text_color[i], 
+                         "; border-radius: 5px; font-size: 12px; text-align: center; width: 175px; height: 25px;"),
           post_players$name[i]
         )
       })
     )
-  })
-  
-  # Update Selectize Input
-  observe({
-    updateSelectizeInput(session, "player_select", choices = available_players()$name, server = TRUE)
   })
   
   # Assign Player Button Logic
@@ -170,10 +212,28 @@ server <- function(input, output, session) {
     selected_player <- input$player_select
     all_players <- available_players()
     pick <- current_pick()
+    fantasy_player <- snake_order$player[pick]
     
     if (selected_player %in% all_players$name && pick <= 60) {
-      # Assign the player to the draft spot
       player_info <- all_players[all_players$name == selected_player, ]
+      position <- player_info$position
+      
+      # Check category limit
+      counts <- category_counts()
+      if (counts[counts$fantasy_player == fantasy_player, position] >= 4) {
+        showModal(modalDialog(
+          title = "Category Limit Reached",
+          paste("You cannot select more than 4 players from", position, "category.")
+        ))
+        return()
+      }
+      
+      # Update category count
+      counts[counts$fantasy_player == fantasy_player, position] <- 
+        counts[counts$fantasy_player == fantasy_player, position] + 1
+      category_counts(counts)
+      
+      # Assign player logic (existing)
       shinyjs::html(
         id = paste0("assigned_player_", pick),
         html = paste0("<div style='background-color:", player_info$color, 
@@ -182,13 +242,12 @@ server <- function(input, output, session) {
       )
       
       # Add player to assigned list
-      fantasy_player <- snake_order$player[pick]
       assigned_list <- assigned_players()
       assigned_players(rbind(assigned_list, data.frame(
         pick = pick,
         round = snake_order$round[pick],
         name = selected_player,
-        position = player_info$position,
+        position = position,
         fantasy_player = fantasy_player
       )))
       
@@ -214,19 +273,21 @@ server <- function(input, output, session) {
       last_assigned <- tail(assigned_list, 1)
       last_pick <- last_assigned$pick
       last_player <- last_assigned$name
+      last_position <- last_assigned$position
+      last_fantasy_player <- last_assigned$fantasy_player
       
-      # Remove player from assigned list
+      # Update category count
+      counts <- category_counts()
+      counts[counts$fantasy_player == last_fantasy_player, last_position] <- 
+        counts[counts$fantasy_player == last_fantasy_player, last_position] - 1
+      category_counts(counts)
+      
+      # Undo logic (existing)
       assigned_players(assigned_list[-nrow(assigned_list), ])
-      
-      # Add player back to available list
       all_players <- available_players()
       player_info <- players[players$name == last_player, ]
       available_players(rbind(all_players, player_info))
-      
-      # Clear the draft spot
       shinyjs::html(id = paste0("assigned_player_", last_pick), html = "")
-      
-      # Move back to the previous pick
       current_pick(last_pick)
     } else {
       showModal(modalDialog(
