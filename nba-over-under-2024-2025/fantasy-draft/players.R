@@ -34,4 +34,4 @@ players <- tibble(
   )
 )
 
-write_rds(players, "~/Desktop/repos/ismayc.github.io/nba-over-under-2024-2025/fantasy-draft/players_ballot.rds")
+write_rds(players, "players_ballot.rds")

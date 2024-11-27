@@ -32,13 +32,13 @@ ui <- fluidPage(
                column(3,
                       strong("Export Draft:"),
                       br(),
-                      actionButton("export_button", "Export Draft Results"),
+                      actionButton("export_button", "Export Draft"),
                       downloadButton("download_csv", "Download CSV of Results")
                ),
                # Add file input for importing draft and an import button
                column(9,
                       column(4,
-                      fileInput("import_draft", "Import Previous Draft (CSV)", accept = c(".csv"))
+                      fileInput("import_draft", "Import Previous Draft (CSV):", accept = c(".csv"))
                       ),
                       br(),
                       column(5, 

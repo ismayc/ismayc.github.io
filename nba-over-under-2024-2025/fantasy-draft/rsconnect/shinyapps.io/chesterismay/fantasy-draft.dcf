@@ -1,0 +1,12 @@
+name: fantasy-draft
+title: fantasy-draft
+username: chesterismay
+account: chesterismay
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 13469351
+bundleId: 9428397
+url: https://chesterismay.shinyapps.io/fantasy-draft/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE

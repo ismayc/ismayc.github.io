@@ -52,7 +52,7 @@ jobs:
                  -e 'install.packages(c("shiny", "readxl", "tidyverse", "kableExtra", "DT"), repos = "https://cran.rstudio.com/")' \
                  -e 'rsconnect::deployApp(appDir = "nba-over-under-2024-2025/over-under-points-calculator", appName = "${{ env.APPNAME }}", account = "${{ env.ACCOUNT }}", server = "${{ env.SERVER }}")'
 
-      # Authorize and deploy first app
+      # Authorize and deploy second app
       - name: Authorize and deploy player finder app
         env:
           APPNAME: nba-player-finder
@@ -62,3 +62,15 @@ jobs:
           Rscript -e 'rsconnect::setAccountInfo("${{ secrets.SHINYAPPS_ACCOUNT }}", "${{ secrets.SHINYAPPS_TOKEN }}", "${{ secrets.SHINYAPPS_SECRET }}")' \
                  -e 'install.packages(c("shiny", "janitor", "tidyverse", "DT", "tictoc", "httr", "jsonlite", "remotes"), repos = "https://cran.rstudio.com/")' \
                  -e 'rsconnect::deployApp(appDir = "nba-over-under-2024-2025/rosters", appName = "${{ env.APPNAME }}", account = "${{ env.ACCOUNT }}", server = "${{ env.SERVER }}")'
+
+      # Authorize and deploy third app
+      - name: Authorize and deploy fantasy draft app
+        env:
+          APPNAME: fantasy-draft
+          ACCOUNT: ${{ secrets.SHINYAPPS_ACCOUNT }}
+          SERVER: shinyapps.io
+        run: |
+          Rscript -e 'rsconnect::setAccountInfo("${{ secrets.SHINYAPPS_ACCOUNT }}", "${{ secrets.SHINYAPPS_TOKEN }}", "${{ secrets.SHINYAPPS_SECRET }}")' \
+                 -e 'install.packages(c("shiny", "shinyjs", "tibble", "readr", "dplyr"), repos = "https://cran.rstudio.com/")' \
+                 -e 'rsconnect::deployApp(appDir = "nba-over-under-2024-2025/fantasy-draft", appName = "${{ env.APPNAME }}", account = "${{ env.ACCOUNT }}", server = "${{ env.SERVER }}")'
+
