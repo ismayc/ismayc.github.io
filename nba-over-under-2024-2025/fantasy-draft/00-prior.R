@@ -9,9 +9,9 @@ players <- read_rds("players_ballot.rds")
 
 # Assign colors based on position
 players$color <- ifelse(players$position == "Guard", "orange", 
-                        ifelse(players$position == "Wing", "blue", "grey"))
+                        ifelse(players$position == "Wing", "lightblue", "purple"))
 
-players$text_color <- ifelse(players$color %in% c("grey", "blue"), "white", "black")
+players$text_color <- ifelse(players$color %in% c("purple"), "white", "black")
 
 # Snake draft order
 snake_order <- tibble(

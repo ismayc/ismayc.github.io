@@ -29,7 +29,13 @@ ui <- fluidPage(
                )
              ),
              
-             
+             # Add file input for importing draft and an import button
+             fluidRow(
+               column(12,
+                      fileInput("import_draft", "Import Previous Draft (CSV)", accept = c(".csv")),
+                      actionButton("import_button", "Import Draft")
+               )
+             ),
              
              # Main Layout: Three Columns for Available Players and Draft Board
              fluidRow(
@@ -165,16 +171,21 @@ server <- function(input, output, session) {
     guard_players <- available[available$position == "Guard", ]
     fantasy_player <- snake_order$player[current_pick()]
     counts <- category_counts()
-    max_reached <- counts[counts$fantasy_player == fantasy_player, "Guard"] >= 4
+    
+    max_reached <- if (!is.null(counts) && nrow(counts) > 0 && fantasy_player %in% counts$fantasy_player) {
+      counts[counts$fantasy_player == fantasy_player, "Guard"] >= 4
+    } else {
+      FALSE
+    }
     
     div(
       style = "display: flex; flex-wrap: wrap; gap: 2px;",
       lapply(1:nrow(guard_players), function(i) {
         div(
           style = paste0("margin: 0px; padding: 0px; background-color: ", 
-                         if (max_reached) "lightgray" else guard_players$color[i], 
+                         if (isTRUE(max_reached)) "lightgray" else guard_players$color[i], 
                          "; color: ", 
-                         if (max_reached) "darkgray" else guard_players$text_color[i], 
+                         if (isTRUE(max_reached)) "darkgray" else guard_players$text_color[i], 
                          "; border-radius: 5px; font-size: 12px; text-align: center; width: 175px; height: 25px;"),
           guard_players$name[i]
         )
@@ -182,21 +193,27 @@ server <- function(input, output, session) {
     )
   })
   
+  
   output$wings_ui <- renderUI({
     available <- available_players()
     wing_players <- available[available$position == "Wing", ]
     fantasy_player <- snake_order$player[current_pick()]
     counts <- category_counts()
-    max_reached <- counts[counts$fantasy_player == fantasy_player, "Wing"] >= 4
+    
+    max_reached <- if (!is.null(counts) && nrow(counts) > 0 && fantasy_player %in% counts$fantasy_player) {
+      counts[counts$fantasy_player == fantasy_player, "Wing"] >= 4
+    } else {
+      FALSE
+    }
     
     div(
       style = "display: flex; flex-wrap: wrap; gap: 2px;",
       lapply(1:nrow(wing_players), function(i) {
         div(
           style = paste0("margin: 0px; padding: 0px; background-color: ", 
-                         if (max_reached) "lightgray" else wing_players$color[i], 
+                         if (isTRUE(max_reached)) "lightgray" else wing_players$color[i], 
                          "; color: ", 
-                         if (max_reached) "darkgray" else wing_players$text_color[i], 
+                         if (isTRUE(max_reached)) "darkgray" else wing_players$text_color[i], 
                          "; border-radius: 5px; font-size: 12px; text-align: center; width: 175px; height: 25px;"),
           wing_players$name[i]
         )
@@ -209,16 +226,21 @@ server <- function(input, output, session) {
     post_players <- available[available$position == "Post", ]
     fantasy_player <- snake_order$player[current_pick()]
     counts <- category_counts()
-    max_reached <- counts[counts$fantasy_player == fantasy_player, "Post"] >= 4
+    
+    max_reached <- if (!is.null(counts) && nrow(counts) > 0 && fantasy_player %in% counts$fantasy_player) {
+      counts[counts$fantasy_player == fantasy_player, "Post"] >= 4
+    } else {
+      FALSE
+    }
     
     div(
       style = "display: flex; flex-wrap: wrap; gap: 2px;",
       lapply(1:nrow(post_players), function(i) {
         div(
           style = paste0("margin: 0px; padding: 0px; background-color: ", 
-                         if (max_reached) "lightgray" else post_players$color[i], 
+                         if (isTRUE(max_reached)) "lightgray" else post_players$color[i], 
                          "; color: ", 
-                         if (max_reached) "darkgray" else post_players$text_color[i], 
+                         if (all(max_reached)) "darkgray" else post_players$text_color[i], 
                          "; border-radius: 5px; font-size: 12px; text-align: center; width: 175px; height: 25px;"),
           post_players$name[i]
         )
@@ -315,7 +337,7 @@ server <- function(input, output, session) {
       ))
     }
   })
-  
+
   # Render Selections by Fantasy Player
   output$selections_ui <- renderUI({
     selections <- assigned_players()
@@ -400,6 +422,66 @@ server <- function(input, output, session) {
       }
     }
   )
+  
+  # Handle import of a previous draft
+  observeEvent(input$import_button, {
+    req(input$import_draft) # Ensure a file is uploaded
+    
+    file <- input$import_draft
+    draft_data <- read.csv(file$datapath, stringsAsFactors = FALSE)
+    
+    # Validate the format of the uploaded data
+    required_columns <- c("draft_order", "round", "nba_player_taken", "position", "player")
+    if (!all(required_columns %in% colnames(draft_data))) {
+      showModal(modalDialog(
+        title = "Invalid File",
+        "The uploaded file must include the following columns: draft_order, round, nba_player_taken, position, player.",
+        easyClose = TRUE
+      ))
+      return()
+    }
+    
+    # Ensure data is properly sorted by draft_order
+    draft_data <- draft_data %>%
+      arrange(draft_order) %>%
+      mutate(pick = draft_order)
+    
+    # Update reactive values
+    assigned_players(draft_data)
+    
+    # Update current pick
+    next_pick <- ifelse(nrow(draft_data) > 0, max(draft_data$draft_order) + 1, 1)
+    current_pick(next_pick)
+    
+    # Update available players
+    imported_names <- draft_data$nba_player_taken
+    updated_players <- players[!players$name %in% imported_names, ]
+    available_players(updated_players)
+    
+    # Update the draft board
+    lapply(1:nrow(draft_data), function(i) {
+      pick <- draft_data$draft_order[i]
+      player_info <- draft_data[i, ]
+      shinyjs::html(
+        id = paste0("assigned_player_", pick),
+        html = paste0("<div style='background-color: ", 
+                      ifelse(player_info$position == "Guard", "orange", 
+                             ifelse(player_info$position == "Wing", "lightblue", "purple")), 
+                      "; color: ", 
+                      ifelse(player_info$position %in% c("Post"), "white", "black"), 
+                      "; padding: 5px; border-radius: 5px;'>",
+                      player_info$nba_player_taken, 
+                      "</div>")
+      )
+    })
+    
+    showModal(modalDialog(
+      title = "Draft Imported",
+      "The previous draft has been successfully imported.",
+      easyClose = TRUE
+    ))
+  })
+  
   
   
 }
