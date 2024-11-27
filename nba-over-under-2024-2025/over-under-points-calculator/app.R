@@ -100,7 +100,7 @@ over_under_choice <- function(
 ui <- fluidPage(
   
   # Application title
-  titlePanel(paste("NBA Over/Under", season_year, "Point Calculations")),
+  titlePanel(paste("Point Calculations for NBA Over/Under", season_year)),
   h3("Created by Chester Ismay"),
   p(str_c("Last updated at ", format(Sys.time(), "%Y-%m-%d %H:%M:%S"), " US Arizona time")),
   
