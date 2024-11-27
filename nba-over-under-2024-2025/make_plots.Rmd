@@ -143,11 +143,11 @@ ggplotly(team_track, tooltip = c("Vegas Insider Win Projection %",
     ),
     yaxis = list(
       title = paste(
-        c("Current Win Percentage", rep("&nbsp;", 90), "<br>"), collapse = "")
+        c("Current Win Percentage", rep("&nbsp;", 100), "<br>"), collapse = "")
     ),
     xaxis = list(
       title = paste(
-        c(rep("&nbsp;", 115), "Game Number", "<br>"), collapse = "")
+        c(rep("&nbsp;", 95), "Game Number", "<br>"), collapse = "")
     ))
 ```
 
