@@ -38,11 +38,11 @@ ui <- fluidPage(
                # Add file input for importing draft and an import button
                column(9,
                       column(4,
-                      fileInput("import_draft", "Import Previous Draft (CSV):", accept = c(".csv"))
+                             fileInput("import_draft", "Import Previous Draft (CSV):", accept = c(".csv"))
                       ),
                       br(),
                       column(5, 
-                      actionButton("import_button", "Import Draft")
+                             actionButton("import_button", "Import Draft")
                       )
                )
              ),
@@ -93,7 +93,7 @@ ui <- fluidPage(
     tabPanel("Selections",
              fluidRow(
                column(12, h3("Selections by Fantasy Player")),
-               uiOutput("selections_ui")
+               div(style = "padding-left: 20px;", uiOutput("selections_ui"))
              )
     )
   )
@@ -134,7 +134,6 @@ server <- function(input, output, session) {
     })
   })
   
-  
   # Reactive value for category counts
   category_counts <- reactiveVal(
     data.frame(
@@ -161,7 +160,7 @@ server <- function(input, output, session) {
     available <- available_players()
     if (nrow(available) > 0) {
       # Sort available players alphabetically by name
-      sorted_names <- available$name |> sort()
+      sorted_names <- sort(available$name)
       updateSelectizeInput(session, "player_select", 
                            choices = sorted_names, 
                            selected = "",  # Ensure no default selection
@@ -173,6 +172,7 @@ server <- function(input, output, session) {
                            server = TRUE)
     }
   })
+  
   
   
   # Update Available Players UI
@@ -343,7 +343,8 @@ server <- function(input, output, session) {
         round = snake_order$round[pick],
         name = selected_player,
         position = position,
-        fantasy_player = fantasy_player
+        fantasy_player = fantasy_player,
+        stringsAsFactors = FALSE
       )))
       
       # Remove player from available list
@@ -392,7 +393,7 @@ server <- function(input, output, session) {
     }
   })
   
-  # Three columns for selections table
+  # Selections UI
   output$selections_ui <- renderUI({
     selections <- assigned_players()
     
@@ -441,14 +442,10 @@ server <- function(input, output, session) {
     }
   })
   
-  
-  
-  
-  
   # Reactive value to store the export data
   export_data <- reactiveVal(NULL)
   
-  # Observe Export Button
+  # Export Button Logic
   observeEvent(input$export_button, {
     selections <- assigned_players()
     
@@ -474,12 +471,9 @@ server <- function(input, output, session) {
     # Save the formatted data to the reactive value
     export_data(formatted_data)
     
-    # Save as RDS
-    #    saveRDS(formatted_data, "draft_selections.rds")
-    
     showModal(modalDialog(
       title = "Export Successful",
-      "Draft results are ready for download as CSV file."
+      "Draft results are ready for download as a CSV file."
     ))
   })
   
@@ -519,36 +513,41 @@ server <- function(input, output, session) {
       return()
     }
     
-    # Ensure data is properly sorted by draft_order
+    # Ensure data is properly sorted by draft_order and rename columns
     draft_data <- draft_data %>%
       arrange(draft_order) %>%
-      mutate(pick = draft_order)
+      rename(
+        pick = draft_order,
+        name = nba_player_taken,
+        fantasy_player = player
+      ) %>%
+      select(pick, round, name, position, fantasy_player)
     
     # Update reactive values
     assigned_players(draft_data)
     
     # Update current pick
-    next_pick <- ifelse(nrow(draft_data) > 0, max(draft_data$draft_order) + 1, 1)
+    next_pick <- ifelse(nrow(draft_data) > 0, max(draft_data$pick) + 1, 1)
     current_pick(next_pick)
     
     # Update available players
-    imported_names <- draft_data$nba_player_taken
+    imported_names <- draft_data$name
     updated_players <- players[!players$name %in% imported_names, ]
     available_players(updated_players)
     
-    # Update the draft board
+    # Update the draft board UI
     lapply(1:nrow(draft_data), function(i) {
-      pick <- draft_data$draft_order[i]
+      pick_num <- draft_data$pick[i]
       player_info <- draft_data[i, ]
       shinyjs::html(
-        id = paste0("assigned_player_", pick),
+        id = paste0("assigned_player_", pick_num),
         html = paste0("<div style='background-color: ", 
                       ifelse(player_info$position == "Guard", "orange", 
                              ifelse(player_info$position == "Wing", "lightblue", "purple")), 
                       "; color: ", 
                       ifelse(player_info$position %in% c("Post"), "white", "black"), 
                       "; padding: 5px; border-radius: 5px;'>",
-                      player_info$nba_player_taken, 
+                      player_info$name, 
                       "</div>")
       )
     })
@@ -559,6 +558,7 @@ server <- function(input, output, session) {
       easyClose = TRUE
     ))
   })
+  
   
   
   
