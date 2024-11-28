@@ -1,3 +1,4 @@
+library(readr)
 
 team_season_roster <- function(team = "Denver Nuggets", season = season, 
                                 return_message = TRUE) {
