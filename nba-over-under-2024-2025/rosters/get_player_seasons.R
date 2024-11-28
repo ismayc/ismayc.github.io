@@ -2,8 +2,8 @@ library(readr)
 
 team_season_roster <- function(team = "Denver Nuggets", season = season, 
                                 return_message = TRUE) {
-  if (!require("remotes")) { install.packages("remotes") }
-  if (!require("nbastatR")) { remotes::install_github("abresler/nbastatR") }
+  # if (!require("remotes")) { install.packages("remotes") }
+  # if (!require("nbastatR")) { remotes::install_github("abresler/nbastatR") }
   if (!"team" %>% exists()) {
     stop("Please enter a team")
   }
