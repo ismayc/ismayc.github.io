@@ -191,18 +191,32 @@ server <- function(input, output, session) {
     div(
       style = "display: flex; flex-wrap: wrap; gap: 2px;",
       lapply(1:nrow(guard_players), function(i) {
-        div(
-          style = paste0("margin: 0px; padding: 0px; background-color: ", 
-                         if (isTRUE(max_reached)) "lightgray" else guard_players$color[i], 
-                         "; color: ", 
-                         if (isTRUE(max_reached)) "darkgray" else guard_players$text_color[i], 
-                         "; border-radius: 5px; font-size: 12px; text-align: center; width: 175px; height: 25px;"),
-          guard_players$name[i]
+        player_name <- guard_players$name[i]
+        actionLink(
+          inputId = paste0("select_guard_", player_name), 
+          label = player_name, 
+          style = paste0(
+            "margin: 0px; padding: 5px; background-color: ", guard_players$color[i],
+            "; color: ", guard_players$text_color[i], 
+            "; border-radius: 5px; font-size: 12px; text-align: center; width: 175px;"
+          )
         )
       })
     )
   })
   
+  observe({
+    available <- available_players()
+    guard_players <- available[available$position == "Guard", ]
+    
+    # Dynamically observe each guard player
+    lapply(1:nrow(guard_players), function(i) {
+      player_name <- guard_players$name[i]
+      observeEvent(input[[paste0("select_guard_", player_name)]], {
+        updateSelectizeInput(session, "player_select", selected = player_name)
+      })
+    })
+  })
   
   output$wings_ui <- renderUI({
     available <- available_players()
@@ -219,16 +233,31 @@ server <- function(input, output, session) {
     div(
       style = "display: flex; flex-wrap: wrap; gap: 2px;",
       lapply(1:nrow(wing_players), function(i) {
-        div(
-          style = paste0("margin: 0px; padding: 0px; background-color: ", 
-                         if (isTRUE(max_reached)) "lightgray" else wing_players$color[i], 
-                         "; color: ", 
-                         if (isTRUE(max_reached)) "darkgray" else wing_players$text_color[i], 
-                         "; border-radius: 5px; font-size: 12px; text-align: center; width: 175px; height: 25px;"),
-          wing_players$name[i]
+        player_name <- wing_players$name[i]
+        actionLink(
+          inputId = paste0("select_wing_", player_name), 
+          label = player_name, 
+          style = paste0(
+            "margin: 0px; padding: 5px; background-color: ", wing_players$color[i],
+            "; color: ", wing_players$text_color[i], 
+            "; border-radius: 5px; font-size: 12px; text-align: center; width: 175px;"
+          )
         )
       })
     )
+  })
+  
+  observe({
+    available <- available_players()
+    guard_players <- available[available$position == "Wing", ]
+    
+    # Dynamically observe each guard player
+    lapply(1:nrow(guard_players), function(i) {
+      player_name <- guard_players$name[i]
+      observeEvent(input[[paste0("select_wing_", player_name)]], {
+        updateSelectizeInput(session, "player_select", selected = player_name)
+      })
+    })
   })
   
   output$posts_ui <- renderUI({
@@ -246,16 +275,31 @@ server <- function(input, output, session) {
     div(
       style = "display: flex; flex-wrap: wrap; gap: 2px;",
       lapply(1:nrow(post_players), function(i) {
-        div(
-          style = paste0("margin: 0px; padding: 0px; background-color: ", 
-                         if (isTRUE(max_reached)) "lightgray" else post_players$color[i], 
-                         "; color: ", 
-                         if (isTRUE(max_reached)) "darkgray" else post_players$text_color[i], 
-                         "; border-radius: 5px; font-size: 12px; text-align: center; width: 175px; height: 25px;"),
-          post_players$name[i]
+        player_name <- post_players$name[i]
+        actionLink(
+          inputId = paste0("select_post_", player_name), 
+          label = player_name, 
+          style = paste0(
+            "margin: 0px; padding: 5px; background-color: ", post_players$color[i],
+            "; color: ", post_players$text_color[i], 
+            "; border-radius: 5px; font-size: 12px; text-align: center; width: 175px;"
+          )
         )
       })
     )
+  })
+  
+  observe({
+    available <- available_players()
+    guard_players <- available[available$position == "Post", ]
+    
+    # Dynamically observe each guard player
+    lapply(1:nrow(guard_players), function(i) {
+      player_name <- guard_players$name[i]
+      observeEvent(input[[paste0("select_post_", player_name)]], {
+        updateSelectizeInput(session, "player_select", selected = player_name)
+      })
+    })
   })
   
   # Assign Player Button Logic
