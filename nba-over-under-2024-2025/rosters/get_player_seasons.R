@@ -49,10 +49,11 @@ team_season_roster <- function(team = "Denver Nuggets", season = season,
 }
 
 #write_rds(teams, "teams.rds")
-teams <- read_rds("teams.rds")
+teams <- read_rds("nba-over-under-2024-2025/rosters/teams.rds")
 players_season_pulled <- purrr::map_dfr(
   teams,
   team_season_roster,
   season = season, return_message = TRUE)
 
-write_rds(players_season_pulled, "players_season_pulled.rds")
+write_rds(players_season_pulled, 
+          "nba-over-under-2024-2025/rosters/players_season_pulled.rds")
