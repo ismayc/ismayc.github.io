@@ -1,6 +1,8 @@
 library(readr)
 library(dplyr)
 
+season <- 2025
+
 team_season_roster <- function(team = "Denver Nuggets", season = season, 
                                 return_message = TRUE) {
   # if (!require("remotes")) { install.packages("remotes") }
