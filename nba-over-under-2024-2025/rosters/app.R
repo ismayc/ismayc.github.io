@@ -9,9 +9,9 @@ library(tictoc)
 library(httr)
 library(jsonlite)
 
-date_added <- "2024-11-26"
+#date_added <- "2024-11-26"
 season <- 2025
-#date_added <- Sys.Date()
+date_added <- Sys.Date()
 
 
 players_season <- read_rds("players_season_pulled.rds")

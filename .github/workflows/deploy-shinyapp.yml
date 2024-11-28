@@ -61,6 +61,7 @@ jobs:
         run: |
           Rscript -e 'rsconnect::setAccountInfo("${{ secrets.SHINYAPPS_ACCOUNT }}", "${{ secrets.SHINYAPPS_TOKEN }}", "${{ secrets.SHINYAPPS_SECRET }}")' \
                  -e 'install.packages(c("shiny", "janitor", "tidyverse", "DT", "tictoc", "httr", "jsonlite", "remotes"), repos = "https://cran.rstudio.com/")' \
+                 -e 'source("nba-over-under-2024-2025/rosters/get_player_seasons.R")' \
                  -e 'rsconnect::deployApp(appDir = "nba-over-under-2024-2025/rosters", appName = "${{ env.APPNAME }}", account = "${{ env.ACCOUNT }}", server = "${{ env.SERVER }}")'
 
       # Authorize and deploy third app
