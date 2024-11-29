@@ -82,7 +82,7 @@ jobs:
       - name: Run data fetching script
         if: matrix.app.name == 'nba-player-finder'
         run: |
-          Rscript nba-2024-2025-over-under/rosters/get_player_seasons.R
+          Rscript nba-over-under-2024-2025/rosters/get_player_seasons.R
 
       # Set up rsconnect account information
       - name: Configure rsconnect
