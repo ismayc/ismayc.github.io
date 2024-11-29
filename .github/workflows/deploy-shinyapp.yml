@@ -3,7 +3,7 @@ name: Deploy Shiny Apps
 on:
   schedule:
  #   - cron: "*/10 * * * *"
-    - cron: "0 13 * * *"
+    - cron: "0 14 * * *"
   push:
     branches: [main, master]
   workflow_dispatch:
