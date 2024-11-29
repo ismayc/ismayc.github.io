@@ -14,11 +14,11 @@ jobs:
       matrix:
         app:
           - name: nba-player-finder
-            appDir: nba-2024-2025-over-under/rosters
+            appDir: /nba-2024-2025-over-under/rosters
           - name: over-under-points-calculator
-            appDir: nba-2024-2025-over-under/over-under-points-calculator
+            appDir: /nba-2024-2025-over-under/over-under-points-calculator
           - name: fantasy-draft
-            appDir: nba-2024-2025-over-under/fantasy-draft
+            appDir: /nba-2024-2025-over-under/fantasy-draft
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       SHINYAPPS_ACCOUNT: ${{ secrets.SHINYAPPS_ACCOUNT }}
@@ -82,7 +82,7 @@ jobs:
       - name: Run data fetching script
         if: matrix.app.name == 'nba-player-finder'
         run: |
-          Rscript nba-over-under-2024-2025/rosters/get_player_seasons.R
+          Rscript /nba-over-under-2024-2025/rosters/get_player_seasons.R
 
       # Set up rsconnect account information
       - name: Configure rsconnect
