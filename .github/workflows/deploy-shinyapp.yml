@@ -39,9 +39,14 @@ jobs:
           r-version: '4.4.1'  # Match the version supported by shinyapps.io
           use-public-rspm: true
 
+      - name: Setup renv
+        uses: r-lib/actions/setup-renv@v2
+        with:
+          path: nba-over-under-2024-2025
+
       # Install rsconnect for deployment
       - name: Install rsconnect
-        run: Rscript -e 'install.packages("rsconnect")'
+        run: Rscript -e 'renv::install("rsconnect")'
 
       # Authorize and deploy first app
       - name: Authorize and deploy player finder app
