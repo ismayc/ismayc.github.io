@@ -13,7 +13,7 @@ library(readr)
 date_added <- "2024-11-29"
 #date_added <- Sys.Date()
 
-players_season <- read_rds("/nba-over-under-2024-2025/rosters/players_season_pulled.rds")
+players_season <- read_rds("players_season_pulled.rds")
 
 players_clean <- clean_names(players_season) %>% 
   rename(team = name_team) %>% 
