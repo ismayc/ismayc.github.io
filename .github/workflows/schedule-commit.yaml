@@ -48,7 +48,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9'  # Adjust as needed
+          python-version: '3.13'  # Adjust as needed
 
       # Set up the project-local virtual environment
       - name: Setup Python virtual environment
@@ -89,7 +89,7 @@ jobs:
       - name: Setup renv
         uses: r-lib/actions/setup-renv@v2
         with:
-          path: nba-over-under-2024-2025
+          working-directory: nba-over-under-2024-2025
  
       - name: Build webpage
         run: |
