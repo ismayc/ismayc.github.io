@@ -41,8 +41,6 @@ jobs:
 
       - name: Setup renv
         uses: r-lib/actions/setup-renv@v2
-        with:
-          working-directory: nba-over-under-2024-2025
 
       # Install rsconnect for deployment
       - name: Install rsconnect
