@@ -18,7 +18,7 @@ jobs:
           - name: nba-player-finder
             appDir: nba-over-under-2024-2025/rosters
             packages: |
-              c("shiny", "curl", "janitor", "tidyverse", "DT", "tictoc", "httr", "jsonlite", "remotes", "furrr", "glue")
+              c("shiny", "curl", "janitor", "tidyverse", "DT", "tictoc", "httr", "jsonlite", "remotes", "furrr", "glue", "retry", "lubridate", "purrr")
           - name: over-under-points-calculator
             appDir: nba-over-under-2024-2025/over-under-points-calculator
             packages: |
@@ -72,13 +72,14 @@ jobs:
       - name: Install R packages
         run: |
           Rscript -e 'install.packages("rsconnect", repos = "https://cran.rstudio.com/")'
-          Rscript -e 'install.packages(parse(text = "${{ matrix.packages }}"), repos = "https://cran.rstudio.com/")'
-          # Install any GitHub packages if necessary
-          if [ "${{ matrix.app.name }}" = "nba-player-finder" ]; then
-            Rscript -e 'remotes::install_github("abresler/nbastatR")'
-            Rscript -e 'source("nba-over-under-2024-2025/rosters/get_player_seasons.R")'
-          fi
+          Rscript -e 'install.packages(parse(text = "${{ matrix.app.packages }}"), repos = "https://cran.rstudio.com/")'
 
+      # Install GitHub packages and run specific scripts for nba-player-finder
+      - name: Install GitHub packages and run scripts
+        if: matrix.app.name == 'nba-player-finder'
+        run: |
+          Rscript -e 'remotes::install_github("abresler/nbastatR")'
+          Rscript -e 'source("nba-over-under-2024-2025/rosters/get_player_seasons.R")'
 
       # Set up rsconnect account information
       - name: Configure rsconnect
