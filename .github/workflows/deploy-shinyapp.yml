@@ -74,10 +74,11 @@ jobs:
           Rscript -e 'install.packages("rsconnect", repos = "https://cran.rstudio.com/")'
           Rscript -e 'install.packages(parse(text = "${{ matrix.packages }}"), repos = "https://cran.rstudio.com/")'
           # Install any GitHub packages if necessary
-          if [ "${{ matrix.app }}" = "nba-player-finder" ]; then
+          if [ "${{ matrix.app.name }}" = "nba-player-finder" ]; then
             Rscript -e 'remotes::install_github("abresler/nbastatR")'
             Rscript -e 'source("nba-over-under-2024-2025/rosters/get_player_seasons.R")'
           fi
+
 
       # Set up rsconnect account information
       - name: Configure rsconnect
