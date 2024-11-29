@@ -1,3 +1,0 @@
-nba_api>=1.1
-numpy>=1.19.0
-pandas>=1.5

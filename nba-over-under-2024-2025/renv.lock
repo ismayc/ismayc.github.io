@@ -9,9 +9,9 @@
     ]
   },
   "Python": {
-    "Version": "3.13",
+    "Version": "3.13.0",
     "Type": "virtualenv",
-    "Name": "venv"
+    "Name": "/Users/chesterismay/.virtualenvs/venv"
   },
   "Packages": {
     "DBI": {
