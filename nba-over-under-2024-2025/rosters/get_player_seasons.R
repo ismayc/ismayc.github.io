@@ -1,5 +1,6 @@
 library(readr)
 library(dplyr)
+library(nbastatR)
 
 season <- 2025
 
