@@ -1,12 +1,11 @@
+name: build-nba-webpage
+
 on:
   schedule:
- #   - cron: "*/10 * * * *"
     - cron: "0 12 * * *"
   push:
     branches: [main, master]
   workflow_dispatch:
-
-name: build-nba-webpage
 
 jobs:
   build-nba-webpage:
@@ -18,14 +17,13 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: macOS-latest,   r: 'release'}
+          - {os: macOS-latest, r: 'release'}
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       RSPM: ${{ matrix.config.rspm }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       WORKON_HOME: ./.virtualenvs
-#      RENV_PATHS_ROOT: ~/.local/share/renv
 
     steps:
       - uses: actions/checkout@v3
@@ -47,63 +45,34 @@ jobs:
         with:
           extra-packages: rcmdcheck remotes reticulate
 
-      # Set up Python
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.13'  # Adjust as needed
 
-      # Set up the project-local virtual environment
       - name: Setup Python virtual environment
-        shell: Rscript {0}
         run: |
-          python_packages <- c("pandas", "nba_api")
-      
-          library(reticulate)
-      
-          # Define a relative path for the virtual environment
-          virtualenv_dir <- file.path("venv")
-      
-          # Create the virtual environment in the project directory
-          virtualenv_create(envname = virtualenv_dir)
-      
-          # Install required Python packages
-          virtualenv_install(envname = virtualenv_dir, packages = python_packages)
-      
-          # Set RETICULATE_PYTHON to point to the virtual environment's Python binary
-          path_to_python <- virtualenv_python(envname = virtualenv_dir)
-          writeLines(sprintf("RETICULATE_PYTHON=%s", path_to_python), Sys.getenv("GITHUB_ENV"))
+          python -m venv venv
+          source venv/bin/activate
+          pip install pandas nba_api
+          echo "RETICULATE_PYTHON=$(pwd)/venv/bin/python" >> $GITHUB_ENV
+        shell: bash
 
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Pull changes
-        run: git pull origin master
-
-      - name: Configure Git
-        run: |
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
-          git remote set-url origin https://github.com/ismayc/ismayc.github.io.git
-          git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
- 
       - name: Build webpage
         run: |
-          source("nba-over-under-2024-2025/make_plot_html.R")
-        shell: Rscript {0} 
+          Rscript nba-over-under-2024-2025/make_plot_html.R
+        shell: bash
 
       - name: Push changes
         run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
           git add -A
           git commit -m "GitHub Actions NBA page build" || echo "No changes to commit"
           git push origin master
-     
+
       - name: Session info
         run: |
-          options(width = 100)
-          install.packages("sessioninfo")
-          pkgs <- installed.packages()[, "Package"]
-          sessioninfo::session_info(pkgs, include_base = TRUE)
-        shell: Rscript {0}
+          Rscript -e "install.packages('sessioninfo')"
+          Rscript -e "sessioninfo::session_info()"
+        shell: bash
