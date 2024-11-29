@@ -46,7 +46,11 @@ jobs:
             libfreetype6-dev \
             libpng-dev \
             libmagick++-dev \
-            libpoppler-cpp-dev
+            libpoppler-cpp-dev \
+            libglu1-mesa-dev \
+            libgl1-mesa-dev \
+            mesa-common-dev \
+            libx11-dev
 
 
       # Set up R with a compatible version
