@@ -11,7 +11,7 @@
   "Python": {
     "Version": "3.9.6",
     "Type": "virtualenv",
-    "Name": "r-reticulate"
+    "Name": "/Users/chesterismay/.virtualenvs/r-reticulate"
   },
   "Packages": {
     "DBI": {
@@ -1753,20 +1753,6 @@
       ],
       "Hash": "76c9e04c712a05848ae7a23d2f170a40"
     },
-    "remotes": {
-      "Package": "remotes",
-      "Version": "2.5.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Requirements": [
-        "R",
-        "methods",
-        "stats",
-        "tools",
-        "utils"
-      ],
-      "Hash": "3ee025083e66f18db6cf27b56e23e141"
-    },
     "renv": {
       "Package": "renv",
       "Version": "1.0.11",
@@ -1820,6 +1806,17 @@
         "withr"
       ],
       "Hash": "e1a5d04397edc1580c5e0ed1dbdccf76"
+    },
+    "retry": {
+      "Package": "retry",
+      "Version": "0.1.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "later",
+        "rlang"
+      ],
+      "Hash": "cf479286b824294aa324326d49a3b563"
     },
     "rlang": {
       "Package": "rlang",
@@ -1993,6 +1990,19 @@
         "xtable"
       ],
       "Hash": "6a293995a66e12c48d13aa1f957d09c7"
+    },
+    "shinyjs": {
+      "Package": "shinyjs",
+      "Version": "2.1.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "digest",
+        "jsonlite",
+        "shiny"
+      ],
+      "Hash": "802e4786b353a4bb27116957558548d5"
     },
     "snakecase": {
       "Package": "snakecase",

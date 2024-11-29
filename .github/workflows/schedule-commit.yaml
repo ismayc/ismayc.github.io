@@ -50,11 +50,6 @@ jobs:
         with:
           python-version: '3.9'  # Adjust as needed
 
-      # Install Python packages
-      - name: Install Python packages
-        run: |
-          pip install numpy>=1.22.2
-
       - name: setup r-reticulate venv
         shell: Rscript {0}
         run: |
