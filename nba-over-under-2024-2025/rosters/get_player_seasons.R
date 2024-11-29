@@ -97,7 +97,7 @@ team_season_roster <- function(team = "Denver Nuggets", season = season,
   # Fetch data with retry logic
   json_data <- fetch_data_with_retry(json_url)
   
-  Sys.sleep(10) # Pause to avoid rate limiting
+  Sys.sleep(2) # Pause to avoid rate limiting
   
   names_roster <- unlist(json_data$resultSets$headers[[1]]) %>% str_to_lower()
   data_roster <- json_data$resultSets$rowSet[[1]] %>%

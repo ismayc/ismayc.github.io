@@ -51,9 +51,7 @@ jobs:
           SERVER: shinyapps.io
         run: |
           Rscript -e 'rsconnect::setAccountInfo("${{ secrets.SHINYAPPS_ACCOUNT }}", "${{ secrets.SHINYAPPS_TOKEN }}", "${{ secrets.SHINYAPPS_SECRET }}")' \
-                 -e 'install.packages(c("shiny", "curl", "retry", "janitor", "tidyverse", "DT", "tictoc", "httr", "jsonlite", "remotes", "furrr", "glue"), repos = "https://cran.rstudio.com/")' \
-                 -e 'remotes::install_github("abresler/nbastatR")' \
-                 -e 'source("nba-over-under-2024-2025/rosters/get_player_seasons.R")' \
+                 -e 'install.packages(c("shiny", "curl", "retry", "janitor", "tidyverse", "DT", "tictoc", "httr", "jsonlite", "glue"), repos = "https://cran.rstudio.com/")' \
                  -e 'rsconnect::deployApp(appDir = "nba-over-under-2024-2025/rosters", appName = "${{ env.APPNAME }}", account = "${{ env.ACCOUNT }}", server = "${{ env.SERVER }}")'
 
       # Authorize and deploy second app
