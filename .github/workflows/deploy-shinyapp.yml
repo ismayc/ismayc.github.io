@@ -45,7 +45,8 @@ jobs:
             libfribidi-dev \
             libfreetype6-dev \
             libpng-dev \
-            libmagick++-dev
+            libmagick++-dev \
+            libpoppler-cpp-dev
 
 
       # Set up R with a compatible version
