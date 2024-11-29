@@ -9,7 +9,7 @@ library(lubridate)
 library(purrr)
 
 # Define the seasons
-seasons <- 1979:2025
+seasons <- 1980:2025
 
 # Custom function to fetch data from the NBA Stats API
 curl_chinazi <- function(url) {
@@ -61,9 +61,9 @@ team_season_roster <- function(team = NULL, team_id = NULL, season, return_messa
       assign("df_dict_team_history", df_dict_team_history, envir = .GlobalEnv)
     }
     
-    team_id <- df_dict_team_history %>%
-      filter(str_detect(nameTeam, fixed(team, ignore_case = TRUE))) %>%
-      pull(idTeam) %>%
+    team_id <- df_dict_team_history |>
+      filter(str_detect(nameTeam, fixed(team, ignore_case = TRUE))) |>
+      pull(idTeam) |>
       unique()
     
     if (length(team_id) == 0) {
@@ -97,9 +97,9 @@ team_season_roster <- function(team = NULL, team_id = NULL, season, return_messa
   
   Sys.sleep(2) # Pause to avoid rate limiting
   
-  names_roster <- unlist(json_data$resultSets$headers[[1]]) %>% str_to_lower()
-  data_roster <- json_data$resultSets$rowSet[[1]] %>%
-    as.data.frame(stringsAsFactors = FALSE) %>%
+  names_roster <- unlist(json_data$resultSets$headers[[1]]) |> str_to_lower()
+  data_roster <- json_data$resultSets$rowSet[[1]] |>
+    as.data.frame(stringsAsFactors = FALSE) |>
     tibble::as_tibble()
   
   actual_names <- c("idTeam", "yearSeason", "idLeague", "namePlayer",
@@ -108,22 +108,22 @@ team_season_roster <- function(team = NULL, team_id = NULL, season, return_messa
                     "weightLBS", "dateBirth", "agePlayerSeason", "countSeasons",
                     "nameSchool", "idPlayer", "transaction")[seq_along(names(data_roster))]
   
-  data_roster <- data_roster %>%
-    purrr::set_names(actual_names) %>%
-    mutate(slugSeason = slugSeason, nameTeam = team, season = season) %>%
+  data_roster <- data_roster |>
+    purrr::set_names(actual_names) |>
+    mutate(slugSeason = slugSeason, nameTeam = team, season = season) |>
     select(slugSeason, yearSeason, nameTeam, everything())
   
-  data_roster <- data_roster %>%
+  data_roster <- data_roster |>
     mutate(across(c("idTeam", "yearSeason",
                     "idLeague", "weightLBS", "agePlayerSeason", "countSeasons",
-                    "idPlayer"), ~ as.character(.) %>% readr::parse_number())) %>%
+                    "idPlayer"), ~ as.character(.) |> readr::parse_number())) |>
     mutate(
       dateBirth = lubridate::mdy(dateBirth),
       countSeasons = if_else(is.na(countSeasons), 0, countSeasons),
       isRookie = countSeasons == 0
-    ) %>%
-    select(-idLeague) %>%
-    suppressMessages() %>%
+    ) |>
+    select(-idLeague) |>
+    suppressMessages() |>
     suppressWarnings()
   
   if (return_message) {
@@ -139,9 +139,9 @@ assign("df_dict_team_history", df_dict_team_history, envir = .GlobalEnv)
 
 # Function to get teams active in a given season
 get_teams_for_season <- function(season) {
-  teams_in_season <- df_dict_team_history %>%
-    filter((yearStart <= season) & (is.na(yearEnd) | yearEnd >= season)) %>%
-    select(nameTeam, idTeam) %>%
+  teams_in_season <- df_dict_team_history |>
+    filter((yearStart <= season) & (is.na(yearEnd) | yearEnd >= season)) |>
+    select(nameTeam, idTeam) |>
     unique()
   return(teams_in_season)
 }
@@ -179,3 +179,10 @@ for (season in seasons) {
   # Optional: Pause between seasons to respect rate limits
   Sys.sleep(5)
 }
+
+# Combine all season data into a single data frame
+all_rosters <- list.files(output_dir, full.names = TRUE) |>
+  purrr::map(read_rds) |>
+  purrr::reduce(rbind)
+
+write_rds(all_rosters, "nba_rosters_1980_to_2024.rds")

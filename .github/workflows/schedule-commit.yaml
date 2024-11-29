@@ -50,18 +50,26 @@ jobs:
         with:
           python-version: '3.9'  # Adjust as needed
 
-      - name: setup r-reticulate venv
+      # Set up the project-local virtual environment
+      - name: Setup Python virtual environment
         shell: Rscript {0}
         run: |
           python_packages <- c("pandas", "nba_api")
-
+      
           library(reticulate)
-          virtualenv_create("r-reticulate", Sys.which("python"))
-          virtualenv_install("r-reticulate", python_packages)
-
-          path_to_python <- virtualenv_python("r-reticulate")
-          writeLines(sprintf("RETICULATE_PYTHON=%s", path_to_python),
-                     Sys.getenv("GITHUB_ENV"))
+      
+          # Define a relative path for the virtual environment
+          virtualenv_dir <- file.path("venv")
+      
+          # Create the virtual environment in the project directory
+          virtualenv_create(envname = virtualenv_dir)
+      
+          # Install required Python packages
+          virtualenv_install(envname = virtualenv_dir, packages = python_packages)
+      
+          # Set RETICULATE_PYTHON to point to the virtual environment's Python binary
+          path_to_python <- virtualenv_python(envname = virtualenv_dir)
+          writeLines(sprintf("RETICULATE_PYTHON=%s", path_to_python), Sys.getenv("GITHUB_ENV"))
 
       - name: Checkout code
         uses: actions/checkout@v3
