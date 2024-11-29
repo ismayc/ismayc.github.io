@@ -43,9 +43,16 @@ jobs:
         with:
           extra-packages: rcmdcheck remotes reticulate
 
-      - uses: actions/setup-python@v4
+      # Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          python-version: "3.x"
+          python-version: '3.9'  # Adjust as needed
+
+      # Install Python packages
+      - name: Install Python packages
+        run: |
+          pip install numpy>=1.22.2
 
       - name: setup r-reticulate venv
         shell: Rscript {0}
