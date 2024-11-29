@@ -1,6 +1,8 @@
 library(readr)
 library(dplyr)
 library(nbastatR)
+library(stringr)
+# library(retry)
 
 season <- 2025
 
@@ -23,8 +25,14 @@ team_season_roster <- function(team = "Denver Nuggets", season = season,
     pull(idTeam) %>% unique()
   json_url <- glue::glue("https://stats.nba.com/stats/commonteamroster?LeagueID=00&Season={slugSeason}&TeamID={team_id}") %>%
     as.character()
-  json_data <- json_url %>% nbastatR:::.curl_chinazi()
-  Sys.sleep(3)
+  
+ # fetch_data <- function() {
+    json_data <- json_url %>% nbastatR:::.curl_chinazi()
+#  }
+#   <- retry::retry(fetch_data(), until = function(x) !inherits(x, "try-error"))
+  
+  Sys.sleep(7) # Pause for 7 seconds between requests
+  
   names_roster <- json_data$resultSets$headers[1] %>% unlist() %>%
     str_to_lower()
   data_roster <- json_data$resultSets$rowSet[1] %>% data.frame(stringsAsFactors = F) %>%
