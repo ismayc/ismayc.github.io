@@ -71,31 +71,31 @@ jobs:
       # Install rsconnect and all required R packages
       - name: Install R packages
         run: |
-          Rscript -e 'install.packages("rsconnect", repos = "https://cran.rstudio.com/")'
-          Rscript -e 'install.packages(parse(text = "${{ matrix.app.packages }}"), repos = "https://cran.rstudio.com/")'
+          Rscript -e "install.packages('rsconnect', repos = 'https://cran.rstudio.com/')"
+          Rscript -e "install.packages(${ matrix.app.packages }, repos = 'https://cran.rstudio.com/')"
 
       # Install GitHub packages and run specific scripts for nba-player-finder
       - name: Install GitHub packages and run scripts
         if: matrix.app.name == 'nba-player-finder'
         run: |
-          Rscript -e 'remotes::install_github("abresler/nbastatR")'
-          Rscript -e 'source("nba-over-under-2024-2025/rosters/get_player_seasons.R")'
+          Rscript -e "remotes::install_github('abresler/nbastatR')"
+          Rscript -e "source('nba-over-under-2024-2025/rosters/get_player_seasons.R')"
 
       # Set up rsconnect account information
       - name: Configure rsconnect
         run: |
-          Rscript -e 'rsconnect::setAccountInfo(
-            name = Sys.getenv("SHINYAPPS_ACCOUNT"),
-            token = Sys.getenv("SHINYAPPS_TOKEN"),
-            secret = Sys.getenv("SHINYAPPS_SECRET")
-          )'
+          Rscript -e "rsconnect::setAccountInfo(
+            name = Sys.getenv('SHINYAPPS_ACCOUNT'),
+            token = Sys.getenv('SHINYAPPS_TOKEN'),
+            secret = Sys.getenv('SHINYAPPS_SECRET')
+          )"
 
       # Deploy the Shiny app
       - name: Deploy ${{ matrix.app.name }} App
         run: |
-          Rscript -e 'rsconnect::deployApp(
-            appDir = "${{ matrix.app.appDir }}",
-            appName = "${{ matrix.app.name }}",
-            account = Sys.getenv("SHINYAPPS_ACCOUNT"),
-            server = Sys.getenv("SHINYAPPS_SERVER")
-          )'
+          Rscript -e "rsconnect::deployApp(
+            appDir = '${{ matrix.app.appDir }}',
+            appName = '${{ matrix.app.name }}',
+            account = Sys.getenv('SHINYAPPS_ACCOUNT'),
+            server = Sys.getenv('SHINYAPPS_SERVER')
+          )"
