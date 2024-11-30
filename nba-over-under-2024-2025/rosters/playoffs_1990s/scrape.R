@@ -4,7 +4,7 @@ library(httr)
 library(dplyr)
 library(purrr)
 
-year_start <- 1993
+year_start <- 1994
 
 playoff_starters_by_game_by_year <- function(starting_year) {
   
@@ -12,7 +12,7 @@ playoff_starters_by_game_by_year <- function(starting_year) {
   
   # Set the URL
   playoffs_url <- paste0("https://www.basketball-reference.com/playoffs/NBA_", 
-                         year_start, ".html")
+                         starting_year, ".html")
   
   # Define function
   safe_read_html <- function(url) {
@@ -20,8 +20,8 @@ playoff_starters_by_game_by_year <- function(starting_year) {
       res <- httr::GET(url, httr::user_agent("Mozilla/5.0"))
       if (httr::status_code(res) == 200) {
         content <- httr::content(res, as = "text", encoding = "UTF-8")
-        read_html(content, encoding = "UTF-8")
-        #      message("Successfully read URL: ", url)
+        message("Successfully read URL: ", url)
+        return(read_html(content, encoding = "UTF-8"))
       } else {
         message("Failed to retrieve URL (HTTP ", httr::status_code(res), "): ", url)
         return(NULL)
@@ -44,6 +44,8 @@ playoff_starters_by_game_by_year <- function(starting_year) {
   # } else {
   #   stop("Failed to retrieve the page. Status code: ", httr::status_code(response))
   # }
+  
+  playoffs_html <- safe_read_html(playoffs_url)
   
   # Extract all game links from the page within tables
   game_links <- playoffs_html %>%
@@ -109,7 +111,7 @@ playoff_starters_by_game_by_year <- function(starting_year) {
         
         # Store the data
         team_lineup <- data.frame(
-          season = year_start,
+          season = starting_year,
           game_link = game_link,
           team_abbr = toupper(team_abbr),
           team_full_name = team_full_name,
