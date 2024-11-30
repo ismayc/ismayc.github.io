@@ -2,7 +2,6 @@
   command = "gem update --system && bundle install && bundle exec jekyll build"
   publish = "_site"
   ignore = "if [ -f requirements.txt ]; then exit 0; else exit 1; fi"
-  base = "docs"
 
 [build.environment]
   RUBY_VERSION = "3.3.6"
