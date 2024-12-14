@@ -136,7 +136,7 @@ team_season_roster <- function(team = "Denver Nuggets", season = season,
 }
 
 # Load teams data
-teams <- read_rds("nba-over-under-2024-2025/rosters/teams.rds")
+teams <- read_rds("rosters/teams.rds")
 
 # Fetch player seasons data with error handling
 players_season_pulled <- purrr::map_dfr(
@@ -154,4 +154,4 @@ players_season_pulled <- purrr::map_dfr(
 
 # Save the results
 write_rds(players_season_pulled, 
-          "nba-over-under-2024-2025/rosters/players_season_pulled.rds")
+          "rosters/players_season_pulled.rds")
