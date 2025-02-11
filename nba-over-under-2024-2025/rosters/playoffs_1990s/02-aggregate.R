@@ -1,5 +1,7 @@
 library(tidyverse)
 
+team_info <- read_csv("team_info.csv")
+
 # Load the data
 playoff_starters_cleaned <- read_rds("playoff_starters_all_enriched.rds") |> 
   mutate(team_full_name = str_replace_all(team_full_name, 
@@ -43,6 +45,12 @@ total_playoff_games <- east_even |>
   group_by(season, team_abbr) |> 
   summarize(total_playoff_games = n_distinct(game_link), .groups = "drop")
 
+total_playoff_games |> 
+  filter(
+    team_abbr %in% c("TOR", "DET", "MIL"),
+    season %in% c(2000, 2002, 2006)
+    ) |> View()
+
 # Merge the playoff starts with total playoff games and calculate relative frequency
 playoff_starts <- playoff_starts_raw %>%
   left_join(total_playoff_games, by = c("season", "team_abbr")) %>%
@@ -53,6 +61,12 @@ top5_per_team <- playoff_starts |>
   group_by(season, team_abbr) |>
   top_n(5, playoff_starts) |> 
   ungroup()
+
+top5_per_team |> 
+  filter(
+    team_abbr %in% c("DET", "MIL"),
+    season %in% c(2000, 2006)
+  ) |> View()
 
 # Playoff appearances for each team
 team_playoff_appearances <- east_even |> 
@@ -152,14 +166,15 @@ select_unique_teams_and_seasons_fixed <- function(data, fixed_assignment) {
 
 # Fixed assignment:
 fixed_assignment <- list(
-                          '1996' = 'MIA', '1998' = 'CLE', #almost too hard
-                         '2000' = 'TOR', '2002' = 'DET', '2004' = 'NYK',
-                         '2006' = 'MIL',
-                         '2008' = 'WAS', '2010' = 'CHA', 
-                         '2012' = 'PHI', '2014' = 'ATL',
-                         '2016' = 'BOS', '2018' = 'IND', '2020' = 'BKN',
-                         '2022' = 'CHI', '2024' = 'ORL'
-                         )
+  '1996' = 'MIA', '1998' = 'CLE', #almost too hard
+  '2000' = 'TOR', 
+  '2002' = 'DET', '2004' = 'NYK',
+  '2006' = 'MIL',
+  '2008' = 'WAS', '2010' = 'CHA', 
+  '2012' = 'PHI', '2014' = 'ATL',
+  '2016' = 'BOS', '2018' = 'IND', '2020' = 'BKN',
+  '2022' = 'CHI', '2024' = 'ORL'
+)
 
 # Apply the function
 result <- select_unique_teams_and_seasons_fixed(team_playoff_appearances, fixed_assignment)
@@ -187,3 +202,57 @@ filtered_starters <- top5_per_team %>%
 
 picks_for_phil <- filtered_starters %>%
   distinct(season, team_abbr)
+
+## Studying
+west_odd <- playoff_starters_cleaned |> 
+  filter(conference == "West", season %% 2 == 1, season >= 1995)
+
+# Count the number of playoff starts per player per team by season
+playoff_starts_west_raw <- west_odd |>
+  group_by(season, team_abbr, player_name) |>
+  summarize(playoff_starts = n(), .groups = "drop") |>
+  arrange(season, team_abbr, desc(playoff_starts))
+
+# Calculate the total number of playoff games each team played
+total_west_playoff_games <- west_odd |> 
+  group_by(season, team_abbr) |> 
+  summarize(total_playoff_games = n_distinct(game_link), .groups = "drop")
+
+# Merge the playoff starts with total playoff games and calculate relative frequency
+playoff_west_starts <- playoff_starts_west_raw %>%
+  left_join(total_west_playoff_games, by = c("season", "team_abbr")) %>%
+  mutate(relative_percentage = round(playoff_starts / total_playoff_games * 100, 2)) |> 
+  arrange(team_abbr, season)
+
+top5_per_team_west <- playoff_west_starts |>
+  group_by(season, team_abbr) |>
+  top_n(5, playoff_starts) |> 
+  arrange(season) |> 
+  ungroup()
+
+current_west <- top5_per_team_west |> 
+  filter(!(season %in% c(2017, 2007, 1999, 2015, 2009, 1997, 2013, 2019, 2023, 2003, 2021, 2005, 2011))) |> 
+  filter(!(team_abbr %in% c("OKC", "HOU", "SAC", "NOP", "SAS", "MIN", "GSW",
+                            "LAC", "PHO", "UTA", "LAL", "MEM", "POR")))
+
+
+# Summarize total playoff_starts per team per season
+team_playoff_summary <- current_west %>%
+  group_by(season, team_abbr) %>%                     # Group by season and team_abbr
+  summarize(total_playoff_starts = sum(playoff_starts), .groups = 'drop')  # Sum playoff_starts
+
+# Rank teams within each season based on total_playoff_starts
+ranked_teams <- team_playoff_summary %>%
+  arrange(season, desc(total_playoff_starts)) %>%    # Arrange by season and descending playoff starts
+  group_by(season) %>%                                # Group by season for ranking
+  mutate(rank = dense_rank(desc(total_playoff_starts))) %>%  # Assign ranks
+  ungroup()                                           # Ungroup the data
+
+# likely_picks <- tibble(
+#   season = c(1995, 2001, 2005, 2011),
+#   team_abbr = c("DEN", "POR", "MEM", "DAL")
+# )
+# 
+# # Focus on the likely picks
+# focused_data <- current_west |> 
+#   semi_join(likely_picks, by = c("season", "team_abbr"))
