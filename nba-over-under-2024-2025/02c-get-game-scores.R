@@ -20,7 +20,16 @@ scores_temp1 <- read_csv("current_year.csv") %>%
   inner_join(meta %>% 
                select(abbreviation),
              by = c("TEAM_ABBREVIATION" = "abbreviation"))|> 
-  filter(GAME_DATE < Sys.Date())
+  filter(GAME_DATE != as.Date("2024-12-17")) |> 
+  filter(GAME_DATE < Sys.Date()) |> 
+  mutate(MATCHUP = case_when(
+    GAME_ID == "0022401230" & TEAM_ABBREVIATION == "OKC" ~ "OKC vs. HOU",
+    GAME_ID == "0022400147" & TEAM_ABBREVIATION == "WAS" ~ "WAS vs. MIA",
+    GAME_ID == "0022400621" & TEAM_ABBREVIATION == "IND" ~ "IND vs. SAS",
+    GAME_ID == "0022400623" & TEAM_ABBREVIATION == "SAS" ~ "SAS vs. IND",
+    GAME_ID == "0022401229" & TEAM_ABBREVIATION == "MIL" ~ "MIL vs. ATL",
+    TRUE ~ MATCHUP
+    ))
 
 # Redo the analysis that used to be done in 02a-get-game-scores.R
 #if(!file.exists(here(
@@ -185,10 +194,13 @@ standings <- standings_temp %>%
     sprintf("%.1f", round(`Games Back`, 1)))
   )
 
-# Manual fix to reduce Lakers total wins by 1 and Pacers loss total by 1. 
+# Manual fix to reduce Bucks total wins by 1 and Thunder loss total by 1. 
 # The IST championship does not count towards regular season outcomes.
-# standings[standings$abbreviation == "LAL", "wins"] <- standings[standings$abbreviation == "LAL", "wins"] - 1
-# standings[standings$abbreviation == "IND", "losses"] <- standings[standings$abbreviation == "IND", "losses"] - 1
+# Make sure to get the new schedule after the IST finishes with the 00-get_schedule.R script
+# standings[standings$abbreviation == "MIL", "wins"] <- standings[standings$abbreviation == "MIL", "wins"] - 1
+# standings[standings$abbreviation == "OKC", "losses"] <- standings[standings$abbreviation == "OKC", "losses"] - 1
+
+# Fixed in 00-get-schedule instead!
 
 write_rds(standings,
           here::here("rds", glue::glue("standings_through_{Sys.Date() - 1}.rds")))

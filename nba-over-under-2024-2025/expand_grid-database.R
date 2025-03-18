@@ -1,5 +1,4 @@
 library(tictoc)
-season <- "2024-2025"
 
 tic()
 
@@ -7,9 +6,10 @@ library(tidyverse)
 library(readxl)
 
 manual <- TRUE
+#manual <- FALSE
 
 ## UNCOMMENT AND RUN TO START SIMULATIONS BUT THEN COMMENT AGAIN
-source(paste0("nba-over-under-", season, "/expand_grid-database-prep.R"))
+#source("expand-grid-database-prep.R")
 
 num_players <- 8
 
@@ -19,32 +19,32 @@ picks_wide_new <- readr::read_rds("picks_wide_new.rds") %>%
 # Assign the column names to each remaining NBA team
 # using things computed in the make_plots.Rmd file
 determined_so_far <- read_rds(
-  paste0("determined_outcomes_", Sys.Date(), ".rds")
+  paste0("determined_outcomes/determined_outcomes_", Sys.Date(), ".rds")
 )
 
 if (manual) {
-# determined_so_far[determined_so_far$Team == "Indiana Pacers", "Outcome Determined"] <- "OVER"
-# determined_so_far[determined_so_far$Team == "Boston Celtics", "Outcome Determined"] <- "OVER"
-# determined_so_far[determined_so_far$Team == "Toronto Raptors", "Outcome Determined"] <- "UNDER"
-#  determined_so_far[determined_so_far$Team == "Brooklyn Nets", "Outcome Determined"] <- "UNDER"
-#  determined_so_far[determined_so_far$Team == "New Orleans Pelicans", "Outcome Determined"] <- "OVER"
-#  determined_so_far[determined_so_far$Team == "Phoenix Suns", "Outcome Determined"] <- "UNDER"
-#  determined_so_far[determined_so_far$Team == "Philadelphia 76ers", "Outcome Determined"] <- "UNDER"
-#  determined_so_far[determined_so_far$Team == "Los Angeles Clippers", "Outcome Determined"] <- "OVER"
-#  determined_so_far[determined_so_far$Team == "Dallas Mavericks", "Outcome Determined"] <- "OVER"
-
-  #  determined_so_far[determined_so_far$Team == "Golden State Warriors", "Outcome Determined"] <- "UNDER"
-#  determined_so_far[determined_so_far$Team == "Los Angeles Lakers", "Outcome Determined"] <- "OVER"
-#  determined_so_far[determined_so_far$Team == "New York Knicks", "Outcome Determined"] <- "OVER"
-#  determined_so_far[determined_so_far$Team == "Denver Nuggets", "Outcome Determined"] <- "OVER"
-  #  determined_so_far[determined_so_far$Team == "Atlanta Hawks", "Outcome Determined"] <- "UNDER"
-  #  determined_so_far[determined_so_far$Team == "Cleveland Cavaliers", "Outcome Determined"] <- "UNDER"
-  #  determined_so_far[determined_so_far$Team == "Miami Heat", "Outcome Determined"] <- "UNDER"
-#  determined_so_far[determined_so_far$Team == "Chicago Bulls", "Outcome Determined"] <- "OVER"
-    #  determined_so_far[determined_so_far$Team == "Portland Trail Blazers", "Outcome Determined"] <- "UNDER"
-
-#    determined_so_far[determined_so_far$Team == "Los Angeles Lakers", "Outcome Determined"] <- "UNDER"
-  determined_so_far[determined_so_far$Team == "Sacramento Kings", "Outcome Determined"] <- "UNDER"
+  # determined_so_far[determined_so_far$Team == "Minnesota Timberwolves", "Outcome Determined"] <- "UNDER"
+  # determined_so_far[determined_so_far$Team == "Miami Heat", "Outcome Determined"] <- "UNDER"
+  # determined_so_far[determined_so_far$Team == "Milwaukee Bucks", "Outcome Determined"] <- "UNDER"
+  # determined_so_far[determined_so_far$Team == "Houston Rockets", "Outcome Determined"] <- "OVER"
+  
+  # Very confident
+  determined_so_far <- determined_so_far %>%
+    mutate(`Outcome Determined` = case_when(
+      Team %in% c("Minnesota Timberwolves", "Miami Heat", "Milwaukee Bucks") ~ "UNDER",
+      Team == "Houston Rockets" ~ "OVER",
+      TRUE ~ `Outcome Determined`
+    ))
+  
+  # Confident
+  determined_so_far <- determined_so_far %>%
+    mutate(`Outcome Determined` = case_when(
+      Team %in% c("Utah Jazz", "Charlotte Hornets", "Washington Wizards",
+                  "Sacramento Kings") ~ "UNDER",
+      Team %in% c("Memphis Grizzlies", "Oklahoma City Thunder", 
+                  "Los Angeles Lakers") ~ "OVER",
+      TRUE ~ `Outcome Determined`
+    ))
 }
 
 teams <- determined_so_far %>% 

@@ -78,7 +78,9 @@ nba_schedule <- nba_schedule_raw %>%
   mutate(
     game_date = as.Date(game_date, format = "%a, %b %d, %Y"),
     start_time = as.character(start_time)
-  ) 
+  ) |> 
+  # Filter out in-season tournament championship game
+  filter(!game_date == as.Date("2024-12-17"))
 
 # Check for correct number of home and away games
 home <- nba_schedule %>%
@@ -95,4 +97,4 @@ away <- nba_schedule %>%
 home %>% filter(n_home_games != 41)
 away %>% filter(n_away_games != 41)
 
-write_csv(nba_schedule, "schedule-2024-25.csv")
+write_csv(nba_schedule, "schedule-2024-25-after-ist.csv")

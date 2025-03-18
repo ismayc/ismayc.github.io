@@ -6,7 +6,7 @@ library(glue)
 standings <- here("rds", glue("standings_through_{Sys.Date() - 1}.rds")) %>% 
   read_rds()
 
-# From 02a-get-game-scores.R
+# From 02c-get-game-scores.R
 game_results_raw <- here(
   "rds", 
   glue("game_results_raw_through_{Sys.Date() - 1}.rds")) %>% 

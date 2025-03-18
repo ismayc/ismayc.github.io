@@ -768,7 +768,8 @@ if (nrow(yesterday_scores)) {
 ```
 
 ```{r message=FALSE, warning=FALSE}
-schedule <- read_csv(paste0("schedule-", this_year,".csv")) #|> 
+schedule <- read_csv(paste0("schedule-", this_year, "-after-ist.csv"))
+    #                        ".csv")) #|> 
   # rename(game_date = `Game Date`, start_time = `Start (ET)`,
   #        away_team = `Visitor/Neutral`, home_team = `Home/Neutral`) |> 
   # select(game_date, start_time, away_team, home_team) |> 
