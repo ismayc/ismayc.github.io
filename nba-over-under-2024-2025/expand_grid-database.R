@@ -31,20 +31,37 @@ if (manual) {
   # Very confident
   determined_so_far <- determined_so_far %>%
     mutate(`Outcome Determined` = case_when(
-      Team %in% c("Minnesota Timberwolves", "Miami Heat", "Milwaukee Bucks") ~ "UNDER",
-      Team == "Houston Rockets" ~ "OVER",
+      Team %in% c("Milwaukee Bucks") ~ "UNDER",
+      Team %in% c("Memphis Grizzlies") ~ "OVER",
       TRUE ~ `Outcome Determined`
     ))
   
   # Confident
   determined_so_far <- determined_so_far %>%
     mutate(`Outcome Determined` = case_when(
-      Team %in% c("Utah Jazz", "Charlotte Hornets", "Washington Wizards",
+      Team %in% c("Charlotte Hornets", 
+                  "Washington Wizards",
                   "Sacramento Kings") ~ "UNDER",
-      Team %in% c("Memphis Grizzlies", "Oklahoma City Thunder", 
-                  "Los Angeles Lakers") ~ "OVER",
+      Team %in% c("Los Angeles Lakers", 
+                  "Golden State Warriors",
+                  "Chicago Bulls") ~ "OVER",
       TRUE ~ `Outcome Determined`
     ))
+  
+  # So so
+  determined_so_far <- determined_so_far %>%
+    mutate(`Outcome Determined` = case_when(
+      Team %in% c("Toronto Raptors",
+                  "San Antonio Spurs") ~ "UNDER",
+      Team %in% c("Los Angeles Clippers") ~ "OVER",
+      TRUE ~ `Outcome Determined`
+    ))
+  # 5 teams left
+  # Atlanta Hawks
+  # Denver Nuggets
+  # Indiana Pacers
+  # New York Knicks
+  # Boston Celtics
 }
 
 teams <- determined_so_far %>% 
