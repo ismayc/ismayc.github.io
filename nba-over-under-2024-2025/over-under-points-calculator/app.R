@@ -125,12 +125,12 @@ ui <- fluidPage(
   sidebarLayout(
     sidebarPanel(
       width = 4,
-      h5("Outcome still to be determined"),
+      h5(paste0("Outcome still to be determined (", 30 - length(teams_determined), ")")),
       # Build UI elements for teams not determined using purrr::map()
       tagList(map(teams_not_determined, ~ over_under_choice(.x,
                                                             selected = chester_picks %>% filter(Team == .x) %>% pull(choice)))),
       br(),
-      h5("Outcome determined"),
+      h5(paste0("Outcome determined (", length(teams_determined), ")")),
       # Build UI elements for determined teams using purrr::map()
       tagList(map(teams_determined, ~ over_under_choice(display_name(.x, outcome_determined = TRUE), 
                                                         choices = get_outcome(.x))))
