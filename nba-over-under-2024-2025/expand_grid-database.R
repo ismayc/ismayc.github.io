@@ -43,8 +43,7 @@ if (manual) {
                   "Washington Wizards",
                   "Sacramento Kings") ~ "UNDER",
       Team %in% c("Los Angeles Lakers", 
-                  "Golden State Warriors",
-                  "Chicago Bulls") ~ "OVER",
+                  "Golden State Warriors") ~ "OVER",
       TRUE ~ `Outcome Determined`
     ))
   

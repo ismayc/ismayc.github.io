@@ -25,6 +25,9 @@ library(future)
 library(glue)
 library(stringi)
 library(rvest)
+
+library(htmltools)
+
 nbastatR_files <- list.files(path = "nbastatR-r-files",
                              full.names = TRUE)
 purrr::walk(nbastatR_files, source)
@@ -294,6 +297,13 @@ out_table %>%
 #### Games through `r Sys.Date() - 1`
 
 ```{r}
+# Custom CSS
+custom_css <- tags$style(HTML("
+  table.dataTable tbody tr:nth-child(4) td {
+    border-bottom: 3px solid black !important;
+  }
+"))
+
 projected_score %>% 
   arrange(desc(Date), desc(`Projected Total Points`), 
           desc(`Number Correct`),
@@ -301,7 +311,15 @@ projected_score %>%
           desc(`Number (Wage 14) Correct`),
           desc(`Number (Wage 13) Correct`),
           desc(`Number (Wage 12) Correct`)) %>% 
-  DT::datatable(options = list(pageLength = num_players))
+  DT::datatable(
+    options = list(
+      pageLength = num_players,
+      columnDefs = list(
+        list(width = '80px', targets = 1)  # Increase the width of column index 1 (second column)
+      )
+    )
+  ) %>%
+  tagList(custom_css, .)
 ```
 
 ***
@@ -769,11 +787,11 @@ if (nrow(yesterday_scores)) {
 
 ```{r message=FALSE, warning=FALSE}
 schedule <- read_csv(paste0("schedule-", this_year, "-after-ist.csv"))
-    #                        ".csv")) #|> 
-  # rename(game_date = `Game Date`, start_time = `Start (ET)`,
-  #        away_team = `Visitor/Neutral`, home_team = `Home/Neutral`) |> 
-  # select(game_date, start_time, away_team, home_team) |> 
-  # mutate(game_date = lubridate::mdy(game_date))
+#                        ".csv")) #|> 
+# rename(game_date = `Game Date`, start_time = `Start (ET)`,
+#        away_team = `Visitor/Neutral`, home_team = `Home/Neutral`) |> 
+# select(game_date, start_time, away_team, home_team) |> 
+# mutate(game_date = lubridate::mdy(game_date))
 ```
 
 ```{r message=FALSE, warning=FALSE}
@@ -849,8 +867,8 @@ if (nrow(todays_games)) {
       left_join(current_over_under, by = c("team_name" = "Team")) %>%
       left_join(current_clinched_status, by = c("team_name" = "Team")) |> 
       filter(((Over_Under_Simulated == "OVER" & `Current Over/Under` == "UNDER") |
-               (Over_Under_Simulated == "UNDER" & `Current Over/Under` == "OVER") |
-               Can_No_Longer_Win | Can_No_Longer_Lose) &
+                (Over_Under_Simulated == "UNDER" & `Current Over/Under` == "OVER") |
+                Can_No_Longer_Win | Can_No_Longer_Lose) &
                (`Outcome Determined` == "not yet")) %>%
       select(team_name, `Current Over/Under`, Over_Under_Simulated, Can_No_Longer_Win, Can_No_Longer_Lose)
     
