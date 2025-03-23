@@ -50,17 +50,16 @@ if (manual) {
   # So so
   determined_so_far <- determined_so_far %>%
     mutate(`Outcome Determined` = case_when(
-      Team %in% c("Toronto Raptors",
-                  "San Antonio Spurs") ~ "UNDER",
-      Team %in% c("Los Angeles Clippers") ~ "OVER",
+      Team %in% c("Toronto Raptors") ~ "UNDER",
+      Team %in% c("Los Angeles Clippers", "Atlanta Hawks") ~ "OVER",
       TRUE ~ `Outcome Determined`
     ))
   # 5 teams left
-  # Atlanta Hawks
   # Denver Nuggets
   # Indiana Pacers
   # New York Knicks
   # Boston Celtics
+  # "San Antonio Spurs"
 }
 
 teams <- determined_so_far %>% 

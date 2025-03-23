@@ -299,7 +299,7 @@ out_table %>%
 ```{r}
 # Custom CSS
 custom_css <- tags$style(HTML("
-  table.dataTable tbody tr:nth-child(4) td {
+  #proj_score table.dataTable tbody tr:nth-child(4) td {
     border-bottom: 3px solid black !important;
   }
 "))
@@ -316,8 +316,8 @@ projected_score %>%
       pageLength = num_players,
       columnDefs = list(
         list(width = '80px', targets = 1)  # Increase the width of column index 1 (second column)
-      )
-    )
+      )),
+    elementId = "proj_score"
   ) %>%
   tagList(custom_css, .)
 ```
