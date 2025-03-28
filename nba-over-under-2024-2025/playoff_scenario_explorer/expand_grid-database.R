@@ -5,15 +5,15 @@ tic()
 library(tidyverse)
 library(readxl)
 
-#manual <- TRUE
-manual <- FALSE
+manual <- TRUE
+#manual <- FALSE
 
 ## UNCOMMENT AND RUN TO START SIMULATIONS BUT THEN COMMENT AGAIN
 #source("expand-grid-database-prep.R")
 
 num_players <- 8
 
-picks_wide_new <- readr::read_rds("../picks_wide_new.rds") %>% 
+picks_wide_new <- readr::read_rds("picks_wide_new.rds") %>% 
   rename(Team = team)
 
 # Assign the column names to each remaining NBA team
@@ -31,33 +31,35 @@ if (manual) {
   # Very confident
   determined_so_far <- determined_so_far %>%
     mutate(`Outcome Determined` = case_when(
-      Team %in% c("Charlotte Hornets") ~ "UNDER",
-      Team %in% c("Memphis Grizzlies", "Atlanta Hawks") ~ "OVER",
+ #     Team %in% c("Charlotte Hornets") ~ "UNDER",
+#      Team %in% c("Memphis Grizzlies") ~ "OVER", 
+      Team %in% c("Atlanta Hawks") ~ "OVER",
       TRUE ~ `Outcome Determined`
     ))
   
   # Confident
-  determined_so_far <- determined_so_far %>%
-    mutate(`Outcome Determined` = case_when(
-      Team %in% c("Washington Wizards") ~ "UNDER",
-      Team %in% c("Los Angeles Lakers", 
-                  "Golden State Warriors") ~ "OVER",
-      TRUE ~ `Outcome Determined`
-    ))
+  # determined_so_far <- determined_so_far %>%
+  #   mutate(`Outcome Determined` = case_when(
+  #     Team %in% c("Washington Wizards") ~ "UNDER",
+  #     Team %in% c("Los Angeles Lakers",
+  #                 "Golden State Warriors") ~ "OVER",
+  #     TRUE ~ `Outcome Determined`
+  #   ))
   
   # So so
-  determined_so_far <- determined_so_far %>%
-    mutate(`Outcome Determined` = case_when(
-      Team %in% c("Toronto Raptors") ~ "UNDER",
-      Team %in% c("Los Angeles Clippers") ~ "OVER",
-      TRUE ~ `Outcome Determined`
-    ))
-  # 5 teams left
+#   determined_so_far <- determined_so_far %>%
+#     mutate(`Outcome Determined` = case_when(
+# #      Team %in% c("Toronto Raptors") ~ "UNDER",
+#       Team %in% c("Los Angeles Clippers") ~ "OVER",
+#       TRUE ~ `Outcome Determined`
+#     ))
+  # 6 teams left
   # "Denver Nuggets"
   # "Indiana Pacers"
   # "New York Knicks"
   # "Boston Celtics"
   # "San Antonio Spurs"
+  # "Toronto Raptors"
 }
 
 teams <- determined_so_far %>% 
@@ -364,22 +366,25 @@ scenarios <- populated_sum_long %>%
   mutate(playoffs = rank <= 4) %>% 
   select(sim, everything())
 
-scenarios_final <- scenarios %>%
+scenarios_final_db <- scenarios %>%
   group_by(player) %>% 
-  summarize(median_expected_total = median(total),
-            mean_expected_total = mean(total),
-            sd_expected_total = sd(total),
-            median_rank = median(rank),
-            mean_rank = mean(rank),
-            highest_rank = min(rank),
-            lowest_rank = max(rank),
-            num_sims = n(),
-            num_times_playoffs = sum(playoffs == TRUE),
-            prob_playoffs = mean(playoffs == TRUE) * 100,
-            prob_one_rank = mean(rank == 1) * 100) %>% 
-  arrange(desc(median_expected_total))
+  summarize(
+    # median_expected_total = median(total),
+    #        mean_expected_total = mean(total),
+    #        sd_expected_total = sd(total),
+    median_rank = median(rank),
+    mean_rank = mean(rank),
+    highest_rank = min(rank),
+    lowest_rank = max(rank),
+    num_sims = n(),
+    num_times_playoffs = sum(playoffs == TRUE),
+    prob_playoffs = mean(playoffs == TRUE) * 100,
+    prob_one_rank = mean(rank == 1) * 100) %>% 
+  arrange(median_rank)
 
-View(scenarios_final)
+write_rds(scenarios_final_db, "scenarios_final_13_teams.rds")
+
+View(scenarios_final_db)
 
 toc(log = FALSE)
 # 19 teams - 279.734 sec elapsed
