@@ -6,7 +6,7 @@ library(readr)
 
 ui <- fluidPage(
   
-  titlePanel("Over/Under Playoffs Calculator"),
+  titlePanel("Over/Under Playoff Scenarios Explorer"),
   
   sidebarLayout(
     sidebarPanel(
@@ -74,6 +74,15 @@ server <- function(input, output, session) {
   #---------------------------------------------------
   summaryData <- reactive({
     
+    # 1) If there are no teams or if overrides is NULL, skip
+    if (length(team_list) == 0) {
+      # Return either an empty data frame or some placeholder
+      return(tibble(Message = "No Undecided Teams."))
+    }
+    
+    # 2) Or use req() to forcibly stop if something is missing/NULL
+    req(!is.null(overrides))
+    
     # Gather the user’s overrides
     overrides <- sapply(team_list, function(tm) {
       input[[paste0("override_", tm)]]
@@ -82,15 +91,30 @@ server <- function(input, output, session) {
     # Convert "Not Yet" to NA (meaning no override)
     overrides <- ifelse(overrides == "Not Yet", NA, overrides)
     
+    picks_joined <- picks_joined %>%
+      # Convert from factor to character so they're compatible
+      mutate(
+        Team              = as.character(Team),
+        `Outcome Determined` = as.character(`Outcome Determined`)
+      )
+    
+    
     # Apply overrides only to the teams in team_list
     picks_local <- picks_joined %>%
       mutate(
-        `Outcome Determined` = ifelse(
-          !is.na(overrides[Team]),  # If user picked OVER/UNDER
-          overrides[Team],         # apply that override
-          `Outcome Determined`     # else leave it as is
+        # 1) Pull out the override value for each row's Team into a new column
+        override_value = overrides[Team]
+      ) %>%
+      mutate(
+        # 2) Use if_else() on that new column
+        `Outcome Determined` = if_else(
+          !is.na(override_value),
+          override_value,
+          `Outcome Determined`
         )
-      )
+      ) %>%
+      select(-override_value)  # optional: remove temp column
+    
     
     #-----------------------------------------------------------------
     # 5) Re-run your scenario logic with the new `Outcome Determined`
