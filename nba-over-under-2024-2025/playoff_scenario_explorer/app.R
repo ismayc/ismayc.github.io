@@ -80,9 +80,6 @@ server <- function(input, output, session) {
       return(tibble(Message = "No Undecided Teams."))
     }
     
-    # 2) Or use req() to forcibly stop if something is missing/NULL
-    req(!is.null(overrides))
-    
     # Gather the user’s overrides
     overrides <- sapply(team_list, function(tm) {
       input[[paste0("override_", tm)]]
