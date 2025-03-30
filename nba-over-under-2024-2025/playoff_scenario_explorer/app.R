@@ -3,10 +3,11 @@
 library(shiny)
 library(tidyverse)
 library(readr)
+#library(DT)
 
 ui <- fluidPage(
   
-  titlePanel("Over/Under Playoff Scenarios Explorer"),
+  titlePanel("NBA Over/Under 2024-2025 Playoff Scenarios Explorer"),
   
   sidebarLayout(
     sidebarPanel(
@@ -14,8 +15,11 @@ ui <- fluidPage(
     ),
     
     mainPanel(
-      h3("Summary Table"),
-      tableOutput("summaryTable")
+      h3("Playoff Probabilities Based on Remaining Scenarios"),
+ #     tableOutput("summaryTable")
+      uiOutput("summaryTable")
+ 
+ 
     )
   )
 )
@@ -34,10 +38,13 @@ server <- function(input, output, session) {
   picks_wide_new <- read_rds("picks_wide_new.rds") %>%
     rename(Team = team)
   
-  # Load outcomes
-  determined_so_far <- read_rds(
-    paste0("../over-under-points-calculator/determined_outcomes_", Sys.Date(), ".rds")
-  )
+  # Load outcomes that have been determined so far
+  # determined_so_far <- read_rds(
+  #   paste0("../over-under-points-calculator/determined_outcomes_", Sys.Date(), ".rds")
+  # )
+  # write_rds(determined_so_far, "determined_so_far_2025_03_30.rds")
+  
+  determined_so_far <- read_rds("determined_so_far_2025_03_30.rds")
   
   # Join to get outcomes with picks
   picks_joined <- picks_wide_new %>%
@@ -45,7 +52,7 @@ server <- function(input, output, session) {
               by = "Team")
   
   #-------------------------------------------------------------
-  # 2) Keep only the 13 teams that haven't been determined yet
+  # 2) Keep only the teams that haven't been determined yet
   #    i.e. Outcome Determined is NOT "OVER" or "UNDER"
   #-------------------------------------------------------------
   team_list <- picks_joined %>%
@@ -57,7 +64,8 @@ server <- function(input, output, session) {
   #---------------------------------------------------
   output$teamToggles <- renderUI({
     # For each *undecided* team, create a set of radio buttons:
-    lapply(team_list, function(tm) {
+    lapply(sort(team_list), 
+    function(tm) {
       radioButtons(
         inputId = paste0("override_", tm), 
         label   = tm,
@@ -73,6 +81,7 @@ server <- function(input, output, session) {
   #    based on manual overrides from the radio buttons
   #---------------------------------------------------
   summaryData <- reactive({
+
     
     # 1) If there are no teams or if overrides is NULL, skip
     if (length(team_list) == 0) {
@@ -80,37 +89,29 @@ server <- function(input, output, session) {
       return(tibble(Message = "No Undecided Teams."))
     }
     
-    # Gather the user’s overrides
+    # Gather the user’s overrides and ensure they are a character vector
     overrides <- sapply(team_list, function(tm) {
       input[[paste0("override_", tm)]]
     }, USE.NAMES = TRUE)
-    
-    # Convert "Not Yet" to NA (meaning no override)
+    overrides <- unlist(overrides)  
     overrides <- ifelse(overrides == "Not Yet", NA, overrides)
     
-    picks_joined <- picks_joined %>%
-      # Convert from factor to character so they're compatible
-      mutate(
-        Team              = as.character(Team),
-        `Outcome Determined` = as.character(`Outcome Determined`)
-      )
-    
-    
-    # Apply overrides only to the teams in team_list
+    # Ensure picks_joined columns are character and apply overrides
     picks_local <- picks_joined %>%
       mutate(
-        # 1) Pull out the override value for each row's Team into a new column
-        override_value = overrides[Team]
+        Team = as.character(Team),
+        `Outcome Determined` = as.character(`Outcome Determined`),
+        override_value = as.character(overrides[Team])
       ) %>%
       mutate(
-        # 2) Use if_else() on that new column
-        `Outcome Determined` = if_else(
+        `Outcome Determined` = ifelse(
           !is.na(override_value),
           override_value,
           `Outcome Determined`
         )
       ) %>%
-      select(-override_value)  # optional: remove temp column
+      select(-override_value)
+    
     
     
     #-----------------------------------------------------------------
@@ -184,14 +185,14 @@ server <- function(input, output, session) {
     summary_df <- data.frame(
       player        = players,
       median_rank   = apply(scenario_ranks, 2, median),
-      mean_rank     = colMeans(scenario_ranks),
+      mean_rank     = round(colMeans(scenario_ranks), 2),
       highest_rank  = apply(scenario_ranks, 2, min),
       lowest_rank   = apply(scenario_ranks, 2, max),
-      num_sims      = n_scen,
-      prob_playoffs = 100 * colMeans(made_playoffs),
-      prob_first    = 100 * colMeans(scenario_ranks == 1)
+      num_scenarios = n_scen,
+      prob_playoffs = round(100 * colMeans(made_playoffs), 2),
+      prob_first    = round(100 * colMeans(scenario_ranks == 1), 2)
     ) %>% 
-      arrange(median_rank)
+      arrange(mean_rank)
     
     rownames(summary_df) <- NULL
     summary_df
@@ -200,9 +201,43 @@ server <- function(input, output, session) {
   #------------------------------------------------------
   # 6) Render the summary table in the main panel
   #------------------------------------------------------
-  output$summaryTable <- renderTable({
-    summaryData()
+  # output$summaryTable <- renderTable({
+  #   summaryData()
+  # })
+  output$summaryTable <- renderUI({
+    df <- summaryData()
+    
+    # If it's just a message, return it as a simple paragraph
+    if ("Message" %in% names(df)) {
+      return(HTML(paste0("<p><strong>", df$Message[1], "</strong></p>")))
+    }
+    
+    # Create the header row
+    headers <- paste0("<tr>", paste(paste0("<th>", names(df), "</th>"), collapse = ""), "</tr>")
+    
+    # Create the rows with optional red text and horizontal line
+    rows <- sapply(seq_len(nrow(df)), function(i) {
+      row <- df[i, ]
+      is_red <- as.numeric(row$highest_rank) %in% c(5, 6, 7, 8)
+      style <- if (is_red) ' style="color:red;"' else ""
+      
+      # Add a top border to the 5th row (i == 5)
+      if (i == 5) {
+        style <- paste0(style, ' style="border-top:2px solid black;"')
+      }
+      
+      row_html <- paste(paste0("<td>", as.character(row), "</td>"), collapse = "")
+      paste0("<tr", style, ">", row_html, "</tr>")
+    })
+    
+    # Combine all rows into an HTML table
+    table_html <- paste0("<table class='table table-bordered table-condensed'>", headers, paste(rows, collapse = ""), "</table>")
+    
+    HTML(table_html)
   })
+  
+  
+  
 }
 
 shinyApp(ui, server)

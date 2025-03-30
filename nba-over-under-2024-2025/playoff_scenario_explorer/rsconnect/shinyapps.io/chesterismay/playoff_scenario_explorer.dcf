@@ -1,0 +1,13 @@
+name: playoff_scenario_explorer
+title: playoff_scenario_explorer
+username: chesterismay
+account: chesterismay
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 14377145
+bundleId: 10027317
+url: https://chesterismay.shinyapps.io/playoff_scenario_explorer/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: .RData|app_sql.R|expand_grid-database.R|expand_grid-matrix.R|expand_grid.R|expand-grid-database-prep.R|nba_scenarios.sqlite|picks_matrix.R|picks_matrix.rds|possible_combinations.parquet|scenarios_final_13_matrix.rds|scenarios_final_13_teams.rds

@@ -5,8 +5,8 @@ tic()
 library(tidyverse)
 library(readxl)
 
-manual <- TRUE
-#manual <- FALSE
+#manual <- TRUE
+manual <- FALSE
 
 ## UNCOMMENT AND RUN TO START SIMULATIONS BUT THEN COMMENT AGAIN
 #source("expand-grid-database-prep.R")
