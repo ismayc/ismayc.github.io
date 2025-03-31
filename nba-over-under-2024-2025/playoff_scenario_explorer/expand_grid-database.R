@@ -366,6 +366,8 @@ scenarios <- populated_sum_long %>%
   mutate(playoffs = rank <= 4) %>% 
   select(sim, everything())
 
+write_rds(scenarios, "scenarios.rds")
+
 scenarios_final_db <- scenarios %>%
   group_by(player) %>% 
   summarize(
