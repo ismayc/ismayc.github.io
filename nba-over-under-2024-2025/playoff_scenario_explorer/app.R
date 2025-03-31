@@ -42,9 +42,9 @@ server <- function(input, output, session) {
   # determined_so_far <- read_rds(
   #   paste0("../over-under-points-calculator/determined_outcomes_", Sys.Date(), ".rds")
   # )
-  # write_rds(determined_so_far, "determined_so_far_2025_03_30.rds")
+  # write_rds(determined_so_far, "determined_so_far_2025_03_31.rds")
   
-  determined_so_far <- read_rds("determined_so_far_2025_03_30.rds")
+  determined_so_far <- read_rds("determined_so_far_2025_03_31.rds")
   
   # Join to get outcomes with picks
   picks_joined <- picks_wide_new %>%
