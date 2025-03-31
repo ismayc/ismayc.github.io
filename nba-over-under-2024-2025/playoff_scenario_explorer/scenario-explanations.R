@@ -2,7 +2,8 @@ library(DBI)
 library(dbplyr)
 library(tidyverse)
 
-teams_remaining <- 11
+teams_remaining <- num_not_determined
+
 # Create a new SQLite database or open a connection to an existing one
 con <- dbConnect(RSQLite::SQLite(), dbname = "nba_scenarios.sqlite")
 
@@ -10,6 +11,14 @@ con <- dbConnect(RSQLite::SQLite(), dbname = "nba_scenarios.sqlite")
 # options for each team for each player
 
 scenarios <- read_rds("scenarios.rds")
+
+# Any ties for 4th and 5th positions?
+
+# Select rows where rank is 4 or rank is 5 and the total column is the same
+scenarios %>%
+  filter(rank %in% c(4, 5)) %>%
+  group_by(sim) %>%
+  filter(n_distinct(total) == 1)
 
 # Reference the 'populated' table from the SQLite database
 populated <- tbl(con, "populated")

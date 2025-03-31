@@ -11,8 +11,6 @@ ui <- fluidPage(
     ),
     mainPanel(
       h3("Playoff Probabilities Based on Remaining Scenarios"),
-      h5("Last updated on", Sys.Date()),
-      textOutput("numScenariosText"),
       uiOutput("summaryTable")
     )
   )
@@ -52,10 +50,7 @@ server <- function(input, output, session) {
   summaryData <- reactive({
     if (length(team_list) == 0) return(tibble(Message = "No Undecided Teams."))
     
-    overrides <- sapply(team_list, function(tm) {
-      val <- input[[paste0("override_", tm)]]
-      if (is.null(val)) "Not Yet" else val
-    }, USE.NAMES = TRUE)
+    overrides <- vapply(team_list, function(tm) input[[paste0("override_", tm)]], character(1))
     overrides <- ifelse(overrides == "Not Yet", NA, overrides)
     
     picks_local <- picks_joined %>%
@@ -71,12 +66,13 @@ server <- function(input, output, session) {
     num_teams <- length(team_names)
     num_players <- length(players)
     
-    pick_matrix <- sapply(players, function(player) {
-      ifelse(picks_local[[choice_col_for(player)]] == "OVER", 1, -1)
-    })
-    points_matrix <- sapply(players, function(player) {
-      picks_local[[points_col_for(player)]]
-    })
+    pick_matrix <- matrix(NA, nrow = num_teams, ncol = num_players, dimnames = list(team_names, players))
+    points_matrix <- matrix(NA, nrow = num_teams, ncol = num_players, dimnames = list(team_names, players))
+    
+    for (j in seq_along(players)) {
+      pick_matrix[, j] <- ifelse(picks_local[[choice_col_for(players[j])]] == "OVER", 1, -1)
+      points_matrix[, j] <- picks_local[[points_col_for(players[j])]]
+    }
     
     outcome_vector <- ifelse(picks_local$`Outcome Determined` == "OVER", 1,
                              ifelse(picks_local$`Outcome Determined` == "UNDER", -1, 0))
@@ -90,25 +86,34 @@ server <- function(input, output, session) {
     }
     n_scen <- nrow(all_combos)
     
+    scenario_outcomes <- matrix(rep(outcome_vector, times = n_scen), nrow = n_scen, byrow = TRUE)
+    if (num_not_determined > 0) {
+      scenario_outcomes[, not_determined_idx] <- as.matrix(all_combos)
+    }
     
-    scenario_ranks <- matrix(NA_integer_, nrow = n_scen, ncol = num_players, dimnames = list(NULL, players))
+    scenario_ranks <- matrix(NA, nrow = n_scen, ncol = num_players, dimnames = list(NULL, players))
     
     for (i in seq_len(n_scen)) {
-      outcome_i <- outcome_vector
-      if (num_not_determined > 0) {
-        outcome_i[not_determined_idx] <- as.integer(all_combos[i, ])
-      }
+      outcome_i <- scenario_outcomes[i, ]
+      outcome_mat <- matrix(outcome_i, nrow = num_teams, ncol = num_players)
       
-      correct_matrix <- sweep(pick_matrix, 1, outcome_i, `==`)
+      correct_matrix <- (outcome_mat == pick_matrix)
       correct_15pt_matrix <- correct_matrix & (points_matrix == 15)
       
-      score_i <- colSums((pick_matrix * outcome_i) * points_matrix)
+      score_i <- colSums((outcome_mat * pick_matrix) * points_matrix)
       total_correct_i <- colSums(correct_matrix)
       correct_15pt_i <- colSums(correct_15pt_matrix)
       
-      ord <- order(-score_i, -total_correct_i, -correct_15pt_i)
-      scenario_ranks[i, ord] <- seq_along(ord)
+      df_rank <- tibble(
+        player = players,
+        score = score_i,
+        correct = total_correct_i,
+        correct15 = correct_15pt_i
+      ) %>%
+        arrange(desc(score), desc(correct), desc(correct15)) %>%
+        mutate(rank = row_number())
       
+      scenario_ranks[i, ] <- df_rank$rank[match(players, df_rank$player)]
     }
     
     made_playoffs <- scenario_ranks <= 4
@@ -119,23 +124,12 @@ server <- function(input, output, session) {
       mean_rank = as.numeric(round(colMeans(scenario_ranks), 2)),
       highest_rank = as.numeric(apply(scenario_ranks, 2, min)),
       lowest_rank = as.numeric(apply(scenario_ranks, 2, max)),
+      num_scenarios = as.integer(n_scen),
       prob_playoffs = as.numeric(round(100 * colMeans(made_playoffs), 2)),
       prob_first = as.numeric(round(100 * colMeans(scenario_ranks == 1), 2))
     ) %>% arrange(mean_rank)
     
-    attr(summary_df, "num_scenarios") <- n_scen
     summary_df
-  })
-  
-  output$numScenariosText <- renderText({
-    df <- summaryData()
-    if ("Message" %in% names(df)) return("")
-    num_scenarios <- attr(df, "num_scenarios")
-    if (!is.null(num_scenarios)) {
-      paste("Number of scenarios simulated:", num_scenarios)
-    } else {
-      ""
-    }
   })
   
   output$summaryTable <- renderUI({
@@ -145,9 +139,7 @@ server <- function(input, output, session) {
     rows <- sapply(seq_len(nrow(df)), function(i) {
       row <- df[i, ]
       is_red <- as.numeric(row$highest_rank) %in% 5:8
-      is_green <- as.numeric(row$prob_playoffs) == 100
-      is_gold <- as.numeric(row$prob_first) == 100
-      style <- if (is_gold) ' style="background-color:#fff3cd;"' else if (is_green) ' style="background-color:#d4edda;"' else if (is_red) ' style="color:red;"' else ""
+      style <- if (is_red) ' style="color:red;"' else ""
       if (i == 5) style <- paste0(style, ' style="border-top:2px solid black;"')
       row_html <- paste(paste0("<td>", as.character(row), "</td>"), collapse = "")
       paste0("<tr", style, ">", row_html, "</tr>")

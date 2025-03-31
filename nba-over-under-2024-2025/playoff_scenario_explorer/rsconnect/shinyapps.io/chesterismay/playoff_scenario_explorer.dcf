@@ -5,9 +5,9 @@ account: chesterismay
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 14377145
-bundleId: 10031498
+bundleId: 10034039
 url: https://chesterismay.shinyapps.io/playoff_scenario_explorer/
 version: 1
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: .RData|app_sql.R|determined_so_far_2025_03_30.rds|expand_grid-database.R|expand_grid-matrix.R|expand_grid.R|expand-grid-database-prep.R|nba_scenarios.sqlite|picks_matrix.R|picks_matrix.rds|possible_combinations.parquet|scenarios_final_13_matrix.rds|scenarios_final_13_teams.rds
+ignoredFiles: .RData|app-matrix-no-sort.R|app-working_but_slow.R|expand_grid-database.R|expand_grid-matrix.R|expand-grid-database-prep.R|nba_scenarios.sqlite|possible_combinations.parquet|scenario-explanations.R|scenarios.rds|archive
