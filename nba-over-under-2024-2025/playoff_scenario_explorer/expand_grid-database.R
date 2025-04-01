@@ -5,8 +5,8 @@ tic()
 library(tidyverse)
 library(readxl)
 
-#manual <- TRUE
-manual <- FALSE
+manual <- TRUE
+#manual <- FALSE
 
 ## UNCOMMENT AND RUN TO START SIMULATIONS BUT THEN COMMENT AGAIN
 #source("expand-grid-database-prep.R")
@@ -33,7 +33,7 @@ if (manual) {
     mutate(`Outcome Determined` = case_when(
  #     Team %in% c("Charlotte Hornets") ~ "UNDER",
 #      Team %in% c("Memphis Grizzlies") ~ "OVER", 
-      Team %in% c("Atlanta Hawks") ~ "OVER",
+      Team %in% c("Washington Wizards") ~ "UNDER",
       TRUE ~ `Outcome Determined`
     ))
   

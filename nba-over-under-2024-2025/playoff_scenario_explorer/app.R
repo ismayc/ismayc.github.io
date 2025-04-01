@@ -2,17 +2,39 @@ library(shiny)
 library(tidyverse)
 library(readr)
 
+players <- c("Adonis", "Andy", "Chester", "Jake", "Mary", "Mike", "Phil", "Ryan")
+
+choice_col_for <- function(player) paste0(tolower(player), "_choice")
+points_col_for <- function(player) paste0(player, "_points")
+
+picks_wide_new <- read_rds("picks_wide_new.rds") %>% rename(Team = team)
+determined_so_far <- read_rds("determined_so_far_2025_03_31.rds") %>%
+  mutate(`Outcome Determined` = as.character(`Outcome Determined`)) %>%
+  mutate(`Outcome Determined` = ifelse(`Outcome Determined` == "not yet", "Not Yet", `Outcome Determined`))
+
+picks_joined <- picks_wide_new %>%
+  left_join(determined_so_far %>% select(Team, `Outcome Determined`), by = "Team")
+
+team_list <- picks_joined %>%
+  filter(!(`Outcome Determined` %in% c("OVER", "UNDER"))) %>%
+  pull(Team)
+
 ui <- fluidPage(
   titlePanel("NBA Over/Under 2024-2025 Playoff Scenarios Explorer"),
   
   sidebarLayout(
     sidebarPanel(
+      actionButton("reset_btn", "Reset All to Not Yet"),
+      br(), br(),
       uiOutput("teamToggles")
     ),
+    
     mainPanel(
       h3("Playoff Probabilities Based on Remaining Scenarios"),
       h5("Last updated on", Sys.Date()),
+      br(),
       textOutput("numScenariosText"),
+      br(),
       uiOutput("summaryTable")
     )
   )
@@ -20,49 +42,62 @@ ui <- fluidPage(
 
 server <- function(input, output, session) {
   
-  players <- c("Adonis", "Andy", "Chester", "Jake", "Mary", "Mike", "Phil", "Ryan")
+  refresh_ui <- reactiveVal(0)
   
-  choice_col_for <- function(player) paste0(tolower(player), "_choice")
-  points_col_for <- function(player) paste0(player, "_points")
   
-  picks_wide_new <- read_rds("picks_wide_new.rds") %>% rename(Team = team)
-  determined_so_far <- read_rds("determined_so_far_2025_03_31.rds") %>%
-    mutate(`Outcome Determined` = as.character(`Outcome Determined`)) %>%
-    mutate(`Outcome Determined` = ifelse(`Outcome Determined` == "not yet", "Not Yet", `Outcome Determined`))
+  # Store override states for each team
+  overrides <- reactiveValues()
   
-  picks_joined <- picks_wide_new %>%
-    left_join(determined_so_far %>% select(Team, `Outcome Determined`), by = "Team")
-  
-  team_list <- picks_joined %>%
-    filter(!(`Outcome Determined` %in% c("OVER", "UNDER"))) %>%
-    pull(Team)
-  
+  # Dynamically render radio buttons using override state
   output$teamToggles <- renderUI({
+    refresh_ui()  # depend on this trigger to force re-render
     lapply(sort(team_list), function(tm) {
+      selected_val <- isolate(overrides[[tm]])
+      if (is.null(selected_val)) selected_val <- "Not Yet"
       radioButtons(
         inputId = paste0("override_", tm),
-        label   = tm,
+        label = tm,
         choices = c("Not Yet", "OVER", "UNDER"),
-        inline  = TRUE,
-        selected = "Not Yet"
+        inline = TRUE,
+        selected = selected_val
       )
     })
   })
   
+  
+  # Observe individual radio button inputs and store in reactiveValues
+  observe({
+    lapply(team_list, function(tm) {
+      observeEvent(input[[paste0("override_", tm)]], {
+        overrides[[tm]] <- input[[paste0("override_", tm)]]
+      }, ignoreNULL = TRUE)
+    })
+  })
+  
+  # Reset all team overrides to "Not Yet"
+  observeEvent(input$reset_btn, {
+    lapply(team_list, function(tm) {
+      overrides[[tm]] <- "Not Yet"
+    })
+    refresh_ui(refresh_ui() + 1)  # trigger UI re-render
+  })
+  
+  
+  # Summary reactive based on current overrides
   summaryData <- reactive({
     if (length(team_list) == 0) return(tibble(Message = "No Undecided Teams."))
     
-    overrides <- sapply(team_list, function(tm) {
-      val <- input[[paste0("override_", tm)]]
+    overrides_list <- sapply(team_list, function(tm) {
+      val <- overrides[[tm]]
       if (is.null(val)) "Not Yet" else val
     }, USE.NAMES = TRUE)
-    overrides <- ifelse(overrides == "Not Yet", NA, overrides)
+    overrides_clean <- ifelse(overrides_list == "Not Yet", NA, overrides_list)
     
     picks_local <- picks_joined %>%
       mutate(
         Team = as.character(Team),
         `Outcome Determined` = as.character(`Outcome Determined`),
-        override_value = overrides[Team]
+        override_value = overrides_clean[Team]
       ) %>%
       mutate(`Outcome Determined` = ifelse(!is.na(override_value), override_value, `Outcome Determined`)) %>%
       select(-override_value)
@@ -90,7 +125,6 @@ server <- function(input, output, session) {
     }
     n_scen <- nrow(all_combos)
     
-    
     scenario_ranks <- matrix(NA_integer_, nrow = n_scen, ncol = num_players, dimnames = list(NULL, players))
     
     for (i in seq_len(n_scen)) {
@@ -108,7 +142,6 @@ server <- function(input, output, session) {
       
       ord <- order(-score_i, -total_correct_i, -correct_15pt_i)
       scenario_ranks[i, ord] <- seq_along(ord)
-      
     }
     
     made_playoffs <- scenario_ranks <= 4
@@ -132,7 +165,7 @@ server <- function(input, output, session) {
     if ("Message" %in% names(df)) return("")
     num_scenarios <- attr(df, "num_scenarios")
     if (!is.null(num_scenarios)) {
-      paste("Number of scenarios simulated:", num_scenarios)
+      paste0("Number of scenarios simulated (2^", log(num_scenarios, base = 2), "): ", num_scenarios)
     } else {
       ""
     }
