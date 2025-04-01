@@ -9,7 +9,7 @@ points_col_for <- function(player) paste0(player, "_points")
 
 picks_wide_new <- read_rds("picks_wide_new.rds") %>% rename(Team = team)
 
-todays_determined <- paste0("determined_so_far_", Sys.Date, ".rds")
+todays_determined <- paste0("determined_outcomes_", Sys.Date(), ".rds")
 
 if (!file.exists(todays_determined)) {
   file.copy(paste0("../over-under-points-calculator/",
@@ -19,7 +19,10 @@ if (!file.exists(todays_determined)) {
 
 determined_so_far <- read_rds(todays_determined) %>%
   mutate(`Outcome Determined` = as.character(`Outcome Determined`)) %>%
-  mutate(`Outcome Determined` = ifelse(`Outcome Determined` == "not yet", "Not Yet", `Outcome Determined`))
+  mutate(`Outcome Determined` = ifelse(
+    `Outcome Determined` == "not yet", 
+    "Not Yet", 
+    `Outcome Determined`))
 
 picks_joined <- picks_wide_new %>%
   left_join(determined_so_far %>% select(Team, `Outcome Determined`), 
