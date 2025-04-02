@@ -12,9 +12,12 @@ picks_wide_new <- read_rds("picks_wide_new.rds") %>% rename(Team = team)
 todays_determined <- paste0("determined_outcomes_", Sys.Date(), ".rds")
 
 if (!file.exists(todays_determined)) {
-  file.copy(paste0("../over-under-points-calculator/",
-                   todays_determined),
-            todays_determined)
+  if (file.exists(paste0("../over-under-points-calculator/", todays_determined))) {
+    file.copy(paste0("../over-under-points-calculator/", todays_determined),
+              todays_determined)
+  } else {
+    todays_determined <- paste0("determined_outcomes_", Sys.Date() - 1, ".rds")
+  }
 }
 
 determined_so_far <- read_rds(todays_determined) %>%
