@@ -29,9 +29,11 @@ determined_so_far <- read_rds(todays_determined) %>%
 
 picks_joined <- picks_wide_new %>%
   left_join(determined_so_far %>% select(Team, `Outcome Determined`), 
-            by = "Team")  |> 
-  mutate(`Outcome Determined` = if_else(str_detect(Team, "Wizards"), "UNDER", 
-                                        `Outcome Determined`))
+            by = "Team")  
+
+# picks_joined <- picks_joined |> 
+#   mutate(`Outcome Determined` = if_else(str_detect(Team, "Wizards"), "UNDER", 
+#                                         `Outcome Determined`))
 
 team_list <- picks_joined %>%
   filter(!(`Outcome Determined` %in% c("OVER", "UNDER"))) %>%
