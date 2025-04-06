@@ -9,21 +9,30 @@ points_col_for <- function(player) paste0(player, "_points")
 
 picks_wide_new <- read_rds("picks_wide_new.rds") %>% rename(Team = team)
 
-todays_determined <- paste0("determined_outcomes_", Sys.Date(), ".rds")
+todays_determined <- paste0(
+  "determined_outcomes_", 
+  as.Date(format(Sys.time(), tz = "America/Phoenix", usetz = TRUE)), 
+  ".rds")
 
+# Get current time in desired timezone
+now_phoenix <- lubridate::with_tz(Sys.time(), tzone = "America/Phoenix")
+today_phoenix <- as.Date(now_phoenix)
+
+# Construct today's filename
+make_filename <- function(date) {
+  paste0("determined_outcomes_", date, ".rds")
+}
+
+todays_determined <- make_filename(today_phoenix)
+
+# Use today's or yesterday's file depending on existence
 if (!file.exists(todays_determined)) {
-  # if (file.exists(paste0("../over-under-points-calculator/", todays_determined))) {
-  #   file.copy(paste0("../over-under-points-calculator/", todays_determined),
-  #             todays_determined)
-  todays_determined <- paste0(
-    "determined_outcomes_", 
-    as.Date(format(Sys.time(), tz = "America/Phoenix", usetz = TRUE)), 
-    ".rds")
-} else {
-  todays_determined <- paste0(
-    "determined_outcomes_", 
-    as.Date(format(Sys.time(), tz = "America/Phoenix", usetz = TRUE)) - 1, 
-    ".rds")
+  # If desired, uncomment the block below to copy from external folder
+  # alt_path <- file.path("..", "over-under-points-calculator", todays_determined)
+  # if (file.exists(alt_path)) {
+  #   file.copy(alt_path, todays_determined)
+  # }
+  todays_determined <- make_filename(today_phoenix - 1)
 }
 
 
