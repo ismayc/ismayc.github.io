@@ -275,7 +275,8 @@ https://www.vegasinsider.com/nba/odds/win-totals/ prior to the season start. The
 columns are based on games played through `r Sys.Date() - 1`.
 
 ```{r}
-out_table %>%  
+out_table |> 
+  arrange(desc(`Wins To Go Over Vegas Insider`), desc(`Remaining Games`)) |> 
   DT::datatable(
     rownames = FALSE,
     options = list(
