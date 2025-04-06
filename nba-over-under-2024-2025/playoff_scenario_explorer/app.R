@@ -28,10 +28,10 @@ todays_determined <- make_filename(today_phoenix)
 # Use today's or yesterday's file depending on existence
 if (!file.exists(todays_determined)) {
   # If desired, uncomment the block below to copy from external folder
-  # alt_path <- file.path("..", "over-under-points-calculator", todays_determined)
-  # if (file.exists(alt_path)) {
-  #   file.copy(alt_path, todays_determined)
-  # }
+  alt_path <- file.path("..", "over-under-points-calculator", todays_determined)
+  if (file.exists(alt_path)) {
+    file.copy(alt_path, todays_determined)
+  }
   todays_determined <- make_filename(today_phoenix - 1)
 }
 
