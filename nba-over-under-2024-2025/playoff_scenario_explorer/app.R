@@ -12,13 +12,20 @@ picks_wide_new <- read_rds("picks_wide_new.rds") %>% rename(Team = team)
 todays_determined <- paste0("determined_outcomes_", Sys.Date(), ".rds")
 
 if (!file.exists(todays_determined)) {
-  if (file.exists(paste0("../over-under-points-calculator/", todays_determined))) {
-    file.copy(paste0("../over-under-points-calculator/", todays_determined),
-              todays_determined)
-  } else {
-    todays_determined <- paste0("determined_outcomes_", Sys.Date() - 1, ".rds")
-  }
+  # if (file.exists(paste0("../over-under-points-calculator/", todays_determined))) {
+  #   file.copy(paste0("../over-under-points-calculator/", todays_determined),
+  #             todays_determined)
+  todays_determined <- paste0(
+    "determined_outcomes_", 
+    as.Date(format(Sys.time(), tz = "America/Phoenix", usetz = TRUE)), 
+    ".rds")
+} else {
+  todays_determined <- paste0(
+    "determined_outcomes_", 
+    as.Date(format(Sys.time(), tz = "America/Phoenix", usetz = TRUE)) - 1, 
+    ".rds")
 }
+
 
 determined_so_far <- read_rds(todays_determined) %>%
   mutate(`Outcome Determined` = as.character(`Outcome Determined`)) %>%
@@ -31,9 +38,9 @@ picks_joined <- picks_wide_new %>%
   left_join(determined_so_far %>% select(Team, `Outcome Determined`), 
             by = "Team")  
 
-# picks_joined <- picks_joined |> 
-#   mutate(`Outcome Determined` = if_else(str_detect(Team, "Wizards"), "UNDER", 
-#                                         `Outcome Determined`))
+picks_joined <- picks_joined |>
+  mutate(`Outcome Determined` = if_else(str_detect(Team, "Memphis"), "OVER",
+                                        `Outcome Determined`))
 
 team_list <- picks_joined %>%
   filter(!(`Outcome Determined` %in% c("OVER", "UNDER"))) %>%
@@ -51,7 +58,8 @@ ui <- fluidPage(
     
     mainPanel(
       h3("Playoff Probabilities Based on Remaining Scenarios"),
-      h5("Last updated on", Sys.Date()),
+      h5("Last updated on", 
+         as.Date(format(Sys.time(), tz = "America/Phoenix", usetz = TRUE))),
       br(),
       textOutput("numScenariosText"),
       br(),
