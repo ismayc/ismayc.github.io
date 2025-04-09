@@ -5,7 +5,7 @@ account: chesterismay
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 14377145
-bundleId: 10071599
+bundleId: 10074132
 url: https://chesterismay.shinyapps.io/playoff_scenario_explorer/
 version: 1
 asMultiple: FALSE

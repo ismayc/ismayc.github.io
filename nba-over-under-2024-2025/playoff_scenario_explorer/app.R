@@ -47,9 +47,9 @@ picks_joined <- picks_wide_new %>%
   left_join(determined_so_far %>% select(Team, `Outcome Determined`), 
             by = "Team")  
 
-# picks_joined <- picks_joined |>
-#   mutate(`Outcome Determined` = if_else(str_detect(Team, "Memphis"), "OVER",
-#                                         `Outcome Determined`))
+picks_joined <- picks_joined |>
+  mutate(`Outcome Determined` = if_else(str_detect(Team, "Boston"), "OVER",
+                                        `Outcome Determined`))
 
 team_list <- picks_joined %>%
   filter(!(`Outcome Determined` %in% c("OVER", "UNDER"))) %>%
@@ -189,10 +189,12 @@ server <- function(input, output, session) {
       mean_rank = as.numeric(round(colMeans(scenario_ranks), 2)),
       highest_rank = as.numeric(apply(scenario_ranks, 2, min)),
       lowest_rank = as.numeric(apply(scenario_ranks, 2, max)),
+      possible_seeds = apply(scenario_ranks, 2, function(x) paste0(sort(unique(x)), collapse = ", ")),
       prob_playoffs = as.numeric(round(100 * colMeans(made_playoffs), 2)),
       prob_first = as.numeric(round(100 * colMeans(scenario_ranks == 1), 2))
-    ) %>% arrange(mean_rank)
-    
+    ) |>
+      arrange(desc(prob_playoffs), desc(prob_first), mean_rank)
+
     attr(summary_df, "num_scenarios") <- n_scen
     summary_df
   })
@@ -208,23 +210,116 @@ server <- function(input, output, session) {
     }
   })
   
+  # output$summaryTable <- renderUI({
+  #   df <- summaryData()
+  #   if ("Message" %in% names(df)) {
+  #     return(HTML(paste0("<p><strong>", df$Message[1], "</strong></p>")))
+  #   }
+  #   
+  #   headers <- paste0("<tr>", paste(paste0("<th>", names(df), "</th>"), collapse = ""), "</tr>")
+  #   
+  #   rows <- sapply(seq_len(nrow(df)), function(i) {
+  #     row <- df[i, ]
+  #     
+  #     possible_ranks_str <- as.character(row$possible_ranks)
+  #     has_ranks <- !is.na(possible_ranks_str) && nzchar(possible_ranks_str)
+  #     possible_ranks_vec <- if (isTRUE(has_ranks)) {
+  #       as.numeric(strsplit(possible_ranks_str, ",\\s*")[[1]])
+  #     } else {
+  #       numeric(0)
+  #     }
+  #     
+  #     is_red <- length(possible_ranks_vec) > 0 && all(possible_ranks_vec >= 5)
+  #     is_green <- as.numeric(row$prob_playoffs) == 100
+  #     is_gold <- as.numeric(row$prob_first) == 100
+  #     
+  #     style_parts <- c()
+  #     if (is_red) style_parts <- c(style_parts, "background-color:#f8d7da;")
+  #     if (is_gold) style_parts <- c(style_parts, "background-color:#fff3cd;")
+  #     if (is_green) style_parts <- c(style_parts, "background-color:#d4edda;")
+  #     if (i == 5) style_parts <- c(style_parts, "border-top:2px solid black;")
+  #     
+  #     # Apply style to each <td>, not to <tr>
+  #     row_html <- paste(paste0(
+  #       "<td style='", paste(style_parts, collapse = " "), "'>", 
+  #       as.character(row), 
+  #       "</td>"
+  #     ), collapse = "")
+  #     
+  #     paste0("<tr>", row_html, "</tr>")
+  #   })
+  #   
+  #   table_html <- paste0("<table class='table table-bordered table-condensed'>", headers, paste(rows, collapse = ""), "</table>")
+  #   HTML(table_html)
+  # })
+  
   output$summaryTable <- renderUI({
     df <- summaryData()
-    if ("Message" %in% names(df)) return(HTML(paste0("<p><strong>", df$Message[1], "</strong></p>")))
+    if ("Message" %in% names(df)) {
+      return(HTML(paste0("<p><strong>", df$Message[1], "</strong></p>")))
+    }
+    
+    # Store the original df for logic
+    df_logic <- df
+    
+    # Remove columns just before rendering
+    df <- df %>% select(-highest_rank, -lowest_rank)
+    
     headers <- paste0("<tr>", paste(paste0("<th>", names(df), "</th>"), collapse = ""), "</tr>")
+    
     rows <- sapply(seq_len(nrow(df)), function(i) {
       row <- df[i, ]
-      is_red <- as.numeric(row$highest_rank) %in% 5:8
-      is_green <- as.numeric(row$prob_playoffs) == 100
-      is_gold <- as.numeric(row$prob_first) == 100
-      style <- if (is_gold) ' style="background-color:#fff3cd;"' else if (is_green) ' style="background-color:#d4edda;"' else if (is_red) ' style="color:red;"' else ""
+      row_logic <- df_logic[i, ]
+      
+      # Use highest_rank from original data for red highlighting
+      is_red <- as.numeric(row_logic$highest_rank) >= 5
+      is_green <- as.numeric(row_logic$prob_playoffs) == 100
+      is_gold <- as.numeric(row_logic$prob_first) == 100
+      
+      style <- if (is_gold) {
+        ' style="background-color:#fff3cd;"'
+      } else if (is_green) {
+        ' style="background-color:#d4edda;"'
+      } else if (is_red) {
+        ' style="color:red;"'
+      } else {
+        ""
+      }
+      
       if (i == 5) style <- paste0(style, ' style="border-top:2px solid black;"')
+      
       row_html <- paste(paste0("<td>", as.character(row), "</td>"), collapse = "")
       paste0("<tr", style, ">", row_html, "</tr>")
     })
-    table_html <- paste0("<table class='table table-bordered table-condensed'>", headers, paste(rows, collapse = ""), "</table>")
+    
+    table_html <- paste0(
+      "<table class='table table-bordered table-condensed'>",
+      headers,
+      paste(rows, collapse = ""),
+      "</table>"
+    )
+    
     HTML(table_html)
   })
+  
+  
+  # output$summaryTable <- renderUI({
+  #   df <- summaryData()
+  #   if ("Message" %in% names(df)) return(HTML(paste0("<p><strong>", df$Message[1], "</strong></p>")))
+  #   headers <- paste0("<tr>", paste(paste0("<th>", names(df), "</th>"), collapse = ""), "</tr>")
+  #   rows <- sapply(seq_len(nrow(df)), function(i) {
+  #     row <- df[i, ]
+  #     is_red <- as.numeric(row$highest_rank) %in% 5:8
+  #     is_green <- as.numeric(row$prob_playoffs) == 100
+  #     is_gold <- as.numeric(row$prob_first) == 100
+  #     style <- if (is_gold) ' style="background-color:#fff3cd;"' else if (is_green) ' style="background-color:#d4edda;"' else if (is_red) ' style="color:red;"' else ""
+  #     if (i == 5) style <- paste0(style, ' style="border-top:2px solid black;"')
+  #     row_html <- paste(paste0("<td>", as.character(row), "</td>"), collapse = "")
+  #     paste0("<tr", style, ">", row_html, "</tr>")
+  #   })
+  #   table_html <- paste0("<table class='table table-bordered table-condensed'>", headers, paste(rows, collapse = ""), "</table>")
+  #   HTML(table_html)
+  # })
 }
 
 shinyApp(ui, server)
