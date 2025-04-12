@@ -23,17 +23,17 @@ make_filename <- function(date) {
   paste0("determined_outcomes_", date, ".rds")
 }
 
-todays_determined <- make_filename(today_phoenix)
+todays_determined <- "determined_outcomes_2025-04-12.rds" # make_filename(today_phoenix)
 
 # Use today's or yesterday's file depending on existence
-if (!file.exists(todays_determined)) {
-  # If desired, uncomment the block below to copy from external folder
-  alt_path <- file.path("..", "over-under-points-calculator", todays_determined)
-  if (file.exists(alt_path)) {
-    file.copy(alt_path, todays_determined)
-  }
-  todays_determined <- make_filename(today_phoenix - 1)
-}
+# if (!file.exists(todays_determined)) {
+#   # If desired, uncomment the block below to copy from external folder
+#   alt_path <- file.path("..", "over-under-points-calculator", todays_determined)
+#   if (file.exists(alt_path)) {
+#     file.copy(alt_path, todays_determined)
+#   }
+#   todays_determined <- make_filename(today_phoenix - 1)
+# }
 
 
 determined_so_far <- read_rds(todays_determined) %>%
@@ -47,9 +47,9 @@ picks_joined <- picks_wide_new %>%
   left_join(determined_so_far %>% select(Team, `Outcome Determined`), 
             by = "Team")  
 
-# picks_joined <- picks_joined |>
-#   mutate(`Outcome Determined` = if_else(str_detect(Team, "Boston"), "OVER",
-#                                         `Outcome Determined`))
+picks_joined <- picks_joined |>
+  mutate(`Outcome Determined` = if_else(str_detect(Team, "Knicks"), "UNDER",
+                                        `Outcome Determined`))
 
 team_list <- picks_joined %>%
   filter(!(`Outcome Determined` %in% c("OVER", "UNDER"))) %>%
