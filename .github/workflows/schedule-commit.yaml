@@ -1,13 +1,24 @@
 name: build-nba-webpage
 on:
   schedule:
-    # Run at 12:00 UTC only until April 14, 2025
-    - cron: "0 12 * * * < '2025-04-15'"
-  # push:
-  #   branches: [main, master]
+    - cron: "0 12 * * *"  # Fixed cron syntax (run at 12:00 UTC daily)
   workflow_dispatch:
-
 jobs:
+  check-date:
+    runs-on: ubuntu-latest
+    outputs:
+      should_run: ${{ steps.date_check.outputs.should_run }}
+    steps:
+      - id: date_check
+        run: |
+          CURRENT_DATE=$(date -u +%Y-%m-%d)
+          CUTOFF_DATE="2025-04-15"
+          if [[ "$CURRENT_DATE" < "$CUTOFF_DATE" || "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "should_run=true" >> $GITHUB_OUTPUT
+          else
+            echo "should_run=false" >> $GITHUB_OUTPUT
+          fi
+          
   build-nba-webpage:
     runs-on: ${{ matrix.config.os }}
 
