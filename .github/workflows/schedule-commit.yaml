@@ -1,8 +1,8 @@
 name: build-nba-webpage
-
 on:
   schedule:
-    - cron: "0 12 * * *"
+    # Run at 12:00 UTC only until April 14, 2025
+    - cron: "0 12 * * * < '2025-04-15'"
   # push:
   #   branches: [main, master]
   workflow_dispatch:
