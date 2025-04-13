@@ -87,6 +87,7 @@ jobs:
         run: |
           python -m venv venv
           source venv/bin/activate
+          pip install --upgrade pip
           pip install pandas nba_api
           echo "RETICULATE_PYTHON=$(pwd)/venv/bin/python" >> $GITHUB_ENV
         shell: bash
