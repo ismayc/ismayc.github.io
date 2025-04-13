@@ -1,7 +1,7 @@
 name: build-nba-webpage
 on:
   schedule:
-    - cron: "0 12 * * *"  # Fixed cron syntax (run at 12:00 UTC daily)
+    - cron: "0 12 * * *"
   workflow_dispatch:
 
 jobs:
@@ -42,39 +42,32 @@ jobs:
       
       - name: Fix macOS dependencies
         run: |
-          # Ensure gettext is linked properly
-          brew unlink gettext || true
-          brew install gettext
-          brew link --force gettext
-          
-          # Find and print the location of gettext
-          GETTEXT_PREFIX=$(brew --prefix gettext)
-          echo "Gettext location: $GETTEXT_PREFIX"
-          
-          # Properly set up environment variables for the compiler
-          echo "CPPFLAGS=-I$GETTEXT_PREFIX/include" >> $GITHUB_ENV
-          echo "LDFLAGS=-L$GETTEXT_PREFIX/lib" >> $GITHUB_ENV
-          echo "PKG_CONFIG_PATH=$GETTEXT_PREFIX/lib/pkgconfig:$PKG_CONFIG_PATH" >> $GITHUB_ENV
-          
-          # Install other potential dependencies that Matrix might need
           brew install pkg-config
-          brew install gfortran
+          brew install icu4c
+          brew link --force icu4c
+          
+          echo "PKG_CONFIG_PATH=$(brew --prefix icu4c)/lib/pkgconfig:$PKG_CONFIG_PATH" >> $GITHUB_ENV
+          echo "CPPFLAGS=-I$(brew --prefix icu4c)/include" >> $GITHUB_ENV
+          echo "LDFLAGS=-L$(brew --prefix icu4c)/lib" >> $GITHUB_ENV
       
       - uses: r-lib/actions/setup-r@v2
         with:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
       
-      - name: Install Matrix package manually
+      - name: Install stringi manually with binary
         run: |
-          # Create a local R configuration file to include compiler flags
-          mkdir -p ~/.R
-          echo "CPPFLAGS=-I$(brew --prefix gettext)/include" > ~/.R/Makevars
-          echo "LDFLAGS=-L$(brew --prefix gettext)/lib" >> ~/.R/Makevars
-          cat ~/.R/Makevars
+          # Try to install stringi as a binary package first
+          Rscript -e "install.packages('stringi', type = 'binary', repos = 'https://cloud.r-project.org/')"
           
-          # Install Matrix package directly
-          Rscript -e "install.packages('Matrix', type = 'source', repos = 'https://cloud.r-project.org/')"
+          # Check if successful, if not, create specific compiler flags for stringi
+          Rscript -e "if(!requireNamespace('stringi', quietly = TRUE)) {
+            # Create special Makevars for stringi build
+            dir.create('~/.R', showWarnings = FALSE)
+            cat('CPPFLAGS=-I$(brew --prefix icu4c)/include -DU_SHOW_CPLUSPLUS_API=0\\n', file='~/.R/Makevars')
+            cat('LDFLAGS=-L$(brew --prefix icu4c)/lib\\n', append=TRUE, file='~/.R/Makevars')
+            install.packages('stringi', type='source', repos='https://cloud.r-project.org/')
+          }"
       
       - name: Setup renv
         uses: r-lib/actions/setup-renv@v2
@@ -88,7 +81,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.13'  # Adjust as needed
+          python-version: '3.13'
       
       - name: Setup Python virtual environment
         run: |
