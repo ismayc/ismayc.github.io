@@ -1,15 +1,2 @@
-certifi>=2024.1.1
-charset-normalizer>=2.0
-idna>=2.0
-nba_api>=1.4.1
-numpy>=1.0
-pandas>=2.0
-python-dateutil>=2.0
-pytz>=2023.2
-requests>=2.0
-setuptools>=70.0
-six>=1.0
-soupsieve>=2.0
-tzdata>=2023.1
-urllib3>=2.0
-wheel>=0.35.1
+setuptools==78.1.0
+wheel==0.45.1
