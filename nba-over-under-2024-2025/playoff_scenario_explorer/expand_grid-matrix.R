@@ -22,7 +22,7 @@ picks_joined <- picks_wide_new %>%
   left_join(determined_so_far %>% select(Team, `Outcome Determined`), by = "Team")
 
 # ---- MANUAL OVERRIDES HERE ----
-manual <- TRUE
+manual <- FALSE
 manual_overrides <- c(
   "Atlanta Hawks" = "OVER"#,  # Manually lock Atlanta Hawks to OVER
 #  "New York Knicks" = "UNDER" # You can comment out or change any line
