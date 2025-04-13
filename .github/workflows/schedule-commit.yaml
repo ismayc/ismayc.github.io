@@ -54,16 +54,23 @@ jobs:
         with:
           r-version: 'release'
       
-      - name: Pre-install critical packages
+      - name: Install stringi and Matrix binaries first
         run: |
           options(repos = c(CRAN = 'https://cloud.r-project.org'))
-          install.packages(c("Matrix", "stringi"), type = "binary")
+          install.packages(c("stringi", "Matrix"), type = "binary")
         shell: Rscript {0}
       
-      - name: Restore all remaining dependencies
-        run: |
-          renv::restore(exclude = c("stringi", "Matrix"), prompt = FALSE)
+      - name: Capture snapshot (optional safety step)
+        run: renv::snapshot(prompt = FALSE)
         shell: Rscript {0}
+      
+      - name: Restore all other packages
+        run: |
+          exclude_pkgs <- c("stringi", "Matrix")
+          pkgs <- setdiff(names(renv::dependencies()$Package), exclude_pkgs)
+          renv::restore(packages = pkgs, prompt = FALSE)
+        shell: Rscript {0}
+
       
       - uses: r-lib/actions/setup-pandoc@v2
       
