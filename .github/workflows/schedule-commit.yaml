@@ -3,6 +3,7 @@ on:
   schedule:
     - cron: "0 12 * * *"  # Fixed cron syntax (run at 12:00 UTC daily)
   workflow_dispatch:
+
 jobs:
   check-date:
     runs-on: ubuntu-latest
@@ -21,46 +22,50 @@ jobs:
           
   build-nba-webpage:
     runs-on: ${{ matrix.config.os }}
-
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
-
+    needs: check-date
+    if: ${{ needs.check-date.outputs.should_run == 'true' }}
     strategy:
       fail-fast: false
       matrix:
         config:
           - {os: macOS-latest, r: 'release'}
-
+    
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       RSPM: ${{ matrix.config.rspm }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       WORKON_HOME: ./.virtualenvs
-
+    
     steps:
       - uses: actions/checkout@v3
-
-#      - name: Uninstall pkg-config to fix error
-#        run: brew uninstall pkg-config
-
+      
+      - name: Install system dependencies for macOS
+        run: |
+          brew install gettext
+          brew link --force gettext
+          echo "CPPFLAGS=-I/usr/local/opt/gettext/include" >> $GITHUB_ENV
+          echo "LDFLAGS=-L/usr/local/opt/gettext/lib" >> $GITHUB_ENV
+      
       - uses: r-lib/actions/setup-r@v2
         with:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
-
+      
       - name: Setup renv
         uses: r-lib/actions/setup-renv@v2
-
+      
       - uses: r-lib/actions/setup-pandoc@v2
-
+      
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: rcmdcheck remotes reticulate
-
+      
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.13'  # Adjust as needed
-
+      
       - name: Setup Python virtual environment
         run: |
           python -m venv venv
@@ -68,12 +73,12 @@ jobs:
           pip install pandas nba_api
           echo "RETICULATE_PYTHON=$(pwd)/venv/bin/python" >> $GITHUB_ENV
         shell: bash
-
+      
       - name: Build webpage
         run: |
           Rscript nba-over-under-2024-2025/make_plot_html.R
         shell: bash
-
+      
       - name: Push changes
         run: |
           git config --local user.email "actions@github.com"
@@ -81,7 +86,7 @@ jobs:
           git add -A
           git commit -m "GitHub Actions NBA page build" || echo "No changes to commit"
           git push origin master
-
+      
       - name: Session info
         run: |
           Rscript -e "install.packages('sessioninfo')"
