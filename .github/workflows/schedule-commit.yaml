@@ -21,8 +21,8 @@ jobs:
           fi
           
   build-nba-webpage:
-    runs-on: macos-13  # Using older macOS version (Monterey)
-    name: macOS 13 (release)
+    runs-on: macos-15 
+    name: macOS 15
     needs: check-date
     if: ${{ needs.check-date.outputs.should_run == 'true' }}
     
