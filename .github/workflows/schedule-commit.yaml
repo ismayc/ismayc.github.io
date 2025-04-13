@@ -91,10 +91,11 @@ jobs:
           echo "RETICULATE_PYTHON=$(pwd)/venv/bin/python" >> $GITHUB_ENV
         shell: bash
       
-      - name: Build webpage
-        run: |
-          Rscript nba-over-under-2024-2025/make_plot_html.R
-        shell: bash
+    - name: Build webpage
+      run: |
+        echo "Sys.setenv(RETICULATE_PYTHON = '$(pwd)/venv/bin/python')" > .Renviron
+        Rscript nba-over-under-2024-2025/make_plot_html.R
+      shell: bash
       
       - name: Push changes
         run: |
