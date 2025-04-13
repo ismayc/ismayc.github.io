@@ -3,6 +3,11 @@ on:
   schedule:
     - cron: "0 12 * * *"
   workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - .github/workflows/schedule-commit.yaml
 
 jobs:
   check-date:
