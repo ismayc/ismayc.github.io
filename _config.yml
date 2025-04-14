@@ -19,3 +19,6 @@ github_username:  ismayc
 
 # Build settings
 markdown: kramdown
+
+exclude:
+  - venv
