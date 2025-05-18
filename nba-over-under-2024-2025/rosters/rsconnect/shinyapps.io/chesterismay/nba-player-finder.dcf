@@ -1,11 +1,13 @@
 name: nba-player-finder
 title: nba-player-finder
-username:
+username: chesterismay
 account: chesterismay
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 6979052
-bundleId: 9423253
+bundleId: 10302111
 url: https://chesterismay.shinyapps.io/nba-player-finder/
+version: 1
 asMultiple: FALSE
 asStatic: FALSE
+ignoredFiles: .RData|.Rprofile|000-setup_reticulate.R|01-deploy-shinyapp.R|app-before-modularizing.R|career_totals.R|get_player_seasons.R|nba_players-function.R|nba_players.rds|player_analysis.R|teams.rds|playoffs_1990s|rosters_1980_to_2024
