@@ -1,0 +1,33 @@
+project:
+  type: website
+  output-dir: docs  # for GitHub Pages compatibility
+
+website:
+  title: "Chester Ismay"
+  navbar:
+    left:
+      - text: "About"
+        href: about.qmd
+      - text: "Consulting"
+        href: consulting.qmd
+      - text: "Workshops"
+        href: workshops.qmd
+      - text: "Talks"
+        href: talks.qmd
+      - text: "Projects"
+        href: projects.qmd
+    right:
+      - icon: github
+        href: https://github.com/ismayc
+      - icon: linkedin
+        href: https://www.linkedin.com/in/chesterismay/
+      - icon: twitter
+        href: https://twitter.com/old_man_chester
+      - icon: envelope
+        href: mailto:chester.ismay@gmail.com
+
+format:
+  html:
+    theme: sandstone
+    css: styles.css
+    toc: true

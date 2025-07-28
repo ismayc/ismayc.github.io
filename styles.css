@@ -1,0 +1,115 @@
+/* Global Card Grid Layouts */
+.skill-cards,
+.talk-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* Shared Card Style */
+.card {
+  background: #f9f9f9;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.card:hover {
+  transform: scale(1.03);
+  background-color: #f0f8ff;
+}
+
+/* Specific to talks: slightly smaller shadow, no image */
+.talk-grid .card {
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+/* Optional: bold title line */
+.card strong {
+  font-size: 1.1rem;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.workshop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.workshop-item {
+  text-align: center;
+}
+
+.workshop-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.workshop-item img:hover {
+  transform: scale(1.10);
+}
+
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.book-card {
+  background: #f9f9f9;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease;
+  text-align: center;
+}
+
+.book-card:hover {
+  transform: scale(1.03);
+  background-color: #f0f8ff;
+}
+
+.book-cover {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 6px rgba(0,0,0,0.1);
+  margin-bottom: 0.75rem;
+}
+
+.book-text {
+  text-align: left;
+}
+
+.about-photo {
+  float: left;
+  width: 300px;
+  margin: 0 1.5rem 1rem 0;
+  border-radius: 10px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+}
+
+.two-col {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+}
+.two-col > div {
+  flex: 1 1 47%;
+  min-width: 360px;
+}
+img.rounded {
+  border-radius: 80%;
+  max-width: 100%;
+  height: auto;
+}

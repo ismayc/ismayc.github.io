@@ -1,0 +1,14 @@
+---
+title: "About Me"
+format:
+  html:
+    page-layout: full
+---
+
+<img src="images/data-herder.jpg" class="about-photo" alt="AI generated image showing my interests" />
+
+I grew up in Vale, South Dakota, a small town of 114 people just north of Rapid City. I earned my B.S. in Applied and Computational Mathematics from the South Dakota School of Mines & Technology. Drawn to the outdoors, I moved to Flagstaff and completed an M.S. in Statistics at Northern Arizona University. After working as an actuarial student in Scottsdale, I returned to graduate school and completed my Ph.D. in Statistics at Arizona State University. My [dissertation](https://repository.asu.edu/attachments/110682/content/Ismay_asu_0010E_13098.pdf) (under the guidance of [Dr. Randall Eubank](https://search.asu.edu/profile/842642)) focused on testing pseudorandom number generators in a parallel computing environment using R and C++.
+
+Since then, I’ve worked across academia, online education, and industry, remaining at the intersection of statistics, data science, AI, and education. I specialize in making statistical thinking approachable and useful, helping audiences from beginners to executives understand and apply complex ideas. My work blends theory and computation with a strong emphasis on problem framing and interpretation. 
+
+Lately, I’ve helped organizations improve data workflows, adopt reproducible practices, and integrate AI and automation into their work. You can learn more on [my LinkedIn profile](https://www.linkedin.com/in/chesterismay/). I also enjoy hiking, traveling, pickleball, reading, and rowing on my [Hydrow](https://hydrow.com/).

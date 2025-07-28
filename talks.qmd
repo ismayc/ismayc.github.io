@@ -1,0 +1,59 @@
+---
+title: "Talks"
+format:
+  html:
+    toc: false
+---
+
+Here are a few examples of presentations I've given. I'm always eager to speak with others about the ways AI, statistics, and effective data communication intersect and how they can better support our day-to-day lives and our work processes. If you have an event or conference in mind, please [get in touch](mailto:chester.ismay@gmail.com).
+
+<div class="talk-grid">
+
+::: {.card}
+**Tidyverse Tools in R for Data Science and Statistical Inference (with Dr. Jessica Minnier)**  
+A tidyverse-driven introduction to crafting clean, reproducible data workflows and modern inference in R.  
+
+–> [HTML slides](https://ismayc.github.io/talks/csp-2021/slide_deck.html)
+:::
+
+::: {.card}
+**Building Data Fluency Through Analogies**  
+Using real-world and movie examples to make data science approachable.  
+
+–> [PDF slides](https://ismayc.github.io/talks/Building%20Data%20Fluency%20through%20Analogies%20from%20the%20Real%20World%20and%20Movies.pdf)
+:::
+
+
+::: {.card}
+**Statistical Inference: A Tidy Approach**  
+A modern, tidyverse-based take on inference in R.  
+
+–> [HTML slides](https://ismayc.github.io/talks/infer-useR/slide_deck.html)  
+–> [Video recording](https://www.youtube.com/watch?v=BCMjVc9ncFo&ab_channel=RConsortium)
+:::
+
+::: {.card}
+**Teaching Introductory Statistics Using the Tidyverse via bookdown**  
+A bookdown-enhanced framework for teaching introductory statistics and data science in R.  
+
+–> [HTML slides](https://ismayc.github.io/rsconf/slides.html)  
+–> [Video recording](https://posit.co/resources/videos/teaching-introductory-statistics-using-the-tidyverse-via-bookdown/)
+:::
+
+::: {.card}
+**Creating the `fivethirtyeight` R package**  
+Behind-the-scenes of developing an R data package for reproducible journalism.  
+
+–> [HTML slides](https://ismayc.github.io/talks/pdx538/slide_deck.html)  
+–> [Video recording](https://www.youtube.com/watch?v=UUc5u0NOvhg&t=1s&ab_channel=pdxrlang)
+:::
+
+::: {.card}
+**Something old, something new, something borrowed, something blue: Ways to teach data science (and learn it too!)**  
+A gentle approach to launching students into data science with new tools, familiar stories, and tidy principles. 
+
+–> [HTML slides](https://ismayc.github.io/talks/asa-oregon-fall17/slide_deck.html)  
+–> [Video recording](https://www.youtube.com/watch?v=O-CxbsURRv4&ab_channel=ASAOregonChapter)
+:::
+
+</div>

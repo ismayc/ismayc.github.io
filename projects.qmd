@@ -1,0 +1,101 @@
+---
+title: "Projects"
+format:
+  html:
+    toc: true
+    toc-location: right
+---
+
+## Books
+
+<div class="book-grid">
+
+<div class="book-card">
+  <a href="https://www.moderndive.com/v2" target="_blank">
+    ![ModernDive Book Cover](images/moderndive_v2_cover.jpg){.book-cover}
+  </a>
+  <div class="book-text">
+  **[Statistical Inference via Data Science](https://www.moderndive.com/v2)**  
+  
+  Co-authored with [Albert Y. Kim](https://rudeboybert.rbind.io) and [Arturo Valdivia](https://stat.indiana.edu/about/core-faculty/core-faculty/valdivia-arturo.html), this free online book teaches statistics via computation and data science fundamentals using R and the tidyverse.  
+  
+  [→ Print edition](https://www.routledge.com/Statistical-Inference-via-Data-Science-A-ModernDive-into-R-and-the-Tidyverse/Ismay-Kim-Valdivia/p/book/9781032708379)
+  </div>
+</div>
+
+<div class="book-card">
+  <a href="https://rbasics.netlify.app" target="_blank">
+    ![Getting Used to R Book Cover](images/rbasics-ai-cover.png){.book-cover}
+  </a>
+  <div class="book-text">
+  **[Getting Used to R, RStudio, and R Markdown](https://rbasics.netlify.app)**  
+  
+  A hands-on, beginner-friendly guide to using R and RStudio for data analysis. Co-authored with [Patrick Kennedy](https://news.uoregon.edu/expert/patrick-kennedy-center-teaching-and-learning). Designed to empower new users with confidence and clarity.
+  </div>
+</div>
+
+</div>
+
+
+
+---
+
+##  Shiny Apps
+
+
+### 🎲 Probability Distribution Viewer
+
+This [Shiny app](http://ismay.shinyapps.io/ProbApp) lets users explore and calculate probabilities for normal, binomial, Poisson, and other distributions.
+
+
+
+### 🦅️ US State/District Shape Quiz
+
+This [interactive quiz](https://chesterismay.shinyapps.io/us-states-quiz-app/) tests knowledge of US state shapes, capitals, and major cities. Built using [leaflet](https://rstudio.github.io/leaflet/).
+
+
+
+### 🇩🇪 German Federal State Shape Quiz
+
+A similar [German geography quiz](https://chesterismay.shinyapps.io/german-states-quiz-app/) that tests users on the shapes and cities of Germany’s federal states.
+
+
+
+### 🏀 NBA Player Finder
+
+Explore NBA players by name, position, or team in this [app](https://chesterismay.shinyapps.io/nba-player-finder/) that uses the NBA API.
+
+
+---
+
+## R Packages
+
+I've authored or contributed to several R packages:
+
+- [**infer**](https://infer.tidymodels.org/) — tidyverse-style statistical inference
+- [**moderndive**](https://moderndive.github.io/moderndive) — companion to the ModernDive book
+- [**fivethirtyeight**](https://fivethirtyeight-r.netlify.app) — access to FiveThirtyEight datasets
+- [**thesisdown**](https://github.com/ismayc/thesisdown) — thesis templates in R Markdown
+- [**azflights24**](https://moderndive.github.io/azflights24/)
+- [**nycflights23**](https://moderndive.github.io/nycflights23/)
+- [**pnwflights22**](https://moderndive.github.io/pnwflights22/)
+- [**izzyuntappd**](https://github.com/ismayc/izzyuntappd)
+
+---
+
+## Projects at Reed College
+
+### Teaching Tools
+- [**Chem 101/102 R templates and tools**](https://github.com/ismayc/chemistr)  
+  → [Help Manual](https://ismayc.github.io/chemistr-book)
+
+### Educational Outreach
+- [Creating a simple R Markdown template package](/ecots2k16/template_pkg.qmd)
+- [EdTech blog posts at Reed](http://blogs.reed.edu/ed-tech/author/cismay/)
+- [Flight data from PDX and SEA (2014)](https://github.com/ismayc/pnwflights14)
+- [Reed College GitHub organization](https://github.com/Reedies)
+
+### Faculty & Student Support
+- Supported departments: Chemistry, Biology, Linguistics, Sociology, Economics, Political Science, Mathematics
+- Assisted senior thesis students with data analysis and visualization
+- Provided R/R Markdown training for Chem 101/102 students

@@ -1,0 +1,82 @@
+---
+title: "Workshops"
+format:
+  html:
+    toc: true
+    toc-location: right
+---
+
+## In-person
+
+Each of the following were co-led with [Arturo Valdivia](https://stat.indiana.edu/about/core-faculty/core-faculty/valdivia-arturo.html).
+
+<div class="workshop-grid">
+
+  <div class="workshop-item">
+  <a href="https://www.causeweb.org/cause/uscots/uscots25/program/workshops/w16" target="_blank">
+    <img src="images/spark-curiosity.png" alt="Spark Curiosity: LLM-Driven Strategies for Teaching and Learning with Data" />
+  </a>
+
+<a href="https://www.causeweb.org/cause/uscots/uscots25/program/workshops/w16">USCOTS 2025</a>
+
+  </div>
+
+  <div class="workshop-item">
+  <a href="https://gamma.app/docs/Reimagining-Intro-Stats-Through-Data-Science-rctif3xcgzhf5pw?follow_on_start=true&following_id=f67f1376ykr0npc" target="_blank">
+    <img src="images/intro-stats.png" alt="Reimagining Intro Stats Through Data Science: A Hands-On Approach with ModernDive" />
+  </a>
+  
+  <a href="https://www.causeweb.org/cause/uscots/uscots25/program/workshops/w11">USCOTS 2025</a>
+
+  </div>
+
+  <div class="workshop-item">
+  <a href="https://whova.com/embedded/session/hRqar%40ceM1oCRxx8SaTASu%40-ruGH1z6nVU55djYhzR8%3D/4627684/?widget=primary" target="_blank">
+    <img src="images/llm-analysis.png" alt="LLM-Driven Analysis and Reporting with R" />
+  </a>
+  
+  <a href="https://whova.com/embedded/session/hRqar%40ceM1oCRxx8SaTASu%40-ruGH1z6nVU55djYhzR8%3D/4627684/?widget=primary">WNAR 2025</a>
+
+  </div>
+
+  <div class="workshop-item">
+  <a href="https://moderndive-workshops.netlify.app/moderndive-wnar/slides.pdf" target="_blank">
+    <img src="images/wnar-moderndive.png" alt="Statistical Inference via Data Science with R" />
+  </a>
+  
+  <a href="https://whova.com/embedded/session/hRqar%40ceM1oCRxx8SaTASu%40-ruGH1z6nVU55djYhzR8%3D/4627679/?widget=primary">WNAR 2025</a>
+
+  </div>
+
+</div>
+
+---
+
+## Virtual Synchronous
+
+### O'Reilly Learning
+
+  - [Data Analysis with Python](https://github.com/ismayc/oreilly-data-analysis-with-python)
+  - [Fundamentals of Statistics with Python](https://github.com/ismayc/oreilly-fundamentals-of-statistics-with-python)
+  - [Statistical Inference and Modeling with Python](https://github.com/ismayc/oreilly-statistical-modeling-and-inference-with-python)
+  - [Machine Learning for Data Analytics with Python](https://github.com/ismayc/oreilly-ml-for-data-analytics-with-python)
+  - GenAI-Powered Data Analysis with Python (coming in Fall 2025!)
+
+### Instats
+
+  - [Statistics in R with the Tidyverse](https://instats.org/seminar/statistics-in-r-with-tidyverse3)
+  - [Exploratory Data Analysis in R with the Tidyverse](https://instats.org/seminar/exploratory-data-analysis-in-r-with-tidy3)
+
+### Portland State University
+
+  - [Fundamentals of Data Analysis](https://www.pdx.edu/professional-education/da401-fundamentals-of-data-analytics)
+  - [Data Warehousing](https://www.pdx.edu/professional-education/da402-data-warehousing)
+  - [Data Mining](https://www.pdx.edu/professional-education/da403-data-mining)
+
+---
+
+## Virtual Asynchronous
+
+### DataCamp
+
+- [Programming with `dplyr`](https://www.datacamp.com/courses/programming-with-dplyr)

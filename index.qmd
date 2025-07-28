@@ -1,0 +1,39 @@
+---
+format:
+  html:
+    page-layout: full
+---
+
+<div class="two-col">
+
+<div>
+
+![](images/chester-2024.jpg){.rounded width=600px}
+
+## Dr. Chester Ismay
+
+I help individuals and teams **use AI and data science with confidence**, not just for the hype, but to actually get projects completed effectively and efficiently.
+
+I work at the intersection of **AI, statistics, and communication** by designing hands-on, engaging learning experiences that make complex ideas approachable. I support teams building responsible, reproducible, and effective data workflows. I build tools that are thoroughly tested with the user in mind at all times.
+
+Whether it's a university rolling out an AI curriculum, a nonprofit streamlining its data analysis, or a company making sense of noisy dashboards, I bring a human-first mindset to the table. I enjoy helping people learn something new, debug a problem, or bring a fuzzy idea into reality. Outside of work, you’ll probably find me hiking, rowing, or exploring a new dataset for fun. I collaborate best with teams who value clarity, curiosity, and thoughtful problem-solving. If that sounds like you, [let’s connect](mailto:chester.ismay@gmail.com).
+
+</div>
+
+<div>
+
+### [Consultant](/consulting.qmd)  
+I partner with universities, nonprofits, governmental agencies, and companies to design and refine data workflows powered by AI, automation, and reproducible practices. Whether you're looking to streamline your reporting, explore LLM-powered analysis, or build a data-informed culture, I help teams cut through complexity and focus on what works.
+
+### [Educator](/workshops.qmd)  
+I create and teach hands-on learning experiences in R, Python, SQL, and AI. These range from short, targeted workshops to full-semester courses and interactive online programs. My teaching emphasizes curiosity, practical problem solving, and empowering learners at all levels to use data with confidence.
+
+### [Speaker](/talks.qmd)  
+I speak on the future of data science education, practical uses of AI in analysis and learning, and what it takes to make technical ideas stick. My talks are energetic and example-driven, focused on bridging the gap between what’s possible and what’s useful for educators, analysts, and decision-makers.
+
+### [Author](/projects.qmd)  
+I'm co-author of [ModernDive](https://moderndive.com/v2) and other open educational tools that help make statistics and data science more accessible, modern, and fun. My writing blends clarity, code, and context. I always keep the learner in mind.
+
+</div>
+
+</div>

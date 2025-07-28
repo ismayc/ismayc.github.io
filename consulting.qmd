@@ -1,0 +1,121 @@
+---
+title: "Consulting"
+format:
+  html:
+    toc: true
+    page-layout: full
+---
+
+## Let's Work Together
+
+I help individuals and teams **make sense of messy data**, **build smart tools**, and **tell compelling stories with evidence**.
+
+If you're navigating the ever-changing landscape of **AI**, **data science**, or **statistical thinking**, I can help you move from confusion to clarity and from dashboards to decisions.
+
+Interested in collaborating or just want to chat? Let's find a time to talk via [email](mailto:chester.ismay@gmail.com) or [on LinkedIn](https://www.linkedin.com/in/chesterismay/). I’d love to hear what you're working on and explore ways that I can help.
+
+---
+
+
+## How I Work
+
+- Clear and effective communication (no jargon overload)
+- Collaborative by default
+- Timely, organized, and prepared
+- Always focused on your *actual* questions, not just your data
+- Remote-friendly, flexible, and fun to work with
+- Able to travel if meeting up in person is preferred
+
+---
+
+
+
+## Areas of Expertise
+
+<div class="skill-cards">
+
+::: {.card}
+**Technical Communication**  
+Translate complex statistical and AI concepts into clear, engaging insights for all audiences.  
+
+→ Slide decks, interactive tutorials, executive summaries, and curriculum design
+:::
+
+::: {.card}
+**Data Science Strategy**  
+Build data and AI capabilities aligned with business goals through appropriate problem framing.  
+
+→ From proof-of-concept to production-ready workflows
+:::
+
+::: {.card}
+**LLM & AI Integration**  
+Leverage Large Language Models (LLMs) to augment and improve your analyses, reporting, or user-facing tools.  
+
+→ Prompt engineering, RAG pipelines, trust and transparency
+:::
+
+::: {.card}
+**Project Planning & Execution**  
+Lead data projects from scoping to delivery with a clear, outcome-driven approach.  
+
+→ Stakeholder alignment, milestones, deliverables, and retrospectives
+:::
+
+::: {.card}
+**Supervised Machine Learning**  
+Develop, tune, and evaluate predictive models that solve real-world problems.
+
+→ Classification, regression, cross-validation, and model deployment
+:::
+
+::: {.card}
+**Statistical Consulting**  
+Design sound experiments, choose the right models, and interpret results responsibly.  
+
+→ From t-tests to simulation-based inference to multi-level models to causal inference
+:::
+
+::: {.card}
+**Reproducible Workflows**  
+Streamline your team's work with R, Python, and literate programming.  
+
+→ Reports, dashboards, automated pipelines, version control
+:::
+
+::: {.card}
+**Data Wrangling**  
+Tame messy data using modern tools in Python like `pandas` and `polars` or in R with the `tidyverse` and `tidymodels`.  
+
+→ Cleaning, reshaping, validating, and preparing data at scale
+:::
+
+::: {.card}
+**Data Visualization**  
+Craft dashboards and visual narratives that speak clearly and drive action. 
+
+→ Storytelling with `ggplot2`, `plotly`, Shiny, and more
+:::
+
+</div>
+
+---
+
+## Favorite Tools
+
+R • Python • Quarto/R Markdown • Shiny • Jupyter • HuggingFace • SQL • Git
+
+---
+
+## Ideal Projects
+
+I love working with...
+
+- **Nonprofits, educators, and mission-driven teams** looking to build trust in their data
+- **Early-stage teams** needing a fractional data lead
+- **Educators and curriculum teams** creating AI/data learning tools
+- **Organizations** seeking guidance on building with LLMs or validating models
+- **Researchers or analysts** who need to publish reproducible, interactive reports
+
+
+
