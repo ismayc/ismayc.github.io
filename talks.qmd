@@ -36,7 +36,7 @@ A modern, tidyverse-based take on inference in R.
 **Teaching Introductory Statistics Using the Tidyverse via bookdown**  
 A bookdown-enhanced framework for teaching introductory statistics and data science in R.  
 
-–> [HTML slides](https://ismayc.github.io/rsconf/slides.html)  
+–> [HTML slides](https://ismayc.github.io/rstudioconf/slides.html)  
 –> [Video recording](https://posit.co/resources/videos/teaching-introductory-statistics-using-the-tidyverse-via-bookdown/)
 :::
 

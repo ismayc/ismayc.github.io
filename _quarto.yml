@@ -1,6 +1,14 @@
 project:
   type: website
   output-dir: docs  # for GitHub Pages compatibility
+  render:
+    - index.qmd
+    - about.qmd
+    - consulting.qmd
+    - workshops.qmd
+    - talks.qmd
+    - projects.qmd
+    - ecots2k16/template_pkg.qmd
 
 website:
   title: "Chester Ismay"

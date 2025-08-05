@@ -1,24 +1,66 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Chester Ismay",
+    "objectID": "ecots2k16/template_pkg.html",
+    "href": "ecots2k16/template_pkg.html",
+    "title": "Creating a basic template package in R",
     "section": "",
-    "text": "I help individuals and teams use AI and data science with confidence, not just for the hype, but to actually get projects completed effectively and efficiently.\nI work at the intersection of AI, statistics, and communication by designing hands-on, engaging learning experiences that make complex ideas approachable. I support teams building responsible, reproducible, and effective data workflows. I build tools that are thoroughly tested with the user in mind at all times.\nWhether it’s a university rolling out an AI curriculum, a nonprofit streamlining its data analysis, or a company making sense of noisy dashboards, I bring a human-first mindset to the table. I enjoy helping people learn something new, debug a problem, or bring a fuzzy idea into reality. Outside of work, you’ll probably find me hiking, rowing, or exploring a new dataset for fun. I collaborate best with teams who value clarity, curiosity, and thoughtful problem-solving. If that sounds like you, let’s connect.\n\n\n\n\n\nI partner with universities, nonprofits, governmental agencies, and companies to design and refine data workflows powered by AI, automation, and reproducible practices. Whether you’re looking to streamline your reporting, explore LLM-powered analysis, or build a data-informed culture, I help teams cut through complexity and focus on what works.\n\n\n\nI create and teach hands-on learning experiences in R, Python, SQL, and AI. These range from short, targeted workshops to full-semester courses and interactive online programs. My teaching emphasizes curiosity, practical problem solving, and empowering learners at all levels to use data with confidence.\n\n\n\nI speak on the future of data science education, practical uses of AI in analysis and learning, and what it takes to make technical ideas stick. My talks are energetic and example-driven, focused on bridging the gap between what’s possible and what’s useful for educators, analysts, and decision-makers.\n\n\n\nI’m co-author of ModernDive and other open educational tools that help make statistics and data science more accessible, modern, and fun. My writing blends clarity, code, and context. I always keep the learner in mind."
+    "text": "The developers of RStudio have made creating R packages quite easy. The creation of an R Markdown template as the only thing residing in a package is an even easier task."
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About Me",
-    "section": "",
-    "text": "I grew up in Vale, South Dakota, a small town of 114 people just north of Rapid City. I earned my B.S. in Applied and Computational Mathematics from the South Dakota School of Mines & Technology. Drawn to the outdoors, I moved to Flagstaff and completed an M.S. in Statistics at Northern Arizona University. After working as an actuarial student in Scottsdale, I returned to graduate school and completed my Ph.D. in Statistics at Arizona State University. My dissertation (under the guidance of Dr. Randall Eubank) focused on testing pseudorandom number generators in a parallel computing environment using R and C++.\nSince then, I’ve worked across academia, online education, and industry, remaining at the intersection of statistics, data science, AI, and education. I specialize in making statistical thinking approachable and useful, helping audiences from beginners to executives understand and apply complex ideas. My work blends theory and computation with a strong emphasis on problem framing and interpretation.\nLately, I’ve helped organizations improve data workflows, adopt reproducible practices, and integrate AI and automation into their work. You can learn more on my LinkedIn profile. I also enjoy hiking, traveling, pickleball, reading, and rowing on my Hydrow."
+    "objectID": "ecots2k16/template_pkg.html#check-working-directory",
+    "href": "ecots2k16/template_pkg.html#check-working-directory",
+    "title": "Creating a basic template package in R",
+    "section": "Check working directory",
+    "text": "Check working directory\n\nIf we look down at the Console in the left pane, we can see what our current working directory is. If you click the right arrow next to Console it will show your Current Working Directory in the Files tab in the bottom right pane.\nIt’s important to keep track of where you keep files in R via this working directory and this is commonly a big struggle that students have. We see here that my home directory is the current working directory denoted by the ~/. We can see this by entering getwd() in the Console.\n\n\nInstall devtools\nIf you don’t have it installed already, make sure to run install.packages(\"devtools\") in your Console. This will install a package of tools that makes creating packages simple. More info is available here."
   },
   {
-    "objectID": "index.html#dr.-chester-ismay",
-    "href": "index.html#dr.-chester-ismay",
-    "title": "Chester Ismay",
+    "objectID": "ecots2k16/template_pkg.html#create-package",
+    "href": "ecots2k16/template_pkg.html#create-package",
+    "title": "Creating a basic template package in R",
+    "section": "Create package",
+    "text": "Create package\nWe now invoke the create() function to create a package called “basictemplate” in the Console.\ndevtools::create(\"basictemplate\")\n\nWe see that a new folder has been created in my working directory called basictemplate.\nIf we click on this basictemplate folder we see the files and folders that were created."
+  },
+  {
+    "objectID": "ecots2k16/template_pkg.html#create-skeleton-directory",
+    "href": "ecots2k16/template_pkg.html#create-skeleton-directory",
+    "title": "Creating a basic template package in R",
+    "section": "Create skeleton directory",
+    "text": "Create skeleton directory\nWe now need to create a special path to specify a template file. Remember that case matters in R too! We are going to use the dir.create function to create nested directories:\ndir.create(\"basictemplate/inst/rmarkdown/templates/report/skeleton\",\n    recursive = TRUE)\n\nWe could call it something other than report here if we liked.\nIf we click on the inst folder and continue clicking on the subsequent folders until the end, we have an empty folder called skeleton. This is where we will put an Rmd file that we will call skeleton.Rmd."
+  },
+  {
+    "objectID": "ecots2k16/template_pkg.html#create-skeleton.rmd",
+    "href": "ecots2k16/template_pkg.html#create-skeleton.rmd",
+    "title": "Creating a basic template package in R",
+    "section": "Create skeleton.Rmd",
+    "text": "Create skeleton.Rmd\nLet’s create a basic R Markdown file and then tweak it a bit before saving it here as skeleton.Rmd. We go File -&gt; New File -&gt; R Markdown. We could customize the boxes here but let’s just hit OK and we will customize later.\n \nThe default R Markdown document is now here. We see that we are creating an html_document. Let’s delete some of these lines of code to better fit our needs. Let’s rename the title to be “Basic Report” and delete all lines of code below line 5. At this point we are at a true bare bones document.\n\nLet’s add a few chunk holders for R code and provide some headings. Let’s add Overview, Load data, Data visualization, Analysis, and Discussion as headings and some blank R chunks as well. We could just stop there and that would be the template file. Since we frequently want to invoke using R in chunks in the R Markdown file, let’s add a little bit to an R chunk and include some packages that we’d never work without.\nWe include a chunk called load_data, and we will include code to load some of Hadley’s packages. We add a few more chunks and name them.\n\nWe then save the file. Remember that this file needs to be saved as skeleton.Rmd in the skeleton folder."
+  },
+  {
+    "objectID": "ecots2k16/template_pkg.html#create-template.yaml",
+    "href": "ecots2k16/template_pkg.html#create-template.yaml",
+    "title": "Creating a basic template package in R",
+    "section": "Create template.yaml",
+    "text": "Create template.yaml\nAn often overlooked step is the creation of the template.yaml file. We do so here by doing File -&gt; New File -&gt; Text file. We then type name followed by a colon and the name of our template. It’s important to enter a new line after the name you have given.\n\nNow save the file as template.yaml in the folder containing the skeleton folder. Here it is the report folder."
+  },
+  {
+    "objectID": "ecots2k16/template_pkg.html#install-package",
+    "href": "ecots2k16/template_pkg.html#install-package",
+    "title": "Creating a basic template package in R",
+    "section": "Install package",
+    "text": "Install package\nThe final step is to install our package:\ndevtools::install(\"basictemplate\")"
+  },
+  {
+    "objectID": "ecots2k16/template_pkg.html#test-template-file",
+    "href": "ecots2k16/template_pkg.html#test-template-file",
+    "title": "Creating a basic template package in R",
+    "section": "Test template file",
+    "text": "Test template file\nWe can now test that the template is working by entering the New R Markdown dialog as before, but selecting From Template from the menu. We now see Basic Report.\n\nClick on that and then hit OK. What opens up is that same template file we created before. One way to think about this is as follows: if you were distributing a template like this, each student would have the same starting point. This makes grading IMMENSELY more efficient since students are likely going to follow along with the template you have provided.\nNote that it is also good practice to modify the DESCRIPTION file to be more informative for the package, but we will skip that for brevity here. It’s also good practice to store these packages on GitHub and use version control to keep track of modifications. Excellent tutorials are available here from Karl Broman and here from Hadley Wickham."
+  },
+  {
+    "objectID": "talks.html",
+    "href": "talks.html",
+    "title": "Talks",
     "section": "",
-    "text": "I help individuals and teams use AI and data science with confidence, not just for the hype, but to actually get projects completed effectively and efficiently.\nI work at the intersection of AI, statistics, and communication by designing hands-on, engaging learning experiences that make complex ideas approachable. I support teams building responsible, reproducible, and effective data workflows. I build tools that are thoroughly tested with the user in mind at all times.\nWhether it’s a university rolling out an AI curriculum, a nonprofit streamlining its data analysis, or a company making sense of noisy dashboards, I bring a human-first mindset to the table. I enjoy helping people learn something new, debug a problem, or bring a fuzzy idea into reality. Outside of work, you’ll probably find me hiking, rowing, or exploring a new dataset for fun. I collaborate best with teams who value clarity, curiosity, and thoughtful problem-solving. If that sounds like you, let’s connect."
+    "text": "Here are a few examples of presentations I’ve given. I’m always eager to speak with others about the ways AI, statistics, and effective data communication intersect and how they can better support our day-to-day lives and our work processes. If you have an event or conference in mind, please get in touch.\n\n\nTidyverse Tools in R for Data Science and Statistical Inference (with Dr. Jessica Minnier)\nA tidyverse-driven introduction to crafting clean, reproducible data workflows and modern inference in R.\n–&gt; HTML slides\n\n\nBuilding Data Fluency Through Analogies\nUsing real-world and movie examples to make data science approachable.\n–&gt; PDF slides\n\n\nStatistical Inference: A Tidy Approach\nA modern, tidyverse-based take on inference in R.\n–&gt; HTML slides\n–&gt; Video recording\n\n\nTeaching Introductory Statistics Using the Tidyverse via bookdown\nA bookdown-enhanced framework for teaching introductory statistics and data science in R.\n–&gt; HTML slides\n–&gt; Video recording\n\n\nCreating the fivethirtyeight R package\nBehind-the-scenes of developing an R data package for reproducible journalism.\n–&gt; HTML slides\n–&gt; Video recording\n\n\nSomething old, something new, something borrowed, something blue: Ways to teach data science (and learn it too!)\nA gentle approach to launching students into data science with new tools, familiar stories, and tidy principles.\n–&gt; HTML slides\n–&gt; Video recording"
   },
   {
     "objectID": "consulting.html",
@@ -33,13 +75,6 @@
     "title": "Consulting",
     "section": "",
     "text": "I help individuals and teams make sense of messy data, build smart tools, and tell compelling stories with evidence.\nIf you’re navigating the ever-changing landscape of AI, data science, or statistical thinking, I can help you move from confusion to clarity and from dashboards to decisions.\nInterested in collaborating or just want to chat? Let’s find a time to talk via email or on LinkedIn. I’d love to hear what you’re working on and explore ways that I can help."
-  },
-  {
-    "objectID": "consulting.html#get-in-touch",
-    "href": "consulting.html#get-in-touch",
-    "title": "Consulting",
-    "section": "Get in Touch",
-    "text": "Get in Touch\nInterested in collaborating or just want to chat? Let’s find a time to talk via email or on LinkedIn. I’d love to hear what you’re working on and explore ways that I can help."
   },
   {
     "objectID": "consulting.html#how-i-work",
@@ -70,6 +105,27 @@
     "text": "Ideal Projects\nI love working with…\n\nNonprofits, educators, and mission-driven teams looking to build trust in their data\nEarly-stage teams needing a fractional data lead\nEducators and curriculum teams creating AI/data learning tools\nOrganizations seeking guidance on building with LLMs or validating models\nResearchers or analysts who need to publish reproducible, interactive reports"
   },
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Chester Ismay",
+    "section": "",
+    "text": "I help individuals and teams use AI and data science with confidence, not just for the hype, but to actually get projects completed effectively and efficiently.\nI work at the intersection of AI, statistics, and communication by designing hands-on, engaging learning experiences that make complex ideas approachable. I support teams building responsible, reproducible, and effective data workflows. I build tools that are thoroughly tested with the user in mind at all times.\nWhether it’s a university rolling out an AI curriculum, a nonprofit streamlining its data analysis, or a company making sense of noisy dashboards, I bring a human-first mindset to the table. I enjoy helping people learn something new, debug a problem, or bring a fuzzy idea into reality. Outside of work, you’ll probably find me hiking, rowing, or exploring a new dataset for fun. I collaborate best with teams who value clarity, curiosity, and thoughtful problem-solving. If that sounds like you, let’s connect.\n\n\n\n\n\nI partner with universities, nonprofits, governmental agencies, and companies to design and refine data workflows powered by AI, automation, and reproducible practices. Whether you’re looking to streamline your reporting, explore LLM-powered analysis, or build a data-informed culture, I help teams cut through complexity and focus on what works.\n\n\n\nI create and teach hands-on learning experiences in R, Python, SQL, and AI. These range from short, targeted workshops to full-semester courses and interactive online programs. My teaching emphasizes curiosity, practical problem solving, and empowering learners at all levels to use data with confidence.\n\n\n\nI speak on the future of data science education, practical uses of AI in analysis and learning, and what it takes to make technical ideas stick. My talks are energetic and example-driven, focused on bridging the gap between what’s possible and what’s useful for educators, analysts, and decision-makers.\n\n\n\nI’m co-author of ModernDive and other open educational tools that help make statistics and data science more accessible, modern, and fun. My writing blends clarity, code, and context. I always keep the learner in mind."
+  },
+  {
+    "objectID": "index.html#dr.-chester-ismay",
+    "href": "index.html#dr.-chester-ismay",
+    "title": "Chester Ismay",
+    "section": "",
+    "text": "I help individuals and teams use AI and data science with confidence, not just for the hype, but to actually get projects completed effectively and efficiently.\nI work at the intersection of AI, statistics, and communication by designing hands-on, engaging learning experiences that make complex ideas approachable. I support teams building responsible, reproducible, and effective data workflows. I build tools that are thoroughly tested with the user in mind at all times.\nWhether it’s a university rolling out an AI curriculum, a nonprofit streamlining its data analysis, or a company making sense of noisy dashboards, I bring a human-first mindset to the table. I enjoy helping people learn something new, debug a problem, or bring a fuzzy idea into reality. Outside of work, you’ll probably find me hiking, rowing, or exploring a new dataset for fun. I collaborate best with teams who value clarity, curiosity, and thoughtful problem-solving. If that sounds like you, let’s connect."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About Me",
+    "section": "",
+    "text": "I grew up in Vale, South Dakota, a small town of 114 people just north of Rapid City. I earned my B.S. in Applied and Computational Mathematics from the South Dakota School of Mines & Technology. Drawn to the outdoors, I moved to Flagstaff and completed an M.S. in Statistics at Northern Arizona University. After working as an actuarial student in Scottsdale, I returned to graduate school and completed my Ph.D. in Statistics at Arizona State University. My dissertation (under the guidance of Dr. Randall Eubank) focused on testing pseudorandom number generators in a parallel computing environment using R and C++.\nSince then, I’ve worked across academia, online education, and industry, remaining at the intersection of statistics, data science, AI, and education. I specialize in making statistical thinking approachable and useful, helping audiences from beginners to executives understand and apply complex ideas. My work blends theory and computation with a strong emphasis on problem framing and interpretation.\nLately, I’ve helped organizations improve data workflows, adopt reproducible practices, and integrate AI and automation into their work. You can learn more on my LinkedIn profile. I also enjoy hiking, traveling, pickleball, reading, and rowing on my Hydrow."
+  },
+  {
     "objectID": "workshops.html",
     "href": "workshops.html",
     "title": "Workshops",
@@ -96,13 +152,6 @@
     "title": "Workshops",
     "section": "Virtual Asynchronous",
     "text": "Virtual Asynchronous\n\nDataCamp\n\nProgramming with dplyr"
-  },
-  {
-    "objectID": "talks.html",
-    "href": "talks.html",
-    "title": "Talks",
-    "section": "",
-    "text": "Here are a few examples of presentations I’ve given. I’m always eager to speak with others about the ways AI, statistics, and effective data communication intersect and how they can better support our day-to-day lives and our work processes. If you have an event or conference in mind, please get in touch.\n\n\nTidyverse Tools in R for Data Science and Statistical Inference (with Dr. Jessica Minnier)\nA tidyverse-driven introduction to crafting clean, reproducible data workflows and modern inference in R.\n–&gt; HTML slides\n\n\nBuilding Data Fluency Through Analogies\nUsing real-world and movie examples to make data science approachable.\n–&gt; PDF slides\n\n\nStatistical Inference: A Tidy Approach\nA modern, tidyverse-based take on inference in R.\n–&gt; HTML slides\n–&gt; Video recording\n\n\nTeaching Introductory Statistics Using the Tidyverse via bookdown\nA bookdown-enhanced framework for teaching introductory statistics and data science in R.\n–&gt; HTML slides\n–&gt; Video recording\n\n\nCreating the fivethirtyeight R package\nBehind-the-scenes of developing an R data package for reproducible journalism.\n–&gt; HTML slides\n–&gt; Video recording\n\n\nSomething old, something new, something borrowed, something blue: Ways to teach data science (and learn it too!)\nA gentle approach to launching students into data science with new tools, familiar stories, and tidy principles.\n–&gt; HTML slides\n–&gt; Video recording"
   },
   {
     "objectID": "projects.html",
