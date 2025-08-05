@@ -18,7 +18,7 @@ python-dateutil==2.9.0.post0
 pytz==2025.1
 requests==2.32.3
 seaborn==0.13.2
-setuptools==75.8.0
+setuptools==78.1.1
 six==1.17.0
 soupsieve==2.6
 tenacity==9.0.0
