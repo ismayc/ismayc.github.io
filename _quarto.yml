@@ -1,3 +1,5 @@
+# quarto render
+
 project:
   type: website
   output-dir: docs  # for GitHub Pages compatibility

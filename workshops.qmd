@@ -56,11 +56,11 @@ Each of the following were co-led with [Arturo Valdivia](https://stat.indiana.ed
 
 ### O'Reilly Learning
 
-  - [Data Analysis with Python](https://github.com/ismayc/oreilly-data-analysis-with-python)
+  - [GenAI-Powered Data Analysis with Python](https://github.com/ismayc/oreilly-genai-powered-data-analysis-with-python)
+  - [Machine Learning for Data Analytics with Python](https://github.com/ismayc/oreilly-ml-for-data-analytics-with-python)
   - [Fundamentals of Statistics with Python](https://github.com/ismayc/oreilly-fundamentals-of-statistics-with-python)
   - [Statistical Inference and Modeling with Python](https://github.com/ismayc/oreilly-statistical-modeling-and-inference-with-python)
-  - [Machine Learning for Data Analytics with Python](https://github.com/ismayc/oreilly-ml-for-data-analytics-with-python)
-  - GenAI-Powered Data Analysis with Python (coming in Fall 2025!)
+  - [Data Analysis with Python](https://github.com/ismayc/oreilly-data-analysis-with-python)
 
 ### Instats
 
