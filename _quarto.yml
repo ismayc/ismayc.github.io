@@ -2,6 +2,18 @@
 
 project:
   type: website
+  resources: 
+    - "cc_full.csv"
+    - "cleSac.txt"
+    - "dem_score.csv"
+    - "dem_score.xlsx"
+    - "global13sdss_0.sav"
+    - "imf_data.rds"
+    - "le_mess.csv"
+    - "periodic-table-data.csv"
+    - "pnwflights23.xlsx"
+    - "spotify_dataset.csv"
+    - "wash-or_black.csv"
   output-dir: docs  # for GitHub Pages compatibility
   render:
     - index.qmd
