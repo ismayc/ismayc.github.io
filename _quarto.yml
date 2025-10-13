@@ -14,6 +14,7 @@ project:
     - "pnwflights23.xlsx"
     - "spotify_dataset.csv"
     - "wash-or_black.csv"
+    - "202*-nba-over-under.html"
   output-dir: docs  # for GitHub Pages compatibility
   render:
     - index.qmd
