@@ -1,0 +1,1231 @@
+game_date,start_time,away_team,home_team
+2024-10-22,7:30p,New York Knicks,Boston Celtics
+2024-10-22,10:00p,Minnesota Timberwolves,Los Angeles Lakers
+2024-10-23,7:00p,Indiana Pacers,Detroit Pistons
+2024-10-23,7:30p,Brooklyn Nets,Atlanta Hawks
+2024-10-23,7:30p,Orlando Magic,Miami Heat
+2024-10-23,7:30p,Milwaukee Bucks,Philadelphia 76ers
+2024-10-23,7:30p,Cleveland Cavaliers,Toronto Raptors
+2024-10-23,8:00p,Charlotte Hornets,Houston Rockets
+2024-10-23,8:00p,Chicago Bulls,New Orleans Pelicans
+2024-10-23,9:00p,Memphis Grizzlies,Utah Jazz
+2024-10-23,10:00p,Phoenix Suns,Los Angeles Clippers
+2024-10-23,10:00p,Golden State Warriors,Portland Trail Blazers
+2024-10-24,7:00p,Boston Celtics,Washington Wizards
+2024-10-24,7:30p,San Antonio Spurs,Dallas Mavericks
+2024-10-24,10:00p,Minnesota Timberwolves,Sacramento Kings
+2024-10-24,10:00p,Oklahoma City Thunder,Denver Nuggets
+2024-10-25,7:00p,Brooklyn Nets,Orlando Magic
+2024-10-25,7:00p,Philadelphia 76ers,Toronto Raptors
+2024-10-25,7:30p,Charlotte Hornets,Atlanta Hawks
+2024-10-25,7:30p,Detroit Pistons,Cleveland Cavaliers
+2024-10-25,7:30p,Indiana Pacers,New York Knicks
+2024-10-25,8:00p,Memphis Grizzlies,Houston Rockets
+2024-10-25,8:00p,Chicago Bulls,Milwaukee Bucks
+2024-10-25,9:30p,Golden State Warriors,Utah Jazz
+2024-10-25,10:00p,Phoenix Suns,Los Angeles Lakers
+2024-10-25,10:00p,New Orleans Pelicans,Portland Trail Blazers
+2024-10-26,5:00p,Los Angeles Clippers,Denver Nuggets
+2024-10-26,7:00p,Cleveland Cavaliers,Washington Wizards
+2024-10-26,7:00p,Boston Celtics,Detroit Pistons
+2024-10-26,7:00p,Miami Heat,Charlotte Hornets
+2024-10-26,8:00p,Orlando Magic,Memphis Grizzlies
+2024-10-26,8:00p,Toronto Raptors,Minnesota Timberwolves
+2024-10-26,8:00p,Oklahoma City Thunder,Chicago Bulls
+2024-10-26,8:30p,Houston Rockets,San Antonio Spurs
+2024-10-26,10:00p,Dallas Mavericks,Phoenix Suns
+2024-10-26,10:30p,Sacramento Kings,Los Angeles Lakers
+2024-10-27,3:30p,Philadelphia 76ers,Indiana Pacers
+2024-10-27,6:00p,New Orleans Pelicans,Portland Trail Blazers
+2024-10-27,6:00p,Milwaukee Bucks,Brooklyn Nets
+2024-10-27,7:00p,Atlanta Hawks,Oklahoma City Thunder
+2024-10-27,8:30p,Los Angeles Clippers,Golden State Warriors
+2024-10-28,7:00p,Indiana Pacers,Orlando Magic
+2024-10-28,7:30p,Washington Wizards,Atlanta Hawks
+2024-10-28,7:30p,Milwaukee Bucks,Boston Celtics
+2024-10-28,7:30p,Denver Nuggets,Toronto Raptors
+2024-10-28,7:30p,Detroit Pistons,Miami Heat
+2024-10-28,7:30p,Cleveland Cavaliers,New York Knicks
+2024-10-28,8:00p,Houston Rockets,San Antonio Spurs
+2024-10-28,8:00p,Chicago Bulls,Memphis Grizzlies
+2024-10-28,8:30p,Utah Jazz,Dallas Mavericks
+2024-10-28,10:00p,Portland Trail Blazers,Sacramento Kings
+2024-10-28,10:00p,Los Angeles Lakers,Phoenix Suns
+2024-10-29,7:30p,Denver Nuggets,Brooklyn Nets
+2024-10-29,7:30p,Dallas Mavericks,Minnesota Timberwolves
+2024-10-29,9:00p,Sacramento Kings,Utah Jazz
+2024-10-29,10:00p,New Orleans Pelicans,Golden State Warriors
+2024-10-30,7:00p,Detroit Pistons,Philadelphia 76ers
+2024-10-30,7:00p,Atlanta Hawks,Washington Wizards
+2024-10-30,7:00p,Boston Celtics,Indiana Pacers
+2024-10-30,7:00p,Los Angeles Lakers,Cleveland Cavaliers
+2024-10-30,7:00p,Toronto Raptors,Charlotte Hornets
+2024-10-30,7:30p,New York Knicks,Miami Heat
+2024-10-30,8:00p,Orlando Magic,Chicago Bulls
+2024-10-30,8:00p,Brooklyn Nets,Memphis Grizzlies
+2024-10-30,9:30p,San Antonio Spurs,Oklahoma City Thunder
+2024-10-30,10:00p,New Orleans Pelicans,Golden State Warriors
+2024-10-30,10:30p,Portland Trail Blazers,Los Angeles Clippers
+2024-10-31,8:00p,Milwaukee Bucks,Memphis Grizzlies
+2024-10-31,8:30p,Houston Rockets,Dallas Mavericks
+2024-10-31,9:00p,San Antonio Spurs,Utah Jazz
+2024-10-31,10:30p,Phoenix Suns,Los Angeles Clippers
+2024-11-01,7:00p,Boston Celtics,Charlotte Hornets
+2024-11-01,7:00p,Orlando Magic,Cleveland Cavaliers
+2024-11-01,7:00p,New York Knicks,Detroit Pistons
+2024-11-01,7:30p,Sacramento Kings,Atlanta Hawks
+2024-11-01,7:30p,Chicago Bulls,Brooklyn Nets
+2024-11-01,7:30p,Los Angeles Lakers,Toronto Raptors
+2024-11-01,8:00p,Indiana Pacers,New Orleans Pelicans
+2024-11-01,9:30p,Denver Nuggets,Minnesota Timberwolves
+2024-11-01,10:00p,Oklahoma City Thunder,Portland Trail Blazers
+2024-11-02,6:00p,Boston Celtics,Charlotte Hornets
+2024-11-02,7:30p,Memphis Grizzlies,Philadelphia 76ers
+2024-11-02,7:30p,Sacramento Kings,Toronto Raptors
+2024-11-02,8:00p,Golden State Warriors,Houston Rockets
+2024-11-02,8:00p,Cleveland Cavaliers,Milwaukee Bucks
+2024-11-02,8:00p,Minnesota Timberwolves,San Antonio Spurs
+2024-11-02,9:30p,Miami Heat,Washington Wizards
+2024-11-02,10:00p,Utah Jazz,Denver Nuggets
+2024-11-02,10:00p,Portland Trail Blazers,Phoenix Suns
+2024-11-02,10:30p,Oklahoma City Thunder,Los Angeles Clippers
+2024-11-03,3:30p,Detroit Pistons,Brooklyn Nets
+2024-11-03,7:00p,Atlanta Hawks,New Orleans Pelicans
+2024-11-03,7:30p,Orlando Magic,Dallas Mavericks
+2024-11-04,7:00p,Milwaukee Bucks,Cleveland Cavaliers
+2024-11-04,7:15p,Golden State Warriors,Washington Wizards
+2024-11-04,7:30p,Los Angeles Lakers,Detroit Pistons
+2024-11-04,7:45p,Boston Celtics,Atlanta Hawks
+2024-11-04,8:00p,Memphis Grizzlies,Brooklyn Nets
+2024-11-04,8:15p,Sacramento Kings,Miami Heat
+2024-11-04,8:30p,Utah Jazz,Chicago Bulls
+2024-11-04,8:45p,New York Knicks,Houston Rockets
+2024-11-04,9:00p,Charlotte Hornets,Minnesota Timberwolves
+2024-11-04,9:15p,Orlando Magic,Oklahoma City Thunder
+2024-11-04,9:30p,Portland Trail Blazers,New Orleans Pelicans
+2024-11-04,9:45p,Indiana Pacers,Dallas Mavericks
+2024-11-04,10:00p,Toronto Raptors,Denver Nuggets
+2024-11-04,10:15p,Philadelphia 76ers,Phoenix Suns
+2024-11-04,10:30p,San Antonio Spurs,Los Angeles Clippers
+2024-11-06,7:00p,Detroit Pistons,Charlotte Hornets
+2024-11-06,7:00p,Orlando Magic,Indiana Pacers
+2024-11-06,7:30p,New York Knicks,Atlanta Hawks
+2024-11-06,7:30p,Golden State Warriors,Boston Celtics
+2024-11-06,8:00p,San Antonio Spurs,Houston Rockets
+2024-11-06,8:00p,Los Angeles Lakers,Memphis Grizzlies
+2024-11-06,8:00p,Cleveland Cavaliers,New Orleans Pelicans
+2024-11-06,8:30p,Chicago Bulls,Dallas Mavericks
+2024-11-06,9:00p,Oklahoma City Thunder,Denver Nuggets
+2024-11-06,9:00p,Miami Heat,Phoenix Suns
+2024-11-06,10:00p,Philadelphia 76ers,Los Angeles Clippers
+2024-11-06,10:00p,Toronto Raptors,Sacramento Kings
+2024-11-07,8:00p,Minnesota Timberwolves,Chicago Bulls
+2024-11-07,8:00p,Utah Jazz,Milwaukee Bucks
+2024-11-07,8:00p,Portland Trail Blazers,San Antonio Spurs
+2024-11-08,7:00p,Indiana Pacers,Charlotte Hornets
+2024-11-08,7:00p,Atlanta Hawks,Detroit Pistons
+2024-11-08,7:00p,New Orleans Pelicans,Orlando Magic
+2024-11-08,7:30p,Brooklyn Nets,Boston Celtics
+2024-11-08,7:30p,Golden State Warriors,Cleveland Cavaliers
+2024-11-08,7:30p,Phoenix Suns,Dallas Mavericks
+2024-11-08,7:30p,Milwaukee Bucks,New York Knicks
+2024-11-08,8:00p,Washington Wizards,Memphis Grizzlies
+2024-11-08,8:00p,Houston Rockets,Oklahoma City Thunder
+2024-11-08,9:00p,Miami Heat,Denver Nuggets
+2024-11-08,9:00p,Portland Trail Blazers,Minnesota Timberwolves
+2024-11-08,10:00p,Philadelphia 76ers,Los Angeles Lakers
+2024-11-08,10:00p,Los Angeles Clippers,Sacramento Kings
+2024-11-09,5:00p,Utah Jazz,San Antonio Spurs
+2024-11-09,7:30p,Chicago Bulls,Atlanta Hawks
+2024-11-09,7:30p,Brooklyn Nets,Cleveland Cavaliers
+2024-11-09,10:30p,Toronto Raptors,Los Angeles Clippers
+2024-11-10,3:00p,Houston Rockets,Detroit Pistons
+2024-11-10,3:30p,Boston Celtics,Milwaukee Bucks
+2024-11-10,5:00p,New York Knicks,Indiana Pacers
+2024-11-10,6:00p,Washington Wizards,Orlando Magic
+2024-11-10,7:00p,Miami Heat,Minnesota Timberwolves
+2024-11-10,7:00p,Golden State Warriors,Oklahoma City Thunder
+2024-11-10,7:00p,Charlotte Hornets,Philadelphia 76ers
+2024-11-10,8:00p,Dallas Mavericks,Denver Nuggets
+2024-11-10,8:00p,Sacramento Kings,Phoenix Suns
+2024-11-10,9:00p,Memphis Grizzlies,Portland Trail Blazers
+2024-11-10,9:30p,Toronto Raptors,Los Angeles Lakers
+2024-11-11,8:00p,Cleveland Cavaliers,Chicago Bulls
+2024-11-11,8:00p,Washington Wizards,Houston Rockets
+2024-11-11,8:00p,Brooklyn Nets,New Orleans Pelicans
+2024-11-11,8:00p,Los Angeles Clippers,Oklahoma City Thunder
+2024-11-11,8:00p,Sacramento Kings,San Antonio Spurs
+2024-11-12,7:00p,Atlanta Hawks,Boston Celtics
+2024-11-12,7:00p,Miami Heat,Detroit Pistons
+2024-11-12,7:00p,Charlotte Hornets,Orlando Magic
+2024-11-12,7:30p,New York Knicks,Philadelphia 76ers
+2024-11-12,8:00p,Toronto Raptors,Milwaukee Bucks
+2024-11-12,9:00p,Phoenix Suns,Utah Jazz
+2024-11-12,10:00p,Dallas Mavericks,Golden State Warriors
+2024-11-12,10:00p,Minnesota Timberwolves,Portland Trail Blazers
+2024-11-13,7:00p,Indiana Pacers,Orlando Magic
+2024-11-13,7:30p,Boston Celtics,Brooklyn Nets
+2024-11-13,7:30p,Chicago Bulls,New York Knicks
+2024-11-13,7:30p,New Orleans Pelicans,Oklahoma City Thunder
+2024-11-13,7:30p,Cleveland Cavaliers,Philadelphia 76ers
+2024-11-13,8:00p,Los Angeles Clippers,Houston Rockets
+2024-11-13,8:00p,Detroit Pistons,Milwaukee Bucks
+2024-11-13,8:00p,Washington Wizards,San Antonio Spurs
+2024-11-13,10:00p,Memphis Grizzlies,Los Angeles Lakers
+2024-11-13,10:00p,Minnesota Timberwolves,Portland Trail Blazers
+2024-11-13,10:00p,Phoenix Suns,Sacramento Kings
+2024-11-14,9:00p,Dallas Mavericks,Utah Jazz
+2024-11-15,7:00p,Miami Heat,Indiana Pacers
+2024-11-15,7:00p,Philadelphia 76ers,Orlando Magic
+2024-11-15,7:00p,Detroit Pistons,Toronto Raptors
+2024-11-15,7:30p,Washington Wizards,Atlanta Hawks
+2024-11-15,7:30p,Chicago Bulls,Cleveland Cavaliers
+2024-11-15,7:30p,Brooklyn Nets,New York Knicks
+2024-11-15,7:30p,Los Angeles Lakers,San Antonio Spurs
+2024-11-15,8:00p,Los Angeles Clippers,Houston Rockets
+2024-11-15,8:00p,Denver Nuggets,New Orleans Pelicans
+2024-11-15,8:00p,Phoenix Suns,Oklahoma City Thunder
+2024-11-15,10:00p,Memphis Grizzlies,Golden State Warriors
+2024-11-15,10:00p,Minnesota Timberwolves,Sacramento Kings
+2024-11-16,3:00p,Milwaukee Bucks,Charlotte Hornets
+2024-11-16,8:00p,Toronto Raptors,Boston Celtics
+2024-11-16,8:00p,Los Angeles Lakers,New Orleans Pelicans
+2024-11-16,8:30p,San Antonio Spurs,Dallas Mavericks
+2024-11-16,10:00p,Utah Jazz,Sacramento Kings
+2024-11-17,3:30p,Phoenix Suns,Minnesota Timberwolves
+2024-11-17,5:00p,Miami Heat,Indiana Pacers
+2024-11-17,6:00p,Charlotte Hornets,Cleveland Cavaliers
+2024-11-17,6:00p,Denver Nuggets,Memphis Grizzlies
+2024-11-17,6:00p,Atlanta Hawks,Portland Trail Blazers
+2024-11-17,6:00p,Detroit Pistons,Washington Wizards
+2024-11-17,7:00p,Houston Rockets,Chicago Bulls
+2024-11-17,7:00p,Brooklyn Nets,New York Knicks
+2024-11-17,7:00p,Dallas Mavericks,Oklahoma City Thunder
+2024-11-17,9:00p,Utah Jazz,Los Angeles Clippers
+2024-11-18,7:00p,Chicago Bulls,Detroit Pistons
+2024-11-18,7:30p,Philadelphia 76ers,Miami Heat
+2024-11-18,7:30p,Washington Wizards,New York Knicks
+2024-11-18,7:30p,Indiana Pacers,Toronto Raptors
+2024-11-18,8:00p,Houston Rockets,Milwaukee Bucks
+2024-11-18,9:00p,Orlando Magic,Phoenix Suns
+2024-11-18,10:00p,Atlanta Hawks,Sacramento Kings
+2024-11-18,10:30p,Golden State Warriors,Los Angeles Clippers
+2024-11-19,7:00p,Cleveland Cavaliers,Boston Celtics
+2024-11-19,7:30p,Charlotte Hornets,Brooklyn Nets
+2024-11-19,8:00p,Denver Nuggets,Memphis Grizzlies
+2024-11-19,8:30p,New Orleans Pelicans,Dallas Mavericks
+2024-11-19,9:30p,Oklahoma City Thunder,San Antonio Spurs
+2024-11-19,10:30p,Utah Jazz,Los Angeles Lakers
+2024-11-20,7:30p,New Orleans Pelicans,Cleveland Cavaliers
+2024-11-20,7:30p,Chicago Bulls,Milwaukee Bucks
+2024-11-20,8:00p,Indiana Pacers,Houston Rockets
+2024-11-20,8:00p,Philadelphia 76ers,Memphis Grizzlies
+2024-11-20,8:00p,Portland Trail Blazers,Oklahoma City Thunder
+2024-11-20,10:00p,Atlanta Hawks,Golden State Warriors
+2024-11-20,10:00p,New York Knicks,Phoenix Suns
+2024-11-20,10:30p,Orlando Magic,Los Angeles Clippers
+2024-11-21,7:00p,Detroit Pistons,Charlotte Hornets
+2024-11-21,7:30p,Minnesota Timberwolves,Toronto Raptors
+2024-11-21,8:00p,Utah Jazz,San Antonio Spurs
+2024-11-21,10:30p,Orlando Magic,Los Angeles Lakers
+2024-11-22,7:00p,Brooklyn Nets,Philadelphia 76ers
+2024-11-22,7:00p,Boston Celtics,Washington Wizards
+2024-11-22,7:30p,Golden State Warriors,New Orleans Pelicans
+2024-11-22,8:00p,Atlanta Hawks,Chicago Bulls
+2024-11-22,8:00p,Portland Trail Blazers,Houston Rockets
+2024-11-22,8:00p,Indiana Pacers,Milwaukee Bucks
+2024-11-22,10:00p,Dallas Mavericks,Denver Nuggets
+2024-11-22,10:30p,Sacramento Kings,Los Angeles Clippers
+2024-11-23,5:00p,New York Knicks,Utah Jazz
+2024-11-23,7:00p,Detroit Pistons,Orlando Magic
+2024-11-23,8:00p,Memphis Grizzlies,Chicago Bulls
+2024-11-23,8:00p,Portland Trail Blazers,Houston Rockets
+2024-11-23,8:00p,Charlotte Hornets,Milwaukee Bucks
+2024-11-23,8:30p,Golden State Warriors,San Antonio Spurs
+2024-11-23,10:30p,Denver Nuggets,Los Angeles Lakers
+2024-11-24,3:30p,Minnesota Timberwolves,Boston Celtics
+2024-11-24,5:00p,Washington Wizards,Indiana Pacers
+2024-11-24,6:00p,Dallas Mavericks,Miami Heat
+2024-11-24,6:00p,Los Angeles Clippers,Philadelphia 76ers
+2024-11-24,7:30p,Toronto Raptors,Cleveland Cavaliers
+2024-11-24,9:00p,Brooklyn Nets,Sacramento Kings
+2024-11-25,7:00p,Orlando Magic,Charlotte Hornets
+2024-11-25,7:00p,Toronto Raptors,Detroit Pistons
+2024-11-25,7:00p,New Orleans Pelicans,Indiana Pacers
+2024-11-25,7:30p,Dallas Mavericks,Atlanta Hawks
+2024-11-25,7:30p,Los Angeles Clippers,Boston Celtics
+2024-11-25,8:00p,Portland Trail Blazers,Memphis Grizzlies
+2024-11-25,9:00p,New York Knicks,Denver Nuggets
+2024-11-25,10:00p,Brooklyn Nets,Golden State Warriors
+2024-11-25,10:00p,Oklahoma City Thunder,Sacramento Kings
+2024-11-26,7:00p,Chicago Bulls,Washington Wizards
+2024-11-26,7:30p,Milwaukee Bucks,Miami Heat
+2024-11-26,8:00p,Houston Rockets,Minnesota Timberwolves
+2024-11-26,9:00p,San Antonio Spurs,Utah Jazz
+2024-11-26,10:00p,Los Angeles Lakers,Phoenix Suns
+2024-11-27,7:00p,Miami Heat,Charlotte Hornets
+2024-11-27,7:00p,Atlanta Hawks,Cleveland Cavaliers
+2024-11-27,7:00p,Portland Trail Blazers,Indiana Pacers
+2024-11-27,7:00p,Chicago Bulls,Orlando Magic
+2024-11-27,7:00p,Houston Rockets,Philadelphia 76ers
+2024-11-27,7:00p,Los Angeles Clippers,Washington Wizards
+2024-11-27,7:30p,New York Knicks,Dallas Mavericks
+2024-11-27,8:00p,Detroit Pistons,Memphis Grizzlies
+2024-11-27,8:00p,Sacramento Kings,Minnesota Timberwolves
+2024-11-27,8:00p,Toronto Raptors,New Orleans Pelicans
+2024-11-27,8:30p,Los Angeles Lakers,San Antonio Spurs
+2024-11-27,9:00p,Brooklyn Nets,Phoenix Suns
+2024-11-27,9:00p,Denver Nuggets,Utah Jazz
+2024-11-27,10:00p,Oklahoma City Thunder,Golden State Warriors
+2024-11-29,12:00p,New York Knicks,Charlotte Hornets
+2024-11-29,2:30p,Cleveland Cavaliers,Atlanta Hawks
+2024-11-29,5:00p,New Orleans Pelicans,Memphis Grizzlies
+2024-11-29,7:30p,Orlando Magic,Brooklyn Nets
+2024-11-29,7:30p,Los Angeles Clippers,Minnesota Timberwolves
+2024-11-29,8:00p,Boston Celtics,Chicago Bulls
+2024-11-29,8:00p,Detroit Pistons,Indiana Pacers
+2024-11-29,8:00p,Toronto Raptors,Miami Heat
+2024-11-29,10:00p,Oklahoma City Thunder,Los Angeles Lakers
+2024-11-29,10:00p,Sacramento Kings,Portland Trail Blazers
+2024-11-30,6:00p,Atlanta Hawks,Charlotte Hornets
+2024-11-30,7:00p,Philadelphia 76ers,Detroit Pistons
+2024-11-30,8:00p,Washington Wizards,Milwaukee Bucks
+2024-11-30,9:00p,Golden State Warriors,Phoenix Suns
+2024-11-30,9:30p,Dallas Mavericks,Utah Jazz
+2024-12-01,3:30p,Orlando Magic,Brooklyn Nets
+2024-12-01,3:30p,Indiana Pacers,Memphis Grizzlies
+2024-12-01,6:00p,Boston Celtics,Cleveland Cavaliers
+2024-12-01,6:00p,New Orleans Pelicans,New York Knicks
+2024-12-01,6:00p,Miami Heat,Toronto Raptors
+2024-12-01,7:00p,Oklahoma City Thunder,Houston Rockets
+2024-12-01,8:00p,Los Angeles Lakers,Utah Jazz
+2024-12-01,9:00p,Dallas Mavericks,Portland Trail Blazers
+2024-12-01,9:00p,San Antonio Spurs,Sacramento Kings
+2024-12-01,10:00p,Denver Nuggets,Los Angeles Clippers
+2024-12-02,7:30p,New Orleans Pelicans,Atlanta Hawks
+2024-12-02,7:30p,Miami Heat,Boston Celtics
+2024-12-02,8:00p,Brooklyn Nets,Chicago Bulls
+2024-12-02,8:00p,Los Angeles Lakers,Minnesota Timberwolves
+2024-12-03,7:00p,Philadelphia 76ers,Charlotte Hornets
+2024-12-03,7:00p,Washington Wizards,Cleveland Cavaliers
+2024-12-03,7:00p,Milwaukee Bucks,Detroit Pistons
+2024-12-03,7:30p,Orlando Magic,New York Knicks
+2024-12-03,7:30p,Indiana Pacers,Toronto Raptors
+2024-12-03,8:00p,Utah Jazz,Oklahoma City Thunder
+2024-12-03,8:30p,Memphis Grizzlies,Dallas Mavericks
+2024-12-03,9:00p,San Antonio Spurs,Phoenix Suns
+2024-12-03,10:00p,Golden State Warriors,Denver Nuggets
+2024-12-03,10:00p,Houston Rockets,Sacramento Kings
+2024-12-03,10:30p,Portland Trail Blazers,Los Angeles Clippers
+2024-12-04,7:30p,Detroit Pistons,Boston Celtics
+2024-12-04,7:30p,Indiana Pacers,Brooklyn Nets
+2024-12-04,7:30p,Los Angeles Lakers,Miami Heat
+2024-12-04,7:30p,Orlando Magic,Philadelphia 76ers
+2024-12-04,8:00p,Atlanta Hawks,Milwaukee Bucks
+2024-12-04,10:30p,Minnesota Timberwolves,Los Angeles Clippers
+2024-12-05,7:00p,Denver Nuggets,Cleveland Cavaliers
+2024-12-05,7:00p,Dallas Mavericks,Washington Wizards
+2024-12-05,7:30p,Charlotte Hornets,New York Knicks
+2024-12-05,7:30p,Oklahoma City Thunder,Toronto Raptors
+2024-12-05,8:00p,Sacramento Kings,Memphis Grizzlies
+2024-12-05,8:00p,Phoenix Suns,New Orleans Pelicans
+2024-12-05,8:00p,Chicago Bulls,San Antonio Spurs
+2024-12-05,10:00p,Houston Rockets,Golden State Warriors
+2024-12-06,7:00p,Orlando Magic,Philadelphia 76ers
+2024-12-06,7:30p,Los Angeles Lakers,Atlanta Hawks
+2024-12-06,7:30p,Milwaukee Bucks,Boston Celtics
+2024-12-06,8:00p,Indiana Pacers,Chicago Bulls
+2024-12-06,8:00p,Sacramento Kings,San Antonio Spurs
+2024-12-06,10:00p,Minnesota Timberwolves,Golden State Warriors
+2024-12-06,10:00p,Utah Jazz,Portland Trail Blazers
+2024-12-07,1:00p,Cleveland Cavaliers,Charlotte Hornets
+2024-12-07,7:00p,Oklahoma City Thunder,New Orleans Pelicans
+2024-12-07,7:00p,Denver Nuggets,Washington Wizards
+2024-12-07,7:30p,Detroit Pistons,New York Knicks
+2024-12-07,7:30p,Dallas Mavericks,Toronto Raptors
+2024-12-07,8:00p,Memphis Grizzlies,Boston Celtics
+2024-12-07,8:00p,Phoenix Suns,Miami Heat
+2024-12-08,1:00p,Philadelphia 76ers,Chicago Bulls
+2024-12-08,3:30p,Milwaukee Bucks,Brooklyn Nets
+2024-12-08,5:00p,Charlotte Hornets,Indiana Pacers
+2024-12-08,6:00p,Denver Nuggets,Atlanta Hawks
+2024-12-08,6:00p,Cleveland Cavaliers,Miami Heat
+2024-12-08,6:30p,Phoenix Suns,Orlando Magic
+2024-12-08,7:00p,New Orleans Pelicans,San Antonio Spurs
+2024-12-08,7:00p,Memphis Grizzlies,Washington Wizards
+2024-12-08,8:30p,Minnesota Timberwolves,Golden State Warriors
+2024-12-08,9:00p,Houston Rockets,Los Angeles Clippers
+2024-12-08,9:00p,Utah Jazz,Sacramento Kings
+2024-12-08,9:30p,Portland Trail Blazers,Los Angeles Lakers
+2024-12-09,7:30p,New York Knicks,Toronto Raptors
+2024-12-10,7:00p,Orlando Magic,Milwaukee Bucks
+2024-12-10,9:30p,Dallas Mavericks,Oklahoma City Thunder
+2024-12-11,7:00p,Atlanta Hawks,New York Knicks
+2024-12-11,9:30p,Golden State Warriors,Houston Rockets
+2024-12-12,7:30p,Detroit Pistons,Boston Celtics
+2024-12-12,7:30p,Toronto Raptors,Miami Heat
+2024-12-12,8:00p,Sacramento Kings,New Orleans Pelicans
+2024-12-13,7:00p,Washington Wizards,Cleveland Cavaliers
+2024-12-13,7:00p,Indiana Pacers,Philadelphia 76ers
+2024-12-13,8:00p,Charlotte Hornets,Chicago Bulls
+2024-12-13,8:00p,Brooklyn Nets,Memphis Grizzlies
+2024-12-13,8:00p,Los Angeles Lakers,Minnesota Timberwolves
+2024-12-13,9:00p,Los Angeles Clippers,Denver Nuggets
+2024-12-13,9:30p,Phoenix Suns,Utah Jazz
+2024-12-13,10:00p,San Antonio Spurs,Portland Trail Blazers
+2024-12-14,4:30p,Atlanta Hawks,Milwaukee Bucks
+2024-12-14,8:30p,Houston Rockets,Oklahoma City Thunder
+2024-12-15,5:00p,New Orleans Pelicans,Indiana Pacers
+2024-12-15,6:00p,New York Knicks,Orlando Magic
+2024-12-15,6:00p,Boston Celtics,Washington Wizards
+2024-12-15,7:00p,Minnesota Timberwolves,San Antonio Spurs
+2024-12-15,8:00p,Portland Trail Blazers,Phoenix Suns
+2024-12-15,8:30p,Dallas Mavericks,Golden State Warriors
+2024-12-15,9:30p,Memphis Grizzlies,Los Angeles Lakers
+2024-12-16,7:00p,Philadelphia 76ers,Charlotte Hornets
+2024-12-16,7:00p,Miami Heat,Detroit Pistons
+2024-12-16,7:30p,Cleveland Cavaliers,Brooklyn Nets
+2024-12-16,7:30p,Chicago Bulls,Toronto Raptors
+2024-12-16,10:00p,Denver Nuggets,Sacramento Kings
+2024-12-16,10:30p,Utah Jazz,Los Angeles Clippers
+2024-12-19,7:00p,Utah Jazz,Detroit Pistons
+2024-12-19,7:00p,Oklahoma City Thunder,Orlando Magic
+2024-12-19,7:00p,Charlotte Hornets,Washington Wizards
+2024-12-19,7:30p,Chicago Bulls,Boston Celtics
+2024-12-19,7:30p,Brooklyn Nets,Toronto Raptors
+2024-12-19,8:00p,New Orleans Pelicans,Houston Rockets
+2024-12-19,8:00p,Golden State Warriors,Memphis Grizzlies
+2024-12-19,8:00p,Atlanta Hawks,San Antonio Spurs
+2024-12-19,8:30p,Los Angeles Clippers,Dallas Mavericks
+2024-12-19,9:00p,Indiana Pacers,Phoenix Suns
+2024-12-19,9:30p,New York Knicks,Minnesota Timberwolves
+2024-12-19,10:00p,Denver Nuggets,Portland Trail Blazers
+2024-12-19,10:00p,Los Angeles Lakers,Sacramento Kings
+2024-12-20,7:00p,Charlotte Hornets,Philadelphia 76ers
+2024-12-20,7:30p,Milwaukee Bucks,Cleveland Cavaliers
+2024-12-20,8:00p,Oklahoma City Thunder,Miami Heat
+2024-12-21,6:00p,Los Angeles Lakers,Sacramento Kings
+2024-12-21,7:00p,Miami Heat,Orlando Magic
+2024-12-21,7:30p,Memphis Grizzlies,Atlanta Hawks
+2024-12-21,7:30p,Utah Jazz,Brooklyn Nets
+2024-12-21,8:00p,Boston Celtics,Chicago Bulls
+2024-12-21,8:00p,Philadelphia 76ers,Cleveland Cavaliers
+2024-12-21,8:00p,Washington Wizards,Milwaukee Bucks
+2024-12-21,8:00p,Golden State Warriors,Minnesota Timberwolves
+2024-12-21,8:00p,New York Knicks,New Orleans Pelicans
+2024-12-21,8:30p,Los Angeles Clippers,Dallas Mavericks
+2024-12-21,8:30p,Portland Trail Blazers,San Antonio Spurs
+2024-12-21,9:00p,Detroit Pistons,Phoenix Suns
+2024-12-22,6:00p,Indiana Pacers,Sacramento Kings
+2024-12-22,6:00p,Houston Rockets,Toronto Raptors
+2024-12-22,7:00p,Denver Nuggets,New Orleans Pelicans
+2024-12-23,7:00p,Houston Rockets,Charlotte Hornets
+2024-12-23,7:00p,Utah Jazz,Cleveland Cavaliers
+2024-12-23,7:00p,Boston Celtics,Orlando Magic
+2024-12-23,7:00p,San Antonio Spurs,Philadelphia 76ers
+2024-12-23,7:30p,Minnesota Timberwolves,Atlanta Hawks
+2024-12-23,7:30p,Brooklyn Nets,Miami Heat
+2024-12-23,7:30p,Toronto Raptors,New York Knicks
+2024-12-23,8:00p,Milwaukee Bucks,Chicago Bulls
+2024-12-23,8:00p,Los Angeles Clippers,Memphis Grizzlies
+2024-12-23,8:00p,Washington Wizards,Oklahoma City Thunder
+2024-12-23,8:30p,Portland Trail Blazers,Dallas Mavericks
+2024-12-23,10:00p,Phoenix Suns,Denver Nuggets
+2024-12-23,10:00p,Indiana Pacers,Golden State Warriors
+2024-12-23,10:30p,Detroit Pistons,Los Angeles Lakers
+2024-12-25,12:00p,San Antonio Spurs,New York Knicks
+2024-12-25,2:30p,Minnesota Timberwolves,Dallas Mavericks
+2024-12-25,5:00p,Philadelphia 76ers,Boston Celtics
+2024-12-25,8:00p,Los Angeles Lakers,Golden State Warriors
+2024-12-25,10:30p,Denver Nuggets,Phoenix Suns
+2024-12-26,7:00p,Oklahoma City Thunder,Indiana Pacers
+2024-12-26,7:00p,Miami Heat,Orlando Magic
+2024-12-26,7:00p,Charlotte Hornets,Washington Wizards
+2024-12-26,7:30p,Chicago Bulls,Atlanta Hawks
+2024-12-26,8:00p,Toronto Raptors,Memphis Grizzlies
+2024-12-26,8:00p,Brooklyn Nets,Milwaukee Bucks
+2024-12-26,8:00p,Houston Rockets,New Orleans Pelicans
+2024-12-26,10:00p,Utah Jazz,Portland Trail Blazers
+2024-12-26,10:00p,Detroit Pistons,Sacramento Kings
+2024-12-27,7:00p,New York Knicks,Orlando Magic
+2024-12-27,7:30p,Indiana Pacers,Boston Celtics
+2024-12-27,7:30p,San Antonio Spurs,Brooklyn Nets
+2024-12-27,8:00p,Minnesota Timberwolves,Houston Rockets
+2024-12-27,8:00p,Memphis Grizzlies,New Orleans Pelicans
+2024-12-27,9:00p,Cleveland Cavaliers,Denver Nuggets
+2024-12-27,9:00p,Dallas Mavericks,Phoenix Suns
+2024-12-27,10:00p,Golden State Warriors,Los Angeles Clippers
+2024-12-28,3:00p,Miami Heat,Atlanta Hawks
+2024-12-28,6:00p,Oklahoma City Thunder,Charlotte Hornets
+2024-12-28,7:00p,New York Knicks,Washington Wizards
+2024-12-28,8:00p,Milwaukee Bucks,Chicago Bulls
+2024-12-28,8:30p,Phoenix Suns,Golden State Warriors
+2024-12-28,9:00p,Detroit Pistons,Denver Nuggets
+2024-12-28,9:30p,Philadelphia 76ers,Utah Jazz
+2024-12-28,10:00p,Dallas Mavericks,Portland Trail Blazers
+2024-12-28,10:30p,Sacramento Kings,Los Angeles Lakers
+2024-12-29,3:30p,Brooklyn Nets,Orlando Magic
+2024-12-29,6:00p,Indiana Pacers,Boston Celtics
+2024-12-29,6:00p,Atlanta Hawks,Toronto Raptors
+2024-12-29,7:00p,Miami Heat,Houston Rockets
+2024-12-29,7:00p,Memphis Grizzlies,Oklahoma City Thunder
+2024-12-29,8:00p,San Antonio Spurs,Minnesota Timberwolves
+2024-12-30,7:00p,Chicago Bulls,Charlotte Hornets
+2024-12-30,7:00p,New York Knicks,Washington Wizards
+2024-12-30,8:00p,Los Angeles Clippers,New Orleans Pelicans
+2024-12-30,9:00p,Denver Nuggets,Utah Jazz
+2024-12-30,10:00p,Cleveland Cavaliers,Golden State Warriors
+2024-12-30,10:00p,Philadelphia 76ers,Portland Trail Blazers
+2024-12-30,10:00p,Dallas Mavericks,Sacramento Kings
+2024-12-31,3:00p,Toronto Raptors,Boston Celtics
+2024-12-31,3:00p,Milwaukee Bucks,Indiana Pacers
+2024-12-31,7:00p,Los Angeles Clippers,San Antonio Spurs
+2024-12-31,8:00p,Minnesota Timberwolves,Oklahoma City Thunder
+2024-12-31,9:00p,Cleveland Cavaliers,Los Angeles Lakers
+2024-12-31,9:00p,Memphis Grizzlies,Phoenix Suns
+2025-01-01,7:00p,Orlando Magic,Detroit Pistons
+2025-01-01,7:00p,Chicago Bulls,Washington Wizards
+2025-01-01,7:30p,New Orleans Pelicans,Miami Heat
+2025-01-01,7:30p,Utah Jazz,New York Knicks
+2025-01-01,7:30p,Brooklyn Nets,Toronto Raptors
+2025-01-01,8:00p,Dallas Mavericks,Houston Rockets
+2025-01-01,9:00p,Atlanta Hawks,Denver Nuggets
+2025-01-01,10:00p,Philadelphia 76ers,Sacramento Kings
+2025-01-02,7:30p,Indiana Pacers,Miami Heat
+2025-01-02,7:30p,Boston Celtics,Minnesota Timberwolves
+2025-01-02,8:00p,Brooklyn Nets,Milwaukee Bucks
+2025-01-02,8:00p,Los Angeles Clippers,Oklahoma City Thunder
+2025-01-02,10:00p,Philadelphia 76ers,Golden State Warriors
+2025-01-02,10:30p,Portland Trail Blazers,Los Angeles Lakers
+2025-01-03,7:00p,Charlotte Hornets,Detroit Pistons
+2025-01-03,7:30p,Orlando Magic,Toronto Raptors
+2025-01-03,8:00p,Boston Celtics,Houston Rockets
+2025-01-03,8:00p,Washington Wizards,New Orleans Pelicans
+2025-01-03,8:00p,New York Knicks,Oklahoma City Thunder
+2025-01-03,8:30p,Cleveland Cavaliers,Dallas Mavericks
+2025-01-03,9:00p,San Antonio Spurs,Denver Nuggets
+2025-01-03,10:00p,Memphis Grizzlies,Sacramento Kings
+2025-01-03,10:30p,Atlanta Hawks,Los Angeles Lakers
+2025-01-04,6:00p,Philadelphia 76ers,Brooklyn Nets
+2025-01-04,7:00p,Minnesota Timberwolves,Detroit Pistons
+2025-01-04,7:00p,Phoenix Suns,Indiana Pacers
+2025-01-04,8:00p,New York Knicks,Chicago Bulls
+2025-01-04,8:00p,Utah Jazz,Miami Heat
+2025-01-04,8:00p,Portland Trail Blazers,Milwaukee Bucks
+2025-01-04,8:00p,Denver Nuggets,San Antonio Spurs
+2025-01-04,8:30p,Memphis Grizzlies,Golden State Warriors
+2025-01-04,10:30p,Atlanta Hawks,Los Angeles Clippers
+2025-01-05,3:30p,Boston Celtics,Oklahoma City Thunder
+2025-01-05,6:00p,Charlotte Hornets,Cleveland Cavaliers
+2025-01-05,6:00p,New Orleans Pelicans,Washington Wizards
+2025-01-05,6:30p,Utah Jazz,Orlando Magic
+2025-01-05,7:00p,Los Angeles Lakers,Houston Rockets
+2025-01-05,8:30p,Sacramento Kings,Golden State Warriors
+2025-01-06,7:00p,Portland Trail Blazers,Detroit Pistons
+2025-01-06,7:00p,Phoenix Suns,Philadelphia 76ers
+2025-01-06,7:30p,Indiana Pacers,Brooklyn Nets
+2025-01-06,7:30p,Orlando Magic,New York Knicks
+2025-01-06,7:30p,Milwaukee Bucks,Toronto Raptors
+2025-01-06,8:00p,San Antonio Spurs,Chicago Bulls
+2025-01-06,8:00p,Dallas Mavericks,Memphis Grizzlies
+2025-01-06,8:00p,Los Angeles Clippers,Minnesota Timberwolves
+2025-01-06,10:00p,Miami Heat,Sacramento Kings
+2025-01-07,7:00p,Phoenix Suns,Charlotte Hornets
+2025-01-07,7:00p,Houston Rockets,Washington Wizards
+2025-01-07,7:30p,Los Angeles Lakers,Dallas Mavericks
+2025-01-07,8:00p,Minnesota Timberwolves,New Orleans Pelicans
+2025-01-07,9:00p,Atlanta Hawks,Utah Jazz
+2025-01-07,10:00p,Boston Celtics,Denver Nuggets
+2025-01-07,10:00p,Miami Heat,Golden State Warriors
+2025-01-08,7:00p,Oklahoma City Thunder,Cleveland Cavaliers
+2025-01-08,7:00p,Chicago Bulls,Indiana Pacers
+2025-01-08,7:00p,Toronto Raptors,New York Knicks
+2025-01-08,7:00p,Washington Wizards,Philadelphia 76ers
+2025-01-08,7:30p,Detroit Pistons,Brooklyn Nets
+2025-01-08,8:00p,Portland Trail Blazers,New Orleans Pelicans
+2025-01-08,9:00p,Los Angeles Clippers,Denver Nuggets
+2025-01-08,9:30p,San Antonio Spurs,Milwaukee Bucks
+2025-01-09,7:00p,Toronto Raptors,Cleveland Cavaliers
+2025-01-09,7:00p,Golden State Warriors,Detroit Pistons
+2025-01-09,7:00p,Minnesota Timberwolves,Orlando Magic
+2025-01-09,8:00p,Houston Rockets,Memphis Grizzlies
+2025-01-09,8:30p,Portland Trail Blazers,Dallas Mavericks
+2025-01-09,9:00p,Atlanta Hawks,Phoenix Suns
+2025-01-09,9:00p,Miami Heat,Utah Jazz
+2025-01-09,10:30p,Charlotte Hornets,Los Angeles Lakers
+2025-01-10,7:00p,Golden State Warriors,Indiana Pacers
+2025-01-10,7:00p,Milwaukee Bucks,Orlando Magic
+2025-01-10,7:00p,New Orleans Pelicans,Philadelphia 76ers
+2025-01-10,7:30p,Sacramento Kings,Boston Celtics
+2025-01-10,7:30p,Oklahoma City Thunder,New York Knicks
+2025-01-10,8:00p,Washington Wizards,Chicago Bulls
+2025-01-10,9:00p,Brooklyn Nets,Denver Nuggets
+2025-01-11,3:00p,Houston Rockets,Atlanta Hawks
+2025-01-11,5:00p,Utah Jazz,Phoenix Suns
+2025-01-11,7:00p,Toronto Raptors,Detroit Pistons
+2025-01-11,8:00p,Memphis Grizzlies,Minnesota Timberwolves
+2025-01-11,10:00p,Miami Heat,Portland Trail Blazers
+2025-01-11,10:30p,Charlotte Hornets,Los Angeles Clippers
+2025-01-11,10:30p,San Antonio Spurs,Los Angeles Lakers
+2025-01-12,3:00p,Denver Nuggets,Dallas Mavericks
+2025-01-12,3:00p,Milwaukee Bucks,New York Knicks
+2025-01-12,3:30p,Sacramento Kings,Chicago Bulls
+2025-01-12,6:00p,New Orleans Pelicans,Boston Celtics
+2025-01-12,6:00p,Indiana Pacers,Cleveland Cavaliers
+2025-01-12,6:00p,Philadelphia 76ers,Orlando Magic
+2025-01-12,6:00p,Oklahoma City Thunder,Washington Wizards
+2025-01-12,8:00p,Brooklyn Nets,Utah Jazz
+2025-01-12,9:00p,Charlotte Hornets,Phoenix Suns
+2025-01-13,7:00p,Minnesota Timberwolves,Washington Wizards
+2025-01-13,7:30p,Detroit Pistons,New York Knicks
+2025-01-13,7:30p,Golden State Warriors,Toronto Raptors
+2025-01-13,8:00p,Memphis Grizzlies,Houston Rockets
+2025-01-13,10:30p,Miami Heat,Los Angeles Clippers
+2025-01-13,10:30p,San Antonio Spurs,Los Angeles Lakers
+2025-01-14,7:00p,Cleveland Cavaliers,Indiana Pacers
+2025-01-14,7:00p,Oklahoma City Thunder,Philadelphia 76ers
+2025-01-14,7:30p,Phoenix Suns,Atlanta Hawks
+2025-01-14,8:00p,New Orleans Pelicans,Chicago Bulls
+2025-01-14,8:00p,Sacramento Kings,Milwaukee Bucks
+2025-01-14,9:30p,Denver Nuggets,Dallas Mavericks
+2025-01-14,10:00p,Brooklyn Nets,Portland Trail Blazers
+2025-01-15,7:30p,New York Knicks,Philadelphia 76ers
+2025-01-15,7:30p,Boston Celtics,Toronto Raptors
+2025-01-15,8:00p,Atlanta Hawks,Chicago Bulls
+2025-01-15,8:00p,Orlando Magic,Milwaukee Bucks
+2025-01-15,8:00p,Golden State Warriors,Minnesota Timberwolves
+2025-01-15,8:00p,Dallas Mavericks,New Orleans Pelicans
+2025-01-15,8:00p,Memphis Grizzlies,San Antonio Spurs
+2025-01-15,9:00p,Houston Rockets,Denver Nuggets
+2025-01-15,9:00p,Charlotte Hornets,Utah Jazz
+2025-01-15,10:00p,Miami Heat,Los Angeles Lakers
+2025-01-15,10:30p,Brooklyn Nets,Los Angeles Clippers
+2025-01-16,7:00p,Indiana Pacers,Detroit Pistons
+2025-01-16,7:00p,Phoenix Suns,Washington Wizards
+2025-01-16,7:30p,Cleveland Cavaliers,Oklahoma City Thunder
+2025-01-16,10:00p,Los Angeles Clippers,Portland Trail Blazers
+2025-01-16,10:00p,Houston Rockets,Sacramento Kings
+2025-01-17,7:00p,Orlando Magic,Boston Celtics
+2025-01-17,7:30p,Minnesota Timberwolves,New York Knicks
+2025-01-17,8:00p,Denver Nuggets,Miami Heat
+2025-01-17,8:00p,Toronto Raptors,Milwaukee Bucks
+2025-01-17,8:00p,Utah Jazz,New Orleans Pelicans
+2025-01-17,8:00p,Memphis Grizzlies,San Antonio Spurs
+2025-01-17,8:30p,Oklahoma City Thunder,Dallas Mavericks
+2025-01-17,9:30p,Charlotte Hornets,Chicago Bulls
+2025-01-17,10:30p,Brooklyn Nets,Los Angeles Lakers
+2025-01-18,5:00p,Phoenix Suns,Detroit Pistons
+2025-01-18,7:00p,Atlanta Hawks,Boston Celtics
+2025-01-18,7:00p,Philadelphia 76ers,Indiana Pacers
+2025-01-18,8:30p,Washington Wizards,Golden State Warriors
+2025-01-18,9:00p,Cleveland Cavaliers,Minnesota Timberwolves
+2025-01-18,10:00p,Houston Rockets,Portland Trail Blazers
+2025-01-19,3:00p,San Antonio Spurs,Miami Heat
+2025-01-19,6:00p,Denver Nuggets,Orlando Magic
+2025-01-19,7:00p,Philadelphia 76ers,Milwaukee Bucks
+2025-01-19,7:00p,Brooklyn Nets,Oklahoma City Thunder
+2025-01-19,9:00p,Los Angeles Lakers,Los Angeles Clippers
+2025-01-19,9:00p,Chicago Bulls,Portland Trail Blazers
+2025-01-19,9:00p,Washington Wizards,Sacramento Kings
+2025-01-20,12:00p,Dallas Mavericks,Charlotte Hornets
+2025-01-20,2:00p,Detroit Pistons,Houston Rockets
+2025-01-20,2:30p,Minnesota Timberwolves,Memphis Grizzlies
+2025-01-20,3:00p,Atlanta Hawks,New York Knicks
+2025-01-20,3:30p,Phoenix Suns,Cleveland Cavaliers
+2025-01-20,5:00p,Boston Celtics,Golden State Warriors
+2025-01-20,8:00p,Utah Jazz,New Orleans Pelicans
+2025-01-21,7:30p,New York Knicks,Brooklyn Nets
+2025-01-21,7:30p,Portland Trail Blazers,Miami Heat
+2025-01-21,7:30p,Orlando Magic,Toronto Raptors
+2025-01-21,10:00p,Philadelphia 76ers,Denver Nuggets
+2025-01-21,10:30p,Chicago Bulls,Los Angeles Clippers
+2025-01-21,10:30p,Washington Wizards,Los Angeles Lakers
+2025-01-22,7:30p,Detroit Pistons,Atlanta Hawks
+2025-01-22,7:30p,Phoenix Suns,Brooklyn Nets
+2025-01-22,7:30p,Minnesota Timberwolves,Dallas Mavericks
+2025-01-22,8:00p,Cleveland Cavaliers,Houston Rockets
+2025-01-22,8:00p,Charlotte Hornets,Memphis Grizzlies
+2025-01-22,8:00p,Milwaukee Bucks,New Orleans Pelicans
+2025-01-22,8:00p,Utah Jazz,Oklahoma City Thunder
+2025-01-22,10:00p,Golden State Warriors,Sacramento Kings
+2025-01-22,10:30p,Boston Celtics,Los Angeles Clippers
+2025-01-23,2:00p,San Antonio Spurs,Indiana Pacers
+2025-01-23,7:00p,Portland Trail Blazers,Orlando Magic
+2025-01-23,7:30p,Toronto Raptors,Atlanta Hawks
+2025-01-23,7:30p,Miami Heat,Milwaukee Bucks
+2025-01-23,8:00p,Dallas Mavericks,Oklahoma City Thunder
+2025-01-23,9:00p,Sacramento Kings,Denver Nuggets
+2025-01-23,9:00p,Washington Wizards,Utah Jazz
+2025-01-23,10:00p,Chicago Bulls,Golden State Warriors
+2025-01-23,10:00p,Boston Celtics,Los Angeles Lakers
+2025-01-24,7:00p,Portland Trail Blazers,Charlotte Hornets
+2025-01-24,7:00p,Cleveland Cavaliers,Philadelphia 76ers
+2025-01-24,8:00p,New Orleans Pelicans,Memphis Grizzlies
+2025-01-25,12:00p,Indiana Pacers,San Antonio Spurs
+2025-01-25,3:00p,Denver Nuggets,Minnesota Timberwolves
+2025-01-25,5:30p,Boston Celtics,Dallas Mavericks
+2025-01-25,6:00p,Miami Heat,Brooklyn Nets
+2025-01-25,7:00p,New Orleans Pelicans,Charlotte Hornets
+2025-01-25,7:00p,Detroit Pistons,Orlando Magic
+2025-01-25,7:30p,Toronto Raptors,Atlanta Hawks
+2025-01-25,7:30p,Houston Rockets,Cleveland Cavaliers
+2025-01-25,7:30p,Sacramento Kings,New York Knicks
+2025-01-25,8:00p,Philadelphia 76ers,Chicago Bulls
+2025-01-25,8:00p,Utah Jazz,Memphis Grizzlies
+2025-01-25,8:30p,Los Angeles Lakers,Golden State Warriors
+2025-01-25,9:00p,Washington Wizards,Phoenix Suns
+2025-01-25,10:30p,Milwaukee Bucks,Los Angeles Clippers
+2025-01-26,6:00p,Oklahoma City Thunder,Portland Trail Blazers
+2025-01-27,7:00p,Los Angeles Lakers,Charlotte Hornets
+2025-01-27,7:00p,Detroit Pistons,Cleveland Cavaliers
+2025-01-27,7:30p,Houston Rockets,Boston Celtics
+2025-01-27,7:30p,Sacramento Kings,Brooklyn Nets
+2025-01-27,7:30p,Orlando Magic,Miami Heat
+2025-01-27,7:30p,Memphis Grizzlies,New York Knicks
+2025-01-27,7:30p,New Orleans Pelicans,Toronto Raptors
+2025-01-27,8:00p,Denver Nuggets,Chicago Bulls
+2025-01-27,8:00p,Atlanta Hawks,Minnesota Timberwolves
+2025-01-27,8:30p,Washington Wizards,Dallas Mavericks
+2025-01-27,9:00p,Milwaukee Bucks,Utah Jazz
+2025-01-27,9:30p,Los Angeles Clippers,Phoenix Suns
+2025-01-28,7:30p,Los Angeles Lakers,Philadelphia 76ers
+2025-01-28,10:00p,Utah Jazz,Golden State Warriors
+2025-01-28,10:00p,Milwaukee Bucks,Portland Trail Blazers
+2025-01-29,7:00p,Brooklyn Nets,Charlotte Hornets
+2025-01-29,7:00p,Detroit Pistons,Indiana Pacers
+2025-01-29,7:00p,Toronto Raptors,Washington Wizards
+2025-01-29,7:30p,Chicago Bulls,Boston Celtics
+2025-01-29,7:30p,Cleveland Cavaliers,Miami Heat
+2025-01-29,7:30p,Denver Nuggets,New York Knicks
+2025-01-29,7:30p,Sacramento Kings,Philadelphia 76ers
+2025-01-29,8:00p,Dallas Mavericks,New Orleans Pelicans
+2025-01-29,8:00p,Los Angeles Clippers,San Antonio Spurs
+2025-01-29,9:00p,Minnesota Timberwolves,Phoenix Suns
+2025-01-29,10:00p,Oklahoma City Thunder,Golden State Warriors
+2025-01-30,7:00p,Los Angeles Lakers,Washington Wizards
+2025-01-30,7:30p,Atlanta Hawks,Cleveland Cavaliers
+2025-01-30,7:30p,Houston Rockets,Memphis Grizzlies
+2025-01-30,10:00p,Orlando Magic,Portland Trail Blazers
+2025-01-30,10:00p,Minnesota Timberwolves,Utah Jazz
+2025-01-31,7:00p,Los Angeles Clippers,Charlotte Hornets
+2025-01-31,7:00p,Dallas Mavericks,Detroit Pistons
+2025-01-31,7:30p,Denver Nuggets,Philadelphia 76ers
+2025-01-31,7:30p,Chicago Bulls,Toronto Raptors
+2025-01-31,8:00p,Boston Celtics,New Orleans Pelicans
+2025-01-31,8:00p,Milwaukee Bucks,San Antonio Spurs
+2025-01-31,10:00p,Phoenix Suns,Golden State Warriors
+2025-02-01,5:00p,Atlanta Hawks,Indiana Pacers
+2025-02-01,5:00p,Orlando Magic,Utah Jazz
+2025-02-01,7:00p,Denver Nuggets,Charlotte Hornets
+2025-02-01,8:00p,Brooklyn Nets,Houston Rockets
+2025-02-01,8:00p,Washington Wizards,Minnesota Timberwolves
+2025-02-01,8:00p,Sacramento Kings,Oklahoma City Thunder
+2025-02-01,8:30p,Los Angeles Lakers,New York Knicks
+2025-02-01,8:30p,Miami Heat,San Antonio Spurs
+2025-02-01,10:00p,Phoenix Suns,Portland Trail Blazers
+2025-02-02,3:00p,Chicago Bulls,Detroit Pistons
+2025-02-02,3:30p,Dallas Mavericks,Cleveland Cavaliers
+2025-02-02,3:30p,Los Angeles Clippers,Toronto Raptors
+2025-02-02,6:00p,Boston Celtics,Philadelphia 76ers
+2025-02-02,8:30p,Memphis Grizzlies,Milwaukee Bucks
+2025-02-03,7:00p,Washington Wizards,Charlotte Hornets
+2025-02-03,7:00p,Atlanta Hawks,Detroit Pistons
+2025-02-03,7:30p,Houston Rockets,New York Knicks
+2025-02-03,8:00p,San Antonio Spurs,Memphis Grizzlies
+2025-02-03,8:00p,Sacramento Kings,Minnesota Timberwolves
+2025-02-03,8:00p,Milwaukee Bucks,Oklahoma City Thunder
+2025-02-03,9:00p,New Orleans Pelicans,Denver Nuggets
+2025-02-03,9:00p,Indiana Pacers,Utah Jazz
+2025-02-03,10:00p,Orlando Magic,Golden State Warriors
+2025-02-03,10:00p,Phoenix Suns,Portland Trail Blazers
+2025-02-04,7:00p,Boston Celtics,Cleveland Cavaliers
+2025-02-04,7:30p,Houston Rockets,Brooklyn Nets
+2025-02-04,7:30p,Dallas Mavericks,Philadelphia 76ers
+2025-02-04,7:30p,New York Knicks,Toronto Raptors
+2025-02-04,8:00p,Miami Heat,Chicago Bulls
+2025-02-04,10:00p,Los Angeles Lakers,Los Angeles Clippers
+2025-02-04,10:00p,Indiana Pacers,Portland Trail Blazers
+2025-02-05,7:00p,Milwaukee Bucks,Charlotte Hornets
+2025-02-05,7:00p,Cleveland Cavaliers,Detroit Pistons
+2025-02-05,7:30p,San Antonio Spurs,Atlanta Hawks
+2025-02-05,7:30p,Washington Wizards,Brooklyn Nets
+2025-02-05,7:30p,Miami Heat,Philadelphia 76ers
+2025-02-05,7:30p,Memphis Grizzlies,Toronto Raptors
+2025-02-05,8:00p,Chicago Bulls,Minnesota Timberwolves
+2025-02-05,8:00p,Phoenix Suns,Oklahoma City Thunder
+2025-02-05,9:00p,Golden State Warriors,Utah Jazz
+2025-02-05,10:00p,New Orleans Pelicans,Denver Nuggets
+2025-02-05,10:00p,Orlando Magic,Sacramento Kings
+2025-02-06,7:30p,Dallas Mavericks,Boston Celtics
+2025-02-06,8:00p,Houston Rockets,Minnesota Timberwolves
+2025-02-06,9:00p,Orlando Magic,Denver Nuggets
+2025-02-06,10:00p,Golden State Warriors,Los Angeles Lakers
+2025-02-06,10:00p,Sacramento Kings,Portland Trail Blazers
+2025-02-06,10:30p,Indiana Pacers,Los Angeles Clippers
+2025-02-07,7:00p,San Antonio Spurs,Charlotte Hornets
+2025-02-07,7:00p,Cleveland Cavaliers,Washington Wizards
+2025-02-07,7:30p,Milwaukee Bucks,Atlanta Hawks
+2025-02-07,7:30p,Miami Heat,Brooklyn Nets
+2025-02-07,7:30p,Philadelphia 76ers,Detroit Pistons
+2025-02-07,8:00p,Toronto Raptors,Oklahoma City Thunder
+2025-02-07,10:00p,Utah Jazz,Phoenix Suns
+2025-02-08,3:00p,Houston Rockets,Dallas Mavericks
+2025-02-08,4:00p,Indiana Pacers,Los Angeles Lakers
+2025-02-08,7:00p,San Antonio Spurs,Orlando Magic
+2025-02-08,7:00p,Atlanta Hawks,Washington Wizards
+2025-02-08,8:00p,Golden State Warriors,Chicago Bulls
+2025-02-08,8:00p,Oklahoma City Thunder,Memphis Grizzlies
+2025-02-08,8:00p,Portland Trail Blazers,Minnesota Timberwolves
+2025-02-08,8:30p,Boston Celtics,New York Knicks
+2025-02-08,9:00p,Denver Nuggets,Phoenix Suns
+2025-02-08,10:00p,New Orleans Pelicans,Sacramento Kings
+2025-02-08,10:30p,Utah Jazz,Los Angeles Clippers
+2025-02-09,1:00p,Charlotte Hornets,Detroit Pistons
+2025-02-09,2:00p,Toronto Raptors,Houston Rockets
+2025-02-09,2:00p,Philadelphia 76ers,Milwaukee Bucks
+2025-02-10,7:00p,Minnesota Timberwolves,Cleveland Cavaliers
+2025-02-10,7:00p,Atlanta Hawks,Orlando Magic
+2025-02-10,7:00p,San Antonio Spurs,Washington Wizards
+2025-02-10,7:30p,Charlotte Hornets,Brooklyn Nets
+2025-02-10,7:30p,Boston Celtics,Miami Heat
+2025-02-10,8:00p,Golden State Warriors,Milwaukee Bucks
+2025-02-10,8:00p,New Orleans Pelicans,Oklahoma City Thunder
+2025-02-10,8:30p,Sacramento Kings,Dallas Mavericks
+2025-02-10,9:00p,Portland Trail Blazers,Denver Nuggets
+2025-02-11,7:00p,Toronto Raptors,Philadelphia 76ers
+2025-02-11,7:30p,New York Knicks,Indiana Pacers
+2025-02-11,8:00p,Detroit Pistons,Chicago Bulls
+2025-02-11,10:00p,Memphis Grizzlies,Phoenix Suns
+2025-02-11,10:30p,Utah Jazz,Los Angeles Lakers
+2025-02-12,7:00p,San Antonio Spurs,Boston Celtics
+2025-02-12,7:00p,Charlotte Hornets,Orlando Magic
+2025-02-12,7:00p,Indiana Pacers,Washington Wizards
+2025-02-12,7:30p,Philadelphia 76ers,Brooklyn Nets
+2025-02-12,7:30p,Atlanta Hawks,New York Knicks
+2025-02-12,7:30p,Cleveland Cavaliers,Toronto Raptors
+2025-02-12,8:00p,Detroit Pistons,Chicago Bulls
+2025-02-12,8:00p,Milwaukee Bucks,Minnesota Timberwolves
+2025-02-12,8:00p,Sacramento Kings,New Orleans Pelicans
+2025-02-12,8:00p,Miami Heat,Oklahoma City Thunder
+2025-02-12,8:30p,Phoenix Suns,Houston Rockets
+2025-02-12,9:00p,Portland Trail Blazers,Denver Nuggets
+2025-02-12,9:00p,Los Angeles Lakers,Utah Jazz
+2025-02-12,9:30p,Golden State Warriors,Dallas Mavericks
+2025-02-12,10:30p,Memphis Grizzlies,Los Angeles Clippers
+2025-02-13,8:00p,Golden State Warriors,Houston Rockets
+2025-02-13,8:00p,Sacramento Kings,New Orleans Pelicans
+2025-02-13,8:30p,Miami Heat,Dallas Mavericks
+2025-02-13,8:30p,Oklahoma City Thunder,Minnesota Timberwolves
+2025-02-20,7:00p,Memphis Grizzlies,Indiana Pacers
+2025-02-20,7:00p,Boston Celtics,Philadelphia 76ers
+2025-02-20,7:30p,Orlando Magic,Atlanta Hawks
+2025-02-20,7:30p,Cleveland Cavaliers,Brooklyn Nets
+2025-02-20,7:30p,Chicago Bulls,New York Knicks
+2025-02-20,8:00p,Los Angeles Clippers,Milwaukee Bucks
+2025-02-20,9:00p,Charlotte Hornets,Denver Nuggets
+2025-02-20,9:30p,Phoenix Suns,San Antonio Spurs
+2025-02-20,10:00p,Los Angeles Lakers,Portland Trail Blazers
+2025-02-21,7:00p,New York Knicks,Cleveland Cavaliers
+2025-02-21,7:00p,Memphis Grizzlies,Orlando Magic
+2025-02-21,7:00p,Milwaukee Bucks,Washington Wizards
+2025-02-21,7:30p,Miami Heat,Toronto Raptors
+2025-02-21,8:00p,Minnesota Timberwolves,Houston Rockets
+2025-02-21,8:30p,Detroit Pistons,San Antonio Spurs
+2025-02-21,9:30p,New Orleans Pelicans,Dallas Mavericks
+2025-02-21,9:30p,Oklahoma City Thunder,Utah Jazz
+2025-02-21,10:00p,Golden State Warriors,Sacramento Kings
+2025-02-22,5:00p,Phoenix Suns,Chicago Bulls
+2025-02-22,7:30p,Brooklyn Nets,Philadelphia 76ers
+2025-02-22,8:30p,Los Angeles Lakers,Denver Nuggets
+2025-02-22,9:30p,Houston Rockets,Utah Jazz
+2025-02-22,10:00p,Charlotte Hornets,Portland Trail Blazers
+2025-02-23,1:00p,New York Knicks,Boston Celtics
+2025-02-23,3:30p,Dallas Mavericks,Golden State Warriors
+2025-02-23,5:00p,Los Angeles Clippers,Indiana Pacers
+2025-02-23,6:00p,Detroit Pistons,Atlanta Hawks
+2025-02-23,6:00p,Washington Wizards,Orlando Magic
+2025-02-23,6:00p,Phoenix Suns,Toronto Raptors
+2025-02-23,7:00p,Miami Heat,Milwaukee Bucks
+2025-02-23,7:00p,San Antonio Spurs,New Orleans Pelicans
+2025-02-23,7:30p,Memphis Grizzlies,Cleveland Cavaliers
+2025-02-23,9:30p,Oklahoma City Thunder,Minnesota Timberwolves
+2025-02-24,7:00p,Los Angeles Clippers,Detroit Pistons
+2025-02-24,7:00p,Denver Nuggets,Indiana Pacers
+2025-02-24,7:00p,Chicago Bulls,Philadelphia 76ers
+2025-02-24,7:00p,Brooklyn Nets,Washington Wizards
+2025-02-24,7:30p,Miami Heat,Atlanta Hawks
+2025-02-24,8:00p,Minnesota Timberwolves,Oklahoma City Thunder
+2025-02-24,9:00p,Portland Trail Blazers,Utah Jazz
+2025-02-24,10:00p,Charlotte Hornets,Sacramento Kings
+2025-02-25,7:00p,Boston Celtics,Toronto Raptors
+2025-02-25,7:30p,Cleveland Cavaliers,Orlando Magic
+2025-02-25,8:00p,Milwaukee Bucks,Houston Rockets
+2025-02-25,8:00p,Phoenix Suns,Memphis Grizzlies
+2025-02-25,8:00p,San Antonio Spurs,New Orleans Pelicans
+2025-02-25,10:00p,Charlotte Hornets,Golden State Warriors
+2025-02-25,10:00p,Dallas Mavericks,Los Angeles Lakers
+2025-02-26,7:00p,Boston Celtics,Detroit Pistons
+2025-02-26,7:00p,Toronto Raptors,Indiana Pacers
+2025-02-26,7:00p,Philadelphia 76ers,New York Knicks
+2025-02-26,7:00p,Portland Trail Blazers,Washington Wizards
+2025-02-26,7:30p,Oklahoma City Thunder,Brooklyn Nets
+2025-02-26,7:30p,Atlanta Hawks,Miami Heat
+2025-02-26,8:00p,Los Angeles Clippers,Chicago Bulls
+2025-02-26,9:00p,Sacramento Kings,Utah Jazz
+2025-02-26,9:30p,San Antonio Spurs,Houston Rockets
+2025-02-27,7:00p,Golden State Warriors,Orlando Magic
+2025-02-27,7:30p,Denver Nuggets,Milwaukee Bucks
+2025-02-27,8:30p,Charlotte Hornets,Dallas Mavericks
+2025-02-27,10:00p,New Orleans Pelicans,Phoenix Suns
+2025-02-27,10:30p,Minnesota Timberwolves,Los Angeles Lakers
+2025-02-28,7:00p,Denver Nuggets,Detroit Pistons
+2025-02-28,7:30p,Oklahoma City Thunder,Atlanta Hawks
+2025-02-28,7:30p,Cleveland Cavaliers,Boston Celtics
+2025-02-28,7:30p,Portland Trail Blazers,Brooklyn Nets
+2025-02-28,8:00p,Toronto Raptors,Chicago Bulls
+2025-02-28,8:00p,New York Knicks,Memphis Grizzlies
+2025-02-28,8:00p,Indiana Pacers,Miami Heat
+2025-02-28,9:00p,New Orleans Pelicans,Phoenix Suns
+2025-02-28,9:30p,Minnesota Timberwolves,Utah Jazz
+2025-02-28,10:00p,Los Angeles Clippers,Los Angeles Lakers
+2025-03-01,6:00p,Washington Wizards,Charlotte Hornets
+2025-03-01,7:00p,Brooklyn Nets,Detroit Pistons
+2025-03-01,8:00p,Sacramento Kings,Houston Rockets
+2025-03-01,8:00p,San Antonio Spurs,Memphis Grizzlies
+2025-03-01,8:30p,Milwaukee Bucks,Dallas Mavericks
+2025-03-01,8:30p,Golden State Warriors,Philadelphia 76ers
+2025-03-02,1:00p,Denver Nuggets,Boston Celtics
+2025-03-02,3:30p,Portland Trail Blazers,Cleveland Cavaliers
+2025-03-02,5:00p,Chicago Bulls,Indiana Pacers
+2025-03-02,6:00p,New York Knicks,Miami Heat
+2025-03-02,6:00p,Toronto Raptors,Orlando Magic
+2025-03-02,7:00p,Oklahoma City Thunder,San Antonio Spurs
+2025-03-02,8:00p,New Orleans Pelicans,Utah Jazz
+2025-03-02,9:30p,Los Angeles Clippers,Los Angeles Lakers
+2025-03-02,9:30p,Minnesota Timberwolves,Phoenix Suns
+2025-03-03,7:00p,Golden State Warriors,Charlotte Hornets
+2025-03-03,7:00p,Portland Trail Blazers,Philadelphia 76ers
+2025-03-03,7:30p,Washington Wizards,Miami Heat
+2025-03-03,8:00p,Atlanta Hawks,Memphis Grizzlies
+2025-03-03,8:00p,Houston Rockets,Oklahoma City Thunder
+2025-03-03,8:30p,Sacramento Kings,Dallas Mavericks
+2025-03-03,9:30p,Detroit Pistons,Utah Jazz
+2025-03-04,7:00p,Houston Rockets,Indiana Pacers
+2025-03-04,7:00p,Toronto Raptors,Orlando Magic
+2025-03-04,7:30p,Milwaukee Bucks,Atlanta Hawks
+2025-03-04,7:30p,Golden State Warriors,New York Knicks
+2025-03-04,8:00p,Cleveland Cavaliers,Chicago Bulls
+2025-03-04,8:00p,Philadelphia 76ers,Minnesota Timberwolves
+2025-03-04,8:30p,Brooklyn Nets,San Antonio Spurs
+2025-03-04,10:00p,Los Angeles Clippers,Phoenix Suns
+2025-03-04,10:30p,New Orleans Pelicans,Los Angeles Lakers
+2025-03-05,7:00p,Portland Trail Blazers,Boston Celtics
+2025-03-05,7:00p,Minnesota Timberwolves,Charlotte Hornets
+2025-03-05,7:00p,Miami Heat,Cleveland Cavaliers
+2025-03-05,7:00p,Utah Jazz,Washington Wizards
+2025-03-05,8:00p,Oklahoma City Thunder,Memphis Grizzlies
+2025-03-05,9:00p,Sacramento Kings,Denver Nuggets
+2025-03-05,9:30p,Dallas Mavericks,Milwaukee Bucks
+2025-03-05,10:30p,Detroit Pistons,Los Angeles Clippers
+2025-03-06,7:30p,Indiana Pacers,Atlanta Hawks
+2025-03-06,7:30p,Philadelphia 76ers,Boston Celtics
+2025-03-06,7:30p,Golden State Warriors,Brooklyn Nets
+2025-03-06,8:00p,Houston Rockets,New Orleans Pelicans
+2025-03-06,10:00p,New York Knicks,Los Angeles Lakers
+2025-03-07,7:00p,Cleveland Cavaliers,Charlotte Hornets
+2025-03-07,7:30p,Memphis Grizzlies,Dallas Mavericks
+2025-03-07,7:30p,Utah Jazz,Toronto Raptors
+2025-03-07,8:00p,Minnesota Timberwolves,Miami Heat
+2025-03-07,8:00p,Portland Trail Blazers,Oklahoma City Thunder
+2025-03-07,10:00p,Phoenix Suns,Denver Nuggets
+2025-03-07,10:00p,San Antonio Spurs,Sacramento Kings
+2025-03-07,10:30p,New York Knicks,Los Angeles Clippers
+2025-03-08,6:00p,Brooklyn Nets,Charlotte Hornets
+2025-03-08,7:00p,New Orleans Pelicans,Houston Rockets
+2025-03-08,7:30p,Indiana Pacers,Atlanta Hawks
+2025-03-08,7:30p,Washington Wizards,Toronto Raptors
+2025-03-08,8:00p,Chicago Bulls,Miami Heat
+2025-03-08,8:00p,Orlando Magic,Milwaukee Bucks
+2025-03-08,8:30p,Los Angeles Lakers,Boston Celtics
+2025-03-08,8:30p,Detroit Pistons,Golden State Warriors
+2025-03-09,1:00p,Denver Nuggets,Oklahoma City Thunder
+2025-03-09,3:30p,Phoenix Suns,Dallas Mavericks
+2025-03-09,7:00p,Memphis Grizzlies,New Orleans Pelicans
+2025-03-09,7:30p,Utah Jazz,Philadelphia 76ers
+2025-03-09,8:00p,Cleveland Cavaliers,Milwaukee Bucks
+2025-03-09,8:00p,San Antonio Spurs,Minnesota Timberwolves
+2025-03-09,9:00p,Detroit Pistons,Portland Trail Blazers
+2025-03-09,9:30p,Sacramento Kings,Los Angeles Clippers
+2025-03-10,7:30p,Philadelphia 76ers,Atlanta Hawks
+2025-03-10,7:30p,Utah Jazz,Boston Celtics
+2025-03-10,7:30p,Los Angeles Lakers,Brooklyn Nets
+2025-03-10,7:30p,Charlotte Hornets,Miami Heat
+2025-03-10,7:30p,Washington Wizards,Toronto Raptors
+2025-03-10,8:00p,Indiana Pacers,Chicago Bulls
+2025-03-10,8:00p,Orlando Magic,Houston Rockets
+2025-03-10,8:00p,Phoenix Suns,Memphis Grizzlies
+2025-03-10,8:00p,Denver Nuggets,Oklahoma City Thunder
+2025-03-10,8:30p,Dallas Mavericks,San Antonio Spurs
+2025-03-10,10:00p,Portland Trail Blazers,Golden State Warriors
+2025-03-10,10:30p,New York Knicks,Sacramento Kings
+2025-03-11,7:00p,Brooklyn Nets,Cleveland Cavaliers
+2025-03-11,7:00p,Washington Wizards,Detroit Pistons
+2025-03-11,7:00p,Milwaukee Bucks,Indiana Pacers
+2025-03-11,9:30p,Los Angeles Clippers,New Orleans Pelicans
+2025-03-12,7:00p,Chicago Bulls,Orlando Magic
+2025-03-12,7:30p,Charlotte Hornets,Atlanta Hawks
+2025-03-12,7:30p,Oklahoma City Thunder,Boston Celtics
+2025-03-12,7:30p,Philadelphia 76ers,Toronto Raptors
+2025-03-12,8:00p,Phoenix Suns,Houston Rockets
+2025-03-12,8:00p,Utah Jazz,Memphis Grizzlies
+2025-03-12,8:00p,Los Angeles Clippers,Miami Heat
+2025-03-12,8:00p,Dallas Mavericks,San Antonio Spurs
+2025-03-12,10:00p,Minnesota Timberwolves,Denver Nuggets
+2025-03-12,10:00p,New York Knicks,Portland Trail Blazers
+2025-03-13,7:00p,Washington Wizards,Detroit Pistons
+2025-03-13,7:30p,Los Angeles Lakers,Milwaukee Bucks
+2025-03-13,8:00p,Brooklyn Nets,Chicago Bulls
+2025-03-13,10:00p,Sacramento Kings,Golden State Warriors
+2025-03-14,7:00p,Boston Celtics,Miami Heat
+2025-03-14,7:00p,Indiana Pacers,Philadelphia 76ers
+2025-03-14,7:30p,Los Angeles Clippers,Atlanta Hawks
+2025-03-14,8:00p,Dallas Mavericks,Houston Rockets
+2025-03-14,8:00p,Cleveland Cavaliers,Memphis Grizzlies
+2025-03-14,8:00p,Orlando Magic,Minnesota Timberwolves
+2025-03-14,8:00p,Charlotte Hornets,San Antonio Spurs
+2025-03-14,9:30p,Los Angeles Lakers,Denver Nuggets
+2025-03-14,9:30p,Toronto Raptors,Utah Jazz
+2025-03-14,10:00p,Sacramento Kings,Phoenix Suns
+2025-03-15,6:00p,Boston Celtics,Brooklyn Nets
+2025-03-15,7:00p,Oklahoma City Thunder,Detroit Pistons
+2025-03-15,8:00p,Chicago Bulls,Houston Rockets
+2025-03-15,8:00p,Miami Heat,Memphis Grizzlies
+2025-03-15,8:00p,Indiana Pacers,Milwaukee Bucks
+2025-03-15,8:30p,New York Knicks,Golden State Warriors
+2025-03-15,8:30p,New Orleans Pelicans,San Antonio Spurs
+2025-03-15,9:00p,Washington Wizards,Denver Nuggets
+2025-03-16,1:00p,Philadelphia 76ers,Dallas Mavericks
+2025-03-16,3:30p,Phoenix Suns,Los Angeles Lakers
+2025-03-16,6:00p,Atlanta Hawks,Brooklyn Nets
+2025-03-16,6:00p,Orlando Magic,Cleveland Cavaliers
+2025-03-16,6:00p,Toronto Raptors,Portland Trail Blazers
+2025-03-16,7:00p,Utah Jazz,Minnesota Timberwolves
+2025-03-16,9:00p,Oklahoma City Thunder,Milwaukee Bucks
+2025-03-16,10:00p,Washington Wizards,Los Angeles Clippers
+2025-03-17,7:30p,Miami Heat,New York Knicks
+2025-03-17,8:00p,Philadelphia 76ers,Houston Rockets
+2025-03-17,8:00p,Indiana Pacers,Minnesota Timberwolves
+2025-03-17,8:00p,Detroit Pistons,New Orleans Pelicans
+2025-03-17,8:00p,Orlando Magic,San Antonio Spurs
+2025-03-17,9:00p,Chicago Bulls,Utah Jazz
+2025-03-17,10:00p,Denver Nuggets,Golden State Warriors
+2025-03-17,10:00p,Toronto Raptors,Phoenix Suns
+2025-03-17,10:00p,Memphis Grizzlies,Sacramento Kings
+2025-03-18,7:00p,Atlanta Hawks,Charlotte Hornets
+2025-03-18,7:30p,Brooklyn Nets,Boston Celtics
+2025-03-18,10:00p,Washington Wizards,Portland Trail Blazers
+2025-03-18,10:30p,Cleveland Cavaliers,Los Angeles Clippers
+2025-03-18,10:30p,Milwaukee Bucks,Los Angeles Lakers
+2025-03-19,7:00p,Dallas Mavericks,Indiana Pacers
+2025-03-19,7:00p,Houston Rockets,Orlando Magic
+2025-03-19,7:30p,Detroit Pistons,Miami Heat
+2025-03-19,7:30p,New Orleans Pelicans,Minnesota Timberwolves
+2025-03-19,8:00p,Philadelphia 76ers,Oklahoma City Thunder
+2025-03-19,8:00p,New York Knicks,San Antonio Spurs
+2025-03-19,9:00p,Los Angeles Clippers,Utah Jazz
+2025-03-19,10:00p,Toronto Raptors,Golden State Warriors
+2025-03-19,10:00p,Denver Nuggets,Los Angeles Lakers
+2025-03-19,10:00p,Chicago Bulls,Phoenix Suns
+2025-03-19,10:00p,Memphis Grizzlies,Portland Trail Blazers
+2025-03-19,10:00p,Cleveland Cavaliers,Sacramento Kings
+2025-03-20,7:00p,New York Knicks,Charlotte Hornets
+2025-03-20,7:00p,Brooklyn Nets,Indiana Pacers
+2025-03-20,10:00p,Milwaukee Bucks,Golden State Warriors
+2025-03-20,10:00p,Chicago Bulls,Sacramento Kings
+2025-03-21,7:00p,Orlando Magic,Washington Wizards
+2025-03-21,8:00p,Houston Rockets,Miami Heat
+2025-03-21,8:00p,New Orleans Pelicans,Minnesota Timberwolves
+2025-03-21,8:00p,Charlotte Hornets,Oklahoma City Thunder
+2025-03-21,8:00p,Philadelphia 76ers,San Antonio Spurs
+2025-03-21,8:30p,Detroit Pistons,Dallas Mavericks
+2025-03-21,9:30p,Boston Celtics,Utah Jazz
+2025-03-21,10:00p,Cleveland Cavaliers,Phoenix Suns
+2025-03-21,10:00p,Denver Nuggets,Portland Trail Blazers
+2025-03-21,10:30p,Memphis Grizzlies,Los Angeles Clippers
+2025-03-22,5:00p,Brooklyn Nets,Indiana Pacers
+2025-03-22,7:00p,Golden State Warriors,Atlanta Hawks
+2025-03-22,8:00p,Washington Wizards,New York Knicks
+2025-03-22,10:00p,Milwaukee Bucks,Sacramento Kings
+2025-03-22,10:30p,Chicago Bulls,Los Angeles Lakers
+2025-03-23,3:00p,New Orleans Pelicans,Detroit Pistons
+2025-03-23,3:30p,Cleveland Cavaliers,Utah Jazz
+2025-03-23,6:00p,Philadelphia 76ers,Atlanta Hawks
+2025-03-23,6:00p,Charlotte Hornets,Miami Heat
+2025-03-23,6:00p,Boston Celtics,Portland Trail Blazers
+2025-03-23,6:00p,San Antonio Spurs,Toronto Raptors
+2025-03-23,7:00p,Denver Nuggets,Houston Rockets
+2025-03-23,9:00p,Oklahoma City Thunder,Los Angeles Clippers
+2025-03-24,7:00p,Minnesota Timberwolves,Indiana Pacers
+2025-03-24,7:00p,Los Angeles Lakers,Orlando Magic
+2025-03-24,7:00p,Toronto Raptors,Washington Wizards
+2025-03-24,7:30p,Dallas Mavericks,Brooklyn Nets
+2025-03-24,8:00p,Philadelphia 76ers,New Orleans Pelicans
+2025-03-24,9:00p,Chicago Bulls,Denver Nuggets
+2025-03-24,10:00p,Milwaukee Bucks,Phoenix Suns
+2025-03-24,10:00p,Boston Celtics,Sacramento Kings
+2025-03-25,7:00p,Orlando Magic,Charlotte Hornets
+2025-03-25,7:00p,San Antonio Spurs,Detroit Pistons
+2025-03-25,7:30p,Golden State Warriors,Miami Heat
+2025-03-25,7:30p,Dallas Mavericks,New York Knicks
+2025-03-25,8:00p,Atlanta Hawks,Houston Rockets
+2025-03-25,9:00p,Memphis Grizzlies,Utah Jazz
+2025-03-25,10:00p,Cleveland Cavaliers,Portland Trail Blazers
+2025-03-25,10:00p,Oklahoma City Thunder,Sacramento Kings
+2025-03-26,7:00p,Washington Wizards,Philadelphia 76ers
+2025-03-26,7:30p,Toronto Raptors,Brooklyn Nets
+2025-03-26,7:30p,Los Angeles Lakers,Indiana Pacers
+2025-03-26,7:30p,Los Angeles Clippers,New York Knicks
+2025-03-26,9:00p,Milwaukee Bucks,Denver Nuggets
+2025-03-26,10:00p,Boston Celtics,Phoenix Suns
+2025-03-27,7:00p,San Antonio Spurs,Cleveland Cavaliers
+2025-03-27,7:00p,Dallas Mavericks,Orlando Magic
+2025-03-27,7:00p,Indiana Pacers,Washington Wizards
+2025-03-27,7:30p,Atlanta Hawks,Miami Heat
+2025-03-27,8:00p,Los Angeles Lakers,Chicago Bulls
+2025-03-27,8:00p,Memphis Grizzlies,Oklahoma City Thunder
+2025-03-27,9:00p,Houston Rockets,Utah Jazz
+2025-03-27,10:00p,Portland Trail Blazers,Sacramento Kings
+2025-03-28,7:00p,Cleveland Cavaliers,Detroit Pistons
+2025-03-28,7:30p,Los Angeles Clippers,Brooklyn Nets
+2025-03-28,7:30p,Charlotte Hornets,Toronto Raptors
+2025-03-28,8:00p,New York Knicks,Milwaukee Bucks
+2025-03-28,8:00p,Phoenix Suns,Minnesota Timberwolves
+2025-03-28,8:00p,Golden State Warriors,New Orleans Pelicans
+2025-03-28,9:00p,Utah Jazz,Denver Nuggets
+2025-03-29,5:00p,Sacramento Kings,Orlando Magic
+2025-03-29,7:00p,Brooklyn Nets,Washington Wizards
+2025-03-29,7:30p,Miami Heat,Philadelphia 76ers
+2025-03-29,8:00p,Dallas Mavericks,Chicago Bulls
+2025-03-29,8:00p,Los Angeles Lakers,Memphis Grizzlies
+2025-03-29,8:00p,Indiana Pacers,Oklahoma City Thunder
+2025-03-29,8:00p,Boston Celtics,San Antonio Spurs
+2025-03-30,3:30p,Los Angeles Clippers,Cleveland Cavaliers
+2025-03-30,6:00p,Portland Trail Blazers,New York Knicks
+2025-03-30,7:00p,Atlanta Hawks,Milwaukee Bucks
+2025-03-30,7:00p,Detroit Pistons,Minnesota Timberwolves
+2025-03-30,7:00p,Charlotte Hornets,New Orleans Pelicans
+2025-03-30,7:00p,Golden State Warriors,San Antonio Spurs
+2025-03-30,7:30p,Toronto Raptors,Philadelphia 76ers
+2025-03-30,9:00p,Houston Rockets,Phoenix Suns
+2025-03-31,7:00p,Utah Jazz,Charlotte Hornets
+2025-03-31,7:00p,Sacramento Kings,Indiana Pacers
+2025-03-31,7:00p,Los Angeles Clippers,Orlando Magic
+2025-03-31,7:00p,Miami Heat,Washington Wizards
+2025-03-31,8:00p,Boston Celtics,Memphis Grizzlies
+2025-03-31,8:00p,Chicago Bulls,Oklahoma City Thunder
+2025-03-31,8:30p,Brooklyn Nets,Dallas Mavericks
+2025-03-31,10:30p,Houston Rockets,Los Angeles Lakers
+2025-04-01,7:30p,Portland Trail Blazers,Atlanta Hawks
+2025-04-01,7:30p,Philadelphia 76ers,New York Knicks
+2025-04-01,8:00p,Toronto Raptors,Chicago Bulls
+2025-04-01,8:00p,Golden State Warriors,Memphis Grizzlies
+2025-04-01,8:00p,Phoenix Suns,Milwaukee Bucks
+2025-04-01,10:00p,Minnesota Timberwolves,Denver Nuggets
+2025-04-02,7:00p,New York Knicks,Cleveland Cavaliers
+2025-04-02,7:00p,Charlotte Hornets,Indiana Pacers
+2025-04-02,7:00p,Sacramento Kings,Washington Wizards
+2025-04-02,7:30p,Miami Heat,Boston Celtics
+2025-04-02,8:00p,Utah Jazz,Houston Rockets
+2025-04-02,8:00p,Detroit Pistons,Oklahoma City Thunder
+2025-04-02,8:30p,Atlanta Hawks,Dallas Mavericks
+2025-04-02,9:00p,San Antonio Spurs,Denver Nuggets
+2025-04-02,10:00p,New Orleans Pelicans,Los Angeles Clippers
+2025-04-03,7:00p,Orlando Magic,Washington Wizards
+2025-04-03,7:30p,Minnesota Timberwolves,Brooklyn Nets
+2025-04-03,7:30p,Memphis Grizzlies,Miami Heat
+2025-04-03,7:30p,Milwaukee Bucks,Philadelphia 76ers
+2025-04-03,7:30p,Portland Trail Blazers,Toronto Raptors
+2025-04-03,10:00p,Golden State Warriors,Los Angeles Lakers
+2025-04-04,7:00p,Sacramento Kings,Charlotte Hornets
+2025-04-04,7:00p,Utah Jazz,Indiana Pacers
+2025-04-04,7:30p,Phoenix Suns,Boston Celtics
+2025-04-04,7:30p,Detroit Pistons,Toronto Raptors
+2025-04-04,8:00p,Portland Trail Blazers,Chicago Bulls
+2025-04-04,8:00p,Oklahoma City Thunder,Houston Rockets
+2025-04-04,8:00p,Cleveland Cavaliers,San Antonio Spurs
+2025-04-04,10:00p,Denver Nuggets,Golden State Warriors
+2025-04-04,10:30p,Dallas Mavericks,Los Angeles Clippers
+2025-04-04,10:30p,New Orleans Pelicans,Los Angeles Lakers
+2025-04-05,3:00p,New York Knicks,Atlanta Hawks
+2025-04-05,7:00p,Memphis Grizzlies,Detroit Pistons
+2025-04-05,7:00p,Minnesota Timberwolves,Philadelphia 76ers
+2025-04-05,8:00p,Milwaukee Bucks,Miami Heat
+2025-04-05,10:30p,Dallas Mavericks,Los Angeles Clippers
+2025-04-06,1:00p,Chicago Bulls,Charlotte Hornets
+2025-04-06,3:30p,Toronto Raptors,Brooklyn Nets
+2025-04-06,3:30p,Los Angeles Lakers,Oklahoma City Thunder
+2025-04-06,6:00p,Utah Jazz,Atlanta Hawks
+2025-04-06,6:00p,Washington Wizards,Boston Celtics
+2025-04-06,6:00p,Sacramento Kings,Cleveland Cavaliers
+2025-04-06,6:00p,San Antonio Spurs,Portland Trail Blazers
+2025-04-06,7:00p,Orlando Magic,New Orleans Pelicans
+2025-04-06,7:00p,Phoenix Suns,New York Knicks
+2025-04-06,8:00p,Indiana Pacers,Denver Nuggets
+2025-04-06,8:30p,Houston Rockets,Golden State Warriors
+2025-04-07,7:00p,Sacramento Kings,Detroit Pistons
+2025-04-07,7:30p,Philadelphia 76ers,Miami Heat
+2025-04-08,7:00p,Memphis Grizzlies,Charlotte Hornets
+2025-04-08,7:00p,Chicago Bulls,Cleveland Cavaliers
+2025-04-08,7:00p,Washington Wizards,Indiana Pacers
+2025-04-08,7:00p,Atlanta Hawks,Orlando Magic
+2025-04-08,7:30p,New Orleans Pelicans,Brooklyn Nets
+2025-04-08,7:30p,Boston Celtics,New York Knicks
+2025-04-08,8:00p,Minnesota Timberwolves,Milwaukee Bucks
+2025-04-08,8:00p,Los Angeles Lakers,Oklahoma City Thunder
+2025-04-08,10:00p,Golden State Warriors,Phoenix Suns
+2025-04-08,10:30p,San Antonio Spurs,Los Angeles Clippers
+2025-04-09,7:00p,Boston Celtics,Orlando Magic
+2025-04-09,7:00p,Philadelphia 76ers,Washington Wizards
+2025-04-09,7:30p,Los Angeles Lakers,Dallas Mavericks
+2025-04-09,7:30p,Charlotte Hornets,Toronto Raptors
+2025-04-09,8:00p,Miami Heat,Chicago Bulls
+2025-04-09,8:00p,New Orleans Pelicans,Milwaukee Bucks
+2025-04-09,9:00p,Portland Trail Blazers,Utah Jazz
+2025-04-09,10:00p,San Antonio Spurs,Golden State Warriors
+2025-04-09,10:00p,Oklahoma City Thunder,Phoenix Suns
+2025-04-09,10:00p,Denver Nuggets,Sacramento Kings
+2025-04-09,10:30p,Houston Rockets,Los Angeles Clippers
+2025-04-10,7:00p,New York Knicks,Detroit Pistons
+2025-04-10,7:00p,Cleveland Cavaliers,Indiana Pacers
+2025-04-10,7:30p,Atlanta Hawks,Brooklyn Nets
+2025-04-10,9:30p,Minnesota Timberwolves,Memphis Grizzlies
+2025-04-11,7:00p,Milwaukee Bucks,Detroit Pistons
+2025-04-11,7:00p,Orlando Magic,Indiana Pacers
+2025-04-11,7:00p,Atlanta Hawks,Philadelphia 76ers
+2025-04-11,7:30p,Charlotte Hornets,Boston Celtics
+2025-04-11,7:30p,Cleveland Cavaliers,New York Knicks
+2025-04-11,8:00p,Washington Wizards,Chicago Bulls
+2025-04-11,8:00p,Miami Heat,New Orleans Pelicans
+2025-04-11,8:30p,Toronto Raptors,Dallas Mavericks
+2025-04-11,9:00p,Memphis Grizzlies,Denver Nuggets
+2025-04-11,9:00p,Brooklyn Nets,Minnesota Timberwolves
+2025-04-11,9:30p,Oklahoma City Thunder,Utah Jazz
+2025-04-11,10:00p,San Antonio Spurs,Phoenix Suns
+2025-04-11,10:00p,Golden State Warriors,Portland Trail Blazers
+2025-04-11,10:00p,Los Angeles Clippers,Sacramento Kings
+2025-04-11,10:30p,Houston Rockets,Los Angeles Lakers
+2025-04-13,1:00p,Orlando Magic,Atlanta Hawks
+2025-04-13,1:00p,Charlotte Hornets,Boston Celtics
+2025-04-13,1:00p,New York Knicks,Brooklyn Nets
+2025-04-13,1:00p,Indiana Pacers,Cleveland Cavaliers
+2025-04-13,1:00p,Washington Wizards,Miami Heat
+2025-04-13,1:00p,Detroit Pistons,Milwaukee Bucks
+2025-04-13,1:00p,Chicago Bulls,Philadelphia 76ers
+2025-04-13,3:30p,Los Angeles Clippers,Golden State Warriors
+2025-04-13,3:30p,Denver Nuggets,Houston Rockets
+2025-04-13,3:30p,Dallas Mavericks,Memphis Grizzlies
+2025-04-13,3:30p,Utah Jazz,Minnesota Timberwolves
+2025-04-13,3:30p,Oklahoma City Thunder,New Orleans Pelicans
+2025-04-13,3:30p,Los Angeles Lakers,Portland Trail Blazers
+2025-04-13,3:30p,Phoenix Suns,Sacramento Kings
+2025-04-13,3:30p,Toronto Raptors,San Antonio Spurs

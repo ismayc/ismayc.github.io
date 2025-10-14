@@ -1,0 +1,17 @@
+outcome,player,expected_total,expected_correct_picks,expected_correct_15_picks,rank,playoffs
+1,Chester,125,21,2,1,TRUE
+1,Mike,75,18,3,2,TRUE
+1,Jenelle,55,18,2,3,TRUE
+1,Mary,27,16,3,4,TRUE
+1,Adonis,19,16,3,5,FALSE
+1,Phil,-37,15,0,6,FALSE
+1,Ryan,-51,12,1,7,FALSE
+1,Jake,-57,12,1,8,FALSE
+2,Chester,113,20,2,1,TRUE
+2,Mike,103,19,3,2,TRUE
+2,Mary,45,17,3,3,TRUE
+2,Jenelle,43,17,2,4,TRUE
+2,Adonis,5,15,3,5,FALSE
+2,Jake,-27,13,2,6,FALSE
+2,Phil,-55,14,0,7,FALSE
+2,Ryan,-79,11,1,8,FALSE

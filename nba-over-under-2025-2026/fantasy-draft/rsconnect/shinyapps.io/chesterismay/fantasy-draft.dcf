@@ -1,0 +1,13 @@
+name: fantasy-draft
+title: fantasy-draft
+username: chesterismay
+account: chesterismay
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 13469351
+bundleId: 11034188
+url: https://chesterismay.shinyapps.io/fantasy-draft/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: draft_selections-2024-11-27.csv|get_roster.r|NBA Fantasy Draft 2025-26 Rosters.pdf|players_ballot.csv|players.R
