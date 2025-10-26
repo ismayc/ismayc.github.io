@@ -19,7 +19,7 @@ jobs:
       - id: date_check
         run: |
           CURRENT_DATE=$(date -u +%Y-%m-%d)
-          CUTOFF_DATE="2026-04-14"
+          CUTOFF_DATE="2026-04-15"
           if [[ "$CURRENT_DATE" < "$CUTOFF_DATE" || "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             echo "should_run=true" >> $GITHUB_OUTPUT
           else
