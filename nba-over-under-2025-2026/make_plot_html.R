@@ -11,7 +11,7 @@
 # Save file
 
 library(glue)
-year <- 2025
+year <- 2026
 
 #update_page <- FALSE
 update_page <- TRUE
@@ -34,7 +34,7 @@ date_modified <- file.info(file.path("..", paste0(year, "-nba-over-under.html"))
 if (date_modified != Sys.Date() || update_page) {
   rmarkdown::render(
     # Remove directory if running locally
-    input = "nba-over-under-2024-2025/make_plots.Rmd",  
+    input = "nba-over-under-2025-2026/make_plots.Rmd",  
     output_format = "html_document",
     output_file = paste0(year, "-nba-over-under.html"),
 #    output_dir = "..",
