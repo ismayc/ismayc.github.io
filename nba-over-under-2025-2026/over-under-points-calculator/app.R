@@ -11,6 +11,7 @@ library(tidyverse)
 library(kableExtra)
 library(DT)
 library(purrr)
+library(googlesheets4)
 
 # --- Season & Data Loading --------------------------------------------------
 today <- Sys.Date()
@@ -21,9 +22,12 @@ start_year <- ifelse(current_month >= 10, current_year, current_year - 1)
 end_year <- start_year + 1
 season_year <- paste(start_year, end_year, sep = "-")
 
-# Read picks data from Excel
-picks <- read_excel("picks.xlsx", sheet = "picks")
-num_players <- 8
+# Read picks data from Google Sheet RDS
+picks <- read_rds("../rds/gs_picks_raw.rds") |> 
+  mutate(choice = str_to_upper(pick)) |> 
+  mutate(player =  str_extract(str_trim(name), "^[^\\s]+")) |> 
+  select(team, player, wage = wager, choice) |> 
+  arrange(team, player)
 
 # Load determined outcomes from the latest .rds file
 # Always try yesterday's file first, fallback to latest available if missing
