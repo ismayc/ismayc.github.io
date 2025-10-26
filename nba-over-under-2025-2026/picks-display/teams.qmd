@@ -1,0 +1,65 @@
+---
+title: "By Team"
+format: html
+---
+
+Use the plots to compare how participants allocated wagers for each team.
+
+```{r}
+#| label: setup-teams
+#| message: false
+#| warning: false
+library(readr)
+library(dplyr)
+library(tidyr)
+library(plotly)
+library(DT)
+
+picks <- readr::read_csv("data/picks.csv", show_col_types = FALSE)
+picks$choice <- toupper(picks$choice)
+```
+
+### Wager by team and choice
+
+```{r}
+#| label: team-choice-bars
+team_choice <- picks |>
+  group_by(team, choice) |>
+  summarise(total_wage = sum(wage), .groups = "drop")
+
+plot_ly(team_choice, x = ~team, y = ~total_wage, color = ~choice, type = "bar") |>
+  layout(barmode = "group",
+         xaxis = list(title = "Team"),
+         yaxis = list(title = "Total wager"),
+         legend = list(orientation = "h"))
+```
+
+### Participant breakdown by team
+
+```{r}
+#| label: team-participant-breakdown
+tp <- picks |>
+  group_by(team, player, choice) |>
+  summarise(total_wage = sum(wage), .groups = "drop")
+
+plot_ly(tp, x = ~player, y = ~total_wage, color = ~choice, type = "bar",
+        hovertemplate = "Player: %{x}<br>Wager: %{y}<extra></extra>") |>
+  layout(
+    xaxis = list(title = "Player"),
+    yaxis = list(title = "Total wager"),
+    legend = list(orientation = "h"),
+    updatemenus = list(list(
+      y = 1.1,
+      buttons = lapply(unique(tp$team), function(t) {
+        list(method = "restyle",
+             args = list(list(visible = tp$team == t)),
+             label = as.character(t))
+      })
+    ))
+  )
+```
+
+```{r}
+#| label: team-table
+DT::datatable(picks, filter = "top", options = list(pageLength = 10, scrollX = TRUE))
+```

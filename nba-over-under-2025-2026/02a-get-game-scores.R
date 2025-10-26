@@ -5,11 +5,12 @@ library(tidyverse)
 # library(nbastatR)
 library(here)
 library(glue)
+library(readxl)
 
 # https://www.nba.com/news/key-dates
-nba_season_start_date <- "2024-10-22"
-nba_season_end_date <- "2025-04-13"
-all_star_game_date <- "2025-02-16"
+nba_season_start_date <- "2025-10-22"
+nba_season_end_date <- "2026-04-13"
+all_star_game_date <- "2026-02-16"
 Sys.setenv("VROOM_CONNECTION_SIZE" = 131072 * 2)
 season <- 2025
 
@@ -52,7 +53,7 @@ meta <- read_excel(path = "picks.xlsx", sheet = "meta")
 #library(feather)
 #current_year_results <- read_feather("2022.feather")
 
-reticulate::virtualenv_create()
-reticulate::use_virtualenv("r-reticulate")
+# reticulate::virtualenv_create()
+# reticulate::use_virtualenv("~/.virtualenvs/r-reticulate", required = TRUE)
 reticulate::py_install("nba_api", pip = TRUE)
 reticulate::py_install("pandas")

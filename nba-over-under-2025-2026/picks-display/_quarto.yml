@@ -1,0 +1,24 @@
+project:
+  type: website
+
+website:
+  title: "2025-26 NBA Over/Under Picks Dashboard"
+  navbar:
+    left:
+      - text: Overview
+        href: index.qmd
+      - text: By Team
+        href: teams.qmd
+      - text: By Player
+        href: players.qmd
+  page-footer:
+    center: "Built with Quarto and Plotly"
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 3
+    code-fold: false
+    df-print: paged
+    embed-resources: true

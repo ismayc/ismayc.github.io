@@ -19,7 +19,7 @@ jobs:
       - id: date_check
         run: |
           CURRENT_DATE=$(date -u +%Y-%m-%d)
-          CUTOFF_DATE="2025-04-15"
+          CUTOFF_DATE="2026-04-14"
           if [[ "$CURRENT_DATE" < "$CUTOFF_DATE" || "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             echo "should_run=true" >> $GITHUB_OUTPUT
           else
@@ -79,7 +79,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: '3.11'
 
       - name: Setup Python virtual environment
         run: |
@@ -93,7 +93,7 @@ jobs:
       - name: Build webpage
         run: |
           echo "Sys.setenv(RETICULATE_PYTHON = '$(pwd)/venv/bin/python')" > .Renviron
-          Rscript nba-over-under-2024-2025/make_plot_html.R
+          Rscript nba-over-under-2025-2026/make_plot_html.R
         shell: bash
 
       - name: Push changes

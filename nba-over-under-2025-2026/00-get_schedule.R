@@ -2,9 +2,13 @@ library(rvest)
 library(tidyverse)
 library(jsonlite)
 
+season <- "2025-26"
+year <- 2026
+
 # https://www.basketball-reference.com/leagues/NBA_2025_games-october.html
 
-base_url <- "https://www.basketball-reference.com/leagues/NBA_2025_games-"
+base_url <- paste0("https://www.basketball-reference.com/leagues/NBA_", year, 
+                   "_games-")
 months <- c("october", "november", "december", "january", "february", "march", "april")
 
 # scrape_month <- function(month) {
@@ -97,4 +101,5 @@ away <- nba_schedule %>%
 home %>% filter(n_home_games != 41)
 away %>% filter(n_away_games != 41)
 
-write_csv(nba_schedule, "schedule-2024-25-after-ist.csv")
+write_csv(nba_schedule, paste0("schedule-", season, "_initial.csv"))
+#write_csv(nba_schedule, "schedule-2024-25-after-ist.csv")

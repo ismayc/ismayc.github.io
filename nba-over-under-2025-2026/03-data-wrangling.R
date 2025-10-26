@@ -468,3 +468,4 @@ remaining_check <- standings_with_projected %>%
 chester_check <- remaining_check %>% 
   filter(player == "Chester") %>% 
   select(-player)
+

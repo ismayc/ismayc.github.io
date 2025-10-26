@@ -1,0 +1,58 @@
+---
+title: "By Player"
+format: html
+---
+
+Compare player tendencies and totals.
+
+```{r}
+#| label: setup-players
+#| message: false
+#| warning: false
+library(readr)
+library(dplyr)
+library(tidyr)
+library(plotly)
+library(DT)
+
+picks <- readr::read_csv("data/picks.csv", show_col_types = FALSE)
+picks$choice <- toupper(picks$choice)
+```
+
+### Total wager by player
+
+```{r}
+#| label: total-by-player
+totals <- picks |>
+  group_by(player) |>
+  summarise(total_wager = sum(wage), .groups = "drop") |>
+  arrange(desc(total_wager))
+
+plot_ly(totals, x = ~reorder(player, total_wager), y = ~total_wager, type = "bar") |>
+  layout(xaxis = list(title = "Player"),
+         yaxis = list(title = "Total wager"))
+```
+
+### Over vs Under mix by player
+
+```{r}
+#| label: mix-by-player
+mix <- picks |>
+  group_by(player, choice) |>
+  summarise(total_wage = sum(wage), .groups = "drop")
+
+plot_ly(mix, x = ~player, y = ~total_wage, color = ~choice, type = "bar") |>
+  layout(barmode = "stack",
+         xaxis = list(title = "Player"),
+         yaxis = list(title = "Total wager"),
+         legend = list(orientation = "h"))
+```
+
+### Player pick table
+
+```{r}
+#| label: player-table
+DT::datatable(picks |>
+  arrange(player, team),
+  filter = "top", options = list(pageLength = 10, scrollX = TRUE))
+```

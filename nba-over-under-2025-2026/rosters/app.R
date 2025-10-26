@@ -10,8 +10,10 @@ library(httr)
 library(jsonlite)
 library(readr)
 
-date_added <- "2025-05-18"
+date_added <- "2025-10-14"
 #date_added <- Sys.Date()
+
+#source("get_player_seasons.R")
 
 players_season <- read_rds("players_season_pulled.rds")
 

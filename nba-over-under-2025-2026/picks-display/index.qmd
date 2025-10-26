@@ -1,0 +1,102 @@
+---
+title: "Overview"
+format: html
+---
+
+This site shows the group's picks and wagers. All charts are interactive. Hover for details and use the legend to toggle series.
+
+```{r}
+#| label: setup
+#| message: false
+#| warning: false
+library(readr)
+library(dplyr)
+library(tidyr)
+library(plotly)
+library(DT)
+
+picks <- readr::read_csv("data/picks.csv", show_col_types = FALSE)
+picks$choice <- toupper(picks$choice)
+picks$player <- as.factor(picks$player)
+picks$team   <- as.factor(picks$team)
+```
+
+## Team split by total wager
+
+```{r}
+#| label: team-stacked
+team_sums <- picks |>
+  group_by(team, choice) |>
+  summarise(total_wage = sum(wage), .groups = "drop") |>
+  tidyr::pivot_wider(names_from = choice, values_from = total_wage, values_fill = 0) |>
+  arrange(team)
+
+fig_stack <- plot_ly(team_sums, x = ~team, y = ~OVER, type = "bar", name = "Over")
+fig_stack <- fig_stack |>
+  add_trace(y = ~UNDER, name = "Under") |>
+  layout(barmode = "stack",
+         xaxis = list(title = "Team"),
+         yaxis = list(title = "Total wager"),
+         legend = list(orientation = "h"))
+fig_stack
+```
+
+## Consensus by team
+
+```{r}
+#| label: consensus-by-team
+consensus <- picks |>
+  group_by(team) |>
+  summarise(
+    pct_over = mean(choice == "OVER") * 100,
+    n = dplyr::n(),
+    .groups = "drop"
+  ) |>
+  arrange(desc(pct_over))
+
+plot_ly(consensus, x = ~reorder(team, pct_over), y = ~pct_over, type = "bar", name = "% Over") |>
+  layout(
+    xaxis = list(title = "Team"),
+    yaxis = list(title = "% Over", range = c(0,100)),
+    showlegend = FALSE
+  )
+```
+
+## Wager distribution
+
+```{r}
+#| label: wager-dist
+plot_ly(picks, x = ~wage, type = "histogram") |>
+  layout(xaxis = list(title = "Wager"), yaxis = list(title = "Count"))
+```
+
+## Participant heatmap
+
+```{r}
+#| label: participant-heatmap
+signed <- picks |>
+  mutate(signed = ifelse(choice == "OVER", wage, -wage)) |>
+  select(player, team, signed) |>
+  tidyr::pivot_wider(names_from = team, values_from = signed, values_fill = 0) |>
+  arrange(player)
+
+hm <- as.matrix(signed[,-1])
+rownames(hm) <- signed$player
+
+plot_ly(
+  z = hm,
+  x = colnames(hm),
+  y = rownames(hm),
+  type = "heatmap",
+  colorscale = "RdBu",
+  reversescale = TRUE
+)
+```
+
+## Raw data
+
+```{r}
+#| label: raw-table
+#| results: asis
+DT::datatable(picks, filter = "top", options = list(pageLength = 10, scrollX = TRUE))
+```

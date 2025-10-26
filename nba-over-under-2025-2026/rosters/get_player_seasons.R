@@ -1,6 +1,14 @@
 library(readr)
 library(dplyr)
+# 1. Install the helper if not present
+if (!requireNamespace(c("remotes", "nbastatR"), quietly = TRUE)) {
+  install.packages("remotes")
+  # 2. Install the package from GitHub
+  remotes::install_github("abresler/nbastatR")
+}
+# 3. Load it
 library(nbastatR)
+
 library(stringr)
 library(retry)  
 library(httr)
@@ -9,7 +17,7 @@ library(lubridate)
 library(purrr)
 
 # Define the season
-season <- 2025
+season <- 2026
 
 curl_chinazi <- function(url = "https://stats.nba.com/stats/leaguegamelog?Counter=1000&Season=2019-20&Direction=DESC&LeagueID=00&PlayerOrTeam=P&SeasonType=Regular%20Season&Sorter=DATE") {
   
@@ -136,7 +144,7 @@ team_season_roster <- function(team = "Denver Nuggets", season = season,
 }
 
 # Load teams data
-teams <- read_rds("rosters/teams.rds")
+teams <- read_rds("teams.rds")
 
 # Fetch player seasons data with error handling
 players_season_pulled <- purrr::map_dfr(
@@ -154,4 +162,4 @@ players_season_pulled <- purrr::map_dfr(
 
 # Save the results
 write_rds(players_season_pulled, 
-          "rosters/players_season_pulled.rds")
+          "players_season_pulled.rds")

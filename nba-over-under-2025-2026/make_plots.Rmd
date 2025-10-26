@@ -2,7 +2,7 @@
 title: 'NBA Over/Under 2025-2026 Season'
 author: Created by Chester Ismay
 output: html_document
-knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = encoding, output_file = file.path('../2025-nba-over-under.html')) })
+knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = encoding, output_file = file.path('../2026-nba-over-under.html')) })
 ---
 
 ```{r include=FALSE}
@@ -25,13 +25,14 @@ library(future)
 library(glue)
 library(stringi)
 library(rvest)
+library(DT)
 
 library(htmltools)
 
 nbastatR_files <- list.files(path = "nbastatR-r-files",
                              full.names = TRUE)
 purrr::walk(nbastatR_files, source)
-this_year <- "2024-25"
+this_year <- "2025-26"
 ```
 
 ```{r include=FALSE}
@@ -62,9 +63,23 @@ Last updated at `r format(Sys.time() - lubridate::hours(8), "%Y-%m-%d %H:%M")` U
 
 <!-- (Skipped until Week 2)  -->
 
-This plot is updated early each week with the previous week's results. 
+```{r include=FALSE}
+first_monday_after_first_week_start <- function(start_date) {
+  d <- as.Date(start_date)
+  w <- as.POSIXlt(d)$wday          # 0=Sun ... 1=Mon ... 6=Sat
+  add <- (1 - w) %% 7              # days until next Monday (could be 0 if Monday)
+  if (add == 0) add <- 7L          # ensure *after* the start date
+  d + add
+}
 
-```{r fig.height=10, fig.width=10, message=FALSE, warning=FALSE}
+first_monday <- first_monday_after_first_week_start(nba_season_start_date)
+first_monday
+```
+
+This plot is updated early each week with the previous week's results (starting on Monday, `r format(first_monday, "%B %d, %Y")
+`).
+
+```{r fig.height=10, fig.width=10, message=FALSE, warning=FALSE, eval=(Sys.Date() >= first_monday_after_first_week_start(nba_season_start_date))}
 weekly_standings <- standings_grid %>% 
   mutate(day_of_week = wday(date, label = TRUE)) %>% 
   filter(day_of_week == "Mon") %>% 
@@ -787,7 +802,8 @@ if (nrow(yesterday_scores)) {
 ```
 
 ```{r message=FALSE, warning=FALSE}
-schedule <- read_csv(paste0("schedule-", this_year, "-after-ist.csv"))
+schedule <- read_csv(paste0("schedule-", this_year, "_initial.csv"))
+                            #"-after-ist.csv"))
 #                        ".csv")) #|> 
 # rename(game_date = `Game Date`, start_time = `Start (ET)`,
 #        away_team = `Visitor/Neutral`, home_team = `Home/Neutral`) |> 

@@ -50,6 +50,8 @@ players <- tibble(
   )
 )
 
+players[str_detect(players$name, "Myles Tuner"), ]$name <- "Myles Turner, MIL"
+
 # 6) Write the CSV and RDS exactly like your sample (quotes around name due to commas)
 write_csv(players, "players_ballot.csv")
 write_rds(players, "players_ballot.rds")

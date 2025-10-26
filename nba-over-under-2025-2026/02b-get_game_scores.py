@@ -1,6 +1,6 @@
-# 2024-25 games
+# 2025-26 games
 
-year = '2024'
+year = '2025'
 
 from nba_api.stats.endpoints import leaguegamefinder
 gamefinder = leaguegamefinder.LeagueGameFinder()
