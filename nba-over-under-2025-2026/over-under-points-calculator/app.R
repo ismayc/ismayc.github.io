@@ -23,7 +23,7 @@ end_year <- start_year + 1
 season_year <- paste(start_year, end_year, sep = "-")
 
 # Read picks data from Google Sheet RDS
-picks <- read_rds("../rds/gs_picks_raw.rds") |> 
+picks <- read_rds("gs_picks_raw.rds") |> 
   mutate(choice = str_to_upper(pick)) |> 
   mutate(player =  str_extract(str_trim(name), "^[^\\s]+")) |> 
   select(team, player, wage = wager, choice) |> 
