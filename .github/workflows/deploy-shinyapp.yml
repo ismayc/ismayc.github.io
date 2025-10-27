@@ -52,6 +52,17 @@ jobs:
       - name: Setup renv
         uses: r-lib/actions/setup-renv@v2
 
+      - name: Write .renvignore
+        run: |
+          cat > .renvignore <<'EOF'
+          ^nba-over-under-2020-2021/rds$
+          ^nba-over-under-2021-2022/rds$
+          ^nba-over-under-2022-2023/rds$
+          ^nba-over-under-2023-2024/rds$
+          ^nba-over-under-2024-2025/rds$
+          ^.*\.rds$
+          EOF
+
       - name: Install Quarto
         run: |
           wget https://github.com/quarto-dev/quarto-cli/releases/download/v1.8.25/quarto-1.8.25-linux-amd64.deb
@@ -70,7 +81,8 @@ jobs:
           SERVER: shinyapps.io
         run: |
           Rscript -e 'rsconnect::setAccountInfo("${{ secrets.SHINYAPPS_ACCOUNT }}", "${{ secrets.SHINYAPPS_TOKEN }}", "${{ secrets.SHINYAPPS_SECRET }}")' \
-                 -e 'install.packages(c("shiny", "curl", "retry", "janitor", "tidyverse", "DT", "tictoc", "httr", "jsonlite", "glue"), repos = "https://cran.rstudio.com/")' \
+                  -e 'renv::restore(prompt = FALSE)' \
+  #               -e 'install.packages(c("shiny", "curl", "retry", "janitor", "tidyverse", "DT", "tictoc", "httr", "jsonlite", "glue"), repos = "https://cran.rstudio.com/")' \
                  -e 'rsconnect::deployApp(appDir = "nba-over-under-2025-2026/rosters", appName = "${{ env.APPNAME }}", account = "${{ env.ACCOUNT }}", server = "${{ env.SERVER }}", quarto = FALSE)'
 
       # Authorize and deploy second app
@@ -82,7 +94,8 @@ jobs:
           SERVER: shinyapps.io
         run: |
           Rscript -e 'rsconnect::setAccountInfo("${{ secrets.SHINYAPPS_ACCOUNT }}", "${{ secrets.SHINYAPPS_TOKEN }}", "${{ secrets.SHINYAPPS_SECRET }}")' \
-                 -e 'install.packages(c("shiny", "readxl", "tidyverse", "kableExtra", "DT"), repos = "https://cran.rstudio.com/")' \
+                  -e 'renv::restore(prompt = FALSE)' \
+#                 -e 'install.packages(c("shiny", "readxl", "tidyverse", "kableExtra", "DT"), repos = "https://cran.rstudio.com/")' \
                  -e 'rsconnect::deployApp(appDir = "nba-over-under-2025-2026/over-under-points-calculator", appName = "${{ env.APPNAME }}", account = "${{ env.ACCOUNT }}", server = "${{ env.SERVER }}", quarto = FALSE)'
 
       # Authorize and deploy third app
