@@ -82,7 +82,7 @@ This plot is updated early each week with the previous week's results (starting 
 ```{r fig.height=10, fig.width=10, message=FALSE, warning=FALSE, eval=(Sys.Date() >= first_monday_after_first_week_start(nba_season_start_date))}
 weekly_standings <- standings_grid %>% 
   mutate(day_of_week = wday(date, label = TRUE)) %>% 
-  filter(day_of_week == "Mon") %>% 
+  filter(day_of_week == "Sun") %>% 
   select(-day_of_week) %>% 
   rename(Date = date, `Team Name` = team)
 

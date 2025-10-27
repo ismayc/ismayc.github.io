@@ -1,5 +1,4 @@
-# 2025-26 games
-
+# 2025-26 games (year is when the season starts here)
 year = '2025'
 
 from nba_api.stats.endpoints import leaguegamefinder
