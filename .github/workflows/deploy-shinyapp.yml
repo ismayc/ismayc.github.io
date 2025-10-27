@@ -63,7 +63,7 @@ jobs:
           ^nba-over-under-2023-2024/rds$
           ^nba-over-under-2024-2025/rds$
           ^.*\.rds$
-EOF
+          EOF
 
       - name: Install Quarto
         shell: bash
