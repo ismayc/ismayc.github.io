@@ -1,11 +1,11 @@
 name: Deploy Shiny Apps
 
 on:
-#  schedule:
- #   - cron: "*/10 * * * *"
-#    - cron: "0 13 * * *"
+  # schedule:
+  #   - cron: "*/10 * * * *"
+  #   - cron: "0 13 * * *"
   push:
-    branches: [main, master]
+    branches: [ main, master ]
   workflow_dispatch:
 
 jobs:
@@ -14,15 +14,16 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      # Checkout repository
-      - uses: actions/checkout@v4
+      - name: Check out repo
+        uses: actions/checkout@v4
 
-      # Set up Pandoc for R Markdown rendering
-      - uses: r-lib/actions/setup-pandoc@v2
+      - name: Set up Pandoc
+        uses: r-lib/actions/setup-pandoc@v2
 
-      # Install required system libraries
       - name: Install system libraries
+        shell: bash
         run: |
+          set -euxo pipefail
           sudo apt-get update
           sudo apt-get install -y \
             pkg-config \
@@ -42,17 +43,18 @@ jobs:
             libssl-dev \
             libxml2-dev \
             libpoppler-cpp-dev
-          
-      # Set up R with a compatible version
-      - uses: r-lib/actions/setup-r@v2
+
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
         with:
-          r-version: '4.4.1'  # Match the version supported by shinyapps.io
+          r-version: '4.4.1'
           use-public-rspm: true
 
       - name: Setup renv
         uses: r-lib/actions/setup-renv@v2
 
       - name: Write .renvignore
+        shell: bash
         run: |
           cat > .renvignore <<'EOF'
           ^nba-over-under-2020-2021/rds$
@@ -61,51 +63,55 @@ jobs:
           ^nba-over-under-2023-2024/rds$
           ^nba-over-under-2024-2025/rds$
           ^.*\.rds$
-          EOF
+EOF
 
       - name: Install Quarto
+        shell: bash
         run: |
+          set -euxo pipefail
           wget https://github.com/quarto-dev/quarto-cli/releases/download/v1.8.25/quarto-1.8.25-linux-amd64.deb
           sudo dpkg -i quarto-1.8.25-linux-amd64.deb
 
-      # Install rsconnect for deployment
       - name: Install rsconnect
+        shell: bash
         run: Rscript -e 'renv::install("rsconnect")'
 
-      # Authorize and deploy first app
       - name: Authorize and deploy player finder app
         continue-on-error: true
         env:
           APPNAME: nba-player-finder
           ACCOUNT: ${{ secrets.SHINYAPPS_ACCOUNT }}
           SERVER: shinyapps.io
+        shell: bash
         run: |
+          set -euxo pipefail
           Rscript -e 'rsconnect::setAccountInfo("${{ secrets.SHINYAPPS_ACCOUNT }}", "${{ secrets.SHINYAPPS_TOKEN }}", "${{ secrets.SHINYAPPS_SECRET }}")' \
                   -e 'renv::restore(prompt = FALSE)' \
-  #               -e 'install.packages(c("shiny", "curl", "retry", "janitor", "tidyverse", "DT", "tictoc", "httr", "jsonlite", "glue"), repos = "https://cran.rstudio.com/")' \
-                 -e 'rsconnect::deployApp(appDir = "nba-over-under-2025-2026/rosters", appName = "${{ env.APPNAME }}", account = "${{ env.ACCOUNT }}", server = "${{ env.SERVER }}", quarto = FALSE)'
+                  -e 'rsconnect::deployApp(appDir = "nba-over-under-2025-2026/rosters", appName = "${{ env.APPNAME }}", account = "${{ env.ACCOUNT }}", server = "${{ env.SERVER }}", quarto = FALSE)'
 
-      # Authorize and deploy second app
       - name: Authorize and deploy points calculator app
         continue-on-error: true
         env:
           APPNAME: over-under-points-calculator
           ACCOUNT: ${{ secrets.SHINYAPPS_ACCOUNT }}
           SERVER: shinyapps.io
+        shell: bash
         run: |
+          set -euxo pipefail
           Rscript -e 'rsconnect::setAccountInfo("${{ secrets.SHINYAPPS_ACCOUNT }}", "${{ secrets.SHINYAPPS_TOKEN }}", "${{ secrets.SHINYAPPS_SECRET }}")' \
                   -e 'renv::restore(prompt = FALSE)' \
-#                 -e 'install.packages(c("shiny", "readxl", "tidyverse", "kableExtra", "DT"), repos = "https://cran.rstudio.com/")' \
-                 -e 'rsconnect::deployApp(appDir = "nba-over-under-2025-2026/over-under-points-calculator", appName = "${{ env.APPNAME }}", account = "${{ env.ACCOUNT }}", server = "${{ env.SERVER }}", quarto = FALSE)'
+                  -e 'rsconnect::deployApp(appDir = "nba-over-under-2025-2026/over-under-points-calculator", appName = "${{ env.APPNAME }}", account = "${{ env.ACCOUNT }}", server = "${{ env.SERVER }}", quarto = FALSE)'
 
-      # Authorize and deploy third app
+      # Example third app (kept commented cleanly)
       # - name: Authorize and deploy fantasy draft app
       #   continue-on-error: true
       #   env:
       #     APPNAME: fantasy-draft
       #     ACCOUNT: ${{ secrets.SHINYAPPS_ACCOUNT }}
       #     SERVER: shinyapps.io
+      #   shell: bash
       #   run: |
+      #     set -euxo pipefail
       #     Rscript -e 'rsconnect::setAccountInfo("${{ secrets.SHINYAPPS_ACCOUNT }}", "${{ secrets.SHINYAPPS_TOKEN }}", "${{ secrets.SHINYAPPS_SECRET }}")' \
-      #            -e 'install.packages(c("shiny", "shinyjs", "tibble", "readr", "dplyr"), repos = "https://cran.rstudio.com/")' \
-      #            -e 'rsconnect::deployApp(appDir = "nba-over-under-2025-2026/fantasy-draft", appName = "${{ env.APPNAME }}", account = "${{ env.ACCOUNT }}", server = "${{ env.SERVER }}", quarto = FALSE)'
+      #             -e 'renv::restore(prompt = FALSE)' \
+      #             -e 'rsconnect::deployApp(appDir = "nba-over-under-2025-2026/fantasy-draft", appName = "${{ env.APPNAME }}", account = "${{ env.ACCOUNT }}", server = "${{ env.SERVER }}", quarto = FALSE)'
