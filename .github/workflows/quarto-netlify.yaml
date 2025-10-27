@@ -1,4 +1,4 @@
-name: Build and Deploy Quarto site to GitHub Pages and Netlify
+name: Build and Deploy Quarto site to GitHub Pages
 
 on:
   push:
@@ -50,25 +50,25 @@ jobs:
       - id: deployment
         uses: actions/deploy-pages@v4
 
-  deploy_netlify:
-    needs: build
-    runs-on: ubuntu-latest
-    env:
-      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-      NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-    steps:
-      - name: Download built site from Pages artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: github-pages
-          path: site
-  
-      - name: Install Netlify CLI and deploy
-        run: |
-          npm install -g netlify-cli
-          netlify deploy \
-            --auth "$NETLIFY_AUTH_TOKEN" \
-            --site "$NETLIFY_SITE_ID" \
-            --dir site \
-            --prod
+  # deploy_netlify:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   env:
+  #     NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+  #     NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+  #   steps:
+  #     - name: Download built site from Pages artifact
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         name: github-pages
+  #         path: site
+  # 
+  #     - name: Install Netlify CLI and deploy
+  #       run: |
+  #         npm install -g netlify-cli
+  #         netlify deploy \
+  #           --auth "$NETLIFY_AUTH_TOKEN" \
+  #           --site "$NETLIFY_SITE_ID" \
+  #           --dir site \
+  #           --prod
 
