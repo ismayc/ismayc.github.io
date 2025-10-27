@@ -93,8 +93,8 @@ weekly_team_track <- ggplot(
   geom_point() +
   geom_line() +
   geom_segment(aes(x = min(Date), xend = max(Date), 
-                   y = `Vegas Insider Win Projection %`, 
-                   yend = `Vegas Insider Win Projection %`),
+                   y = `Vegas Win Projection %`, 
+                   yend = `Vegas Win Projection %`),
                color = "blue") +
   facet_wrap(~ `Team Name`, nrow = 6) +
   xlab("") +
@@ -102,7 +102,7 @@ weekly_team_track <- ggplot(
   theme_bw() +
   theme(axis.text.x = element_text(angle = 60))
 
-ggplotly(weekly_team_track, tooltip = c("Vegas Insider Win Projection %", 
+ggplotly(weekly_team_track, tooltip = c("Vegas Win Projection %", 
                                         "Current Win %", 
                                         "Current Record",
                                         "Date")) %>%
@@ -111,7 +111,7 @@ ggplotly(weekly_team_track, tooltip = c("Vegas Insider Win Projection %",
     margin = list(t = 120),
     title = list(
       text = paste("Team win percentage across season dates<br>",
-                   "versus Vegas Insider projection"),
+                   "versus Vegas projection"),
       font = list(size = 20)
     ),
     yaxis = list(
@@ -138,8 +138,8 @@ team_track <- join_with_projections %>%
   geom_point() +
   geom_line() +
   geom_segment(aes(x = 1, xend = max(`Game Number`), 
-                   y = `Vegas Insider Win Projection %`, 
-                   yend = `Vegas Insider Win Projection %`),
+                   y = `Vegas Win Projection %`, 
+                   yend = `Vegas Win Projection %`),
                color = "blue") +
   facet_wrap(~ `Team Name`, nrow = 6) +
   xlab("") + #Game Number") +
@@ -147,7 +147,7 @@ team_track <- join_with_projections %>%
   theme_bw() +
   scale_color_manual(values = c("forestgreen", "black", "deeppink"))
 
-ggplotly(team_track, tooltip = c("Vegas Insider Win Projection %", 
+ggplotly(team_track, tooltip = c("Vegas Win Projection %", 
                                  "Current Win %", 
                                  "Current Record",
                                  "Game Result")) %>%
@@ -156,7 +156,7 @@ ggplotly(team_track, tooltip = c("Vegas Insider Win Projection %",
     margin = list(t = 120),
     title = list(
       text = paste("Team win percentage across games played <br>",
-                   "versus Vegas Insider projection"),
+                   "versus Vegas projection"),
       font = list(size = 20)
     ),
     yaxis = list(
@@ -217,7 +217,7 @@ current_team_wins_df <- team_wins_df %>%
          `Remaining Games`, `Current Winning %` = current_win_perc,
          `Current Win Total`,
          `Expected Wins At Current Pace`,
-         `Vegas Insider Win Projection` = win_projection,
+         `Vegas Win Projection` = win_projection,
          spread)#,
 #         projected_slope,
 #         projected_intercept)
@@ -249,8 +249,8 @@ team_wins_track <- team_wins_df %>%
              color = "purple", shape = 15) +
   #  annotate("text", x = 4, y = 25, aes(label = `Wins Needed`)) +
   geom_segment(aes(x = 1, xend = num_games,
-                   y = `Vegas Insider Win Projection`,
-                   yend = `Vegas Insider Win Projection`),
+                   y = `Vegas Win Projection`,
+                   yend = `Vegas Win Projection`),
                color = "blue") +
   facet_wrap(~ `Team Name`, nrow = 6) +
   xlab("") + #Game Number") +
@@ -258,7 +258,7 @@ team_wins_track <- team_wins_df %>%
   theme_bw() +
   scale_color_manual(values = c("black", "forestgreen", "deeppink"))
 
-ggplotly(team_wins_track, tooltip = c("Vegas Insider Win Projection %", 
+ggplotly(team_wins_track, tooltip = c("Vegas Win Projection %", 
                                       "Expected Wins At Current Pace",
                                       "Current Win Total", 
                                       "Current Record",
@@ -268,7 +268,7 @@ ggplotly(team_wins_track, tooltip = c("Vegas Insider Win Projection %",
     margin = list(t = 120),
     title = list(
       text = paste("Team cumulative wins across games played <br>",
-                   "versus Vegas Insider wins projection"),
+                   "versus Vegas wins projection"),
       font = list(size = 20)
     ),
     yaxis = list(
@@ -283,7 +283,7 @@ ggplotly(team_wins_track, tooltip = c("Vegas Insider Win Projection %",
 
 ***
 
-#### Vegas Insider Win Projections and Wins Needed
+#### Vegas Win Projections and Wins Needed
 
 `Win Projection` was pulled from 
 https://www.vegasinsider.com/nba/odds/win-totals/ prior to the season start. The last two
@@ -291,7 +291,7 @@ columns are based on games played through `r Sys.Date() - 1`.
 
 ```{r}
 out_table |> 
-  arrange(desc(`Wins To Go Over Vegas Insider`), desc(`Remaining Games`)) |> 
+  arrange(desc(`Wins To Go Over Vegas`), desc(`Remaining Games`)) |> 
   DT::datatable(
     rownames = FALSE,
     options = list(
@@ -610,7 +610,7 @@ player_table <- function(player_num) {
   # }
   
   # brks <- quantile(
-  #   df$`Wins To Go Over Vegas Insider`, 
+  #   df$`Wins To Go Over Vegas`, 
   #   probs = seq(.05, .95, 0.1), 
   #   na.rm = TRUE
   # )
@@ -619,7 +619,7 @@ player_table <- function(player_num) {
   # df %>% 
   #   datatable(options = list(pageLength = 30, dom = 'ft')) %>% 
   #   formatStyle(
-  #     'Wins To Go Over Vegas Insider',
+  #     'Wins To Go Over Vegas',
   #     target = 'row',
   #     backgroundColor = styleInterval(brks, clrs)
   #   )

@@ -67,10 +67,10 @@ updated_schedule <- game_results %>%
 join_with_projections <- updated_schedule %>% 
   inner_join(projections, by = c("Team Name" = "team")) %>% 
   mutate(`Current Win %` = round(current_win_perc, 2),
-         `Vegas Insider Win Projection %` = round(percentage_projection, 2)) %>% 
+         `Vegas Win Projection %` = round(percentage_projection, 2)) %>% 
   mutate(over_under = case_when(
-    `Current Win %` > `Vegas Insider Win Projection %` ~ "OVER",
-    `Current Win %` < `Vegas Insider Win Projection %` ~ "UNDER",
+    `Current Win %` > `Vegas Win Projection %` ~ "OVER",
+    `Current Win %` < `Vegas Win Projection %` ~ "UNDER",
     TRUE                                               ~ "PUSH")
   ) %>% 
   group_by(`Team Name`) %>% 
@@ -89,7 +89,7 @@ standings_grid <- crossing(team = teams, date = days_in_season_to_today) %>%
   left_join(join_with_projections %>% 
               select(
                 `Team Name`, `Game Date`, starts_with("current"),
-                `Vegas Insider Win Projection %`, over_under,
+                `Vegas Win Projection %`, over_under,
                 -current_win_perc
               ), 
             by = c("team" = "Team Name", "date" = "Game Date")) %>% 
@@ -97,7 +97,7 @@ standings_grid <- crossing(team = teams, date = days_in_season_to_today) %>%
   fill(c(current_wins, current_losses, `Current Record`, `Current Win %`, 
          over_under), 
        .direction = "down") %>% 
-  fill(`Vegas Insider Win Projection %`, .direction = "downup") %>% 
+  fill(`Vegas Win Projection %`, .direction = "downup") %>% 
   replace_na(replace = list(current_wins = 0,
                             current_losses = 0,
                             `Current Record` = "0-0",
@@ -113,14 +113,14 @@ with_picks <- standings_grid %>%
 
 player_projections_by_team <- with_picks %>% 
   select(Date = date, Player = player, Team = team, starts_with("current"),
-         `Vegas Insider Win Projection %`,
+         `Vegas Win Projection %`,
          `Current Over/Under` = over_under,
          `Over/Under Pick` = choice) %>% 
   mutate(
-    `Win % - Vegas Insider` = round(`Current Win %` - `Vegas Insider Win Projection %`, 2)
+    `Win % - Vegas` = round(`Current Win %` - `Vegas Win Projection %`, 2)
   ) %>% 
   relocate(current_projected_points, 
-           .after = `Win % - Vegas Insider`)
+           .after = `Win % - Vegas`)
 
 changes_in_player_projections <- player_projections_by_team %>% 
   group_by(Player, Team) %>% 
@@ -131,7 +131,7 @@ changes_in_player_projections <- player_projections_by_team %>%
   arrange(Date, Team, Player) %>% 
   filter(`Change in Points Since Yesterday` != 0) %>% 
   select(Date, Player, Team, `Current Record`, `Current Win %`, 
-         `Vegas Insider Win Projection %`, `Change in Points Since Yesterday`)
+         `Vegas Win Projection %`, `Change in Points Since Yesterday`)
 
 rows_today <- changes_in_player_projections %>% 
   filter(Date == Sys.Date() - 1)
@@ -163,10 +163,10 @@ player_projections_by_team <- player_projections_by_team %>%
     `Current Losses` = current_losses
   ) %>%
   mutate(
-    `Wins To Go Over Vegas Insider` = 
-      ceiling(`Vegas Insider Win Projection %` / 100 * num_games) - `Current Wins`,
+    `Wins To Go Over Vegas` = 
+      ceiling(`Vegas Win Projection %` / 100 * num_games) - `Current Wins`,
     `Winning % In Remaining Games Needed` = round(
-      `Wins To Go Over Vegas Insider` / (num_games - `Current Wins` - `Current Losses`) * 100, 2),
+      `Wins To Go Over Vegas` / (num_games - `Current Wins` - `Current Losses`) * 100, 2),
     .before = `Current Projected Points`
   ) %>%
   mutate(`Outcome Determined` = factor(case_when(
@@ -176,24 +176,24 @@ player_projections_by_team <- player_projections_by_team %>%
   ), levels = c("not yet", "OVER", "UNDER")
   ))  %>%
   mutate(
-    `Losses To Go Under Vegas Insider` = 
-      num_games - ceiling(`Vegas Insider Win Projection %` / 100 * num_games) - `Current Losses`,
+    `Losses To Go Under Vegas` = 
+      num_games - ceiling(`Vegas Win Projection %` / 100 * num_games) - `Current Losses`,
     .before = `Current Projected Points`
   ) %>%
   mutate(`Winning % In Remaining Games Needed` = if_else(
-    `Losses To Go Under Vegas Insider` < 0 | `Winning % In Remaining Games Needed` > 100 | `Wins To Go Over Vegas Insider` <= 0,
+    `Losses To Go Under Vegas` < 0 | `Winning % In Remaining Games Needed` > 100 | `Wins To Go Over Vegas` <= 0,
     NA_real_,
     `Winning % In Remaining Games Needed`
   )) %>%
-  mutate(`Wins To Go Over Vegas Insider` = if_else(
-    `Losses To Go Under Vegas Insider` < 0 | `Winning % In Remaining Games Needed` > 100 | `Wins To Go Over Vegas Insider` <= 0,
+  mutate(`Wins To Go Over Vegas` = if_else(
+    `Losses To Go Under Vegas` < 0 | `Winning % In Remaining Games Needed` > 100 | `Wins To Go Over Vegas` <= 0,
     NA_real_,
-    `Wins To Go Over Vegas Insider`
+    `Wins To Go Over Vegas`
   )) %>%
-  mutate(`Losses To Go Under Vegas Insider` = if_else(
-    `Losses To Go Under Vegas Insider` < 0 | `Winning % In Remaining Games Needed` > 100 | `Wins To Go Over Vegas Insider` <= 0,
+  mutate(`Losses To Go Under Vegas` = if_else(
+    `Losses To Go Under Vegas` < 0 | `Winning % In Remaining Games Needed` > 100 | `Wins To Go Over Vegas` <= 0,
     NA_real_,
-    `Losses To Go Under Vegas Insider`
+    `Losses To Go Under Vegas`
   )) %>%
   select(-`Current Wins`, -`Current Losses`) 
 
@@ -243,21 +243,21 @@ wins_needed <- player_projections_by_team %>%
 
 wins_needed <- wins_needed %>% 
   select(Date, Team, `Outcome Determined`,
-         `Current Record`, `Wins To Go Over Vegas Insider`,
+         `Current Record`, `Wins To Go Over Vegas`,
          `Winning % In Remaining Games Needed`,
-         `Losses To Go Under Vegas Insider`) %>% 
+         `Losses To Go Under Vegas`) %>% 
   distinct() %>% 
-  mutate(`Wins To Go Over Vegas Insider` = if_else(
-    `Wins To Go Over Vegas Insider` <= 0 || 
+  mutate(`Wins To Go Over Vegas` = if_else(
+    `Wins To Go Over Vegas` <= 0 || 
       `Winning % In Remaining Games Needed` > 100,
     NA_real_,
-    `Wins To Go Over Vegas Insider`
+    `Wins To Go Over Vegas`
   )) %>% 
-  mutate(`Losses To Go Under Vegas Insider` = if_else(
-    `Losses To Go Under Vegas Insider` < 0 || 
-      is.na(`Wins To Go Over Vegas Insider`),
+  mutate(`Losses To Go Under Vegas` = if_else(
+    `Losses To Go Under Vegas` < 0 || 
+      is.na(`Wins To Go Over Vegas`),
     NA_real_,
-    `Losses To Go Under Vegas Insider` 
+    `Losses To Go Under Vegas` 
   )) %>% 
   separate(
     col = `Current Record`, 
@@ -277,7 +277,7 @@ out_table <- projections %>%
          `Current Record`,
          `Win Projection` = win_projection,
          `Remaining Games`,
-         `Wins To Go Over Vegas Insider`
+         `Wins To Go Over Vegas`
   ) 
 
 write_rds(out_table, paste0("determined_outcomes/determined_outcomes_", Sys.Date(), ".rds"))
