@@ -1,0 +1,74 @@
+name: Build and Deploy Quarto site to GitHub Pages and Netlify
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      # Uncomment if your .qmd files use R
+      # - name: Set up R
+      #   uses: r-lib/actions/setup-r@v2
+
+      - name: Render site
+        uses: quarto-dev/quarto-actions/render@v2
+        with:
+          to: html
+
+      # Upload the built site from docs/ as an artifact
+      - name: Upload artifact for GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+  deploy_pages:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+
+  deploy_netlify:
+    needs: build
+    runs-on: ubuntu-latest
+    env:
+      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+    steps:
+      # Pull down the artifact produced in build
+      - name: Download built site
+        uses: actions/download-pages-artifact@v3
+        with:
+          path: site
+
+      # Install Netlify CLI and deploy the already built files
+      - name: Deploy to Netlify
+        run: |
+          npm --version
+          npm install -g netlify-cli
+          netlify deploy \
+            --auth "$NETLIFY_AUTH_TOKEN" \
+            --site "$NETLIFY_SITE_ID" \
+            --dir site \
+            --prod

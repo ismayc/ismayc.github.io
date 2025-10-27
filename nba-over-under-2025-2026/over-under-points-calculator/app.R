@@ -1,17 +1,15 @@
 ## Cleaned Shiny App Code Using purrr
 
 # --- Package Setup ----------------------------------------------------------
-required_packages <- c("shiny", "readxl", "tidyverse", "kableExtra", "DT", "purrr")
+required_packages <- c("shiny", "tidyverse", "kableExtra", "DT", "purrr")
 for(pkg in required_packages) {
   if (!requireNamespace(pkg, quietly = TRUE)) install.packages(pkg)
 }
 library(shiny)
-library(readxl)
 library(tidyverse)
 library(kableExtra)
 library(DT)
 library(purrr)
-library(googlesheets4)
 
 # --- Season & Data Loading --------------------------------------------------
 today <- Sys.Date()
@@ -194,7 +192,6 @@ server <- function(input, output, session) {
     num_14_correct <- compute_correct(picks_test, 14, "Correct Picks (Wage 14)")
     num_13_correct <- compute_correct(picks_test, 13, "Correct Picks (Wage 13)")
     num_12_correct <- compute_correct(picks_test, 12, "Correct Picks (Wage 12)")
-    
     
     final_table <- picks_test %>% 
       group_by(Player = player) %>% 
