@@ -36,6 +36,8 @@ jobs:
             libwebp-dev \
             zlib1g-dev \
             libbz2-dev \
+            imagemagick \
+            libmagick++-dev \
             libcurl4-openssl-dev \
             libssl-dev \
             libxml2-dev \
