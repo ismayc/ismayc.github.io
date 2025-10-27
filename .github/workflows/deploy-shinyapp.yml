@@ -25,13 +25,15 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y \
+            pkg-config \
+            libfontconfig1-dev \
+            libfreetype6-dev \
+            libharfbuzz-dev \
+            libfribidi-dev \
+            libpng-dev \
             libcurl4-openssl-dev \
             libssl-dev \
             libxml2-dev \
-            libharfbuzz-dev \
-            libfribidi-dev \
-            libfreetype6-dev \
-            libpng-dev \
             libpoppler-cpp-dev
 
       # Set up R with a compatible version
