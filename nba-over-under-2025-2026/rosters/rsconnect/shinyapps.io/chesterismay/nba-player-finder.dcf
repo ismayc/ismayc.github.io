@@ -5,7 +5,7 @@ account: chesterismay
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 6979052
-bundleId: 11034330
+bundleId: 11099143
 url: https://chesterismay.shinyapps.io/nba-player-finder/
 version: 1
 asMultiple: FALSE

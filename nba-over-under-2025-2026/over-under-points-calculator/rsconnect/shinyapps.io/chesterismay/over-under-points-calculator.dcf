@@ -5,8 +5,8 @@ account: chesterismay
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 4078364
-bundleId: 11093611
+bundleId: 11099163
 url: https://chesterismay.shinyapps.io/over-under-points-calculator/
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: old_outcomes/determined_outcomes_2025-10-20.rds|old_outcomes/determined_outcomes_2025-10-26.rds
+ignoredFiles: determined_outcomes_2025-10-27.rds|old_outcomes/determined_outcomes_2025-10-20.rds|old_outcomes/determined_outcomes_2025-10-26.rds

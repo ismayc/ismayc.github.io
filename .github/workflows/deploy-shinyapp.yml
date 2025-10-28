@@ -76,18 +76,18 @@ jobs:
         shell: bash
         run: Rscript -e 'renv::install("rsconnect")'
 
-      - name: Authorize and deploy player finder app
-        continue-on-error: true
-        env:
-          APPNAME: nba-player-finder
-          ACCOUNT: ${{ secrets.SHINYAPPS_ACCOUNT }}
-          SERVER: shinyapps.io
-        shell: bash
-        run: |
-          set -euxo pipefail
-          Rscript -e 'rsconnect::setAccountInfo("${{ secrets.SHINYAPPS_ACCOUNT }}", "${{ secrets.SHINYAPPS_TOKEN }}", "${{ secrets.SHINYAPPS_SECRET }}")' \
-                  -e 'renv::restore(prompt = FALSE)' \
-                  -e 'rsconnect::deployApp(appDir = "nba-over-under-2025-2026/rosters", appName = "${{ env.APPNAME }}", account = "${{ env.ACCOUNT }}", server = "${{ env.SERVER }}", quarto = FALSE)'
+      # - name: Authorize and deploy player finder app
+      #   continue-on-error: true
+      #   env:
+      #     APPNAME: nba-player-finder
+      #     ACCOUNT: ${{ secrets.SHINYAPPS_ACCOUNT }}
+      #     SERVER: shinyapps.io
+      #   shell: bash
+      #   run: |
+      #     set -euxo pipefail
+      #     Rscript -e 'rsconnect::setAccountInfo("${{ secrets.SHINYAPPS_ACCOUNT }}", "${{ secrets.SHINYAPPS_TOKEN }}", "${{ secrets.SHINYAPPS_SECRET }}")' \
+      #             -e 'renv::restore(prompt = FALSE)' \
+      #             -e 'rsconnect::deployApp(appDir = "nba-over-under-2025-2026/rosters", appName = "${{ env.APPNAME }}", account = "${{ env.ACCOUNT }}", server = "${{ env.SERVER }}", quarto = FALSE)'
 
       - name: Authorize and deploy points calculator app
         continue-on-error: true
@@ -102,7 +102,7 @@ jobs:
                   -e 'renv::restore(prompt = FALSE)' \
                   -e 'rsconnect::deployApp(appDir = "nba-over-under-2025-2026/over-under-points-calculator", appName = "${{ env.APPNAME }}", account = "${{ env.ACCOUNT }}", server = "${{ env.SERVER }}", quarto = FALSE)'
 
-      # Example third app (kept commented cleanly)
+      # Example third app
       # - name: Authorize and deploy fantasy draft app
       #   continue-on-error: true
       #   env:
