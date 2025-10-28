@@ -10,7 +10,7 @@ library(httr)
 library(jsonlite)
 library(readr)
 
-date_added <- "2025-10-27"
+date_added <- "2025-10-28"
 #date_added <- Sys.Date()
 
 #source("get_player_seasons.R")
