@@ -96,11 +96,6 @@ jobs:
           Rscript nba-over-under-2025-2026/make_plot_html.R
         shell: bash
 
-      - name: Copy HTML into docs
-        run: |
-          mkdir -p docs
-          cp -f 2026-nba-over-under.html docs/2026-nba-over-under.html
-
       - name: Push changes
         run: |
           git config --local user.email "actions@github.com"
