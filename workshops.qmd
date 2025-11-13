@@ -8,7 +8,21 @@ format:
 
 ## In-person
 
+<div class="workshop-grid">
+  <div class="workshop-item">
+  <a href="https://datascience.scholar.bucknell.edu/workshop/" target="_blank">
+    <img src="images/spark-curiosity2.png" alt="Teaching and Learning with LLMs" />
+  </a>
+  
+  <a href="https://datascience.scholar.bucknell.edu/workshop/">Bucknell University 2025</a>
+    </div>
+</div>
+
+<br>
+<br>
+
 Each of the following were co-led with [Arturo Valdivia](https://stat.indiana.edu/about/core-faculty/core-faculty/valdivia-arturo.html).
+
 
 <div class="workshop-grid">
 

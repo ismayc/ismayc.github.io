@@ -10,6 +10,22 @@ Here are a few examples of presentations I've given. I'm always eager to speak w
 <div class="talk-grid">
 
 ::: {.card}
+**Data Science in the Age of AI:  AI is the Engine, You are the Engineer**  
+How generative AI supports faster, clearer, and more responsible data science work while strengthening foundational skills and human insight. 
+
+→ [HTML slides](https://gamma.app/docs/Data-Science-in-the-Age-of-AI-b1b6dj7dav03n8r?follow_on_start=true&following_id=f67f1376ykr0npc&mode=doc)  
+→ [Summary](https://datascience.scholar.bucknell.edu/2025/11/10/data-science-in-the-age-of-ai-ai-is-the-engine-you-are-the-engineer-2/)
+:::
+
+::: {.card}
+**Vignette-Driven Development:  The Power of Unit Testing**  
+How starting with a narrative, shaping APIs around real workflows, and using tests as guardrails leads to clearer, more intentional tools strengthened by AI-supported variation.
+
+→ [HTML slides](https://gamma.app/docs/Vignette-Driven-Development-ckyfqaa2oncheem?follow_on_start=true&following_id=f67f1376ykr0npc&mode=doc)  
+→ [Announcement](https://datascience.scholar.bucknell.edu/communities-of-practice/)
+:::
+
+::: {.card}
 **Tidyverse Tools in R for Data Science and Statistical Inference (with Dr. Jessica Minnier)**  
 A tidyverse-driven introduction to crafting clean, reproducible data workflows and modern inference in R.  
 
