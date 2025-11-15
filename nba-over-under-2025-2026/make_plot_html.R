@@ -38,11 +38,15 @@ if (date_modified != Sys.Date() || update_page) {
     input = "nba-over-under-2025-2026/make_plots.Rmd",  
     output_format = "html_document",
     output_file = paste0(year, "-nba-over-under.html"),
-    output_dir = "docs",
+    output_dir = "..",
     # Uncomment line above if running locally (Or maybe can just change
     # to ismayc.github.io as working directory?)
-#    output_dir = ".",
     quiet = TRUE
+  )
+  file.copy(
+    from = file.path(glue("{year}-nba-over-under.html")),
+    to = file.path("docs", glue("{year}-nba-over-under.html")),
+    overwrite = TRUE
   )
 } else {
   cat("Webpage already created today", "\n")
