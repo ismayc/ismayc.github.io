@@ -22,9 +22,10 @@ cat(glue("Starting at {Sys.time() - lubridate::hours(8)}"), "Pacific time", "\n"
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(lubridate))
 
-date_modified <- file.info(file.path("..", paste0("docs/", year, "-nba-over-under.html"))) %>% 
-  pull(ctime) %>% 
+date_modified <- file.info(file.path("docs", glue("{year}-nba-over-under.html"))) |>
+  pull(ctime) |>
   as.Date()
+
 
 # system("git config --global user.name 'Chester Ismay'")
 # system("git remote set-url origin git@github.com:ismayc/ismayc.github.io.git")
