@@ -1,9 +1,9 @@
 name: Deploy Shiny Apps
 
 on:
-  # schedule:
+  schedule:
   #   - cron: "*/10 * * * *"
-     - cron: "0 13 * * *"
+    - cron: "0 13 * * *"
   # push:
   #  branches: [ main, master ]
   workflow_dispatch:
