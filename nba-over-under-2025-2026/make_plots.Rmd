@@ -285,7 +285,7 @@ ggplotly(team_wins_track, tooltip = c("Vegas Win Projection %",
 
 #### Vegas Win Projections and Wins Needed
 
-`Win Projection` was pulled from prior to the season start. The last two
+`Win Projection` was pulled prior to the season start. The last two
 columns are based on games played through `r Sys.Date() - 1`.
 
 ```{r}
