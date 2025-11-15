@@ -36,11 +36,11 @@ if (date_modified != Sys.Date() || update_page) {
     # Remove directory if running locally
     input = "nba-over-under-2025-2026/make_plots.Rmd",  
     output_format = "html_document",
-    output_file = paste0("docs/", year, "-nba-over-under.html"),
-#    output_dir = "..",
+    output_file = paste0(year, "-nba-over-under.html"),
+    output_dir = "docs",
     # Uncomment line above if running locally (Or maybe can just change
     # to ismayc.github.io as working directory?)
-    output_dir = ".",
+#    output_dir = ".",
     quiet = TRUE
   )
 } else {

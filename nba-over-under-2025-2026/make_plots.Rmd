@@ -2,7 +2,7 @@
 title: 'NBA Over/Under 2025-2026 Season'
 author: Created by Chester Ismay
 output: html_document
-knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = encoding, output_file = file.path('../docs/2026-nba-over-under.html')) })
+knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = encoding, output_file = file.path('../2026-nba-over-under.html')) })
 ---
 
 ```{r include=FALSE}
