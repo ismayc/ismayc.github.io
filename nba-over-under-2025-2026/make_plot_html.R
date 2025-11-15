@@ -11,7 +11,7 @@
 # Save file
 
 library(glue)
-year <- 2026
+ending_season_year <- 2026
 
 #update_page <- FALSE
 update_page <- TRUE
@@ -22,8 +22,8 @@ cat(glue("Starting at {Sys.time() - lubridate::hours(8)}"), "Pacific time", "\n"
 suppressPackageStartupMessages(library(dplyr))
 suppressPackageStartupMessages(library(lubridate))
 
-date_modified <- file.info(file.path("docs", glue("{year}-nba-over-under.html"))) |>
-  pull(ctime) |>
+date_modified <- file.info(file.path("docs", glue("{ending_season_year}-nba-over-under.html"))) |>
+  dplyr::pull(ctime) |>
   as.Date()
 
 
@@ -37,17 +37,17 @@ if (date_modified != Sys.Date() || update_page) {
     # Remove directory if running locally
     input = "nba-over-under-2025-2026/make_plots.Rmd",  
     output_format = "html_document",
-    output_file = paste0(year, "-nba-over-under.html"),
-    output_dir = "..",
+    output_file = glue("{ending_season_year}-nba-over-under.html"),
+    output_dir = "docs",
     # Uncomment line above if running locally (Or maybe can just change
     # to ismayc.github.io as working directory?)
     quiet = TRUE
   )
-  file.copy(
-    from = file.path(glue("{year}-nba-over-under.html")),
-    to = file.path("docs", glue("{year}-nba-over-under.html")),
-    overwrite = TRUE
-  )
+  # file.copy(
+  #   from = file.path(glue("{ending_season_year}-nba-over-under.html")),
+  #   to = file.path("docs", glue("{ending_season_year}-nba-over-under.html")),
+  #   overwrite = TRUE
+  # )
 } else {
   cat("Webpage already created today", "\n")
 }
