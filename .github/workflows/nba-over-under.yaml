@@ -8,7 +8,7 @@ on:
     branches:
       - master
     paths:
-      - .github/workflows/schedule-commit.yaml
+      - .github/workflows/nba-over-under.yaml
 
 jobs:
   check-date:
@@ -31,14 +31,13 @@ jobs:
     name: macOS 15
     needs: check-date
     if: ${{ needs.check-date.outputs.should_run == 'true' }}
-    
+
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      WORKON_HOME: ./.virtualenvs
-    
+
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup macOS environment
         run: |
@@ -46,40 +45,34 @@ jobs:
           mkdir -p ~/.R
           echo "CPPFLAGS=-I$(brew --prefix gettext)/include" > ~/.R/Makevars
           echo "LDFLAGS=-L$(brew --prefix gettext)/lib" >> ~/.R/Makevars
-          cat ~/.R/Makevars
           brew link --force gettext
 
       - uses: r-lib/actions/setup-r@v2
         with:
           r-version: 'release'
 
-      - name: Install stringi and Matrix binaries first
-        run: |
-          options(repos = c(CRAN = 'https://cloud.r-project.org'))
-          install.packages(c("stringi", "Matrix"), type = "binary")
-        shell: Rscript {0}
-
-      - name: Capture snapshot (optional safety step)
-        run: renv::snapshot(prompt = FALSE)
-        shell: Rscript {0}
-
-      - name: Restore all other packages
-        run: |
-          exclude_pkgs <- c("stringi", "Matrix")
-          pkgs <- setdiff(names(renv::dependencies()$Package), exclude_pkgs)
-          renv::restore(packages = pkgs, prompt = FALSE)
-        shell: Rscript {0}
-
       - uses: r-lib/actions/setup-pandoc@v2
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: rcmdcheck remotes reticulate
+          extra-packages: |
+            any::rcmdcheck
+            any::remotes
+            any::reticulate
+            any::sessioninfo
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+
+      - name: Cache Python packages
+        uses: actions/cache@v4
+        with:
+          path: ~/Library/Caches/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}-pandas-nba_api
+          restore-keys: |
+            ${{ runner.os }}-pip-
 
       - name: Setup Python virtual environment
         run: |
@@ -88,13 +81,11 @@ jobs:
           pip install --upgrade pip
           pip install pandas nba_api
           echo "RETICULATE_PYTHON=$(pwd)/venv/bin/python" >> $GITHUB_ENV
-        shell: bash
 
       - name: Build webpage
         run: |
           echo "Sys.setenv(RETICULATE_PYTHON = '$(pwd)/venv/bin/python')" > .Renviron
           Rscript nba-over-under-2025-2026/make_plot_html.R
-        shell: bash
 
       - name: Push changes
         run: |
@@ -106,6 +97,4 @@ jobs:
 
       - name: Session info
         run: |
-          Rscript -e "install.packages('sessioninfo')"
           Rscript -e "sessioninfo::session_info()"
-        shell: bash
