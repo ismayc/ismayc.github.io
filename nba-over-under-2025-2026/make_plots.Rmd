@@ -860,6 +860,7 @@ if (nrow(todays_games)) {
     slice(1) %>%
     ungroup() %>%
     select(Team, `Current Over/Under`)
+  write_csv(current_over_under, "current_over_under.csv")
   
   # Extract the current clinched status for each team based on the latest date
   current_clinched_status <- player_projections_by_team |> 
