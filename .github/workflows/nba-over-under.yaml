@@ -66,35 +66,29 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-
-      - name: Cache Python packages
+      
+      - name: Cache reticulate Python environment
         uses: actions/cache@v4
         with:
-          path: ~/Library/Caches/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}-pandas-nba_api
-          restore-keys: |
-            ${{ runner.os }}-pip-
-
-      - name: Setup Python virtual environment
+          path: /Users/runner/.virtualenvs/r-reticulate
+          key: ${{ runner.os }}-reticulate-py3.11-pandas-nba_api-v1
+      
+      - name: Install Python packages for reticulate
         run: |
-          python -m venv venv
-          source venv/bin/activate
-          pip install --upgrade pip
-          pip install pandas nba_api
-          echo "RETICULATE_PYTHON=$(pwd)/venv/bin/python" >> $GITHUB_ENV
-
+          Rscript -e "reticulate::virtualenv_create('r-reticulate', python = Sys.which('python'))"
+          Rscript -e "reticulate::virtualenv_install('r-reticulate', c('pandas', 'nba_api'))"
+      
       - name: Build webpage
         run: |
-          echo "Sys.setenv(RETICULATE_PYTHON = '$(pwd)/venv/bin/python')" > .Renviron
           Rscript nba-over-under-2025-2026/make_plot_html.R
-
-      - name: Push changes
-        run: |
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
-          git add -A
-          git commit -m "GitHub Actions NBA page build" || echo "No changes to commit"
-          git push origin master
+      
+            - name: Push changes
+              run: |
+                git config --local user.email "actions@github.com"
+                git config --local user.name "GitHub Actions"
+                git add -A
+                git commit -m "GitHub Actions NBA page build" || echo "No changes to commit"
+                git push origin master
 
       - name: Session info
         run: |
