@@ -1,25 +1,21 @@
 Package: nba-over-under
 Title: NBA Over Under Analysis
 Version: 0.0.1
-Imports: 
+Depends:
+    R (>= 4.0)
+Imports:
     curl,
     DT,
     furrr,
     future,
     glue,
-    here,
+    htmltools,
     httr,
     jsonlite,
-    kableExtra,
-    knitr,
-    lubridate,
     magrittr,
     memoise,
-    plotly,
-    readxl,
-    remotes,
     reticulate,
-    rmarkdown,
     rvest,
+    sessioninfo,
     stringi,
     tidyverse

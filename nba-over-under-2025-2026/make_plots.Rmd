@@ -26,7 +26,6 @@ library(glue)
 library(stringi)
 library(rvest)
 library(DT)
-
 library(htmltools)
 
 nbastatR_files <- list.files(path = "nbastatR-r-files",
