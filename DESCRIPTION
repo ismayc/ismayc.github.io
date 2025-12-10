@@ -12,6 +12,7 @@ Imports:
     htmltools,
     httr,
     jsonlite,
+    kableExtra,
     magrittr,
     memoise,
     plotly,
