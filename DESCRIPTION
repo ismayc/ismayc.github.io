@@ -19,5 +19,6 @@ Imports:
     reticulate,
     rvest,
     sessioninfo,
+    shiny,
     stringi,
     tidyverse
