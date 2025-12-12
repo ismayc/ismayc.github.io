@@ -53,6 +53,9 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@v2
 
+      - name: Install parallelly
+        run: Rscript -e 'install.packages("parallelly", repos = "https://cran.rstudio.com")'
+
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           cache-version: 1
