@@ -53,8 +53,10 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@v2
 
-      - name: Install parallelly
-        run: Rscript -e 'install.packages("parallelly", repos = "https://cran.rstudio.com")'
+      - name: Testing
+        run: |
+          echo "Installing dependencies using lockfile..."
+          Rscript -e 'tryCatch(pak::lockfile_install(".github/pkg.lock"), error = function(e) {cat("Error:", e$message, "\nReinstalling dependencies manually."); install.packages(c("rcmdcheck", "remotes", "reticulate", "sessioninfo"))})'
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
@@ -64,7 +66,7 @@ jobs:
             any::remotes
             any::reticulate
             any::sessioninfo
-
+            
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
