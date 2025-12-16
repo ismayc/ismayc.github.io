@@ -27,7 +27,7 @@ jobs:
           fi
 
   build-nba-webpage:
-    runs-on: macos-15
+    runs-on: macos-14
     name: macOS 15
     needs: check-date
     if: ${{ needs.check-date.outputs.should_run == 'true' }}
@@ -61,6 +61,7 @@ jobs:
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           cache-version: 1
+          pak-version: repo  # Install pak from CRAN instead of r-lib GitHub repo
           extra-packages: |
             any::rcmdcheck
             any::remotes
