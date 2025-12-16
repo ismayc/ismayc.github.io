@@ -50,12 +50,15 @@ jobs:
       
       - name: Install pak manually
         run: |
-          install.packages("pak", repos = "https://cloud.r-project.org")
+          lib_path <- Sys.getenv("R_LIBS_SITE", "/Library/Frameworks/R.framework/Resources/site-library")
+          dir.create(lib_path, showWarnings = FALSE, recursive = TRUE)
+          install.packages("pak", lib = lib_path, repos = "https://cloud.r-project.org")
+          cat(sprintf("R_LIB_FOR_PAK=%s\n", lib_path), file = Sys.getenv("GITHUB_ENV"), append = TRUE)
         shell: Rscript {0}
       
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          cache-version: 3
+          cache-version: 4
           pak-version: none
           extra-packages: |
             any::rcmdcheck
