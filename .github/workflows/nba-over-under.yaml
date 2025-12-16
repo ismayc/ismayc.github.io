@@ -53,14 +53,9 @@ jobs:
 
       - uses: r-lib/actions/setup-pandoc@v2
 
-      - name: Testing
-        run: |
-          echo "Installing dependencies using lockfile..."
-          Rscript -e 'tryCatch(pak::lockfile_install(".github/pkg.lock"), error = function(e) {cat("Error:", e$message, "\nReinstalling dependencies manually."); install.packages(c("rcmdcheck", "remotes", "reticulate", "sessioninfo"))})'
-
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          cache-version: 1
+          cache-version: 2
           pak-version: repo  # Install pak from CRAN instead of r-lib GitHub repo
           extra-packages: |
             any::rcmdcheck
