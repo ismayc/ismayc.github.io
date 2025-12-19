@@ -53,27 +53,25 @@ jobs:
           r-version: 'release'
     
       - name: Install dependencies
-        run: |
-          install.packages(c(
-            "remotes",
-            "rmarkdown",
-            "quarto",
-            "httr",
-            "jsonlite",
-            "tidyverse",
-            "magrittr",
-            "curl",
-            "memoise",
-            "furrr",
-            "future",
-            "glue",
-            "stringi",
-            "rvest",
-            "DT",
-            "htmltools"
-          ))
-          remotes::install_deps(dependencies = TRUE)
-        shell: Rscript {0}
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::remotes
+            any::rmarkdown
+            any::quarto
+            any::httr
+            any::jsonlite
+            any::tidyverse
+            any::magrittr
+            any::curl
+            any::memoise
+            any::furrr
+            any::future
+            any::glue
+            any::stringi
+            any::rvest
+            any::DT
+            any::htmltools
 
       - name: Set up Python
         uses: actions/setup-python@v5
