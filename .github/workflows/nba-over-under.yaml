@@ -48,34 +48,31 @@ jobs:
           
       - uses: r-lib/actions/setup-pandoc@v2
       
-      - uses: r-lib/actions/setup-r@v2
-        with:
-          r-version: 'release'
-    
       - name: Install dependencies
-        uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          packages: |
-            any::remotes
-            any::rmarkdown
-            any::quarto
-            any::httr
-            any::jsonlite
-            any::tidyverse
-            any::magrittr
-            any::curl
-            any::memoise
-            any::furrr
-            any::future
-            any::glue
-            any::stringi
-            any::rvest
-            any::DT
-            any::htmltools
+        run: |
+          install.packages("pak", repos = sprintf("https://r-lib.github.io/p/pak/stable/%s/%s/%s", .Platform$pkgType, R.Version()$os, R.Version()$arch))
+          pak::pak(c(
+            "remotes",
+            "rmarkdown",
+            "quarto",
+            "httr",
+            "jsonlite",
+            "tidyverse",
+            "magrittr",
+            "curl",
+            "memoise",
+            "furrr",
+            "future",
+            "glue",
+            "stringi",
+            "rvest",
+            "DT",
+            "htmltools"
+          ), upgrade = FALSE)
+        shell: Rscript {0}
         env:
-          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-          R_REPOS: "https://packagemanager.posit.co/cran/latest"
-
+          PKG_SYSREQS: false
+          
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
