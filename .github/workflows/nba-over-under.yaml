@@ -48,24 +48,16 @@ jobs:
           
       - uses: r-lib/actions/setup-pandoc@v2
       
-      - name: Install pak manually
-        run: |
-          lib_path <- Sys.getenv("R_LIBS_SITE", "/Library/Frameworks/R.framework/Resources/site-library")
-          dir.create(lib_path, showWarnings = FALSE, recursive = TRUE)
-          install.packages("pak", lib = lib_path, repos = "https://cloud.r-project.org")
-          cat(sprintf("R_LIB_FOR_PAK=%s\n", lib_path), file = Sys.getenv("GITHUB_ENV"), append = TRUE)
-        shell: Rscript {0}
-      
-      - uses: r-lib/actions/setup-r-dependencies@v2
+      - uses: r-lib/actions/setup-r@v2
         with:
-          cache-version: 4
-          pak-version: none
-          extra-packages: |
-            any::rcmdcheck
-            any::remotes
-            any::reticulate
-            any::sessioninfo
-            
+          r-version: 'release'
+    
+      - name: Install dependencies
+        run: |
+          install.packages(c("remotes", "rmarkdown", "quarto"))
+          remotes::install_deps(dependencies = TRUE)
+        shell: Rscript {0}
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
