@@ -54,7 +54,24 @@ jobs:
     
       - name: Install dependencies
         run: |
-          install.packages(c("remotes", "rmarkdown", "quarto"))
+          install.packages(c(
+            "remotes",
+            "rmarkdown",
+            "quarto",
+            "httr",
+            "jsonlite",
+            "tidyverse",
+            "magrittr",
+            "curl",
+            "memoise",
+            "furrr",
+            "future",
+            "glue",
+            "stringi",
+            "rvest",
+            "DT",
+            "htmltools"
+          ))
           remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
 
