@@ -63,7 +63,8 @@ jobs:
             "stringi",
             "rvest",
             "DT",
-            "htmltools"
+            "htmltools",
+            "reticulate"
           ), upgrade = FALSE)
         shell: Rscript {0}
           
