@@ -65,6 +65,7 @@ jobs:
             "DT",
             "htmltools",
             "plotly",
+            'kableExtra',
             "reticulate"
           ), upgrade = FALSE)
         shell: Rscript {0}

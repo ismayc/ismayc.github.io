@@ -20,7 +20,7 @@ scores_temp1 <- read_csv("current_year.csv") %>%
   inner_join(meta %>% 
                select(abbreviation),
              by = c("TEAM_ABBREVIATION" = "abbreviation"))|> 
-#  filter(GAME_DATE != as.Date("2024-12-17")) |> 
+  filter(GAME_DATE != as.Date("2025-12-16")) |> 
   filter(GAME_DATE < Sys.Date()) #|> 
   # mutate(MATCHUP = case_when(
   #   GAME_ID == "0022401230" & TEAM_ABBREVIATION == "OKC" ~ "OKC vs. HOU",
