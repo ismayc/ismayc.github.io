@@ -72,6 +72,9 @@ jobs:
             any::rvest
             any::DT
             any::htmltools
+        env:
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+          R_REPOS: "https://packagemanager.posit.co/cran/latest"
 
       - name: Set up Python
         uses: actions/setup-python@v5
