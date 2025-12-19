@@ -21,15 +21,15 @@ scores_temp1 <- read_csv("current_year.csv") %>%
                select(abbreviation),
              by = c("TEAM_ABBREVIATION" = "abbreviation"))|> 
 #  filter(GAME_DATE != as.Date("2024-12-17")) |> 
-  filter(GAME_DATE < Sys.Date()) |> 
-  mutate(MATCHUP = case_when(
-    GAME_ID == "0022401230" & TEAM_ABBREVIATION == "OKC" ~ "OKC vs. HOU",
-    GAME_ID == "0022400147" & TEAM_ABBREVIATION == "WAS" ~ "WAS vs. MIA",
-    GAME_ID == "0022400621" & TEAM_ABBREVIATION == "IND" ~ "IND vs. SAS",
-    GAME_ID == "0022400623" & TEAM_ABBREVIATION == "SAS" ~ "SAS vs. IND",
-    GAME_ID == "0022401229" & TEAM_ABBREVIATION == "MIL" ~ "MIL vs. ATL",
-    TRUE ~ MATCHUP
-    ))
+  filter(GAME_DATE < Sys.Date()) #|> 
+  # mutate(MATCHUP = case_when(
+  #   GAME_ID == "0022401230" & TEAM_ABBREVIATION == "OKC" ~ "OKC vs. HOU",
+  #   GAME_ID == "0022400147" & TEAM_ABBREVIATION == "WAS" ~ "WAS vs. MIA",
+  #   GAME_ID == "0022400621" & TEAM_ABBREVIATION == "IND" ~ "IND vs. SAS",
+  #   GAME_ID == "0022400623" & TEAM_ABBREVIATION == "SAS" ~ "SAS vs. IND",
+  #   GAME_ID == "0022401229" & TEAM_ABBREVIATION == "MIL" ~ "MIL vs. ATL",
+  #   TRUE ~ MATCHUP
+  #   ))
 
 # Redo the analysis that used to be done in 02a-get-game-scores.R
 #if(!file.exists(here(

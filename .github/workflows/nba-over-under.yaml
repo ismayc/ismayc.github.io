@@ -64,6 +64,7 @@ jobs:
             "rvest",
             "DT",
             "htmltools",
+            "plotly",
             "reticulate"
           ), upgrade = FALSE)
         shell: Rscript {0}
