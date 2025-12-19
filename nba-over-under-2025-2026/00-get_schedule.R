@@ -4,6 +4,7 @@ library(jsonlite)
 
 season <- "2025-26"
 year <- 2026
+nba_cup_champ_date <- "2025-12-16"
 
 # https://www.basketball-reference.com/leagues/NBA_2025_games-october.html
 
@@ -66,8 +67,8 @@ scrape_month <- function(month) {
       game_duration = LOG,
       arena = Arena,
       notes = 12
-    ) |> 
-    mutate(attendance = as.numeric(attendance))
+    ) # |> 
+ #   mutate(attendance = as.numeric(attendance))
 
   message("Scraping schedule for month of ", str_to_sentence(month))
   Sys.sleep(3)
@@ -84,7 +85,7 @@ nba_schedule <- nba_schedule_raw %>%
     start_time = as.character(start_time)
   ) |> 
   # Filter out in-season tournament championship game
-  filter(!game_date == as.Date("2024-12-17"))
+  filter(!game_date == as.Date(nba_cup_champ_date))
 
 # Check for correct number of home and away games
 home <- nba_schedule %>%
@@ -101,5 +102,7 @@ away <- nba_schedule %>%
 home %>% filter(n_home_games != 41)
 away %>% filter(n_away_games != 41)
 
-write_csv(nba_schedule, paste0("schedule-", season, "_initial.csv"))
-#write_csv(nba_schedule, "schedule-2024-25-after-ist.csv")
+#write_csv(nba_schedule, paste0("schedule-", season, "_initial.csv"))
+write_csv(nba_schedule, paste0("schedule-", season, "-after-ist.csv"))
+file.copy(paste0("schedule-", season, "-after-ist.csv"),
+          to = "..")
