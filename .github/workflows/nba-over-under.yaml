@@ -6,8 +6,7 @@ on:
   push:
     branches:
       - master
-    paths:
-      - .github/workflows/nba-over-under.yaml
+
 jobs:
   check-date:
     runs-on: ubuntu-latest
@@ -66,6 +65,7 @@ jobs:
             "htmltools",
             "plotly",
             'kableExtra',
+            "sessioninfo",
             "reticulate"
           ), upgrade = FALSE)
         shell: Rscript {0}
