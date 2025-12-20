@@ -35,7 +35,9 @@ date_modified <- file.info(file.path("docs", glue("{ending_season_year}-nba-over
 if (date_modified != Sys.Date() || update_page) {
   rmarkdown::render(
     # Remove directory if running locally
-    input = "nba-over-under-2025-2026/make_plots.Rmd",  
+    input = ifelse(grepl(pattern = "nba-over-under", x = getwd()), 
+                   "make_plots.Rmd",
+                   "nba-over-under-2025-2026/make_plots.Rmd"),
     output_format = "html_document",
     output_file = glue("{ending_season_year}-nba-over-under.html"),
     output_dir = "docs",
