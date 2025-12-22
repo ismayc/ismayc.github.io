@@ -55,5 +55,12 @@ meta <- read_excel(path = "picks.xlsx", sheet = "meta")
 
 # reticulate::virtualenv_create()
 # reticulate::use_virtualenv("~/.virtualenvs/r-reticulate", required = TRUE)
-reticulate::py_install("nba_api", pip = TRUE)
-reticulate::py_install("pandas")
+
+if (!reticulate::py_module_available("nba_api")) {
+  reticulate::py_install("nba_api", pip = TRUE)
+}
+
+if (!reticulate::py_module_available("pandas")) {
+  reticulate::py_install("pandas")
+}
+
