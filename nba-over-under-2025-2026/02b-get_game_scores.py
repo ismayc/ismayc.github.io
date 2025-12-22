@@ -37,7 +37,7 @@ elif os_name == "Linux":
 
     for attempt in range(max_retries):
         try:
-            cat(f"Attempt {attempt + 1}: Fetching data from NBA API...")
+            print(f"Attempt {attempt + 1}: Fetching data from NBA API...", flush=True)
             from nba_api.stats.endpoints import leaguegamefinder
 
             gamefinder = leaguegamefinder.LeagueGameFinder(
@@ -55,15 +55,15 @@ elif os_name == "Linux":
             break
 
         except Exception as e:
-            cat(f"Attempt {attempt + 1} failed: {e}")
+            print(f"Attempt {attempt + 1} failed: {e}", flush=True)
             if attempt < max_retries - 1:
                 wait_time = 30 * (attempt + 1)
-                cat(f"Waiting {wait_time} seconds before retry...")
+                print(f"Waiting {wait_time} seconds before retry...", flush=True)
                 time.sleep(wait_time)
 
     if not api_success:
         if os.path.exists(csv_path):
             mod_time = datetime.fromtimestamp(os.path.getmtime(csv_path))
-            cat(f"API failed. Using cached {csv_path} from {mod_time.strftime('%Y-%m-%d %H:%M')}")
+            print(f"API failed. Using cached {csv_path} from {mod_time.strftime('%Y-%m-%d %H:%M')}", flush=True)
         else:
             raise Exception(f"API failed and no cached {csv_path} exists!")
