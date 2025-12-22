@@ -42,33 +42,58 @@ jobs:
           r-version: 'release'
           
       - uses: r-lib/actions/setup-pandoc@v2
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          cache-version: 1
+          extra-packages: |
+            any::remotes
+            any::rmarkdown
+            any::quarto
+            any::httr
+            any::jsonlite
+            any::tidyverse
+            any::magrittr
+            any::curl
+            any::memoise
+            any::furrr
+            any::future
+            any::glue
+            any::stringi
+            any::rvest
+            any::DT
+            any::htmltools
+            any::plotly
+            any::kableExtra
+            any::sessioninfo
+            any::reticulate
       
-      - name: Install dependencies
-        run: |
-          install.packages("pak", repos = sprintf("https://r-lib.github.io/p/pak/stable/%s/%s/%s", .Platform$pkgType, R.Version()$os, R.Version()$arch))
-          pak::pak(c(
-            "remotes",
-            "rmarkdown",
-            "quarto",
-            "httr",
-            "jsonlite",
-            "tidyverse",
-            "magrittr",
-            "curl",
-            "memoise",
-            "furrr",
-            "future",
-            "glue",
-            "stringi",
-            "rvest",
-            "DT",
-            "htmltools",
-            "plotly",
-            'kableExtra',
-            "sessioninfo",
-            "reticulate"
-          ), upgrade = FALSE)
-        shell: Rscript {0}
+      # - name: Install dependencies
+      #   run: |
+      #     install.packages("pak", repos = sprintf("https://r-lib.github.io/p/pak/stable/%s/%s/%s", .Platform$pkgType, R.Version()$os, R.Version()$arch))
+      #     pak::pak(c(
+      #       "remotes",
+      #       "rmarkdown",
+      #       "quarto",
+      #       "httr",
+      #       "jsonlite",
+      #       "tidyverse",
+      #       "magrittr",
+      #       "curl",
+      #       "memoise",
+      #       "furrr",
+      #       "future",
+      #       "glue",
+      #       "stringi",
+      #       "rvest",
+      #       "DT",
+      #       "htmltools",
+      #       "plotly",
+      #       'kableExtra',
+      #       "sessioninfo",
+      #       "reticulate"
+      #     ), upgrade = FALSE)
+      #   shell: Rscript {0}
           
       - name: Set up Python
         uses: actions/setup-python@v5
