@@ -1,5 +1,5 @@
 #!/bin/bash
-cd ~/Desktop/repos/ismayc.github.io/nba-over-under-2025-2026/nba-over-under-2025-2026
+cd ~/Desktop/repos/ismayc.github.io/nba-over-under-2025-2026/
 
 python3 << 'EOF'
 year = '2025'
