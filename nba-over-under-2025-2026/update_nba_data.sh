@@ -13,7 +13,8 @@ EOF
 
 git config --local user.email "actions@github.com"
 git config --local user.name "GitHub Actions"
-git pull --rebase origin master
+git fetch origin master
+git reset --soft origin/master
 git add current_year.csv
 git commit -m "Update NBA data $(date +%Y-%m-%d)"
 git push origin master

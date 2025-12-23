@@ -119,7 +119,8 @@ jobs:
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          git pull --rebase origin master
+          git fetch origin master
+          git reset --soft origin/master
           git add -A
           git commit -m "GitHub Actions NBA page build" || echo "No changes to commit"
           git push origin master
