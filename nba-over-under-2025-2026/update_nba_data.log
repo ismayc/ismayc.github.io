@@ -2,16 +2,3 @@ Error: unexpected '/' in "cd ~/"
 Execution halted
 Error: unexpected '/' in "cd ~/"
 Execution halted
-Traceback (most recent call last):
-  File "<stdin>", line 2, in <module>
-ModuleNotFoundError: No module named 'nba_api'
-From https://github.com/ismayc/ismayc.github.io
- * branch              master     -> FETCH_HEAD
-   53661c85..a897fc48  master     -> origin/master
-[master 9ffa49a7] Update NBA data 2025-12-25
- 5 files changed, 369 insertions(+), 266 deletions(-)
- delete mode 100644 nba-over-under-2025-2026/determined_outcomes/determined_outcomes_2025-12-24.rds
- delete mode 100644 nba-over-under-2025-2026/over-under-points-calculator/determined_outcomes_2025-12-24.rds
- delete mode 100644 nba-over-under-2025-2026/rds/game_results_raw_through_2025-12-23.rds
- delete mode 100644 nba-over-under-2025-2026/rds/standings_through_2025-12-23.rds
-fatal: could not read Username for 'https://github.com': Device not configured
