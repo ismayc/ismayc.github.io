@@ -1,6 +1,8 @@
 #!/bin/bash
 cd ~/Desktop/repos/ismayc.github.io/nba-over-under-2025-2026/
 
+pip install nba_api
+
 python3 << 'EOF'
 year = '2025'
 from nba_api.stats.endpoints import leaguegamefinder
