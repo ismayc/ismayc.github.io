@@ -13,8 +13,8 @@ season_games.to_csv("current_year.csv", index=False)
 print(f"Updated current_year.csv with {len(season_games)} games")
 EOF
 
-git config --local user.email "actions@github.com"
-git config --local user.name "GitHub Actions"
+git config --local user.email "chester.ismay@gmail.com"
+git config --local user.name "Chester Ismay"
 git fetch origin master
 git reset --soft origin/master
 git add current_year.csv
