@@ -15,3 +15,35 @@ From https://github.com/ismayc/ismayc.github.io
  delete mode 100644 nba-over-under-2025-2026/rds/game_results_raw_through_2025-12-23.rds
  delete mode 100644 nba-over-under-2025-2026/rds/standings_through_2025-12-23.rds
 fatal: could not read Username for 'https://github.com': Device not configured
+/Users/chesterismay/Desktop/repos/ismayc.github.io/nba-over-under-2025-2026/update_nba_data.sh: line 4: pip: command not found
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+ModuleNotFoundError: No module named 'nba_api'
+From https://github.com/ismayc/ismayc.github.io
+ * branch              master     -> FETCH_HEAD
+   2c58045c..d63e5435  master     -> origin/master
+[master 1a5396d6] Update NBA data 2025-12-26
+ 8 files changed, 495 insertions(+), 208 deletions(-)
+ delete mode 100644 nba-over-under-2025-2026/determined_outcomes/determined_outcomes_2025-12-25.rds
+ delete mode 100644 nba-over-under-2025-2026/over-under-points-calculator/determined_outcomes_2025-12-25.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/game_results_raw_through_2025-12-24.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/standings_through_2025-12-24.rds
+fatal: could not read Username for 'https://github.com': Device not configured
+/Users/chesterismay/Desktop/repos/ismayc.github.io/nba-over-under-2025-2026/update_nba_data.sh: line 4: pip: command not found
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+ModuleNotFoundError: No module named 'nba_api'
+From https://github.com/ismayc/ismayc.github.io
+ * branch              master     -> FETCH_HEAD
+   d63e5435..289eed03  master     -> origin/master
+[master 9aca8039] Update NBA data 2025-12-27
+ 12 files changed, 449 insertions(+), 222 deletions(-)
+ delete mode 100644 nba-over-under-2025-2026/determined_outcomes/determined_outcomes_2025-12-25.rds
+ delete mode 100644 nba-over-under-2025-2026/determined_outcomes/determined_outcomes_2025-12-26.rds
+ delete mode 100644 nba-over-under-2025-2026/over-under-points-calculator/determined_outcomes_2025-12-25.rds
+ delete mode 100644 nba-over-under-2025-2026/over-under-points-calculator/determined_outcomes_2025-12-26.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/game_results_raw_through_2025-12-24.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/game_results_raw_through_2025-12-25.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/standings_through_2025-12-24.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/standings_through_2025-12-25.rds
+fatal: could not read Username for 'https://github.com': Device not configured
