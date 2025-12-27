@@ -99,7 +99,11 @@ weekly_team_track <- ggplot(
   xlab("") +
   ylab("") +
   theme_bw() +
-  theme(axis.text.x = element_text(angle = 60))
+  theme(
+    axis.text.x = element_text(angle = 60),
+    panel.spacing.y = unit(0.25, "lines"),  # Increase vertical spacing between panels
+    strip.text = element_text(size = 8)     # Optionally reduce strip text size
+  )
 
 ggplotly(weekly_team_track, tooltip = c("Vegas Win Projection %", 
                                         "Current Win %", 
@@ -144,6 +148,11 @@ team_track <- join_with_projections %>%
   xlab("") + #Game Number") +
   ylab("") + #<br><br>Current Win Percentage")
   theme_bw() +
+  theme(
+    axis.text.x = element_text(angle = 60),
+    panel.spacing.y = unit(0.25, "lines"),  # Increase vertical spacing between panels
+    strip.text = element_text(size = 8)     # Optionally reduce strip text size
+  ) +
   scale_color_manual(values = c("forestgreen", "black", "deeppink"))
 
 ggplotly(team_track, tooltip = c("Vegas Win Projection %", 
@@ -255,6 +264,11 @@ team_wins_track <- team_wins_df %>%
   xlab("") + #Game Number") +
   ylab("") + #<br><br>Current Win Percentage")
   theme_bw() +
+  theme(
+    axis.text.x = element_text(angle = 60),
+    panel.spacing.y = unit(0.25, "lines"),  # Increase vertical spacing between panels
+    strip.text = element_text(size = 8)     # Optionally reduce strip text size
+  ) + 
   scale_color_manual(values = c("black", "forestgreen", "deeppink"))
 
 ggplotly(team_wins_track, tooltip = c("Vegas Win Projection %", 
@@ -803,7 +817,7 @@ if (nrow(yesterday_scores)) {
 # if (!file.exists(paste0("schedule-", this_year, "-after-ist.csv"))) {
 #   schedule <- read_csv(paste0("schedule-", this_year, "_initial.csv"))
 # } else {
-  schedule <- read_csv(paste0("schedule-", this_year, "-after-ist.csv"))
+schedule <- read_csv(paste0("schedule-", this_year, "-after-ist.csv"))
 #}
 # rename(game_date = `Game Date`, start_time = `Start (ET)`,
 #        away_team = `Visitor/Neutral`, home_team = `Home/Neutral`) |> 
