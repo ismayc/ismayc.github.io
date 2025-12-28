@@ -15,12 +15,13 @@ games = gamefinder.get_data_frames()[0]
 season_games = games[games.SEASON_ID.str[-4:] == year]
 season_games.to_csv("current_year.csv", index=False)
 print(f"Updated current_year.csv with {len(season_games)} games")
+print("\n")
 EOF
 
-# git config --local user.email "chester.ismay@gmail.com"
-# git config --local user.name "Chester Ismay"
-# git fetch origin master
-# git reset --soft origin/master
-# git add current_year.csv
-# git commit -m "Update NBA data $(date +%Y-%m-%d)"
-# git push origin master
+git config --local user.email "chester.ismay@gmail.com"
+git config --local user.name "Chester Ismay"
+git fetch origin master
+git reset --soft origin/master
+git add current_year.csv
+git commit -m "Update NBA data $(date +%Y-%m-%d)"
+git push origin master
