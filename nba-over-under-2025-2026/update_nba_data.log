@@ -52,3 +52,14 @@ fatal: could not read Username for 'https://github.com': Device not configured
 Updated current_year.csv with 2435 games
 
 
+/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+Updated current_year.csv with 2443 games
+
+
+From github.com:ismayc/ismayc.github.io
+ * branch              master     -> FETCH_HEAD
+[master 40de509c] Update NBA data 2025-12-28
+ 1 file changed, 1551 insertions(+), 1543 deletions(-)
+To github.com:ismayc/ismayc.github.io.git
+   c639de6c..40de509c  master -> master

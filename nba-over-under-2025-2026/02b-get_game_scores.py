@@ -38,7 +38,7 @@ elif os_name == "Linux":
     }
 
     api_success = False
-    max_retries = 3
+    max_retries = 2
 
     for attempt in range(max_retries):
         try:
@@ -62,7 +62,7 @@ elif os_name == "Linux":
         except Exception as e:
             py_cat(f"Attempt {attempt + 1} failed: {e}")
             if attempt < max_retries - 1:
-                wait_time = 10 * (attempt + 1)
+                wait_time = 5 * (attempt + 1)
                 py_cat(f"Waiting {wait_time} seconds before retry...")
                 time.sleep(wait_time)
 
