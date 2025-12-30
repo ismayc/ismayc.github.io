@@ -101,6 +101,7 @@ weekly_team_track <- ggplot(
   theme_bw() +
   theme(
     axis.text.x = element_text(angle = 60),
+    panel.spacing = unit(0.5, "lines"),
     panel.spacing.y = unit(0.5, "lines"),  # Increase vertical spacing between panels
     strip.text = element_text(size = 8)     # Optionally reduce strip text size
   )
@@ -150,6 +151,7 @@ team_track <- join_with_projections %>%
   theme_bw() +
   theme(
     axis.text.x = element_text(angle = 60),
+    panel.spacing = unit(0.5, "lines"),
     panel.spacing.y = unit(0.5, "lines"),  # Increase vertical spacing between panels
     strip.text = element_text(size = 8)     # Optionally reduce strip text size
   ) +
@@ -266,6 +268,7 @@ team_wins_track <- team_wins_df %>%
   theme_bw() +
   theme(
     axis.text.x = element_text(angle = 60),
+    panel.spacing = unit(0.5, "lines"),
     panel.spacing.y = unit(0.5, "lines"),  # Increase vertical spacing between panels
     strip.text = element_text(size = 8)     # Optionally reduce strip text size
   ) + 
