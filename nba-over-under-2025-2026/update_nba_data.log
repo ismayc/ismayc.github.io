@@ -63,3 +63,30 @@ From github.com:ismayc/ismayc.github.io
  1 file changed, 1551 insertions(+), 1543 deletions(-)
 To github.com:ismayc/ismayc.github.io.git
    c639de6c..40de509c  master -> master
+/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+Updated current_year.csv with 2461 games
+
+
+From github.com:ismayc/ismayc.github.io
+ * branch              master     -> FETCH_HEAD
+[master 27d2c015] Update NBA data 2025-12-29
+ 1 file changed, 1563 insertions(+), 1545 deletions(-)
+To github.com:ismayc/ismayc.github.io.git
+   866a1b77..27d2c015  master -> master
+/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+Updated current_year.csv with 2493 games
+
+
+From github.com:ismayc/ismayc.github.io
+ * branch              master     -> FETCH_HEAD
+   27d2c015..3788a882  master     -> origin/master
+[master 1a1638b0] Update NBA data 2025-12-30
+ 6 files changed, 1803 insertions(+), 1796 deletions(-)
+ delete mode 100644 nba-over-under-2025-2026/determined_outcomes/determined_outcomes_2025-12-29.rds
+ delete mode 100644 nba-over-under-2025-2026/over-under-points-calculator/determined_outcomes_2025-12-29.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/game_results_raw_through_2025-12-28.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/standings_through_2025-12-28.rds
+To github.com:ismayc/ismayc.github.io.git
+   3788a882..1a1638b0  master -> master
