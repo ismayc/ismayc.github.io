@@ -15,6 +15,7 @@ project:
     - "spotify_dataset.csv"
     - "wash-or_black.csv"
     - "202*-nba-over-under.html"
+    - "critical_thinking_framework.pdf"
   output-dir: docs  # for GitHub Pages compatibility
   render:
     - index.qmd
