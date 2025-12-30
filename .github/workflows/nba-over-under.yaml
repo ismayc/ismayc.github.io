@@ -6,6 +6,9 @@ on:
   push:
     branches:
       - master
+    paths:
+      - 'nba-over-under-2025-2026/**'
+      - '.github/workflows/build-nba-webpage.yml'
 
 jobs:
   check-date:
