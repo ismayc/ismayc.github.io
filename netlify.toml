@@ -1,6 +1,6 @@
 [build]
   command = "echo 'skipping build'"
-  publish = "."
+  publish = "docs"
   ignore = "exit 0"
 
 [build.environment]
