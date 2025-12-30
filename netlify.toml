@@ -1,6 +1,8 @@
-[build.environment]
-  PYTHON_VERSION = "none"
-  
 [build]
-  command = ""
+  command = "echo 'skipping build'"
   publish = "."
+  ignore = "exit 0"
+
+[build.environment]
+  PYTHON_VERSION = "3.12"
+  PIP_INSTALL = "false"
