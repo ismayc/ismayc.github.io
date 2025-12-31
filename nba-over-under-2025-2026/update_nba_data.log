@@ -90,3 +90,17 @@ From github.com:ismayc/ismayc.github.io
  delete mode 100644 nba-over-under-2025-2026/rds/standings_through_2025-12-28.rds
 To github.com:ismayc/ismayc.github.io.git
    3788a882..1a1638b0  master -> master
+Updated current_year.csv with 2511 games
+
+
+From github.com:ismayc/ismayc.github.io
+ * branch              master     -> FETCH_HEAD
+   c8e369fc..dadc8c86  master     -> origin/master
+[master 7f60acbf] Update NBA data 2025-12-31
+ 3 files changed, 2546 insertions(+), 2531 deletions(-)
+remote: 
+remote: GitHub found 3 vulnerabilities on ismayc/ismayc.github.io's default branch (2 high, 1 moderate). To find out more, visit:        
+remote:      https://github.com/ismayc/ismayc.github.io/security/dependabot        
+remote: 
+To github.com:ismayc/ismayc.github.io.git
+   dadc8c86..7f60acbf  master -> master
