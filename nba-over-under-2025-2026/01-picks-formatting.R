@@ -21,10 +21,10 @@ projections <- read_excel(path = "picks.xlsx", sheet = "projections") %>%
   mutate(percentage_projection = win_projection / num_games * 100)
 meta <- read_excel(path = "picks.xlsx", sheet = "meta") 
 
-if(interactive()) {
-  # Check picks follow rules
-  picks %>% arrange(player, desc(wage), choice) %>% View()
-  
-  # How many OVER and UNDER for each player?
-  picks %>% count(player, choice)
-}
+# if(interactive()) {
+#   # Check picks follow rules
+#   picks %>% arrange(player, desc(wage), choice) %>% View()
+#   
+#   # How many OVER and UNDER for each player?
+#   picks %>% count(player, choice)
+# }

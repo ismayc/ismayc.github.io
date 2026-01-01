@@ -71,7 +71,7 @@ join_with_projections <- updated_schedule %>%
   mutate(over_under = case_when(
     `Current Win %` > `Vegas Win Projection %` ~ "OVER",
     `Current Win %` < `Vegas Win Projection %` ~ "UNDER",
-    TRUE                                               ~ "PUSH")
+    TRUE                                       ~ "PUSH")
   ) %>% 
   group_by(`Team Name`) %>% 
   mutate(flipped = if_else(lag(over_under) != over_under, TRUE, NA),
@@ -105,10 +105,10 @@ standings_grid <- crossing(team = teams, date = days_in_season_to_today) %>%
 
 with_picks <- standings_grid %>% 
   inner_join(picks, by = "team") %>% 
-  mutate(current_projected_points = if_else(
-    over_under == choice,
-    wage,
-    -wage
+  mutate(current_projected_points = case_when(
+    (over_under == "PUSH") ~ 0,
+    (over_under == choice) ~ wage,
+    (over_under != choice) ~ -wage
   ))
 
 player_projections_by_team <- with_picks %>% 
