@@ -114,3 +114,13 @@ From github.com:ismayc/ismayc.github.io
  2 files changed, 1657 insertions(+), 1625 deletions(-)
 To github.com:ismayc/ismayc.github.io.git
    1e1727ad..1a13ab88  master -> master
+Updated current_year.csv with 2557 games
+
+
+From github.com:ismayc/ismayc.github.io
+ * branch              master     -> FETCH_HEAD
+   47208327..4346d5b6  master     -> origin/master
+[master 3b0adf50] Update NBA data 2026-01-02
+ 3 files changed, 3024 insertions(+), 2628 deletions(-)
+To github.com:ismayc/ismayc.github.io.git
+   4346d5b6..3b0adf50  master -> master
