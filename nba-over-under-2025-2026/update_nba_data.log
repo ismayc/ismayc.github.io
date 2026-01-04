@@ -124,3 +124,26 @@ From github.com:ismayc/ismayc.github.io
  3 files changed, 3024 insertions(+), 2628 deletions(-)
 To github.com:ismayc/ismayc.github.io.git
    4346d5b6..3b0adf50  master -> master
+Updated current_year.csv with 2591 games
+
+
+From github.com:ismayc/ismayc.github.io
+ * branch              master     -> FETCH_HEAD
+[master 06231766] Update NBA data 2026-01-03
+ 2 files changed, 1658 insertions(+), 1614 deletions(-)
+To github.com:ismayc/ismayc.github.io.git
+   537877b4..06231766  master -> master
+Updated current_year.csv with 2591 games
+
+
+From github.com:ismayc/ismayc.github.io
+ * branch              master     -> FETCH_HEAD
+   06231766..b157c957  master     -> origin/master
+[master b73036d2] Update NBA data 2026-01-04
+ 6 files changed, 225 insertions(+), 280 deletions(-)
+ delete mode 100644 nba-over-under-2025-2026/determined_outcomes/determined_outcomes_2026-01-03.rds
+ delete mode 100644 nba-over-under-2025-2026/over-under-points-calculator/determined_outcomes_2026-01-03.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/game_results_raw_through_2026-01-02.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/standings_through_2026-01-02.rds
+To github.com:ismayc/ismayc.github.io.git
+   b157c957..b73036d2  master -> master
