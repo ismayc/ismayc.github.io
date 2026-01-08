@@ -54,6 +54,6 @@ threadpoolctl==3.2.0
 tqdm==4.66.3
 traits==6.3.2
 tzdata==2023.3
-urllib3==2.6.0
+urllib3==2.6.3
 yarl==1.8.2
 zipp==3.19.1
