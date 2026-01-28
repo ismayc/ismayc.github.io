@@ -1,31 +1,31 @@
-team,conference,win_projection
-Atlanta Hawks,East,35.5
-Boston Celtics,East,58.5
-Brooklyn Nets,East,21.5
-Charlotte Hornets,East,27.5
-Chicago Bulls,East,30.5
-Cleveland Cavaliers,East,47.5
-Detroit Pistons,East,22.5
-Indiana Pacers,East,46.5
-Miami Heat,East,44.5
-Milwaukee Bucks,East,51.5
-New York Knicks,East,52.5
-Orlando Magic,East,47.5
-Philadelphia 76ers,East,52.5
-Toronto Raptors,East,30.5
-Washington Wizards,East,22.5
-Dallas Mavericks,West,50.5
-Denver Nuggets,West,52.5
-Golden State Warriors,West,43.5
-Houston Rockets,West,42.5
-Los Angeles Clippers,West,42.5
-Los Angeles Lakers,West,45.5
-Memphis Grizzlies,West,45.5
-Minnesota Timberwolves,West,52.5
-New Orleans Pelicans,West,46.5
-Oklahoma City Thunder,West,55.5
-Phoenix Suns,West,46.5
-Portland Trail Blazers,West,22.5
-Sacramento Kings,West,46.5
-San Antonio Spurs,West,35.5
-Utah Jazz,West,28.5
+﻿team,conference,win_projection
+Atlanta Hawks,East,46.5
+Boston Celtics,East,40.5
+Brooklyn Nets,East,20.5
+Charlotte Hornets,East,28.5
+Chicago Bulls,East,31.5
+Cleveland Cavaliers,East,56.5
+Detroit Pistons,East,45.5
+Indiana Pacers,East,38.5
+Miami Heat,East,38.5
+Milwaukee Bucks,East,44.5
+New York Knicks,East,53.5
+Orlando Magic,East,51.5
+Philadelphia 76ers,East,42.5
+Toronto Raptors,East,38.5
+Washington Wizards,East,20.5
+Dallas Mavericks,West,40.5
+Denver Nuggets,West,53.5
+Golden State Warriors,West,46.5
+Houston Rockets,West,53.5
+Los Angeles Clippers,West,47.5
+Los Angeles Lakers,West,48.5
+Memphis Grizzlies,West,40.5
+Minnesota Timberwolves,West,49.5
+New Orleans Pelicans,West,30.5
+Oklahoma City Thunder,West,62.5
+Phoenix Suns,West,31.5
+Portland Trail Blazers,West,33.5
+Sacramento Kings,West,34.5
+San Antonio Spurs,West,44.5
+Utah Jazz,West,18.5

@@ -21,3 +21,5 @@ nba-over-under-2024-2025/rosters/playoffs_1990s/~$notes.xlsx
 nba-over-under-2024-2025/rosters/playoffs_1990s/picks_for_phil.csv
 requirements.txt
 /.quarto/
+
+**/*.quarto_ipynb
