@@ -10,7 +10,7 @@ format:
 
 <!-- ![](images/chester-2024.jpg){.rounded width=600px} -->
 
- ![](images/chester-2026.jpg){.rounded width=600px} 
+ ![](images/chester-2026b.jpg){.rounded width=600px} 
 
 ## Dr. Chester Ismay
 
