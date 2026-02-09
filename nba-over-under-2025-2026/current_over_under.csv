@@ -6,7 +6,7 @@ Charlotte Hornets,OVER
 Chicago Bulls,OVER
 Cleveland Cavaliers,UNDER
 Dallas Mavericks,UNDER
-Denver Nuggets,UNDER
+Denver Nuggets,OVER
 Detroit Pistons,OVER
 Golden State Warriors,UNDER
 Houston Rockets,UNDER
@@ -19,7 +19,7 @@ Milwaukee Bucks,UNDER
 Minnesota Timberwolves,OVER
 New Orleans Pelicans,UNDER
 New York Knicks,UNDER
-Oklahoma City Thunder,UNDER
+Oklahoma City Thunder,OVER
 Orlando Magic,UNDER
 Philadelphia 76ers,OVER
 Phoenix Suns,OVER
@@ -28,4 +28,4 @@ Sacramento Kings,UNDER
 San Antonio Spurs,OVER
 Toronto Raptors,OVER
 Utah Jazz,OVER
-Washington Wizards,OVER
+Washington Wizards,UNDER
