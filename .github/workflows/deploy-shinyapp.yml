@@ -73,7 +73,7 @@ jobs:
       #     set -euxo pipefail
       #     Rscript -e 'rsconnect::setAccountInfo("${{ secrets.SHINYAPPS_ACCOUNT }}", "${{ secrets.SHINYAPPS_TOKEN }}", "${{ secrets.SHINYAPPS_SECRET }}")' \
       #             -e 'rsconnect::deployApp(appDir = "nba-over-under-2025-2026/rosters", appName = "${{ env.APPNAME }}", account = "${{ env.ACCOUNT }}", server = "${{ env.SERVER }}", quarto = FALSE)'
-
+      
       - name: Authorize and deploy points calculator app
         continue-on-error: true
         env:
@@ -83,9 +83,12 @@ jobs:
         shell: bash
         run: |
           set -euxo pipefail
+          APP_DIR="nba-over-under-2025-2026/over-under-points-calculator"
+          rm -rf "${APP_DIR}/old_outcomes"
+          rm -f "${APP_DIR}/renv.lock"
           Rscript -e 'rsconnect::setAccountInfo("${{ secrets.SHINYAPPS_ACCOUNT }}", "${{ secrets.SHINYAPPS_TOKEN }}", "${{ secrets.SHINYAPPS_SECRET }}")' \
-                  -e 'rsconnect::deployApp(appDir = "nba-over-under-2025-2026/over-under-points-calculator", appName = "${{ env.APPNAME }}", account = "${{ env.ACCOUNT }}", server = "${{ env.SERVER }}", quarto = FALSE)'
-
+                  -e 'rsconnect::deployApp(appDir = "'"${APP_DIR}"'", appName = "${{ env.APPNAME }}", account = "${{ env.ACCOUNT }}", server = "${{ env.SERVER }}", quarto = FALSE)'
+           
       # Example third app
       # - name: Authorize and deploy fantasy draft app
       #   continue-on-error: true
