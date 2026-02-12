@@ -87,9 +87,9 @@ jobs:
           APP_DIR="nba-over-under-2025-2026/over-under-points-calculator"
           rm -rf "${APP_DIR}/old_outcomes"
           rm -f "${APP_DIR}/renv.lock"
-          Rscript -e 'rsconnect::setAccountInfo("${{ secrets.SHINYAPPS_ACCOUNT }}", "${{ secrets.SHINYAPPS_TOKEN }}", "${{ secrets.SHINYAPPS_SECRET }}")' \
+          Rscript -e 'install.packages(c("cpp11", "progress"), repos = "https://cran.r-project.org")' \
+                  -e 'rsconnect::setAccountInfo("${{ secrets.SHINYAPPS_ACCOUNT }}", "${{ secrets.SHINYAPPS_TOKEN }}", "${{ secrets.SHINYAPPS_SECRET }}")' \
                   -e 'rsconnect::deployApp(appDir = "'"${APP_DIR}"'", appName = "${{ env.APPNAME }}", account = "${{ env.ACCOUNT }}", server = "${{ env.SERVER }}", quarto = FALSE)'
- 
       # Example third app
       # - name: Authorize and deploy fantasy draft app
       #   continue-on-error: true
