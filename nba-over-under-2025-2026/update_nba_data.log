@@ -809,3 +809,216 @@ remote:      https://github.com/ismayc/ismayc.github.io/security/dependabot
 remote: 
 To github.com:ismayc/ismayc.github.io.git
    5cbf2959..f79b24e7  master -> master
+Updated current_year.csv with 3691 games
+
+
+From github.com:ismayc/ismayc.github.io
+ * branch              master     -> FETCH_HEAD
+   21db133c..f24c8fee  master     -> origin/master
+[master 6c3a6966] Update NBA data 2026-02-13
+ 2 files changed, 2482 insertions(+), 2454 deletions(-)
+remote: 
+remote: GitHub found 9 vulnerabilities on ismayc/ismayc.github.io's default branch (1 high, 4 moderate, 4 low). To find out more, visit:        
+remote:      https://github.com/ismayc/ismayc.github.io/security/dependabot        
+remote: 
+To github.com:ismayc/ismayc.github.io.git
+   f24c8fee..6c3a6966  master -> master
+Updated current_year.csv with 3699 games
+
+
+From github.com:ismayc/ismayc.github.io
+ * branch              master     -> FETCH_HEAD
+   6c3a6966..9f3d21c5  master     -> origin/master
+[master 6d54e20f] Update NBA data 2026-02-14
+ 6 files changed, 2773 insertions(+), 2510 deletions(-)
+ delete mode 100644 nba-over-under-2025-2026/determined_outcomes/determined_outcomes_2026-02-13.rds
+ delete mode 100644 nba-over-under-2025-2026/over-under-points-calculator/determined_outcomes_2026-02-13.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/game_results_raw_through_2026-02-12.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/standings_through_2026-02-12.rds
+remote: 
+remote: GitHub found 9 vulnerabilities on ismayc/ismayc.github.io's default branch (1 high, 4 moderate, 4 low). To find out more, visit:        
+remote:      https://github.com/ismayc/ismayc.github.io/security/dependabot        
+remote: 
+To github.com:ismayc/ismayc.github.io.git
+   9f3d21c5..6d54e20f  master -> master
+Updated current_year.csv with 3699 games
+
+
+From github.com:ismayc/ismayc.github.io
+ * branch              master     -> FETCH_HEAD
+   6d54e20f..ca90e9d6  master     -> origin/master
+[master c4cbbd24] Update NBA data 2026-02-15
+ 6 files changed, 2849 insertions(+), 2520 deletions(-)
+ delete mode 100644 nba-over-under-2025-2026/determined_outcomes/determined_outcomes_2026-02-14.rds
+ delete mode 100644 nba-over-under-2025-2026/over-under-points-calculator/determined_outcomes_2026-02-14.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/game_results_raw_through_2026-02-13.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/standings_through_2026-02-13.rds
+remote: 
+remote: GitHub found 9 vulnerabilities on ismayc/ismayc.github.io's default branch (1 high, 4 moderate, 4 low). To find out more, visit:        
+remote:      https://github.com/ismayc/ismayc.github.io/security/dependabot        
+remote: 
+To github.com:ismayc/ismayc.github.io.git
+   ca90e9d6..c4cbbd24  master -> master
+Updated current_year.csv with 3713 games
+
+
+From github.com:ismayc/ismayc.github.io
+ * branch              master     -> FETCH_HEAD
+   c4cbbd24..e6bd20ad  master     -> origin/master
+[master 789e1727] Update NBA data 2026-02-16
+ 6 files changed, 2868 insertions(+), 2525 deletions(-)
+ delete mode 100644 nba-over-under-2025-2026/determined_outcomes/determined_outcomes_2026-02-15.rds
+ delete mode 100644 nba-over-under-2025-2026/over-under-points-calculator/determined_outcomes_2026-02-15.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/game_results_raw_through_2026-02-14.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/standings_through_2026-02-14.rds
+remote: 
+remote: GitHub found 9 vulnerabilities on ismayc/ismayc.github.io's default branch (1 high, 4 moderate, 4 low). To find out more, visit:        
+remote:      https://github.com/ismayc/ismayc.github.io/security/dependabot        
+remote: 
+To github.com:ismayc/ismayc.github.io.git
+   e6bd20ad..789e1727  master -> master
+Updated current_year.csv with 3713 games
+
+
+From github.com:ismayc/ismayc.github.io
+ * branch              master     -> FETCH_HEAD
+   789e1727..fe3add80  master     -> origin/master
+[master 323ad833] Update NBA data 2026-02-17
+ 6 files changed, 2831 insertions(+), 2502 deletions(-)
+ delete mode 100644 nba-over-under-2025-2026/determined_outcomes/determined_outcomes_2026-02-16.rds
+ delete mode 100644 nba-over-under-2025-2026/over-under-points-calculator/determined_outcomes_2026-02-16.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/game_results_raw_through_2026-02-15.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/standings_through_2026-02-15.rds
+remote: 
+remote: GitHub found 9 vulnerabilities on ismayc/ismayc.github.io's default branch (1 high, 4 moderate, 4 low). To find out more, visit:        
+remote:      https://github.com/ismayc/ismayc.github.io/security/dependabot        
+remote: 
+To github.com:ismayc/ismayc.github.io.git
+   fe3add80..323ad833  master -> master
+Updated current_year.csv with 3713 games
+
+
+From github.com:ismayc/ismayc.github.io
+ * branch              master     -> FETCH_HEAD
+   323ad833..d8ca47b5  master     -> origin/master
+[master fe785d92] Update NBA data 2026-02-18
+ 6 files changed, 2864 insertions(+), 2535 deletions(-)
+ delete mode 100644 nba-over-under-2025-2026/determined_outcomes/determined_outcomes_2026-02-17.rds
+ delete mode 100644 nba-over-under-2025-2026/over-under-points-calculator/determined_outcomes_2026-02-17.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/game_results_raw_through_2026-02-16.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/standings_through_2026-02-16.rds
+remote: 
+remote: GitHub found 9 vulnerabilities on ismayc/ismayc.github.io's default branch (1 high, 4 moderate, 4 low). To find out more, visit:        
+remote:      https://github.com/ismayc/ismayc.github.io/security/dependabot        
+remote: 
+To github.com:ismayc/ismayc.github.io.git
+   d8ca47b5..fe785d92  master -> master
+Updated current_year.csv with 3713 games
+
+
+From github.com:ismayc/ismayc.github.io
+ * branch              master     -> FETCH_HEAD
+   fe785d92..d2d85f4e  master     -> origin/master
+[master a2d89915] Update NBA data 2026-02-19
+ 6 files changed, 2857 insertions(+), 2528 deletions(-)
+ delete mode 100644 nba-over-under-2025-2026/determined_outcomes/determined_outcomes_2026-02-18.rds
+ delete mode 100644 nba-over-under-2025-2026/over-under-points-calculator/determined_outcomes_2026-02-18.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/game_results_raw_through_2026-02-17.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/standings_through_2026-02-17.rds
+remote: 
+remote: GitHub found 9 vulnerabilities on ismayc/ismayc.github.io's default branch (1 high, 4 moderate, 4 low). To find out more, visit:        
+remote:      https://github.com/ismayc/ismayc.github.io/security/dependabot        
+remote: 
+To github.com:ismayc/ismayc.github.io.git
+   d2d85f4e..a2d89915  master -> master
+Updated current_year.csv with 1821 games
+
+
+From github.com:ismayc/ismayc.github.io
+ * branch              master     -> FETCH_HEAD
+   a2d89915..2da4f49c  master     -> origin/master
+[master 773b1802] Update NBA data 2026-02-20
+ 7 files changed, 2121 insertions(+), 3846 deletions(-)
+ delete mode 100644 nba-over-under-2025-2026/determined_outcomes/determined_outcomes_2026-02-19.rds
+ delete mode 100644 nba-over-under-2025-2026/over-under-points-calculator/determined_outcomes_2026-02-19.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/game_results_raw_through_2026-02-18.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/standings_through_2026-02-18.rds
+remote: 
+remote: GitHub found 9 vulnerabilities on ismayc/ismayc.github.io's default branch (1 high, 4 moderate, 4 low). To find out more, visit:        
+remote:      https://github.com/ismayc/ismayc.github.io/security/dependabot        
+remote: 
+To github.com:ismayc/ismayc.github.io.git
+   2da4f49c..773b1802  master -> master
+Traceback (most recent call last):
+  File "/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/urllib3/connectionpool.py", line 468, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 3, in raise_from
+  File "/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/urllib3/connectionpool.py", line 463, in _make_request
+    httplib_response = conn.getresponse()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 1349, in getresponse
+    response.begin()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 316, in begin
+    version, status, reason = self._read_status()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 277, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/socket.py", line 704, in readinto
+    return self._sock.recv_into(b)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/ssl.py", line 1241, in recv_into
+    return self.read(nbytes, buffer)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/ssl.py", line 1099, in read
+    return self._sslobj.read(len, buffer)
+socket.timeout: The read operation timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/requests/adapters.py", line 644, in send
+    resp = conn.urlopen(
+  File "/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/urllib3/connectionpool.py", line 802, in urlopen
+    retries = retries.increment(
+  File "/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/urllib3/util/retry.py", line 552, in increment
+    raise six.reraise(type(error), error, _stacktrace)
+  File "/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/urllib3/packages/six.py", line 770, in reraise
+    raise value
+  File "/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/urllib3/connectionpool.py", line 716, in urlopen
+    httplib_response = self._make_request(
+  File "/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/urllib3/connectionpool.py", line 470, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+  File "/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/urllib3/connectionpool.py", line 358, in _raise_timeout
+    raise ReadTimeoutError(
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='stats.nba.com', port=443): Read timed out. (read timeout=30)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<stdin>", line 3, in <module>
+  File "/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/nba_api/stats/endpoints/leaguegamefinder.py", line 249, in __init__
+    self.get_request()
+  File "/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/nba_api/stats/endpoints/leaguegamefinder.py", line 252, in get_request
+    self.nba_response = NBAStatsHTTP().send_api_request(
+  File "/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/nba_api/library/http.py", line 160, in send_api_request
+    response = self.get_session().get(
+  File "/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/requests/sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+  File "/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/requests/adapters.py", line 690, in send
+    raise ReadTimeout(e, request=request)
+requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='stats.nba.com', port=443): Read timed out. (read timeout=30)
+From github.com:ismayc/ismayc.github.io
+ * branch              master     -> FETCH_HEAD
+   773b1802..e8a191af  master     -> origin/master
+[master e25a07d9] Update NBA data 2026-02-21
+ 6 files changed, 300 insertions(+), 316 deletions(-)
+ delete mode 100644 nba-over-under-2025-2026/determined_outcomes/determined_outcomes_2026-02-20.rds
+ delete mode 100644 nba-over-under-2025-2026/over-under-points-calculator/determined_outcomes_2026-02-20.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/game_results_raw_through_2026-02-19.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/standings_through_2026-02-19.rds
+remote: 
+remote: GitHub found 9 vulnerabilities on ismayc/ismayc.github.io's default branch (1 high, 4 moderate, 4 low). To find out more, visit:        
+remote:      https://github.com/ismayc/ismayc.github.io/security/dependabot        
+remote: 
+To github.com:ismayc/ismayc.github.io.git
+   e8a191af..e25a07d9  master -> master
