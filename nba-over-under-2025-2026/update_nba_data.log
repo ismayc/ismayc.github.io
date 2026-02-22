@@ -1022,3 +1022,72 @@ remote:      https://github.com/ismayc/ismayc.github.io/security/dependabot
 remote: 
 To github.com:ismayc/ismayc.github.io.git
    e8a191af..e25a07d9  master -> master
+Traceback (most recent call last):
+  File "/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/urllib3/connectionpool.py", line 468, in _make_request
+    six.raise_from(e, None)
+  File "<string>", line 3, in raise_from
+  File "/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/urllib3/connectionpool.py", line 463, in _make_request
+    httplib_response = conn.getresponse()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 1349, in getresponse
+    response.begin()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 316, in begin
+    version, status, reason = self._read_status()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/http/client.py", line 277, in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/socket.py", line 704, in readinto
+    return self._sock.recv_into(b)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/ssl.py", line 1241, in recv_into
+    return self.read(nbytes, buffer)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/ssl.py", line 1099, in read
+    return self._sslobj.read(len, buffer)
+socket.timeout: The read operation timed out
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/requests/adapters.py", line 644, in send
+    resp = conn.urlopen(
+  File "/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/urllib3/connectionpool.py", line 802, in urlopen
+    retries = retries.increment(
+  File "/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/urllib3/util/retry.py", line 552, in increment
+    raise six.reraise(type(error), error, _stacktrace)
+  File "/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/urllib3/packages/six.py", line 770, in reraise
+    raise value
+  File "/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/urllib3/connectionpool.py", line 716, in urlopen
+    httplib_response = self._make_request(
+  File "/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/urllib3/connectionpool.py", line 470, in _make_request
+    self._raise_timeout(err=e, url=url, timeout_value=read_timeout)
+  File "/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/urllib3/connectionpool.py", line 358, in _raise_timeout
+    raise ReadTimeoutError(
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='stats.nba.com', port=443): Read timed out. (read timeout=30)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<stdin>", line 3, in <module>
+  File "/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/nba_api/stats/endpoints/leaguegamefinder.py", line 249, in __init__
+    self.get_request()
+  File "/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/nba_api/stats/endpoints/leaguegamefinder.py", line 252, in get_request
+    self.nba_response = NBAStatsHTTP().send_api_request(
+  File "/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/nba_api/library/http.py", line 160, in send_api_request
+    response = self.get_session().get(
+  File "/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/requests/sessions.py", line 602, in get
+    return self.request("GET", url, **kwargs)
+  File "/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/requests/adapters.py", line 690, in send
+    raise ReadTimeout(e, request=request)
+requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='stats.nba.com', port=443): Read timed out. (read timeout=30)
+From github.com:ismayc/ismayc.github.io
+ * branch              master     -> FETCH_HEAD
+   00df8137..c23c6ddf  master     -> origin/master
+[master aaaa8ec5] Update NBA data 2026-02-22
+ 5 files changed, 126 insertions(+), 302 deletions(-)
+remote: 
+remote: GitHub found 9 vulnerabilities on ismayc/ismayc.github.io's default branch (1 high, 4 moderate, 4 low). To find out more, visit:        
+remote:      https://github.com/ismayc/ismayc.github.io/security/dependabot        
+remote: 
+To github.com:ismayc/ismayc.github.io.git
+   c23c6ddf..aaaa8ec5  master -> master
