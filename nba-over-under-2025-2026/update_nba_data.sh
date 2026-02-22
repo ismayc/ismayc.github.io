@@ -4,10 +4,20 @@ export PATH="/usr/local/bin:/usr/bin:/bin:/opt/homebrew/bin:$PATH"
 cd ~/Desktop/repos/ismayc.github.io/nba-over-under-2025-2026/
 git remote set-url origin git@github.com:ismayc/ismayc.github.io.git
 
+# Skip if current_year.csv was already updated today
+CSV_FILE="current_year.csv"
+if [ -f "$CSV_FILE" ]; then
+    FILE_DATE=$(date -r "$CSV_FILE" +%Y-%m-%d)
+    TODAY=$(date +%Y-%m-%d)
+    if [ "$FILE_DATE" = "$TODAY" ]; then
+        echo "$CSV_FILE was already updated today ($TODAY). Skipping."
+        exit 0
+    fi
+fi
+
 /Users/chesterismay/.virtualenvs/r-reticulate/bin/python3 << 'EOF'
 from nba_api.stats.endpoints import leaguegamefinder
 import time
-
 year = '2025'
 max_retries = 3
 for attempt in range(max_retries):
@@ -26,7 +36,6 @@ for attempt in range(max_retries):
             print("All retries failed")
             exit(1)
 EOF
-
 git config --local user.email "chester.ismay@gmail.com"
 git config --local user.name "Chester Ismay"
 git fetch origin master

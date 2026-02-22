@@ -2,37 +2,33 @@
 year = '2025'
 import sys
 import platform
-
 def py_cat(msg):
     print(msg, file=sys.stderr)
-    
+
 os_name = platform.system()
 
-if os_name == "Darwin":
-    from nba_api.stats.endpoints import leaguegamefinder
-    gamefinder = leaguegamefinder.LeagueGameFinder()
-    games = gamefinder.get_data_frames()[0]
+# Skip if the file was already updated today (applies to both Darwin and Linux)
+import os
+from datetime import datetime, date
 
-    # Subset the games to when the last 4 digits of SEASON_ID were current year start.
-    season_games = games[games.SEASON_ID.str[-4:] == year]
-    season_games.to_csv("current_year.csv")
+csv_path = "current_year.csv"
+skip = False
+if os.path.exists(csv_path):
+    mod_date = date.fromtimestamp(os.path.getmtime(csv_path))
+    if mod_date == date.today():
+        py_cat(f"{csv_path} was already updated today ({mod_date}). Skipping.")
+        skip = True
 
-elif os_name == "Linux":
-    import os
-    import time
-    from datetime import datetime, date
-    # Path to the CSV (adjust if needed)
-    csv_path = "current_year.csv"
-
-    # Skip if the file was already updated today
-    skip = False
-    if os.path.exists(csv_path):
-        mod_date = date.fromtimestamp(os.path.getmtime(csv_path))
-        if mod_date == date.today():
-            py_cat(f"{csv_path} was already updated today ({mod_date}). Skipping.")
-            skip = True
-
-    if not skip:
+if not skip:
+    if os_name == "Darwin":
+        from nba_api.stats.endpoints import leaguegamefinder
+        gamefinder = leaguegamefinder.LeagueGameFinder()
+        games = gamefinder.get_data_frames()[0]
+        # Subset the games to when the last 4 digits of SEASON_ID were current year start.
+        season_games = games[games.SEASON_ID.str[-4:] == year]
+        season_games.to_csv("current_year.csv")
+    elif os_name == "Linux":
+        import time
         # Add headers to look more like a browser
         headers = {
             'Host': 'stats.nba.com',
