@@ -1091,3 +1091,7 @@ remote:      https://github.com/ismayc/ismayc.github.io/security/dependabot
 remote: 
 To github.com:ismayc/ismayc.github.io.git
    c23c6ddf..aaaa8ec5  master -> master
+Attempt 1 failed: HTTPSConnectionPool(host='stats.nba.com', port=443): Read timed out. (read timeout=120)
+Attempt 2 failed: HTTPSConnectionPool(host='stats.nba.com', port=443): Read timed out. (read timeout=120)
+Attempt 3 failed: HTTPSConnectionPool(host='stats.nba.com', port=443): Read timed out. (read timeout=120)
+All retries failed
