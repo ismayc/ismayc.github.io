@@ -1095,3 +1095,7 @@ Attempt 1 failed: HTTPSConnectionPool(host='stats.nba.com', port=443): Read time
 Attempt 2 failed: HTTPSConnectionPool(host='stats.nba.com', port=443): Read timed out. (read timeout=120)
 Attempt 3 failed: HTTPSConnectionPool(host='stats.nba.com', port=443): Read timed out. (read timeout=120)
 All retries failed
+Attempt 1 failed: HTTPSConnectionPool(host='stats.nba.com', port=443): Read timed out. (read timeout=120)
+Attempt 2 failed: HTTPSConnectionPool(host='stats.nba.com', port=443): Read timed out. (read timeout=120)
+Attempt 3 failed: HTTPSConnectionPool(host='stats.nba.com', port=443): Read timed out. (read timeout=120)
+All retries failed
