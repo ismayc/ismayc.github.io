@@ -109,7 +109,7 @@ jobs:
       - name: Install Python packages for reticulate
         run: |
           Rscript -e "reticulate::virtualenv_create('r-reticulate', python = Sys.which('python'))"
-          Rscript -e "reticulate::virtualenv_install('r-reticulate', c('pandas', 'nba_api'))"
+          Rscript -e "reticulate::virtualenv_install('r-reticulate', c('pandas', 'nba_api', 'bs4'))"
       
       - name: Build webpage
         run: |
