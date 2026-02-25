@@ -1099,3 +1099,28 @@ Attempt 1 failed: HTTPSConnectionPool(host='stats.nba.com', port=443): Read time
 Attempt 2 failed: HTTPSConnectionPool(host='stats.nba.com', port=443): Read timed out. (read timeout=120)
 Attempt 3 failed: HTTPSConnectionPool(host='stats.nba.com', port=443): Read timed out. (read timeout=120)
 All retries failed
+
+Started at: 2026-02-25 04:01:16
+
+Existing data found. Last game date: 2026-02-23
+Today's date: 2026-02-25
+Existing records: 1879
+============================================================
+ATTEMPT 1: NBA API (stats.nba.com)
+============================================================
+  Attempting with 60s timeout...
+  SUCCESS! Got 1901 records
+
+============================================================
+SUCCESS!
+Saved 1901 records to current_year.csv
+Date range: 2025-10-02 to 2026-02-24
+Unique game dates: 137
+Finished at: 2026-02-25 04:01:29
+============================================================
+From github.com:ismayc/ismayc.github.io
+ * branch              master     -> FETCH_HEAD
+   05196fbd..5aa694f2  master     -> origin/master
+[master f3e763d8] Update NBA data 2026-02-25
+ 8 files changed, 1405 insertions(+), 1553 deletions(-)
+Successfully updated and pushed NBA data

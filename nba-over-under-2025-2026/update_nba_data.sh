@@ -587,6 +587,6 @@ if git diff --cached --quiet; then
 fi
 
 git commit -m "Update NBA data $(date +%Y-%m-%d)"
-#git push origin master
+git push origin master
 
 echo "Successfully updated and pushed NBA data"
