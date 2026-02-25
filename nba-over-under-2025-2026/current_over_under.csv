@@ -1,25 +1,31 @@
 Team,Current Over/Under
-Atlanta Hawks,PUSH
-Boston Celtics,PUSH
-Brooklyn Nets,PUSH
-Charlotte Hornets,PUSH
-Chicago Bulls,PUSH
-Cleveland Cavaliers,PUSH
-Dallas Mavericks,PUSH
-Denver Nuggets,PUSH
-Detroit Pistons,PUSH
-Houston Rockets,PUSH
-Indiana Pacers,PUSH
-Los Angeles Clippers,PUSH
-Los Angeles Lakers,PUSH
-Memphis Grizzlies,PUSH
-Miami Heat,PUSH
-Milwaukee Bucks,PUSH
-Minnesota Timberwolves,PUSH
-Oklahoma City Thunder,PUSH
-Orlando Magic,PUSH
-Philadelphia 76ers,PUSH
-Phoenix Suns,PUSH
-Portland Trail Blazers,PUSH
-Sacramento Kings,PUSH
-Toronto Raptors,PUSH
+Atlanta Hawks,UNDER
+Boston Celtics,OVER
+Brooklyn Nets,OVER
+Charlotte Hornets,OVER
+Chicago Bulls,OVER
+Cleveland Cavaliers,UNDER
+Dallas Mavericks,UNDER
+Denver Nuggets,UNDER
+Detroit Pistons,OVER
+Golden State Warriors,UNDER
+Houston Rockets,UNDER
+Indiana Pacers,UNDER
+Los Angeles Clippers,UNDER
+Los Angeles Lakers,OVER
+Memphis Grizzlies,UNDER
+Miami Heat,OVER
+Milwaukee Bucks,UNDER
+Minnesota Timberwolves,OVER
+New Orleans Pelicans,UNDER
+New York Knicks,UNDER
+Oklahoma City Thunder,OVER
+Orlando Magic,UNDER
+Philadelphia 76ers,OVER
+Phoenix Suns,OVER
+Portland Trail Blazers,OVER
+Sacramento Kings,UNDER
+San Antonio Spurs,OVER
+Toronto Raptors,OVER
+Utah Jazz,OVER
+Washington Wizards,OVER
