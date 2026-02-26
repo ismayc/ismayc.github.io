@@ -248,13 +248,13 @@ wins_needed <- wins_needed %>%
          `Losses To Go Under Vegas`) %>% 
   distinct() %>% 
   mutate(`Wins To Go Over Vegas` = if_else(
-    `Wins To Go Over Vegas` <= 0 || 
+    `Wins To Go Over Vegas` <= 0 | 
       `Winning % In Remaining Games Needed` > 100,
     NA_real_,
     `Wins To Go Over Vegas`
   )) %>% 
   mutate(`Losses To Go Under Vegas` = if_else(
-    `Losses To Go Under Vegas` < 0 || 
+    `Losses To Go Under Vegas` < 0 | 
       is.na(`Wins To Go Over Vegas`),
     NA_real_,
     `Losses To Go Under Vegas` 
@@ -390,7 +390,7 @@ is_tie_resolved <- function(tiebreaker_results) {
 }
 
 finalize_ranking <- function(tiebreaker_results, standings) {
-  if("wins" %in% names(standings) || "wins" %in% names(tiebreaker_results)) {
+  if("wins" %in% names(standings) | "wins" %in% names(tiebreaker_results)) {
     standings <- standings %>%
       left_join(tiebreaker_results, by = c("team_name" = "winner", "wins")) # %>%
       # mutate(rank = ifelse(!is.na(wins), rank(-wins, ties.method = "first"), NA_real_)) %>%
