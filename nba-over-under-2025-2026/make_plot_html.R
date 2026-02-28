@@ -47,8 +47,13 @@ if (date_modified != Sys.Date() || update_page) {
   )
   if(grepl("MacBook", Sys.info()["nodename"])) {
     file.copy(
-      from = file.path(glue("{ending_season_year}-nba-over-under.html")),
-      to = file.path("docs", glue("{ending_season_year}-nba-over-under.html")),
+      from = file.path(glue("docs/{ending_season_year}-nba-over-under.html")),
+      to = file.path("../docs", glue("{ending_season_year}-nba-over-under.html")),
+      overwrite = TRUE
+    )
+    file.copy(
+      from = file.path("../docs", glue("{ending_season_year}-nba-over-under.html")),
+      to = file.path("../", glue("{ending_season_year}-nba-over-under.html")),
       overwrite = TRUE
     )
   }
