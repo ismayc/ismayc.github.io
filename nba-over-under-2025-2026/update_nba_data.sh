@@ -42,6 +42,22 @@ EXPECTED_COLS = [
     'REB', 'AST', 'STL', 'BLK', 'TOV', 'PF', 'PLUS_MINUS'
 ]
 
+# ESPN uses non-standard abbreviations for some teams.
+# Map them to the standard abbreviations used in the meta/picks sheets.
+ESPN_ABBREV_MAP = {
+    'GS':   'GSW',
+    'SA':   'SAS',
+    'NO':   'NOP',
+    'NY':   'NYK',
+    'UTAH': 'UTA',
+    'WSH':  'WAS',
+    'PHX':  'PHX',   # handled downstream in R (PHX -> PHO)
+}
+
+def normalize_abbrev(abbr):
+    """Normalize an ESPN abbreviation to the standard one."""
+    return ESPN_ABBREV_MAP.get(abbr, abbr)
+
 def get_last_game_date():
     """Get the most recent game date from existing CSV."""
     if os.path.exists(CSV_PATH):
@@ -209,7 +225,8 @@ def try_espn_api(start_date=None):
                 
                 h_info, a_info = home['team'], away['team']
                 h_score, a_score = int(home['score']), int(away['score'])
-                h_abbr, a_abbr = h_info['abbreviation'], a_info['abbreviation']
+                h_abbr = normalize_abbrev(h_info['abbreviation'])
+                a_abbr = normalize_abbrev(a_info['abbreviation'])
                 
                 home_stats['PLUS_MINUS'] = float(h_score - a_score)
                 away_stats['PLUS_MINUS'] = float(a_score - h_score)

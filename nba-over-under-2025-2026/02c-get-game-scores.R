@@ -16,7 +16,22 @@ scores_temp1 <- read_csv("current_year.csv") %>%
   # Filter out Mercury and convert Suns to PHO
   filter(TEAM_ABBREVIATION != "PHO") |> 
   mutate(TEAM_ABBREVIATION = str_replace_all(TEAM_ABBREVIATION, "PHX", "PHO")) |> 
-  arrange(GAME_ID) %>% 
+  arrange(GAME_ID)
+
+# Check for abbreviation mismatches before joining (catches ESPN fallback issues)
+unmatched_abbrevs <- setdiff(
+  unique(scores_temp1$TEAM_ABBREVIATION), 
+  meta$abbreviation
+)
+if (length(unmatched_abbrevs) > 0) {
+  warning(
+    "Unmatched team abbreviations found in game data (likely ESPN fallback): ",
+    paste(unmatched_abbrevs, collapse = ", "),
+    "\nThese teams will be DROPPED from the analysis!"
+  )
+}
+
+scores_temp1 <- scores_temp1 %>%
   inner_join(meta %>% 
                select(abbreviation),
              by = c("TEAM_ABBREVIATION" = "abbreviation"))|> 
