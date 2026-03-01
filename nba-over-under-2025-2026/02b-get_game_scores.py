@@ -164,7 +164,10 @@ def try_espn_api(start_date=None):
             
             for game in data.get('events', []):
                 game_id = game.get('id')
-                game_date = game.get('date', '')[:10]
+                # ESPN returns dates in UTC; a 7:30pm ET game on Feb 26 becomes
+                # 2026-02-27T00:30Z.  Use the scoreboard request date instead,
+                # which is the actual game date in US Eastern time.
+                game_date = current_date.strftime('%Y-%m-%d')
                 
                 competitions = game.get('competitions', [])
                 if not competitions:
@@ -452,14 +455,24 @@ def try_bref(start_date=None):
 # MAIN
 # =============================================================================
 
+NBA_TEAM_ABBREVS = {
+    'ATL','BOS','BKN','CHA','CHI','CLE','DAL','DEN','DET',
+    'GSW','HOU','IND','LAC','LAL','MEM','MIA','MIL','MIN',
+    'NOP','NYK','OKC','ORL','PHI','PHX','POR','SAC','SAS',
+    'TOR','UTA','WAS',
+}
+
 def format_df(df):
-    """Ensure all columns exist, dedup, and order correctly."""
+    """Ensure all columns exist, filter to NBA teams, dedup, and order."""
     for col in EXPECTED_COLS:
         if col not in df.columns:
             df[col] = None
     df = df[[c for c in EXPECTED_COLS if c in df.columns]]
+    # Remove non-NBA rows (All-Star teams, preseason international teams, etc.)
+    df = df[df['TEAM_ABBREVIATION'].isin(NBA_TEAM_ABBREVS)]
     # Final dedup: a team plays at most one game per day.
-    # Different sources (NBA API vs ESPN) use different GAME_IDs.
+    # Different sources (NBA API vs ESPN) use different GAME_IDs and
+    # ESPN reports dates in UTC (can be +1 day vs Eastern).
     df = df.drop_duplicates(subset=['GAME_DATE', 'TEAM_ABBREVIATION'], keep='last')
     return df.sort_values('GAME_DATE', ascending=False)
 
