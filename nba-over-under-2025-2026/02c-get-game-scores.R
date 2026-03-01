@@ -16,7 +16,11 @@ scores_temp1 <- read_csv("current_year.csv") %>%
   # Filter out Mercury and convert Suns to PHO
   filter(TEAM_ABBREVIATION != "PHO") |> 
   mutate(TEAM_ABBREVIATION = str_replace_all(TEAM_ABBREVIATION, "PHX", "PHO")) |> 
-  arrange(GAME_ID)
+  arrange(GAME_ID) |> 
+  # Dedup: a team plays at most one game per day. Different sources
+
+  # (NBA API vs ESPN) use different GAME_IDs for the same game.
+  distinct(GAME_DATE, TEAM_ABBREVIATION, .keep_all = TRUE)
 
 # Check for abbreviation mismatches before joining (catches ESPN fallback issues)
 unmatched_abbrevs <- setdiff(

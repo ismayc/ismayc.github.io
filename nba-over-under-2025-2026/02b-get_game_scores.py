@@ -453,11 +453,15 @@ def try_bref(start_date=None):
 # =============================================================================
 
 def format_df(df):
-    """Ensure all columns exist and are ordered correctly."""
+    """Ensure all columns exist, dedup, and order correctly."""
     for col in EXPECTED_COLS:
         if col not in df.columns:
             df[col] = None
-    return df[[c for c in EXPECTED_COLS if c in df.columns]].sort_values('GAME_DATE', ascending=False)
+    df = df[[c for c in EXPECTED_COLS if c in df.columns]]
+    # Final dedup: a team plays at most one game per day.
+    # Different sources (NBA API vs ESPN) use different GAME_IDs.
+    df = df.drop_duplicates(subset=['GAME_DATE', 'TEAM_ABBREVIATION'], keep='last')
+    return df.sort_values('GAME_DATE', ascending=False)
 
 def main():
     print(f"\nStarted at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
@@ -491,10 +495,10 @@ def main():
             if new_df is not None and len(new_df) > 0:
                 # Merge with existing, removing duplicates
                 combined = pd.concat([existing_df, new_df], ignore_index=True)
-                # Convert GAME_ID to string for consistent comparison
-                combined['GAME_ID'] = combined['GAME_ID'].astype(str)
+                # Dedup on date + team (not GAME_ID, which differs between
+                # NBA API and ESPN for the same physical game)
                 combined = combined.drop_duplicates(
-                    subset=['GAME_ID', 'TEAM_ABBREVIATION'], 
+                    subset=['GAME_DATE', 'TEAM_ABBREVIATION'], 
                     keep='last'
                 )
                 df = combined
@@ -510,9 +514,8 @@ def main():
             
             if new_df is not None and len(new_df) > 0:
                 combined = pd.concat([existing_df, new_df], ignore_index=True)
-                combined['GAME_ID'] = combined['GAME_ID'].astype(str)
                 combined = combined.drop_duplicates(
-                    subset=['GAME_ID', 'TEAM_ABBREVIATION'],
+                    subset=['GAME_DATE', 'TEAM_ABBREVIATION'],
                     keep='last'
                 )
                 df = combined
