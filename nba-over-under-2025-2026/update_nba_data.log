@@ -1202,3 +1202,28 @@ From github.com:ismayc/ismayc.github.io
 To github.com:ismayc/ismayc.github.io.git
    340307fb..212dbc06  master -> master
 Successfully updated and pushed NBA data
+
+Started at: 2026-03-02 04:01:18
+
+============================================================
+ATTEMPT 1: NBA API (stats.nba.com)
+============================================================
+  Attempting with 60s timeout...
+  SUCCESS! Got 1975 records
+
+============================================================
+SUCCESS!
+Saved 1965 records to current_year.csv
+Date range: 2025-10-02 to 2026-03-01
+Unique game dates: 142
+Finished at: 2026-03-02 04:01:37
+============================================================
+From github.com:ismayc/ismayc.github.io
+ * branch              master     -> FETCH_HEAD
+   8b48cd46..095ec71f  master     -> origin/master
+[master 5afb155f] Update NBA data 2026-03-02
+ 5 files changed, 2181 insertions(+), 1844 deletions(-)
+ delete mode 100644 nba-over-under-2025-2026/rds/game_results_raw_through_2026-02-28.rds
+To github.com:ismayc/ismayc.github.io.git
+   095ec71f..5afb155f  master -> master
+Successfully updated and pushed NBA data
