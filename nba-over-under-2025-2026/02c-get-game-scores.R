@@ -20,7 +20,15 @@ scores_temp1 <- read_csv("current_year.csv") %>%
   # Dedup: a team plays at most one game per day. Different sources
 
   # (NBA API vs ESPN) use different GAME_IDs for the same game.
-  distinct(GAME_DATE, TEAM_ABBREVIATION, .keep_all = TRUE)
+  distinct(GAME_DATE, TEAM_ABBREVIATION, .keep_all = TRUE) |> 
+  mutate(MATCHUP = case_when(
+    str_detect(GAME_ID, "22500147") & TEAM_ABBREVIATION == "DET" ~ "DET vs. DAL",
+    str_detect(GAME_ID, "22500578") & TEAM_ABBREVIATION == "ORL" ~ "ORL vs. MEM",
+    str_detect(GAME_ID, "22500602") & TEAM_ABBREVIATION == "MEM" ~ "MEM vs. ORL",
+    str_detect(GAME_ID, "22501229") & TEAM_ABBREVIATION == "ORL" ~ "ORL vs. NYK",
+    str_detect(GAME_ID, "22501230") & TEAM_ABBREVIATION == "OKC" ~ "OKC vs. SAS",
+    TRUE ~ MATCHUP
+  ))
 
 # Check for abbreviation mismatches before joining (catches ESPN fallback issues)
 unmatched_abbrevs <- setdiff(
