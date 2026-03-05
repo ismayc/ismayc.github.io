@@ -20,15 +20,7 @@ scores_temp1 <- read_csv("current_year.csv") %>%
   # Dedup: a team plays at most one game per day. Different sources
 
   # (NBA API vs ESPN) use different GAME_IDs for the same game.
-  distinct(GAME_DATE, TEAM_ABBREVIATION, .keep_all = TRUE) |> 
-  mutate(MATCHUP = case_when(
-    str_detect(GAME_ID, "22500147") & TEAM_ABBREVIATION == "DET" ~ "DET vs. DAL",
-    str_detect(GAME_ID, "22500578") & TEAM_ABBREVIATION == "ORL" ~ "ORL vs. MEM",
-    str_detect(GAME_ID, "22500602") & TEAM_ABBREVIATION == "MEM" ~ "MEM vs. ORL",
-    str_detect(GAME_ID, "22501229") & TEAM_ABBREVIATION == "ORL" ~ "ORL vs. NYK",
-    str_detect(GAME_ID, "22501230") & TEAM_ABBREVIATION == "OKC" ~ "OKC vs. SAS",
-    TRUE ~ MATCHUP
-  ))
+  distinct(GAME_DATE, TEAM_ABBREVIATION, .keep_all = TRUE) 
 
 # Check for abbreviation mismatches before joining (catches ESPN fallback issues)
 unmatched_abbrevs <- setdiff(
@@ -48,15 +40,28 @@ scores_temp1 <- scores_temp1 %>%
                select(abbreviation),
              by = c("TEAM_ABBREVIATION" = "abbreviation"))|> 
   filter(GAME_DATE != as.Date("2025-12-16")) |> 
-  filter(GAME_DATE < Sys.Date()) #|> 
+  filter(GAME_DATE < Sys.Date()) # |> 
   # mutate(MATCHUP = case_when(
-  #   GAME_ID == "0022401230" & TEAM_ABBREVIATION == "OKC" ~ "OKC vs. HOU",
-  #   GAME_ID == "0022400147" & TEAM_ABBREVIATION == "WAS" ~ "WAS vs. MIA",
-  #   GAME_ID == "0022400621" & TEAM_ABBREVIATION == "IND" ~ "IND vs. SAS",
-  #   GAME_ID == "0022400623" & TEAM_ABBREVIATION == "SAS" ~ "SAS vs. IND",
-  #   GAME_ID == "0022401229" & TEAM_ABBREVIATION == "MIL" ~ "MIL vs. ATL",
+  #   str_detect(GAME_ID, "22500147") & TEAM_ABBREVIATION == "DET" ~ "DET vs. DAL",
+  #   str_detect(GAME_ID, "22500578") & TEAM_ABBREVIATION == "ORL" ~ "ORL vs. MEM",
+  #   str_detect(GAME_ID, "22500602") & TEAM_ABBREVIATION == "MEM" ~ "MEM vs. ORL",
+  #   str_detect(GAME_ID, "22501229") & TEAM_ABBREVIATION == "ORL" ~ "ORL vs. NYK",
+  #   str_detect(GAME_ID, "22501230") & TEAM_ABBREVIATION == "OKC" ~ "OKC vs. SAS",
   #   TRUE ~ MATCHUP
-  #   ))
+  # ))
+
+scores_temp1 <- scores_temp1 %>%
+  group_by(GAME_ID) %>%
+  mutate(
+    has_vs = any(str_detect(MATCHUP, "vs\\.")),
+    MATCHUP = if_else(
+      !has_vs & str_detect(MATCHUP, paste0("@ ", TEAM_ABBREVIATION, "$")),
+      paste0(TEAM_ABBREVIATION, " vs. ", str_extract(MATCHUP, "^\\w+")),
+      MATCHUP
+    )
+  ) %>%
+  select(-has_vs) %>%
+  ungroup()
 
 # Redo the analysis that used to be done in 02a-get-game-scores.R
 #if(!file.exists(here(
