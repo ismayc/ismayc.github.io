@@ -508,45 +508,7 @@ ggplot(slope_segments) +
     show.legend = FALSE
   ) +
   
-  # Q1 score bubble (faded)
-  geom_label(
-    aes(x = "Q1", y = q1_score, label = q1_score),
-    nudge_x = -0.03,
-    size = 2.4,
-    linewidth = 0.25,
-    label.padding = unit(0.14, "lines"),
-    label.r = unit(0.2, "lines"),
-    fill = "grey98",
-    alpha = 0.65,
-    color = "grey40"
-  ) +
-  
-  # Q2 score bubble (medium prominence)
-  geom_label(
-    aes(x = "Q2", y = q2_score, label = q2_score),
-    size = 2.4,
-    linewidth = 0.25,
-    label.padding = unit(0.18, "lines"),
-    label.r = unit(0.2, "lines"),
-    fill = "grey96",
-    alpha = 0.85,
-    color = "grey30"
-  ) +
-  
-  # Q3 score bubble (most prominent)
-  geom_label(
-    aes(x = "Q3", y = q3_score, label = q3_score),
-    nudge_x = 0.03,
-    size = 2.6,
-    linewidth = 0.25,
-    label.padding = unit(0.25, "lines"),
-    label.r = unit(0.2, "lines"),
-    fill = "white",
-    alpha = 1,
-    color = "grey20"
-  ) +
-  
-  # Player labels (repelled from Q3 endpoint)
+  # Player labels (drawn first so connector lines sit underneath score bubbles)
   geom_text_repel(
     aes(x = "Q3", y = q3_score, label = label),
     nudge_x = 0.15,
@@ -560,6 +522,65 @@ ggplot(slope_segments) +
     segment.size = 0.25,
     seed = 123,
     size = 3.8
+  ) +
+  
+  # Q1 score bubble (faded, repelled to avoid overlap)
+  geom_label_repel(
+    aes(x = "Q1", y = q1_score, label = q1_score),
+    nudge_x = -0.12,
+    direction = "y",
+    size = 2.4,
+    label.padding = unit(0.14, "lines"),
+    label.r = unit(0.2, "lines"),
+    fill = "grey98",
+    alpha = 0.65,
+    color = "grey40",
+    segment.color = "grey70",
+    segment.size = 0.3,
+    segment.alpha = 0.4,
+    min.segment.length = 0,
+    box.padding = 0.15,
+    force = 2,
+    seed = 42
+  ) +
+  
+  # Q2 score bubble (medium prominence, repelled to avoid overlap)
+  geom_label_repel(
+    aes(x = "Q2", y = q2_score, label = q2_score),
+    direction = "y",
+    size = 2.4,
+    label.padding = unit(0.18, "lines"),
+    label.r = unit(0.2, "lines"),
+    fill = "grey96",
+    alpha = 0.85,
+    color = "grey30",
+    segment.color = "grey70",
+    segment.size = 0.3,
+    segment.alpha = 0.4,
+    min.segment.length = 0,
+    box.padding = 0.15,
+    force = 2,
+    seed = 42
+  ) +
+  
+  # Q3 score bubble (most prominent, repelled to avoid overlap)
+  geom_label_repel(
+    aes(x = "Q3", y = q3_score, label = q3_score),
+    nudge_x = 0.03,
+    direction = "y",
+    size = 2.6,
+    label.padding = unit(0.25, "lines"),
+    label.r = unit(0.2, "lines"),
+    fill = "white",
+    alpha = 1,
+    color = "grey20",
+    segment.color = "grey50",
+    segment.size = 0.3,
+    segment.alpha = 0.4,
+    min.segment.length = 0,
+    box.padding = 0.15,
+    force = 2,
+    seed = 42
   ) +
   
   scale_color_gradient2(
