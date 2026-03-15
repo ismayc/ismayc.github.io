@@ -32,12 +32,12 @@ jobs:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev
+          sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev python3-venv
           
       - uses: r-lib/actions/setup-r@v2
         with:
@@ -69,48 +69,22 @@ jobs:
             any::kableExtra
             any::sessioninfo
             any::reticulate
-      
-      # - name: Install dependencies
-      #   run: |
-      #     install.packages("pak", repos = sprintf("https://r-lib.github.io/p/pak/stable/%s/%s/%s", .Platform$pkgType, R.Version()$os, R.Version()$arch))
-      #     pak::pak(c(
-      #       "remotes",
-      #       "rmarkdown",
-      #       "quarto",
-      #       "httr",
-      #       "jsonlite",
-      #       "tidyverse",
-      #       "magrittr",
-      #       "curl",
-      #       "memoise",
-      #       "furrr",
-      #       "future",
-      #       "glue",
-      #       "stringi",
-      #       "rvest",
-      #       "DT",
-      #       "htmltools",
-      #       "plotly",
-      #       'kableExtra',
-      #       "sessioninfo",
-      #       "reticulate"
-      #     ), upgrade = FALSE)
-      #   shell: Rscript {0}
           
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
-          python-version: '3.11'
+          python-version: '3.13'
       
       - name: Cache reticulate Python environment
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: /home/runner/.virtualenvs/r-reticulate
-          key: ${{ runner.os }}-reticulate-py3.11-pandas-nba_api-v1
+          key: ${{ runner.os }}-reticulate-py3.13-pandas-nba_api-v2
       
       - name: Install Python packages for reticulate
         run: |
-          Rscript -e "reticulate::virtualenv_create('r-reticulate', python = Sys.which('python'))"
+          python -m venv --help > /dev/null 2>&1 || sudo apt-get install -y python3-venv
+          Rscript -e "reticulate::virtualenv_create('r-reticulate', python = Sys.which('python'), force = TRUE)"
           Rscript -e "reticulate::virtualenv_install('r-reticulate', c('pandas', 'nba_api', 'bs4'))"
       
       - name: Build webpage
