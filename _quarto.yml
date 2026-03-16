@@ -16,7 +16,6 @@ project:
     - "wash-or_black.csv"
     - "202*-nba-over-under.html"
     - "critical_thinking_framework.pdf"
-    - "nba-over-under-2025-2026/nba-scenario-explorer.html"
   output-dir: docs  # for GitHub Pages compatibility
   render:
     - index.qmd
