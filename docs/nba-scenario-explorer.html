@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NBA Over/Under Scenario Explorer 2025-26</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0f172a; color: #e2e8f0; }
+  button { font-family: 'DM Mono', monospace; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useMemo, useCallback } = React;
+
+const PLAYERS = ["Adonis","Andy","Chester","Jake","Mary","Mike","Phil","Ryan"];
+
+const TEAMS = [
+  {t:"Atlanta Hawks",ab:"ATL",p:{Adonis:[14,"U"],Andy:[10,"O"],Chester:[15,"O"],Jake:[10,"U"],Mary:[10,"O"],Mike:[14,"O"],Phil:[14,"O"],Ryan:[6,"U"]}},
+  {t:"Boston Celtics",ab:"BOS",p:{Adonis:[14,"U"],Andy:[9,"O"],Chester:[7,"O"],Jake:[10,"O"],Mary:[6,"O"],Mike:[7,"O"],Phil:[11,"O"],Ryan:[12,"O"]}},
+  {t:"Brooklyn Nets",ab:"BKN",p:{Adonis:[8,"U"],Andy:[12,"O"],Chester:[8,"O"],Jake:[8,"O"],Mary:[6,"O"],Mike:[10,"U"],Phil:[9,"U"],Ryan:[7,"O"]}},
+  {t:"Charlotte Hornets",ab:"CHA",p:{Adonis:[13,"U"],Andy:[14,"U"],Chester:[11,"U"],Jake:[9,"O"],Mary:[13,"U"],Mike:[8,"O"],Phil:[6,"U"],Ryan:[6,"U"]}},
+  {t:"Chicago Bulls",ab:"CHI",p:{Adonis:[8,"O"],Andy:[9,"U"],Chester:[13,"O"],Jake:[14,"O"],Mary:[10,"O"],Mike:[12,"O"],Phil:[10,"O"],Ryan:[11,"U"]}},
+  {t:"Cleveland Cavaliers",ab:"CLE",p:{Adonis:[12,"O"],Andy:[15,"O"],Chester:[14,"U"],Jake:[15,"O"],Mary:[15,"O"],Mike:[15,"O"],Phil:[11,"O"],Ryan:[7,"U"]}},
+  {t:"Dallas Mavericks",ab:"DAL",p:{Adonis:[6,"O"],Andy:[9,"U"],Chester:[6,"U"],Jake:[6,"O"],Mary:[7,"U"],Mike:[6,"O"],Phil:[8,"U"],Ryan:[15,"O"]}},
+  {t:"Denver Nuggets",ab:"DEN",p:{Adonis:[7,"O"],Andy:[14,"O"],Chester:[13,"O"],Jake:[6,"O"],Mary:[15,"O"],Mike:[13,"O"],Phil:[15,"O"],Ryan:[15,"O"]}},
+  {t:"Detroit Pistons",ab:"DET",p:{Adonis:[10,"O"],Andy:[13,"O"],Chester:[10,"O"],Jake:[12,"O"],Mary:[13,"O"],Mike:[9,"U"],Phil:[6,"U"],Ryan:[14,"U"]}},
+  {t:"Golden State Warriors",ab:"GSW",p:{Adonis:[13,"O"],Andy:[8,"U"],Chester:[13,"O"],Jake:[7,"U"],Mary:[7,"O"],Mike:[11,"O"],Phil:[14,"O"],Ryan:[11,"U"]}},
+  {t:"Houston Rockets",ab:"HOU",p:{Adonis:[11,"U"],Andy:[14,"U"],Chester:[14,"O"],Jake:[6,"O"],Mary:[14,"O"],Mike:[13,"U"],Phil:[10,"O"],Ryan:[7,"O"]}},
+  {t:"Indiana Pacers",ab:"IND",p:{Adonis:[9,"U"],Andy:[8,"O"],Chester:[8,"U"],Jake:[9,"U"],Mary:[7,"O"],Mike:[7,"U"],Phil:[12,"O"],Ryan:[8,"U"]}},
+  {t:"Los Angeles Clippers",ab:"LAC",p:{Adonis:[6,"O"],Andy:[8,"U"],Chester:[11,"U"],Jake:[7,"U"],Mary:[10,"U"],Mike:[12,"O"],Phil:[7,"U"],Ryan:[8,"U"]}},
+  {t:"Los Angeles Lakers",ab:"LAL",p:{Adonis:[11,"U"],Andy:[12,"U"],Chester:[12,"O"],Jake:[7,"U"],Mary:[11,"O"],Mike:[12,"U"],Phil:[9,"U"],Ryan:[6,"U"]}},
+  {t:"Memphis Grizzlies",ab:"MEM",p:{Adonis:[6,"O"],Andy:[7,"O"],Chester:[9,"O"],Jake:[12,"O"],Mary:[9,"O"],Mike:[6,"U"],Phil:[8,"O"],Ryan:[13,"O"]}},
+  {t:"Miami Heat",ab:"MIA",p:{Adonis:[15,"U"],Andy:[7,"O"],Chester:[10,"U"],Jake:[12,"O"],Mary:[11,"O"],Mike:[8,"O"],Phil:[9,"O"],Ryan:[8,"O"]}},
+  {t:"Milwaukee Bucks",ab:"MIL",p:{Adonis:[8,"O"],Andy:[13,"O"],Chester:[9,"U"],Jake:[15,"O"],Mary:[9,"O"],Mike:[15,"O"],Phil:[8,"O"],Ryan:[14,"O"]}},
+  {t:"Minnesota Timberwolves",ab:"MIN",p:{Adonis:[13,"U"],Andy:[7,"O"],Chester:[7,"U"],Jake:[14,"O"],Mary:[11,"O"],Mike:[13,"O"],Phil:[13,"U"],Ryan:[14,"O"]}},
+  {t:"New Orleans Pelicans",ab:"NOP",p:{Adonis:[10,"O"],Andy:[6,"U"],Chester:[12,"O"],Jake:[10,"O"],Mary:[14,"U"],Mike:[11,"O"],Phil:[12,"U"],Ryan:[9,"U"]}},
+  {t:"New York Knicks",ab:"NYK",p:{Adonis:[12,"O"],Andy:[6,"U"],Chester:[9,"U"],Jake:[13,"U"],Mary:[9,"O"],Mike:[14,"O"],Phil:[7,"U"],Ryan:[15,"O"]}},
+  {t:"Oklahoma City Thunder",ab:"OKC",p:{Adonis:[9,"O"],Andy:[15,"U"],Chester:[14,"U"],Jake:[15,"U"],Mary:[15,"O"],Mike:[15,"O"],Phil:[15,"O"],Ryan:[9,"U"]}},
+  {t:"Orlando Magic",ab:"ORL",p:{Adonis:[9,"U"],Andy:[10,"O"],Chester:[15,"O"],Jake:[14,"U"],Mary:[12,"O"],Mike:[10,"U"],Phil:[13,"O"],Ryan:[9,"O"]}},
+  {t:"Philadelphia 76ers",ab:"PHI",p:{Adonis:[15,"O"],Andy:[11,"U"],Chester:[10,"U"],Jake:[11,"U"],Mary:[12,"U"],Mike:[7,"U"],Phil:[14,"U"],Ryan:[13,"O"]}},
+  {t:"Phoenix Suns",ab:"PHX",p:{Adonis:[12,"O"],Andy:[10,"U"],Chester:[12,"U"],Jake:[13,"O"],Mary:[6,"U"],Mike:[8,"U"],Phil:[15,"U"],Ryan:[13,"U"]}},
+  {t:"Portland Trail Blazers",ab:"POR",p:{Adonis:[15,"U"],Andy:[11,"U"],Chester:[8,"O"],Jake:[11,"U"],Mary:[13,"U"],Mike:[10,"U"],Phil:[12,"O"],Ryan:[10,"U"]}},
+  {t:"Sacramento Kings",ab:"SAC",p:{Adonis:[11,"O"],Andy:[12,"U"],Chester:[6,"U"],Jake:[11,"O"],Mary:[8,"O"],Mike:[11,"U"],Phil:[11,"U"],Ryan:[10,"O"]}},
+  {t:"San Antonio Spurs",ab:"SAS",p:{Adonis:[10,"O"],Andy:[15,"O"],Chester:[15,"O"],Jake:[13,"O"],Mary:[8,"O"],Mike:[6,"O"],Phil:[6,"U"],Ryan:[12,"O"]}},
+  {t:"Toronto Raptors",ab:"TOR",p:{Adonis:[14,"U"],Andy:[6,"U"],Chester:[11,"U"],Jake:[9,"U"],Mary:[8,"U"],Mike:[14,"O"],Phil:[13,"U"],Ryan:[10,"U"]}},
+  {t:"Utah Jazz",ab:"UTA",p:{Adonis:[7,"O"],Andy:[13,"O"],Chester:[7,"O"],Jake:[8,"O"],Mary:[12,"U"],Mike:[9,"U"],Phil:[7,"O"],Ryan:[11,"O"]}},
+  {t:"Washington Wizards",ab:"WAS",p:{Adonis:[7,"U"],Andy:[11,"O"],Chester:[6,"O"],Jake:[8,"O"],Mary:[14,"U"],Mike:[9,"U"],Phil:[10,"U"],Ryan:[12,"U"]}},
+];
+
+const CLINCHED = {
+  "Boston Celtics":"O","Charlotte Hornets":"O","Detroit Pistons":"O",
+  "Phoenix Suns":"O","San Antonio Spurs":"O","Utah Jazz":"O",
+  "Cleveland Cavaliers":"U","Indiana Pacers":"U","Milwaukee Bucks":"U",
+  "Dallas Mavericks":"U","Memphis Grizzlies":"U","Sacramento Kings":"U",
+};
+
+const LIKELY = {
+  "Golden State Warriors":"U","Los Angeles Clippers":"U","Miami Heat":"O",
+  "New Orleans Pelicans":"U","Orlando Magic":"U","Portland Trail Blazers":"O",
+  "Toronto Raptors":"O",
+};
+
+const UNDECIDED = [
+  "Atlanta Hawks","Brooklyn Nets","Chicago Bulls","Denver Nuggets",
+  "Houston Rockets","Los Angeles Lakers","Minnesota Timberwolves",
+  "New York Knicks","Oklahoma City Thunder","Philadelphia 76ers",
+  "Washington Wizards",
+];
+
+const RANK_COLORS = [
+  "#ffd700","#c0c0c0","#cd7f32","#22c55e","#6b7280","#9ca3af","#d1d5db","#ef4444"
+];
+const RANK_LABELS = ["1st","2nd","3rd","4th","5th","6th","7th","8th"];
+
+function computeScenarios(teamOutcomes) {
+  const decided = {};
+  const undecidedTeams = [];
+  TEAMS.forEach(team => {
+    const outcome = CLINCHED[team.t] || teamOutcomes[team.t] || null;
+    if (outcome) decided[team.t] = outcome;
+    else undecidedTeams.push(team.t);
+  });
+
+  const numUndecided = undecidedTeams.length;
+  const numScenarios = 1 << numUndecided;
+
+  const baseScores = {};
+  const baseCorrect = {};
+  const base15 = {};
+  PLAYERS.forEach(p => { baseScores[p] = 0; baseCorrect[p] = 0; base15[p] = 0; });
+
+  TEAMS.forEach(team => {
+    const outcome = decided[team.t];
+    if (!outcome) return;
+    PLAYERS.forEach(p => {
+      const [wage, choice] = team.p[p];
+      const match = choice === outcome;
+      baseScores[p] += match ? wage : -wage;
+      if (match) {
+        baseCorrect[p]++;
+        if (wage === 15) base15[p]++;
+      }
+    });
+  });
+
+  const deltas = undecidedTeams.map(tName => {
+    const team = TEAMS.find(t => t.t === tName);
+    const overDelta = {};
+    const underDelta = {};
+    PLAYERS.forEach(p => {
+      const [wage, choice] = team.p[p];
+      const matchOver = choice === "O";
+      overDelta[p] = {
+        score: matchOver ? wage : -wage,
+        correct: matchOver ? 1 : 0,
+        c15: (matchOver && wage === 15) ? 1 : 0,
+      };
+      underDelta[p] = {
+        score: !matchOver ? wage : -wage,
+        correct: !matchOver ? 1 : 0,
+        c15: (!matchOver && wage === 15) ? 1 : 0,
+      };
+    });
+    return { overDelta, underDelta };
+  });
+
+  const rankCounts = {};
+  const winCounts = {};
+  const scoreTotals = {};
+  PLAYERS.forEach(p => {
+    rankCounts[p] = new Array(8).fill(0);
+    winCounts[p] = 0;
+    scoreTotals[p] = 0;
+  });
+
+  const scores = new Float64Array(8);
+  const correct = new Int32Array(8);
+  const c15 = new Int32Array(8);
+
+  for (let mask = 0; mask < numScenarios; mask++) {
+    PLAYERS.forEach((p, pi) => {
+      scores[pi] = baseScores[p];
+      correct[pi] = baseCorrect[p];
+      c15[pi] = base15[p];
+    });
+
+    for (let j = 0; j < numUndecided; j++) {
+      const isOver = (mask >> j) & 1;
+      const d = isOver ? deltas[j].overDelta : deltas[j].underDelta;
+      PLAYERS.forEach((p, pi) => {
+        scores[pi] += d[p].score;
+        correct[pi] += d[p].correct;
+        c15[pi] += d[p].c15;
+      });
+    }
+
+    const indices = [0,1,2,3,4,5,6,7];
+    indices.sort((a, b) => {
+      if (scores[b] !== scores[a]) return scores[b] - scores[a];
+      if (correct[b] !== correct[a]) return correct[b] - correct[a];
+      return c15[b] - c15[a];
+    });
+
+    const ranks = new Array(8);
+    indices.forEach((pi, rank) => { ranks[pi] = rank; });
+
+    PLAYERS.forEach((p, pi) => {
+      rankCounts[p][ranks[pi]]++;
+      scoreTotals[p] += scores[pi];
+      if (ranks[pi] === 0) winCounts[p]++;
+    });
+  }
+
+  return { rankCounts, winCounts, scoreTotals, numScenarios, numUndecided };
+}
+
+function BarChart({ rankCounts, numScenarios, sortedPlayers }) {
+  const barH = 38;
+  const gap = 6;
+  const leftPad = 72;
+  const rightPad = 60;
+  const topPad = 32;
+  const chartW = 580;
+  const barArea = chartW - leftPad - rightPad;
+  const totalH = topPad + sortedPlayers.length * (barH + gap) + 10;
+
+  return (
+    <svg width="100%" viewBox={`0 0 ${chartW} ${totalH}`} style={{ display: "block" }}>
+      {RANK_LABELS.map((label, i) => (
+        <g key={i} transform={`translate(${leftPad + i * 62}, 8)`}>
+          <rect width={14} height={14} rx={3} fill={RANK_COLORS[i]} />
+          <text x={18} y={12} fontSize={11} fill="#94a3b8" fontFamily="'DM Mono', monospace">{label}</text>
+        </g>
+      ))}
+      {sortedPlayers.map((player, row) => {
+        const y = topPad + row * (barH + gap);
+        const counts = rankCounts[player];
+        const playoffPct = Math.round(
+          counts.slice(0, 4).reduce((s, c) => s + c, 0) / numScenarios * 100
+        );
+        const eliminated = playoffPct === 0;
+        let x = leftPad;
+        return (
+          <g key={player} opacity={eliminated ? 0.35 : 1}>
+            <text x={leftPad - 8} y={y + barH / 2 + 5} textAnchor="end"
+              fontSize={14} fontWeight={600} fill={eliminated ? "#475569" : "#e2e8f0"}
+              fontFamily="'DM Sans', system-ui">{player}</text>
+            {counts.map((count, rank) => {
+              const w = (count / numScenarios) * barArea;
+              const el = (
+                <g key={rank}>
+                  {w > 0 && (
+                    <React.Fragment>
+                      <rect x={x} y={y} width={w} height={barH}
+                        rx={rank === 0 && x === leftPad ? 4 : 0}
+                        fill={eliminated ? "#475569" : RANK_COLORS[rank]} opacity={0.88} />
+                      {w > 28 && (
+                        <text x={x + w / 2} y={y + barH / 2 + 5} textAnchor="middle"
+                          fontSize={11} fontWeight={700} fill={eliminated ? "#94a3b8" : "#1e1e2e"}
+                          fontFamily="'DM Mono', monospace">
+                          {Math.round(count / numScenarios * 100)}%
+                        </text>
+                      )}
+                    </React.Fragment>
+                  )}
+                </g>
+              );
+              x += w;
+              return el;
+            })}
+            {(() => {
+              return eliminated ? (
+                <text x={leftPad + barArea + 6} y={y + barH / 2 + 5}
+                  fontSize={10} fontFamily="'DM Mono', monospace"
+                  fontWeight={700} fill="#475569">
+                  ELIM
+                </text>
+              ) : (
+                <text x={leftPad + barArea + 6} y={y + barH / 2 + 5}
+                  fontSize={12} fontFamily="'DM Mono', monospace"
+                  fontWeight={playoffPct === 100 ? 700 : 400}
+                  fill={playoffPct === 100 ? "#22c55e" : "#94a3b8"}>
+                  {playoffPct}%
+                </text>
+              );
+            })()}
+          </g>
+        );
+      })}
+      <text x={leftPad + barArea + 30} y={topPad - 8} textAnchor="middle"
+        fontSize={9} fill="#64748b" fontFamily="'DM Mono', monospace">
+        Playoff %
+      </text>
+    </svg>
+  );
+}
+
+function TeamRow({ abbr, name, status, onToggle, interactive }) {
+  const overActive = status === "O";
+  const underActive = status === "U";
+  return (
+    <div style={{
+      display: "flex", alignItems: "center", gap: 8,
+      padding: "5px 0", borderBottom: "1px solid rgba(51,65,85,0.4)",
+    }}>
+      <span style={{
+        fontSize: 12, fontWeight: 700, fontFamily: "'DM Mono', monospace",
+        width: 36, color: "#94a3b8",
+      }}>{abbr}</span>
+      <span style={{
+        fontSize: 12, flex: 1, color: "#cbd5e1",
+        opacity: interactive ? 1 : 0.5,
+        fontFamily: "'DM Sans', system-ui",
+      }}>{name}</span>
+      <div style={{ display: "flex", gap: 3 }}>
+        <button onClick={() => interactive && onToggle(name, "O")} style={{
+          fontSize: 10, fontWeight: 700,
+          padding: "3px 8px", borderRadius: 3,
+          border: overActive ? "1px solid #22c55e" : "1px solid #334155",
+          background: overActive ? "rgba(34,197,94,0.2)" : "transparent",
+          color: overActive ? "#22c55e" : "#475569",
+          cursor: interactive ? "pointer" : "default",
+          opacity: interactive ? 1 : 0.5,
+          transition: "all 0.15s",
+        }}>OVER</button>
+        <button onClick={() => interactive && onToggle(name, "U")} style={{
+          fontSize: 10, fontWeight: 700,
+          padding: "3px 8px", borderRadius: 3,
+          border: underActive ? "1px solid #ef4444" : "1px solid #334155",
+          background: underActive ? "rgba(239,68,68,0.15)" : "transparent",
+          color: underActive ? "#ef4444" : "#475569",
+          cursor: interactive ? "pointer" : "default",
+          opacity: interactive ? 1 : 0.5,
+          transition: "all 0.15s",
+        }}>UNDER</button>
+      </div>
+    </div>
+  );
+}
+
+function App() {
+  const [likelyOverrides, setLikelyOverrides] = useState(() => ({ ...LIKELY }));
+  const [toggles, setToggles] = useState(() => {
+    const init = {};
+    UNDECIDED.forEach(t => { init[t] = null; });
+    return init;
+  });
+
+  const teamOutcomes = useMemo(() => {
+    const out = {};
+    Object.entries(likelyOverrides).forEach(([t, v]) => { out[t] = v; });
+    Object.entries(toggles).forEach(([t, v]) => { if (v) out[t] = v; });
+    return out;
+  }, [likelyOverrides, toggles]);
+
+  const results = useMemo(() => computeScenarios(teamOutcomes), [teamOutcomes]);
+
+  const sortedPlayers = useMemo(() => {
+    return [...PLAYERS].sort((a, b) => {
+      const aP = results.rankCounts[a].slice(0, 4).reduce((s, c) => s + c, 0);
+      const bP = results.rankCounts[b].slice(0, 4).reduce((s, c) => s + c, 0);
+      if (bP !== aP) return bP - aP;
+      return results.winCounts[b] - results.winCounts[a];
+    });
+  }, [results]);
+
+  const toggleTeam = useCallback((team, value) => {
+    if (UNDECIDED.includes(team)) {
+      setToggles(prev => ({ ...prev, [team]: prev[team] === value ? null : value }));
+    } else if (LIKELY[team] !== undefined) {
+      setLikelyOverrides(prev => {
+        const cur = prev[team];
+        if (cur === value) {
+          const next = { ...prev };
+          delete next[team];
+          return next;
+        }
+        return { ...prev, [team]: value };
+      });
+    }
+  }, []);
+
+  const resetAll = useCallback(() => {
+    setToggles(() => {
+      const init = {};
+      UNDECIDED.forEach(t => { init[t] = null; });
+      return init;
+    });
+    setLikelyOverrides({ ...LIKELY });
+  }, []);
+
+  const getTeamStatus = (teamName) => {
+    if (CLINCHED[teamName]) return { status: CLINCHED[teamName], type: "clinched" };
+    if (teamOutcomes[teamName]) return { status: teamOutcomes[teamName], type: "toggled" };
+    return { status: null, type: "undecided" };
+  };
+
+  const clinched = TEAMS.filter(t => CLINCHED[t.t]);
+  const likely = TEAMS.filter(t => LIKELY[t.t] !== undefined);
+  const undecided = TEAMS.filter(t => UNDECIDED.includes(t.t));
+
+  return (
+    <div style={{
+      fontFamily: "'DM Sans', 'Segoe UI', system-ui, sans-serif",
+      background: "#0f172a", color: "#e2e8f0",
+      minHeight: "100vh", padding: "24px 20px",
+    }}>
+      <div style={{ maxWidth: 960, margin: "0 auto" }}>
+        <div style={{ marginBottom: 28 }}>
+          <h1 style={{
+            fontSize: 22, fontWeight: 800, margin: 0, letterSpacing: "-0.02em",
+            color: "#f8fafc",
+          }}>
+            NBA Over/Under Scenario Explorer
+          </h1>
+          <p style={{
+            fontSize: 13, color: "#64748b", margin: "6px 0 0",
+            fontFamily: "'DM Mono', monospace",
+          }}>
+            2025-26 Season &mdash; {results.numScenarios.toLocaleString()} scenarios
+            ({results.numUndecided} undecided team{results.numUndecided !== 1 ? "s" : ""})
+          </p>
+        </div>
+
+        <div style={{ display: "flex", gap: 24, flexWrap: "wrap" }}>
+          <div style={{ flex: "0 0 310px", minWidth: 280 }}>
+            <div style={{
+              display: "flex", justifyContent: "space-between", alignItems: "center",
+              marginBottom: 12,
+            }}>
+              <span style={{ fontSize: 13, fontWeight: 700, textTransform: "uppercase",
+                letterSpacing: "0.05em", color: "#94a3b8",
+                fontFamily: "'DM Sans', system-ui" }}>
+                Team Outcomes
+              </span>
+              <button onClick={resetAll} style={{
+                fontSize: 11, padding: "4px 10px", borderRadius: 4,
+                border: "1px solid #334155",
+                background: "transparent", color: "#94a3b8",
+                cursor: "pointer",
+              }}>Reset</button>
+            </div>
+
+            <div style={{ marginBottom: 16 }}>
+              <div style={{
+                fontSize: 11, fontWeight: 600, color: "#475569",
+                marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.06em",
+                fontFamily: "'DM Mono', monospace",
+              }}>Undecided ({undecided.length})</div>
+              {undecided.map(team => (
+                <TeamRow key={team.t} abbr={team.ab} name={team.t}
+                  status={getTeamStatus(team.t).status} onToggle={toggleTeam} interactive={true} />
+              ))}
+            </div>
+
+            <div style={{ marginBottom: 16 }}>
+              <div style={{
+                fontSize: 11, fontWeight: 600, color: "#475569",
+                marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.06em",
+                fontFamily: "'DM Mono', monospace",
+              }}>Likely (pre-selected)</div>
+              {likely.map(team => (
+                <TeamRow key={team.t} abbr={team.ab} name={team.t}
+                  status={getTeamStatus(team.t).status} onToggle={toggleTeam} interactive={true} />
+              ))}
+            </div>
+
+            <div>
+              <div style={{
+                fontSize: 11, fontWeight: 600, color: "#475569",
+                marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.06em",
+                fontFamily: "'DM Mono', monospace",
+              }}>Clinched</div>
+              {clinched.map(team => (
+                <TeamRow key={team.t} abbr={team.ab} name={team.t}
+                  status={getTeamStatus(team.t).status} onToggle={() => {}} interactive={false} />
+              ))}
+            </div>
+          </div>
+
+          <div style={{ flex: 1, minWidth: 320 }}>
+            <div style={{
+              fontSize: 13, fontWeight: 700, textTransform: "uppercase",
+              letterSpacing: "0.05em", color: "#94a3b8",
+              marginBottom: 12, fontFamily: "'DM Sans', system-ui",
+            }}>
+              Rank Distribution Across Scenarios
+            </div>
+
+            <div style={{
+              background: "#1e293b", borderRadius: 10,
+              padding: "16px 12px", border: "1px solid #334155",
+            }}>
+              <BarChart rankCounts={results.rankCounts}
+                numScenarios={results.numScenarios}
+                sortedPlayers={sortedPlayers} />
+            </div>
+
+            <div style={{
+              display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))",
+              gap: 10, marginTop: 16,
+            }}>
+              {sortedPlayers.map((player, i) => {
+                const playoffPct = Math.round(
+                  results.rankCounts[player].slice(0, 4).reduce((s, c) => s + c, 0) /
+                  results.numScenarios * 100
+                );
+                const winPct = Math.round(results.winCounts[player] / results.numScenarios * 100);
+                const avgScore = (results.scoreTotals[player] / results.numScenarios).toFixed(1);
+                const best = results.rankCounts[player].findIndex(c => c > 0) + 1;
+                const worst = 8 - [...results.rankCounts[player]].reverse().findIndex(c => c > 0);
+
+                return (
+                  <div key={player} style={{
+                    background: "#1e293b", borderRadius: 8, padding: "12px 14px",
+                    border: playoffPct === 0 ? "1px solid #1e293b" : i < 4 ? "1px solid rgba(34,197,94,0.3)" : "1px solid #334155",
+                    position: "relative", overflow: "hidden",
+                    opacity: playoffPct === 0 ? 0.4 : 1,
+                  }}>
+                    {i < 4 && playoffPct > 0 && (
+                      <div style={{
+                        position: "absolute", top: 0, left: 0, right: 0, height: 3,
+                        background: "linear-gradient(90deg, #22c55e, #16a34a)",
+                      }} />
+                    )}
+                    <div style={{
+                      fontSize: 14, fontWeight: 700, marginBottom: 8,
+                      fontFamily: "'DM Sans', system-ui",
+                    }}>{player}</div>
+                    <div style={{
+                      fontSize: 11, color: "#94a3b8", lineHeight: 1.8,
+                      fontFamily: "'DM Mono', monospace",
+                    }}>
+                      <div>Top 4: <b style={{ color: playoffPct === 100 ? "#22c55e" : playoffPct === 0 ? "#ef4444" : "#e2e8f0" }}>{playoffPct}%</b></div>
+                      <div>#1: <b style={{ color: winPct > 0 ? "#fbbf24" : "#94a3b8" }}>{winPct}%</b></div>
+                      <div>Avg Score: <b>{avgScore}</b></div>
+                      <div>Range: {best}-{worst}</div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>
