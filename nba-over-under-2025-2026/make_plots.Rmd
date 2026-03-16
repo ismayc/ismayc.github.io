@@ -5,6 +5,17 @@ output: html_document
 knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = encoding, output_file = file.path('../2026-nba-over-under.html')) })
 ---
 
+<style>
+  .main-container {
+    max-width: 900px !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .dt-nowrap {
+    white-space: nowrap;
+  }
+</style>
+
 ```{r include=FALSE}
 #source("01-03.R")
 #Sys.setenv(RSTUDIO_PANDOC = "/Applications/RStudio.app/Contents/MacOS/pandoc")
@@ -371,10 +382,25 @@ picks_wide <- picks %>%
     wins > win_projection ~ "OVER",
     losses > loss_projection ~ "UNDER",
     TRUE ~ NA_character_)) %>% 
+  left_join(
+    player_projections_by_team %>%
+      select(Date, Team, `Outcome Determined`) %>%
+      distinct() %>%
+      filter(`Outcome Determined` != "not yet") %>%
+      group_by(Team) %>%
+      summarize(clinch_date = min(Date), .groups = "drop"),
+    by = c("team" = "Team")
+  ) %>%
+  mutate(clinch_label = if_else(
+    !is.na(clinch_date),
+    format(clinch_date, "%b %d"),
+    NA_character_
+  )) %>%
+#  mutate(team = str_replace(team, " (?=Trail Blazers$|\\S+$)", "<br>")) %>%
   mutate(team = case_when(
-    outcome_determined == "OVER" ~ paste(team, knitr::asis_output("\U2191")),
-    outcome_determined == "UNDER" ~ paste(team, knitr::asis_output("\U2193")),
-    TRUE ~ team)) %>% 
+    outcome_determined == "OVER"  ~ paste0(team, " ", "\U2191 (" , clinch_label, ")"),
+    outcome_determined == "UNDER" ~ paste0(team, " ", "\U2193 (", clinch_label, ")"),
+    TRUE ~ team)) %>%
   separate(
     col = Chester, 
     into = c("Chester_points", "chester_choice"), 
@@ -487,8 +513,13 @@ for(i in (cols_to_delete - (num_players + 2)) ) {
   suppressWarnings(do_not_show_list[[i]]$visible <- FALSE)
 }
 
+do_not_show_list[[length(do_not_show_list) + 1]] <- list(
+  targets = 0,
+  className = "dt-nowrap"
+)
+
 #do_not_show_list[[33]] <- list(width = '180px', targets = 0)
-do_not_show_list[[30]] <- list(width = '180px', targets = 0)
+#do_not_show_list[[30]] <- list(width = '180px', targets = 0)
 
 point_levels <- rep(seq(15, 6, by = -1), 2) %>% 
   sort(decreasing = TRUE)
@@ -518,7 +549,7 @@ picks_wide %>%
     .funs = ~ factor(.x, levels = paste_levels)) %>% 
   #  purrr::map_df(rev) %>% 
   arrange(Team) %>% 
-  DT::datatable(rownames = FALSE, options = list(
+  DT::datatable(rownames = FALSE, escape = FALSE, options = list(
     pageLength = 30, dom = 'ft',
     autoWidth = TRUE, #scrollX = TRUE,
     columnDefs = do_not_show_list#,

@@ -1,5 +1,5 @@
 # =============================================================================
-# 05-season-progression-plots.R
+# 06-season-progression-plots.R
 # Seven visualizations showing how the season has unfolded by player.
 # Source AFTER 01-picks-formatting.R, 02b/02c, and 03-data-wrangling.R
 # so that projected_score, player_projections_by_team, picks,

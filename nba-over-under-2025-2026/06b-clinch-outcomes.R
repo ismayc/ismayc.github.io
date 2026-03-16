@@ -2,6 +2,8 @@
 # 6b. FACETED STEP CHART -- one panel per player
 # =========================================================================
 
+source("06-season-progression-plots.R")
+
 clinch_cumulative_simple <- clinch_impact %>%
   arrange(clinch_date) %>%
   group_by(player) %>%
@@ -43,6 +45,15 @@ final_totals <- clinch_cumulative_simple %>%
       paste0("= +", cum_clinch_points),
       paste0("= ", cum_clinch_points)
     )
+  )
+
+# Build clinch reference lines with numbered events
+clinch_ref_lines <- clinch_dates %>%
+  arrange(clinch_date) %>%
+  mutate(
+    team_short = str_extract(Team, "\\w+$"),
+    label = paste0(team_short, " (", format(clinch_date, "%b %d"), ")"),
+    event_num = row_number()
   )
 
 # Build numbered markers, collapsing same-date events and staggering vertically
@@ -135,7 +146,7 @@ ggplot(clinch_faceted, aes(x = clinch_date, y = cum_clinch_points)) +
     fontface = "bold",
     fill = "white",
     label.padding = unit(0.15, "lines"),
-    label.size = 0.3,
+    linewidth = 0.3,
     hjust = 0,
     show.legend = FALSE
   ) +

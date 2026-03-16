@@ -2,17 +2,23 @@ library(shiny)
 library(tidyverse)
 library(readr)
 
+season <- "2025-26"
 players <- c("Adonis", "Andy", "Chester", "Jake", "Mary", "Mike", "Phil", "Ryan")
 
 choice_col_for <- function(player) paste0(tolower(player), "_choice")
 points_col_for <- function(player) paste0(player, "_points")
 
-picks_wide_new <- read_rds("picks_wide_new.rds") %>% rename(Team = team)
+file.copy(from = "../picks_wide.rds", to = "picks_wide_new.rds")
 
-todays_determined <- paste0(
+picks_wide_new <- read_rds("picks_wide_new.rds")
+
+todays_file <- paste0(
   "determined_outcomes_", 
   as.Date(format(Sys.time(), tz = "America/Phoenix", usetz = TRUE)), 
   ".rds")
+
+file.copy(from = file.path("..", "determined_outcomes", todays_file), 
+          to = todays_file)
 
 # Get current time in desired timezone
 now_phoenix <- lubridate::with_tz(Sys.time(), tzone = "America/Phoenix")
@@ -23,7 +29,7 @@ make_filename <- function(date) {
   paste0("determined_outcomes_", date, ".rds")
 }
 
-todays_determined <- "determined_outcomes_2025-04-12.rds" # make_filename(today_phoenix)
+todays_determined <- make_filename(today_phoenix) #"determined_outcomes_2025-04-12.rds"
 
 # Use today's or yesterday's file depending on existence
 # if (!file.exists(todays_determined)) {
@@ -43,20 +49,24 @@ determined_so_far <- read_rds(todays_determined) %>%
     "Not Yet", 
     `Outcome Determined`))
 
+picks_wide_new <- picks_wide_new %>%
+  mutate(Team = str_replace(Team, " [↑↓].*$", "")) |> 
+  mutate(across(ends_with("_points"), as.numeric))  
+
 picks_joined <- picks_wide_new %>%
   left_join(determined_so_far %>% select(Team, `Outcome Determined`), 
             by = "Team")  
 
-picks_joined <- picks_joined |>
-  mutate(`Outcome Determined` = if_else(str_detect(Team, "Knicks"), "UNDER",
-                                        `Outcome Determined`))
+# picks_joined <- picks_joined |>
+#   mutate(`Outcome Determined` = if_else(str_detect(Team, "Knicks"), "UNDER",
+#                                         `Outcome Determined`))
 
 team_list <- picks_joined %>%
   filter(!(`Outcome Determined` %in% c("OVER", "UNDER"))) %>%
   pull(Team)
 
 ui <- fluidPage(
-  titlePanel("NBA Over/Under 2024-2025 Playoff Scenarios Explorer"),
+  titlePanel(paste("NBA Over/Under", season, "Playoff Scenarios Explorer")),
   
   sidebarLayout(
     sidebarPanel(
@@ -147,7 +157,7 @@ server <- function(input, output, session) {
       ifelse(picks_local[[choice_col_for(player)]] == "OVER", 1, -1)
     })
     points_matrix <- sapply(players, function(player) {
-      picks_local[[points_col_for(player)]]
+      as.numeric(picks_local[[points_col_for(player)]])
     })
     
     outcome_vector <- ifelse(picks_local$`Outcome Determined` == "OVER", 1,
@@ -164,22 +174,45 @@ server <- function(input, output, session) {
     
     scenario_ranks <- matrix(NA_integer_, nrow = n_scen, ncol = num_players, dimnames = list(NULL, players))
     
-    for (i in seq_len(n_scen)) {
-      outcome_i <- outcome_vector
-      if (num_not_determined > 0) {
-        outcome_i[not_determined_idx] <- as.integer(all_combos[i, ])
+    # for (i in seq_len(n_scen)) {
+    #   outcome_i <- outcome_vector
+    #   if (num_not_determined > 0) {
+    #     outcome_i[not_determined_idx] <- as.integer(all_combos[i, ])
+    #   }
+    #   
+    #   correct_matrix <- sweep(pick_matrix, 1, outcome_i, `==`)
+    #   correct_15pt_matrix <- correct_matrix & (points_matrix == 15)
+    #   
+    #   score_i <- colSums((pick_matrix * outcome_i) * points_matrix)
+    #   total_correct_i <- colSums(correct_matrix)
+    #   correct_15pt_i <- colSums(correct_15pt_matrix)
+    #   
+    #   ord <- order(-score_i, -total_correct_i, -correct_15pt_i)
+    #   scenario_ranks[i, ord] <- seq_along(ord)
+    # }
+    
+    withProgress(message = "Simulating scenarios...", value = 0, {
+      for (i in seq_len(n_scen)) {
+        outcome_i <- outcome_vector
+        if (num_not_determined > 0) {
+          outcome_i[not_determined_idx] <- as.integer(all_combos[i, ])
+        }
+        
+        correct_matrix <- sweep(pick_matrix, 1, outcome_i, `==`)
+        correct_15pt_matrix <- correct_matrix & (points_matrix == 15)
+        
+        score_i <- colSums((pick_matrix * outcome_i) * points_matrix)
+        total_correct_i <- colSums(correct_matrix)
+        correct_15pt_i <- colSums(correct_15pt_matrix)
+        
+        ord <- order(-score_i, -total_correct_i, -correct_15pt_i)
+        scenario_ranks[i, ord] <- seq_along(ord)
+        
+        if (i %% 500 == 0 || i == n_scen) {
+          incProgress(500 / n_scen, detail = paste0(i, " / ", n_scen))
+        }
       }
-      
-      correct_matrix <- sweep(pick_matrix, 1, outcome_i, `==`)
-      correct_15pt_matrix <- correct_matrix & (points_matrix == 15)
-      
-      score_i <- colSums((pick_matrix * outcome_i) * points_matrix)
-      total_correct_i <- colSums(correct_matrix)
-      correct_15pt_i <- colSums(correct_15pt_matrix)
-      
-      ord <- order(-score_i, -total_correct_i, -correct_15pt_i)
-      scenario_ranks[i, ord] <- seq_along(ord)
-    }
+    })
     
     made_playoffs <- scenario_ranks <= 4
     
