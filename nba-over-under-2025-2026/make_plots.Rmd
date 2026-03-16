@@ -789,6 +789,45 @@ if (nrow(rows_today)) {
 ```
 
 ```{r}
+# Detect teams that clinched OVER or UNDER yesterday
+clinched_yesterday <- player_projections_by_team %>%
+  select(Date, Team, `Outcome Determined`) %>%
+  distinct() %>%
+  group_by(Team) %>%
+  arrange(Date) %>%
+  mutate(prev_outcome = lag(`Outcome Determined`)) %>%
+  ungroup() %>%
+  filter(
+    Date == Sys.Date() - 1,
+    `Outcome Determined` != "not yet",
+    is.na(prev_outcome) | prev_outcome == "not yet"
+  ) %>%
+  select(Team, `Outcome Determined`)
+```
+
+```{r results="asis"}
+if (nrow(clinched_yesterday) > 0) {
+  cat("\n\n***\n\n")
+  cat("#### Teams that clinched yesterday\n\n")
+  for (i in seq_len(nrow(clinched_yesterday))) {
+    team <- clinched_yesterday$Team[i]
+    outcome <- clinched_yesterday$`Outcome Determined`[i]
+    if (outcome == "OVER") {
+      cat(paste0(
+        "- The **", team, 
+        "** clinched <span style='color:forestgreen;font-weight:bold;'>OVER</span> yesterday.\n"
+      ))
+    } else {
+      cat(paste0(
+        "- The **", team, 
+        "** clinched <span style='color:deeppink;font-weight:bold;'>UNDER</span> yesterday.\n"
+      ))
+    }
+  }
+}
+```
+
+```{r}
 yesterday_scores <- scores %>% 
   filter(game_date == Sys.Date() - 1) %>% 
   select(`Game Date` = game_date,
