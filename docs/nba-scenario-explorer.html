@@ -189,7 +189,7 @@ function BarChart({ rankCounts, numScenarios, sortedPlayers }) {
   const topPad = 32;
   const chartW = 580;
   const barArea = chartW - leftPad - rightPad;
-  const totalH = topPad + sortedPlayers.length * (barH + gap) + 10;
+  const totalH = topPad + sortedPlayers.length * (barH + gap) + 22;
 
   return (
     <svg width="100%" viewBox={`0 0 ${chartW} ${totalH}`} style={{ display: "block" }}>
@@ -254,7 +254,7 @@ function BarChart({ rankCounts, numScenarios, sortedPlayers }) {
           </g>
         );
       })}
-      <text x={leftPad + barArea + 30} y={topPad - 8} textAnchor="middle"
+      <text x={leftPad + barArea + 30} y={topPad + sortedPlayers.length * (barH + gap) + 4} textAnchor="middle"
         fontSize={9} fill="#64748b" fontFamily="'DM Mono', monospace">
         Playoff %
       </text>
