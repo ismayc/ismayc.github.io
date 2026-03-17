@@ -17,6 +17,7 @@ project:
     - "202*-nba-over-under.html"
     - "critical_thinking_framework.pdf"
     - "nba-scenario-explorer.html"
+    - "2026-nba-rooting-guide.html"
   output-dir: docs  # for GitHub Pages compatibility
   render:
     - index.qmd

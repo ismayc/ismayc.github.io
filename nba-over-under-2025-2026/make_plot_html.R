@@ -57,7 +57,7 @@ if (date_modified != Sys.Date() || update_page) {
       overwrite = TRUE
     )
   }
-  source("000-generate-rooting-guide.R")
+  source("nba-over-under-2025-2026/000-generate-rooting-guide.R")
 } else {
   cat("Webpage already created today", "\n")
 }
