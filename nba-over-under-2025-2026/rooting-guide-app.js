@@ -110,10 +110,18 @@ function renderTab3(el){
   var h='<div class="section-title">Undecided Teams - Projected Pace vs Target</div><p style="font-size:12px;color:var(--t3);margin-bottom:16px">Sorted by how close their pace is to the target. Win% Needed = required rate in remaining games to go OVER.</p>';
   var undecided=[];
   for(var nm in D.teams){var t=D.teams[nm];if(t.det==='not yet'){var gap=t.pWins-t.wp;var wpn=(t.wtg!==null&&t.rem>0)?Math.round(t.wtg/t.rem*100):null;undecided.push({name:nm,gap:gap,w:t.w,l:t.l,wp:t.wp,pWins:t.pWins,wpn:wpn,rem:t.rem,wtg:t.wtg,ltg:t.ltg})}}
-  undecided.sort(function(a,b){return Math.abs(a.gap)-Math.abs(b.gap)});
-  h+='<div style="display:grid;grid-template-columns:140px 55px 50px 50px 80px 1fr 70px;gap:8px;padding:4px 10px;font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.5px"><span>Team</span><span>Record</span><span>Target</span><span>Pace</span><span>Gap</span><span>Trajectory</span><span>Win% Needed</span></div>';
+  undecided.sort(function(a,b){
+    // Distance from nearest extreme: min(wpn, 100-wpn). Lower = closer to clinching.
+    var aw=a.wpn!==null?a.wpn:50, bw=b.wpn!==null?b.wpn:50;
+    var da=Math.min(aw,100-aw), db=Math.min(bw,100-bw);
+    return da-db;
+  });
+  h+='<div style="display:grid;grid-template-columns:140px 55px 50px 50px 80px 1fr 70px;gap:8px;padding:4px 10px;font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.5px"><span>Team</span><span>Record</span><span>Target</span><span>Pace</span><span>Gap</span><span>OVER Likelihood</span><span>Win% Needed</span></div>';
   undecided.forEach(function(t){
-    var g=t.gap,gc=g>0?'var(--over)':'var(--under)',bp=Math.min(Math.abs(g)/20*100,100);
+    var g=t.gap,gc=g>0?'var(--over)':'var(--under)';
+    // Single bar: fill = likelihood of going OVER = (100 - wpn), clamped 0-100
+    var fill=t.wpn!==null?Math.max(0,Math.min(100,100-t.wpn)):50;
+    var barCol=fill>=60?'var(--over)':fill>=40?'var(--gold)':'var(--under)';
     var dl='',dc='var(--t2)';
     if(t.wpn!==null){if(t.wpn>100){dl='Impossible';dc='var(--under)'}else if(t.wpn>80){dl=t.wpn+'%';dc='var(--under)'}else if(t.wpn>60){dl=t.wpn+'%';dc='var(--gold)'}else{dl=t.wpn+'%';dc='var(--over)'}}else{dl='Clinched'}
     h+='<div class="trow" style="grid-template-columns:140px 55px 50px 50px 80px 1fr 70px">';
@@ -122,7 +130,7 @@ function renderTab3(el){
     h+='<span class="mono" style="color:var(--t3)">'+t.wp+'</span>';
     h+='<span class="mono" style="color:'+gc+'">'+t.pWins+'</span>';
     h+='<span class="mono" style="color:'+gc+'">'+(g>0?'+':'')+g.toFixed(1)+'</span>';
-    h+='<div style="display:flex;align-items:center;gap:4px"><div style="display:flex;width:100%;height:14px;border-radius:3px;overflow:hidden;background:var(--border)"><div style="width:50%;display:flex;justify-content:flex-end">'+(g<0?'<div style="width:'+bp+'%;background:var(--under);border-radius:3px 0 0 3px;min-width:2px"></div>':'')+'</div><div style="width:1px;background:var(--t3)"></div><div style="width:50%">'+(g>0?'<div style="width:'+bp+'%;background:var(--over);border-radius:0 3px 3px 0;min-width:2px"></div>':'')+'</div></div></div>';
+    h+='<div style="display:flex;align-items:center"><div style="width:100%;height:14px;border-radius:3px;overflow:hidden;background:var(--border)"><div style="width:'+fill+'%;height:100%;background:'+barCol+';border-radius:3px;transition:width .3s"></div></div></div>';
     h+='<span class="mono" style="text-align:center;color:'+dc+';font-size:11px">'+dl+'</span></div>';
   });
   var close=undecided.filter(function(t){return Math.abs(t.gap)<5});

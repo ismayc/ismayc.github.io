@@ -191,10 +191,10 @@ out_path <- file.path(out_dir, "2026-nba-rooting-guide.html")
 writeLines(html_output, out_path)
 cat("  Wrote:", out_path, "\n")
 
-if (grepl("MacBook", Sys.info()["nodename"])) {
-  file.copy(out_path, file.path("../docs", basename(out_path)), overwrite = TRUE)
-  file.copy(out_path, file.path("../", basename(out_path)), overwrite = TRUE)
-  cat("  Copied to parent directories\n")
-}
+# if (grepl("MacBook", Sys.info()["nodename"])) {
+#   file.copy(out_path, file.path("../docs", basename(out_path)), overwrite = TRUE)
+#   file.copy(out_path, file.path("../", basename(out_path)), overwrite = TRUE)
+#   cat("  Copied to parent directories\n")
+# }
 
 cat("Rooting guide complete!\n")
