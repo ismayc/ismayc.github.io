@@ -3,10 +3,10 @@
 #
 # Generates a self-contained HTML rooting guide dashboard.
 # Reads:
-#   - determined_outcomes/determined_outcomes_{date}.rds   (from 03-data-wrangling.R)
-#   - rds/gs_picks_raw.rds                                (original picks source)
-#   - schedule-2025-26-after-ist.csv                       (from 00-get_schedule.R)
-#   - rooting-guide-app.js                                 (dashboard JS logic)
+#   - nba-over-under-2025-2026/determined_outcomes/determined_outcomes_{date}.rds   (from 03-data-wrangling.R)
+#   - nba-over-under-2025-2026/rds/gs_picks_raw.rds                                (original picks source)
+#   - nba-over-under-2025-2026/schedule-2025-26-after-ist.csv                       (from 00-get_schedule.R)
+#   - nba-over-under-2025-2026/rooting-guide-app.js                                 (dashboard JS logic)
 # Writes:
 #   - docs/2026-nba-rooting-guide.html
 
@@ -18,11 +18,11 @@ cat("Generating rooting guide...\n")
 
 # -- 1. Read determined outcomes -----------------------------------------------
 outcomes_file <- paste0(
-  "determined_outcomes/determined_outcomes_", Sys.Date(), ".rds"
+  "nba-over-under-2025-2026/determined_outcomes/determined_outcomes_", Sys.Date(), ".rds"
 )
 if (!file.exists(outcomes_file)) {
   outcomes_file <- paste0(
-    "determined_outcomes/determined_outcomes_", Sys.Date() - 1, ".rds"
+    "nba-over-under-2025-2026/determined_outcomes/determined_outcomes_", Sys.Date() - 1, ".rds"
   )
 }
 stopifnot(file.exists(outcomes_file))
@@ -30,7 +30,7 @@ out_table <- read_rds(outcomes_file)
 cat("  Read outcomes from:", outcomes_file, "\n")
 
 # -- 2. Read picks from original source ----------------------------------------
-picks_raw <- read_rds("rds/gs_picks_raw.rds") %>%
+picks_raw <- read_rds("nba-over-under-2025-2026/rds/gs_picks_raw.rds") %>%
   mutate(
     choice = str_to_upper(pick),
     player = str_extract(str_trim(name), "^[^\\s]+")
@@ -51,7 +51,8 @@ picks_wide_clean <- picks_raw %>%
 cat("  Picks columns:", paste(names(picks_wide_clean), collapse = ", "), "\n")
 
 # -- 3. Read today's schedule --------------------------------------------------
-schedule <- read_csv("schedule-2025-26-after-ist.csv", show_col_types = FALSE)
+schedule <- read_csv("nba-over-under-2025-2026/schedule-2025-26-after-ist.csv", 
+                     show_col_types = FALSE)
 todays_games <- schedule %>%
   filter(game_date == Sys.Date()) %>%
   select(away_team, home_team)
@@ -113,7 +114,7 @@ data_json <- toJSON(
 cat("  JSON data size:", nchar(data_json), "bytes\n")
 
 # -- 5. Read JS template -------------------------------------------------------
-js_file <- "rooting-guide-app.js"
+js_file <- "nba-over-under-2025-2026/rooting-guide-app.js"
 stopifnot(file.exists(js_file))
 js_code <- paste(readLines(js_file, warn = FALSE), collapse = "\n")
 cat("  Read JS from:", js_file, "\n")
