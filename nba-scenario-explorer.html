@@ -182,6 +182,7 @@ function computeScenarios(teamOutcomes) {
 }
 
 function BarChart({ rankCounts, numScenarios, sortedPlayers }) {
+  const [tooltip, setTooltip] = useState(null);
   const barH = 38;
   const gap = 6;
   const leftPad = 72;
@@ -192,73 +193,111 @@ function BarChart({ rankCounts, numScenarios, sortedPlayers }) {
   const totalH = topPad + sortedPlayers.length * (barH + gap) + 22;
 
   return (
-    <svg width="100%" viewBox={`0 0 ${chartW} ${totalH}`} style={{ display: "block" }}>
-      {RANK_LABELS.map((label, i) => (
-        <g key={i} transform={`translate(${leftPad + i * 62}, 8)`}>
-          <rect width={14} height={14} rx={3} fill={RANK_COLORS[i]} />
-          <text x={18} y={12} fontSize={11} fill="#94a3b8" fontFamily="'DM Mono', monospace">{label}</text>
-        </g>
-      ))}
-      {sortedPlayers.map((player, row) => {
-        const y = topPad + row * (barH + gap);
-        const counts = rankCounts[player];
-        const playoffPct = Math.round(
-          counts.slice(0, 4).reduce((s, c) => s + c, 0) / numScenarios * 100
-        );
-        const eliminated = playoffPct === 0;
-        let x = leftPad;
-        return (
-          <g key={player} opacity={eliminated ? 0.35 : 1}>
-            <text x={leftPad - 8} y={y + barH / 2 + 5} textAnchor="end"
-              fontSize={14} fontWeight={600} fill={eliminated ? "#475569" : "#e2e8f0"}
-              fontFamily="'DM Sans', system-ui">{player}</text>
-            {counts.map((count, rank) => {
-              const w = (count / numScenarios) * barArea;
-              const el = (
-                <g key={rank}>
-                  {w > 0 && (
-                    <React.Fragment>
-                      <rect x={x} y={y} width={w} height={barH}
-                        rx={rank === 0 && x === leftPad ? 4 : 0}
-                        fill={eliminated ? "#475569" : RANK_COLORS[rank]} opacity={0.88} />
-                      {w > 28 && (
-                        <text x={x + w / 2} y={y + barH / 2 + 5} textAnchor="middle"
-                          fontSize={11} fontWeight={700} fill={eliminated ? "#94a3b8" : "#1e1e2e"}
-                          fontFamily="'DM Mono', monospace">
-                          {Math.round(count / numScenarios * 100)}%
-                        </text>
-                      )}
-                    </React.Fragment>
-                  )}
-                </g>
-              );
-              x += w;
-              return el;
-            })}
-            {(() => {
-              return eliminated ? (
-                <text x={leftPad + barArea + 6} y={y + barH / 2 + 5}
-                  fontSize={10} fontFamily="'DM Mono', monospace"
-                  fontWeight={700} fill="#475569">
-                  ELIM
-                </text>
-              ) : (
-                <text x={leftPad + barArea + 6} y={y + barH / 2 + 5}
-                  fontSize={12} fontFamily="'DM Mono', monospace"
-                  fontWeight={playoffPct === 100 ? 700 : 400}
-                  fill={playoffPct === 100 ? "#22c55e" : "#94a3b8"}>
-                  {playoffPct}%
-                </text>
-              );
-            })()}
+    <div style={{ position: "relative" }}>
+      <svg width="100%" viewBox={`0 0 ${chartW} ${totalH}`} style={{ display: "block" }}
+        onMouseLeave={() => setTooltip(null)}>
+        {RANK_LABELS.map((label, i) => (
+          <g key={i} transform={`translate(${leftPad + i * 62}, 8)`}>
+            <rect width={14} height={14} rx={3} fill={RANK_COLORS[i]} />
+            <text x={18} y={12} fontSize={11} fill="#94a3b8" fontFamily="'DM Mono', monospace">{label}</text>
           </g>
-        );
-      })}
-      <text x={leftPad + barArea + 30} y={topPad + sortedPlayers.length * (barH + gap) + 4} textAnchor="middle"
-        fontSize={9} fill="#64748b" fontFamily="'DM Mono', monospace">
-        Playoff %
-      </text>
-    </svg>
+        ))}
+        {sortedPlayers.map((player, row) => {
+          const y = topPad + row * (barH + gap);
+          const counts = rankCounts[player];
+          const playoffPct = Math.round(
+            counts.slice(0, 4).reduce((s, c) => s + c, 0) / numScenarios * 100
+          );
+          const eliminated = playoffPct === 0;
+          let x = leftPad;
+          return (
+            <g key={player} opacity={eliminated ? 0.35 : 1}>
+              <text x={leftPad - 8} y={y + barH / 2 + 5} textAnchor="end"
+                fontSize={14} fontWeight={600} fill={eliminated ? "#475569" : "#e2e8f0"}
+                fontFamily="'DM Sans', system-ui">{player}</text>
+              {counts.map((count, rank) => {
+                const w = (count / numScenarios) * barArea;
+                const pct = (count / numScenarios * 100).toFixed(1);
+                const curX = x;
+                const el = (
+                  <g key={rank}>
+                    {w > 0 && (
+                      <React.Fragment>
+                        <rect x={curX} y={y} width={w} height={barH}
+                          rx={rank === 0 && curX === leftPad ? 4 : 0}
+                          fill={eliminated ? "#475569" : RANK_COLORS[rank]} opacity={0.88}
+                          style={{ cursor: "pointer" }}
+                          onMouseEnter={(e) => {
+                            const svgRect = e.currentTarget.ownerSVGElement.getBoundingClientRect();
+                            const rect = e.currentTarget.getBoundingClientRect();
+                            setTooltip({
+                              text: `${player}: ${RANK_LABELS[rank]} in ${pct}% of scenarios (${count}/${numScenarios})`,
+                              x: rect.left - svgRect.left + rect.width / 2,
+                              y: rect.top - svgRect.top - 6,
+                            });
+                          }}
+                          onMouseLeave={() => setTooltip(null)} />
+                        {w > 28 && (
+                          <text x={curX + w / 2} y={y + barH / 2 + 5} textAnchor="middle"
+                            fontSize={11} fontWeight={700} fill={eliminated ? "#94a3b8" : "#1e1e2e"}
+                            fontFamily="'DM Mono', monospace"
+                            style={{ pointerEvents: "none" }}>
+                            {Math.round(count / numScenarios * 100)}%
+                          </text>
+                        )}
+                      </React.Fragment>
+                    )}
+                  </g>
+                );
+                x += w;
+                return el;
+              })}
+              {(() => {
+                return eliminated ? (
+                  <text x={leftPad + barArea + 6} y={y + barH / 2 + 5}
+                    fontSize={10} fontFamily="'DM Mono', monospace"
+                    fontWeight={700} fill="#475569">
+                    ELIM
+                  </text>
+                ) : (
+                  <text x={leftPad + barArea + 6} y={y + barH / 2 + 5}
+                    fontSize={12} fontFamily="'DM Mono', monospace"
+                    fontWeight={playoffPct === 100 ? 700 : 400}
+                    fill={playoffPct === 100 ? "#22c55e" : "#94a3b8"}>
+                    {playoffPct}%
+                  </text>
+                );
+              })()}
+            </g>
+          );
+        })}
+        <text x={leftPad + barArea + 30} y={topPad + sortedPlayers.length * (barH + gap) + 4} textAnchor="middle"
+          fontSize={9} fill="#64748b" fontFamily="'DM Mono', monospace">
+          Playoff %
+        </text>
+      </svg>
+      {tooltip && (
+        <div style={{
+          position: "absolute",
+          left: tooltip.x,
+          top: tooltip.y,
+          transform: "translate(-50%, -100%)",
+          background: "#0f172a",
+          color: "#f1f5f9",
+          border: "1px solid #475569",
+          borderRadius: 6,
+          padding: "5px 10px",
+          fontSize: 12,
+          fontFamily: "'DM Mono', monospace",
+          whiteSpace: "nowrap",
+          pointerEvents: "none",
+          zIndex: 10,
+          boxShadow: "0 4px 12px rgba(0,0,0,0.5)",
+        }}>
+          {tooltip.text}
+        </div>
+      )}
+    </div>
   );
 }
 
