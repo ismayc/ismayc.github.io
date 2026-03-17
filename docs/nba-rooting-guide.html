@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NBA Over/Under Rooting Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0b0f19;--card:#111827;--card2:#1a2236;--border:#1e293b;--t1:#f1f5f9;--t2:#94a3b8;--t3:#475569;--over:#10b981;--under:#f43f5e;--over-bg:rgba(16,185,129,.1);--under-bg:rgba(244,63,94,.1);--over-border:rgba(16,185,129,.25);--under-border:rgba(244,63,94,.25);--accent:#3b82f6;--gold:#f59e0b;--purple:#a78bfa}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);min-height:100vh}
+.shell{max-width:1080px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:28px;font-weight:800;letter-spacing:-.5px;margin-bottom:2px}
+.date-line{font-size:12px;color:var(--t3);margin-bottom:24px;font-family:'JetBrains Mono',monospace}
+
+/* Tabs */
+.tabs{display:flex;gap:4px;margin-bottom:20px;border-bottom:1px solid var(--border);padding-bottom:0;overflow-x:auto}
+.tab{padding:10px 16px;font-size:13px;font-weight:600;color:var(--t3);cursor:pointer;border-bottom:2px solid transparent;transition:.15s;white-space:nowrap}
+.tab:hover{color:var(--t2)}
+.tab.active{color:var(--accent);border-color:var(--accent)}
+.panel{display:none}.panel.active{display:block}
+
+/* Player pills */
+.player-row{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
+.player-row .label{font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-right:4px}
+.pp{padding:5px 13px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--t2);font-family:inherit;transition:.12s}
+.pp:hover{border-color:var(--t3);color:var(--t1)}
+.pp.active{background:var(--accent);border-color:var(--accent);color:#fff}
+
+/* Cards */
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:12px}
+.card-title{font-size:14px;font-weight:700;color:var(--t1);margin-bottom:10px}
+.section-title{font-size:16px;font-weight:700;color:var(--t1);margin:20px 0 12px;display:flex;align-items:center;gap:8px}
+
+/* Team rows */
+.trow{display:grid;align-items:center;padding:7px 10px;border-radius:6px;font-size:13px;gap:8px}
+.trow:nth-child(odd){background:rgba(255,255,255,.02)}
+.trow:nth-child(even){background:transparent}
+.team-name{font-weight:600;color:var(--t1);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mono{font-family:'JetBrains Mono',monospace;font-size:12px}
+.pill-sm{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;letter-spacing:.5px}
+.pill-over{background:var(--over-bg);color:var(--over);border:1px solid var(--over-border)}
+.pill-under{background:var(--under-bg);color:var(--under);border:1px solid var(--under-border)}
+.pill-locked{background:rgba(148,163,184,.1);color:var(--t2);border:1px solid rgba(148,163,184,.2)}
+.pill-close{background:rgba(245,158,11,.12);color:var(--gold);border:1px solid rgba(245,158,11,.3)}
+
+/* Progress bars */
+.prog-wrap{height:6px;background:var(--border);border-radius:3px;overflow:hidden;flex:1}
+.prog-fill{height:100%;border-radius:3px;transition:width .3s}
+
+/* Score summary */
+.score-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:20px}
+.score-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:.15s}
+.score-card:hover{border-color:var(--t3);transform:translateY(-1px)}
+.score-card.active{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.score-name{font-size:14px;font-weight:700}
+.score-num{font-size:28px;font-weight:800;font-family:'JetBrains Mono',monospace;margin:4px 0}
+.score-sub{font-size:11px;color:var(--t3)}
+.pos .score-num{color:var(--over)}.neg .score-num{color:var(--under)}
+
+/* Tonight */
+.game-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:10px}
+.game-matchup{font-size:15px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.game-at{color:var(--t3);font-weight:400;font-size:12px}
+.impact-row{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px}
+.impact-bar{height:14px;border-radius:3px;min-width:2px}
+.impact-name{width:60px;text-align:right;color:var(--t2);font-weight:500;font-size:11px}
+.impact-val{width:40px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600}
+
+/* Field table */
+.field-header{display:grid;align-items:center;padding:6px 10px;font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;gap:8px}
+
+.tag-agree{color:var(--over);font-size:10px;font-weight:700}.tag-disagree{color:var(--under);font-size:10px;font-weight:700}
+.chip{display:inline-block;padding:3px 8px;border-radius:10px;font-size:11px;font-weight:600;margin:2px}
+.chip-o{background:var(--over-bg);color:var(--over);border:1px solid var(--over-border)}
+.chip-u{background:var(--under-bg);color:var(--under);border:1px solid var(--under-border)}
+.faded{opacity:.4}
+.bright{opacity:1}
+
+/* Responsive */
+@media(max-width:640px){
+  .score-grid{grid-template-columns:1fr 1fr}
+  .tabs{gap:0}.tab{padding:8px 10px;font-size:12px}
+  h1{font-size:22px}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+<h1>NBA Over/Under Rooting Guide</h1>
+<div class="date-line">Season 2025-26 &middot; Data through March 16, 2026 &middot; 12-18 games remaining per team</div>
+
+<div class="tabs" id="tabs"></div>
+<div id="panels"></div>
+</div>
+
+<script>
+const D={"teams":{"Atlanta Hawks":{"w":36,"l":31,"wp":46.5,"rem":15,"det":"not yet","wtg":11,"ltg":5,"pWins":44.1,"winPct":.537},"Boston Celtics":{"w":44,"l":23,"wp":40.5,"rem":15,"det":"OVER","wtg":null,"ltg":null,"pWins":53.9,"winPct":.657},"Brooklyn Nets":{"w":17,"l":50,"wp":20.5,"rem":15,"det":"not yet","wtg":4,"ltg":12,"pWins":20.8,"winPct":.254},"Charlotte Hornets":{"w":34,"l":34,"wp":28.5,"rem":14,"det":"OVER","wtg":null,"ltg":null,"pWins":41,"winPct":.5},"Chicago Bulls":{"w":27,"l":40,"wp":31.5,"rem":15,"det":"not yet","wtg":5,"ltg":11,"pWins":33,"winPct":.403},"Cleveland Cavaliers":{"w":41,"l":27,"wp":56.5,"rem":14,"det":"UNDER","wtg":null,"ltg":null,"pWins":49.4,"winPct":.603},"Detroit Pistons":{"w":48,"l":19,"wp":45.5,"rem":15,"det":"OVER","wtg":null,"ltg":null,"pWins":58.7,"winPct":.716},"Indiana Pacers":{"w":15,"l":53,"wp":38.5,"rem":14,"det":"UNDER","wtg":null,"ltg":null,"pWins":18.1,"winPct":.221},"Miami Heat":{"w":38,"l":30,"wp":38.5,"rem":14,"det":"not yet","wtg":1,"ltg":14,"pWins":45.8,"winPct":.559},"Milwaukee Bucks":{"w":28,"l":39,"wp":44.5,"rem":15,"det":"UNDER","wtg":null,"ltg":null,"pWins":34.3,"winPct":.418},"New York Knicks":{"w":44,"l":25,"wp":53.5,"rem":13,"det":"not yet","wtg":10,"ltg":4,"pWins":52.3,"winPct":.638},"Orlando Magic":{"w":38,"l":28,"wp":51.5,"rem":16,"det":"not yet","wtg":14,"ltg":3,"pWins":47.2,"winPct":.576},"Philadelphia 76ers":{"w":37,"l":31,"wp":42.5,"rem":14,"det":"not yet","wtg":6,"ltg":9,"pWins":44.6,"winPct":.544},"Toronto Raptors":{"w":38,"l":29,"wp":38.5,"rem":15,"det":"not yet","wtg":1,"ltg":15,"pWins":46.5,"winPct":.567},"Washington Wizards":{"w":16,"l":50,"wp":20.5,"rem":16,"det":"not yet","wtg":5,"ltg":12,"pWins":19.9,"winPct":.242},"Dallas Mavericks":{"w":23,"l":45,"wp":40.5,"rem":14,"det":"UNDER","wtg":null,"ltg":null,"pWins":27.7,"winPct":.338},"Denver Nuggets":{"w":41,"l":27,"wp":53.5,"rem":14,"det":"not yet","wtg":13,"ltg":2,"pWins":49.4,"winPct":.603},"Golden State Warriors":{"w":32,"l":35,"wp":46.5,"rem":15,"det":"not yet","wtg":15,"ltg":1,"pWins":39.2,"winPct":.478},"Houston Rockets":{"w":41,"l":25,"wp":53.5,"rem":16,"det":"not yet","wtg":13,"ltg":4,"pWins":50.9,"winPct":.621},"Los Angeles Clippers":{"w":34,"l":33,"wp":47.5,"rem":15,"det":"not yet","wtg":14,"ltg":2,"pWins":41.6,"winPct":.507},"Los Angeles Lakers":{"w":42,"l":25,"wp":48.5,"rem":15,"det":"not yet","wtg":7,"ltg":9,"pWins":51.4,"winPct":.627},"Memphis Grizzlies":{"w":23,"l":43,"wp":40.5,"rem":16,"det":"UNDER","wtg":null,"ltg":null,"pWins":28.6,"winPct":.348},"Minnesota Timberwolves":{"w":41,"l":27,"wp":49.5,"rem":14,"det":"not yet","wtg":9,"ltg":6,"pWins":49.4,"winPct":.603},"New Orleans Pelicans":{"w":22,"l":46,"wp":30.5,"rem":14,"det":"not yet","wtg":9,"ltg":6,"pWins":26.5,"winPct":.324},"Oklahoma City Thunder":{"w":53,"l":15,"wp":62.5,"rem":14,"det":"not yet","wtg":10,"ltg":5,"pWins":63.9,"winPct":.779},"Phoenix Suns":{"w":39,"l":28,"wp":31.5,"rem":15,"det":"OVER","wtg":null,"ltg":null,"pWins":47.7,"winPct":.582},"Portland Trail Blazers":{"w":32,"l":36,"wp":33.5,"rem":14,"det":"not yet","wtg":2,"ltg":13,"pWins":38.6,"winPct":.471},"Sacramento Kings":{"w":18,"l":51,"wp":34.5,"rem":13,"det":"UNDER","wtg":null,"ltg":null,"pWins":21.4,"winPct":.261},"San Antonio Spurs":{"w":49,"l":18,"wp":44.5,"rem":15,"det":"OVER","wtg":null,"ltg":null,"pWins":60,"winPct":.731},"Utah Jazz":{"w":20,"l":48,"wp":18.5,"rem":14,"det":"OVER","wtg":null,"ltg":null,"pWins":24.1,"winPct":.294}},"picks":{"Atlanta Hawks":{"Adonis":[14,"UNDER"],"Andy":[10,"OVER"],"Chester":[15,"OVER"],"Jake":[10,"UNDER"],"Mary":[10,"OVER"],"Mike":[14,"OVER"],"Phil":[14,"OVER"],"Ryan":[6,"UNDER"]},"Boston Celtics":{"Adonis":[14,"UNDER"],"Andy":[9,"OVER"],"Chester":[7,"OVER"],"Jake":[10,"OVER"],"Mary":[6,"OVER"],"Mike":[7,"OVER"],"Phil":[11,"OVER"],"Ryan":[12,"OVER"]},"Brooklyn Nets":{"Adonis":[8,"UNDER"],"Andy":[12,"OVER"],"Chester":[8,"OVER"],"Jake":[8,"OVER"],"Mary":[6,"OVER"],"Mike":[10,"UNDER"],"Phil":[9,"UNDER"],"Ryan":[7,"OVER"]},"Charlotte Hornets":{"Adonis":[13,"UNDER"],"Andy":[14,"UNDER"],"Chester":[11,"UNDER"],"Jake":[9,"OVER"],"Mary":[13,"UNDER"],"Mike":[8,"OVER"],"Phil":[6,"UNDER"],"Ryan":[6,"UNDER"]},"Chicago Bulls":{"Adonis":[8,"OVER"],"Andy":[9,"UNDER"],"Chester":[13,"OVER"],"Jake":[14,"OVER"],"Mary":[10,"OVER"],"Mike":[12,"OVER"],"Phil":[10,"OVER"],"Ryan":[11,"UNDER"]},"Cleveland Cavaliers":{"Adonis":[12,"OVER"],"Andy":[15,"OVER"],"Chester":[14,"UNDER"],"Jake":[15,"OVER"],"Mary":[15,"OVER"],"Mike":[15,"OVER"],"Phil":[11,"OVER"],"Ryan":[7,"UNDER"]},"Dallas Mavericks":{"Adonis":[6,"OVER"],"Andy":[9,"UNDER"],"Chester":[6,"UNDER"],"Jake":[6,"OVER"],"Mary":[7,"UNDER"],"Mike":[6,"OVER"],"Phil":[8,"UNDER"],"Ryan":[15,"OVER"]},"Denver Nuggets":{"Adonis":[7,"OVER"],"Andy":[14,"OVER"],"Chester":[13,"OVER"],"Jake":[6,"OVER"],"Mary":[15,"OVER"],"Mike":[13,"OVER"],"Phil":[15,"OVER"],"Ryan":[15,"OVER"]},"Detroit Pistons":{"Adonis":[10,"OVER"],"Andy":[13,"OVER"],"Chester":[10,"OVER"],"Jake":[12,"OVER"],"Mary":[13,"OVER"],"Mike":[9,"UNDER"],"Phil":[6,"UNDER"],"Ryan":[14,"UNDER"]},"Golden State Warriors":{"Adonis":[13,"OVER"],"Andy":[8,"UNDER"],"Chester":[13,"OVER"],"Jake":[7,"UNDER"],"Mary":[7,"OVER"],"Mike":[11,"OVER"],"Phil":[14,"OVER"],"Ryan":[11,"UNDER"]},"Houston Rockets":{"Adonis":[11,"UNDER"],"Andy":[14,"UNDER"],"Chester":[14,"OVER"],"Jake":[6,"OVER"],"Mary":[14,"OVER"],"Mike":[13,"UNDER"],"Phil":[10,"OVER"],"Ryan":[7,"OVER"]},"Indiana Pacers":{"Adonis":[9,"UNDER"],"Andy":[8,"OVER"],"Chester":[8,"UNDER"],"Jake":[9,"UNDER"],"Mary":[7,"OVER"],"Mike":[7,"UNDER"],"Phil":[12,"OVER"],"Ryan":[8,"UNDER"]},"Los Angeles Clippers":{"Adonis":[6,"OVER"],"Andy":[8,"UNDER"],"Chester":[11,"UNDER"],"Jake":[7,"UNDER"],"Mary":[10,"UNDER"],"Mike":[12,"OVER"],"Phil":[7,"UNDER"],"Ryan":[8,"UNDER"]},"Los Angeles Lakers":{"Adonis":[11,"UNDER"],"Andy":[12,"UNDER"],"Chester":[12,"OVER"],"Jake":[7,"UNDER"],"Mary":[11,"OVER"],"Mike":[12,"UNDER"],"Phil":[9,"UNDER"],"Ryan":[6,"UNDER"]},"Memphis Grizzlies":{"Adonis":[6,"OVER"],"Andy":[7,"OVER"],"Chester":[9,"OVER"],"Jake":[12,"OVER"],"Mary":[9,"OVER"],"Mike":[6,"UNDER"],"Phil":[8,"OVER"],"Ryan":[13,"OVER"]},"Miami Heat":{"Adonis":[15,"UNDER"],"Andy":[7,"OVER"],"Chester":[10,"UNDER"],"Jake":[12,"OVER"],"Mary":[11,"OVER"],"Mike":[8,"OVER"],"Phil":[9,"OVER"],"Ryan":[8,"OVER"]},"Milwaukee Bucks":{"Adonis":[8,"OVER"],"Andy":[13,"OVER"],"Chester":[9,"UNDER"],"Jake":[15,"OVER"],"Mary":[9,"OVER"],"Mike":[15,"OVER"],"Phil":[8,"OVER"],"Ryan":[14,"OVER"]},"Minnesota Timberwolves":{"Adonis":[13,"UNDER"],"Andy":[7,"OVER"],"Chester":[7,"UNDER"],"Jake":[14,"OVER"],"Mary":[11,"OVER"],"Mike":[13,"OVER"],"Phil":[13,"UNDER"],"Ryan":[14,"OVER"]},"New Orleans Pelicans":{"Adonis":[10,"OVER"],"Andy":[6,"UNDER"],"Chester":[12,"OVER"],"Jake":[10,"OVER"],"Mary":[14,"UNDER"],"Mike":[11,"OVER"],"Phil":[12,"UNDER"],"Ryan":[9,"UNDER"]},"New York Knicks":{"Adonis":[12,"OVER"],"Andy":[6,"UNDER"],"Chester":[9,"UNDER"],"Jake":[13,"UNDER"],"Mary":[9,"OVER"],"Mike":[14,"OVER"],"Phil":[7,"UNDER"],"Ryan":[15,"OVER"]},"Oklahoma City Thunder":{"Adonis":[9,"OVER"],"Andy":[15,"UNDER"],"Chester":[14,"UNDER"],"Jake":[15,"UNDER"],"Mary":[15,"OVER"],"Mike":[15,"OVER"],"Phil":[15,"OVER"],"Ryan":[9,"UNDER"]},"Orlando Magic":{"Adonis":[9,"UNDER"],"Andy":[10,"OVER"],"Chester":[15,"OVER"],"Jake":[14,"UNDER"],"Mary":[12,"OVER"],"Mike":[10,"UNDER"],"Phil":[13,"OVER"],"Ryan":[9,"OVER"]},"Philadelphia 76ers":{"Adonis":[15,"OVER"],"Andy":[11,"UNDER"],"Chester":[10,"UNDER"],"Jake":[11,"UNDER"],"Mary":[12,"UNDER"],"Mike":[7,"UNDER"],"Phil":[14,"UNDER"],"Ryan":[13,"OVER"]},"Phoenix Suns":{"Adonis":[12,"OVER"],"Andy":[10,"UNDER"],"Chester":[12,"UNDER"],"Jake":[13,"OVER"],"Mary":[6,"UNDER"],"Mike":[8,"UNDER"],"Phil":[15,"UNDER"],"Ryan":[13,"UNDER"]},"Portland Trail Blazers":{"Adonis":[15,"UNDER"],"Andy":[11,"UNDER"],"Chester":[8,"OVER"],"Jake":[11,"UNDER"],"Mary":[13,"UNDER"],"Mike":[10,"UNDER"],"Phil":[12,"OVER"],"Ryan":[10,"UNDER"]},"Sacramento Kings":{"Adonis":[11,"OVER"],"Andy":[12,"UNDER"],"Chester":[6,"UNDER"],"Jake":[11,"OVER"],"Mary":[8,"OVER"],"Mike":[11,"UNDER"],"Phil":[11,"UNDER"],"Ryan":[10,"OVER"]},"San Antonio Spurs":{"Adonis":[10,"OVER"],"Andy":[15,"OVER"],"Chester":[15,"OVER"],"Jake":[13,"OVER"],"Mary":[8,"OVER"],"Mike":[6,"OVER"],"Phil":[6,"UNDER"],"Ryan":[12,"OVER"]},"Toronto Raptors":{"Adonis":[14,"UNDER"],"Andy":[6,"UNDER"],"Chester":[11,"UNDER"],"Jake":[9,"UNDER"],"Mary":[8,"UNDER"],"Mike":[14,"OVER"],"Phil":[13,"UNDER"],"Ryan":[10,"UNDER"]},"Utah Jazz":{"Adonis":[7,"OVER"],"Andy":[13,"OVER"],"Chester":[7,"OVER"],"Jake":[8,"OVER"],"Mary":[12,"UNDER"],"Mike":[9,"UNDER"],"Phil":[7,"OVER"],"Ryan":[11,"OVER"]},"Washington Wizards":{"Adonis":[7,"UNDER"],"Andy":[11,"OVER"],"Chester":[6,"OVER"],"Jake":[8,"OVER"],"Mary":[14,"UNDER"],"Mike":[9,"UNDER"],"Phil":[10,"UNDER"],"Ryan":[12,"UNDER"]}},"todaysGames":[["Charlotte Hornets","Miami Heat"],["Washington Wizards","Detroit Pistons"],["Orlando Magic","Oklahoma City Thunder"],["New York Knicks","Indiana Pacers"],["Minnesota Timberwolves","Phoenix Suns"],["Milwaukee Bucks","Cleveland Cavaliers"],["Sacramento Kings","San Antonio Spurs"],["Denver Nuggets","Philadelphia 76ers"]]};
+
+const P=['Adonis','Andy','Chester','Jake','Mary','Mike','Phil','Ryan'];
+const SN={"Atlanta Hawks":"Hawks","Boston Celtics":"Celtics","Brooklyn Nets":"Nets","Charlotte Hornets":"Hornets","Chicago Bulls":"Bulls","Cleveland Cavaliers":"Cavs","Detroit Pistons":"Pistons","Indiana Pacers":"Pacers","Miami Heat":"Heat","Milwaukee Bucks":"Bucks","New York Knicks":"Knicks","Orlando Magic":"Magic","Philadelphia 76ers":"76ers","Toronto Raptors":"Raptors","Washington Wizards":"Wizards","Dallas Mavericks":"Mavs","Denver Nuggets":"Nuggets","Golden State Warriors":"Warriors","Houston Rockets":"Rockets","Los Angeles Clippers":"Clippers","Los Angeles Lakers":"Lakers","Memphis Grizzlies":"Grizzlies","Minnesota Timberwolves":"Wolves","New Orleans Pelicans":"Pelicans","Oklahoma City Thunder":"Thunder","Phoenix Suns":"Suns","Portland Trail Blazers":"Blazers","Sacramento Kings":"Kings","San Antonio Spurs":"Spurs","Utah Jazz":"Jazz"};
+const sn=t=>SN[t]||t;
+
+function getScore(p){
+  let locked=0,pending=0,correct=0,wrong=0,undecided=[];
+  for(const[t,td]of Object.entries(D.teams)){
+    const[wage,choice]=D.picks[t][p];
+    if(td.det==='OVER'){choice==='OVER'?(locked+=wage,correct++):(locked-=wage,wrong++)}
+    else if(td.det==='UNDER'){choice==='UNDER'?(locked+=wage,correct++):(locked-=wage,wrong++)}
+    else{
+      const tracking=td.winPct>td.wp/82?'OVER':'UNDER';
+      const pts=tracking===choice?wage:-wage;
+      pending+=pts;
+      undecided.push({team:t,wage,choice,tracking,pts,wtg:td.wtg,ltg:td.ltg,rem:td.rem,w:td.w,l:td.l,wp:td.wp,pWins:td.pWins});
+    }
+  }
+  return{locked,pending,total:locked+pending,correct,wrong,undecided};
+}
+
+function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+
+// Current over/under tracking for each team
+function teamTracking(t){const td=D.teams[t];return td.winPct>td.wp/82?'OVER':'UNDER'}
+
+// ===== TAB 1: Personal Rooting Guide =====
+function renderTab1(el,player){
+  const sc=getScore(player);
+  // Sort undecided: biggest wage first, then by how close to clinching
+  const teams=sc.undecided.sort((a,b)=>b.wage-a.wage);
+
+  let h=`<div style="display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 20px">
+      <div style="font-size:11px;color:var(--t3)">Locked Points</div>
+      <div style="font-size:24px;font-weight:800;font-family:'JetBrains Mono';color:${sc.locked>=0?'var(--over)':'var(--under)'}">${sc.locked>=0?'+':''}${sc.locked}</div>
+      <div style="font-size:11px;color:var(--t3)">${sc.correct}W / ${sc.wrong}L of 12 decided</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 20px">
+      <div style="font-size:11px;color:var(--t3)">Projected Total</div>
+      <div style="font-size:24px;font-weight:800;font-family:'JetBrains Mono';color:${sc.total>=0?'var(--over)':'var(--under)'}">${sc.total>=0?'+':''}${sc.total}</div>
+      <div style="font-size:11px;color:var(--t3)">18 teams still undecided</div>
+    </div>
+  </div>`;
+
+  h+=`<div class="section-title">Root for these outcomes</div>`;
+  h+=`<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px">`;
+  teams.forEach(t=>{
+    const want=t.choice;
+    h+=`<span class="chip chip-${want==='OVER'?'o':'u'} ${t.pts>0?'bright':'faded'}">${sn(t.team)} ${want} <span style="opacity:.6">(${t.wage})</span></span>`;
+  });
+  h+=`</div>`;
+
+  h+=`<div class="section-title">Team-by-team breakdown</div>`;
+  // Header
+  h+=`<div style="display:grid;grid-template-columns:120px 60px 50px 50px 1fr 60px 60px;gap:8px;padding:4px 10px;font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.5px">
+    <span>Team</span><span>Pick</span><span>Record</span><span>Target</span><span>Progress</span><span>To Over</span><span>To Under</span>
+  </div>`;
+
+  teams.forEach(t=>{
+    const onTrack=t.pts>0;
+    const pct=t.rem>0?(t.choice==='OVER'?(t.wtg!==null?Math.max(0,1-t.wtg/t.rem):1):(t.ltg!==null?Math.max(0,1-t.ltg/t.rem):1)):0;
+    const barColor=onTrack?'var(--over)':'var(--under)';
+
+    h+=`<div class="trow" style="grid-template-columns:120px 60px 50px 50px 1fr 60px 60px">
+      <span class="team-name">${sn(t.team)}</span>
+      <span><span class="pill-sm pill-${t.choice.toLowerCase()}">${t.wage} ${t.choice[0]}</span></span>
+      <span class="mono">${t.w}-${t.l}</span>
+      <span class="mono" style="color:var(--t3)">${t.wp}</span>
+      <div style="display:flex;align-items:center;gap:6px">
+        <div class="prog-wrap"><div class="prog-fill" style="width:${pct*100}%;background:${barColor}"></div></div>
+        <span class="mono" style="font-size:10px;color:${onTrack?'var(--over)':'var(--under)'}">${onTrack?'On track':'Behind'}</span>
+      </div>
+      <span class="mono" style="text-align:center;color:var(--t2)">${t.wtg!==null?t.wtg:'-'}</span>
+      <span class="mono" style="text-align:center;color:var(--t2)">${t.ltg!==null?t.ltg:'-'}</span>
+    </div>`;
+  });
+
+  el.innerHTML=h;
+}
+
+// ===== TAB 2: Tonight's Games =====
+function renderTab2(el){
+  let h=`<div class="section-title">Games on March 17, 2026</div>
+  <p style="font-size:12px;color:var(--t3);margin-bottom:16px">Point impact if the <strong style="color:var(--t1)">home team wins</strong>. Negative means that player loses points.</p>`;
+
+  // Only show games involving undecided teams
+  D.todaysGames.forEach(([away,home])=>{
+    const homeT=D.teams[home], awayT=D.teams[away];
+    // For each game, show what happens for each player if home wins vs away wins
+    const homeUndecided=homeT.det==='not yet', awayUndecided=awayT.det==='not yet';
+    if(!homeUndecided&&!awayUndecided) return; // skip fully decided games
+
+    h+=`<div class="game-card">
+      <div class="game-matchup">${sn(away)} <span class="game-at">@</span> ${sn(home)}</div>`;
+
+    // Calculate impact per player
+    const impacts=P.map(p=>{
+      let homeWinDelta=0;
+      // If home team wins, what changes?
+      if(homeUndecided){
+        const[hw,hc]=D.picks[home][p];
+        const curTrack=teamTracking(home);
+        // A home win pushes toward OVER
+        // Only matters if it could change tracking or clinch
+        if(hc==='OVER') homeWinDelta+=Math.round(hw*0.15); // approximate impact
+        else homeWinDelta-=Math.round(hw*0.15);
+        // Check if near clinch
+        if(homeT.wtg===1&&hc==='OVER') homeWinDelta=hw*2; // clinches OVER!
+        else if(homeT.wtg===1&&hc!=='OVER') homeWinDelta=-hw*2;
+        else if(hc==='OVER') homeWinDelta=1;
+        else homeWinDelta=-1;
+      }
+      if(awayUndecided){
+        const[aw,ac]=D.picks[away][p];
+        // Away team losing pushes toward UNDER
+        if(awayT.ltg===1&&ac==='UNDER') homeWinDelta+=aw*2;
+        else if(awayT.ltg===1&&ac!=='UNDER') homeWinDelta-=aw*2;
+        else if(ac==='UNDER') homeWinDelta+=1;
+        else homeWinDelta-=1;
+      }
+      return{player:p,delta:homeWinDelta};
+    }).sort((a,b)=>b.delta-a.delta);
+
+    // Better approach: just show each player's stake in each undecided team in this game
+    h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">`;
+
+    // Home team stakes
+    if(homeUndecided){
+      h+=`<div><div style="font-size:11px;font-weight:700;color:var(--t2);margin-bottom:6px">${sn(home)} (${homeT.w}-${homeT.l}) &middot; Target: ${homeT.wp} &middot; Wins to go: ${homeT.wtg!==null?homeT.wtg:'-'}${homeT.wtg===1?' <span style="color:var(--gold)">CLINCH WATCH</span>':''}</div>`;
+      P.forEach(p=>{
+        const[w,c]=D.picks[home][p];
+        const col=c==='OVER'?'var(--over)':'var(--under)';
+        h+=`<div style="display:flex;align-items:center;gap:6px;padding:2px 0;font-size:12px">
+          <span style="width:55px;color:var(--t2)">${p}</span>
+          <span class="pill-sm pill-${c.toLowerCase()}">${w}${c[0]}</span>
+          <span style="color:var(--t3);font-size:11px">${c==='OVER'?'wants wins':'wants losses'}</span>
+        </div>`;
+      });
+      h+=`</div>`;
+    }
+
+    if(awayUndecided){
+      h+=`<div><div style="font-size:11px;font-weight:700;color:var(--t2);margin-bottom:6px">${sn(away)} (${awayT.w}-${awayT.l}) &middot; Target: ${awayT.wp} &middot; Losses to clinch under: ${awayT.ltg!==null?awayT.ltg:'-'}${awayT.ltg===1?' <span style="color:var(--gold)">CLINCH WATCH</span>':''}</div>`;
+      P.forEach(p=>{
+        const[w,c]=D.picks[away][p];
+        const col=c==='OVER'?'var(--over)':'var(--under)';
+        h+=`<div style="display:flex;align-items:center;gap:6px;padding:2px 0;font-size:12px">
+          <span style="width:55px;color:var(--t2)">${p}</span>
+          <span class="pill-sm pill-${c.toLowerCase()}">${w}${c[0]}</span>
+          <span style="color:var(--t3);font-size:11px">${c==='OVER'?'wants wins':'wants losses'}</span>
+        </div>`;
+      });
+      h+=`</div>`;
+    }
+
+    h+=`</div></div>`;
+  });
+
+  el.innerHTML=h;
+}
+
+// ===== TAB 3: Pace & Difficulty =====
+function renderTab3(el){
+  let h=`<div class="section-title">Undecided Teams - Projected Pace vs Target</div>
+  <p style="font-size:12px;color:var(--t3);margin-bottom:16px">Teams sorted by how far their current pace projects from their win target. Closer to clinching = higher urgency.</p>`;
+
+  const undecided=Object.entries(D.teams).filter(([,t])=>t.det==='not yet').map(([name,t])=>{
+    const gap=t.pWins-t.wp;
+    const winPctNeeded=t.wtg!==null?Math.round(t.wtg/t.rem*100):null;
+    return{name,gap,...t,winPctNeeded};
+  }).sort((a,b)=>Math.abs(a.gap)-Math.abs(b.gap));
+
+  h+=`<div style="display:grid;grid-template-columns:140px 55px 50px 50px 80px 1fr 70px;gap:8px;padding:4px 10px;font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.5px">
+    <span>Team</span><span>Record</span><span>Target</span><span>Pace</span><span>Gap</span><span>Trajectory</span><span>Win% Needed</span>
+  </div>`;
+
+  undecided.forEach(t=>{
+    const gap=t.gap;
+    const gapCol=gap>0?'var(--over)':'var(--under)';
+    const tracking=gap>0?'OVER':'UNDER';
+    const barPct=Math.min(Math.abs(gap)/20*100,100);
+
+    // Difficulty: win% needed to go over
+    const wpn=t.winPctNeeded;
+    let diffLabel='',diffCol='var(--t2)';
+    if(wpn!==null){
+      if(wpn>100){diffLabel='Impossible';diffCol='var(--under)'}
+      else if(wpn>80){diffLabel=wpn+'%';diffCol='var(--under)'}
+      else if(wpn>60){diffLabel=wpn+'%';diffCol='var(--gold)'}
+      else{diffLabel=wpn+'%';diffCol='var(--over)'}
+    }else{diffLabel='Clinched'}
+
+    h+=`<div class="trow" style="grid-template-columns:140px 55px 50px 50px 80px 1fr 70px">
+      <span class="team-name">${sn(t.name)}</span>
+      <span class="mono">${t.w}-${t.l}</span>
+      <span class="mono" style="color:var(--t3)">${t.wp}</span>
+      <span class="mono" style="color:${gapCol}">${t.pWins}</span>
+      <span class="mono" style="color:${gapCol}">${gap>0?'+':''}${gap.toFixed(1)}</span>
+      <div style="display:flex;align-items:center;gap:4px">
+        <div style="display:flex;width:100%;height:14px;border-radius:3px;overflow:hidden;background:var(--border)">
+          <div style="width:50%;display:flex;justify-content:flex-end">
+            ${gap<0?`<div style="width:${barPct}%;background:var(--under);border-radius:3px 0 0 3px;min-width:${Math.abs(gap)>0?2:0}px"></div>`:''}
+          </div>
+          <div style="width:1px;background:var(--t3)"></div>
+          <div style="width:50%">
+            ${gap>0?`<div style="width:${barPct}%;background:var(--over);border-radius:0 3px 3px 0;min-width:${gap>0?2:0}px"></div>`:''}
+          </div>
+        </div>
+      </div>
+      <span class="mono" style="text-align:center;color:${diffCol};font-size:11px">${diffLabel}</span>
+    </div>`;
+  });
+
+  // Summary of close calls
+  const close=undecided.filter(t=>Math.abs(t.gap)<5);
+  if(close.length){
+    h+=`<div class="section-title" style="margin-top:24px">Razor-thin margins (pace within 5 wins of target)</div>`;
+    h+=`<div style="display:flex;flex-wrap:wrap;gap:6px">`;
+    close.forEach(t=>{
+      const g=t.gap;
+      h+=`<span class="chip chip-${g>0?'o':'u'}">${sn(t.name)}: ${g>0?'+':''}${g.toFixed(1)} ${g>0?'over':'under'} pace</span>`;
+    });
+    h+=`</div>`;
+  }
+
+  el.innerHTML=h;
+}
+
+// ===== TAB 4: Player vs Field =====
+function renderTab4(el,player){
+  const others=P.filter(p=>p!==player);
+  const undecidedTeams=Object.entries(D.teams).filter(([,t])=>t.det==='not yet').map(([name])=>name);
+
+  // For each undecided team, compare player's pick to the group
+  const rows=undecidedTeams.map(team=>{
+    const[wage,choice]=D.picks[team][player];
+    const othersData=others.map(p=>{const[w,c]=D.picks[team][p];return{player:p,wage:w,choice:c}});
+    const sameDir=othersData.filter(o=>o.choice===choice).length;
+    const oppositeDir=othersData.filter(o=>o.choice!==choice).length;
+    const avgOppWage=oppositeDir>0?Math.round(othersData.filter(o=>o.choice!==choice).reduce((s,o)=>s+o.wage,0)/oppositeDir):0;
+    const uniqueness=oppositeDir/others.length;
+    const td=D.teams[team];
+    return{team,wage,choice,sameDir,oppositeDir,avgOppWage,uniqueness,tracking:teamTracking(team),w:td.w,l:td.l,wp:td.wp,othersData};
+  }).sort((a,b)=>b.uniqueness-a.uniqueness||b.wage-a.wage);
+
+  const sc=getScore(player);
+
+  let h=`<div style="display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 20px">
+      <div style="font-size:11px;color:var(--t3)">Unique Picks</div>
+      <div style="font-size:24px;font-weight:800;font-family:'JetBrains Mono';color:var(--purple)">${rows.filter(r=>r.oppositeDir>=5).length}</div>
+      <div style="font-size:11px;color:var(--t3)">where 5+ others disagree</div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 20px">
+      <div style="font-size:11px;color:var(--t3)">Biggest Outlier</div>
+      <div style="font-size:16px;font-weight:700;color:var(--t1)">${rows.length?sn(rows[0].team):'-'}</div>
+      <div style="font-size:11px;color:var(--t3)">${rows.length?rows[0].oppositeDir+'/7 others disagree':''}</div>
+    </div>
+  </div>`;
+
+  h+=`<div class="section-title">Undecided teams where ${player} diverges from the group</div>`;
+  h+=`<div style="display:grid;grid-template-columns:120px 55px 50px 55px 60px 1fr;gap:8px;padding:4px 10px;font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.5px">
+    <span>Team</span><span>${player}</span><span>Record</span><span>Tracking</span><span>Agree</span><span>Others' Picks</span>
+  </div>`;
+
+  rows.forEach(r=>{
+    const onTrack=r.tracking===r.choice;
+    h+=`<div class="trow" style="grid-template-columns:120px 55px 50px 55px 60px 1fr">
+      <span class="team-name">${sn(r.team)}</span>
+      <span><span class="pill-sm pill-${r.choice.toLowerCase()}">${r.wage}${r.choice[0]}</span></span>
+      <span class="mono">${r.w}-${r.l}</span>
+      <span class="pill-sm pill-${r.tracking.toLowerCase()}" style="font-size:9px">${r.tracking}</span>
+      <span style="font-size:12px;color:${r.sameDir>=4?'var(--over)':r.sameDir<=2?'var(--under)':'var(--gold)'}">${r.sameDir}/7</span>
+      <div style="display:flex;flex-wrap:wrap;gap:3px">`;
+
+    r.othersData.forEach(o=>{
+      const agree=o.choice===r.choice;
+      h+=`<span style="font-size:10px;padding:1px 5px;border-radius:6px;background:${agree?'rgba(16,185,129,.08)':'rgba(244,63,94,.08)'};color:${agree?'var(--over)':'var(--under)'}">${o.player[0]}${o.wage}${o.choice[0]}</span>`;
+    });
+    h+=`</div></div>`;
+  });
+
+  el.innerHTML=h;
+}
+
+// ===== Setup tabs =====
+const tabDefs=[
+  {id:'rooting',label:'Rooting Guide',needsPlayer:true,render:renderTab1},
+  {id:'tonight',label:"Tonight's Games",needsPlayer:false,render:renderTab2},
+  {id:'pace',label:'Pace & Projections',needsPlayer:false,render:renderTab3},
+  {id:'field',label:'Player vs Field',needsPlayer:true,render:renderTab4},
+];
+let activeTab='rooting', activePlayer='Chester';
+
+function renderAll(){
+  // Tabs
+  document.getElementById('tabs').innerHTML=tabDefs.map(t=>
+    `<div class="tab ${t.id===activeTab?'active':''}" onclick="switchTab('${t.id}')">${t.label}</div>`
+  ).join('');
+
+  // Panel
+  const panel=document.getElementById('panels');
+  const def=tabDefs.find(t=>t.id===activeTab);
+
+  let h='';
+  if(def.needsPlayer){
+    h+=`<div class="player-row"><span class="label">Player</span>`;
+    P.forEach(p=>{
+      const sc=getScore(p);
+      h+=`<button class="pp ${p===activePlayer?'active':''}" onclick="switchPlayer('${p}')">${p} <span style="opacity:.6;font-family:'JetBrains Mono';font-size:10px">(${sc.total>=0?'+':''}${sc.total})</span></button>`;
+    });
+    h+=`</div>`;
+  }
+  h+=`<div id="tab-content"></div>`;
+  panel.innerHTML=h;
+
+  const content=document.getElementById('tab-content');
+  if(def.needsPlayer) def.render(content,activePlayer);
+  else def.render(content);
+}
+
+function switchTab(id){activeTab=id;renderAll()}
+function switchPlayer(p){activePlayer=p;renderAll()}
+renderAll();
+</script>
+</body>
+</html>
