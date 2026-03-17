@@ -8,7 +8,7 @@
 #   - nba-over-under-2025-2026/schedule-2025-26-after-ist.csv                       (from 00-get_schedule.R)
 #   - nba-over-under-2025-2026/rooting-guide-app.js                                 (dashboard JS logic)
 # Writes:
-#   - docs/2026-nba-rooting-guide.html
+#   - ../docs/2026-nba-rooting-guide.html
 
 library(tidyverse)
 library(jsonlite)
