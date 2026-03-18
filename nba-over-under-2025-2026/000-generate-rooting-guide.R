@@ -202,7 +202,6 @@ html_output <- paste0(
 out_dir <- "docs"
 if (!dir.exists(out_dir)) dir.create(out_dir, recursive = TRUE)
 out_path <- file.path(out_dir, "2026-nba-rooting-guide.html")
-file.copy(from = out_path, to = "2026-nba-rooting-guide.html", overwrite = TRUE)
 writeLines(html_output, out_path)
 cat("  Wrote:", out_path, "\n")
 
