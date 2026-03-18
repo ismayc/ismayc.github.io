@@ -77,6 +77,7 @@ function teamTracking(t){const td=D.teams[t];return td.winPct>td.wp/82?‘OVER�
 function getScore(p){
 let locked=0,pending=0,correct=0,wrong=0,undecided=[];
 for(const[t,td]of Object.entries(D.teams)){
+if(!D.picks[t]||!D.picks[t][p]){continue}
 const[wage,choice]=D.picks[t][p];
 if(td.det===‘OVER’){choice===‘OVER’?(locked+=wage,correct++):(locked-=wage,wrong++)}
 else if(td.det===‘UNDER’){choice===‘UNDER’?(locked+=wage,correct++):(locked-=wage,wrong++)}
@@ -150,7 +151,7 @@ if(hT.wtg===1) hClinch+=’ <span style="color:var(--gold)">WIN = CLINCH OVER</s
 if(hT.ltg===1) hClinch+=’ <span style="color:var(--gold)">LOSS = CLINCH UNDER</span>’;
 h+=’<div><div style="font-size:11px;font-weight:700;color:var(--t2);margin-bottom:6px">’+sn(home)+’ (’+hT.w+’-’+hT.l+’) · Target: ‘+hT.wp+’</div>’;
 h+=’<div style="font-size:10px;color:var(--t3);margin-bottom:6px">Wins to go over: ‘+(hT.wtg!==null?hT.wtg:’-’)+’ · Losses to go under: ‘+(hT.ltg!==null?hT.ltg:’-’)+hClinch+’</div>’;
-P.forEach(function(p){var pk=D.picks[home][p];h+=’<div style="display:flex;align-items:center;gap:6px;padding:2px 0;font-size:12px"><span style="width:55px;color:var(--t2)">’+p+’</span><span class="pill-sm pill-'+pk[1].toLowerCase()+'">’+pk[0]+pk[1][0]+’</span><span style="color:var(--t3);font-size:11px">’+(pk[1]===‘OVER’?‘wants wins’:‘wants losses’)+’</span></div>’});
+P.forEach(function(p){var pks=D.picks[home];if(!pks||!pks[p])return;var pk=pks[p];h+=’<div style="display:flex;align-items:center;gap:6px;padding:2px 0;font-size:12px"><span style="width:55px;color:var(--t2)">’+p+’</span><span class="pill-sm pill-'+pk[1].toLowerCase()+'">’+pk[0]+pk[1][0]+’</span><span style="color:var(--t3);font-size:11px">’+(pk[1]===‘OVER’?‘wants wins’:‘wants losses’)+’</span></div>’});
 h+=’</div>’;
 }
 if(aU){
@@ -159,7 +160,7 @@ if(aT.wtg===1) aClinch+=’ <span style="color:var(--gold)">WIN = CLINCH OVER</s
 if(aT.ltg===1) aClinch+=’ <span style="color:var(--gold)">LOSS = CLINCH UNDER</span>’;
 h+=’<div><div style="font-size:11px;font-weight:700;color:var(--t2);margin-bottom:6px">’+sn(away)+’ (’+aT.w+’-’+aT.l+’) · Target: ‘+aT.wp+’</div>’;
 h+=’<div style="font-size:10px;color:var(--t3);margin-bottom:6px">Wins to go over: ‘+(aT.wtg!==null?aT.wtg:’-’)+’ · Losses to go under: ‘+(aT.ltg!==null?aT.ltg:’-’)+aClinch+’</div>’;
-P.forEach(function(p){var pk=D.picks[away][p];h+=’<div style="display:flex;align-items:center;gap:6px;padding:2px 0;font-size:12px"><span style="width:55px;color:var(--t2)">’+p+’</span><span class="pill-sm pill-'+pk[1].toLowerCase()+'">’+pk[0]+pk[1][0]+’</span><span style="color:var(--t3);font-size:11px">’+(pk[1]===‘OVER’?‘wants wins’:‘wants losses’)+’</span></div>’});
+P.forEach(function(p){var pks=D.picks[away];if(!pks||!pks[p])return;var pk=pks[p];h+=’<div style="display:flex;align-items:center;gap:6px;padding:2px 0;font-size:12px"><span style="width:55px;color:var(--t2)">’+p+’</span><span class="pill-sm pill-'+pk[1].toLowerCase()+'">’+pk[0]+pk[1][0]+’</span><span style="color:var(--t3);font-size:11px">’+(pk[1]===‘OVER’?‘wants wins’:‘wants losses’)+’</span></div>’});
 h+=’</div>’;
 }
 h+=’</div></div>’;
@@ -208,8 +209,9 @@ var others=P.filter(function(p){return p!==player});
 var rows=[];
 for(var team in D.teams){
 var td=D.teams[team];if(td.det!==‘not yet’)continue;
+if(!D.picks[team]||!D.picks[team][player])continue;
 var pk=D.picks[team][player],wage=pk[0],choice=pk[1];
-var od=others.map(function(p){var q=D.picks[team][p];return{player:p,wage:q[0],choice:q[1]}});
+var od=others.map(function(p){var q=(D.picks[team]&&D.picks[team][p])||[0,‘OVER’];return{player:p,wage:q[0],choice:q[1]}});
 var sd=od.filter(function(o){return o.choice===choice}).length;
 rows.push({team:team,wage:wage,choice:choice,sameDir:sd,oppositeDir:others.length-sd,tracking:teamTracking(team),w:td.w,l:td.l,wp:td.wp,othersData:od});
 }
@@ -264,7 +266,14 @@ console.error(e);
 }
 function switchTab(id){activeTab=id;renderAll()}
 function switchPlayer(p){activePlayer=p;renderAll()}
-renderAll();
+try{renderAll()}catch(e){
+document.getElementById(‘tabs’).innerHTML=’<div class="tab active">Error</div>’;
+document.getElementById(‘panels’).innerHTML=’<div class="error-box">Fatal render error:\n’+e.message+’\n\nStack: ‘+(e.stack||’’)
++’\n\nD.teams keys: ‘+Object.keys(D.teams||{}).join(’, ‘)
++’\n\nD.picks keys: ‘+Object.keys(D.picks||{}).join(’, ‘)
++’\n\nP: ‘+JSON.stringify(P)+’</div>’;
+console.error(e);
+}
 </script>
 </body>
 </html>
