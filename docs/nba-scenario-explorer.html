@@ -16,6 +16,12 @@
 </head>
 <body>
 <div id="root"></div>
+<script>
+// These three objects are injected by R at build time:
+const CLINCHED = {"Boston Celtics":"O","Charlotte Hornets":"O","Cleveland Cavaliers":"U","Detroit Pistons":"O","Indiana Pacers":"U","Milwaukee Bucks":"U","Toronto Raptors":"O","Dallas Mavericks":"U","Golden State Warriors":"U","Los Angeles Clippers":"U","Memphis Grizzlies":"U","Phoenix Suns":"O","Portland Trail Blazers":"O","Sacramento Kings":"U","San Antonio Spurs":"O","Utah Jazz":"O"};
+const LIKELY = {"Miami Heat":"O","Orlando Magic":"U","Denver Nuggets":"U","Houston Rockets":"U","Los Angeles Lakers":"O","New Orleans Pelicans":"U"};
+const UNDECIDED = ["Atlanta Hawks","Brooklyn Nets","Chicago Bulls","New York Knicks","Philadelphia 76ers","Washington Wizards","Minnesota Timberwolves","Oklahoma City Thunder"];
+</script>
 <script type="text/babel">
 const { useState, useMemo, useCallback } = React;
 
@@ -52,26 +58,6 @@ const TEAMS = [
   {t:"Toronto Raptors",ab:"TOR",p:{Adonis:[14,"U"],Andy:[6,"U"],Chester:[11,"U"],Jake:[9,"U"],Mary:[8,"U"],Mike:[14,"O"],Phil:[13,"U"],Ryan:[10,"U"]}},
   {t:"Utah Jazz",ab:"UTA",p:{Adonis:[7,"O"],Andy:[13,"O"],Chester:[7,"O"],Jake:[8,"O"],Mary:[12,"U"],Mike:[9,"U"],Phil:[7,"O"],Ryan:[11,"O"]}},
   {t:"Washington Wizards",ab:"WAS",p:{Adonis:[7,"U"],Andy:[11,"O"],Chester:[6,"O"],Jake:[8,"O"],Mary:[14,"U"],Mike:[9,"U"],Phil:[10,"U"],Ryan:[12,"U"]}},
-];
-
-const CLINCHED = {
-  "Boston Celtics":"O","Charlotte Hornets":"O","Detroit Pistons":"O",
-  "Phoenix Suns":"O","San Antonio Spurs":"O","Utah Jazz":"O",
-  "Cleveland Cavaliers":"U","Indiana Pacers":"U","Milwaukee Bucks":"U",
-  "Dallas Mavericks":"U","Memphis Grizzlies":"U","Sacramento Kings":"U",
-};
-
-const LIKELY = {
-  "Golden State Warriors":"U","Los Angeles Clippers":"U","Miami Heat":"O",
-  "New Orleans Pelicans":"U","Orlando Magic":"U","Portland Trail Blazers":"O",
-  "Toronto Raptors":"O",
-};
-
-const UNDECIDED = [
-  "Atlanta Hawks","Brooklyn Nets","Chicago Bulls","Denver Nuggets",
-  "Houston Rockets","Los Angeles Lakers","Minnesota Timberwolves",
-  "New York Knicks","Oklahoma City Thunder","Philadelphia 76ers",
-  "Washington Wizards",
 ];
 
 const RANK_COLORS = [
