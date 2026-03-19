@@ -7,8 +7,10 @@
 #   - nba-over-under-2025-2026/rds/gs_picks_raw.rds                                (original picks source)
 #   - nba-over-under-2025-2026/schedule-2025-26-after-ist.csv                       (from 00-get_schedule.R)
 #   - nba-over-under-2025-2026/rooting-guide-app.js                                 (dashboard JS logic)
+#   - nba-over-under-2025-2026/scenario-explorer-template.html                      (scenario explorer template)
 # Writes:
 #   - docs/2026-nba-rooting-guide.html
+#   - docs/nba-scenario-explorer.html
 
 library(tidyverse)
 library(jsonlite)
@@ -198,7 +200,7 @@ html_output <- paste0(
   '</body>\n</html>'
 )
 
-# -- 7. Write output -----------------------------------------------------------
+# -- 7. Write rooting guide output ---------------------------------------------
 out_dir <- "docs"
 if (!dir.exists(out_dir)) dir.create(out_dir, recursive = TRUE)
 out_path <- file.path(out_dir, "2026-nba-rooting-guide.html")
@@ -207,3 +209,86 @@ writeLines(html_output, out_path)
 cat("  Wrote:", out_path, "\n")
 
 cat("Rooting guide complete!\n")
+
+# =============================================================================
+# SCENARIO EXPLORER
+# =============================================================================
+
+cat("\nGenerating scenario explorer...\n")
+
+# -- Classify teams into CLINCHED, LIKELY, UNDECIDED ---------------------------
+# Clinched: outcome already determined
+# Likely: win% needed is 20+ percentage points away from the team's current pace
+#   e.g. a 60% team needing 25% = likely OVER (35pt gap, coasting)
+#        a 30% team needing 25% = undecided (only 5pt gap, that IS their pace)
+# Undecided: everything else
+
+likely_gap_threshold <- 20  # percentage points between current pace and what's needed
+
+clinched_list <- list()
+likely_list <- list()
+undecided_vec <- c()
+
+for (i in seq_len(nrow(out_table))) {
+  row <- out_table[i, ]
+  team <- row[["Team"]]
+  det <- row[["Outcome Determined"]]
+
+  if (det == "OVER") {
+    clinched_list[[team]] <- "O"
+  } else if (det == "UNDER") {
+    clinched_list[[team]] <- "U"
+  } else {
+    rec <- str_split(row[["Current Record"]], "-")[[1]]
+    wins <- as.integer(rec[1])
+    losses <- as.integer(rec[2])
+    rem <- row[["Remaining Games"]]
+    wtg <- row[["Wins To Go Over Vegas"]]
+    current_wpct <- wins / (wins + losses) * 100
+
+    if (!is.na(wtg) && rem > 0) {
+      wpn <- wtg / rem * 100
+    } else {
+      wpn <- 50
+    }
+
+    gap <- wpn - current_wpct  # positive = needs to play better than pace
+
+    cat(sprintf("    %-28s  pace=%4.1f%%  needed=%4.1f%%  gap=%+5.1f\n",
+                team, current_wpct, wpn, gap))
+
+    if (gap <= -likely_gap_threshold) {
+      # Needs far less than current pace -> likely OVER
+      likely_list[[team]] <- "O"
+    } else if (gap >= likely_gap_threshold) {
+      # Needs far more than current pace -> likely UNDER
+      likely_list[[team]] <- "U"
+    } else {
+      undecided_vec <- c(undecided_vec, team)
+    }
+  }
+}
+
+cat("  Clinched:", length(clinched_list), "teams\n")
+cat("  Likely:", length(likely_list), "teams\n")
+cat("  Undecided:", length(undecided_vec), "teams\n")
+
+clinched_json <- toJSON(clinched_list, auto_unbox = TRUE)
+likely_json <- toJSON(likely_list, auto_unbox = TRUE)
+undecided_json <- toJSON(undecided_vec, auto_unbox = TRUE)
+
+# -- Read template and inject data ---------------------------------------------
+template_file <- "nba-over-under-2025-2026/scenario-explorer-template.html"
+stopifnot(file.exists(template_file))
+template <- paste(readLines(template_file, warn = FALSE), collapse = "\n")
+
+scenario_html <- template
+scenario_html <- gsub("__CLINCHED_JSON__", clinched_json, scenario_html, fixed = TRUE)
+scenario_html <- gsub("__LIKELY_JSON__", likely_json, scenario_html, fixed = TRUE)
+scenario_html <- gsub("__UNDECIDED_JSON__", undecided_json, scenario_html, fixed = TRUE)
+
+scenario_path <- file.path(out_dir, "nba-scenario-explorer.html")
+writeLines(scenario_html, scenario_path)
+cat("  Wrote:", scenario_path, "\n")
+
+cat("Scenario explorer complete!\n")
