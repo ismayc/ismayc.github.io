@@ -1719,3 +1719,77 @@ From github.com:ismayc/ismayc.github.io
 To github.com:ismayc/ismayc.github.io.git
    6567993f..b1515f92  master -> master
 Successfully updated and pushed NBA data
+
+Started at: 2026-03-20 04:01:07
+
+Existing data found. Last game date: 2026-03-18
+Today's date: 2026-03-20
+Existing records: 2210
+============================================================
+ATTEMPT 1: NBA API (stats.nba.com)
+============================================================
+  Attempting with 60s timeout...
+  SUCCESS! Got 2251 records
+
+============================================================
+SUCCESS!
+Saved 2241 records to current_year.csv
+Date range: 2025-10-02 to 2026-03-19
+Unique game dates: 160
+Finished at: 2026-03-20 04:01:35
+============================================================
+From github.com:ismayc/ismayc.github.io
+ * branch              master     -> FETCH_HEAD
+   18469694..ab304432  master     -> origin/master
+[master f5950b95] Update NBA data 2026-03-20
+ 3 files changed, 2274 insertions(+), 2243 deletions(-)
+To github.com:ismayc/ismayc.github.io.git
+   ab304432..f5950b95  master -> master
+Successfully updated and pushed NBA data
+
+Started at: 2026-03-21 04:01:07
+
+Existing data found. Last game date: 2026-03-19
+Today's date: 2026-03-21
+Existing records: 2241
+============================================================
+ATTEMPT 1: NBA API (stats.nba.com)
+============================================================
+  Attempting with 60s timeout...
+  SUCCESS! Got 2263 records
+
+============================================================
+SUCCESS!
+Saved 2253 records to current_year.csv
+Date range: 2025-10-02 to 2026-03-20
+Unique game dates: 161
+Finished at: 2026-03-21 04:01:35
+============================================================
+From github.com:ismayc/ismayc.github.io
+ * branch              master     -> FETCH_HEAD
+   f5950b95..2af68b6d  master     -> origin/master
+[master 01b558bf] Update NBA data 2026-03-21
+ 10 files changed, 2495 insertions(+), 2419 deletions(-)
+ delete mode 100644 nba-over-under-2025-2026/determined_outcomes/determined_outcomes_2026-03-20.rds
+ delete mode 100644 nba-over-under-2025-2026/over-under-points-calculator/determined_outcomes_2026-03-20.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/game_results_raw_through_2026-03-19.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/standings_through_2026-03-19.rds
+To github.com:ismayc/ismayc.github.io.git
+   2af68b6d..01b558bf  master -> master
+Successfully updated and pushed NBA data
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/pandas/__init__.py", line 19, in <module>
+    raise ImportError(
+ImportError: Unable to import required dependencies:
+numpy: Error importing numpy: you should not try to import numpy from
+        its source directory; please exit the numpy source tree, and relaunch
+        your python interpreter from there.
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/Users/chesterismay/.virtualenvs/r-reticulate/lib/python3.9/site-packages/pandas/__init__.py", line 19, in <module>
+    raise ImportError(
+ImportError: Unable to import required dependencies:
+numpy: Error importing numpy: you should not try to import numpy from
+        its source directory; please exit the numpy source tree, and relaunch
+        your python interpreter from there.

@@ -45,7 +45,8 @@ if (date_modified != Sys.Date() || update_page) {
     # to ismayc.github.io as working directory?)
     quiet = TRUE
   )
-  if(grepl("MacBook", Sys.info()["nodename"])) {
+  if(grepl("MacBook", Sys.info()["nodename"]) & 
+     getwd() == "/Users/chester/Desktop/ismayc.github.io/nba-over-under-2025-2026") {
     file.copy(
       from = file.path(glue("docs/{ending_season_year}-nba-over-under.html")),
       to = file.path("../docs", glue("{ending_season_year}-nba-over-under.html")),
@@ -57,7 +58,11 @@ if (date_modified != Sys.Date() || update_page) {
       overwrite = TRUE
     )
   }
-  source("nba-over-under-2025-2026/000-generate-rooting-guide.R")
+  if(stringr::str_detect(string = getwd(), pattern = "nba-over-under")) {
+    source("000-generate-rooting-guide.R")
+  } else {
+    source("nba-over-under-2025-2026/000-generate-rooting-guide.R")
+  }
 } else {
   cat("Webpage already created today", "\n")
 }

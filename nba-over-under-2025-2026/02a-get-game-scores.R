@@ -64,3 +64,6 @@ if (!reticulate::py_module_available("pandas")) {
   reticulate::py_install("pandas")
 }
 
+if (!reticulate::py_module_available("bs4")) {
+  reticulate::py_install("bs4")
+}
