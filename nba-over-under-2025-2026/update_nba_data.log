@@ -1793,3 +1793,30 @@ ImportError: Unable to import required dependencies:
 numpy: Error importing numpy: you should not try to import numpy from
         its source directory; please exit the numpy source tree, and relaunch
         your python interpreter from there.
+
+Started at: 2026-03-24 04:01:16
+
+Existing data found. Last game date: 2026-03-22
+Today's date: 2026-03-24
+Existing records: 2268
+============================================================
+ATTEMPT 1: NBA API (stats.nba.com)
+============================================================
+  Attempting with 60s timeout...
+  SUCCESS! Got 2313 records
+
+============================================================
+SUCCESS!
+Saved 2303 records to current_year.csv
+Date range: 2025-10-02 to 2026-03-23
+Unique game dates: 164
+Finished at: 2026-03-24 04:01:17
+============================================================
+From github.com:ismayc/ismayc.github.io
+ * branch              master     -> FETCH_HEAD
+   f0358063..e51ebb81  master     -> origin/master
+[master 6701f4f8] Update NBA data 2026-03-24
+ 4 files changed, 2377 insertions(+), 2342 deletions(-)
+To github.com:ismayc/ismayc.github.io.git
+   e51ebb81..6701f4f8  master -> master
+Successfully updated and pushed NBA data
