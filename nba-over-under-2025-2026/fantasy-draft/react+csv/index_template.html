@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2025-26 NBA Fantasy Draft Board</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+<style>
+  :root {
+    --guard: #e8792a;
+    --guard-text: #000;
+    --wing: #3a9fd4;
+    --wing-text: #000;
+    --post: #7b3fb8;
+    --post-text: #fff;
+    --bg: #0c0d10;
+    --surface: #15171c;
+    --surface2: #1e2128;
+    --surface3: #272b33;
+    --border: #2a2e37;
+    --text: #e4e6ea;
+    --text-dim: #7d8490;
+    --accent: #e8792a;
+    --accent-glow: rgba(232, 121, 42, 0.15);
+    --danger: #d94452;
+    --success: #3dba6f;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--surface); }
+  ::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 3px; }
+
+  /* ---- Header ---- */
+  .app-header {
+    background: var(--surface);
+    border-bottom: 2px solid var(--accent);
+    padding: 0.9rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .app-header h1 {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 1.8rem;
+    letter-spacing: 0.06em;
+    line-height: 1;
+  }
+  .app-header h1 .yr { color: var(--text-dim); font-size: 0.6em; margin-right: 0.3em; }
+  .app-header h1 .nba { color: var(--accent); }
+
+  .header-right { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+
+  .pick-banner {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.4rem 1rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.03em;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .pick-banner .on-clock-tag {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    background: var(--accent);
+    color: #000;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+  }
+
+  /* Mode toggle */
+  .mode-toggle {
+    display: flex;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+  }
+  .mode-toggle button {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    padding: 0.4rem 0.8rem;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .mode-toggle button.active {
+    background: var(--accent);
+    color: #000;
+  }
+  .mode-toggle button:not(.active):hover { color: var(--text); }
+
+  /* ---- Tabs ---- */
+  .tabs {
+    display: flex;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 1.5rem;
+  }
+  .tab-btn {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    padding: 0.75rem 1.25rem;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* ---- Controls (commissioner only) ---- */
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.9rem 1.5rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .search-wrap {
+    position: relative;
+    flex: 1;
+    min-width: 200px;
+    max-width: 340px;
+  }
+  .search-wrap input {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 0.5rem 0.75rem;
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.85rem;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .search-wrap input:focus { border-color: var(--accent); }
+  .search-wrap input::placeholder { color: var(--text-dim); }
+
+  .dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+    max-height: 240px;
+    overflow-y: auto;
+    z-index: 200;
+  }
+  .dropdown-item {
+    padding: 0.45rem 0.75rem;
+    font-size: 0.82rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background 0.1s;
+  }
+  .dropdown-item:hover, .dropdown-item.highlighted { background: var(--surface3); }
+  .dropdown-item .pos-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  .btn {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.1s, opacity 0.15s;
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn:disabled { opacity: 0.35; cursor: not-allowed; }
+  .btn-accent { background: var(--accent); color: #000; }
+  .btn-accent:hover:not(:disabled) { background: #f08a3a; }
+  .btn-secondary { background: var(--surface3); color: var(--text-dim); border: 1px solid var(--border); }
+  .btn-secondary:hover:not(:disabled) { color: var(--text); border-color: var(--text-dim); }
+  .btn-danger { background: var(--danger); color: #fff; }
+  .btn-danger:hover:not(:disabled) { opacity: 0.85; }
+
+  .controls-right {
+    margin-left: auto;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  .file-input-hidden { display: none; }
+
+  /* ---- Spectator status bar ---- */
+  .sync-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 1.5rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--text-dim);
+  }
+  .sync-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    animation: pulse 2s infinite;
+  }
+  .sync-dot.live { background: var(--success); }
+  .sync-dot.stale { background: var(--danger); animation: none; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  /* ---- Main ---- */
+  .main { padding: 1.25rem 1.5rem 3rem; }
+
+  /* ---- Board ---- */
+  .round-block { margin-bottom: 1rem; }
+  .round-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-dim);
+    margin-bottom: 0.35rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .round-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .round-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 5px;
+  }
+
+  .pick-cell {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 0.4rem 0.5rem;
+    min-height: 62px;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .pick-cell.on-clock {
+    border-color: var(--accent);
+    box-shadow: 0 0 16px var(--accent-glow), inset 0 0 12px var(--accent-glow);
+  }
+  .pick-cell .cell-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.25rem;
+  }
+  .pick-cell .pick-num {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    line-height: 1;
+  }
+  .pick-cell .owner-name {
+    font-size: 0.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-dim);
+  }
+  .pick-cell .nba-player {
+    font-weight: 700;
+    font-size: 0.72rem;
+    padding: 0.2rem 0.35rem;
+    border-radius: 3px;
+    line-height: 1.25;
+    margin-top: auto;
+    animation: fadeSlide 0.25s ease-out;
+  }
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .nba-player.guard, .chip.guard { background: var(--guard); color: var(--guard-text); }
+  .nba-player.wing, .chip.wing { background: var(--wing); color: var(--wing-text); }
+  .nba-player.post, .chip.post { background: var(--post); color: var(--post-text); }
+
+  /* ---- Available Players ---- */
+  .avail-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .pos-col h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.35rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .pos-col h3 .ct {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    background: var(--surface2);
+    padding: 0.1rem 0.45rem;
+    border-radius: 8px;
+    color: var(--text-dim);
+  }
+  .pos-col h3.g-hdr { border-bottom: 2px solid var(--guard); }
+  .pos-col h3.w-hdr { border-bottom: 2px solid var(--wing); }
+  .pos-col h3.p-hdr { border-bottom: 2px solid var(--post); }
+
+  .chip-wrap { display: flex; flex-wrap: wrap; gap: 3px; }
+  .chip {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.1s, opacity 0.15s;
+    user-select: none;
+  }
+  .chip:hover:not(.gone) { transform: scale(1.04); }
+  .chip.gone { opacity: 0.15; text-decoration: line-through; pointer-events: none; }
+  .chip.readonly { cursor: default; }
+  .chip.readonly:hover:not(.gone) { transform: none; }
+
+  /* ---- Rosters ---- */
+  .roster-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  .roster-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .roster-hdr {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.55rem 0.85rem;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .roster-hdr .ct {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-dim);
+  }
+  .roster-card table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
+  .roster-card th {
+    text-align: left;
+    padding: 0.35rem 0.65rem;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--text-dim);
+    border-bottom: 1px solid var(--border);
+  }
+  .roster-card td { padding: 0.35rem 0.65rem; border-bottom: 1px solid var(--border); }
+  .roster-card tr:last-child td { border-bottom: none; }
+  .pos-tag {
+    display: inline-block;
+    padding: 0.05rem 0.35rem;
+    border-radius: 2px;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .pos-tag.guard { background: var(--guard); color: var(--guard-text); }
+  .pos-tag.wing { background: var(--wing); color: var(--wing-text); }
+  .pos-tag.post { background: var(--post); color: var(--post-text); }
+  .empty-msg { color: var(--text-dim); font-style: italic; padding: 0.85rem; font-size: 0.82rem; }
+
+  /* ---- Legend ---- */
+  .legend {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.78rem;
+    align-items: center;
+    color: var(--text-dim);
+  }
+  .legend-item { display: flex; align-items: center; gap: 0.3rem; }
+  .legend-sw { width: 12px; height: 12px; border-radius: 3px; }
+
+  /* ---- Modal ---- */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 999;
+    animation: fadeIn 0.15s;
+  }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .modal-box {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    max-width: 380px;
+    width: 90%;
+    text-align: center;
+  }
+  .modal-box h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; margin-bottom: 0.5rem; }
+  .modal-box p { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 1rem; }
+  .modal-btns { display: flex; gap: 0.5rem; justify-content: center; }
+
+  /* ---- Toast ---- */
+  .toast {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    z-index: 1000;
+    white-space: nowrap;
+    animation: toastIn 0.2s ease-out;
+  }
+  @keyframes toastIn {
+    from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+
+  @media (max-width: 900px) {
+    .round-grid { grid-template-columns: repeat(3, 1fr); }
+    .avail-grid, .roster-grid { grid-template-columns: 1fr; }
+    .main { padding: 1rem; }
+    .controls, .sync-bar { padding-left: 1rem; padding-right: 1rem; }
+  }
+  @media (max-width: 500px) {
+    .round-grid { grid-template-columns: repeat(2, 1fr); }
+    .app-header h1 { font-size: 1.35rem; }
+    .controls { flex-direction: column; align-items: stretch; }
+    .search-wrap { max-width: none; }
+    .controls-right { margin-left: 0; flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState, useEffect, useRef, useCallback, useMemo } = React;
+
+// ===================== DATA =====================
+const ALL_PLAYERS = [
+  {name:"Shai Gilgeous-Alexander, OKC",position:"Guard"},
+  {name:"Luka Doncic, LAL",position:"Guard"},
+  {name:"Anthony Edwards, MIN",position:"Guard"},
+  {name:"Stephen Curry, GSW",position:"Guard"},
+  {name:"Jalen Brunson, NYK",position:"Guard"},
+  {name:"Cade Cunningham, DET",position:"Guard"},
+  {name:"Donovan Mitchell, CLE",position:"Guard"},
+  {name:"Devin Booker, PHX",position:"Guard"},
+  {name:"James Harden, LAC",position:"Guard"},
+  {name:"Derrick White, BOS",position:"Guard"},
+  {name:"Tyrese Maxey, PHI",position:"Guard"},
+  {name:"Trae Young, ATL",position:"Guard"},
+  {name:"Ja Morant, MEM",position:"Guard"},
+  {name:"De'Aaron Fox, SAS",position:"Guard"},
+  {name:"Darius Garland, CLE",position:"Guard"},
+  {name:"Desmond Bane, ORL",position:"Guard"},
+  {name:"Jamal Murray, DEN",position:"Guard"},
+  {name:"Alex Caruso, OKC",position:"Guard"},
+  {name:"Dyson Daniels, ATL",position:"Guard"},
+  {name:"Jalen Suggs, ORL",position:"Guard"},
+  {name:"Austin Reaves, LAL",position:"Guard"},
+  {name:"Christian Braun, DEN",position:"Guard"},
+  {name:"LaMelo Ball, CHA",position:"Guard"},
+  {name:"Tyler Herro, MIA",position:"Guard"},
+  {name:"Coby White, CHI",position:"Guard"},
+  {name:"Zach LaVine, SAC",position:"Guard"},
+  {name:"Andrew Nembhard, IND",position:"Guard"},
+  {name:"Norman Powell, MIA",position:"Guard"},
+  {name:"Jaden Ivey, DET",position:"Guard"},
+  {name:"Bradley Beal, LAC",position:"Guard"},
+  {name:"LeBron James, LAL",position:"Wing"},
+  {name:"Kevin Durant, HOU",position:"Wing"},
+  {name:"Jalen Williams, OKC",position:"Wing"},
+  {name:"Jimmy Butler III, GSW",position:"Wing"},
+  {name:"Jaylen Brown, BOS",position:"Wing"},
+  {name:"Kawhi Leonard, LAC",position:"Wing"},
+  {name:"Scottie Barnes, TOR",position:"Wing"},
+  {name:"Franz Wagner, ORL",position:"Wing"},
+  {name:"Amen Thompson, HOU",position:"Wing"},
+  {name:"Aaron Gordon, DEN",position:"Wing"},
+  {name:"OG Anunoby, NYK",position:"Wing"},
+  {name:"Lauri Markkanen, UTA",position:"Wing"},
+  {name:"Jalen Johnson, ATL",position:"Wing"},
+  {name:"Mikal Bridges, NYK",position:"Wing"},
+  {name:"Draymond Green, GSW",position:"Wing"},
+  {name:"Cooper Flagg, DAL",position:"Wing"},
+  {name:"Paul George, PHI",position:"Wing"},
+  {name:"Trey Murphy III, NOP",position:"Wing"},
+  {name:"Luguentz Dort, OKC",position:"Wing"},
+  {name:"Aaron Nesmith, IND",position:"Wing"},
+  {name:"Deni Avdija, POR",position:"Wing"},
+  {name:"Josh Hart, NYK",position:"Wing"},
+  {name:"Michael Porter Jr., BKN",position:"Wing"},
+  {name:"Jaden McDaniels, MIN",position:"Wing"},
+  {name:"Brandon Miller, CHA",position:"Wing"},
+  {name:"Brandon Ingram, TOR",position:"Wing"},
+  {name:"DeMar DeRozan, SAC",position:"Wing"},
+  {name:"Jonathan Kuminga, GSW",position:"Wing"},
+  {name:"Tobias Harris, DET",position:"Wing"},
+  {name:"Andrew Wiggins, MIA",position:"Wing"},
+  {name:"Nikola Jokic, DEN",position:"Post"},
+  {name:"Giannis Antetokounmpo, MIL",position:"Post"},
+  {name:"Victor Wembanyama, SAS",position:"Post"},
+  {name:"Evan Mobley, CLE",position:"Post"},
+  {name:"Anthony Davis, DAL",position:"Post"},
+  {name:"Paolo Banchero, ORL",position:"Post"},
+  {name:"Bam Adebayo, MIA",position:"Post"},
+  {name:"Pascal Siakam, IND",position:"Post"},
+  {name:"Chet Holmgren, OKC",position:"Post"},
+  {name:"Alperen Sengun, HOU",position:"Post"},
+  {name:"Karl-Anthony Towns, NYK",position:"Post"},
+  {name:"Jaren Jackson Jr., MEM",position:"Post"},
+  {name:"Domantas Sabonis, SAC",position:"Post"},
+  {name:"Ivica Zubac, LAC",position:"Post"},
+  {name:"Julius Randle, MIN",position:"Post"},
+  {name:"Jarrett Allen, CLE",position:"Post"},
+  {name:"Joel Embiid, PHI",position:"Post"},
+  {name:"Rudy Gobert, MIN",position:"Post"},
+  {name:"Kristaps Porzingis, ATL",position:"Post"},
+  {name:"Isaiah Hartenstein, OKC",position:"Post"},
+  {name:"Myles Turner, MIL",position:"Post"},
+  {name:"Zion Williamson, NOP",position:"Post"},
+  {name:"Cameron Johnson, DEN",position:"Post"},
+  {name:"Dereck Lively II, DAL",position:"Post"},
+  {name:"Jabari Smith Jr., HOU",position:"Post"},
+  {name:"Toumani Camara, POR",position:"Post"},
+  {name:"Onyeka Okongwu, ATL",position:"Post"},
+  {name:"Jonas Valanciunas, DEN",position:"Post"},
+  {name:"Zach Edey, MEM",position:"Post"},
+  {name:"Naz Reid, MIN",position:"Post"}
+];
+
+const DRAFT_ORDER = ["Phil","Steve","Chester","Jake","Ryan","Mary"];
+const ROUNDS = 10;
+const PPR = 6;
+const TOTAL = ROUNDS * PPR;
+
+const SNAKE = (() => {
+  const arr = [];
+  for (let r = 1; r <= ROUNDS; r++) {
+    const seq = r % 2 === 1 ? [...DRAFT_ORDER] : [...DRAFT_ORDER].reverse();
+    seq.forEach((p, i) => arr.push({ pick: (r-1)*PPR + i + 1, round: r, player: p }));
+  }
+  return arr;
+})();
+
+const posClass = p => (p||'').toLowerCase();
+
+// ===================== STORAGE =====================
+const STORAGE_KEY = 'nba_fantasy_draft_2025';
+function loadLocal() {
+  try { const r = localStorage.getItem(STORAGE_KEY); if (r) return JSON.parse(r); } catch(e) {}
+  return [];
+}
+function saveLocal(picks) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(picks)); } catch(e) {}
+}
+
+// ===================== CSV =====================
+function parseCSVRow(row) {
+  const result = []; let current = '', inQ = false;
+  for (let i = 0; i < row.length; i++) {
+    const ch = row[i];
+    if (inQ) { if (ch === '"') { if (row[i+1] === '"') { current += '"'; i++; } else inQ = false; } else current += ch; }
+    else { if (ch === '"') inQ = true; else if (ch === ',') { result.push(current); current = ''; } else current += ch; }
+  }
+  result.push(current);
+  return result;
+}
+
+function csvToRows(text) {
+  const lines = text.trim().split('\n');
+  if (lines.length < 2) return [];
+  const headers = lines[0].split(',').map(h => h.trim().replace(/"/g,''));
+  const req = ['draft_order','round','nba_player_taken','position','player'];
+  if (!req.every(r => headers.includes(r))) return [];
+  const rows = [];
+  for (let i = 1; i < lines.length; i++) {
+    const vals = parseCSVRow(lines[i]);
+    if (vals.length < headers.length) continue;
+    const obj = {};
+    headers.forEach((h,idx) => obj[h] = (vals[idx]||'').trim().replace(/^"|"$/g,''));
+    if (!obj.draft_order) continue;
+    rows.push({
+      draft_order: parseInt(obj.draft_order),
+      round: parseInt(obj.round),
+      name: obj.nba_player_taken,
+      position: obj.position,
+      player: obj.player
+    });
+  }
+  rows.sort((a,b) => a.draft_order - b.draft_order);
+  return rows;
+}
+
+async function fetchCSV() {
+  try {
+    const resp = await fetch('draft_results.csv?t=' + Date.now());
+    if (!resp.ok) return null;
+    const text = await resp.text();
+    const rows = csvToRows(text);
+    return rows.length > 0 ? rows : null;
+  } catch(e) { return null; }
+}
+
+function rowsToCSV(picks) {
+  let csv = 'draft_order,round,nba_player_taken,position,player\n';
+  picks.forEach(p => { csv += `${p.draft_order},${p.round},"${p.name}",${p.position},${p.player}\n`; });
+  return csv;
+}
+
+// ===================== APP =====================
+function App() {
+  const [picks, setPicks] = useState(() => loadLocal());
+  const [mode, setMode] = useState('commissioner'); // 'commissioner' | 'spectator'
+  const [tab, setTab] = useState('board');
+  const [search, setSearch] = useState('');
+  const [dropOpen, setDropOpen] = useState(false);
+  const [hlIndex, setHlIndex] = useState(-1);
+  const [toast, setToast] = useState(null);
+  const [modal, setModal] = useState(null);
+  const [lastSync, setLastSync] = useState(null);
+  const [syncOk, setSyncOk] = useState(true);
+  const searchRef = useRef(null);
+  const fileRef = useRef(null);
+  const toastTimer = useRef(null);
+  const intervalRef = useRef(null);
+
+  // Save to localStorage in commissioner mode
+  useEffect(() => { if (mode === 'commissioner') saveLocal(picks); }, [picks, mode]);
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handler = (e) => { if (searchRef.current && !searchRef.current.contains(e.target)) setDropOpen(false); };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
+
+  // CSV auto-refresh in spectator mode
+  useEffect(() => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+
+    const doFetch = async () => {
+      const rows = await fetchCSV();
+      if (rows) {
+        setPicks(rows);
+        setLastSync(new Date());
+        setSyncOk(true);
+      } else {
+        setSyncOk(false);
+      }
+    };
+
+    if (mode === 'spectator') {
+      doFetch();
+      intervalRef.current = setInterval(doFetch, 15000);
+    }
+
+    return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
+  }, [mode]);
+
+  // On initial load, try fetching CSV to seed state if localStorage is empty
+  useEffect(() => {
+    if (picks.length === 0) {
+      fetchCSV().then(rows => { if (rows && rows.length > 0) setPicks(rows); });
+    }
+  }, []);
+
+  const currentPick = picks.length + 1;
+  const draftedSet = useMemo(() => new Set(picks.map(p => p.name)), [picks]);
+  const available = useMemo(() => ALL_PLAYERS.filter(p => !draftedSet.has(p.name)), [draftedSet]);
+  const filtered = useMemo(() => {
+    if (!search.trim()) return available;
+    const q = search.toLowerCase();
+    return available.filter(p => p.name.toLowerCase().includes(q));
+  }, [available, search]);
+
+  const showToast = (msg) => {
+    if (toastTimer.current) clearTimeout(toastTimer.current);
+    setToast(msg);
+    toastTimer.current = setTimeout(() => setToast(null), 2500);
+  };
+
+  const assignPlayer = useCallback((playerName) => {
+    if (mode !== 'commissioner' || currentPick > TOTAL) return;
+    const info = ALL_PLAYERS.find(p => p.name === playerName);
+    if (!info || draftedSet.has(playerName)) return;
+    const slot = SNAKE[currentPick - 1];
+    setPicks(prev => [...prev, {
+      draft_order: currentPick, round: slot.round,
+      name: info.name, position: info.position, player: slot.player
+    }]);
+    setSearch(''); setDropOpen(false);
+    showToast(`Pick ${currentPick}: ${slot.player} selects ${info.name}`);
+  }, [currentPick, draftedSet, mode]);
+
+  const undoLast = () => {
+    if (picks.length === 0) return;
+    const last = picks[picks.length - 1];
+    setPicks(prev => prev.slice(0, -1));
+    showToast(`Undid pick ${last.draft_order}: ${last.name}`);
+  };
+
+  const resetDraft = () => {
+    setModal({
+      title: 'Reset Entire Draft?',
+      msg: 'This clears all picks and cannot be undone.',
+      onConfirm: () => { setPicks([]); setModal(null); showToast('Draft has been reset'); }
+    });
+  };
+
+  const exportCSV = () => {
+    if (picks.length === 0) return;
+    const blob = new Blob([rowsToCSV(picks)], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `draft_results.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('CSV downloaded. Push to GitHub to update spectators.');
+  };
+
+  const importCSV = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      try {
+        const rows = csvToRows(ev.target.result);
+        if (rows.length === 0) throw new Error('No valid rows found');
+        setPicks(rows);
+        showToast(`Imported ${rows.length} picks`);
+      } catch(err) { showToast('Import failed: ' + err.message); }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
+  };
+
+  const handleKey = (e) => {
+    if (!dropOpen || filtered.length === 0) return;
+    if (e.key === 'ArrowDown') { e.preventDefault(); setHlIndex(i => Math.min(i + 1, filtered.length - 1)); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); setHlIndex(i => Math.max(i - 1, 0)); }
+    else if (e.key === 'Enter') { e.preventDefault(); if (hlIndex >= 0 && hlIndex < filtered.length) assignPlayer(filtered[hlIndex].name); }
+    else if (e.key === 'Escape') setDropOpen(false);
+  };
+
+  const pickSlot = currentPick <= TOTAL ? SNAKE[currentPick - 1] : null;
+  const isCommissioner = mode === 'commissioner';
+
+  return (
+    <>
+      <header className="app-header">
+        <h1><span className="yr">2025-26</span> <span className="nba">NBA</span> Fantasy Draft</h1>
+        <div className="header-right">
+          {pickSlot ? (
+            <div className="pick-banner">
+              <span className="on-clock-tag">ON THE CLOCK</span>
+              Pick {currentPick} &middot; {pickSlot.player}
+            </div>
+          ) : (
+            <div className="pick-banner" style={{borderColor:'var(--success)'}}>Draft Complete!</div>
+          )}
+          <div className="mode-toggle">
+            <button className={mode==='commissioner'?'active':''} onClick={()=>setMode('commissioner')}>Commissioner</button>
+            <button className={mode==='spectator'?'active':''} onClick={()=>setMode('spectator')}>Spectator</button>
+          </div>
+        </div>
+      </header>
+
+      <div className="tabs">
+        {['board','players','rosters'].map(t => (
+          <button key={t} className={`tab-btn${tab===t?' active':''}`} onClick={()=>setTab(t)}>
+            {t === 'board' ? 'Draft Board' : t === 'players' ? 'Available Players' : 'Rosters'}
+          </button>
+        ))}
+      </div>
+
+      {isCommissioner && (
+        <div className="controls">
+          <div className="search-wrap" ref={searchRef}>
+            <input
+              placeholder={currentPick <= TOTAL ? "Type a player's name..." : "Draft complete"}
+              value={search}
+              onChange={e => { setSearch(e.target.value); setDropOpen(true); setHlIndex(0); }}
+              onFocus={() => { if (search.trim()) setDropOpen(true); }}
+              onKeyDown={handleKey}
+              disabled={currentPick > TOTAL}
+            />
+            {dropOpen && search.trim() && filtered.length > 0 && (
+              <div className="dropdown">
+                {filtered.slice(0, 15).map((p, i) => (
+                  <div key={p.name} className={`dropdown-item${i===hlIndex?' highlighted':''}`}
+                    onMouseEnter={() => setHlIndex(i)} onMouseDown={() => assignPlayer(p.name)}>
+                    <span className="pos-dot" style={{background:`var(--${posClass(p.position)})`}} />
+                    {p.name}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          <button className="btn btn-secondary" onClick={undoLast} disabled={picks.length===0}>Undo</button>
+          <div className="controls-right">
+            <button className="btn btn-accent" onClick={exportCSV} disabled={picks.length===0}>Export CSV</button>
+            <button className="btn btn-secondary" onClick={() => fileRef.current?.click()}>Import CSV</button>
+            <input ref={fileRef} type="file" accept=".csv" className="file-input-hidden" onChange={importCSV} />
+            <button className="btn btn-danger" onClick={resetDraft} disabled={picks.length===0}>Reset</button>
+          </div>
+        </div>
+      )}
+
+      {!isCommissioner && (
+        <div className="sync-bar">
+          <span className={`sync-dot ${syncOk ? 'live' : 'stale'}`} />
+          {syncOk
+            ? <>Auto-syncing from draft_results.csv every 15s {lastSync && <>&middot; Last update: {lastSync.toLocaleTimeString()}</>}</>
+            : <>No draft_results.csv found. Waiting for the commissioner to push picks...</>
+          }
+        </div>
+      )}
+
+      <div className="main">
+        {tab === 'board' && <BoardTab picks={picks} currentPick={currentPick} />}
+        {tab === 'players' && <PlayersTab draftedSet={draftedSet} onSelect={isCommissioner ? assignPlayer : null} currentPick={currentPick} />}
+        {tab === 'rosters' && <RostersTab picks={picks} />}
+      </div>
+
+      {toast && <div className="toast">{toast}</div>}
+      {modal && (
+        <div className="modal-overlay" onClick={() => setModal(null)}>
+          <div className="modal-box" onClick={e => e.stopPropagation()}>
+            <h3>{modal.title}</h3>
+            <p>{modal.msg}</p>
+            <div className="modal-btns">
+              <button className="btn btn-secondary" onClick={() => setModal(null)}>Cancel</button>
+              <button className="btn btn-danger" onClick={modal.onConfirm}>Yes, Reset</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
+// ===================== BOARD TAB =====================
+function BoardTab({ picks, currentPick }) {
+  const pickMap = useMemo(() => { const m = {}; picks.forEach(p => m[p.draft_order] = p); return m; }, [picks]);
+
+  return (
+    <div>
+      <div className="legend">
+        <div className="legend-item"><div className="legend-sw" style={{background:'var(--guard)'}} /> Guard</div>
+        <div className="legend-item"><div className="legend-sw" style={{background:'var(--wing)'}} /> Wing</div>
+        <div className="legend-item"><div className="legend-sw" style={{background:'var(--post)'}} /> Post</div>
+      </div>
+      {Array.from({length: ROUNDS}, (_, r) => r + 1).map(round => {
+        const indices = [];
+        for (let i = 0; i < PPR; i++) {
+          const num = (round-1)*PPR + i + 1;
+          round % 2 === 0 ? indices.unshift(num) : indices.push(num);
+        }
+        return (
+          <div className="round-block" key={round}>
+            <div className="round-label">Round {round}</div>
+            <div className="round-grid">
+              {indices.map(num => {
+                const slot = SNAKE[num-1];
+                const drafted = pickMap[num];
+                return (
+                  <div className={`pick-cell${num===currentPick ? ' on-clock' : ''}`} key={num}>
+                    <div className="cell-top">
+                      <span className="pick-num">{num}</span>
+                      <span className="owner-name">{slot.player}</span>
+                    </div>
+                    {drafted && <div className={`nba-player ${posClass(drafted.position)}`}>{drafted.name}</div>}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+// ===================== PLAYERS TAB =====================
+function PlayersTab({ draftedSet, onSelect, currentPick }) {
+  const groups = useMemo(() => { const g = {Guard:[],Wing:[],Post:[]}; ALL_PLAYERS.forEach(p => g[p.position]?.push(p)); return g; }, []);
+  const readonly = !onSelect;
+
+  return (
+    <div>
+      <div className="legend" style={{marginBottom:'1rem'}}>
+        <div className="legend-item"><div className="legend-sw" style={{background:'var(--guard)'}} /> Guard</div>
+        <div className="legend-item"><div className="legend-sw" style={{background:'var(--wing)'}} /> Wing</div>
+        <div className="legend-item"><div className="legend-sw" style={{background:'var(--post)'}} /> Post</div>
+        {!readonly && <span style={{color:'var(--text-dim)', fontSize:'0.75rem', marginLeft:'auto'}}>Click a name to draft</span>}
+      </div>
+      <div className="avail-grid">
+        {['Guard','Wing','Post'].map(pos => {
+          const cls = posClass(pos);
+          const avail = groups[pos].filter(p => !draftedSet.has(p.name));
+          return (
+            <div className="pos-col" key={pos}>
+              <h3 className={`${cls[0]}-hdr`}>{pos}s <span className="ct">{avail.length}/{groups[pos].length}</span></h3>
+              <div className="chip-wrap">
+                {groups[pos].map(p => {
+                  const gone = draftedSet.has(p.name);
+                  return (
+                    <span key={p.name}
+                      className={`chip ${cls}${gone ? ' gone' : ''}${readonly ? ' readonly' : ''}`}
+                      onClick={() => { if (!gone && !readonly && currentPick <= TOTAL) onSelect(p.name); }}>
+                      {p.name}
+                    </span>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+// ===================== ROSTERS TAB =====================
+function RostersTab({ picks }) {
+  const byOwner = useMemo(() => { const m = {}; DRAFT_ORDER.forEach(o => m[o]=[]); picks.forEach(p => m[p.player]?.push(p)); return m; }, [picks]);
+
+  return (
+    <div className="roster-grid">
+      {DRAFT_ORDER.map(owner => {
+        const rows = byOwner[owner].sort((a,b) => a.draft_order - b.draft_order);
+        return (
+          <div className="roster-card" key={owner}>
+            <div className="roster-hdr">{owner} <span className="ct">{rows.length} pick{rows.length!==1?'s':''}</span></div>
+            {rows.length === 0 ? <div className="empty-msg">No selections yet</div> : (
+              <table><thead><tr><th>Rd</th><th>#</th><th>Player</th><th>Pos</th></tr></thead><tbody>
+                {rows.map(r => (
+                  <tr key={r.draft_order}>
+                    <td>{r.round}</td><td>{r.draft_order}</td><td>{r.name}</td>
+                    <td><span className={`pos-tag ${posClass(r.position)}`}>{r.position}</span></td>
+                  </tr>
+                ))}
+              </tbody></table>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
+</script>
+</body>
+</html>
