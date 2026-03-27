@@ -1,14 +1,14 @@
 seed,team_name,conference,wins,losses,source
-1,Detroit Pistons,East,52,20,espn_api
+1,Detroit Pistons,East,53,20,espn_api
 2,Boston Celtics,East,48,24,espn_api
-3,New York Knicks,East,48,25,espn_api
+3,New York Knicks,East,48,26,espn_api
 4,Cleveland Cavaliers,East,45,28,espn_api
 5,Atlanta Hawks,East,41,32,espn_api
 6,Toronto Raptors,East,40,32,espn_api
 7,Philadelphia 76ers,East,40,33,espn_api
-8,Miami Heat,East,39,34,espn_api
-9,Charlotte Hornets,East,38,34,espn_api
-10,Orlando Magic,East,38,34,espn_api
+8,Orlando Magic,East,39,34,espn_api
+9,Charlotte Hornets,East,39,34,espn_api
+10,Miami Heat,East,39,34,espn_api
 11,Milwaukee Bucks,East,29,43,espn_api
 12,Chicago Bulls,East,29,43,espn_api
 13,Washington Wizards,East,17,55,espn_api
@@ -24,8 +24,8 @@ seed,team_name,conference,wins,losses,source
 8,Los Angeles Clippers,West,37,36,espn_api
 9,Portland Trail Blazers,West,37,37,espn_api
 10,Golden State Warriors,West,35,38,espn_api
-11,New Orleans Pelicans,West,25,48,espn_api
+11,New Orleans Pelicans,West,25,49,espn_api
 12,Memphis Grizzlies,West,24,48,espn_api
 13,Dallas Mavericks,West,23,50,espn_api
 14,Utah Jazz,West,21,52,espn_api
-15,Sacramento Kings,West,19,54,espn_api
+15,Sacramento Kings,West,19,55,espn_api
