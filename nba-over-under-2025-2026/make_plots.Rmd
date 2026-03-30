@@ -50,6 +50,10 @@ r_files2 <- c("02c-get-game-scores.R",
               "03-data-wrangling.R")
 purrr::walk(r_files2, source)
 
+source("05-playoff-seeding.R")
+source("06b-validate-seeding.R")
+seeded_standings <- compute_playoff_seeding(standings, scores_tidy, meta)
+
 knitr::opts_chunk$set(echo = FALSE)
 library(lubridate)
 library(DT)
@@ -375,10 +379,25 @@ picks_wide <- picks %>%
     wins > win_projection ~ "OVER",
     losses > loss_projection ~ "UNDER",
     TRUE ~ NA_character_)) %>% 
+  left_join(
+    player_projections_by_team %>%
+      select(Date, Team, `Outcome Determined`) %>%
+      distinct() %>%
+      filter(`Outcome Determined` != "not yet") %>%
+      group_by(Team) %>%
+      summarize(clinch_date = min(Date), .groups = "drop"),
+    by = c("team" = "Team")
+  ) %>%
+  mutate(clinch_label = if_else(
+    !is.na(clinch_date),
+    format(clinch_date, "%b %d"),
+    NA_character_
+  )) %>%
+#  mutate(team = str_replace(team, " (?=Trail Blazers$|\\S+$)", "<br>")) %>%
   mutate(team = case_when(
-    outcome_determined == "OVER" ~ paste(team, knitr::asis_output("\U2191")),
-    outcome_determined == "UNDER" ~ paste(team, knitr::asis_output("\U2193")),
-    TRUE ~ team)) %>% 
+    outcome_determined == "OVER"  ~ paste0(team, " ", "\U2191 (" , clinch_label, ")"),
+    outcome_determined == "UNDER" ~ paste0(team, " ", "\U2193 (", clinch_label, ")"),
+    TRUE ~ team)) %>%
   separate(
     col = Chester, 
     into = c("Chester_points", "chester_choice"), 
@@ -491,8 +510,13 @@ for(i in (cols_to_delete - (num_players + 2)) ) {
   suppressWarnings(do_not_show_list[[i]]$visible <- FALSE)
 }
 
+do_not_show_list[[length(do_not_show_list) + 1]] <- list(
+  targets = 0,
+  className = "dt-nowrap"
+)
+
 #do_not_show_list[[33]] <- list(width = '180px', targets = 0)
-do_not_show_list[[30]] <- list(width = '180px', targets = 0)
+#do_not_show_list[[30]] <- list(width = '180px', targets = 0)
 
 point_levels <- rep(seq(15, 6, by = -1), 2) %>% 
   sort(decreasing = TRUE)
@@ -522,7 +546,7 @@ picks_wide %>%
     .funs = ~ factor(.x, levels = paste_levels)) %>% 
   #  purrr::map_df(rev) %>% 
   arrange(Team) %>% 
-  DT::datatable(rownames = FALSE, options = list(
+  DT::datatable(rownames = FALSE, escape = FALSE, options = list(
     pageLength = 30, dom = 'ft',
     autoWidth = TRUE, #scrollX = TRUE,
     columnDefs = do_not_show_list#,
@@ -791,6 +815,46 @@ if (nrow(rows_today)) {
     DT::datatable(options = list(pageLength = nrow(rows_today)))
 }
 ```
+
+```{r}
+# Detect teams that clinched OVER or UNDER yesterday
+clinched_yesterday <- player_projections_by_team %>%
+  select(Date, Team, `Outcome Determined`) %>%
+  distinct() %>%
+  group_by(Team) %>%
+  arrange(Date) %>%
+  mutate(prev_outcome = lag(`Outcome Determined`)) %>%
+  ungroup() %>%
+  filter(
+    Date == Sys.Date() - 1,
+    `Outcome Determined` != "not yet",
+    is.na(prev_outcome) | prev_outcome == "not yet"
+  ) %>%
+  select(Team, `Outcome Determined`)
+```
+
+```{r results="asis"}
+if (nrow(clinched_yesterday) > 0) {
+  cat("\n\n***\n\n")
+  cat("#### Teams that clinched yesterday\n\n")
+  for (i in seq_len(nrow(clinched_yesterday))) {
+    team <- clinched_yesterday$Team[i]
+    outcome <- clinched_yesterday$`Outcome Determined`[i]
+    if (outcome == "OVER") {
+      cat(paste0(
+        "- The **", team, 
+        "** clinched <span style='color:forestgreen;font-weight:bold;'>OVER</span> yesterday.\n"
+      ))
+    } else {
+      cat(paste0(
+        "- The **", team, 
+        "** clinched <span style='color:deeppink;font-weight:bold;'>UNDER</span> yesterday.\n"
+      ))
+    }
+  }
+}
+```
+
 
 ```{r}
 yesterday_scores <- scores %>% 
