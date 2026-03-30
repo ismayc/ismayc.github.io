@@ -1820,3 +1820,170 @@ From github.com:ismayc/ismayc.github.io
 To github.com:ismayc/ismayc.github.io.git
    e51ebb81..6701f4f8  master -> master
 Successfully updated and pushed NBA data
+
+Started at: 2026-03-25 04:01:13
+
+Existing data found. Last game date: 2026-03-23
+Today's date: 2026-03-25
+Existing records: 2288
+============================================================
+ATTEMPT 1: NBA API (stats.nba.com)
+============================================================
+  Attempting with 60s timeout...
+  SUCCESS! Got 2321 records
+
+============================================================
+SUCCESS!
+Saved 2311 records to current_year.csv
+Date range: 2025-10-02 to 2026-03-24
+Unique game dates: 165
+Finished at: 2026-03-25 04:01:15
+============================================================
+From github.com:ismayc/ismayc.github.io
+ * branch              master     -> FETCH_HEAD
+   60c5d3b8..49cfdeaf  master     -> origin/master
+[master 729f19ff] Update NBA data 2026-03-25
+ 3 files changed, 2342 insertions(+), 2319 deletions(-)
+To github.com:ismayc/ismayc.github.io.git
+   49cfdeaf..729f19ff  master -> master
+Successfully updated and pushed NBA data
+
+Started at: 2026-03-26 04:01:16
+
+Existing data found. Last game date: 2026-03-24
+Today's date: 2026-03-26
+Existing records: 2311
+============================================================
+ATTEMPT 1: NBA API (stats.nba.com)
+============================================================
+  Attempting with 60s timeout...
+  SUCCESS! Got 2345 records
+
+============================================================
+SUCCESS!
+Saved 2335 records to current_year.csv
+Date range: 2025-10-02 to 2026-03-25
+Unique game dates: 166
+Finished at: 2026-03-26 04:01:17
+============================================================
+From github.com:ismayc/ismayc.github.io
+ * branch              master     -> FETCH_HEAD
+   729f19ff..9213cfa9  master     -> origin/master
+[master 98367bae] Update NBA data 2026-03-26
+ 9 files changed, 2530 insertions(+), 2505 deletions(-)
+ delete mode 100644 nba-over-under-2025-2026/determined_outcomes/determined_outcomes_2026-03-25.rds
+ delete mode 100644 nba-over-under-2025-2026/over-under-points-calculator/determined_outcomes_2026-03-25.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/game_results_raw_through_2026-03-24.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/standings_through_2026-03-24.rds
+To github.com:ismayc/ismayc.github.io.git
+   9213cfa9..98367bae  master -> master
+Successfully updated and pushed NBA data
+
+Started at: 2026-03-28 04:01:16
+
+Existing data found. Last game date: 2026-03-25
+Today's date: 2026-03-28
+Existing records: 2335
+============================================================
+ATTEMPT 1: NBA API (stats.nba.com)
+============================================================
+  Attempting with 60s timeout...
+  SUCCESS! Got 2371 records
+
+============================================================
+SUCCESS!
+Saved 2361 records to current_year.csv
+Date range: 2025-10-02 to 2026-03-27
+Unique game dates: 168
+Finished at: 2026-03-28 04:01:18
+============================================================
+From github.com:ismayc/ismayc.github.io
+ * branch              master     -> FETCH_HEAD
+   98367bae..924730af  master     -> origin/master
+[master 8ffafb1a] Update NBA data 2026-03-28
+ 16 files changed, 2716 insertions(+), 2645 deletions(-)
+ delete mode 100644 nba-over-under-2025-2026/determined_outcomes/determined_outcomes_2026-03-26.rds
+ delete mode 100644 nba-over-under-2025-2026/determined_outcomes/determined_outcomes_2026-03-27.rds
+ delete mode 100644 nba-over-under-2025-2026/over-under-points-calculator/determined_outcomes_2026-03-26.rds
+ delete mode 100644 nba-over-under-2025-2026/over-under-points-calculator/determined_outcomes_2026-03-27.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/game_results_raw_through_2026-03-25.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/game_results_raw_through_2026-03-26.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/standings_through_2026-03-25.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/standings_through_2026-03-26.rds
+remote: 
+remote: GitHub found 4 vulnerabilities on ismayc/ismayc.github.io's default branch (4 moderate). To find out more, visit:        
+remote:      https://github.com/ismayc/ismayc.github.io/security/dependabot        
+remote: 
+To github.com:ismayc/ismayc.github.io.git
+   924730af..8ffafb1a  master -> master
+Successfully updated and pushed NBA data
+
+Started at: 2026-03-29 04:01:11
+
+Existing data found. Last game date: 2026-03-27
+Today's date: 2026-03-29
+Existing records: 2361
+============================================================
+ATTEMPT 1: NBA API (stats.nba.com)
+============================================================
+  Attempting with 60s timeout...
+  SUCCESS! Got 2383 records
+
+============================================================
+SUCCESS!
+Saved 2373 records to current_year.csv
+Date range: 2025-10-02 to 2026-03-28
+Unique game dates: 169
+Finished at: 2026-03-29 04:01:12
+============================================================
+From github.com:ismayc/ismayc.github.io
+ * branch              master     -> FETCH_HEAD
+   8ffafb1a..fd8e67a4  master     -> origin/master
+[master 3c5e6cce] Update NBA data 2026-03-29
+ 12 files changed, 2698 insertions(+), 2695 deletions(-)
+ delete mode 100644 nba-over-under-2025-2026/determined_outcomes/determined_outcomes_2026-03-28.rds
+ delete mode 100644 nba-over-under-2025-2026/over-under-points-calculator/determined_outcomes_2026-03-28.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/game_results_raw_through_2026-03-27.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/standings_through_2026-03-27.rds
+remote: 
+remote: GitHub found 4 vulnerabilities on ismayc/ismayc.github.io's default branch (4 moderate). To find out more, visit:        
+remote:      https://github.com/ismayc/ismayc.github.io/security/dependabot        
+remote: 
+To github.com:ismayc/ismayc.github.io.git
+   fd8e67a4..3c5e6cce  master -> master
+Successfully updated and pushed NBA data
+
+Started at: 2026-03-30 04:01:12
+
+Existing data found. Last game date: 2026-03-28
+Today's date: 2026-03-30
+Existing records: 2373
+============================================================
+ATTEMPT 1: NBA API (stats.nba.com)
+============================================================
+  Attempting with 60s timeout...
+  SUCCESS! Got 2401 records
+
+============================================================
+SUCCESS!
+Saved 2391 records to current_year.csv
+Date range: 2025-10-02 to 2026-03-29
+Unique game dates: 170
+Finished at: 2026-03-30 04:01:13
+============================================================
+From github.com:ismayc/ismayc.github.io
+ * branch              master     -> FETCH_HEAD
+   3c5e6cce..edd4be45  master     -> origin/master
+[master 457f7d56] Update NBA data 2026-03-30
+ 12 files changed, 2758 insertions(+), 2727 deletions(-)
+ delete mode 100644 nba-over-under-2025-2026/determined_outcomes/determined_outcomes_2026-03-29.rds
+ delete mode 100644 nba-over-under-2025-2026/over-under-points-calculator/determined_outcomes_2026-03-29.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/game_results_raw_through_2026-03-28.rds
+ delete mode 100644 nba-over-under-2025-2026/rds/standings_through_2026-03-28.rds
+remote: 
+remote: GitHub found 4 vulnerabilities on ismayc/ismayc.github.io's default branch (4 moderate). To find out more, visit:        
+remote:      https://github.com/ismayc/ismayc.github.io/security/dependabot        
+remote: 
+To github.com:ismayc/ismayc.github.io.git
+   edd4be45..457f7d56  master -> master
+Successfully updated and pushed NBA data
