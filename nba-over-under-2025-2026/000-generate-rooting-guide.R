@@ -109,6 +109,77 @@ games_list <- lapply(seq_len(nrow(todays_games)), function(i) {
   list(todays_games[["away_team"]][i], todays_games[["home_team"]][i])
 })
 
+# ── Add remaining schedule to teams_list ──────────────────────────────────────
+#
+# It reads the schedule CSV, filters to future games, and attaches a `sched`
+# array to each team in teams_list with the shape:
+#   [{d: "2026-04-01", opp: "Boston Celtics", home: TRUE}, ...]
+#
+# The JS then looks up D.teams[oppName].winPct for opponent strength.
+
+# -- Read schedule and standings -----------------------------------------------
+# (schedule is probably already read earlier in the script; reuse if so)
+if (!exists("schedule")) {
+  schedule <- read_csv("schedule-2025-26-after-ist.csv", show_col_types = FALSE)
+}
+
+# Remaining games: today and forward
+remaining_games <- schedule %>%
+  filter(game_date >= Sys.Date())
+
+cat("  Remaining games in schedule:", nrow(remaining_games), "\n")
+
+# -- Build a lookup from team names used in schedule to team names in teams_list
+# The schedule uses basketball-reference names; teams_list uses the same names
+# from out_table. They should match, but let's verify.
+sched_teams <- unique(c(remaining_games$away_team, remaining_games$home_team))
+outcome_teams <- names(teams_list)
+missing_from_outcomes <- setdiff(sched_teams, outcome_teams)
+if (length(missing_from_outcomes) > 0) {
+  message("  WARNING: Schedule teams not in teams_list: ",
+          paste(missing_from_outcomes, collapse = ", "))
+}
+
+# -- Attach remaining schedule to each team ------------------------------------
+for (team_name in names(teams_list)) {
+  # Games where this team is home
+  home_games <- remaining_games %>%
+    filter(home_team == team_name) %>%
+    transmute(d = as.character(game_date), opp = away_team, home = TRUE)
+  
+  # Games where this team is away
+  away_games <- remaining_games %>%
+    filter(away_team == team_name) %>%
+    transmute(d = as.character(game_date), opp = home_team, home = FALSE)
+  
+  team_sched <- bind_rows(home_games, away_games) %>%
+    arrange(d)
+  
+  # Convert to list-of-lists for JSON
+  if (nrow(team_sched) > 0) {
+    teams_list[[team_name]][["sched"]] <- lapply(seq_len(nrow(team_sched)), function(i) {
+      list(
+        d = team_sched$d[i],
+        opp = team_sched$opp[i],
+        home = team_sched$home[i]
+      )
+    })
+  } else {
+    teams_list[[team_name]][["sched"]] <- list()
+  }
+}
+
+cat("  Attached remaining schedule to", length(teams_list), "teams\n")
+
+# -- Verify a sample team has schedule data ------------------------------------
+sample_team <- names(teams_list)[1]
+sample_sched <- teams_list[[sample_team]][["sched"]]
+cat("  Sample:", sample_team, "has", length(sample_sched), "remaining games\n")
+if (length(sample_sched) > 0) {
+  cat("    First game:", sample_sched[[1]]$d, "vs", sample_sched[[1]]$opp,
+      if (sample_sched[[1]]$home) "(home)" else "(away)", "\n")
+}
+
 # Check for team name mismatches between outcomes and picks
 teams_in_outcomes <- names(teams_list)
 teams_in_picks <- names(picks_list)
