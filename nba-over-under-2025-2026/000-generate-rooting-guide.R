@@ -6,6 +6,7 @@
 #   - nba-over-under-2025-2026/determined_outcomes/determined_outcomes_{date}.rds   (from 03-data-wrangling.R)
 #   - nba-over-under-2025-2026/rds/gs_picks_raw.rds                                (original picks source)
 #   - nba-over-under-2025-2026/schedule-2025-26-after-ist.csv                       (from 00-get_schedule.R)
+#   - nba-over-under-2025-2026/rds/standings_through_{date}.rds                     (from 02c)
 #   - nba-over-under-2025-2026/rooting-guide-app.js                                 (dashboard JS logic)
 #   - nba-over-under-2025-2026/scenario-explorer-template.html                      (scenario explorer template)
 # Writes:
@@ -60,6 +61,23 @@ todays_games <- schedule %>%
   select(away_team, home_team)
 cat("  Today's games:", nrow(todays_games), "\n")
 
+# -- 3b. Read standings (for rest-candidate computation) -----------------------
+standings_file <- paste0(
+  "nba-over-under-2025-2026/rds/standings_through_", Sys.Date() - 1, ".rds"
+)
+if (!file.exists(standings_file)) {
+  standings_file <- paste0(
+    "nba-over-under-2025-2026/rds/standings_through_", Sys.Date() - 2, ".rds"
+  )
+}
+if (file.exists(standings_file)) {
+  standings <- read_rds(standings_file)
+  cat("  Read standings from:", standings_file, "\n")
+} else {
+  standings <- NULL
+  message("  WARNING: No standings file found; rest-candidate computation will be skipped")
+}
+
 # -- 4. Build JSON data blob ---------------------------------------------------
 
 teams_list <- list()
@@ -80,7 +98,7 @@ for (i in seq_len(nrow(out_table))) {
   } else {
     NA_real_
   }
-
+  
   teams_list[[row[["Team"]]]] <- list(
     w = wins, l = losses, wp = wp, rem = rem, det = det,
     wtg = if (is.na(wtg)) NULL else as.integer(wtg),
@@ -109,29 +127,67 @@ games_list <- lapply(seq_len(nrow(todays_games)), function(i) {
   list(todays_games[["away_team"]][i], todays_games[["home_team"]][i])
 })
 
-# ── Add remaining schedule to teams_list ──────────────────────────────────────
+# -- 4b. Compute rest candidates from standings --------------------------------
+# A team is a rest candidate if it has mathematically clinched its current
+# top-6 conference seed: the team one spot below cannot catch them even by
+# winning all remaining games.
 #
-# It reads the schedule CSV, filters to future games, and attaches a `sched`
-# array to each team in teams_list with the shape:
-#   [{d: "2026-04-01", opp: "Boston Celtics", home: TRUE}, ...]
-#
-# The JS then looks up D.teams[oppName].winPct for opponent strength.
+# Specifically: team A (seed K) has clinched over team B (seed K+1) if
+#   A_wins > B_wins + B_remaining_games
 
-# -- Read schedule and standings -----------------------------------------------
-# (schedule is probably already read earlier in the script; reuse if so)
-if (!exists("schedule")) {
-  schedule <- read_csv("schedule-2025-26-after-ist.csv", show_col_types = FALSE)
+if (!is.null(standings) && "conference" %in% names(standings)) {
+  conf_rankings <- standings %>%
+    select(team_name, conference, wins, losses) %>%
+    mutate(
+      wins = as.integer(wins),
+      losses = as.integer(losses),
+      rem = 82L - wins - losses,
+      max_possible_wins = wins + rem
+    ) %>%
+    arrange(conference, desc(wins), losses) %>%
+    group_by(conference) %>%
+    mutate(seed = row_number()) %>%
+    ungroup()
+  
+  rest_candidates <- character(0)
+  
+  for (conf in c("East", "West")) {
+    conf_teams <- conf_rankings %>%
+      filter(conference == conf) %>%
+      arrange(seed)
+    
+    for (i in seq_len(min(6, nrow(conf_teams)))) {
+      team_row <- conf_teams[i, ]
+      
+      # The team one seed below
+      challenger_row <- if (i < nrow(conf_teams)) conf_teams[i + 1, ] else NULL
+      if (is.null(challenger_row)) next
+      
+      # Has the team clinched over the challenger?
+      clinched <- team_row$wins > challenger_row$max_possible_wins
+      
+      if (clinched) {
+        rest_candidates <- c(rest_candidates, team_row$team_name)
+        cat("    Rest candidate:", team_row$team_name,
+            "(seed", i, conf, "- clinched over",
+            challenger_row$team_name, ")\n")
+      }
+    }
+  }
+  
+  cat("  Rest candidates:", length(rest_candidates), "teams\n")
+} else {
+  rest_candidates <- character(0)
+  cat("  Skipped rest-candidate computation (no standings)\n")
 }
 
-# Remaining games: today and forward
+# -- 4c. Attach remaining schedule + restCandidate to each team ----------------
 remaining_games <- schedule %>%
   filter(game_date >= Sys.Date())
 
 cat("  Remaining games in schedule:", nrow(remaining_games), "\n")
 
-# -- Build a lookup from team names used in schedule to team names in teams_list
-# The schedule uses basketball-reference names; teams_list uses the same names
-# from out_table. They should match, but let's verify.
+# Verify team name alignment between schedule and teams_list
 sched_teams <- unique(c(remaining_games$away_team, remaining_games$home_team))
 outcome_teams <- names(teams_list)
 missing_from_outcomes <- setdiff(sched_teams, outcome_teams)
@@ -140,8 +196,10 @@ if (length(missing_from_outcomes) > 0) {
           paste(missing_from_outcomes, collapse = ", "))
 }
 
-# -- Attach remaining schedule to each team ------------------------------------
 for (team_name in names(teams_list)) {
+  # Rest flag
+  teams_list[[team_name]][["restCandidate"]] <- team_name %in% rest_candidates
+  
   # Games where this team is home
   home_games <- remaining_games %>%
     filter(home_team == team_name) %>%
@@ -171,7 +229,7 @@ for (team_name in names(teams_list)) {
 
 cat("  Attached remaining schedule to", length(teams_list), "teams\n")
 
-# -- Verify a sample team has schedule data ------------------------------------
+# Verify a sample team
 sample_team <- names(teams_list)[1]
 sample_sched <- teams_list[[sample_team]][["sched"]]
 cat("  Sample:", sample_team, "has", length(sample_sched), "remaining games\n")
@@ -184,14 +242,14 @@ if (length(sample_sched) > 0) {
 teams_in_outcomes <- names(teams_list)
 teams_in_picks <- names(picks_list)
 missing_from_picks <- setdiff(teams_in_outcomes, teams_in_picks)
-missing_from_outcomes <- setdiff(teams_in_picks, teams_in_outcomes)
+missing_from_outcomes2 <- setdiff(teams_in_picks, teams_in_outcomes)
 if (length(missing_from_picks) > 0) {
   message("  WARNING: Teams in outcomes but NOT in picks: ",
           paste(missing_from_picks, collapse = ", "))
 }
-if (length(missing_from_outcomes) > 0) {
+if (length(missing_from_outcomes2) > 0) {
   message("  WARNING: Teams in picks but NOT in outcomes: ",
-          paste(missing_from_outcomes, collapse = ", "))
+          paste(missing_from_outcomes2, collapse = ", "))
 }
 
 data_json <- toJSON(
@@ -304,7 +362,7 @@ for (i in seq_len(nrow(out_table))) {
   row <- out_table[i, ]
   team <- row[["Team"]]
   det <- row[["Outcome Determined"]]
-
+  
   if (det == "OVER") {
     clinched_list[[team]] <- "O"
   } else if (det == "UNDER") {
@@ -316,18 +374,18 @@ for (i in seq_len(nrow(out_table))) {
     rem <- row[["Remaining Games"]]
     wtg <- row[["Wins To Go Over Vegas"]]
     current_wpct <- wins / (wins + losses) * 100
-
+    
     if (!is.na(wtg) && rem > 0) {
       wpn <- wtg / rem * 100
     } else {
       wpn <- 50
     }
-
+    
     gap <- wpn - current_wpct  # positive = needs to play better than pace
-
+    
     cat(sprintf("    %-28s  pace=%4.1f%%  needed=%4.1f%%  gap=%+5.1f\n",
                 team, current_wpct, wpn, gap))
-
+    
     if (gap <= -likely_gap_threshold) {
       # Needs far less than current pace -> likely OVER
       likely_list[[team]] <- "O"

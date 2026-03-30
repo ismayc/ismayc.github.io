@@ -50,11 +50,11 @@ function oppWinPct(oppName){
 }
 
 function isRestCandidate(oppName){
-  // Opponent has clinched their over/under AND is a strong team (>= .585 win%)
-  // These teams are likely playoff-bound with a comfortable seed and may rest starters late
+  // Uses the R-computed field: TRUE when a team has mathematically clinched
+  // its current top-6 conference seed (the team below can't catch them).
   var o=D.teams[oppName];
   if(!o)return false;
-  return o.det!=='not yet'&&o.winPct>=0.585;
+  return !!o.restCandidate;
 }
 
 function effWinPct(oppName){
@@ -292,7 +292,7 @@ function renderTab5(el){
   var h='<div class="section-title">Remaining Schedule Strength</div>';
   h+='<p style="font-size:12px;color:var(--t3);margin-bottom:6px">Opponent strength based on current win%. Click a team to expand its remaining games.</p>';
   h+='<p style="font-size:11px;color:var(--t3);margin-bottom:16px">';
-  h+='&#x1F4A4; = Opponent has clinched with a strong record and may rest starters. "Eff. Str." discounts these opponents by 15%.';
+  h+='&#x1F4A4; = Opponent has mathematically clinched their conference seed (top 6) and may rest starters. "Eff. Str." discounts these opponents by 15%.';
   h+='</p>';
 
   // Build rows for undecided teams
@@ -364,7 +364,7 @@ function renderTab5(el){
         h+='<span class="mono" style="font-size:11px;color:var(--t2)">'+oRec+'</span>';
         h+='<span class="mono" style="color:'+gc+'">.'+(Math.round(oWp*1000)+'').padStart(3,'0')+'</span>';
         h+='<span style="font-size:10px">';
-        if(rest)h+='<span style="color:var(--gold)" title="Clinched + strong record - may rest starters">&#x1F4A4; May rest</span>';
+        if(rest)h+='<span style="color:var(--gold)" title="Clinched conference seed - may rest starters">&#x1F4A4; May rest</span>';
         else h+='<span style="color:var(--t3)">'+wpLabel(oWp)+'</span>';
         h+='</span></div>';
       });
