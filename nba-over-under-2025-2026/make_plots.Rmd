@@ -17,12 +17,6 @@ knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = e
 </style>
 
 ```{r include=FALSE}
-#source("01-03.R")
-#Sys.setenv(RSTUDIO_PANDOC = "/Applications/RStudio.app/Contents/MacOS/pandoc")
-#Sys.setenv(RSTUDIO_PANDOC = "/usr/local/bin/pandoc")
-
-#remotes::install_github("https://github.com/abresler/nbastatR/commit/f528c9d555ce3baf58e45c6b44318d92faa26b25", force = TRUE)
-
 Sys.setenv("VROOM_CONNECTION_SIZE" = 2e6)
 
 library(httr)
@@ -55,10 +49,6 @@ reticulate::source_python('02b-get_game_scores.py')
 r_files2 <- c("02c-get-game-scores.R",
               "03-data-wrangling.R")
 purrr::walk(r_files2, source)
-
-source("05-playoff-seeding.R")
-source("06b-validate-seeding.R")
-seeded_standings <- compute_playoff_seeding(standings, scores_tidy, meta)
 
 knitr::opts_chunk$set(echo = FALSE)
 library(lubridate)
@@ -385,25 +375,10 @@ picks_wide <- picks %>%
     wins > win_projection ~ "OVER",
     losses > loss_projection ~ "UNDER",
     TRUE ~ NA_character_)) %>% 
-  left_join(
-    player_projections_by_team %>%
-      select(Date, Team, `Outcome Determined`) %>%
-      distinct() %>%
-      filter(`Outcome Determined` != "not yet") %>%
-      group_by(Team) %>%
-      summarize(clinch_date = min(Date), .groups = "drop"),
-    by = c("team" = "Team")
-  ) %>%
-  mutate(clinch_label = if_else(
-    !is.na(clinch_date),
-    format(clinch_date, "%b %d"),
-    NA_character_
-  )) %>%
-#  mutate(team = str_replace(team, " (?=Trail Blazers$|\\S+$)", "<br>")) %>%
   mutate(team = case_when(
-    outcome_determined == "OVER"  ~ paste0(team, " ", "\U2191 (" , clinch_label, ")"),
-    outcome_determined == "UNDER" ~ paste0(team, " ", "\U2193 (", clinch_label, ")"),
-    TRUE ~ team)) %>%
+    outcome_determined == "OVER" ~ paste(team, knitr::asis_output("\U2191")),
+    outcome_determined == "UNDER" ~ paste(team, knitr::asis_output("\U2193")),
+    TRUE ~ team)) %>% 
   separate(
     col = Chester, 
     into = c("Chester_points", "chester_choice"), 
@@ -516,13 +491,8 @@ for(i in (cols_to_delete - (num_players + 2)) ) {
   suppressWarnings(do_not_show_list[[i]]$visible <- FALSE)
 }
 
-do_not_show_list[[length(do_not_show_list) + 1]] <- list(
-  targets = 0,
-  className = "dt-nowrap"
-)
-
 #do_not_show_list[[33]] <- list(width = '180px', targets = 0)
-#do_not_show_list[[30]] <- list(width = '180px', targets = 0)
+do_not_show_list[[30]] <- list(width = '180px', targets = 0)
 
 point_levels <- rep(seq(15, 6, by = -1), 2) %>% 
   sort(decreasing = TRUE)
@@ -552,7 +522,7 @@ picks_wide %>%
     .funs = ~ factor(.x, levels = paste_levels)) %>% 
   #  purrr::map_df(rev) %>% 
   arrange(Team) %>% 
-  DT::datatable(rownames = FALSE, escape = FALSE, options = list(
+  DT::datatable(rownames = FALSE, options = list(
     pageLength = 30, dom = 'ft',
     autoWidth = TRUE, #scrollX = TRUE,
     columnDefs = do_not_show_list#,
@@ -823,45 +793,6 @@ if (nrow(rows_today)) {
 ```
 
 ```{r}
-# Detect teams that clinched OVER or UNDER yesterday
-clinched_yesterday <- player_projections_by_team %>%
-  select(Date, Team, `Outcome Determined`) %>%
-  distinct() %>%
-  group_by(Team) %>%
-  arrange(Date) %>%
-  mutate(prev_outcome = lag(`Outcome Determined`)) %>%
-  ungroup() %>%
-  filter(
-    Date == Sys.Date() - 1,
-    `Outcome Determined` != "not yet",
-    is.na(prev_outcome) | prev_outcome == "not yet"
-  ) %>%
-  select(Team, `Outcome Determined`)
-```
-
-```{r results="asis"}
-if (nrow(clinched_yesterday) > 0) {
-  cat("\n\n***\n\n")
-  cat("#### Teams that clinched yesterday\n\n")
-  for (i in seq_len(nrow(clinched_yesterday))) {
-    team <- clinched_yesterday$Team[i]
-    outcome <- clinched_yesterday$`Outcome Determined`[i]
-    if (outcome == "OVER") {
-      cat(paste0(
-        "- The **", team, 
-        "** clinched <span style='color:forestgreen;font-weight:bold;'>OVER</span> yesterday.\n"
-      ))
-    } else {
-      cat(paste0(
-        "- The **", team, 
-        "** clinched <span style='color:deeppink;font-weight:bold;'>UNDER</span> yesterday.\n"
-      ))
-    }
-  }
-}
-```
-
-```{r}
 yesterday_scores <- scores %>% 
   filter(game_date == Sys.Date() - 1) %>% 
   select(`Game Date` = game_date,
@@ -1023,6 +954,83 @@ if (nrow(todays_games)) {
 ### By conference {.tabset}
 
 Playoff seeds are determined using the [NBA's official tiebreaker procedures](https://ak-static-int.nba.com/wp-content/uploads/sites/2/2017/06/NBA_Tiebreaker_Procedures.pdf). Seeds 1-6 earn direct playoff spots; seeds 7-10 enter the Play-In Tournament. When all tiebreakers are exhausted, alphabetical order is used as a stand-in for the random drawing specified in the rules.
+
+```{r clinch-computation, include=FALSE}
+# ---------------------------------------------------------------------------
+# Compute playoff / play-in clinching and elimination status
+# ---------------------------------------------------------------------------
+# Key insight: teams_could_pass + 1 = the worst seed this team could fall to.
+# If only 0 opponents can exceed your worst case, you've clinched #1.
+# If only 3 can, you've clinched at worst #4 (home court in first round).
+#
+# Similarly: teams_guaranteed_ahead + 1 = the best seed this team can reach.
+# If 6+ opponents are guaranteed more wins, you can't crack the top 6.
+# ---------------------------------------------------------------------------
+
+clinch_data <- standings %>%
+  mutate(
+    games_played = wins + losses,
+    remaining = num_games - games_played,
+    max_wins = wins + remaining,
+    min_wins = wins
+  )
+
+clinch_cross <- clinch_data %>%
+  select(team_name, conference, max_wins, min_wins) %>%
+  inner_join(
+    clinch_data %>%
+      select(opp_team = team_name, opp_conf = conference,
+             opp_max = max_wins, opp_min = min_wins),
+    by = c("conference" = "opp_conf"),
+    relationship = "many-to-many"
+  ) %>%
+  filter(team_name != opp_team)
+
+clinch_summary <- clinch_cross %>%
+  group_by(team_name, conference, max_wins, min_wins) %>%
+  summarize(
+    teams_could_pass = sum(opp_max > min_wins),
+    teams_guaranteed_ahead = sum(opp_min > max_wins),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    # Worst possible seed = teams_could_pass + 1
+    # Best possible seed  = teams_guaranteed_ahead + 1
+    worst_possible_seed = teams_could_pass + 1L,
+    best_possible_seed  = teams_guaranteed_ahead + 1L,
+    seed_locked = (worst_possible_seed == best_possible_seed),
+    clinch_status = case_when(
+      seed_locked & worst_possible_seed <= 10 ~
+        paste0("Clinched #", worst_possible_seed),
+      worst_possible_seed == 1  ~ "Clinched #1",
+      worst_possible_seed <= 4  ~
+        paste0("Clinched #", worst_possible_seed, " or better"),
+      worst_possible_seed <= 6  ~ "x - Playoffs",
+      worst_possible_seed <= 10 ~ "pi - Play-In",
+      teams_guaranteed_ahead >= 10 ~ "e - Eliminated",
+      teams_guaranteed_ahead >= 6  ~ "o - Elim. Playoffs",
+      TRUE                         ~ NA_character_
+    )
+  ) %>%
+  select(team_name, clinch_status)
+
+# Merge clinching info into seeded_standings, replacing the seed_note
+# when a team has clinched or been eliminated
+seeded_standings <- seeded_standings %>%
+  left_join(clinch_summary, by = "team_name") %>%
+  mutate(seed_note = case_when(
+    !is.na(clinch_status) ~ clinch_status,
+    TRUE                  ~ seed_note
+  )) %>%
+  select(-clinch_status)
+```
+
+**Legend:** **Clinched #N** = seed locked in &nbsp;|&nbsp;
+**Clinched #N or better** = guaranteed seed N or better &nbsp;|&nbsp;
+**x** = clinched playoff berth &nbsp;|&nbsp;
+**pi** = clinched play-in spot &nbsp;|&nbsp;
+**o** = eliminated from playoff contention &nbsp;|&nbsp;
+**e** = eliminated from postseason
 
 #### Western
 
