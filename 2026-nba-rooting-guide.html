@@ -195,11 +195,25 @@ function renderTab3(el){
     h+='<div style="display:flex;align-items:center"><div style="width:100%;height:14px;border-radius:3px;overflow:hidden;background:var(--border)"><div style="width:'+fill+'%;height:100%;background:'+barCol+';border-radius:3px;transition:width .3s"></div></div></div>';
     h+='<span class="mono" style="text-align:center;color:'+dc+';font-size:11px">'+dl+'</span></div>';
   });
-  var close=undecided.filter(function(t){return Math.abs(t.gap)<5});
+  // Razor-thin margins with adaptive toggle
+  var maxRem=Math.max.apply(null,undecided.map(function(t){return t.rem||0}));
+  var adaptiveThreshold=Math.max(1,Math.round(maxRem*0.08));
+  var threshold=razorAdaptive?adaptiveThreshold:5;
+  var close=undecided.filter(function(t){return Math.abs(t.gap)<threshold});
+  h+='<div style="display:flex;align-items:center;gap:12px;margin-top:24px;margin-bottom:8px">';
+  h+='<div class="section-title" style="margin:0">Razor-thin margins</div>';
+  h+='<div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--t2)">';
+  h+='<button onclick="toggleRazor()" style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:8px;border:1px solid var(--border);background:'+(razorAdaptive?'var(--card)':'transparent')+';cursor:pointer;font-size:11px;color:'+(razorAdaptive?'var(--t1)':'var(--t3)')+';font-weight:'+(razorAdaptive?'600':'400')+'">';
+  h+='<span style="display:inline-block;width:28px;height:16px;border-radius:8px;background:'+(razorAdaptive?'var(--over)':'var(--border)')+';position:relative;transition:background .2s"><span style="display:block;width:12px;height:12px;border-radius:50%;background:#fff;position:absolute;top:2px;'+(razorAdaptive?'right:2px':'left:2px')+';transition:all .2s"></span></span>';
+  h+='Adaptive</button>';
+  h+='<span style="font-size:11px;color:var(--t3)">'+(razorAdaptive?'Within '+threshold+' wins (scales with '+maxRem+' games left)':'Fixed: within 5 wins of target')+'</span>';
+  h+='</div></div>';
   if(close.length){
-    h+='<div class="section-title" style="margin-top:24px">Razor-thin margins (pace within 5 wins of target)</div><div style="display:flex;flex-wrap:wrap;gap:6px">';
+    h+='<div style="display:flex;flex-wrap:wrap;gap:6px">';
     close.forEach(function(t){h+='<span class="chip chip-'+(t.gap>0?'o':'u')+'">'+sn(t.name)+': '+(t.gap>0?'+':'')+t.gap.toFixed(1)+' '+(t.gap>0?'over':'under')+' pace</span>'});
     h+='</div>';
+  } else {
+    h+='<p style="font-size:12px;color:var(--t3);margin-top:4px">No teams within the current threshold.</p>';
   }
   el.innerHTML=h;
 }
@@ -239,6 +253,8 @@ function renderTab4(el,player){
   el.innerHTML=h;
 }
 
+var razorAdaptive=true;
+function toggleRazor(){razorAdaptive=!razorAdaptive;renderAll()}
 var tabDefs=[
   {id:'rooting',label:'Rooting Guide',needsPlayer:true,render:renderTab1},
   {id:'tonight',label:"Tonight's Games",needsPlayer:false,render:renderTab2},
