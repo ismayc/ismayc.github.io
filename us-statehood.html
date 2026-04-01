@@ -598,7 +598,7 @@ function buildMap() {
     .attr('data-fips', d => d.id)
     .on('mouseenter', function(event, d) {
       const info = STATES[d.id];
-      if (info && info.order <= currentStep) {
+      if (info) {
         hoveredState = d.id;
         updateInfoPanel(d.id);
       }
@@ -687,7 +687,7 @@ function updateInfoPanel(fips) {
   const orderEl = document.getElementById('info-order');
   const eraEl = document.getElementById('info-era');
 
-  if (!fips || !STATES[fips] || STATES[fips].order > currentStep) {
+  if (!fips || !STATES[fips]) {
     panel.classList.add('empty');
     nameEl.textContent = currentStep === 0 ? 'Press play to begin' : 'Hover over a state';
     dateEl.textContent = currentStep === 0 ? 'or drag the timeline' : '';
@@ -698,11 +698,19 @@ function updateInfoPanel(fips) {
 
   const info = STATES[fips];
   const era = getEra(info.order);
+  const admitted = info.order <= currentStep;
   panel.classList.remove('empty');
   nameEl.textContent = info.name;
   dateEl.textContent = info.date;
   orderEl.textContent = `#${info.order}`;
   eraEl.innerHTML = `<span class="era-dot" style="background:${era.color}"></span>${era.name}`;
+
+  if (!admitted) {
+    nameEl.style.opacity = '0.55';
+    dateEl.textContent = info.date + ' (upcoming)';
+  } else {
+    nameEl.style.opacity = '1';
+  }
 }
 
 // ── Controls ──
