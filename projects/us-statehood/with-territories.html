@@ -142,14 +142,17 @@ header .subtitle { font-size:clamp(10px,1.5vw,13px); color:var(--parchment-dim);
 
 /* ── Event banner ── */
 #event-banner {
-  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-  font-family:'Playfair Display',serif; font-size:clamp(16px,3vw,28px);
+  position:absolute; top:6px; left:50%; transform:translateX(-50%);
+  font-family:'Playfair Display',serif; font-size:clamp(14px,2.2vw,22px);
   color:var(--gold-bright); text-align:center;
   pointer-events:none; opacity:0;
   text-transform:uppercase; letter-spacing:4px;
-  text-shadow: 0 0 30px rgba(201,168,76,0.4);
+  text-shadow: 0 0 20px rgba(201,168,76,0.4);
   transition: opacity 0.6s ease;
-  line-height:1.4;
+  line-height:1.4; z-index:10;
+  background:rgba(20,17,16,0.85); padding:6px 20px; border-radius:4px;
+  border:1px solid rgba(201,168,76,0.25);
+  white-space:nowrap;
 }
 #event-banner.visible { opacity:1; }
 #event-banner .event-year {
