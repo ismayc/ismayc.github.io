@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sequence - 3 Player Simulation</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{min-height:100vh;background:linear-gradient(160deg,#0f172a 0%,#1e293b 100%);
+    font-family:'Outfit',system-ui,sans-serif;color:#e2e8f0;
+    display:flex;flex-direction:column;align-items:center;padding:12px 8px}
+  @keyframes chipPop{0%{transform:scale(0)}60%{transform:scale(1.3)}100%{transform:scale(1)}}
+  @keyframes pulseHL{0%,100%{box-shadow:0 0 4px rgba(250,204,21,.6)}50%{box-shadow:0 0 14px rgba(250,204,21,1)}}
+  .cell{transition:transform .12s ease;cursor:default;width:100%;aspect-ratio:1;min-width:35px;
+    border-radius:5px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}
+  .cell:hover{transform:scale(1.12);z-index:10}
+  .btn{cursor:pointer;border:none;border-radius:8px;font-family:'Outfit',sans-serif;
+    font-weight:700;transition:all .12s ease;padding:7px 12px;font-size:12px;color:#e2e8f0;background:#334155}
+  .btn:hover{transform:translateY(-1px);filter:brightness(1.12)}
+  .btn:active{transform:translateY(0)}
+  .card-lbl{font-weight:700;font-family:'JetBrains Mono',monospace;line-height:1}
+  h1{font-family:'Outfit';font-size:26px;font-weight:800;letter-spacing:-.5px;
+    background:linear-gradient(135deg,#f0f0f0,#94a3b8);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  #players{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;justify-content:center}
+  .player-box{border-radius:10px;padding:6px 10px;min-width:140px;transition:all .25s ease}
+  .hand-cards{display:flex;gap:3px;flex-wrap:wrap}
+  .hand-card{background:#fff;border:1px solid #d1d5db;border-radius:4px;padding:2px 5px}
+  #board-wrap{background:rgba(0,0,0,.25);border-radius:12px;padding:6px;
+    border:1px solid rgba(255,255,255,.08);box-shadow:0 6px 24px rgba(0,0,0,.4);margin-bottom:10px;overflow-x:auto}
+  #board{display:grid;grid-template-columns:repeat(10,1fr);gap:2.5px;min-width:370px}
+  #controls{display:flex;gap:6px;margin-bottom:8px;align-items:center;flex-wrap:wrap;justify-content:center}
+  #info{display:flex;gap:14px;align-items:center;margin-bottom:8px;font-size:11px;color:#94a3b8}
+  #legend{display:flex;gap:10px;margin-bottom:8px;font-size:10px;color:#94a3b8;flex-wrap:wrap;justify-content:center}
+  #log{background:rgba(0,0,0,.3);border-radius:10px;border:1px solid rgba(255,255,255,.06);
+    padding:10px;max-height:140px;overflow-y:auto;width:100%;max-width:620px}
+  .log-line{font-size:11px;font-family:'JetBrains Mono',monospace;padding:2px 0;border-bottom:1px solid rgba(255,255,255,.03)}
+  #winner-banner{margin-top:12px;padding:10px 22px;border-radius:12px;font-family:'Outfit';
+    font-size:17px;font-weight:800;text-align:center;display:none}
+  .chip{width:14px;height:14px;border-radius:50%;margin-top:1px}
+  .corner-chip{width:13px;height:13px;border-radius:50%;margin-top:1px;
+    background:radial-gradient(circle at 38% 35%,#fcd34d,#b45309);border:2px solid #d97706;box-shadow:0 0 4px rgba(251,191,36,.4)}
+  .lock-icon{position:absolute;top:1px;right:2px;font-size:7px;line-height:1;opacity:.7}
+  #speed-slider{width:90px;accent-color:#22c55e}
+</style>
+</head>
+<body>
+
+<div style="text-align:center;margin-bottom:8px">
+  <h1>♠ SEQUENCE ♦</h1>
+  <p style="font-size:11px;color:#64748b;margin-top:2px">3-Player &middot; Official Rules &middot; 1 Sequence to Win</p>
+</div>
+
+<div id="players"></div>
+<div id="board-wrap"><div id="board"></div></div>
+
+<div id="controls">
+  <button class="btn" onclick="goStart()">⏮ Start</button>
+  <button class="btn" id="btnBack" onclick="goBack()">◀ Back</button>
+  <button class="btn" id="btnPlay" onclick="togglePlay()" style="padding:7px 18px;font-size:13px">▶ Play</button>
+  <button class="btn" id="btnNext" onclick="goNext()">Next ▶</button>
+  <button class="btn" onclick="goEnd()">End ⏭</button>
+  <button class="btn" onclick="newGame()" style="background:linear-gradient(135deg,#0ea5e9,#38bdf8);color:#fff">🔄 New</button>
+</div>
+
+<div id="info">
+  <span>Speed:</span>
+  <input type="range" id="speed-slider" min="50" max="800" step="50" value="550" oninput="onSpeedChange(this.value)">
+  <span id="turnInfo" style="color:#64748b"></span>
+  <span id="deckInfo" style="color:#64748b"></span>
+  <span id="discInfo" style="color:#64748b"></span>
+</div>
+
+<div id="legend">
+  <span>★ Free corner</span>
+  <span>🔒 Protected (completed sequence)</span>
+  <span>JD/JC = Wild</span>
+  <span>JS/JH = Remove chip</span>
+</div>
+
+<div id="log"></div>
+<div id="winner-banner"></div>
+
+<script>
+// ===== CONSTANTS =====
+const OFFICIAL_BOARD=[
+  ["FREE","2S","3S","4S","5S","6S","7S","8S","9S","FREE"],
+  ["6C","5C","4C","3C","2C","AH","KH","QH","10H","10S"],
+  ["7C","AS","2D","3D","4D","5D","6D","7D","9H","QS"],
+  ["8C","KS","6C","5C","4C","3C","2C","8D","8H","KS"],
+  ["9C","QS","7C","6H","5H","4H","AH","9D","7H","AS"],
+  ["10C","10S","8C","7H","2H","3H","KH","10D","6H","2D"],
+  ["QC","9S","9C","8H","9H","10H","QH","QD","5H","3D"],
+  ["KC","8S","10C","QC","KC","AC","AD","KD","4H","4D"],
+  ["AC","7S","6S","5S","4S","3S","2S","2H","3H","5D"],
+  ["FREE","AD","KD","QD","10D","9D","8D","7D","6D","FREE"]
+];
+const SUITS=["S","D","C","H"],SUIT_SYM={S:"♠",D:"♦",C:"♣",H:"♥"};
+const SUIT_CLR={S:"#1e293b",D:"#dc2626",C:"#1e293b",H:"#dc2626"};
+const RANKS=["2","3","4","5","6","7","8","9","10","Q","K","A"];
+const PC=["#16a34a","#2563eb","#dc2626"],PN=["Green","Blue","Red"];
+const PCB=["radial-gradient(circle at 38% 35%,#4ade80,#15803d)",
+  "radial-gradient(circle at 38% 35%,#60a5fa,#1d4ed8)",
+  "radial-gradient(circle at 38% 35%,#f87171,#b91c1c)"];
+
+function cardRank(c){return c.replace(/[SDCH]/g,"")}
+function cardSuit(c){return c[c.length-1]}
+function isTEJ(c){return c==="JD"||c==="JC"}
+function isOEJ(c){return c==="JS"||c==="JH"}
+function makeRng(seed){let s=seed;return()=>{s=(s*16807)%2147483647;return(s-1)/2147483646}}
+function seededShuffle(a,rng){a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(rng()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+
+// ===== GAME GENERATION =====
+function generateGame(seed){
+  const rng=makeRng(seed||Math.floor(Math.random()*2147483646)+1);
+  const board=OFFICIAL_BOARD;
+  const dc=[];for(const s of SUITS)for(const r of[...RANKS,"J"])dc.push(r+s);
+  let deck=seededShuffle([...dc,...dc],rng);
+  const chips=Array.from({length:10},()=>Array(10).fill(0));
+  for(const[r,c]of[[0,0],[0,9],[9,0],[9,9]])chips[r][c]=9;
+  const locked=Array.from({length:10},()=>Array(10).fill(false));
+  let disc=[];
+  const hands=[[],[],[]];for(let p=0;p<3;p++)hands[p]=deck.splice(0,7);
+
+  function getPos(card){
+    const pos=[];
+    if(isTEJ(card)){for(let r=0;r<10;r++)for(let c=0;c<10;c++)if(chips[r][c]===0)pos.push([r,c]);return pos}
+    if(isOEJ(card)){for(let r=0;r<10;r++)for(let c=0;c<10;c++)if(chips[r][c]>0&&chips[r][c]<9&&!locked[r][c])pos.push([r,c]);return pos}
+    for(let r=0;r<10;r++)for(let c=0;c<10;c++)if(board[r][c]===card&&chips[r][c]===0)pos.push([r,c]);return pos}
+  function isDead(card){if(isTEJ(card)||isOEJ(card))return false;for(let r=0;r<10;r++)for(let c=0;c<10;c++)if(board[r][c]===card&&chips[r][c]===0)return false;return true}
+  function draw(){if(deck.length===0){if(disc.length===0)return null;deck=seededShuffle([...disc],rng);disc=[]}return deck.shift()}
+  const DIRS=[[0,1],[1,0],[1,1],[1,-1]];
+  function findLock(player){const sq=[];for(let r=0;r<10;r++)for(let c=0;c<10;c++)for(const d of DIRS){const cells=[];for(let s=0;s<5;s++){const rr=r+d[0]*s,cc=c+d[1]*s;if(rr<0||rr>=10||cc<0||cc>=10)break;const v=chips[rr][cc];if(v===player||v===9)cells.push([rr,cc]);else break}if(cells.length>=5)sq.push(cells)}for(const s of sq)for(const[r,c]of s)locked[r][c]=true;return sq.length>0}
+  function bestPos(positions,player){if(!positions.length)return null;if(positions.length===1)return positions[0];let best=positions[0],bs=-1;for(const[r,c]of positions){let sc=0;for(const d of DIRS){let run=1;for(const sign of[1,-1])for(let step=1;step<=4;step++){const rr=r+d[0]*step*sign,cc=c+d[1]*step*sign;if(rr<0||rr>=10||cc<0||cc>=10)break;const v=chips[rr][cc];if(v===player||v===9)run++;else break}sc=Math.max(sc,run)}if(sc>bs){bs=sc;best=[r,c]}}return best}
+
+  const states=[],snap=()=>({chips:chips.map(r=>[...r]),locked:locked.map(r=>[...r]),hands:hands.map(h=>[...h]),deckSize:deck.length,discardSize:disc.length});
+  states.push({...snap(),log:"Game begins! 7 cards dealt to each player.",player:-1,card:null,pos:null,action:"start",winner:null,highlight:null});
+
+  let turn=0;
+  outer:while(turn<600){for(let p=0;p<3;p++){turn++;if(turn>600)break outer;const hand=hands[p];
+    for(let ci=0;ci<hand.length;ci++){const card=hand[ci];if(!isTEJ(card)&&!isOEJ(card)&&isDead(card)){disc.push(card);const nc=draw();if(nc)hand[ci]=nc;else hand.splice(ci,1);states.push({...snap(),log:`${PN[p]} discards dead card ${card}, draws replacement.`,player:p,card,pos:null,action:"dead",winner:null,highlight:null});break}}
+    let played=false;for(let ci=0;ci<hand.length;ci++){const card=hand[ci];const positions=getPos(card);if(!positions.length)continue;let pos,log,action;
+      if(isOEJ(card)){const opp=positions.filter(([r,c])=>chips[r][c]!==(p+1));if(!opp.length)continue;let bt=opp[0],bth=0;for(const[r,c]of opp){const ow=chips[r][c];let th=0;for(const d of DIRS){let run=0;for(const sign of[1,-1])for(let st=0;st<=4;st++){const rr=r+d[0]*st*sign,cc=c+d[1]*st*sign;if(rr<0||rr>=10||cc<0||cc>=10)break;if(chips[rr][cc]===ow||chips[rr][cc]===9)run++;else break}th=Math.max(th,run)}if(th>bth){bth=th;bt=[r,c]}}pos=bt;const rem=chips[pos[0]][pos[1]];chips[pos[0]][pos[1]]=0;log=`${PN[p]} plays ${card} (one-eyed Jack) to remove ${PN[rem-1]}'s chip at [${pos[0]+1},${pos[1]+1}]`;action="remove"}
+      else{pos=bestPos(positions,p+1);chips[pos[0]][pos[1]]=p+1;log=`${PN[p]} plays ${card} at [${pos[0]+1},${pos[1]+1}] (${board[pos[0]][pos[1]]})`;action="place"}
+      disc.push(card);const nc=draw();if(nc)hand[ci]=nc;else hand.splice(ci,1);const won=findLock(p+1);states.push({...snap(),log,player:p,card,pos,action,winner:won?p:null,highlight:pos});if(won)break outer;played=true;break}
+    if(!played&&states[states.length-1].action!=="dead")states.push({...snap(),log:`${PN[p]} passes (no playable move).`,player:p,card:null,pos:null,action:"pass",winner:null,highlight:null})}}
+  return{board,states}}
+
+// ===== RENDERING =====
+let game,step=0,autoPlay=false,speed=300,timer=null;
+
+function cardLabel(card,small){
+  if(!card||card==="FREE")return`<span style="font-size:${small?8:10}px;font-weight:700;color:#d97706;font-family:'Outfit'">★</span>`;
+  const r=cardRank(card),s=cardSuit(card);
+  return`<span class="card-lbl" style="font-size:${small?9:11}px;color:${SUIT_CLR[s]}">${r}<span style="font-size:${small?8:10}px">${SUIT_SYM[s]}</span></span>`}
+
+function render(){
+  const st=game.states[step],board=game.board,isEnd=step>=game.states.length-1;
+
+  // Players
+  let ph="";for(let p=0;p<3;p++){
+    const active=st.player===p,win=st.winner===p;
+    ph+=`<div class="player-box" style="background:${active?PC[p]+"18":"rgba(255,255,255,0.03)"};border:2px solid ${active?PC[p]:"rgba(255,255,255,0.07)"}">
+      <div style="display:flex;align-items:center;gap:5px;margin-bottom:4px">
+        <div style="width:10px;height:10px;border-radius:50%;background:${PC[p]};box-shadow:${active?"0 0 8px "+PC[p]:"none"}"></div>
+        <span style="font-family:'Outfit';font-weight:700;font-size:12px;color:${active?PC[p]:"#94a3b8"}">${PN[p]}${win?" - WINNER! 🏆":""}</span>
+        <span style="font-size:10px;color:#64748b">(${(st.hands[p]||[]).length})</span>
+      </div><div class="hand-cards">`;
+    for(const card of(st.hands[p]||[])){
+      const hl=st.card===card&&st.player===p;
+      ph+=`<div class="hand-card" style="background:${hl?"#fffbeb":"#fff"};border:${hl?"1.5px solid "+PC[p]:"1px solid #d1d5db"}">${cardLabel(card,true)}</div>`}
+    ph+=`</div></div>`}
+  document.getElementById("players").innerHTML=ph;
+
+  // Board
+  let bh="";for(let r=0;r<10;r++)for(let c=0;c<10;c++){
+    const cell=board[r][c],chip=st.chips[r][c],isHL=st.highlight&&st.highlight[0]===r&&st.highlight[1]===c,
+      isFree=cell==="FREE",isLk=st.locked[r][c];
+    const bg=isFree?"linear-gradient(135deg,#fef3c7,#fde68a)":"#ffffff";
+    const bdr=isHL?"2.5px solid #facc15":isFree?"1.5px solid #d97706":chip>0&&chip<9?`1.5px solid ${PC[chip-1]}55`:"1px solid #d1d5db";
+    const anim=isHL?"pulseHL 1s infinite":"none";
+    bh+=`<div class="cell" style="background:${bg};border:${bdr};animation:${anim}">`;
+    bh+=cardLabel(cell,true);
+    if(chip>0&&chip<9)bh+=`<div class="chip" style="background:${PCB[chip-1]};border:2px solid ${PC[chip-1]};box-shadow:0 0 ${isLk?8:4}px ${PC[chip-1]}${isLk?"88":"44"};animation:${isHL?"chipPop .35s ease":"none"}"></div>`;
+    if(chip===9)bh+=`<div class="corner-chip"></div>`;
+    if(isLk&&chip>0&&chip<9)bh+=`<div class="lock-icon" style="color:${PC[chip-1]}">🔒</div>`;
+    bh+=`</div>`}
+  document.getElementById("board").innerHTML=bh;
+
+  // Controls state
+  document.getElementById("btnBack").style.opacity=step===0?"0.4":"1";
+  document.getElementById("btnNext").style.opacity=isEnd?"0.4":"1";
+  const bp=document.getElementById("btnPlay");
+  bp.textContent=autoPlay?"⏸ Pause":"▶ Play";
+  bp.style.background=autoPlay?"#dc2626":"linear-gradient(135deg,#16a34a,#22c55e)";
+  bp.style.color="#fff";
+
+  // Info
+  document.getElementById("turnInfo").textContent=`Turn ${step} / ${game.states.length-1}`;
+  document.getElementById("deckInfo").textContent=`Deck: ${st.deckSize}`;
+  document.getElementById("discInfo").textContent=`Discard: ${st.discardSize}`;
+
+  // Log
+  const logEl=document.getElementById("log");let lh="";
+  for(let i=0;i<=step;i++){const s=game.states[i];
+    const clr=s.winner!==null?"#fbbf24":s.player>=0?PC[s.player]+"cc":"#64748b";
+    const fw=s.winner!==null?700:400;
+    lh+=`<div class="log-line" style="color:${clr};font-weight:${fw}">${s.winner!==null?"🏆 ":""}${s.log}</div>`}
+  logEl.innerHTML=lh;logEl.scrollTop=logEl.scrollHeight;
+
+  // Winner banner
+  const wb=document.getElementById("winner-banner");
+  if(st.winner!==null){wb.style.display="block";wb.style.background=PC[st.winner]+"22";
+    wb.style.border=`2px solid ${PC[st.winner]}`;wb.style.color=PC[st.winner];
+    wb.textContent=`🏆 ${PN[st.winner]} wins in ${step} turns!`}
+  else wb.style.display="none"}
+
+function newGame(){stopAuto();const seed=Math.floor(Math.random()*2147483646)+1;game=generateGame(seed);step=0;render()}
+function goStart(){stopAuto();step=0;render()}
+function goBack(){if(step>0){step--;render()}}
+function goNext(){if(step<game.states.length-1){step++;render()}}
+function goEnd(){stopAuto();step=game.states.length-1;render()}
+function stopAuto(){autoPlay=false;if(timer){clearInterval(timer);timer=null}}
+function togglePlay(){if(autoPlay){stopAuto();render()}else if(step<game.states.length-1){autoPlay=true;render();timer=setInterval(()=>{if(step>=game.states.length-1){stopAuto();render();return}step++;render()},speed)}}
+function onSpeedChange(v){speed=800-Number(v)+50;if(autoPlay){clearInterval(timer);timer=setInterval(()=>{if(step>=game.states.length-1){stopAuto();render();return}step++;render()},speed)}}
+
+newGame();
+</script>
+</body>
+</html>

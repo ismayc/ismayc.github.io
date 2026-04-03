@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Growth of a Nation</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root {
+  --bg: #141110;
+  --parchment: #e8dcc8;
+  --parchment-dim: #c4b89e;
+  --gold: #c9a84c;
+  --gold-bright: #e8c55a;
+  --border: rgba(201,168,76,0.2);
+  --territory: rgba(201,168,76,0.08);
+  --territory-stroke: rgba(201,168,76,0.35);
+  --acquired: rgba(255,255,255,0.035);
+  --acquired-stroke: rgba(255,255,255,0.12);
+}
+
+html, body { height:100%; overflow:hidden; background:var(--bg); color:var(--parchment); font-family:'Crimson Pro',serif; }
+
+#app { display:flex; flex-direction:column; height:100vh; padding:12px 20px 10px; }
+
+header { text-align:center; padding-bottom:8px; border-bottom:1px solid var(--border); flex-shrink:0; }
+header h1 { font-family:'Playfair Display',serif; font-weight:900; font-size:clamp(18px,3vw,28px); color:var(--gold); letter-spacing:3px; text-transform:uppercase; }
+header .subtitle { font-size:clamp(10px,1.5vw,13px); color:var(--parchment-dim); letter-spacing:6px; text-transform:uppercase; margin-top:2px; font-weight:300; }
+
+#map-area { flex:1; position:relative; min-height:0; display:flex; align-items:center; justify-content:center; }
+#map-area svg { width:100%; height:100%; }
+
+/* ── State path styles ── */
+.state-path {
+  fill: transparent; stroke: transparent; stroke-width:0;
+  cursor: pointer; transition: fill 0.6s ease, stroke 0.4s ease;
+}
+.state-path.acquired {
+  fill: var(--acquired);
+  stroke: var(--acquired-stroke);
+  stroke-width: 0.5;
+}
+.state-path.territory-solo {
+  fill: var(--territory);
+  stroke: var(--territory-stroke);
+  stroke-width: 1;
+  stroke-dasharray: 4 3;
+}
+.state-path.territory-grouped {
+  fill: var(--territory);
+  stroke: rgba(201,168,76,0.12);
+  stroke-width: 0.5;
+  stroke-dasharray: 2 2;
+}
+.state-path.acquired-grouped {
+  fill: var(--acquired);
+  stroke: rgba(255,255,255,0.05);
+  stroke-width: 0.3;
+}
+.state-path.admitted {
+  stroke: rgba(255,255,255,0.25);
+  stroke-width: 0.7;
+  stroke-dasharray: none;
+}
+.state-path.current-highlight {
+  stroke: var(--gold-bright);
+  stroke-width: 2;
+  stroke-dasharray: none;
+  filter: drop-shadow(0 0 6px rgba(201,168,76,0.5));
+}
+.state-path:hover {
+  stroke: var(--gold); stroke-width:1.5; filter:brightness(1.2);
+}
+
+/* ── Merged outlines ── */
+.territory-merged {
+  fill: none; stroke: var(--territory-stroke);
+  stroke-width: 1.2; stroke-dasharray: 5 3;
+  pointer-events: none;
+}
+.acquisition-merged {
+  fill: none; stroke: rgba(255,255,255,0.15);
+  stroke-width: 0.8; stroke-dasharray: none;
+  pointer-events: none;
+}
+
+/* ── Labels ── */
+.state-label {
+  font-family:'Crimson Pro',serif; font-size:8px;
+  fill:rgba(255,255,255,0.7); text-anchor:middle;
+  pointer-events:none; opacity:0; transition:opacity 0.6s ease; font-weight:600;
+}
+.state-label.visible { opacity:1; }
+
+.territory-name-label {
+  font-family:'Playfair Display',serif; font-size:9px;
+  fill:rgba(201,168,76,0.45); text-anchor:middle;
+  pointer-events:none; opacity:0; transition:opacity 0.6s ease;
+  letter-spacing:2px; text-transform:uppercase;
+}
+.territory-name-label.visible { opacity:1; }
+
+.acquisition-name-label {
+  font-family:'Playfair Display',serif; font-size:10px;
+  fill:rgba(255,255,255,0.18); text-anchor:middle;
+  pointer-events:none; opacity:0; transition:opacity 0.6s ease;
+  letter-spacing:3px; text-transform:uppercase;
+}
+.acquisition-name-label.visible { opacity:1; }
+
+.territory-abbr-label {
+  font-family:'Crimson Pro',serif; font-size:7px;
+  fill:rgba(201,168,76,0.4); text-anchor:middle;
+  pointer-events:none; opacity:0; transition:opacity 0.6s ease; font-style:italic;
+}
+.territory-abbr-label.visible { opacity:1; }
+
+/* ── Info panel ── */
+#info-panel {
+  position:absolute; top:12px; right:12px;
+  background:rgba(20,17,16,0.92); border:1px solid var(--border);
+  border-radius:4px; padding:14px 18px;
+  min-width:220px; max-width:280px;
+  backdrop-filter:blur(10px); transition:opacity 0.4s ease;
+}
+#info-panel.empty { opacity:0.4; }
+#info-panel .state-name { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:var(--gold); line-height:1.2; }
+#info-panel .order-num { font-size:36px; font-family:'Playfair Display',serif; font-weight:900; color:var(--gold-bright); opacity:0.25; position:absolute; top:8px; right:14px; line-height:1; }
+#info-panel .date { font-size:14px; color:var(--parchment-dim); margin-top:4px; font-style:italic; }
+#info-panel .territory-info { font-size:12px; color:var(--parchment-dim); margin-top:6px; padding-top:6px; border-top:1px solid var(--border); line-height:1.5; }
+#info-panel .territory-info .terr-name { color:var(--gold); font-weight:600; }
+#info-panel .status-badge { display:inline-block; font-size:9px; text-transform:uppercase; letter-spacing:1.5px; padding:2px 8px; border-radius:3px; margin-top:6px; font-weight:600; }
+#info-panel .status-badge.state-badge { background:rgba(201,168,76,0.15); color:var(--gold); border:1px solid rgba(201,168,76,0.3); }
+#info-panel .status-badge.territory-badge { background:rgba(201,168,76,0.08); color:var(--parchment-dim); border:1px dashed rgba(201,168,76,0.3); }
+#info-panel .status-badge.acquired-badge { background:rgba(255,255,255,0.04); color:rgba(255,255,255,0.45); border:1px solid rgba(255,255,255,0.12); }
+#info-panel .status-badge.future-badge { background:rgba(255,255,255,0.02); color:rgba(255,255,255,0.25); border:1px solid rgba(255,255,255,0.06); }
+#info-panel .era-label { font-size:11px; text-transform:uppercase; letter-spacing:2px; margin-top:8px; padding-top:8px; border-top:1px solid var(--border); color:var(--parchment-dim); }
+#info-panel .era-dot { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:6px; vertical-align:middle; }
+
+/* ── Event banner ── */
+#event-banner {
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  font-family:'Playfair Display',serif; font-size:clamp(16px,3vw,28px);
+  color:var(--gold-bright); text-align:center;
+  pointer-events:none; opacity:0;
+  text-transform:uppercase; letter-spacing:4px;
+  text-shadow: 0 0 30px rgba(201,168,76,0.4);
+  transition: opacity 0.6s ease;
+  line-height:1.4;
+}
+#event-banner.visible { opacity:1; }
+#event-banner .event-year {
+  font-size:0.6em; display:block;
+  color:var(--parchment-dim); letter-spacing:6px;
+  margin-top:4px;
+}
+
+/* ── Controls ── */
+#controls { flex-shrink:0; padding:10px 0 4px; border-top:1px solid var(--border); }
+#timeline-row { display:flex; align-items:center; gap:12px; margin-bottom:8px; }
+#play-btn { background:none; border:1px solid var(--gold); color:var(--gold); width:36px; height:36px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:14px; transition:all 0.2s; flex-shrink:0; }
+#play-btn:hover { background:var(--gold); color:var(--bg); }
+#slider { flex:1; -webkit-appearance:none; appearance:none; height:3px; background:rgba(201,168,76,0.2); border-radius:2px; outline:none; }
+#slider::-webkit-slider-thumb { -webkit-appearance:none; width:16px; height:16px; border-radius:50%; background:var(--gold); cursor:pointer; border:2px solid var(--bg); box-shadow:0 0 6px rgba(201,168,76,0.4); }
+#slider::-moz-range-thumb { width:16px; height:16px; border-radius:50%; background:var(--gold); cursor:pointer; border:2px solid var(--bg); }
+#step-label { font-family:'Playfair Display',serif; font-size:14px; color:var(--gold); min-width:50px; text-align:right; flex-shrink:0; }
+
+#speed-row { display:flex; justify-content:space-between; align-items:center; }
+.speed-controls { display:flex; gap:6px; align-items:center; }
+.speed-controls span { font-size:11px; color:var(--parchment-dim); letter-spacing:1px; text-transform:uppercase; }
+.speed-btn { background:none; border:1px solid rgba(201,168,76,0.3); color:var(--parchment-dim); padding:2px 10px; border-radius:3px; cursor:pointer; font-family:'Crimson Pro',serif; font-size:12px; transition:all 0.2s; }
+.speed-btn:hover, .speed-btn.active { border-color:var(--gold); color:var(--gold); background:rgba(201,168,76,0.1); }
+
+#legend { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+#legend .leg-item { display:flex; align-items:center; gap:4px; font-size:10px; color:var(--parchment-dim); letter-spacing:0.5px; }
+#legend .leg-swatch { width:10px; height:10px; border-radius:2px; flex-shrink:0; }
+#legend .leg-swatch-territory { width:10px; height:10px; border-radius:2px; flex-shrink:0; border:1px dashed var(--territory-stroke); background:var(--territory); }
+#legend .leg-swatch-acquired { width:10px; height:10px; border-radius:2px; flex-shrink:0; border:1px solid var(--acquired-stroke); background:var(--acquired); }
+
+#year-display { position:absolute; bottom:10px; left:12px; font-family:'Playfair Display',serif; font-size:clamp(32px,6vw,64px); font-weight:900; color:var(--gold); opacity:0.12; line-height:1; pointer-events:none; }
+
+#loading { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:16px; background:var(--bg); z-index:100; }
+#loading .spinner { width:40px; height:40px; border:2px solid var(--border); border-top-color:var(--gold); border-radius:50%; animation:spin 1s linear infinite; }
+@keyframes spin { to{transform:rotate(360deg)} }
+#loading p { color:var(--parchment-dim); font-size:14px; letter-spacing:2px; text-transform:uppercase; }
+#error-msg { display:none; position:absolute; inset:0; align-items:center; justify-content:center; flex-direction:column; gap:12px; background:var(--bg); z-index:100; text-align:center; padding:40px; }
+#error-msg h2 { font-family:'Playfair Display',serif; color:var(--gold); }
+#error-msg p { color:var(--parchment-dim); }
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <h1>The Growth of a Nation</h1>
+    <div class="subtitle">Acquisitions, Territories &amp; Statehood</div>
+  </header>
+  <div id="map-area">
+    <div id="loading"><div class="spinner"></div><p>Drawing the republic...</p></div>
+    <div id="error-msg"><h2>Map data unavailable</h2><p>Could not load geographic boundaries.</p></div>
+    <svg id="map-svg"></svg>
+    <div id="info-panel" class="empty">
+      <div class="order-num" id="info-order"></div>
+      <div class="state-name" id="info-name">Select a state</div>
+      <div class="date" id="info-date">or press play</div>
+      <div id="info-status"></div>
+      <div class="territory-info" id="info-territory"></div>
+      <div class="era-label" id="info-era"></div>
+    </div>
+    <div id="event-banner"></div>
+    <div id="year-display"></div>
+  </div>
+  <div id="controls">
+    <div id="timeline-row">
+      <button id="play-btn" aria-label="Play">&#9654;</button>
+      <input type="range" id="slider" min="0" max="50" value="0">
+      <span id="step-label">0 / 50</span>
+    </div>
+    <div id="speed-row">
+      <div id="legend"></div>
+      <div class="speed-controls">
+        <span>Speed</span>
+        <button class="speed-btn" data-speed="2000">Slow</button>
+        <button class="speed-btn active" data-speed="1000">Med</button>
+        <button class="speed-btn" data-speed="400">Fast</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<script>
+// ═══════════════════════════════════════
+// STATE DATA
+// acquiredYear: when the US acquired the land
+// acquiredName: which acquisition
+// terrYear: when organized as a territory (null for colonies)
+// visibleYear is now = acquiredYear
+// ═══════════════════════════════════════
+const STATES = {
+  "10": { name:"Delaware",        abbr:"DE", order:1,  date:"December 7, 1787",   acquiredYear:1787, acquiredName:"Original Territory", terrYear:null, terrName:"Original Colony", notes:"First state to ratify the Constitution." },
+  "42": { name:"Pennsylvania",    abbr:"PA", order:2,  date:"December 12, 1787",  acquiredYear:1787, acquiredName:"Original Territory", terrYear:null, terrName:"Original Colony", notes:"Founded by William Penn." },
+  "34": { name:"New Jersey",      abbr:"NJ", order:3,  date:"December 18, 1787",  acquiredYear:1787, acquiredName:"Original Territory", terrYear:null, terrName:"Original Colony", notes:"Ratified unanimously." },
+  "13": { name:"Georgia",         abbr:"GA", order:4,  date:"January 2, 1788",    acquiredYear:1787, acquiredName:"Original Territory", terrYear:null, terrName:"Original Colony", notes:"Southernmost original colony." },
+  "09": { name:"Connecticut",     abbr:"CT", order:5,  date:"January 9, 1788",    acquiredYear:1787, acquiredName:"Original Territory", terrYear:null, terrName:"Original Colony", notes:"The 'Constitution State.'" },
+  "25": { name:"Massachusetts",   abbr:"MA", order:6,  date:"February 6, 1788",   acquiredYear:1787, acquiredName:"Original Territory", terrYear:null, terrName:"Original Colony", notes:"Cradle of the Revolution." },
+  "24": { name:"Maryland",        abbr:"MD", order:7,  date:"April 28, 1788",     acquiredYear:1787, acquiredName:"Original Territory", terrYear:null, terrName:"Original Colony", notes:"Haven for English Catholics." },
+  "45": { name:"South Carolina",  abbr:"SC", order:8,  date:"May 23, 1788",       acquiredYear:1787, acquiredName:"Original Territory", terrYear:null, terrName:"Original Colony", notes:"Eighth to ratify." },
+  "33": { name:"New Hampshire",   abbr:"NH", order:9,  date:"June 21, 1788",      acquiredYear:1787, acquiredName:"Original Territory", terrYear:null, terrName:"Original Colony", notes:"Ninth to ratify, activating the Constitution." },
+  "51": { name:"Virginia",        abbr:"VA", order:10, date:"June 25, 1788",      acquiredYear:1787, acquiredName:"Original Territory", terrYear:null, terrName:"Original Colony", notes:"Largest original colony." },
+  "36": { name:"New York",        abbr:"NY", order:11, date:"July 26, 1788",      acquiredYear:1787, acquiredName:"Original Territory", terrYear:null, terrName:"Original Colony", notes:"Passed by just three votes." },
+  "37": { name:"North Carolina",  abbr:"NC", order:12, date:"November 21, 1789",  acquiredYear:1787, acquiredName:"Original Territory", terrYear:null, terrName:"Original Colony", notes:"Held out for a Bill of Rights." },
+  "44": { name:"Rhode Island",    abbr:"RI", order:13, date:"May 29, 1790",       acquiredYear:1787, acquiredName:"Original Territory", terrYear:null, terrName:"Original Colony", notes:"Last of the 13 to ratify." },
+  "50": { name:"Vermont",         abbr:"VT", order:14, date:"March 4, 1791",      acquiredYear:1787, acquiredName:"Original Territory", terrYear:1777, terrName:"Vermont Republic", notes:"Independent republic 1777-1791." },
+  "21": { name:"Kentucky",        abbr:"KY", order:15, date:"June 1, 1792",       acquiredYear:1787, acquiredName:"Original Territory", terrYear:1787, terrName:"Part of Virginia", notes:"Originally Kentucky County, Virginia." },
+  "47": { name:"Tennessee",       abbr:"TN", order:16, date:"June 1, 1796",       acquiredYear:1787, acquiredName:"Original Territory", terrYear:1790, terrName:"Southwest Territory", notes:"Territory South of the River Ohio, 1790." },
+  "39": { name:"Ohio",            abbr:"OH", order:17, date:"March 1, 1803",      acquiredYear:1787, acquiredName:"Original Territory", terrYear:1787, terrName:"Northwest Territory", notes:"First state from the Northwest Territory." },
+  "18": { name:"Indiana",         abbr:"IN", order:19, date:"December 11, 1816",  acquiredYear:1787, acquiredName:"Original Territory", terrYear:1800, terrName:"Indiana Territory", notes:"Split from NW Territory 1800." },
+  "17": { name:"Illinois",        abbr:"IL", order:21, date:"December 3, 1818",   acquiredYear:1787, acquiredName:"Original Territory", terrYear:1809, terrName:"Illinois Territory", notes:"Split from Indiana Territory 1809." },
+  "26": { name:"Michigan",        abbr:"MI", order:26, date:"January 26, 1837",   acquiredYear:1787, acquiredName:"Original Territory", terrYear:1805, terrName:"Michigan Territory", notes:"Toledo War delayed admission." },
+  "55": { name:"Wisconsin",       abbr:"WI", order:30, date:"May 29, 1848",       acquiredYear:1787, acquiredName:"Original Territory", terrYear:1836, terrName:"Wisconsin Territory", notes:"Western Michigan Territory." },
+  "23": { name:"Maine",           abbr:"ME", order:23, date:"March 15, 1820",     acquiredYear:1787, acquiredName:"Original Territory", terrYear:null, terrName:"Part of Massachusetts", notes:"Missouri Compromise free state." },
+  "28": { name:"Mississippi",     abbr:"MS", order:20, date:"December 10, 1817",  acquiredYear:1787, acquiredName:"Original Territory", terrYear:1798, terrName:"Mississippi Territory", notes:"Organized 1798 from ceded lands." },
+  "01": { name:"Alabama",         abbr:"AL", order:22, date:"December 14, 1819",  acquiredYear:1787, acquiredName:"Original Territory", terrYear:1817, terrName:"Alabama Territory", notes:"Eastern Mississippi Territory." },
+  "54": { name:"West Virginia",   abbr:"WV", order:35, date:"June 20, 1863",      acquiredYear:1787, acquiredName:"Original Territory", terrYear:null, terrName:"Part of Virginia", notes:"Broke from Virginia during secession." },
+  // ── Louisiana Purchase (1803) ──
+  "22": { name:"Louisiana",       abbr:"LA", order:18, date:"April 30, 1812",     acquiredYear:1803, acquiredName:"Louisiana Purchase", terrYear:1804, terrName:"Orleans Territory", notes:"Louisiana Purchase (1803). Organized as Orleans Territory." },
+  "29": { name:"Missouri",        abbr:"MO", order:24, date:"August 10, 1821",    acquiredYear:1803, acquiredName:"Louisiana Purchase", terrYear:1812, terrName:"Missouri Territory", notes:"Missouri Compromise of 1820." },
+  "05": { name:"Arkansas",        abbr:"AR", order:25, date:"June 15, 1836",      acquiredYear:1803, acquiredName:"Louisiana Purchase", terrYear:1819, terrName:"Arkansas Territory", notes:"Southern Missouri Territory." },
+  "19": { name:"Iowa",            abbr:"IA", order:29, date:"December 28, 1846",  acquiredYear:1803, acquiredName:"Louisiana Purchase", terrYear:1838, terrName:"Iowa Territory", notes:"Split from Wisconsin Territory 1838." },
+  "27": { name:"Minnesota",       abbr:"MN", order:32, date:"May 11, 1858",       acquiredYear:1803, acquiredName:"Louisiana Purchase", terrYear:1849, terrName:"Minnesota Territory", notes:"Remnants of Iowa and Wisconsin territories." },
+  "20": { name:"Kansas",          abbr:"KS", order:34, date:"January 29, 1861",   acquiredYear:1803, acquiredName:"Louisiana Purchase", terrYear:1854, terrName:"Kansas Territory", notes:"'Bleeding Kansas.' Kansas-Nebraska Act." },
+  "31": { name:"Nebraska",        abbr:"NE", order:37, date:"March 1, 1867",      acquiredYear:1803, acquiredName:"Louisiana Purchase", terrYear:1854, terrName:"Nebraska Territory", notes:"Kansas-Nebraska Act of 1854." },
+  "46": { name:"South Dakota",    abbr:"SD", order:40, date:"November 2, 1889",   acquiredYear:1803, acquiredName:"Louisiana Purchase", terrYear:1861, terrName:"Dakota Territory", notes:"Admitted same day as North Dakota." },
+  "38": { name:"North Dakota",    abbr:"ND", order:39, date:"November 2, 1889",   acquiredYear:1803, acquiredName:"Louisiana Purchase", terrYear:1861, terrName:"Dakota Territory", notes:"Split from Nebraska Territory." },
+  "30": { name:"Montana",         abbr:"MT", order:41, date:"November 8, 1889",   acquiredYear:1803, acquiredName:"Louisiana Purchase", terrYear:1864, terrName:"Montana Territory", notes:"Carved from Idaho, Dakota, Nebraska territories." },
+  "56": { name:"Wyoming",         abbr:"WY", order:44, date:"July 10, 1890",      acquiredYear:1803, acquiredName:"Louisiana Purchase", terrYear:1868, terrName:"Wyoming Territory", notes:"First territory with women's suffrage (1869)." },
+  "08": { name:"Colorado",        abbr:"CO", order:38, date:"August 1, 1876",     acquiredYear:1803, acquiredName:"Louisiana Purchase", terrYear:1861, terrName:"Colorado Territory", notes:"'Centennial State,' America's 100th year." },
+  "40": { name:"Oklahoma",        abbr:"OK", order:46, date:"November 16, 1907",  acquiredYear:1803, acquiredName:"Louisiana Purchase", terrYear:1890, terrName:"Oklahoma / Indian Territory", notes:"Land runs starting 1889." },
+  // ── Spanish Cession / Florida (1819) ──
+  "12": { name:"Florida",         abbr:"FL", order:27, date:"March 3, 1845",      acquiredYear:1819, acquiredName:"Adams-Onis Treaty", terrYear:1822, terrName:"Florida Territory", notes:"Acquired from Spain 1819, organized 1822." },
+  // ── Texas Annexation (1845) ──
+  "48": { name:"Texas",           abbr:"TX", order:28, date:"December 29, 1845",  acquiredYear:1836, acquiredName:"Republic of Texas", terrYear:1836, terrName:"Republic of Texas", notes:"Independent republic 1836-1845. Annexed by Congress." },
+  // ── Oregon Country (1846) ──
+  "41": { name:"Oregon",          abbr:"OR", order:33, date:"February 14, 1859",  acquiredYear:1846, acquiredName:"Oregon Country", terrYear:1848, terrName:"Oregon Territory", notes:"Joint British occupation until 1846." },
+  "53": { name:"Washington",      abbr:"WA", order:42, date:"November 11, 1889",  acquiredYear:1846, acquiredName:"Oregon Country", terrYear:1853, terrName:"Washington Territory", notes:"Split from Oregon Territory 1853." },
+  "16": { name:"Idaho",           abbr:"ID", order:43, date:"July 3, 1890",       acquiredYear:1846, acquiredName:"Oregon Country", terrYear:1863, terrName:"Idaho Territory", notes:"Originally included Montana and most of Wyoming." },
+  // ── Mexican Cession (1848) ──
+  "06": { name:"California",      abbr:"CA", order:31, date:"September 9, 1850",  acquiredYear:1848, acquiredName:"Mexican Cession", terrYear:1848, terrName:"Mexican Cession", notes:"Skipped territory status (Gold Rush)." },
+  "32": { name:"Nevada",          abbr:"NV", order:36, date:"October 31, 1864",   acquiredYear:1848, acquiredName:"Mexican Cession", terrYear:1861, terrName:"Nevada Territory", notes:"Split from Utah Territory for Lincoln." },
+  "49": { name:"Utah",            abbr:"UT", order:45, date:"January 4, 1896",    acquiredYear:1848, acquiredName:"Mexican Cession", terrYear:1850, terrName:"Utah Territory", notes:"Delayed until LDS renounced polygamy." },
+  // ── Mexican Cession + Gadsden Purchase ──
+  "35": { name:"New Mexico",      abbr:"NM", order:47, date:"January 6, 1912",    acquiredYear:1848, acquiredName:"Mexican Cession", terrYear:1850, terrName:"New Mexico Territory", notes:"62 years as territory. Southern border expanded by Gadsden Purchase (1853)." },
+  "04": { name:"Arizona",         abbr:"AZ", order:48, date:"February 14, 1912",  acquiredYear:1848, acquiredName:"Mexican Cession", terrYear:1863, terrName:"Arizona Territory", notes:"Split from New Mexico 1863. Southern strip added via Gadsden Purchase (1853). Last of the lower 48." },
+  // ── Alaska Purchase (1867) ──
+  "02": { name:"Alaska",          abbr:"AK", order:49, date:"January 3, 1959",    acquiredYear:1867, acquiredName:"Alaska Purchase", terrYear:1912, terrName:"Alaska Territory", notes:"Purchased from Russia 1867 for $7.2M. Organized 1912." },
+  // ── Hawaii Annexation (1898) ──
+  "15": { name:"Hawaii",          abbr:"HI", order:50, date:"August 21, 1959",    acquiredYear:1898, acquiredName:"Hawaii Annexation", terrYear:1900, terrName:"Hawaii Territory", notes:"Annexed 1898, organized 1900. Last state." }
+};
+
+// ═══════════════════════════════════════
+// ACQUISITION GROUPS - merged outlines for major purchases
+// Members stay in group until organized as own territory or admitted
+// ═══════════════════════════════════════
+const ACQUISITION_GROUPS = [
+  { name:"Louisiana Purchase", year:1803, fips:["22","29","05","19","27","20","31","46","38","30","56","08","40"] },
+  { name:"Oregon Country", year:1846, fips:["41","53","16"] },
+  { name:"Mexican Cession", year:1848, fips:["06","32","49","35","04"] },
+];
+
+// ═══════════════════════════════════════
+// TERRITORY GROUPS - multi-state territories with merged outlines
+// ═══════════════════════════════════════
+const TERRITORY_GROUPS = [
+  { name:"Northwest Terr.", year:1787, members:[
+    {fips:"39",until:1803},{fips:"18",until:1800},{fips:"17",until:1809},{fips:"26",until:1805},{fips:"55",until:1836}
+  ]},
+  { name:"Mississippi Terr.", year:1798, members:[
+    {fips:"28",until:1817},{fips:"01",until:1817}
+  ]},
+  { name:"Oregon Terr.", year:1848, members:[
+    {fips:"41",until:1859},{fips:"53",until:1853},{fips:"16",until:1863}
+  ]},
+  { name:"New Mexico Terr.", year:1850, members:[
+    {fips:"35",until:1912},{fips:"04",until:1863}
+  ]},
+  { name:"Utah Terr.", year:1850, members:[
+    {fips:"49",until:1896},{fips:"32",until:1861}
+  ]},
+  { name:"Nebraska Terr.", year:1854, members:[
+    {fips:"31",until:1867},{fips:"38",until:1861},{fips:"46",until:1861},{fips:"30",until:1864},{fips:"56",until:1868}
+  ]},
+  { name:"Dakota Terr.", year:1861, members:[
+    {fips:"38",until:1889},{fips:"46",until:1889}
+  ]},
+  { name:"Idaho Terr.", year:1863, members:[
+    {fips:"16",until:1890},{fips:"30",until:1864},{fips:"56",until:1868}
+  ]},
+];
+
+// ═══════════════════════════════════════
+// EVENT BANNERS - shown during playback
+// ═══════════════════════════════════════
+const EVENTS = [
+  { year:1803, text:"Louisiana Purchase", sub:"828,000 sq mi from France" },
+  { year:1819, text:"Adams-Onis Treaty", sub:"Florida acquired from Spain" },
+  { year:1836, text:"Republic of Texas", sub:"Independent from Mexico" },
+  { year:1846, text:"Oregon Treaty", sub:"Oregon Country from Britain" },
+  { year:1848, text:"Mexican Cession", sub:"Treaty of Guadalupe Hidalgo" },
+  { year:1867, text:"Alaska Purchase", sub:"Acquired from Russia" },
+  { year:1898, text:"Hawaii Annexed", sub:"Republic of Hawaii" },
+];
+
+const ERAS = [
+  { name:"Original Thirteen",      range:[1,13],  color:"#8B3A3A" },
+  { name:"Early Republic",         range:[14,17], color:"#2E6B5A" },
+  { name:"Expansion Era",          range:[18,28], color:"#B8860B" },
+  { name:"Pre-Civil War",          range:[29,34], color:"#6B5B3E" },
+  { name:"Civil War & Gilded Age", range:[35,38], color:"#4A6A8A" },
+  { name:"Western Settlement",     range:[39,45], color:"#8B6B3E" },
+  { name:"Early 20th Century",     range:[46,48], color:"#7A5C6A" },
+  { name:"Modern Additions",       range:[49,50], color:"#5B7A6A" }
+];
+
+function getEra(order) { return ERAS.find(e => order >= e.range[0] && order <= e.range[1]); }
+function getColor(order) { const e = getEra(order); return e ? e.color : '#555'; }
+
+function getYearAtStep(step) {
+  if (step <= 0) return 1786;
+  return parseInt(statesByOrder[Math.min(step-1,49)].date.split(', ').pop());
+}
+
+const statesByOrder = Object.entries(STATES)
+  .map(([fips, s]) => ({fips,...s}))
+  .sort((a,b) => a.order - b.order);
+
+const LABEL_OFFSETS = {"DE":[12,0],"CT":[14,0],"RI":[16,0],"NJ":[12,0],"MD":[0,12],"MA":[16,0],"NH":[14,0],"VT":[0,-4]};
+
+let currentStep=0, playing=false, interval=null, speed=1000;
+let hoveredState=null, geoData=null, topoData=null, statePaths={};
+let pathGen=null, prevYear=1786, bannerTimeout=null;
+
+const svg = d3.select('#map-svg');
+const slider = document.getElementById('slider');
+const stepLabel = document.getElementById('step-label');
+const playBtn = document.getElementById('play-btn');
+const yearDisplay = document.getElementById('year-display');
+const eventBanner = document.getElementById('event-banner');
+
+// ── Legend ──
+const legendEl = document.getElementById('legend');
+[{cls:'leg-swatch-acquired',label:'Acquired'},{cls:'leg-swatch-territory',label:'Territory'}].forEach(l => {
+  const d=document.createElement('div'); d.className='leg-item';
+  d.innerHTML=`<div class="${l.cls}"></div>${l.label}`;
+  legendEl.appendChild(d);
+});
+ERAS.forEach(e => {
+  const d=document.createElement('div'); d.className='leg-item';
+  d.innerHTML=`<div class="leg-swatch" style="background:${e.color}"></div>${e.name}`;
+  legendEl.appendChild(d);
+});
+
+// ── Load ──
+async function loadData() {
+  const urls=['https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json','https://unpkg.com/us-atlas@3/states-10m.json'];
+  let data=null;
+  for(const u of urls){try{const r=await fetch(u);if(r.ok){data=await r.json();break;}}catch(e){}}
+  if(!data){document.getElementById('loading').style.display='none';document.getElementById('error-msg').style.display='flex';return;}
+  topoData=data;
+  geoData=topojson.feature(data,data.objects.states);
+  buildMap();
+  document.getElementById('loading').style.display='none';
+}
+
+function getMergedPath(fipsList) {
+  const geos=topoData.objects.states.geometries.filter(g=>fipsList.includes(g.id));
+  if(!geos.length) return null;
+  return pathGen(topojson.merge(topoData,geos));
+}
+function getMergedCentroid(fipsList) {
+  const geos=topoData.objects.states.geometries.filter(g=>fipsList.includes(g.id));
+  if(!geos.length) return null;
+  return pathGen.centroid(topojson.merge(topoData,geos));
+}
+
+function buildMap() {
+  const container=document.getElementById('map-area');
+  const w=container.clientWidth, h=container.clientHeight;
+  svg.attr('viewBox',`0 0 ${w} ${h}`);
+
+  const projection=d3.geoAlbersUsa().fitSize([w-20,h-20],geoData).translate([w/2,h/2]);
+  pathGen=d3.geoPath().projection(projection);
+
+  // Layer 1: State fills
+  const stateGroup=svg.append('g').attr('class','states');
+  stateGroup.selectAll('path').data(geoData.features).enter().append('path')
+    .attr('d',pathGen).attr('class','state-path').attr('data-fips',d=>d.id)
+    .on('mouseenter',function(ev,d){if(STATES[d.id]){hoveredState=d.id;updateInfoPanel(d.id);}})
+    .on('mouseleave',function(){hoveredState=null;updateInfoPanel(null);})
+    .each(function(d){statePaths[d.id]=this;});
+
+  // Layer 2: Acquisition outlines
+  svg.append('g').attr('id','acq-outlines');
+  svg.append('g').attr('id','acq-labels');
+
+  // Layer 3: Territory outlines
+  svg.append('g').attr('id','terr-outlines');
+  svg.append('g').attr('id','terr-name-labels');
+
+  // Layer 4: Territory abbreviation labels
+  const terrAbbrG=svg.append('g');
+  geoData.features.forEach(feat => {
+    const info=STATES[feat.id]; if(!info) return;
+    const c=pathGen.centroid(feat); if(isNaN(c[0])) return;
+    const off=LABEL_OFFSETS[info.abbr]||[0,0];
+    terrAbbrG.append('text').attr('class','territory-abbr-label')
+      .attr('id',`terr-abbr-${feat.id}`)
+      .attr('x',c[0]+off[0]).attr('y',c[1]+off[1]+3).text(info.abbr);
+  });
+
+  // Layer 5: State labels
+  const labelG=svg.append('g');
+  geoData.features.forEach(feat => {
+    const info=STATES[feat.id]; if(!info) return;
+    const c=pathGen.centroid(feat); if(isNaN(c[0])) return;
+    const off=LABEL_OFFSETS[info.abbr]||[0,0];
+    labelG.append('text').attr('class','state-label')
+      .attr('id',`label-${feat.id}`)
+      .attr('x',c[0]+off[0]).attr('y',c[1]+off[1]+3).text(info.abbr);
+  });
+
+  updateMap();
+}
+
+function getStateStatus(fips, yr) {
+  const info = STATES[fips];
+  if (!info) return 'invisible';
+  if (info.order <= currentStep) return 'admitted';
+  
+  const isAcquired = yr >= info.acquiredYear;
+  if (!isAcquired) return 'invisible';
+
+  // Check if in territory group
+  const inTerrGroup = TERRITORY_GROUPS.some(grp => {
+    if (yr < grp.year) return false;
+    return grp.members.some(m => m.fips === fips && !isAdmittedFips(m.fips) && yr < m.until);
+  });
+  
+  // Check if has own territory
+  const hasOwnTerritory = info.terrYear != null && yr >= info.terrYear;
+
+  if (inTerrGroup) return 'territory-grouped';
+  if (hasOwnTerritory) return 'territory-solo';
+  
+  // Check if in acquisition group
+  const inAcqGroup = ACQUISITION_GROUPS.some(grp => {
+    if (yr < grp.year) return false;
+    return grp.fips.includes(fips);
+  });
+  // If acquired but not yet a territory, it's unorganized acquired land
+  if (inAcqGroup) return 'acquired-grouped';
+  
+  return 'acquired';
+}
+
+function isAdmittedFips(fips) {
+  const info = STATES[fips];
+  return info && info.order <= currentStep;
+}
+
+function updateMap() {
+  const yr = getYearAtStep(currentStep);
+
+  // ── State paths ──
+  Object.entries(STATES).forEach(([fips, info]) => {
+    const el = statePaths[fips]; if(!el) return;
+    const p = d3.select(el);
+    const label = d3.select(`#label-${fips}`);
+    const terrAbbr = d3.select(`#terr-abbr-${fips}`);
+    const status = getStateStatus(fips, yr);
+
+    p.classed('admitted',false).classed('territory-solo',false).classed('territory-grouped',false)
+     .classed('acquired',false).classed('acquired-grouped',false).classed('current-highlight',false);
+    label.classed('visible',false);
+    terrAbbr.classed('visible',false);
+
+    if (status === 'admitted') {
+      p.classed('admitted',true).style('fill',getColor(info.order));
+      label.classed('visible',true);
+      if(info.order===currentStep) p.classed('current-highlight',true);
+    } else if (status === 'territory-grouped') {
+      p.classed('territory-grouped',true).style('fill','var(--territory)');
+    } else if (status === 'territory-solo') {
+      p.classed('territory-solo',true).style('fill','var(--territory)');
+      terrAbbr.classed('visible',true);
+    } else if (status === 'acquired-grouped') {
+      p.classed('acquired-grouped',true).style('fill','var(--acquired)');
+    } else if (status === 'acquired') {
+      p.classed('acquired',true).style('fill','var(--acquired)');
+      terrAbbr.classed('visible',true);
+    } else {
+      p.style('fill','transparent');
+    }
+  });
+
+  // ── Acquisition merged outlines ──
+  const acqG = d3.select('#acq-outlines'); acqG.selectAll('*').remove();
+  const acqLblG = d3.select('#acq-labels'); acqLblG.selectAll('*').remove();
+
+  ACQUISITION_GROUPS.forEach(grp => {
+    if (yr < grp.year) return;
+    // Show merged outline for members that are acquired but NOT yet organized as territory
+    const unorgMembers = grp.fips.filter(fips => {
+      const s = getStateStatus(fips, yr);
+      return s === 'acquired-grouped' || s === 'acquired';
+    });
+    if (unorgMembers.length === 0) return;
+
+    const d = getMergedPath(unorgMembers);
+    if (!d) return;
+    acqG.append('path').attr('class','acquisition-merged').attr('d',d);
+
+    const c = getMergedCentroid(unorgMembers);
+    if (c && !isNaN(c[0])) {
+      acqLblG.append('text').attr('class','acquisition-name-label visible')
+        .attr('x',c[0]).attr('y',c[1]).text(grp.name);
+    }
+  });
+
+  // ── Territory merged outlines ──
+  const terrG = d3.select('#terr-outlines'); terrG.selectAll('*').remove();
+  const terrLblG = d3.select('#terr-name-labels'); terrLblG.selectAll('*').remove();
+
+  TERRITORY_GROUPS.forEach(grp => {
+    if (yr < grp.year) return;
+    const activeMembers = grp.members.filter(m => {
+      const info = STATES[m.fips]; if(!info) return false;
+      return !isAdmittedFips(m.fips) && yr < m.until;
+    });
+    if (activeMembers.length === 0) return;
+
+    const fipsList = activeMembers.map(m=>m.fips);
+    const d = getMergedPath(fipsList);
+    if (!d) return;
+    terrG.append('path').attr('class','territory-merged').attr('d',d);
+
+    const c = getMergedCentroid(fipsList);
+    if (c && !isNaN(c[0])) {
+      terrLblG.append('text').attr('class','territory-name-label visible')
+        .attr('x',c[0]).attr('y',c[1]).text(grp.name);
+    }
+  });
+
+  // ── Year display ──
+  if (currentStep > 0) {
+    yearDisplay.textContent = statesByOrder[currentStep-1].date.split(', ').pop();
+  } else {
+    yearDisplay.textContent = '';
+  }
+
+  // ── Event banner ──
+  if (yr !== prevYear) {
+    const newEvents = EVENTS.filter(e => e.year > prevYear && e.year <= yr);
+    if (newEvents.length > 0) {
+      const ev = newEvents[newEvents.length - 1];
+      showEventBanner(ev.text, ev.sub, ev.year);
+    }
+    prevYear = yr;
+  }
+
+  // ── Info panel ──
+  if (!hoveredState) {
+    if (currentStep > 0) updateInfoPanel(statesByOrder[currentStep-1].fips);
+    else updateInfoPanel(null);
+  }
+
+  slider.value = currentStep;
+  stepLabel.textContent = `${currentStep} / 50`;
+}
+
+function showEventBanner(text, sub, year) {
+  clearTimeout(bannerTimeout);
+  eventBanner.innerHTML = `${text}<span class="event-year">${sub} &middot; ${year}</span>`;
+  eventBanner.classList.add('visible');
+  bannerTimeout = setTimeout(() => eventBanner.classList.remove('visible'), Math.min(speed * 3, 4000));
+}
+
+function updateInfoPanel(fips) {
+  const panel=document.getElementById('info-panel');
+  const nameEl=document.getElementById('info-name');
+  const dateEl=document.getElementById('info-date');
+  const orderEl=document.getElementById('info-order');
+  const eraEl=document.getElementById('info-era');
+  const terrEl=document.getElementById('info-territory');
+  const statusEl=document.getElementById('info-status');
+
+  if (!fips || !STATES[fips]) {
+    panel.classList.add('empty');
+    nameEl.textContent=currentStep===0?'Press play to begin':'Hover over a state';
+    nameEl.style.opacity='1';
+    dateEl.textContent=currentStep===0?'or drag the timeline':'';
+    orderEl.textContent='';eraEl.innerHTML='';terrEl.innerHTML='';statusEl.innerHTML='';
+    return;
+  }
+
+  const info=STATES[fips];
+  const era=getEra(info.order);
+  const yr=getYearAtStep(currentStep);
+  const status=getStateStatus(fips, yr);
+
+  panel.classList.remove('empty');
+  nameEl.textContent=info.name;
+  orderEl.textContent=`#${info.order}`;
+  eraEl.innerHTML=`<span class="era-dot" style="background:${era.color}"></span>${era.name}`;
+
+  if (status==='admitted') {
+    nameEl.style.opacity='1';
+    dateEl.textContent=`Admitted ${info.date}`;
+    statusEl.innerHTML=`<div class="status-badge state-badge">State</div>`;
+  } else if (status.includes('territory')) {
+    nameEl.style.opacity='0.7';
+    dateEl.textContent=`Statehood: ${info.date}`;
+    statusEl.innerHTML=`<div class="status-badge territory-badge">Territory</div>`;
+  } else if (status.includes('acquired')) {
+    nameEl.style.opacity='0.55';
+    dateEl.textContent=`Statehood: ${info.date}`;
+    statusEl.innerHTML=`<div class="status-badge acquired-badge">Acquired / Unorganized</div>`;
+  } else {
+    nameEl.style.opacity='0.4';
+    dateEl.textContent=`Statehood: ${info.date}`;
+    statusEl.innerHTML=`<div class="status-badge future-badge">Not Yet Acquired</div>`;
+  }
+
+  let t='';
+  t+=`<span class="terr-name">${info.acquiredName}</span>`;
+  if(info.acquiredYear) t+=` (${info.acquiredYear})`;
+  if(info.terrName && info.terrName !== info.acquiredName) {
+    t+=`<br>Territory: <span class="terr-name">${info.terrName}</span>`;
+    if(info.terrYear) {
+      const admitYr=parseInt(info.date.split(', ').pop());
+      const span=admitYr-info.terrYear;
+      t+=` (${info.terrYear})`;
+      if(span>0) t+=` &middot; ${span} yr${span!==1?'s':''} as territory`;
+    }
+  }
+  if(info.notes) t+=`<br><span style="color:rgba(232,220,200,0.5);font-size:11px;line-height:1.4;display:inline-block;margin-top:4px">${info.notes}</span>`;
+  terrEl.innerHTML=t;
+}
+
+// ── Playback ──
+playBtn.addEventListener('click',()=>{playing?stopPlaying():startPlaying();});
+function startPlaying(){if(currentStep>=50){currentStep=0;prevYear=1786;}playing=true;playBtn.innerHTML='&#9646;&#9646;';advance();}
+function stopPlaying(){playing=false;playBtn.innerHTML='&#9654;';clearTimeout(interval);}
+function advance(){if(!playing)return;if(currentStep>=50){stopPlaying();return;}currentStep++;updateMap();interval=setTimeout(advance,speed);}
+
+slider.addEventListener('input',()=>{
+  currentStep=parseInt(slider.value);
+  prevYear=getYearAtStep(Math.max(0,currentStep-1));
+  if(playing)stopPlaying();
+  updateMap();
+});
+
+document.querySelectorAll('.speed-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.speed-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');speed=parseInt(btn.dataset.speed);
+  });
+});
+
+let resizeTimer;
+window.addEventListener('resize',()=>{
+  clearTimeout(resizeTimer);
+  resizeTimer=setTimeout(()=>{if(!geoData)return;svg.selectAll('*').remove();statePaths={};buildMap();},250);
+});
+
+loadData();
+</script>
+</body>
+</html>

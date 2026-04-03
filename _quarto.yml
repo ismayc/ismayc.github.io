@@ -19,6 +19,7 @@ project:
     - "nba-scenario-explorer.html"
     - "2026-nba-rooting-guide.html"
     - "us-statehood.html"
+    - "projects/"
   output-dir: docs  # for GitHub Pages compatibility
   render:
     - index.qmd
