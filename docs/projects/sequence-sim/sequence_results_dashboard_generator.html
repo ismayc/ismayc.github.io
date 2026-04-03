@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sequence Blind 4th - Simulation Results</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#08090e;--bg2:#0e1019;--surface:#13151f;--surface2:#191c2a;
+    --border:#1e2235;--border2:#2a2e42;
+    --text:#cdd1de;--text2:#8b90a5;--text3:#565a6e;
+    --gold:#eab308;--gold2:#ca8a04;--gold3:#fde68a;--gold-bg:rgba(234,179,8,.06);
+    --green:#34d399;--blue:#60a5fa;--red:#f87171;--yellow:#fbbf24;
+    --accent:#a78bfa;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-height:100vh}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+  .fade-up{animation:fadeUp .6s ease both}
+  .delay-1{animation-delay:.1s}.delay-2{animation-delay:.2s}.delay-3{animation-delay:.3s}
+  .delay-4{animation-delay:.4s}.delay-5{animation-delay:.5s}
+
+  /* --- LAYOUT --- */
+  .container{max-width:1100px;margin:0 auto;padding:32px 20px 60px}
+
+  /* --- HEADER --- */
+  header{text-align:center;padding:48px 0 32px;position:relative}
+  header::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+    width:120px;height:1px;background:linear-gradient(90deg,transparent,var(--gold2),transparent)}
+  .kicker{font-family:'DM Mono';font-size:11px;letter-spacing:3px;text-transform:uppercase;
+    color:var(--gold2);margin-bottom:12px}
+  h1{font-family:'Crimson Pro',serif;font-size:42px;font-weight:300;font-style:italic;
+    color:var(--text);line-height:1.1;margin-bottom:8px}
+  h1 em{color:var(--gold);font-weight:600}
+  .tagline{font-size:14px;color:var(--text3);font-weight:300;letter-spacing:.3px}
+
+  /* --- UPLOAD --- */
+  #upload-zone{margin:32px auto;max-width:480px;padding:32px;border:2px dashed var(--border2);
+    border-radius:16px;text-align:center;cursor:pointer;transition:all .3s ease;background:var(--surface)}
+  #upload-zone:hover{border-color:var(--gold2);background:var(--gold-bg)}
+  #upload-zone.loaded{border-color:var(--green);border-style:solid}
+  #upload-zone h3{font-size:16px;font-weight:600;margin-bottom:6px}
+  #upload-zone p{font-size:12px;color:var(--text3)}
+  #file-input{display:none}
+
+  /* --- DASHBOARD (hidden until data loads) --- */
+  #dashboard{display:none}
+
+  /* --- HEADLINE CARDS --- */
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:32px}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 18px;
+    position:relative;overflow:hidden;transition:transform .2s}
+  .card:hover{transform:translateY(-2px)}
+  .card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px}
+  .card.gold::before{background:linear-gradient(90deg,var(--gold2),var(--gold))}
+  .card.green::before{background:linear-gradient(90deg,#059669,var(--green))}
+  .card.red::before{background:var(--red)}
+  .card.blue::before{background:var(--blue)}
+  .card-label{font-family:'DM Mono';font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text3);margin-bottom:8px}
+  .card-value{font-family:'Crimson Pro',serif;font-size:36px;font-weight:600;line-height:1}
+  .card-sub{font-size:12px;color:var(--text2);margin-top:4px}
+
+  /* --- SECTIONS --- */
+  .section{margin-bottom:40px}
+  .section-head{display:flex;align-items:baseline;gap:12px;margin-bottom:18px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+  .section-head h2{font-family:'Crimson Pro',serif;font-size:24px;font-weight:400;font-style:italic}
+  .section-head .tag{font-family:'DM Mono';font-size:9px;letter-spacing:2px;text-transform:uppercase;
+    color:var(--gold2);background:var(--gold-bg);padding:3px 8px;border-radius:4px}
+
+  /* --- TABLE --- */
+  .table-wrap{overflow-x:auto;border-radius:10px;border:1px solid var(--border)}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{font-family:'DM Mono';font-size:10px;letter-spacing:1.5px;text-transform:uppercase;
+    color:var(--text3);text-align:left;padding:12px 14px;background:var(--surface);border-bottom:1px solid var(--border)}
+  td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:middle}
+  tr:hover td{background:rgba(255,255,255,.02)}
+  .pct-bar{display:inline-block;height:6px;border-radius:3px;vertical-align:middle;margin-right:6px}
+  .mono{font-family:'DM Mono';font-size:12px}
+  .highlight-row td{background:var(--gold-bg)}
+
+  /* --- CHART CONTAINERS --- */
+  .chart-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px}
+  @media(max-width:700px){.chart-row{grid-template-columns:1fr}}
+  .chart-box{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px}
+  .chart-box h3{font-size:13px;font-weight:600;color:var(--text2);margin-bottom:12px}
+  .chart-box canvas{max-height:320px}
+
+  /* --- INSIGHTS --- */
+  .insight-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+  .insight-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 18px}
+  .insight-card h4{font-size:13px;font-weight:600;color:var(--gold);margin-bottom:8px}
+  .insight-card p{font-size:12px;color:var(--text2);line-height:1.6}
+  .insight-card .stat-row{display:flex;justify-content:space-between;padding:4px 0;
+    border-bottom:1px solid var(--border);font-size:12px}
+  .insight-card .stat-row:last-child{border-bottom:none}
+  .stat-label{color:var(--text3)}
+  .stat-val{font-family:'DM Mono';font-weight:500}
+
+  /* --- FOOTER --- */
+  footer{text-align:center;padding:24px 0;font-size:11px;color:var(--text3);
+    border-top:1px solid var(--border);margin-top:20px}
+
+  /* --- EXPORT --- */
+  #export-bar{text-align:center;margin:32px 0 8px;display:none}
+  #export-bar button{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#1a1a2e;
+    border:none;border-radius:10px;padding:12px 28px;font-family:'Outfit';font-weight:700;
+    font-size:14px;cursor:pointer;transition:all .15s ease;letter-spacing:.3px}
+  #export-bar button:hover{transform:translateY(-2px);filter:brightness(1.1);box-shadow:0 4px 16px rgba(234,179,8,.3)}
+  #export-bar button:active{transform:translateY(0)}
+  #export-bar p{font-size:11px;color:var(--text3);margin-top:8px}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header class="fade-up">
+    <div class="kicker">Sequence Board Game</div>
+    <h1>The <em>Blind 4th</em> Analysis</h1>
+    <div class="tagline" id="tagline">How often does Yellow spoil the game? Upload your results to find out.</div>
+  </header>
+
+  <!-- UPLOAD -->
+  <div id="upload-zone" class="fade-up delay-1" onclick="document.getElementById('file-input').click()">
+    <h3>Drop your <code style="color:var(--gold)">blind4th_results.csv</code> here</h3>
+    <p>or click to browse. Generated by sequence_combo_analysis.R</p>
+    <input type="file" id="file-input" accept=".csv" onchange="handleFile(event)">
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="dashboard">
+
+    <!-- HEADLINE CARDS -->
+    <div class="cards fade-up delay-1" id="headline-cards"></div>
+
+    <!-- CHARTS -->
+    <div class="chart-row fade-up delay-2">
+      <div class="chart-box">
+        <h3>Yellow vs Real Win Rate by Combo</h3>
+        <canvas id="chart-bars"></canvas>
+      </div>
+      <div class="chart-box">
+        <h3>Yellow Spoil Rate vs Average Skill Level</h3>
+        <canvas id="chart-scatter"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-row fade-up delay-3">
+      <div class="chart-box">
+        <h3>Yellow Win % by # of Optimal Players</h3>
+        <canvas id="chart-optimal"></canvas>
+      </div>
+      <div class="chart-box">
+        <h3>Yellow Win % by # of Novice Players</h3>
+        <canvas id="chart-novice"></canvas>
+      </div>
+    </div>
+
+    <!-- TABLE -->
+    <div class="section fade-up delay-4">
+      <div class="section-head">
+        <h2>Full Results</h2>
+        <span class="tag">sorted by yellow %</span>
+      </div>
+      <div class="table-wrap" id="results-table"></div>
+    </div>
+
+    <!-- INSIGHTS -->
+    <div class="section fade-up delay-5">
+      <div class="section-head">
+        <h2>Key Insights</h2>
+        <span class="tag">auto-generated</span>
+      </div>
+      <div class="insight-grid" id="insights"></div>
+    </div>
+
+    <!-- EXPORT -->
+    <div id="export-bar">
+      <button onclick="exportPage()">📥 Export as Standalone HTML</button>
+      <p>Saves a self-contained file with charts baked in. No CSV needed to view it later.</p>
+    </div>
+
+    <footer>
+      Sequence Blind 4th Variant Analysis &middot; Simulated in R with parallel computing
+    </footer>
+  </div>
+</div>
+
+<script>
+// ===== CSV PARSING =====
+function parseCSV(text){
+  const lines=text.trim().split('\n');
+  const headers=lines[0].split(',').map(h=>h.replace(/"/g,'').trim());
+  return lines.slice(1).map(line=>{
+    const vals=line.split(',').map(v=>v.replace(/"/g,'').trim());
+    const obj={};headers.forEach((h,i)=>{
+      const n=parseFloat(vals[i]);obj[h]=isNaN(n)||vals[i]===''?vals[i]:n});
+    return obj})}
+
+function handleFile(e){
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    const data=parseCSV(ev.target.result);
+    document.getElementById('upload-zone').classList.add('loaded');
+    document.getElementById('upload-zone').innerHTML='<h3 style="color:var(--green)">✓ Loaded '+file.name+'</h3><p>'+data.length+' combinations</p>';
+    buildDashboard(data)};
+  reader.readAsText(file)}
+
+// Allow drag & drop
+const uz=document.getElementById('upload-zone');
+uz.addEventListener('dragover',e=>{e.preventDefault();uz.style.borderColor='var(--gold)'});
+uz.addEventListener('dragleave',()=>{uz.style.borderColor=''});
+uz.addEventListener('drop',e=>{e.preventDefault();uz.style.borderColor='';
+  const f=e.dataTransfer.files[0];if(f){const inp=document.getElementById('file-input');
+    const dt=new DataTransfer();dt.items.add(f);inp.files=dt.files;inp.dispatchEvent(new Event('change'))}});
+
+// ===== BUILD DASHBOARD =====
+function buildDashboard(data){
+  data.sort((a,b)=>b.yellow_pct-a.yellow_pct);
+  document.getElementById('dashboard').style.display='block';
+
+  const totalGames=data.reduce((s,d)=>s+d.yellow_wins+d.real_wins+d.draws,0);
+  document.getElementById('tagline').textContent=
+    `How often does Yellow spoil the game? ${totalGames.toLocaleString()} simulations across ${data.length} skill combinations.`;
+  const totalYellow=data.reduce((s,d)=>s+d.yellow_wins,0);
+  const totalReal=data.reduce((s,d)=>s+d.real_wins,0);
+  const avgYellow=(data.reduce((s,d)=>s+d.yellow_pct,0)/data.length).toFixed(1);
+  const worst=data[0],best=data[data.length-1];
+  const spread=(worst.yellow_pct-best.yellow_pct).toFixed(1);
+
+  // Headline cards
+  document.getElementById('headline-cards').innerHTML=`
+    <div class="card gold"><div class="card-label">Avg Yellow Spoil Rate</div>
+      <div class="card-value" style="color:var(--gold)">${avgYellow}%</div>
+      <div class="card-sub">across all ${data.length} combinations</div></div>
+    <div class="card green"><div class="card-label">Worst for Yellow</div>
+      <div class="card-value" style="color:var(--green)">${best.yellow_pct}%</div>
+      <div class="card-sub">${best.combo}</div></div>
+    <div class="card red"><div class="card-label">Best for Yellow</div>
+      <div class="card-value" style="color:var(--red)">${worst.yellow_pct}%</div>
+      <div class="card-sub">${worst.combo}</div></div>
+    <div class="card blue"><div class="card-label">Skill Spread</div>
+      <div class="card-value" style="color:var(--blue)">${spread}pp</div>
+      <div class="card-sub">between best & worst combos</div></div>`;
+
+  // Main bar chart
+  buildBarChart(data);
+  buildScatterChart(data);
+  buildGroupedCharts(data);
+  buildTable(data);
+  buildInsights(data);
+  document.getElementById('export-bar').style.display='block';
+}
+
+// ===== CHARTS =====
+const chartFont={family:"'Outfit', sans-serif",size:11,weight:400};
+const chartDefaults={color:'#8b90a5',borderColor:'#1e2235',font:chartFont};
+Chart.defaults.color=chartDefaults.color;Chart.defaults.font=chartFont;
+const chartInstances={};
+
+function buildBarChart(data){
+  const ctx=document.getElementById('chart-bars').getContext('2d');
+  chartInstances.bars=new Chart(ctx,{type:'bar',data:{
+    labels:data.map(d=>d.combo),
+    datasets:[
+      {label:'Yellow Win %',data:data.map(d=>d.yellow_pct),
+        backgroundColor:'rgba(234,179,8,.7)',borderColor:'#eab308',borderWidth:1,borderRadius:4,barPercentage:.42,categoryPercentage:.8},
+      {label:'Real Players Win %',data:data.map(d=>d.real_pct),
+        backgroundColor:'rgba(52,211,153,.5)',borderColor:'#34d399',borderWidth:1,borderRadius:4,barPercentage:.42,categoryPercentage:.8}
+    ]},options:{responsive:true,maintainAspectRatio:true,
+      scales:{x:{grid:{color:'#1a1d2e'},ticks:{font:{size:9,family:"'DM Mono'"}}},
+        y:{grid:{color:'#1a1d2e'},ticks:{callback:v=>v+'%'}}},
+      plugins:{legend:{labels:{padding:16,usePointStyle:true,pointStyleWidth:8}}}}})}
+
+function buildScatterChart(data){
+  const ctx=document.getElementById('chart-scatter').getContext('2d');
+  chartInstances.scatter=new Chart(ctx,{type:'scatter',data:{
+    datasets:[{label:'Yellow Spoil %',
+      data:data.map(d=>({x:d.avg_skill,y:d.yellow_pct,label:d.combo})),
+      backgroundColor:'rgba(234,179,8,.8)',borderColor:'#ca8a04',borderWidth:2,pointRadius:8,pointHoverRadius:11}]
+  },options:{responsive:true,maintainAspectRatio:true,
+    scales:{x:{title:{display:true,text:'Avg Skill Level (1=Nov, 3=Opt)',color:'#565a6e'},
+        grid:{color:'#1a1d2e'},min:.8,max:3.2},
+      y:{title:{display:true,text:'Yellow Win %',color:'#565a6e'},grid:{color:'#1a1d2e'},
+        ticks:{callback:v=>v+'%'}}},
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>`${ctx.raw.label}: ${ctx.raw.y}%`}}}}})}
+
+function buildGroupedCharts(data){
+  // Group by # of optimal players
+  const comboDefs=[[1,1,1],[1,1,2],[1,1,3],[1,2,2],[1,2,3],[1,3,3],[2,2,2],[2,2,3],[2,3,3],[3,3,3]];
+  const byOptimal={};for(let n=0;n<=3;n++)byOptimal[n]=[];
+  data.forEach((d,i)=>{const nOpt=comboDefs[i].filter(x=>x===3).length;byOptimal[nOpt].push(d.yellow_pct)});
+
+  const optLabels=[],optVals=[];
+  for(let n=0;n<=3;n++){if(byOptimal[n].length){
+    optLabels.push(n+' Optimal');optVals.push(+(byOptimal[n].reduce((a,b)=>a+b,0)/byOptimal[n].length).toFixed(1))}}
+
+  chartInstances.optimal=new Chart(document.getElementById('chart-optimal').getContext('2d'),{type:'bar',data:{
+    labels:optLabels,datasets:[{label:'Avg Yellow %',data:optVals,
+      backgroundColor:['rgba(239,68,68,.6)','rgba(251,191,36,.6)','rgba(96,165,250,.6)','rgba(52,211,153,.6)'],
+      borderColor:['#ef4444','#fbbf24','#60a5fa','#34d399'],borderWidth:2,borderRadius:6,barPercentage:.55}]
+  },options:{responsive:true,maintainAspectRatio:true,indexAxis:'y',
+    scales:{x:{grid:{color:'#1a1d2e'},ticks:{callback:v=>v+'%'}},y:{grid:{display:false}}},
+    plugins:{legend:{display:false}}}});
+
+  // Group by # of novice players
+  const byNovice={};for(let n=0;n<=3;n++)byNovice[n]=[];
+  data.forEach((d,i)=>{const nNov=comboDefs[i].filter(x=>x===1).length;byNovice[nNov].push(d.yellow_pct)});
+
+  const novLabels=[],novVals=[];
+  for(let n=0;n<=3;n++){if(byNovice[n].length){
+    novLabels.push(n+' Novice');novVals.push(+(byNovice[n].reduce((a,b)=>a+b,0)/byNovice[n].length).toFixed(1))}}
+
+  chartInstances.novice=new Chart(document.getElementById('chart-novice').getContext('2d'),{type:'bar',data:{
+    labels:novLabels,datasets:[{label:'Avg Yellow %',data:novVals,
+      backgroundColor:['rgba(52,211,153,.6)','rgba(96,165,250,.6)','rgba(251,191,36,.6)','rgba(239,68,68,.6)'],
+      borderColor:['#34d399','#60a5fa','#fbbf24','#ef4444'],borderWidth:2,borderRadius:6,barPercentage:.55}]
+  },options:{responsive:true,maintainAspectRatio:true,indexAxis:'y',
+    scales:{x:{grid:{color:'#1a1d2e'},ticks:{callback:v=>v+'%'}},y:{grid:{display:false}}},
+    plugins:{legend:{display:false}}}})}
+
+// ===== TABLE =====
+function buildTable(data){
+  let html=`<table><thead><tr>
+    <th>#</th><th>Skill Combo</th><th>Yellow Win %</th><th>Real Win %</th>
+    <th>Yellow Wins</th><th>Real Wins</th><th>Draws</th><th>Avg Skill</th></tr></thead><tbody>`;
+  const maxY=Math.max(...data.map(d=>d.yellow_pct));
+  const maxR=Math.max(...data.map(d=>d.real_pct));
+  data.forEach((d,i)=>{
+    const isWorst=i===0,isBest=i===data.length-1;
+    html+=`<tr class="${isWorst?'highlight-row':''}">
+      <td class="mono" style="color:var(--text3)">${i+1}</td>
+      <td style="font-weight:600">${d.combo}${isWorst?' <span style="color:var(--red);font-size:10px">▲ worst for players</span>':''}${isBest?' <span style="color:var(--green);font-size:10px">▼ best for players</span>':''}</td>
+      <td><span class="pct-bar" style="width:${d.yellow_pct/maxY*80}px;background:var(--gold)"></span><span class="mono">${d.yellow_pct}%</span></td>
+      <td><span class="pct-bar" style="width:${d.real_pct/maxR*80}px;background:var(--green)"></span><span class="mono">${d.real_pct}%</span></td>
+      <td class="mono">${d.yellow_wins.toLocaleString()}</td>
+      <td class="mono">${d.real_wins.toLocaleString()}</td>
+      <td class="mono" style="color:var(--text3)">${d.draws}</td>
+      <td class="mono">${d.avg_skill.toFixed(1)}</td></tr>`});
+  html+=`</tbody></table>`;
+  document.getElementById('results-table').innerHTML=html}
+
+// ===== INSIGHTS =====
+function buildInsights(data){
+  const comboDefs=[[1,1,1],[1,1,2],[1,1,3],[1,2,2],[1,2,3],[1,3,3],[2,2,2],[2,2,3],[2,3,3],[3,3,3]];
+  const worst=data[0],best=data[data.length-1];
+  const avgY=(data.reduce((s,d)=>s+d.yellow_pct,0)/data.length).toFixed(1);
+
+  // Same-skill matchups
+  const allNov=data.find(d=>d.combo.includes('Nov')&&!d.combo.includes('Mid')&&!d.combo.includes('Opt'));
+  const allMid=data.find(d=>d.combo.includes('Mid')&&!d.combo.includes('Nov')&&!d.combo.includes('Opt'));
+  const allOpt=data.find(d=>d.combo.includes('Opt')&&!d.combo.includes('Nov')&&!d.combo.includes('Mid'));
+
+  // Weakest link
+  const twoOptOneNov=data.find(d=>{const i=data.indexOf(d);return comboDefs[i].filter(x=>x===3).length===2&&comboDefs[i].filter(x=>x===1).length===1});
+  const threeMid=allMid;
+
+  // Diminishing returns
+  const byOpt={};for(let n=0;n<=3;n++)byOpt[n]=[];
+  data.forEach((d,i)=>{byOpt[comboDefs[i].filter(x=>x===3).length].push(d.yellow_pct)});
+  const optAvgs={};for(const k in byOpt)if(byOpt[k].length)optAvgs[k]=(byOpt[k].reduce((a,b)=>a+b,0)/byOpt[k].length).toFixed(1);
+
+  let html=`
+  <div class="insight-card">
+    <h4>The Headline</h4>
+    <p>Across all skill combos, Yellow spoils the game an average of <b style="color:var(--gold)">${avgY}%</b> of the time.
+    The worst case for real players is <b style="color:var(--red)">${worst.combo}</b> (${worst.yellow_pct}%),
+    while the best defense is <b style="color:var(--green)">${best.combo}</b> (${best.yellow_pct}%).</p>
+  </div>
+
+  <div class="insight-card">
+    <h4>Same-Skill Matchups</h4>
+    ${allNov?`<div class="stat-row"><span class="stat-label">All Novice</span><span class="stat-val" style="color:var(--yellow)">${allNov.yellow_pct}% Yellow</span></div>`:''}
+    ${allMid?`<div class="stat-row"><span class="stat-label">All Middling</span><span class="stat-val" style="color:var(--yellow)">${allMid.yellow_pct}% Yellow</span></div>`:''}
+    ${allOpt?`<div class="stat-row"><span class="stat-label">All Optimal</span><span class="stat-val" style="color:var(--yellow)">${allOpt.yellow_pct}% Yellow</span></div>`:''}
+  </div>
+
+  <div class="insight-card">
+    <h4>Does Skill Contain Yellow?</h4>
+    <p>Adding Optimal players to the group:</p>
+    ${Object.keys(optAvgs).map(k=>`<div class="stat-row"><span class="stat-label">${k} Optimal player(s)</span><span class="stat-val">${optAvgs[k]}%</span></div>`).join('')}
+    <p style="margin-top:8px;color:var(--text3);font-size:11px">
+      ${parseFloat(optAvgs[0]||0)>parseFloat(optAvgs[3]||0)
+        ?'More skill = better Yellow containment. The placement decision matters.'
+        :'Skill has limited effect. Yellow\'s fate is mostly driven by random flips.'}</p>
+  </div>
+
+  <div class="insight-card">
+    <h4>The Weakest Link Effect</h4>
+    ${twoOptOneNov&&threeMid?`<p>2 Optimal + 1 Novice: Yellow wins <b>${twoOptOneNov.yellow_pct}%</b><br>
+    3 Middling: Yellow wins <b>${threeMid.yellow_pct}%</b><br><br>
+    <span style="color:var(--text3);font-size:11px">${twoOptOneNov.yellow_pct>threeMid.yellow_pct
+      ?'One weak link hurts more than having an evenly mediocre group. Yellow punishes uneven skill.'
+      :'A balanced group fares worse than having a weak link. The 2 strong players compensate.'}</span></p>`
+    :'<p style="color:var(--text3)">Insufficient data for this comparison.</p>'}
+  </div>
+
+  <div class="insight-card">
+    <h4>Mixed Skill Dynamics</h4>
+    ${(()=>{
+      const novMidOpt=data.find(d=>d.combo==='Nov / Mid / Opt');
+      if(!novMidOpt)return'<p style="color:var(--text3)">No mixed combo found.</p>';
+      const expectedAvg=((allNov?allNov.yellow_pct:0)+(allMid?allMid.yellow_pct:0)+(allOpt?allOpt.yellow_pct:0))/3;
+      const diff=(novMidOpt.yellow_pct-expectedAvg).toFixed(1);
+      return`<div class="stat-row"><span class="stat-label">Nov/Mid/Opt actual</span><span class="stat-val" style="color:var(--yellow)">${novMidOpt.yellow_pct}%</span></div>
+        <div class="stat-row"><span class="stat-label">Expected (avg of same-skill)</span><span class="stat-val">${expectedAvg.toFixed(1)}%</span></div>
+        <div class="stat-row"><span class="stat-label">Difference</span><span class="stat-val" style="color:${parseFloat(diff)>0?'var(--red)':'var(--green)'}">${diff>0?'+':''}${diff}pp</span></div>
+        <p style="margin-top:8px;color:var(--text3);font-size:11px">${parseFloat(diff)>0
+          ?'Mixed skill groups perform worse than expected. Diversity of skill actually helps Yellow.'
+          :'Mixed skill groups manage Yellow better than the average would predict.'}</p>`})()}
+  </div>
+
+  <div class="insight-card">
+    <h4>Game Balance Assessment</h4>
+    ${(()=>{
+      const avgDraws=data.reduce((s,d)=>s+d.draws,0)/data.length;
+      const totalGames=data.reduce((s,d)=>s+d.yellow_wins+d.real_wins+d.draws,0);
+      return`<div class="stat-row"><span class="stat-label">Avg draws per combo</span><span class="stat-val">${avgDraws.toFixed(0)}</span></div>
+        <div class="stat-row"><span class="stat-label">Total games simulated</span><span class="stat-val">${totalGames.toLocaleString()}</span></div>
+        <p style="margin-top:8px;color:var(--text3);font-size:11px">${avgDraws>100
+          ?'High draw rate suggests games often stall. Consider whether removing Jacks makes the game too slow.'
+          :'Low draw rate. The no-Jacks format still produces decisive outcomes.'}</p>`})()}
+  </div>`;
+  document.getElementById('insights').innerHTML=html}
+
+// ===== EXPORT =====
+function exportPage(){
+  // Convert charts to base64 images
+  const chartMap={
+    'chart-bars':chartInstances.bars,
+    'chart-scatter':chartInstances.scatter,
+    'chart-optimal':chartInstances.optimal,
+    'chart-novice':chartInstances.novice
+  };
+
+  // Clone the full document
+  const clone=document.documentElement.cloneNode(true);
+
+  // Replace each canvas with a static <img>
+  for(const[id,inst]of Object.entries(chartMap)){
+    if(!inst)continue;
+    const canvas=clone.querySelector('#'+id);
+    if(!canvas)continue;
+    const img=document.createElement('img');
+    img.src=inst.toBase64Image('image/png',1);
+    img.style.width='100%';
+    img.style.maxHeight='320px';
+    img.style.objectFit='contain';
+    canvas.parentNode.replaceChild(img,canvas);
+  }
+
+  // Remove upload zone
+  const uz=clone.querySelector('#upload-zone');
+  if(uz)uz.remove();
+
+  // Remove export bar
+  const eb=clone.querySelector('#export-bar');
+  if(eb)eb.remove();
+
+  // Remove file input
+  const fi=clone.querySelector('#file-input');
+  if(fi)fi.remove();
+
+  // Make dashboard visible by default (inline style)
+  const dash=clone.querySelector('#dashboard');
+  if(dash)dash.style.display='block';
+
+  // Remove all <script> tags (no interactivity needed)
+  clone.querySelectorAll('script').forEach(s=>s.remove());
+
+  // Remove Chart.js CDN link (no longer needed)
+  clone.querySelectorAll('script[src]').forEach(s=>s.remove());
+
+  // Update tagline to note it's an export
+  const tl=clone.querySelector('#tagline');
+  if(tl){
+    const now=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+    tl.textContent=document.getElementById('tagline').textContent+' Exported '+now+'.';
+  }
+
+  // Build the final HTML string
+  const html='<!DOCTYPE html>\n<html lang="en">\n'+clone.innerHTML+'\n</html>';
+
+  // Download
+  const blob=new Blob([html],{type:'text/html'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download='sequence_blind4th_report.html';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+</script>
+</body>
+</html>

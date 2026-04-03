@@ -65,6 +65,11 @@ header .subtitle { font-size:clamp(10px,1.5vw,13px); color:var(--parchment-dim);
   stroke-width: 0.7;
   stroke-dasharray: none;
 }
+.state-path.part-of-parent {
+  stroke: rgba(255,255,255,0.08);
+  stroke-width: 0.3;
+  stroke-dasharray: none;
+}
 .state-path.current-highlight {
   stroke: var(--gold-bright);
   stroke-width: 2;
@@ -258,17 +263,17 @@ const STATES = {
   "37": { name:"North Carolina",  abbr:"NC", order:12, date:"November 21, 1789",  acquiredYear:1787, acquiredName:"Original Territory", terrYear:null, terrName:"Original Colony", notes:"Held out for a Bill of Rights." },
   "44": { name:"Rhode Island",    abbr:"RI", order:13, date:"May 29, 1790",       acquiredYear:1787, acquiredName:"Original Territory", terrYear:null, terrName:"Original Colony", notes:"Last of the 13 to ratify." },
   "50": { name:"Vermont",         abbr:"VT", order:14, date:"March 4, 1791",      acquiredYear:1787, acquiredName:"Original Territory", terrYear:1777, terrName:"Vermont Republic", notes:"Independent republic 1777-1791." },
-  "21": { name:"Kentucky",        abbr:"KY", order:15, date:"June 1, 1792",       acquiredYear:1787, acquiredName:"Original Territory", terrYear:1787, terrName:"Part of Virginia", notes:"Originally Kentucky County, Virginia." },
+  "21": { name:"Kentucky",        abbr:"KY", order:15, date:"June 1, 1792",       acquiredYear:1787, acquiredName:"Original Territory", terrYear:1787, terrName:"Part of Virginia", parentFips:"51", notes:"Originally Kentucky County, Virginia. Separated with Virginia's consent." },
   "47": { name:"Tennessee",       abbr:"TN", order:16, date:"June 1, 1796",       acquiredYear:1787, acquiredName:"Original Territory", terrYear:1790, terrName:"Southwest Territory", notes:"Territory South of the River Ohio, 1790." },
   "39": { name:"Ohio",            abbr:"OH", order:17, date:"March 1, 1803",      acquiredYear:1787, acquiredName:"Original Territory", terrYear:1787, terrName:"Northwest Territory", notes:"First state from the Northwest Territory." },
   "18": { name:"Indiana",         abbr:"IN", order:19, date:"December 11, 1816",  acquiredYear:1787, acquiredName:"Original Territory", terrYear:1800, terrName:"Indiana Territory", notes:"Split from NW Territory 1800." },
   "17": { name:"Illinois",        abbr:"IL", order:21, date:"December 3, 1818",   acquiredYear:1787, acquiredName:"Original Territory", terrYear:1809, terrName:"Illinois Territory", notes:"Split from Indiana Territory 1809." },
   "26": { name:"Michigan",        abbr:"MI", order:26, date:"January 26, 1837",   acquiredYear:1787, acquiredName:"Original Territory", terrYear:1805, terrName:"Michigan Territory", notes:"Toledo War delayed admission." },
   "55": { name:"Wisconsin",       abbr:"WI", order:30, date:"May 29, 1848",       acquiredYear:1787, acquiredName:"Original Territory", terrYear:1836, terrName:"Wisconsin Territory", notes:"Western Michigan Territory." },
-  "23": { name:"Maine",           abbr:"ME", order:23, date:"March 15, 1820",     acquiredYear:1787, acquiredName:"Original Territory", terrYear:null, terrName:"Part of Massachusetts", notes:"Missouri Compromise free state." },
+  "23": { name:"Maine",           abbr:"ME", order:23, date:"March 15, 1820",     acquiredYear:1787, acquiredName:"Original Territory", terrYear:1787, terrName:"Part of Massachusetts", parentFips:"25", notes:"Missouri Compromise free state." },
   "28": { name:"Mississippi",     abbr:"MS", order:20, date:"December 10, 1817",  acquiredYear:1787, acquiredName:"Original Territory", terrYear:1798, terrName:"Mississippi Territory", notes:"Organized 1798 from ceded lands." },
   "01": { name:"Alabama",         abbr:"AL", order:22, date:"December 14, 1819",  acquiredYear:1787, acquiredName:"Original Territory", terrYear:1817, terrName:"Alabama Territory", notes:"Eastern Mississippi Territory." },
-  "54": { name:"West Virginia",   abbr:"WV", order:35, date:"June 20, 1863",      acquiredYear:1787, acquiredName:"Original Territory", terrYear:null, terrName:"Part of Virginia", notes:"Broke from Virginia during secession." },
+  "54": { name:"West Virginia",   abbr:"WV", order:35, date:"June 20, 1863",      acquiredYear:1787, acquiredName:"Original Territory", terrYear:1787, terrName:"Part of Virginia", parentFips:"51", notes:"Broke from Virginia during secession." },
   // ── Louisiana Purchase (1803) ──
   "22": { name:"Louisiana",       abbr:"LA", order:18, date:"April 30, 1812",     acquiredYear:1803, acquiredName:"Louisiana Purchase", terrYear:1804, terrName:"Orleans Territory", notes:"Louisiana Purchase (1803). Organized as Orleans Territory." },
   "29": { name:"Missouri",        abbr:"MO", order:24, date:"August 10, 1821",    acquiredYear:1803, acquiredName:"Louisiana Purchase", terrYear:1812, terrName:"Missouri Territory", notes:"Missouri Compromise of 1820." },
@@ -318,6 +323,12 @@ const ACQUISITION_GROUPS = [
 // TERRITORY GROUPS - multi-state territories with merged outlines
 // ═══════════════════════════════════════
 const TERRITORY_GROUPS = [
+  { name:"Virginia", year:1787, members:[
+    {fips:"51",until:1788},{fips:"21",until:1792},{fips:"54",until:1863}
+  ]},
+  { name:"Massachusetts", year:1787, members:[
+    {fips:"25",until:1788},{fips:"23",until:1820}
+  ]},
   { name:"Northwest Terr.", year:1787, members:[
     {fips:"39",until:1803},{fips:"18",until:1800},{fips:"17",until:1809},{fips:"26",until:1805},{fips:"55",until:1836}
   ]},
@@ -483,6 +494,9 @@ function getStateStatus(fips, yr) {
   if (!info) return 'invisible';
   if (info.order <= currentStep) return 'admitted';
   
+  // Check if part of a parent state (e.g. KY/WV part of Virginia, ME part of Massachusetts)
+  if (info.parentFips && isAdmittedFips(info.parentFips)) return 'part-of-parent';
+  
   const isAcquired = yr >= info.acquiredYear;
   if (!isAcquired) return 'invisible';
 
@@ -526,7 +540,8 @@ function updateMap() {
     const status = getStateStatus(fips, yr);
 
     p.classed('admitted',false).classed('territory-solo',false).classed('territory-grouped',false)
-     .classed('acquired',false).classed('acquired-grouped',false).classed('current-highlight',false);
+     .classed('acquired',false).classed('acquired-grouped',false).classed('current-highlight',false)
+     .classed('part-of-parent',false);
     label.classed('visible',false);
     terrAbbr.classed('visible',false);
 
@@ -534,6 +549,9 @@ function updateMap() {
       p.classed('admitted',true).style('fill',getColor(info.order));
       label.classed('visible',true);
       if(info.order===currentStep) p.classed('current-highlight',true);
+    } else if (status === 'part-of-parent') {
+      const parentInfo = STATES[info.parentFips];
+      p.classed('part-of-parent',true).style('fill',getColor(parentInfo.order));
     } else if (status === 'territory-grouped') {
       p.classed('territory-grouped',true).style('fill','var(--territory)');
     } else if (status === 'territory-solo') {
@@ -581,7 +599,8 @@ function updateMap() {
     if (yr < grp.year) return;
     const activeMembers = grp.members.filter(m => {
       const info = STATES[m.fips]; if(!info) return false;
-      return !isAdmittedFips(m.fips) && yr < m.until;
+      const status = getStateStatus(m.fips, yr);
+      return (status === 'territory-grouped') && yr < m.until;
     });
     if (activeMembers.length === 0) return;
 
@@ -663,6 +682,11 @@ function updateInfoPanel(fips) {
     nameEl.style.opacity='1';
     dateEl.textContent=`Admitted ${info.date}`;
     statusEl.innerHTML=`<div class="status-badge state-badge">State</div>`;
+  } else if (status==='part-of-parent') {
+    const parentInfo = STATES[info.parentFips];
+    nameEl.style.opacity='0.85';
+    dateEl.textContent=`Statehood: ${info.date}`;
+    statusEl.innerHTML=`<div class="status-badge state-badge">Part of ${parentInfo.name}</div>`;
   } else if (status.includes('territory')) {
     nameEl.style.opacity='0.7';
     dateEl.textContent=`Statehood: ${info.date}`;
