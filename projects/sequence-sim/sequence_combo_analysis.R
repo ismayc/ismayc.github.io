@@ -175,7 +175,7 @@ run_full_comparison <- function(n_games = 5000, seed = 42, n_cores = 14) {
 #  RUN IT
 # =========================================================================
 
-# Uses 14 of your 16 cores
+# Uses 12 of your 16 cores
 results <- run_full_comparison(n_games = 30000, seed = 2026, n_cores = 12)
 
 filename <- "blind4th_results_30k.csv"
