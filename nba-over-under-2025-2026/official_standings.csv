@@ -1,31 +1,31 @@
 seed,team_name,conference,wins,losses,source
 1,Detroit Pistons,East,55,21,espn_api
-2,Boston Celtics,East,51,25,espn_api
-3,New York Knicks,East,49,28,espn_api
+2,Boston Celtics,East,50,25,espn_api
+3,New York Knicks,East,48,28,espn_api
 4,Cleveland Cavaliers,East,47,29,espn_api
-5,Atlanta Hawks,East,44,33,espn_api
-6,Philadelphia 76ers,East,42,34,espn_api
-7,Toronto Raptors,East,42,34,espn_api
-8,Charlotte Hornets,East,40,36,espn_api
-9,Orlando Magic,East,40,36,espn_api
-10,Miami Heat,East,40,37,espn_api
-11,Milwaukee Bucks,East,30,46,espn_api
-12,Chicago Bulls,East,29,47,espn_api
-13,Indiana Pacers,East,18,58,espn_api
-14,Brooklyn Nets,East,18,58,espn_api
-15,Washington Wizards,East,17,59,espn_api
+5,Atlanta Hawks,East,43,33,espn_api
+6,Toronto Raptors,East,42,33,espn_api
+7,Philadelphia 76ers,East,41,34,espn_api
+8,Orlando Magic,East,40,35,espn_api
+9,Miami Heat,East,40,36,espn_api
+10,Charlotte Hornets,East,40,36,espn_api
+11,Milwaukee Bucks,East,30,45,espn_api
+12,Chicago Bulls,East,29,46,espn_api
+13,Brooklyn Nets,East,18,58,espn_api
+14,Washington Wizards,East,17,58,espn_api
+15,Indiana Pacers,East,17,58,espn_api
 1,Oklahoma City Thunder,West,60,16,espn_api
-2,San Antonio Spurs,West,58,18,espn_api
+2,San Antonio Spurs,West,57,18,espn_api
 3,Los Angeles Lakers,West,50,26,espn_api
-4,Denver Nuggets,West,49,28,espn_api
-5,Houston Rockets,West,47,29,espn_api
-6,Minnesota Timberwolves,West,46,29,espn_api
+4,Denver Nuggets,West,48,28,espn_api
+5,Minnesota Timberwolves,West,46,29,espn_api
+6,Houston Rockets,West,46,29,espn_api
 7,Phoenix Suns,West,42,34,espn_api
 8,Los Angeles Clippers,West,39,37,espn_api
 9,Portland Trail Blazers,West,39,38,espn_api
-10,Golden State Warriors,West,36,40,espn_api
-11,New Orleans Pelicans,West,25,51,espn_api
-12,Memphis Grizzlies,West,25,51,espn_api
+10,Golden State Warriors,West,36,39,espn_api
+11,Memphis Grizzlies,West,25,50,espn_api
+12,New Orleans Pelicans,West,25,51,espn_api
 13,Dallas Mavericks,West,24,52,espn_api
-14,Utah Jazz,West,21,56,espn_api
-15,Sacramento Kings,West,20,57,espn_api
+14,Utah Jazz,West,21,55,espn_api
+15,Sacramento Kings,West,19,57,espn_api
