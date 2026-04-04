@@ -2104,3 +2104,29 @@ remote:
 To github.com:ismayc/ismayc.github.io.git
    96be90d3..a866626e  master -> master
 Successfully updated and pushed NBA data
+
+Started at: 2026-04-04 04:01:12
+
+Existing data found. Last game date: 2026-04-02
+Today's date: 2026-04-04
+Existing records: 2436
+============================================================
+ATTEMPT 1: NBA API (stats.nba.com)
+============================================================
+  Attempting with 60s timeout...
+  SUCCESS! Got 2479 records
+
+============================================================
+SUCCESS!
+Saved 2469 records to current_year.csv
+Date range: 2025-10-02 to 2026-04-03
+Unique game dates: 175
+Finished at: 2026-04-04 04:01:14
+============================================================
+From github.com:ismayc/ismayc.github.io
+ * branch              master     -> FETCH_HEAD
+[master 2bb879d6] Update NBA data 2026-04-04
+ 1 file changed, 2469 insertions(+), 2436 deletions(-)
+To github.com:ismayc/ismayc.github.io.git
+   348d9193..2bb879d6  master -> master
+Successfully updated and pushed NBA data
