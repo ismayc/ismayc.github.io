@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sequence - Play the Blind 4th Variant</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Crimson+Pro:ital,wght@0,300;0,600;0,700;1,400&family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#08090e;--bg2:#0e1019;--surface:#13151f;--surface2:#191c2a;
+  --border:#1e2235;--border2:#2a2e42;
+  --text:#cdd1de;--text2:#8b90a5;--text3:#565a6e;
+  --green:#22c55e;--blue:#3b82f6;--red:#ef4444;--yellow:#eab308;
+  --gold2:#ca8a04;--gold3:#fde68a;--gold-bg:rgba(234,179,8,.06);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:linear-gradient(170deg,var(--bg),var(--bg2) 40%,#0c1425 100%);
+  font-family:'Outfit',sans-serif;color:var(--text);display:flex;flex-direction:column;align-items:center;padding:10px 8px;user-select:none}
+
+@keyframes chipSlam{
+  0%{transform:scale(0) rotate(-30deg);opacity:0}
+  40%{transform:scale(1.8) rotate(5deg);opacity:1}
+  60%{transform:scale(.85) rotate(-2deg)}
+  75%{transform:scale(1.15) rotate(1deg)}
+  100%{transform:scale(1) rotate(0)}}
+@keyframes ripple{
+  0%{box-shadow:0 0 0 0 var(--ripple-color);transform:scale(1)}
+  50%{box-shadow:0 0 0 12px transparent;transform:scale(1.05)}
+  100%{box-shadow:0 0 0 0 transparent;transform:scale(1)}}
+@keyframes cellFlash{
+  0%{background:var(--flash-color)}
+  100%{background:#fff}}
+@keyframes pulseHL{0%,100%{box-shadow:0 0 4px rgba(250,204,21,.5)}50%{box-shadow:0 0 16px rgba(250,204,21,.9)}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes glow{0%,100%{box-shadow:0 0 6px rgba(34,197,94,.4)}50%{box-shadow:0 0 18px rgba(34,197,94,.8)}}
+@keyframes yellowGlow{0%,100%{box-shadow:0 0 6px rgba(234,179,8,.3)}50%{box-shadow:0 0 18px rgba(234,179,8,.7)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+@keyframes beacon{
+  0%{box-shadow:0 0 0 0 var(--beacon-color)}
+  40%{box-shadow:0 0 0 18px transparent}
+  100%{box-shadow:0 0 0 0 transparent}}
+@keyframes borderPulse{
+  0%,100%{border-color:var(--pulse-border);box-shadow:0 0 8px var(--pulse-border)}
+  50%{border-color:var(--pulse-border-bright);box-shadow:0 0 22px var(--pulse-border-bright)}}
+
+h1{font-family:'Crimson Pro',serif;font-size:28px;font-weight:600;font-style:italic;
+  background:linear-gradient(135deg,#fde68a,#eab308,#ca8a04);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.subtitle{font-size:11px;color:var(--text3);font-weight:600;letter-spacing:.5px;text-transform:uppercase}
+
+/* Setup screen */
+#setup{max-width:420px;margin:40px auto;animation:fadeIn .5s ease}
+.setup-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:16px}
+.setup-card h3{font-size:14px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.diff-btn{padding:8px 16px;border:2px solid var(--border2);border-radius:8px;background:var(--surface2);
+  color:var(--text2);font-family:'Outfit';font-weight:600;font-size:12px;cursor:pointer;transition:all .15s}
+.diff-btn:hover{border-color:var(--text2)}
+.diff-btn.sel{border-color:var(--yellow);color:var(--yellow);background:var(--gold-bg)}
+.start-btn{width:100%;padding:14px;border:none;border-radius:10px;font-family:'Outfit';font-weight:700;
+  font-size:16px;cursor:pointer;background:linear-gradient(135deg,var(--gold2),var(--yellow));color:#1a1a2e;transition:all .15s}
+.start-btn:hover{filter:brightness(1.1);transform:translateY(-1px)}
+
+/* Game area */
+#game{display:none;width:100%;max-width:1000px}
+#status-bar{text-align:center;padding:8px 16px;margin-bottom:8px;border-radius:10px;font-size:13px;font-weight:600;
+  background:var(--surface);border:1px solid var(--border);min-height:38px;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .3s}
+#status-bar.your-turn{border-color:var(--green);background:rgba(34,197,94,.08);animation:glow 2s infinite}
+#status-bar.yellow-turn{border-color:var(--yellow);background:var(--gold-bg);animation:yellowGlow 2s infinite}
+
+#round-info{display:flex;gap:12px;justify-content:center;margin-bottom:8px;font-size:11px;color:var(--text3)}
+#round-info span{background:var(--surface);padding:4px 10px;border-radius:6px;border:1px solid var(--border)}
+
+.game-layout{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap;justify-content:center}
+.side-panel{width:180px;flex-shrink:0}
+
+/* Opponent panels */
+.opp-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px;margin-bottom:8px;transition:all .3s}
+.opp-box.active{animation:fadeIn .3s ease}
+.opp-name{font-weight:700;font-size:12px;display:flex;align-items:center;gap:5px}
+.opp-dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+.opp-cards{font-family:'DM Mono','JetBrains Mono',monospace;font-size:11px;color:var(--text3);margin-top:4px}
+.opp-diff{font-size:9px;color:var(--text3);margin-top:2px}
+
+/* Yellow box */
+.yellow-box{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px;margin-bottom:8px}
+.yellow-box.active{border-color:var(--yellow);background:var(--gold-bg)}
+
+/* Board */
+#board-wrap{background:rgba(0,0,0,.3);border-radius:12px;padding:6px;border:1px solid var(--border);
+  box-shadow:0 8px 32px rgba(0,0,0,.5);flex:1;min-width:380px;max-width:500px}
+#board{display:grid;grid-template-columns:repeat(10,1fr);gap:2.5px}
+.cell{width:100%;aspect-ratio:1;min-width:0;border-radius:5px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;position:relative;transition:all .12s;cursor:default;border:1px solid #d1d5db;background:#fff}
+.cell.free{background:linear-gradient(135deg,#fef3c7,#fde68a);border-color:#d97706}
+.cell.valid{cursor:pointer;border:2px solid var(--green);box-shadow:0 0 8px rgba(34,197,94,.3)}
+.cell.valid:hover{transform:scale(1.1);z-index:10;box-shadow:0 0 14px rgba(34,197,94,.6)}
+.cell.valid-yellow{cursor:pointer;border:2px solid var(--yellow);box-shadow:0 0 8px rgba(234,179,8,.3)}
+.cell.valid-yellow:hover{transform:scale(1.1);z-index:10;box-shadow:0 0 14px rgba(234,179,8,.6)}
+.cell.last-move-green{--ripple-color:rgba(34,197,94,.5);--flash-color:rgba(34,197,94,.25);--beacon-color:rgba(34,197,94,.5);
+  --pulse-border:rgba(34,197,94,.6);--pulse-border-bright:rgba(34,197,94,1);
+  animation:ripple .7s ease,cellFlash 1.2s ease;border:2.5px solid var(--green)!important}
+.cell.last-move-blue{--ripple-color:rgba(59,130,246,.5);--flash-color:rgba(59,130,246,.25);--beacon-color:rgba(59,130,246,.5);
+  --pulse-border:rgba(59,130,246,.6);--pulse-border-bright:rgba(59,130,246,1);
+  animation:ripple .7s ease,cellFlash 1.2s ease;border:2.5px solid var(--blue)!important}
+.cell.last-move-red{--ripple-color:rgba(239,68,68,.5);--flash-color:rgba(239,68,68,.25);--beacon-color:rgba(239,68,68,.5);
+  --pulse-border:rgba(239,68,68,.6);--pulse-border-bright:rgba(239,68,68,1);
+  animation:ripple .7s ease,cellFlash 1.2s ease;border:2.5px solid var(--red)!important}
+.cell.last-move-yellow{--ripple-color:rgba(234,179,8,.5);--flash-color:rgba(234,179,8,.25);--beacon-color:rgba(234,179,8,.5);
+  --pulse-border:rgba(234,179,8,.6);--pulse-border-bright:rgba(234,179,8,1);
+  animation:ripple .7s ease,cellFlash 1.2s ease;border:2.5px solid var(--yellow)!important}
+.cell.last-move-green,.cell.last-move-blue,.cell.last-move-red,.cell.last-move-yellow{z-index:20;transform:scale(1.08)}
+.chip.new-chip{animation:chipSlam .6s cubic-bezier(.17,.67,.35,1.2) both}
+.cell .beacon{position:absolute;inset:-4px;border-radius:8px;pointer-events:none;
+  animation:beacon .9s ease both}
+.card-lbl{font-weight:700;font-family:'JetBrains Mono',monospace;font-size:9px;line-height:1}
+.chip{width:13px;height:13px;border-radius:50%;margin-top:1px}
+.corner-chip{width:12px;height:12px;border-radius:50%;margin-top:1px;
+  background:radial-gradient(circle at 38% 35%,#fcd34d,#b45309);border:2px solid #d97706}
+.lock-icon{position:absolute;top:1px;right:2px;font-size:6px;line-height:1;opacity:.7}
+
+/* Player hand */
+#hand-area{margin-top:10px;text-align:center}
+#hand-label{font-size:12px;font-weight:700;color:var(--green);margin-bottom:6px}
+#hand{display:flex;gap:5px;justify-content:center;flex-wrap:wrap}
+.hand-card{background:#fff;border:2px solid #d1d5db;border-radius:6px;padding:6px 8px;cursor:pointer;transition:all .15s;min-width:40px;text-align:center}
+.hand-card:hover{transform:translateY(-4px);border-color:var(--green)}
+.hand-card.selected{border-color:var(--green);background:#f0fdf4;transform:translateY(-6px);box-shadow:0 4px 12px rgba(34,197,94,.3)}
+.hand-card.dead{opacity:.4;border-color:#666;cursor:not-allowed}
+
+#yellow-prompt{display:none;margin-top:10px;padding:10px 16px;border-radius:10px;text-align:center;
+  background:var(--gold-bg);border:1px solid var(--yellow);font-size:12px;color:var(--yellow);font-weight:600}
+
+/* Log */
+#log{background:rgba(0,0,0,.3);border-radius:10px;border:1px solid var(--border);padding:8px;
+  max-height:120px;overflow-y:auto;width:100%;max-width:500px;margin-top:10px}
+.log-line{font-size:10px;font-family:'JetBrains Mono',monospace;padding:2px 0;border-bottom:1px solid rgba(255,255,255,.03)}
+
+/* Winner overlay */
+#overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:100;
+  display:none;align-items:center;justify-content:center}
+#overlay-box{background:var(--surface);border:2px solid var(--border);border-radius:16px;padding:32px 40px;
+  text-align:center;animation:fadeIn .5s ease;max-width:400px}
+#overlay-box h2{font-family:'Crimson Pro',serif;font-size:32px;font-weight:600;font-style:italic;margin-bottom:8px}
+#overlay-box p{color:var(--text2);font-size:14px;margin-bottom:20px}
+#overlay-box button{padding:10px 24px;border:none;border-radius:8px;font-family:'Outfit';font-weight:700;
+  font-size:14px;cursor:pointer;background:linear-gradient(135deg,var(--gold2),var(--yellow));color:#1a1a2e}
+</style>
+</head>
+<body>
+
+<div style="text-align:center;margin-bottom:8px">
+  <h1>♠ SEQUENCE ♦</h1>
+  <div class="subtitle">Blind 4th Variant &middot; No Jacks &middot; Play Against 2 AIs</div>
+</div>
+
+<!-- SETUP -->
+<div id="setup">
+  <div class="setup-card">
+    <h3><span class="opp-dot" style="background:var(--green)"></span> You are Green</h3>
+    <p style="font-size:12px;color:var(--text3)">You'll play first each round. Select difficulty for your opponents.</p>
+  </div>
+  <div class="setup-card">
+    <h3><span class="opp-dot" style="background:var(--blue)"></span> Blue (CPU)</h3>
+    <div style="display:flex;gap:6px" id="blue-diff">
+      <button class="diff-btn" onclick="setDiff('blue',1,this)">Novice</button>
+      <button class="diff-btn sel" onclick="setDiff('blue',2,this)">Middling</button>
+      <button class="diff-btn" onclick="setDiff('blue',3,this)">Optimal</button>
+    </div>
+  </div>
+  <div class="setup-card">
+    <h3><span class="opp-dot" style="background:var(--red)"></span> Red (CPU)</h3>
+    <div style="display:flex;gap:6px" id="red-diff">
+      <button class="diff-btn" onclick="setDiff('red',1,this)">Novice</button>
+      <button class="diff-btn sel" onclick="setDiff('red',2,this)">Middling</button>
+      <button class="diff-btn" onclick="setDiff('red',3,this)">Optimal</button>
+    </div>
+  </div>
+  <button class="start-btn" onclick="startGame()">Start Game</button>
+</div>
+
+<!-- GAME -->
+<div id="game">
+  <div id="status-bar">Setting up...</div>
+  <div id="round-info"></div>
+  <div class="game-layout">
+    <div class="side-panel">
+      <div class="opp-box" id="blue-box">
+        <div class="opp-name"><span class="opp-dot" style="background:var(--blue)"></span> Blue (CPU)</div>
+        <div class="opp-diff" id="blue-diff-label"></div>
+        <div class="opp-cards" id="blue-cards"></div>
+      </div>
+      <div class="opp-box" id="red-box">
+        <div class="opp-name"><span class="opp-dot" style="background:var(--red)"></span> Red (CPU)</div>
+        <div class="opp-diff" id="red-diff-label"></div>
+        <div class="opp-cards" id="red-cards"></div>
+      </div>
+      <div class="yellow-box" id="yellow-box">
+        <div class="opp-name"><span class="opp-dot" style="background:var(--yellow)"></span> Yellow (Blind 4th)</div>
+        <div style="font-size:10px;color:var(--text3);margin-top:2px">If Yellow sequences, everyone loses!</div>
+      </div>
+    </div>
+    <div id="board-wrap"><div id="board"></div></div>
+  </div>
+  <div id="hand-area">
+    <div id="hand-label">Your Hand (Green)</div>
+    <div id="hand"></div>
+  </div>
+  <div id="yellow-prompt"></div>
+  <div id="log"></div>
+</div>
+
+<!-- OVERLAY -->
+<div id="overlay"><div id="overlay-box"></div></div>
+
+<script>
+// ===== CONSTANTS =====
+const BOARD=[
+  ["FREE","2S","3S","4S","5S","6S","7S","8S","9S","FREE"],
+  ["6C","5C","4C","3C","2C","AH","KH","QH","10H","10S"],
+  ["7C","AS","2D","3D","4D","5D","6D","7D","9H","QS"],
+  ["8C","KS","6C","5C","4C","3C","2C","8D","8H","KS"],
+  ["9C","QS","7C","6H","5H","4H","AH","9D","7H","AS"],
+  ["10C","10S","8C","7H","2H","3H","KH","10D","6H","2D"],
+  ["QC","9S","9C","8H","9H","10H","QH","QD","5H","3D"],
+  ["KC","8S","10C","QC","KC","AC","AD","KD","4H","4D"],
+  ["AC","7S","6S","5S","4S","3S","2S","2H","3H","5D"],
+  ["FREE","AD","KD","QD","10D","9D","8D","7D","6D","FREE"]];
+const SUITS=["S","D","C","H"],SYM={S:"♠",D:"♦",C:"♣",H:"♥"},SCLR={S:"#1e293b",D:"#dc2626",C:"#1e293b",H:"#dc2626"};
+const RANKS=["2","3","4","5","6","7","8","9","10","Q","K","A"];
+const PC=["#22c55e","#3b82f6","#ef4444","#eab308"];
+const PN=["Green (You)","Blue","Red","Yellow"];
+const PCB=["radial-gradient(circle at 38% 35%,#4ade80,#15803d)","radial-gradient(circle at 38% 35%,#60a5fa,#1d4ed8)",
+  "radial-gradient(circle at 38% 35%,#f87171,#b91c1c)","radial-gradient(circle at 38% 35%,#fde68a,#a16207)"];
+const DIRS=[[0,1],[1,0],[1,1],[1,-1]];
+const DIFF_LABELS=["","Novice","Middling","Optimal"];
+
+// ===== GAME STATE =====
+let G=null; // game state object
+let blueDiff=2, redDiff=2;
+let selectedCard=null, validSpots=[], yellowMode=false, yellowCard=null, yellowSpots=[];
+let gameOver=false, lastMove=null, lastMovePlayer=-1;
+
+function cRank(c){return c.replace(/[SDCH]/g,"")}
+function cSuit(c){return c[c.length-1]}
+function cardLabel(card,sz){
+  if(!card||card==="FREE")return`<span style="font-size:${sz||9}px;font-weight:700;color:#d97706">★</span>`;
+  return`<span class="card-lbl" style="font-size:${sz||9}px;color:${SCLR[cSuit(card)]}">${cRank(card)}<span style="font-size:${(sz||9)-1}px">${SYM[cSuit(card)]}</span></span>`}
+function cardText(c){return cRank(c)+SYM[cSuit(c)]}
+
+// ===== SETUP =====
+function setDiff(who,level,btn){
+  if(who==='blue')blueDiff=level; else redDiff=level;
+  btn.parentElement.querySelectorAll('.diff-btn').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel')}
+
+function startGame(){
+  document.getElementById('setup').style.display='none';
+  document.getElementById('game').style.display='block';
+  document.getElementById('blue-diff-label').textContent=DIFF_LABELS[blueDiff];
+  document.getElementById('red-diff-label').textContent=DIFF_LABELS[redDiff];
+  initGame()}
+
+// ===== INIT =====
+function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+
+function initGame(){
+  const dc=[];for(const s of SUITS)for(const r of RANKS)dc.push(r+s);
+  const deck=shuffle([...dc,...dc]);
+  G={
+    board:BOARD,
+    chips:Array.from({length:10},()=>Array(10).fill(0)),
+    locked:Array.from({length:10},()=>Array(10).fill(false)),
+    deck,hands:[[],[],[]],round:0,turn:0,log:[]
+  };
+  for(const[r,c]of[[0,0],[0,9],[9,0],[9,9]])G.chips[r][c]=9;
+  for(let p=0;p<3;p++)G.hands[p]=G.deck.splice(0,7);
+  gameOver=false;lastMove=null;lastMovePlayer=-1;selectedCard=null;validSpots=[];yellowMode=false;
+  addLog("Game started! You are Green. No Jacks in the deck.",'var(--green)');
+  render();
+  nextRound()}
+
+// ===== HELPERS =====
+function getSpots(card,chips){const p=[];for(let r=0;r<10;r++)for(let c=0;c<10;c++)if(BOARD[r][c]===card&&chips[r][c]===0)p.push([r,c]);return p}
+function isDead(card,chips){for(let r=0;r<10;r++)for(let c=0;c<10;c++)if(BOARD[r][c]===card&&chips[r][c]===0)return false;return true}
+function drawCard(){
+  if(!G.deck.length)return null;
+  return G.deck.shift()}
+function runAt(r,c,chips,pl){let b=0;for(const d of DIRS){let run=1;for(const sign of[1,-1])for(let step=1;step<=4;step++){const rr=r+d[0]*step*sign,cc=c+d[1]*step*sign;if(rr<0||rr>=10||cc<0||cc>=10)break;if(chips[rr][cc]===pl||chips[rr][cc]===9)run++;else break}b=Math.max(b,run)}return b}
+function maxOppThreat(r,c,chips,pl){let b=0;for(let o=1;o<=3;o++){if(o===pl)continue;b=Math.max(b,runAt(r,c,chips,o))}return b}
+function potLines(r,c,chips,pl){let cnt=0;for(const d of DIRS){for(let st=-4;st<=0;st++){let fr=0,bl=false;for(let s=0;s<5;s++){const rr=r+d[0]*(st+s),cc=c+d[1]*(st+s);if(rr<0||rr>=10||cc<0||cc>=10){bl=true;break}const v=chips[rr][cc];if(v===pl||v===9||v===0){if(v===pl||v===9)fr++}else{bl=true;break}}if(!bl&&fr>=1){cnt++;break}}}return cnt}
+function findLock(pl){const sq=[];for(let r=0;r<10;r++)for(let c=0;c<10;c++)for(const d of DIRS){const cells=[];for(let s=0;s<5;s++){const rr=r+d[0]*s,cc=c+d[1]*s;if(rr<0||rr>=10||cc<0||cc>=10)break;if(G.chips[rr][cc]===pl||G.chips[rr][cc]===9)cells.push([rr,cc]);else break}if(cells.length>=5)sq.push(cells)}let found=false;for(const s of sq){found=true;for(const[r,c]of s)G.locked[r][c]=true}return found}
+
+// ===== AI =====
+function aiBestMove(hand,pl,diff){
+  // Discard dead cards first
+  for(let ci=0;ci<hand.length;ci++){
+    if(isDead(hand[ci],G.chips)){
+      const nc=drawCard();
+      if(nc)hand[ci]=nc; else hand.splice(ci,1);
+      return{action:'dead'}}
+  }
+  if(diff===1){// Novice: random
+    const playable=[];for(let ci=0;ci<hand.length;ci++){const sp=getSpots(hand[ci],G.chips);if(sp.length)playable.push({ci,spots:sp})}
+    if(!playable.length)return null;
+    const pick=playable[Math.floor(Math.random()*playable.length)];
+    return{ci:pick.ci,pos:pick.spots[Math.floor(Math.random()*pick.spots.length)]}}
+  if(diff===2){// Middling: greedy
+    for(let ci=0;ci<hand.length;ci++){const spots=getSpots(hand[ci],G.chips);if(!spots.length)continue;
+      let bs=-1,bp=spots[0];for(const[r,c]of spots){G.chips[r][c]=pl;const s=runAt(r,c,G.chips,pl);G.chips[r][c]=0;if(s>bs){bs=s;bp=[r,c]}}
+      return{ci,pos:bp}}return null}
+  // Optimal
+  let bestSc=-Infinity,bestM=null;
+  for(let ci=0;ci<hand.length;ci++){const spots=getSpots(hand[ci],G.chips);if(!spots.length)continue;
+    for(const[r,c]of spots){G.chips[r][c]=pl;const own=runAt(r,c,G.chips,pl);const pot=potLines(r,c,G.chips,pl);G.chips[r][c]=0;
+      const def=maxOppThreat(r,c,G.chips,pl);
+      let sc=own>=5?10000:own**3*5+pot*3+def**2*8;if(own===4)sc+=150;if(def>=4)sc+=100;
+      if(sc>bestSc){bestSc=sc;bestM={ci,pos:[r,c]}}}}
+  return bestM}
+
+function aiPlaceYellow(spots,ctrl){
+  const diff=[0,blueDiff,redDiff][ctrl-1]||2; // player 0=green uses optimal for yellow
+  if(spots.length===1)return spots[0];
+  if(ctrl===0)return null; // human chooses
+  let bestI=0,bestSc=-Infinity;
+  for(let i=0;i<spots.length;i++){const[r,c]=spots[i];
+    G.chips[r][c]=4;const yr=runAt(r,c,G.chips,4);G.chips[r][c]=0;
+    const ob=maxOppThreat(r,c,G.chips,ctrl);
+    let sc=-yr*100+ob*10;if(yr>=5)sc-=10000;if(yr>=4)sc-=500;
+    if(diff===1)sc=Math.random()*100; // novice random
+    if(sc>bestSc){bestSc=sc;bestI=i}}
+  return spots[bestI]}
+
+// ===== LOGGING =====
+function addLog(msg,color){
+  G.log.push({msg,color:color||'var(--text3)'});
+  const el=document.getElementById('log');
+  el.innerHTML+=`<div class="log-line" style="color:${color||'var(--text3)'}">${msg}</div>`;
+  el.scrollTop=el.scrollHeight}
+
+// ===== GAME FLOW =====
+function nextRound(){
+  if(gameOver)return;
+  G.round++;
+  const ctrl=((G.round-1)%3); // 0=Green,1=Blue,2=Red controls yellow
+
+  // Yellow turn
+  if(!G.deck.length){endDraw();return}
+  const flipped=drawCard();
+  const spots=getSpots(flipped,G.chips);
+  const ctrlName=["You","Blue","Red"][ctrl];
+
+  document.getElementById('round-info').innerHTML=
+    `<span>Round ${G.round}</span><span style="color:var(--yellow)">Yellow controlled by ${ctrlName}</span><span>Deck: ${G.deck.length}</span>`;
+
+  if(spots.length===0){
+    addLog(`Round ${G.round} | ${ctrlName} flips ${cardText(flipped)} for Yellow (no open spots)`,PC[3]+'99');
+    afterYellow(ctrl);return}
+
+  if(ctrl===0){
+    // HUMAN controls yellow
+    yellowMode=true;yellowCard=flipped;yellowSpots=spots;
+    setStatus(`You control Yellow! Flipped: ${cardText(flipped)}. Pick a spot for Yellow's chip.`,'yellow-turn');
+    document.getElementById('yellow-prompt').style.display='block';
+    document.getElementById('yellow-prompt').innerHTML=`Flipped for Yellow: <span style="background:#fff;border:1px solid #d1d5db;border-radius:4px;padding:2px 6px">${cardLabel(flipped,12)}</span> &mdash; Click a highlighted board cell to place Yellow's chip.`;
+    render();return}
+
+  // AI controls yellow
+  const pos=aiPlaceYellow(spots,ctrl);
+  G.chips[pos[0]][pos[1]]=4;
+  lastMove=pos;lastMovePlayer=3;
+  addLog(`Round ${G.round} | ${ctrlName} flips ${cardText(flipped)} for Yellow → [${pos[0]+1},${pos[1]+1}]`,PC[3]+'cc');
+  if(findLock(4)){showWinner(3);return}
+  render();
+  afterYellow(ctrl)}
+
+function afterYellow(ctrl){
+  // Green's turn (human)
+  yellowMode=false;yellowSpots=[];
+  document.getElementById('yellow-prompt').style.display='none';
+  handleDeadCards(0);
+  setStatus("Your turn! Select a card from your hand, then click a board cell.",'your-turn');
+  selectedCard=null;validSpots=[];
+  render()}
+
+function humanPlayCard(ci){
+  if(gameOver||yellowMode)return;
+  const card=G.hands[0][ci];
+  if(isDead(card,G.chips)){
+    // auto-discard dead
+    const nc=drawCard();
+    if(nc)G.hands[0][ci]=nc;else G.hands[0].splice(ci,1);
+    addLog(`You discard dead card ${cardText(card)}`,PC[0]+'99');
+    render();return}
+  const spots=getSpots(card,G.chips);
+  if(!spots.length){
+    document.getElementById('status-bar').style.animation='shake .3s ease';
+    setTimeout(()=>document.getElementById('status-bar').style.animation='',400);return}
+  selectedCard=ci;validSpots=spots;render()}
+
+function humanPlaceChip(r,c){
+  if(gameOver)return;
+  if(yellowMode){
+    // placing yellow chip
+    G.chips[r][c]=4;lastMove=[r,c];lastMovePlayer=3;yellowMode=false;yellowSpots=[];
+    document.getElementById('yellow-prompt').style.display='none';
+    addLog(`Round ${G.round} | You flip ${cardText(yellowCard)} for Yellow → [${r+1},${c+1}]`,PC[3]+'cc');
+    if(findLock(4)){showWinner(3);return}
+    render();afterYellow(0);return}
+  if(selectedCard===null)return;
+  const card=G.hands[0][selectedCard];
+  G.chips[r][c]=1;lastMove=[r,c];lastMovePlayer=0;
+  const nc=drawCard();
+  if(nc)G.hands[0][selectedCard]=nc;else G.hands[0].splice(selectedCard,1);
+  addLog(`Round ${G.round} | You play ${cardText(card)} → [${r+1},${c+1}]`,PC[0]+'cc');
+  selectedCard=null;validSpots=[];
+  if(findLock(1)){showWinner(0);return}
+  render();
+  setTimeout(()=>cpuTurn(1),800)}
+
+function cpuTurn(p){
+  if(gameOver)return;
+  const name=PN[p];const diff=p===1?blueDiff:redDiff;
+  setStatus(`${name} is thinking...`,'');
+  document.getElementById(p===1?'blue-box':'red-box').classList.add('active');
+  document.getElementById(p===1?'blue-box':'red-box').style.borderColor=PC[p];
+
+  setTimeout(()=>{
+    if(gameOver)return;
+    const move=aiBestMove(G.hands[p],p+1,diff);
+    document.getElementById(p===1?'blue-box':'red-box').classList.remove('active');
+    document.getElementById(p===1?'blue-box':'red-box').style.borderColor='';
+
+    if(move&&move.action==='dead'){
+      addLog(`Round ${G.round} | ${name} discards a dead card`,PC[p]+'99');
+      // still needs to play
+      const move2=aiBestMove(G.hands[p],p+1,diff);
+      if(move2&&!move2.action){
+        const card=G.hands[p][move2.ci];
+        G.chips[move2.pos[0]][move2.pos[1]]=p+1;lastMove=move2.pos;lastMovePlayer=p;
+        const nc=drawCard();if(nc)G.hands[p][move2.ci]=nc;else G.hands[p].splice(move2.ci,1);
+        addLog(`Round ${G.round} | ${name} plays ${cardText(card)} → [${move2.pos[0]+1},${move2.pos[1]+1}]`,PC[p]+'cc');
+        if(findLock(p+1)){showWinner(p);return}}
+    } else if(move){
+      const card=G.hands[p][move.ci];
+      G.chips[move.pos[0]][move.pos[1]]=p+1;lastMove=move.pos;lastMovePlayer=p;
+      const nc=drawCard();if(nc)G.hands[p][move.ci]=nc;else G.hands[p].splice(move.ci,1);
+      addLog(`Round ${G.round} | ${name} plays ${cardText(card)} → [${move.pos[0]+1},${move.pos[1]+1}]`,PC[p]+'cc');
+      if(findLock(p+1)){showWinner(p);return}}
+    render();
+    if(p===1)setTimeout(()=>cpuTurn(2),900);
+    else setTimeout(()=>nextRound(),900);
+  },500+Math.random()*500)}
+
+function handleDeadCards(p){
+  const hand=G.hands[p];
+  for(let ci=0;ci<hand.length;ci++){
+    if(isDead(hand[ci],G.chips)){
+      const nc=drawCard();
+      if(nc)hand[ci]=nc;else hand.splice(ci,1);
+      if(p===0)addLog(`You discard a dead card and draw`,PC[0]+'99');
+      break}}}
+
+function setStatus(msg,cls){
+  const el=document.getElementById('status-bar');el.textContent=msg;el.className='';if(cls)el.classList.add(cls)}
+
+function endDraw(){gameOver=true;setStatus('Deck exhausted! Game is a draw.','');
+  document.getElementById('overlay').style.display='flex';
+  document.getElementById('overlay-box').innerHTML=`<h2 style="color:var(--text2)">Draw</h2><p>The deck ran out with no winner.</p><button onclick="location.reload()">Play Again</button>`}
+
+function showWinner(p){
+  gameOver=true;render();
+  const isYellow=p===3;const isYou=p===0;
+  document.getElementById('overlay').style.display='flex';
+  if(isYellow){
+    document.getElementById('overlay-box').innerHTML=`<h2 style="color:var(--yellow)">💀 Yellow Wins!</h2><p>The blind 4th completed a sequence. Everyone loses!</p><button onclick="location.reload()">Play Again</button>`}
+  else if(isYou){
+    document.getElementById('overlay-box').innerHTML=`<h2 style="color:var(--green)">🏆 You Win!</h2><p>Congratulations! You completed a sequence.</p><button onclick="location.reload()">Play Again</button>`}
+  else{
+    document.getElementById('overlay-box').innerHTML=`<h2 style="color:${PC[p]}">${PN[p]} Wins</h2><p>The CPU completed a sequence before you.</p><button onclick="location.reload()">Play Again</button>`}}
+
+// ===== RENDER =====
+function render(){
+  const playerCls=['green','blue','red','yellow'];
+  // Board
+  let bh='';for(let r=0;r<10;r++)for(let c=0;c<10;c++){
+    const cell=BOARD[r][c],chip=G.chips[r][c],isFree=cell==='FREE',isLk=G.locked[r][c];
+    const isLast=lastMove&&lastMove[0]===r&&lastMove[1]===c&&!gameOver;
+    const isValidG=!yellowMode&&validSpots.some(([vr,vc])=>vr===r&&vc===c);
+    const isValidY=yellowMode&&yellowSpots.some(([vr,vc])=>vr===r&&vc===c);
+    let cls='cell';if(isFree)cls+=' free';if(isValidG)cls+=' valid';if(isValidY)cls+=' valid-yellow';
+    if(isLast&&lastMovePlayer>=0)cls+=` last-move-${playerCls[lastMovePlayer]}`;
+    const onclick=(isValidG||isValidY)?`onclick="humanPlaceChip(${r},${c})"`:'';
+    bh+=`<div class="${cls}" ${onclick}>`;
+    // beacon ring on last move
+    if(isLast&&lastMovePlayer>=0)bh+=`<div class="beacon" style="--beacon-color:${PC[lastMovePlayer>=3?3:lastMovePlayer]}55"></div>`;
+    bh+=cardLabel(cell);
+    const isNew=isLast;
+    if(chip>0&&chip<9&&chip!==4){const ci=chip-1;bh+=`<div class="chip${isNew?' new-chip':''}" style="background:${PCB[ci]};border:2px solid ${PC[ci]};box-shadow:0 0 ${isLk?12:4}px ${PC[ci]}${isLk?'99':'44'}"></div>`}
+    if(chip===4)bh+=`<div class="chip${isNew?' new-chip':''}" style="background:${PCB[3]};border:2px solid ${PC[3]};box-shadow:0 0 ${isLk?14:5}px ${PC[3]}${isLk?'99':'44'}"></div>`;
+    if(chip===9)bh+=`<div class="corner-chip"></div>`;
+    if(isLk&&chip>0&&chip!==9){const ci=chip===4?3:chip-1;bh+=`<div class="lock-icon" style="color:${PC[ci]}">🔒</div>`}
+    bh+=`</div>`}
+  document.getElementById('board').innerHTML=bh;
+
+  // Hand
+  let hh='';const hand=G.hands[0];
+  for(let ci=0;ci<hand.length;ci++){
+    const card=hand[ci];const dead=isDead(card,G.chips);
+    const sel=selectedCard===ci;
+    hh+=`<div class="hand-card${sel?' selected':''}${dead?' dead':''}" onclick="${dead?`humanPlayCard(${ci})`:`humanPlayCard(${ci})`}">${cardLabel(card,12)}</div>`}
+  document.getElementById('hand').innerHTML=hh;
+
+  // Opponent cards
+  document.getElementById('blue-cards').textContent=`${G.hands[1].length} cards in hand`;
+  document.getElementById('red-cards').textContent=`${G.hands[2].length} cards in hand`;
+
+  // Yellow box
+  const yChips=G.chips.flat().filter(v=>v===4).length;
+  document.getElementById('yellow-box').querySelector('.opp-name').innerHTML=
+    `<span class="opp-dot" style="background:var(--yellow)"></span> Yellow (${yChips} chips)`;
+}
+</script>
+</body>
+</html>
