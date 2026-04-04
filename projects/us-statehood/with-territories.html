@@ -256,8 +256,14 @@ header .subtitle { font-size:clamp(10px,1.5vw,13px); color:var(--parchment-dim);
   }
   #event-banner .event-year { letter-spacing: 3px; font-size: 0.65em; }
 
-  /* Year watermark */
-  #year-display { font-size: clamp(28px, 10vw, 48px); bottom: 35vh; }
+  /* Year watermark - top-left on mobile, away from map content */
+  #year-display {
+    font-size: 24px;
+    bottom: auto;
+    top: 38px;
+    left: 8px;
+    opacity: 0.3;
+  }
 
   /* Map labels */
   .state-label { font-size: 6px; }
@@ -268,7 +274,6 @@ header .subtitle { font-size:clamp(10px,1.5vw,13px); color:var(--parchment-dim);
 
 @media (max-width: 600px) and (max-height: 700px) {
   #info-panel { max-height: 25vh; }
-  #year-display { bottom: 28vh; }
 }
 
 @media (min-width: 601px) and (max-width: 900px) {
