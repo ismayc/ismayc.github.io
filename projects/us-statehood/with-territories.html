@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>The Growth of a Nation</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap');
@@ -30,7 +30,7 @@ header { text-align:center; padding-bottom:8px; border-bottom:1px solid var(--bo
 header h1 { font-family:'Playfair Display',serif; font-weight:900; font-size:clamp(18px,3vw,28px); color:var(--gold); letter-spacing:3px; text-transform:uppercase; }
 header .subtitle { font-size:clamp(10px,1.5vw,13px); color:var(--parchment-dim); letter-spacing:6px; text-transform:uppercase; margin-top:2px; font-weight:300; }
 
-#map-area { flex:1; position:relative; min-height:0; display:flex; align-items:center; justify-content:center; }
+#map-area { flex:1; position:relative; min-height:0; display:flex; align-items:center; justify-content:center; touch-action:manipulation; }
 #map-area svg { width:100%; height:100%; }
 
 /* ── State path styles ── */
@@ -171,6 +171,9 @@ header .subtitle { font-size:clamp(10px,1.5vw,13px); color:var(--parchment-dim);
 #timeline-row { display:flex; align-items:center; gap:12px; margin-bottom:8px; }
 #play-btn { background:none; border:1px solid var(--gold); color:var(--gold); width:36px; height:36px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:14px; transition:all 0.2s; flex-shrink:0; }
 #play-btn:hover { background:var(--gold); color:var(--bg); }
+#music-btn { background:none; border:1px solid rgba(201,168,76,0.3); color:rgba(201,168,76,0.4); width:36px; height:36px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:16px; transition:all 0.2s; flex-shrink:0; }
+#music-btn:hover { border-color:var(--gold); color:var(--gold); }
+#music-btn.active { border-color:var(--gold); color:var(--gold); background:rgba(201,168,76,0.1); }
 #slider { flex:1; -webkit-appearance:none; appearance:none; height:3px; background:rgba(201,168,76,0.2); border-radius:2px; outline:none; }
 #slider::-webkit-slider-thumb { -webkit-appearance:none; width:16px; height:16px; border-radius:50%; background:var(--gold); cursor:pointer; border:2px solid var(--bg); box-shadow:0 0 6px rgba(201,168,76,0.4); }
 #slider::-moz-range-thumb { width:16px; height:16px; border-radius:50%; background:var(--gold); cursor:pointer; border:2px solid var(--bg); }
@@ -197,6 +200,106 @@ header .subtitle { font-size:clamp(10px,1.5vw,13px); color:var(--parchment-dim);
 #error-msg { display:none; position:absolute; inset:0; align-items:center; justify-content:center; flex-direction:column; gap:12px; background:var(--bg); z-index:100; text-align:center; padding:40px; }
 #error-msg h2 { font-family:'Playfair Display',serif; color:var(--gold); }
 #error-msg p { color:var(--parchment-dim); }
+
+/* ═══ MOBILE ═══ */
+@media (max-width: 600px) {
+  #app { padding: 8px 10px 6px; }
+
+  header { padding-bottom: 4px; }
+  header h1 { font-size: 16px; letter-spacing: 2px; }
+  header .subtitle { font-size: 9px; letter-spacing: 3px; margin-top: 1px; }
+
+  /* Info panel: bottom drawer */
+  #info-panel {
+    position: absolute;
+    top: auto; right: 0; bottom: 0; left: 0;
+    min-width: unset; max-width: unset;
+    border-radius: 8px 8px 0 0;
+    padding: 10px 14px;
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px;
+    max-height: 30vh; overflow-y: auto;
+  }
+  #info-panel.empty {
+    max-height: 32px; overflow: hidden; justify-content: center;
+  }
+  #info-panel .state-name { font-size: 16px; }
+  #info-panel .order-num { font-size: 22px; position: static; opacity: 0.35; margin-left: auto; }
+  #info-panel .date { font-size: 12px; width: 100%; margin-top: 0; }
+  #info-panel .territory-info { width: 100%; margin-top: 4px; padding-top: 4px; font-size: 11px; }
+  #info-panel .era-label { width: 100%; margin-top: 4px; padding-top: 4px; font-size: 10px; }
+  #info-panel .status-badge { font-size: 8px; margin-top: 0; }
+
+  /* Bigger touch targets */
+  #play-btn { width: 44px; height: 44px; font-size: 16px; }
+  #music-btn { width: 44px; height: 44px; font-size: 18px; }
+  #slider { height: 6px; }
+  #slider::-webkit-slider-thumb { width: 24px; height: 24px; }
+  #slider::-moz-range-thumb { width: 24px; height: 24px; }
+  #timeline-row { gap: 8px; margin-bottom: 6px; }
+  #step-label { font-size: 13px; min-width: 44px; }
+
+  .speed-btn { padding: 6px 12px; font-size: 13px; }
+  .speed-controls span { font-size: 10px; }
+
+  /* Hide legend on very small screens, show on medium mobile */
+  #legend { display: none; }
+  #speed-row { justify-content: center; }
+
+  /* Controls spacing */
+  #controls { padding: 8px 0 4px; padding-bottom: calc(4px + env(safe-area-inset-bottom)); }
+
+  /* Event banner */
+  #event-banner { 
+    white-space: normal; max-width: 90vw; 
+    font-size: clamp(12px, 3.5vw, 18px); 
+    letter-spacing: 2px; padding: 5px 14px;
+  }
+  #event-banner .event-year { letter-spacing: 3px; font-size: 0.65em; }
+
+  /* Year watermark */
+  #year-display { font-size: clamp(28px, 10vw, 48px); bottom: 35vh; }
+
+  /* Map labels */
+  .state-label { font-size: 6px; }
+  .territory-name-label { font-size: 7px; letter-spacing: 1px; }
+  .acquisition-name-label { font-size: 8px; letter-spacing: 2px; }
+  .territory-abbr-label { font-size: 5.5px; }
+}
+
+@media (max-width: 600px) and (max-height: 700px) {
+  #info-panel { max-height: 25vh; }
+  #year-display { bottom: 28vh; }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  #info-panel { min-width: 180px; max-width: 220px; padding: 10px 14px; }
+  #info-panel .state-name { font-size: 17px; }
+  #info-panel .order-num { font-size: 28px; }
+  #legend .leg-item { font-size: 9px; }
+  #slider::-webkit-slider-thumb { width: 20px; height: 20px; }
+}
+
+/* Landscape phone */
+@media (max-height: 500px) {
+  header { display: none; }
+  #app { padding: 4px 10px; }
+  #info-panel {
+    position: absolute;
+    top: 4px; right: 4px; bottom: auto; left: auto;
+    min-width: 180px; max-width: 220px; max-height: 45vh;
+    border-radius: 4px; padding: 8px 12px; overflow-y: auto;
+  }
+  #info-panel .state-name { font-size: 15px; }
+  #info-panel .order-num { font-size: 20px; }
+  #info-panel .territory-info { font-size: 10px; }
+  #controls { padding: 4px 0 2px; }
+  #timeline-row { margin-bottom: 4px; }
+  #play-btn { width: 32px; height: 32px; font-size: 12px; }
+  #music-btn { width: 32px; height: 32px; font-size: 14px; }
+  #year-display { font-size: 28px; bottom: 6px; }
+  #legend { display: none; }
+  #event-banner { font-size: clamp(11px, 2.5vw, 16px); padding: 3px 10px; }
+}
 </style>
 </head>
 <body>
@@ -223,6 +326,7 @@ header .subtitle { font-size:clamp(10px,1.5vw,13px); color:var(--parchment-dim);
   <div id="controls">
     <div id="timeline-row">
       <button id="play-btn" aria-label="Play">&#9654;</button>
+      <button id="music-btn" aria-label="Toggle Music" title="Toggle Music">&#9834;</button>
       <input type="range" id="slider" min="0" max="50" value="0">
       <span id="step-label">0 / 50</span>
     </div>
@@ -230,9 +334,9 @@ header .subtitle { font-size:clamp(10px,1.5vw,13px); color:var(--parchment-dim);
       <div id="legend"></div>
       <div class="speed-controls">
         <span>Speed</span>
-        <button class="speed-btn" data-speed="2000">Slow</button>
-        <button class="speed-btn active" data-speed="1000">Med</button>
-        <button class="speed-btn" data-speed="400">Fast</button>
+        <button class="speed-btn active" data-speed="0.5">Slow</button>
+        <button class="speed-btn" data-speed="1">Med</button>
+        <button class="speed-btn" data-speed="2.5">Fast</button>
       </div>
     </div>
   </div>
@@ -240,6 +344,7 @@ header .subtitle { font-size:clamp(10px,1.5vw,13px); color:var(--parchment-dim);
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
 <script>
 // ═══════════════════════════════════════
 // STATE DATA
@@ -393,8 +498,8 @@ const statesByOrder = Object.entries(STATES)
 
 const LABEL_OFFSETS = {"DE":[12,0],"CT":[14,0],"RI":[16,0],"NJ":[12,0],"MD":[0,12],"MA":[16,0],"NH":[14,0],"VT":[0,-4]};
 
-let currentStep=0, playing=false, interval=null, speed=1000;
-let hoveredState=null, geoData=null, topoData=null, statePaths={};
+let currentStep=0, playing=false, interval=null;
+let hoveredState=null, tappedState=null, geoData=null, topoData=null, statePaths={};
 let pathGen=null, prevYear=1786, bannerTimeout=null;
 
 const svg = d3.select('#map-svg');
@@ -444,6 +549,13 @@ function buildMap() {
   const container=document.getElementById('map-area');
   const w=container.clientWidth, h=container.clientHeight;
   svg.attr('viewBox',`0 0 ${w} ${h}`);
+  
+  // Tap background to deselect
+  svg.on('click',function(ev){
+    if(ev.target === this || ev.target.tagName === 'svg'){
+      tappedState=null; hoveredState=null; updateInfoPanel(null);
+    }
+  });
 
   const projection=d3.geoAlbersUsa().fitSize([w-20,h-20],geoData).translate([w/2,h/2]);
   pathGen=d3.geoPath().projection(projection);
@@ -453,7 +565,15 @@ function buildMap() {
   stateGroup.selectAll('path').data(geoData.features).enter().append('path')
     .attr('d',pathGen).attr('class','state-path').attr('data-fips',d=>d.id)
     .on('mouseenter',function(ev,d){if(STATES[d.id]){hoveredState=d.id;updateInfoPanel(d.id);}})
-    .on('mouseleave',function(){hoveredState=null;updateInfoPanel(null);})
+    .on('mouseleave',function(){if(!tappedState){hoveredState=null;updateInfoPanel(null);}})
+    .on('click touchend',function(ev,d){
+      ev.preventDefault(); ev.stopPropagation();
+      if(STATES[d.id]){
+        // Toggle: tap same state again to deselect
+        if(tappedState===d.id){ tappedState=null; hoveredState=null; updateInfoPanel(null); }
+        else { tappedState=d.id; hoveredState=d.id; updateInfoPanel(d.id); }
+      }
+    })
     .each(function(d){statePaths[d.id]=this;});
 
   // Layer 2: Acquisition outlines
@@ -634,9 +754,11 @@ function updateMap() {
   }
 
   // ── Info panel ──
-  if (!hoveredState) {
+  if (!hoveredState && !tappedState) {
     if (currentStep > 0) updateInfoPanel(statesByOrder[currentStep-1].fips);
     else updateInfoPanel(null);
+  } else if (tappedState) {
+    updateInfoPanel(tappedState);
   }
 
   slider.value = currentStep;
@@ -647,7 +769,8 @@ function showEventBanner(text, sub, year) {
   clearTimeout(bannerTimeout);
   eventBanner.innerHTML = `${text}<span class="event-year">${sub} &middot; ${year}</span>`;
   eventBanner.classList.add('visible');
-  bannerTimeout = setTimeout(() => eventBanner.classList.remove('visible'), Math.min(speed * 3, 4000));
+  playAcquisitionSound();
+  bannerTimeout = setTimeout(() => eventBanner.classList.remove('visible'), Math.min(4000 / speedMult, 5000));
 }
 
 function updateInfoPanel(fips) {
@@ -717,15 +840,146 @@ function updateInfoPanel(fips) {
   terrEl.innerHTML=t;
 }
 
-// ── Playback ──
+// ── Playback with consistent year-based timing ──
+
+// Precompute admission years
+const stepYears = statesByOrder.map(s => parseInt(s.date.split(', ').pop()));
+
+// Timing: constant ms per year so the counter always ticks at the same pace.
+// Delay between states = yearGap * msPerYear, with a floor for same-year admissions.
+const BASE_MS_PER_YEAR = 250; // at 1x speed
+const MIN_DELAY = 500;        // minimum gap between any two states at 1x
+
+// Speed: Slow=0.5x (2x delay), Med=1x, Fast=2.5x (0.4x delay)
+let speedMult = 0.5;
+
+function getMsPerYear() {
+  return BASE_MS_PER_YEAR / speedMult;
+}
+
+function getDelay(step) {
+  if (step < 1 || step >= 50) return MIN_DELAY / speedMult;
+  const yearGap = stepYears[step] - stepYears[step - 1];
+  return Math.max(MIN_DELAY / speedMult, yearGap * getMsPerYear());
+}
+
+let yearTickInterval = null;
+let lastTickedYear = 0;
+
+function startYearTicker(fromStep) {
+  clearInterval(yearTickInterval);
+  if (fromStep >= 50) return;
+
+  const currentYear = stepYears[fromStep - 1];
+  const nextYear = stepYears[fromStep];
+  const yearGap = nextYear - currentYear;
+
+  if (yearGap <= 1) return;
+
+  const tickMs = getMsPerYear();
+  let tickedYear = currentYear;
+  lastTickedYear = currentYear;
+
+  yearTickInterval = setInterval(() => {
+    tickedYear++;
+    if (tickedYear >= nextYear) {
+      clearInterval(yearTickInterval);
+      return;
+    }
+    yearDisplay.textContent = tickedYear;
+    lastTickedYear = tickedYear;
+
+    // Fire acquisition events mid-tick so land appears at the right year
+    const evts = EVENTS.filter(e => e.year === tickedYear);
+    if (evts.length > 0) {
+      const ev = evts[0];
+      showEventBanner(ev.text, ev.sub, ev.year);
+      refreshMapForYear(tickedYear);
+    }
+  }, tickMs);
+}
+
+// Refresh map visuals for an intermediate year (during ticking between admissions)
+function refreshMapForYear(yr) {
+  Object.entries(STATES).forEach(([fips, info]) => {
+    const el = statePaths[fips]; if(!el) return;
+    const p = d3.select(el);
+    const terrAbbr = d3.select(`#terr-abbr-${fips}`);
+
+    // Only update states that aren't already admitted
+    if (info.order <= currentStep) return;
+
+    const isAcquired = yr >= info.acquiredYear;
+    if (!isAcquired) return;
+
+    const inAcqGroup = ACQUISITION_GROUPS.some(grp => {
+      if (yr < grp.year) return false;
+      return grp.fips.includes(fips);
+    });
+
+    if (inAcqGroup && !p.classed('acquired-grouped') && !p.classed('territory-solo') && !p.classed('territory-grouped')) {
+      p.classed('acquired-grouped',true).style('fill','var(--acquired)');
+    }
+  });
+
+  // Refresh acquisition outlines
+  const acqG = d3.select('#acq-outlines'); acqG.selectAll('*').remove();
+  const acqLblG = d3.select('#acq-labels'); acqLblG.selectAll('*').remove();
+  ACQUISITION_GROUPS.forEach(grp => {
+    if (yr < grp.year) return;
+    const unorgMembers = grp.fips.filter(fips => {
+      const info = STATES[fips]; if(!info) return false;
+      if (info.order <= currentStep) return false;
+      if (info.terrYear && yr >= info.terrYear) return false;
+      return yr >= info.acquiredYear;
+    });
+    if (unorgMembers.length === 0) return;
+    const d = getMergedPath(unorgMembers);
+    if (!d) return;
+    acqG.append('path').attr('class','acquisition-merged').attr('d',d);
+    const c = getMergedCentroid(unorgMembers);
+    if (c && !isNaN(c[0])) {
+      acqLblG.append('text').attr('class','acquisition-name-label visible').attr('x',c[0]).attr('y',c[1]).text(grp.name);
+    }
+  });
+}
+
 playBtn.addEventListener('click',()=>{playing?stopPlaying():startPlaying();});
-function startPlaying(){if(currentStep>=50){currentStep=0;prevYear=1786;}playing=true;playBtn.innerHTML='&#9646;&#9646;';advance();}
-function stopPlaying(){playing=false;playBtn.innerHTML='&#9654;';clearTimeout(interval);}
-function advance(){if(!playing)return;if(currentStep>=50){stopPlaying();return;}currentStep++;updateMap();interval=setTimeout(advance,speed);}
+function startPlaying(){
+  if(currentStep>=50){currentStep=0;prevYear=1786;}
+  playing=true;
+  playBtn.innerHTML='&#9646;&#9646;';
+  if(musicEnabled && musicInitialized && currentStep > 0){
+    const eraIdx = getEraIndex(currentStep);
+    const era = ERA_MUSIC[eraIdx];
+    padSynth.releaseAll();
+    padSynth.triggerAttack(era.pad);
+    currentPadEra = eraIdx;
+  }
+  advance();
+}
+function stopPlaying(){
+  playing=false;
+  playBtn.innerHTML='&#9654;';
+  clearTimeout(interval);
+  clearInterval(yearTickInterval);
+  stopMusic();
+}
+function advance(){
+  if(!playing)return;
+  if(currentStep>=50){stopPlaying();return;}
+  currentStep++;
+  playStateSound(currentStep);
+  updateMap();
+  // Start ticking intermediate years toward the next state
+  startYearTicker(currentStep);
+  interval=setTimeout(advance, getDelay(currentStep));
+}
 
 slider.addEventListener('input',()=>{
   currentStep=parseInt(slider.value);
   prevYear=getYearAtStep(Math.max(0,currentStep-1));
+  clearInterval(yearTickInterval);
   if(playing)stopPlaying();
   updateMap();
 });
@@ -733,7 +987,8 @@ slider.addEventListener('input',()=>{
 document.querySelectorAll('.speed-btn').forEach(btn=>{
   btn.addEventListener('click',()=>{
     document.querySelectorAll('.speed-btn').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');speed=parseInt(btn.dataset.speed);
+    btn.classList.add('active');
+    speedMult = parseFloat(btn.dataset.speed);
   });
 });
 
@@ -741,6 +996,139 @@ let resizeTimer;
 window.addEventListener('resize',()=>{
   clearTimeout(resizeTimer);
   resizeTimer=setTimeout(()=>{if(!geoData)return;svg.selectAll('*').remove();statePaths={};buildMap();},250);
+});
+
+// ═══════════════════════════════════════
+// GENERATIVE MUSIC ENGINE (60 BPM @ medium)
+// ═══════════════════════════════════════
+let musicEnabled = false;
+let musicInitialized = false;
+let padSynth, bellSynth, bassSynth, chimeSynth;
+let padPart;
+const musicBtn = document.getElementById('music-btn');
+
+// Per-era musical keys: [root, chord notes, scale for melody]
+const ERA_MUSIC = {
+  1:  { root:'D2', pad:['D3','F3','A3'],       scale:['D4','F4','G4','A4','C5','D5','F5'], mood:'minor' },     // Original 13
+  2:  { root:'F2', pad:['F3','A3','C4'],        scale:['F4','G4','A4','C5','D5','F5','G5'], mood:'major' },     // Early Republic
+  3:  { root:'G2', pad:['G3','B3','D4'],        scale:['G4','A4','B4','D5','E5','G5','A5'], mood:'major' },     // Expansion
+  4:  { root:'A2', pad:['A3','C4','E4'],        scale:['A4','B4','C5','E5','F5','A5','B5'], mood:'minor' },     // Pre-Civil War
+  5:  { root:'C2', pad:['C3','Eb3','G3'],       scale:['C4','Eb4','F4','G4','Bb4','C5','Eb5'], mood:'minor' },  // Civil War
+  6:  { root:'D2', pad:['D3','F#3','A3'],       scale:['D4','E4','F#4','A4','B4','D5','E5'], mood:'major' },    // Western
+  7:  { root:'Eb2', pad:['Eb3','G3','Bb3'],     scale:['Eb4','F4','G4','Bb4','C5','Eb5','F5'], mood:'major' },  // Early 20th
+  8:  { root:'G2', pad:['G3','B3','D4','F#4'],  scale:['G4','A4','B4','D5','E5','F#5','G5'], mood:'major' },    // Modern
+};
+
+function getEraIndex(order) {
+  if (order <= 13) return 1;
+  if (order <= 17) return 2;
+  if (order <= 28) return 3;
+  if (order <= 34) return 4;
+  if (order <= 38) return 5;
+  if (order <= 45) return 6;
+  if (order <= 48) return 7;
+  return 8;
+}
+
+function initMusic() {
+  if (musicInitialized) return;
+
+  // Warm pad synth for sustained harmony
+  padSynth = new Tone.PolySynth(Tone.Synth, {
+    oscillator: { type: 'sine' },
+    envelope: { attack: 2, decay: 1, sustain: 0.8, release: 3 },
+    volume: -18
+  }).toDestination();
+
+  // Bell/chime for each state admission
+  bellSynth = new Tone.PolySynth(Tone.Synth, {
+    oscillator: { type: 'triangle' },
+    envelope: { attack: 0.01, decay: 1.5, sustain: 0, release: 1.5 },
+    volume: -12
+  }).toDestination();
+
+  // Deep bass on each admission
+  bassSynth = new Tone.Synth({
+    oscillator: { type: 'sine' },
+    envelope: { attack: 0.05, decay: 0.8, sustain: 0.3, release: 1.5 },
+    volume: -16
+  }).toDestination();
+
+  // Bright chime for acquisition events
+  chimeSynth = new Tone.PolySynth(Tone.Synth, {
+    oscillator: { type: 'sine' },
+    envelope: { attack: 0.01, decay: 2, sustain: 0, release: 2 },
+    volume: -10
+  }).toDestination();
+
+  // Add gentle reverb to everything
+  const reverb = new Tone.Reverb({ decay: 4, wet: 0.35 }).toDestination();
+  bellSynth.connect(reverb);
+  chimeSynth.connect(reverb);
+  padSynth.connect(reverb);
+
+  musicInitialized = true;
+}
+
+let currentPadEra = 0;
+
+function playStateSound(order) {
+  if (!musicEnabled || !musicInitialized) return;
+
+  const eraIdx = getEraIndex(order);
+  const era = ERA_MUSIC[eraIdx];
+
+  // Shift the pad if era changed
+  if (eraIdx !== currentPadEra) {
+    padSynth.releaseAll();
+    setTimeout(() => {
+      padSynth.triggerAttack(era.pad);
+    }, 100);
+    currentPadEra = eraIdx;
+  }
+
+  // Melodic bell - pick note from scale based on position within era
+  const noteIdx = (order - 1) % era.scale.length;
+  const note = era.scale[noteIdx];
+  bellSynth.triggerAttackRelease(note, '2n');
+
+  // Bass note
+  bassSynth.triggerAttackRelease(era.root, '2n');
+}
+
+function playAcquisitionSound() {
+  if (!musicEnabled || !musicInitialized) return;
+  // A bright ascending arpeggio for major land acquisitions
+  const notes = ['C5','E5','G5','C6'];
+  notes.forEach((n, i) => {
+    setTimeout(() => chimeSynth.triggerAttackRelease(n, '4n'), i * 120);
+  });
+}
+
+function stopMusic() {
+  if (!musicInitialized) return;
+  padSynth.releaseAll();
+  currentPadEra = 0;
+}
+
+musicBtn.addEventListener('click', async () => {
+  if (!musicEnabled) {
+    await Tone.start();
+    initMusic();
+    musicEnabled = true;
+    musicBtn.classList.add('active');
+    // If already playing, start the pad
+    if (playing && currentStep > 0) {
+      const eraIdx = getEraIndex(currentStep);
+      const era = ERA_MUSIC[eraIdx];
+      padSynth.triggerAttack(era.pad);
+      currentPadEra = eraIdx;
+    }
+  } else {
+    musicEnabled = false;
+    musicBtn.classList.remove('active');
+    stopMusic();
+  }
 });
 
 loadData();
