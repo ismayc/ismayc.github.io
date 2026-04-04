@@ -352,7 +352,7 @@ cat("\nGenerating scenario explorer...\n")
 #        a 30% team needing 25% = undecided (only 5pt gap, that IS their pace)
 # Undecided: everything else
 
-likely_gap_threshold <- 20  # percentage points between current pace and what's needed
+likely_gap_threshold <- 25  # percentage points between current pace and what's needed
 
 clinched_list <- list()
 likely_list <- list()
@@ -404,17 +404,30 @@ cat("  Undecided:", length(undecided_vec), "teams\n")
 
 clinched_json <- toJSON(clinched_list, auto_unbox = TRUE)
 likely_json <- toJSON(likely_list, auto_unbox = TRUE)
-undecided_json <- toJSON(undecided_vec, auto_unbox = TRUE)
+# as.list() forces jsonlite to always emit an array, even for 0 or 1 elements
+undecided_json <- toJSON(as.list(undecided_vec), auto_unbox = TRUE)
 
 # -- Read template and inject data ---------------------------------------------
 template_file <- "nba-over-under-2025-2026/scenario-explorer-template.html"
 stopifnot(file.exists(template_file))
 template <- paste(readLines(template_file, warn = FALSE), collapse = "\n")
 
+# Use str_replace with fixed() for truly literal replacement
+# (gsub can misinterpret backslash sequences in the replacement string)
 scenario_html <- template
-scenario_html <- gsub("__CLINCHED_JSON__", clinched_json, scenario_html, fixed = TRUE)
-scenario_html <- gsub("__LIKELY_JSON__", likely_json, scenario_html, fixed = TRUE)
-scenario_html <- gsub("__UNDECIDED_JSON__", undecided_json, scenario_html, fixed = TRUE)
+scenario_html <- str_replace(scenario_html, fixed("__CLINCHED_JSON__"), clinched_json)
+scenario_html <- str_replace(scenario_html, fixed("__LIKELY_JSON__"), likely_json)
+scenario_html <- str_replace(scenario_html, fixed("__UNDECIDED_JSON__"), undecided_json)
+
+# Verify all placeholders were replaced
+remaining <- sum(str_detect(scenario_html, fixed("__CLINCHED_JSON__")),
+                 str_detect(scenario_html, fixed("__LIKELY_JSON__")),
+                 str_detect(scenario_html, fixed("__UNDECIDED_JSON__")))
+if (remaining > 0) {
+  warning("  Template still has ", remaining, " unreplaced placeholder(s)!")
+} else {
+  cat("  All placeholders replaced successfully\n")
+}
 
 scenario_path <- file.path(out_dir, "nba-scenario-explorer.html")
 writeLines(scenario_html, scenario_path)

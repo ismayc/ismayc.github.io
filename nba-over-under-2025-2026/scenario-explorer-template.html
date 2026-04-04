@@ -20,10 +20,14 @@
 <body>
 <div id="root"></div>
 <script>
-// These three objects are injected by R at build time:
+// These three objects are injected by R at build time.
+// jsonlite::toJSON with auto_unbox can produce a bare string instead of
+// a 1-element array, so we normalise UNDECIDED to always be an array.
 const CLINCHED = __CLINCHED_JSON__;
 const LIKELY = __LIKELY_JSON__;
-const UNDECIDED = __UNDECIDED_JSON__;
+const _RAW_UNDECIDED = __UNDECIDED_JSON__;
+const UNDECIDED = Array.isArray(_RAW_UNDECIDED) ? _RAW_UNDECIDED
+                : (_RAW_UNDECIDED ? [_RAW_UNDECIDED] : []);
 </script>
 <script type="text/babel">
 const { useState, useMemo, useCallback } = React;
