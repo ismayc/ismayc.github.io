@@ -1,11 +1,11 @@
 seed,team_name,conference,wins,losses,source
-1,Detroit Pistons,East,56,21,espn_api
+1,Detroit Pistons,East,57,21,espn_api
 2,Boston Celtics,East,52,25,espn_api
 3,New York Knicks,East,50,28,espn_api
 4,Cleveland Cavaliers,East,48,29,espn_api
 5,Atlanta Hawks,East,45,33,espn_api
-6,Philadelphia 76ers,East,43,34,espn_api
-7,Toronto Raptors,East,43,34,espn_api
+6,Toronto Raptors,East,43,34,espn_api
+7,Philadelphia 76ers,East,43,35,espn_api
 8,Charlotte Hornets,East,42,36,espn_api
 9,Orlando Magic,East,41,36,espn_api
 10,Miami Heat,East,41,37,espn_api
