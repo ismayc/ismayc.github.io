@@ -51,13 +51,13 @@ h1{font-family:'Crimson Pro',serif;font-size:28px;font-weight:600;font-style:ita
 #board{display:grid;grid-template-columns:repeat(10,1fr);gap:2.5px}
 .cell{width:100%;aspect-ratio:1;min-width:0;border-radius:5px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;transition:all .12s;cursor:default;border:1px solid #d1d5db;background:#fff}
 .cell.free{background:linear-gradient(135deg,#fef3c7,#fde68a);border-color:#d97706}
-.cell.valid{cursor:pointer;border:3px solid var(--green);animation:validPulse 1s ease infinite;z-index:5;transform:scale(1.06);background:rgba(34,197,94,.06)}
+.cell.valid{cursor:pointer;border:3px solid var(--green);animation:validPulse 1s ease infinite;z-index:5;transform:scale(1.06);background:rgba(21,128,61,.85)}
 .cell.valid:hover{transform:scale(1.15);z-index:10;box-shadow:0 0 20px rgba(34,197,94,.7)}
-.cell.valid-yellow{cursor:pointer;border:3px solid var(--yellow);animation:validYPulse 1s ease infinite;z-index:5;transform:scale(1.06);background:rgba(234,179,8,.06)}
+.cell.valid-yellow{cursor:pointer;border:3px solid var(--yellow);animation:validYPulse 1s ease infinite;z-index:5;transform:scale(1.06);background:rgba(146,113,14,.8)}
 .cell.valid-yellow:hover{transform:scale(1.15);z-index:10;box-shadow:0 0 20px rgba(234,179,8,.7)}
-.cell.valid-wild{cursor:pointer;border:3px solid var(--green);box-shadow:0 0 10px rgba(34,197,94,.3);background:rgba(34,197,94,.04);z-index:3}
+.cell.valid-wild{cursor:pointer;border:3px solid var(--green);box-shadow:0 0 10px rgba(34,197,94,.3);background:rgba(21,128,61,.6);z-index:3}
 .cell.valid-wild:hover{transform:scale(1.12);z-index:10;box-shadow:0 0 18px rgba(34,197,94,.6)}
-.cell.valid-remove{cursor:pointer;border:3px solid var(--orange);animation:removePulse 1s ease infinite;z-index:5;transform:scale(1.06);background:rgba(249,115,22,.08)}
+.cell.valid-remove{cursor:pointer;border:3px solid var(--orange);animation:removePulse 1s ease infinite;z-index:5;transform:scale(1.06);background:rgba(154,52,18,.8)}
 .cell.valid-remove:hover{transform:scale(1.15);z-index:10;box-shadow:0 0 20px rgba(249,115,22,.7)}
 .lm-green{--ripple-color:rgba(34,197,94,.5);--flash-color:rgba(34,197,94,.25);--beacon-color:rgba(34,197,94,.5);animation:ripple .7s ease,cellFlash 1.2s ease;border:2.5px solid var(--green)!important;z-index:20;transform:scale(1.08)}
 .lm-blue{--ripple-color:rgba(59,130,246,.5);--flash-color:rgba(59,130,246,.25);--beacon-color:rgba(59,130,246,.5);animation:ripple .7s ease,cellFlash 1.2s ease;border:2.5px solid var(--blue)!important;z-index:20;transform:scale(1.08)}
@@ -73,11 +73,11 @@ h1{font-family:'Crimson Pro',serif;font-size:28px;font-weight:600;font-style:ita
 .hand-card{background:#fff;border:2px solid #d1d5db;border-radius:6px;padding:6px 8px;cursor:pointer;transition:all .15s;min-width:40px;text-align:center}
 .hand-card:hover{transform:translateY(-4px);border-color:var(--green)}
 .hand-card.selected{transform:translateY(-6px);box-shadow:0 4px 12px rgba(34,197,94,.3)}
-.hand-card.sel-normal{border-color:var(--green);background:#f0fdf4}
-.hand-card.sel-wild{border-color:var(--green);background:#f0fdf4}
-.hand-card.sel-remove{border-color:var(--orange);background:#fff7ed}
+.hand-card.sel-normal{border-color:var(--green);background:#166534}
+.hand-card.sel-wild{border-color:var(--green);background:#166534}
+.hand-card.sel-remove{border-color:var(--orange);background:#9a3412}
 .hand-card.dead{opacity:.4;border-color:#666;cursor:not-allowed}
-#yellow-prompt{display:none;margin-top:10px;padding:10px 16px;border-radius:10px;text-align:center;background:var(--gold-bg);border:1px solid var(--yellow);font-size:12px;color:var(--yellow);font-weight:600}
+#yellow-prompt{display:none;margin-top:10px;padding:12px 18px;border-radius:10px;text-align:center;background:rgba(234,179,8,.15);border:2px solid var(--yellow);font-size:13px;color:var(--yellow);font-weight:600;animation:yellowGlow 2s infinite}
 #log{background:rgba(0,0,0,.3);border-radius:10px;border:1px solid var(--border);padding:8px;max-height:120px;overflow-y:auto;width:100%;max-width:500px;margin-top:8px}
 .log-line{font-size:10px;font-family:'JetBrains Mono',monospace;padding:2px 0;border-bottom:1px solid rgba(255,255,255,.03)}
 #overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:100;align-items:center;justify-content:center}
@@ -172,7 +172,7 @@ function nextRound(){if(over)return;G.round++;const ctrl=(G.round-1)%3;if(!G.dec
   const sp=gSpots(fl);document.getElementById('round-info').innerHTML=`<span>Round ${G.round}</span><span style="color:var(--yellow)">Yellow by ${cn}</span><span>Deck: ${G.deck.length}</span>`;
   if(!sp.length){addLog(`Round ${G.round} | ${cn} flips ${cT(fl)} for Yellow (no spots)`,PC[3]+'99');afterY(ctrl);return}
   if(ctrl===0){yMode=true;yCard=fl;ySpots=sp;setSt(`You control Yellow! Flipped: ${cT(fl)}. Pick a spot.`,'yellow-turn');
-    document.getElementById('yellow-prompt').style.display='block';document.getElementById('yellow-prompt').innerHTML=`Flipped: <span style="background:#fff;border:1px solid #d1d5db;border-radius:4px;padding:2px 6px">${cL(fl,12)}</span> — Click a yellow-highlighted cell.`;render();return}
+    document.getElementById('yellow-prompt').style.display='block';document.getElementById('yellow-prompt').innerHTML=`Flipped: <span style="background:#92400e;border:2px solid var(--yellow);border-radius:5px;padding:3px 8px"><span class="card-lbl" style="font-size:13px;color:#fff">${cR(fl)}<span style="font-size:12px">${SY[cS(fl)]}</span></span></span> — Click a yellow-highlighted cell to place Yellow's chip.`;render();return}
   const pos=aiYellow(sp,ctrl);G.chips[pos[0]][pos[1]]=4;lm=pos;lmp=3;
   addLog(`Round ${G.round} | ${cn} flips ${cT(fl)} for Yellow → [${pos[0]+1},${pos[1]+1}]`,PC[3]+'cc');if(fLock(4)){showW(3);return}render();afterY(ctrl)}
 function afterY(){yMode=false;ySpots=[];document.getElementById('yellow-prompt').style.display='none';hdDead(0);setSt("Your turn! Select a card, then click a board cell.",'your-turn');selCard=null;selType='n';vSpots=[];render()}
@@ -213,7 +213,9 @@ function render(){let bh='';for(let r=0;r<10;r++)for(let c=0;c<10;c++){const cel
   let cls='cell';if(fr)cls+=' free';if(vY)cls+=' valid-yellow';else if(vG&&selType==='r')cls+=' valid-remove';else if(vG&&selType==='w')cls+=' valid-wild';else if(vG)cls+=' valid';
   if(isL&&lmp>=0)cls+=` lm-${LMC[lmp]}`;const oc=(vG||vY)?`onclick="humanPlace(${r},${c})"`:'';
   bh+=`<div class="${cls}" ${oc}>`;if(isL&&lmp>=0)bh+=`<div class="beacon" style="--beacon-color:${PC[lmp>3?3:lmp]}55"></div>`;
-  bh+=cL(cell);const nw=isL;
+  const isHL=vG||vY;
+  if(isHL&&!fr&&cell)bh+=`<span class="card-lbl" style="font-size:9px;color:#fff">${cR(cell)}<span style="font-size:8px">${SY[cS(cell)]}</span></span>`;
+  else bh+=cL(cell);const nw=isL;
   if(ch>0&&ch<9&&ch!==4){const ci=ch-1;bh+=`<div class="chip${nw?' new-chip':''}" style="background:${CB[ci]};border:2px solid ${PC[ci]};box-shadow:0 0 ${lk?12:4}px ${PC[ci]}${lk?'99':'44'}"></div>`}
   if(ch===4)bh+=`<div class="chip${nw?' new-chip':''}" style="background:${CB[3]};border:2px solid ${PC[3]};box-shadow:0 0 ${lk?14:5}px ${PC[3]}${lk?'99':'44'}"></div>`;
   if(ch===9)bh+=`<div class="corner-chip"></div>`;if(lk&&ch>0&&ch!==9){const ci=ch===4?3:ch-1;bh+=`<div class="lock-icon" style="color:${PC[ci]}">🔒</div>`}
@@ -221,7 +223,8 @@ function render(){let bh='';for(let r=0;r<10;r++)for(let c=0;c<10;c++){const cel
   // Hand
   let hh='';const hand=G.hands[0];for(let ci=0;ci<hand.length;ci++){const cd=hand[ci],dd=isDd(cd),sel=selCard===ci,jk=isJ(cd);
     let cls='hand-card';if(dd)cls+=' dead';if(sel){cls+=' selected';cls+=selType==='r'?' sel-remove':selType==='w'?' sel-wild':' sel-normal'}
-    hh+=`<div class="${cls}" onclick="humanCard(${ci})">${cL(cd,12)}${jk?`<div style="font-size:8px;color:var(--text3);margin-top:1px">${TEJ(cd)?'wild':'remove'}</div>`:''}</div>`}
+    const lbl=sel?`<span class="card-lbl" style="font-size:12px;color:#fff">${cR(cd)}<span style="font-size:11px">${SY[cS(cd)]}</span></span>`:cL(cd,12);
+    hh+=`<div class="${cls}" onclick="humanCard(${ci})">${lbl}${jk?`<div style="font-size:8px;color:${sel?'#fff9':'var(--text3)'};margin-top:1px">${TEJ(cd)?'wild':'remove'}</div>`:''}</div>`}
   document.getElementById('hand').innerHTML=hh;document.getElementById('blue-cards').textContent=`${G.hands[1].length} cards`;document.getElementById('red-cards').textContent=`${G.hands[2].length} cards`;
   const yc=G.chips.flat().filter(v=>v===4).length;document.getElementById('yellow-box').querySelector('.opp-name').innerHTML=`<span class="opp-dot" style="background:var(--yellow)"></span> Yellow (${yc} chips)`}
 </script>
