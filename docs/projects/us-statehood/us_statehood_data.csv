@@ -1,0 +1,51 @@
+admission_order,state_name,abbreviation,fips_code,admission_date,admission_year,land_acquisition,acquisition_year,territory_name,territory_organized_year,years_as_territory,parent_state,era,notes
+1,Delaware,DE,10,"December 7, 1787",1787,Original Territory,1787,Original Colony,,,,Original Thirteen,First state to ratify the Constitution.
+2,Pennsylvania,PA,42,"December 12, 1787",1787,Original Territory,1787,Original Colony,,,,Original Thirteen,Founded by William Penn.
+3,New Jersey,NJ,34,"December 18, 1787",1787,Original Territory,1787,Original Colony,,,,Original Thirteen,Ratified unanimously.
+4,Georgia,GA,13,"January 2, 1788",1788,Original Territory,1787,Original Colony,,,,Original Thirteen,Southernmost original colony.
+5,Connecticut,CT,09,"January 9, 1788",1788,Original Territory,1787,Original Colony,,,,Original Thirteen,The 'Constitution State.'
+6,Massachusetts,MA,25,"February 6, 1788",1788,Original Territory,1787,Original Colony,,,,Original Thirteen,Cradle of the Revolution.
+7,Maryland,MD,24,"April 28, 1788",1788,Original Territory,1787,Original Colony,,,,Original Thirteen,Haven for English Catholics.
+8,South Carolina,SC,45,"May 23, 1788",1788,Original Territory,1787,Original Colony,,,,Original Thirteen,Eighth to ratify.
+9,New Hampshire,NH,33,"June 21, 1788",1788,Original Territory,1787,Original Colony,,,,Original Thirteen,"Ninth to ratify, activating the Constitution."
+10,Virginia,VA,51,"June 25, 1788",1788,Original Territory,1787,Original Colony,,,,Original Thirteen,Largest original colony.
+11,New York,NY,36,"July 26, 1788",1788,Original Territory,1787,Original Colony,,,,Original Thirteen,Passed by just three votes.
+12,North Carolina,NC,37,"November 21, 1789",1789,Original Territory,1787,Original Colony,,,,Original Thirteen,Held out for a Bill of Rights.
+13,Rhode Island,RI,44,"May 29, 1790",1790,Original Territory,1787,Original Colony,,,,Original Thirteen,Last of the 13 to ratify.
+14,Vermont,VT,50,"March 4, 1791",1791,Original Territory,1787,Vermont Republic,1777,14,,Early Republic,Independent republic 1777-1791.
+15,Kentucky,KY,21,"June 1, 1792",1792,Original Territory,1787,Part of Virginia,1787,5,Virginia,Early Republic,"Originally Kentucky County, Virginia. Separated with Virginia's consent."
+16,Tennessee,TN,47,"June 1, 1796",1796,Original Territory,1787,Southwest Territory,1790,6,,Early Republic,"Territory South of the River Ohio, 1790."
+17,Ohio,OH,39,"March 1, 1803",1803,Original Territory,1787,Northwest Territory,1787,16,,Early Republic,First state from the Northwest Territory.
+18,Louisiana,LA,22,"April 30, 1812",1812,Louisiana Purchase,1803,Orleans Territory,1804,8,,Expansion Era,Louisiana Purchase (1803). Organized as Orleans Territory.
+19,Indiana,IN,18,"December 11, 1816",1816,Original Territory,1787,Indiana Territory,1800,16,,Expansion Era,Split from NW Territory 1800.
+20,Mississippi,MS,28,"December 10, 1817",1817,Original Territory,1787,Mississippi Territory,1798,19,,Expansion Era,Organized 1798 from ceded lands.
+21,Illinois,IL,17,"December 3, 1818",1818,Original Territory,1787,Illinois Territory,1809,9,,Expansion Era,Split from Indiana Territory 1809.
+22,Alabama,AL,01,"December 14, 1819",1819,Original Territory,1787,Alabama Territory,1817,2,,Expansion Era,Eastern Mississippi Territory.
+23,Maine,ME,23,"March 15, 1820",1820,Original Territory,1787,Part of Massachusetts,1787,33,Massachusetts,Expansion Era,Missouri Compromise free state.
+24,Missouri,MO,29,"August 10, 1821",1821,Louisiana Purchase,1803,Missouri Territory,1812,9,,Expansion Era,Missouri Compromise of 1820.
+25,Arkansas,AR,05,"June 15, 1836",1836,Louisiana Purchase,1803,Arkansas Territory,1819,17,,Expansion Era,Southern Missouri Territory.
+26,Michigan,MI,26,"January 26, 1837",1837,Original Territory,1787,Michigan Territory,1805,32,,Expansion Era,Toledo War delayed admission.
+27,Florida,FL,12,"March 3, 1845",1845,Adams-Onis Treaty,1819,Florida Territory,1822,23,,Expansion Era,"Acquired from Spain 1819, organized 1822."
+28,Texas,TX,48,"December 29, 1845",1845,Republic of Texas,1836,Republic of Texas,1836,9,,Expansion Era,Independent republic 1836-1845. Annexed by Congress.
+29,Iowa,IA,19,"December 28, 1846",1846,Louisiana Purchase,1803,Iowa Territory,1838,8,,Pre-Civil War,Split from Wisconsin Territory 1838.
+30,Wisconsin,WI,55,"May 29, 1848",1848,Original Territory,1787,Wisconsin Territory,1836,12,,Pre-Civil War,Western Michigan Territory.
+31,California,CA,06,"September 9, 1850",1850,Mexican Cession,1848,Mexican Cession,1848,2,,Pre-Civil War,Skipped territory status (Gold Rush).
+32,Minnesota,MN,27,"May 11, 1858",1858,Louisiana Purchase,1803,Minnesota Territory,1849,9,,Pre-Civil War,Remnants of Iowa and Wisconsin territories.
+33,Oregon,OR,41,"February 14, 1859",1859,Oregon Country,1846,Oregon Territory,1848,11,,Pre-Civil War,Joint British occupation until 1846.
+34,Kansas,KS,20,"January 29, 1861",1861,Louisiana Purchase,1803,Kansas Territory,1854,7,,Pre-Civil War,'Bleeding Kansas.' Kansas-Nebraska Act.
+35,West Virginia,WV,54,"June 20, 1863",1863,Original Territory,1787,Part of Virginia,1787,76,Virginia,Civil War & Gilded Age,Broke from Virginia during secession.
+36,Nevada,NV,32,"October 31, 1864",1864,Mexican Cession,1848,Nevada Territory,1861,3,,Civil War & Gilded Age,Split from Utah Territory for Lincoln.
+37,Nebraska,NE,31,"March 1, 1867",1867,Louisiana Purchase,1803,Nebraska Territory,1854,13,,Civil War & Gilded Age,Kansas-Nebraska Act of 1854.
+38,Colorado,CO,08,"August 1, 1876",1876,Louisiana Purchase,1803,Colorado Territory,1861,15,,Civil War & Gilded Age,"'Centennial State,' America's 100th year."
+39,North Dakota,ND,38,"November 2, 1889",1889,Louisiana Purchase,1803,Dakota Territory,1861,28,,Western Settlement,Split from Nebraska Territory.
+40,South Dakota,SD,46,"November 2, 1889",1889,Louisiana Purchase,1803,Dakota Territory,1861,28,,Western Settlement,Admitted same day as North Dakota.
+41,Montana,MT,30,"November 8, 1889",1889,Louisiana Purchase,1803,Montana Territory,1864,25,,Western Settlement,"Carved from Idaho, Dakota, Nebraska territories."
+42,Washington,WA,53,"November 11, 1889",1889,Oregon Country,1846,Washington Territory,1853,36,,Western Settlement,Split from Oregon Territory 1853.
+43,Idaho,ID,16,"July 3, 1890",1890,Oregon Country,1846,Idaho Territory,1863,27,,Western Settlement,Originally included Montana and most of Wyoming.
+44,Wyoming,WY,56,"July 10, 1890",1890,Louisiana Purchase,1803,Wyoming Territory,1868,22,,Western Settlement,First territory with women's suffrage (1869).
+45,Utah,UT,49,"January 4, 1896",1896,Mexican Cession,1848,Utah Territory,1850,46,,Western Settlement,Delayed until LDS renounced polygamy.
+46,Oklahoma,OK,40,"November 16, 1907",1907,Louisiana Purchase,1803,Oklahoma / Indian Territory,1890,17,,Early 20th Century,Land runs starting 1889.
+47,New Mexico,NM,35,"January 6, 1912",1912,Mexican Cession,1848,New Mexico Territory,1850,62,,Early 20th Century,62 years as territory. Southern border expanded by Gadsden Purchase (1853).
+48,Arizona,AZ,04,"February 14, 1912",1912,Mexican Cession,1848,Arizona Territory,1863,49,,Early 20th Century,Split from New Mexico 1863. Southern strip added via Gadsden Purchase (1853). Last of the lower 48.
+49,Alaska,AK,02,"January 3, 1959",1959,Alaska Purchase,1867,Alaska Territory,1912,47,,Modern Additions,Purchased from Russia 1867 for $7.2M. Organized 1912.
+50,Hawaii,HI,15,"August 21, 1959",1959,Hawaii Annexation,1898,Hawaii Territory,1900,59,,Modern Additions,"Annexed 1898, organized 1900. Last state."
