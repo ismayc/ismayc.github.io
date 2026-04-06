@@ -12,23 +12,10 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { background: #0f172a; color: #e2e8f0; }
   button { font-family: 'DM Mono', monospace; }
-  ::-webkit-scrollbar { width: 6px; height: 6px; }
-  ::-webkit-scrollbar-track { background: #1e293b; }
-  ::-webkit-scrollbar-thumb { background: #475569; border-radius: 3px; }
 </style>
 </head>
 <body>
 <div id="root"></div>
-<script>
-// These three objects are injected by R at build time.
-// jsonlite::toJSON with auto_unbox can produce a bare string instead of
-// a 1-element array, so we normalise UNDECIDED to always be an array.
-const CLINCHED = {"Boston Celtics":"O","Charlotte Hornets":"O","Cleveland Cavaliers":"U","Detroit Pistons":"O","Indiana Pacers":"U","Miami Heat":"O","Milwaukee Bucks":"U","Orlando Magic":"U","Philadelphia 76ers":"O","Toronto Raptors":"O","Dallas Mavericks":"U","Golden State Warriors":"U","Houston Rockets":"U","Los Angeles Clippers":"U","Los Angeles Lakers":"O","Memphis Grizzlies":"U","New Orleans Pelicans":"U","Phoenix Suns":"O","Portland Trail Blazers":"O","Sacramento Kings":"U","San Antonio Spurs":"O","Utah Jazz":"O"};
-const LIKELY = {"Brooklyn Nets":"U","Chicago Bulls":"U","New York Knicks":"U","Washington Wizards":"U","Denver Nuggets":"U","Minnesota Timberwolves":"U","Oklahoma City Thunder":"O"};
-const _RAW_UNDECIDED = ["Atlanta Hawks"];
-const UNDECIDED = Array.isArray(_RAW_UNDECIDED) ? _RAW_UNDECIDED
-                : (_RAW_UNDECIDED ? [_RAW_UNDECIDED] : []);
-</script>
 <script type="text/babel">
 const { useState, useMemo, useCallback } = React;
 
@@ -67,23 +54,64 @@ const TEAMS = [
   {t:"Washington Wizards",ab:"WAS",p:{Adonis:[7,"U"],Andy:[11,"O"],Chester:[6,"O"],Jake:[8,"O"],Mary:[14,"U"],Mike:[9,"U"],Phil:[10,"U"],Ryan:[12,"U"]}},
 ];
 
-const TEAM_LOOKUP = {};
-TEAMS.forEach(t => { TEAM_LOOKUP[t.t] = t; });
-const ABBREV_LOOKUP = {};
-TEAMS.forEach(t => { ABBREV_LOOKUP[t.t] = t.ab; });
+const CLINCHED = {
+  "Boston Celtics":"O","Charlotte Hornets":"O","Detroit Pistons":"O",
+  "Phoenix Suns":"O","San Antonio Spurs":"O","Utah Jazz":"O",
+  "Cleveland Cavaliers":"U","Indiana Pacers":"U","Milwaukee Bucks":"U",
+  "Dallas Mavericks":"U","Memphis Grizzlies":"U","Sacramento Kings":"U",
+};
+
+const LIKELY = {
+  "Golden State Warriors":"U","Los Angeles Clippers":"U","Miami Heat":"O",
+  "New Orleans Pelicans":"U","Orlando Magic":"U","Portland Trail Blazers":"O",
+  "Toronto Raptors":"O",
+};
+
+const UNDECIDED = [
+  "Atlanta Hawks","Brooklyn Nets","Chicago Bulls","Denver Nuggets",
+  "Houston Rockets","Los Angeles Lakers","Minnesota Timberwolves",
+  "New York Knicks","Oklahoma City Thunder","Philadelphia 76ers",
+  "Washington Wizards",
+];
 
 const RANK_COLORS = [
   "#ffd700","#c0c0c0","#cd7f32","#22c55e","#6b7280","#9ca3af","#d1d5db","#ef4444"
 ];
 const RANK_LABELS = ["1st","2nd","3rd","4th","5th","6th","7th","8th"];
 
-/* ===================================================================
-   SHARED: scenario computation engine (used by both tabs)
-   =================================================================== */
+function computeScenarios(teamOutcomes) {
+  const decided = {};
+  const undecidedTeams = [];
+  TEAMS.forEach(team => {
+    const outcome = CLINCHED[team.t] || teamOutcomes[team.t] || null;
+    if (outcome) decided[team.t] = outcome;
+    else undecidedTeams.push(team.t);
+  });
 
-function buildDeltas(undecidedTeams) {
-  return undecidedTeams.map(tName => {
-    const team = TEAM_LOOKUP[tName];
+  const numUndecided = undecidedTeams.length;
+  const numScenarios = 1 << numUndecided;
+
+  const baseScores = {};
+  const baseCorrect = {};
+  const base15 = {};
+  PLAYERS.forEach(p => { baseScores[p] = 0; baseCorrect[p] = 0; base15[p] = 0; });
+
+  TEAMS.forEach(team => {
+    const outcome = decided[team.t];
+    if (!outcome) return;
+    PLAYERS.forEach(p => {
+      const [wage, choice] = team.p[p];
+      const match = choice === outcome;
+      baseScores[p] += match ? wage : -wage;
+      if (match) {
+        baseCorrect[p]++;
+        if (wage === 15) base15[p]++;
+      }
+    });
+  });
+
+  const deltas = undecidedTeams.map(tName => {
+    const team = TEAMS.find(t => t.t === tName);
     const overDelta = {};
     const underDelta = {};
     PLAYERS.forEach(p => {
@@ -102,47 +130,6 @@ function buildDeltas(undecidedTeams) {
     });
     return { overDelta, underDelta };
   });
-}
-
-function computeBase(decided) {
-  const baseScores = {};
-  const baseCorrect = {};
-  const base15 = {};
-  PLAYERS.forEach(p => { baseScores[p] = 0; baseCorrect[p] = 0; base15[p] = 0; });
-  TEAMS.forEach(team => {
-    const outcome = decided[team.t];
-    if (!outcome) return;
-    PLAYERS.forEach(p => {
-      const [wage, choice] = team.p[p];
-      const match = choice === outcome;
-      baseScores[p] += match ? wage : -wage;
-      if (match) { baseCorrect[p]++; if (wage === 15) base15[p]++; }
-    });
-  });
-  return { baseScores, baseCorrect, base15 };
-}
-
-function resolveDecided(teamOutcomes) {
-  const decided = {};
-  const undecidedTeams = [];
-  TEAMS.forEach(team => {
-    const outcome = CLINCHED[team.t] || teamOutcomes[team.t] || null;
-    if (outcome) decided[team.t] = outcome;
-    else undecidedTeams.push(team.t);
-  });
-  return { decided, undecidedTeams };
-}
-
-/* ===================================================================
-   TAB 1: Scenario Explorer - rank distribution computation
-   =================================================================== */
-
-function computeScenarios(teamOutcomes) {
-  const { decided, undecidedTeams } = resolveDecided(teamOutcomes);
-  const numUndecided = undecidedTeams.length;
-  const numScenarios = 1 << numUndecided;
-  const { baseScores, baseCorrect, base15 } = computeBase(decided);
-  const deltas = buildDeltas(undecidedTeams);
 
   const rankCounts = {};
   const winCounts = {};
@@ -163,6 +150,7 @@ function computeScenarios(teamOutcomes) {
       correct[pi] = baseCorrect[p];
       c15[pi] = base15[p];
     });
+
     for (let j = 0; j < numUndecided; j++) {
       const isOver = (mask >> j) & 1;
       const d = isOver ? deltas[j].overDelta : deltas[j].underDelta;
@@ -179,6 +167,7 @@ function computeScenarios(teamOutcomes) {
       if (correct[b] !== correct[a]) return correct[b] - correct[a];
       return c15[b] - c15[a];
     });
+
     const ranks = new Array(8);
     indices.forEach((pi, rank) => { ranks[pi] = rank; });
 
@@ -188,351 +177,9 @@ function computeScenarios(teamOutcomes) {
       if (ranks[pi] === 0) winCounts[p]++;
     });
   }
+
   return { rankCounts, winCounts, scoreTotals, numScenarios, numUndecided };
 }
-
-/* ===================================================================
-   TAB 2: Clinch Analyzer - playoff path computation
-   =================================================================== */
-
-function analyzePlayoffScenarios(teamOutcomes) {
-  const { decided, undecidedTeams } = resolveDecided(teamOutcomes);
-  const numUndecided = undecidedTeams.length;
-  const numScenarios = 1 << numUndecided;
-  const { baseScores, baseCorrect, base15 } = computeBase(decided);
-  const deltas = buildDeltas(undecidedTeams);
-
-  const scores = new Float64Array(8);
-  const correct = new Int32Array(8);
-  const c15 = new Int32Array(8);
-
-  // Per-player: which scenario masks land them in top 4
-  const playerTop4Sets = {};
-  const playerRank1Count = {};
-  PLAYERS.forEach(p => {
-    playerTop4Sets[p] = new Uint8Array(numScenarios);
-    playerRank1Count[p] = 0;
-  });
-
-  // Also track rank-1 per scenario for #1 seed clinch analysis
-  const playerRank1Sets = {};
-  PLAYERS.forEach(p => { playerRank1Sets[p] = new Uint8Array(numScenarios); });
-
-  // Per-team conditional top-4 counts
-  const teamImpact = {};
-  undecidedTeams.forEach(t => {
-    teamImpact[t] = {};
-    PLAYERS.forEach(p => {
-      teamImpact[t][p] = { overTop4: 0, underTop4: 0, overTotal: 0, underTotal: 0 };
-    });
-  });
-
-  for (let mask = 0; mask < numScenarios; mask++) {
-    PLAYERS.forEach((p, pi) => {
-      scores[pi] = baseScores[p];
-      correct[pi] = baseCorrect[p];
-      c15[pi] = base15[p];
-    });
-    for (let j = 0; j < numUndecided; j++) {
-      const isOver = (mask >> j) & 1;
-      const d = isOver ? deltas[j].overDelta : deltas[j].underDelta;
-      PLAYERS.forEach((p, pi) => {
-        scores[pi] += d[p].score;
-        correct[pi] += d[p].correct;
-        c15[pi] += d[p].c15;
-      });
-    }
-    const indices = [0,1,2,3,4,5,6,7];
-    indices.sort((a, b) => {
-      if (scores[b] !== scores[a]) return scores[b] - scores[a];
-      if (correct[b] !== correct[a]) return correct[b] - correct[a];
-      return c15[b] - c15[a];
-    });
-    const ranks = new Array(8);
-    indices.forEach((pi, rank) => { ranks[pi] = rank; });
-
-    PLAYERS.forEach((p, pi) => {
-      if (ranks[pi] < 4) playerTop4Sets[p][mask] = 1;
-      if (ranks[pi] === 0) { playerRank1Count[p]++; playerRank1Sets[p][mask] = 1; }
-    });
-
-    for (let j = 0; j < numUndecided; j++) {
-      const tName = undecidedTeams[j];
-      const isOver = (mask >> j) & 1;
-      PLAYERS.forEach((p, pi) => {
-        if (isOver) {
-          teamImpact[tName][p].overTotal++;
-          if (ranks[pi] < 4) teamImpact[tName][p].overTop4++;
-        } else {
-          teamImpact[tName][p].underTotal++;
-          if (ranks[pi] < 4) teamImpact[tName][p].underTop4++;
-        }
-      });
-    }
-  }
-
-  const playerAnalysis = {};
-  PLAYERS.forEach(p => {
-    let top4Count = 0;
-    for (let m = 0; m < numScenarios; m++) if (playerTop4Sets[p][m]) top4Count++;
-    const top4Pct = top4Count / numScenarios * 100;
-    const rank1Pct = playerRank1Count[p] / numScenarios * 100;
-    const clinched = top4Pct === 100;
-    const eliminated = top4Pct === 0;
-
-    const rank1Clinched = rank1Pct === 100;
-    const rank1Impossible = rank1Pct === 0;
-
-    // Fully settled: eliminated, or clinched with #1 also resolved
-    if (eliminated || (clinched && (rank1Clinched || rank1Impossible))) {
-      playerAnalysis[p] = {
-        top4Pct: Math.round(top4Pct), rank1Pct: Math.round(rank1Pct),
-        clinched, eliminated, teamSwings: [],
-        singleClinchers: [], singleElim: [],
-        twoClinchers: [], twoElim: [],
-        rank1Clinched, rank1Impossible,
-        singleR1Clinch: [], singleR1Elim: [], twoR1Clinch: [],
-      };
-      return;
-    }
-
-    // --- Top-4 path-finding (skip if already clinched) ---
-    let teamSwings = [];
-    let singleClinchers = [];
-    let singleElim = [];
-    let twoClinchers = [];
-    let twoElim = [];
-
-    if (!clinched) {
-      teamSwings = undecidedTeams.map(t => {
-        const imp = teamImpact[t][p];
-        const overPct = imp.overTotal > 0 ? imp.overTop4 / imp.overTotal * 100 : 0;
-        const underPct = imp.underTotal > 0 ? imp.underTop4 / imp.underTotal * 100 : 0;
-        const swing = overPct - underPct;
-        const pick = TEAM_LOOKUP[t].p[p];
-        return {
-          team: t, abbr: ABBREV_LOOKUP[t],
-          overPct: Math.round(overPct), underPct: Math.round(underPct),
-          swing: Math.round(swing), absSwing: Math.round(Math.abs(swing)),
-          playerWants: swing > 0 ? "O" : swing < 0 ? "U" : "-",
-          wage: pick[0], choice: pick[1],
-        };
-      }).sort((a, b) => b.absSwing - a.absSwing);
-
-      undecidedTeams.forEach((t, j) => {
-        let overAll = true, overNone = true, underAll = true, underNone = true;
-        for (let mask = 0; mask < numScenarios; mask++) {
-          const bit = (mask >> j) & 1;
-          const inTop4 = playerTop4Sets[p][mask] === 1;
-          if (bit) { if (!inTop4) overAll = false; if (inTop4) overNone = false; }
-          else { if (!inTop4) underAll = false; if (inTop4) underNone = false; }
-          if (!overAll && !overNone && !underAll && !underNone) break;
-        }
-        if (overAll) singleClinchers.push({ team: t, outcome: "OVER" });
-        if (underAll) singleClinchers.push({ team: t, outcome: "UNDER" });
-        if (overNone) singleElim.push({ team: t, outcome: "OVER" });
-        if (underNone) singleElim.push({ team: t, outcome: "UNDER" });
-      });
-
-      if (singleClinchers.length === 0 && numUndecided <= 10) {
-        for (let j1 = 0; j1 < numUndecided; j1++) {
-          for (let j2 = j1 + 1; j2 < numUndecided; j2++) {
-            for (let o1 = 0; o1 <= 1; o1++) {
-              for (let o2 = 0; o2 <= 1; o2++) {
-                let allTop4 = true, noneTop4 = true;
-                for (let mask = 0; mask < numScenarios; mask++) {
-                  if (((mask >> j1) & 1) === o1 && ((mask >> j2) & 1) === o2) {
-                    if (!playerTop4Sets[p][mask]) allTop4 = false;
-                    if (playerTop4Sets[p][mask]) noneTop4 = false;
-                  }
-                  if (!allTop4 && !noneTop4) break;
-                }
-                const pair = [
-                  { team: undecidedTeams[j1], outcome: o1 ? "OVER" : "UNDER" },
-                  { team: undecidedTeams[j2], outcome: o2 ? "OVER" : "UNDER" },
-                ];
-                if (allTop4) twoClinchers.push({ teams: pair });
-                if (noneTop4) twoElim.push({ teams: pair });
-              }
-            }
-          }
-        }
-      }
-    }
-
-    // --- #1 Seed path-finding ---
-    const singleR1Clinch = [];
-    const singleR1Elim = [];
-
-    if (!rank1Clinched && !rank1Impossible) {
-      undecidedTeams.forEach((t, j) => {
-        let overAll = true, overNone = true, underAll = true, underNone = true;
-        for (let mask = 0; mask < numScenarios; mask++) {
-          const bit = (mask >> j) & 1;
-          const isR1 = playerRank1Sets[p][mask] === 1;
-          if (bit) { if (!isR1) overAll = false; if (isR1) overNone = false; }
-          else { if (!isR1) underAll = false; if (isR1) underNone = false; }
-          if (!overAll && !overNone && !underAll && !underNone) break;
-        }
-        if (overAll) singleR1Clinch.push({ team: t, outcome: "OVER" });
-        if (underAll) singleR1Clinch.push({ team: t, outcome: "UNDER" });
-        if (overNone) singleR1Elim.push({ team: t, outcome: "OVER" });
-        if (underNone) singleR1Elim.push({ team: t, outcome: "UNDER" });
-      });
-    }
-
-    const twoR1Clinch = [];
-    if (singleR1Clinch.length === 0 && !rank1Clinched && !rank1Impossible && numUndecided <= 10) {
-      for (let j1 = 0; j1 < numUndecided; j1++) {
-        for (let j2 = j1 + 1; j2 < numUndecided; j2++) {
-          for (let o1 = 0; o1 <= 1; o1++) {
-            for (let o2 = 0; o2 <= 1; o2++) {
-              let allR1 = true;
-              for (let mask = 0; mask < numScenarios; mask++) {
-                if (((mask >> j1) & 1) === o1 && ((mask >> j2) & 1) === o2) {
-                  if (!playerRank1Sets[p][mask]) { allR1 = false; break; }
-                }
-              }
-              if (allR1) {
-                twoR1Clinch.push({ teams: [
-                  { team: undecidedTeams[j1], outcome: o1 ? "OVER" : "UNDER" },
-                  { team: undecidedTeams[j2], outcome: o2 ? "OVER" : "UNDER" },
-                ]});
-              }
-            }
-          }
-        }
-      }
-    }
-
-    playerAnalysis[p] = {
-      top4Pct: Math.round(top4Pct), rank1Pct: Math.round(rank1Pct),
-      clinched, eliminated, teamSwings,
-      singleClinchers, singleElim,
-      twoClinchers: twoClinchers.slice(0, 8),
-      twoElim: twoElim.slice(0, 8),
-      rank1Clinched, rank1Impossible,
-      singleR1Clinch, singleR1Elim: singleR1Elim.slice(0, 8),
-      twoR1Clinch: twoR1Clinch.slice(0, 8),
-    };
-  });
-
-  return { playerAnalysis, numScenarios, numUndecided, undecidedTeams };
-}
-
-/* ===================================================================
-   SHARED COMPONENTS
-   =================================================================== */
-
-function TeamRow({ abbr, name, status, onToggle, interactive }) {
-  const overActive = status === "O";
-  const underActive = status === "U";
-  return (
-    <div style={{
-      display: "flex", alignItems: "center", gap: 8,
-      padding: "5px 0", borderBottom: "1px solid rgba(51,65,85,0.4)",
-    }}>
-      <span style={{
-        fontSize: 12, fontWeight: 700, fontFamily: "'DM Mono', monospace",
-        width: 36, color: "#94a3b8",
-      }}>{abbr}</span>
-      <span style={{
-        fontSize: 12, flex: 1, color: "#cbd5e1",
-        opacity: interactive ? 1 : 0.5,
-        fontFamily: "'DM Sans', system-ui",
-      }}>{name}</span>
-      <div style={{ display: "flex", gap: 3 }}>
-        <button onClick={() => interactive && onToggle(name, "O")} style={{
-          fontSize: 10, fontWeight: 700,
-          padding: "3px 8px", borderRadius: 3,
-          border: overActive ? "1px solid #22c55e" : "1px solid #334155",
-          background: overActive ? "rgba(34,197,94,0.2)" : "transparent",
-          color: overActive ? "#22c55e" : "#475569",
-          cursor: interactive ? "pointer" : "default",
-          opacity: interactive ? 1 : 0.5,
-          transition: "all 0.15s",
-        }}>OVER</button>
-        <button onClick={() => interactive && onToggle(name, "U")} style={{
-          fontSize: 10, fontWeight: 700,
-          padding: "3px 8px", borderRadius: 3,
-          border: underActive ? "1px solid #ef4444" : "1px solid #334155",
-          background: underActive ? "rgba(239,68,68,0.15)" : "transparent",
-          color: underActive ? "#ef4444" : "#475569",
-          cursor: interactive ? "pointer" : "default",
-          opacity: interactive ? 1 : 0.5,
-          transition: "all 0.15s",
-        }}>UNDER</button>
-      </div>
-    </div>
-  );
-}
-
-function TeamSidebar({ toggleTeam, getTeamStatus, resetAll }) {
-  const clinched = TEAMS.filter(t => CLINCHED[t.t]);
-  const likely = TEAMS.filter(t => LIKELY[t.t] !== undefined);
-  const undecided = TEAMS.filter(t => UNDECIDED.includes(t.t));
-
-  return (
-    <div style={{ flex: "0 0 310px", minWidth: 280 }}>
-      <div style={{
-        display: "flex", justifyContent: "space-between", alignItems: "center",
-        marginBottom: 12,
-      }}>
-        <span style={{ fontSize: 13, fontWeight: 700, textTransform: "uppercase",
-          letterSpacing: "0.05em", color: "#94a3b8",
-          fontFamily: "'DM Sans', system-ui" }}>
-          Team Outcomes
-        </span>
-        <button onClick={resetAll} style={{
-          fontSize: 11, padding: "4px 10px", borderRadius: 4,
-          border: "1px solid #334155",
-          background: "transparent", color: "#94a3b8",
-          cursor: "pointer",
-        }}>Reset</button>
-      </div>
-
-      <div style={{ marginBottom: 16 }}>
-        <div style={{
-          fontSize: 11, fontWeight: 600, color: "#475569",
-          marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.06em",
-          fontFamily: "'DM Mono', monospace",
-        }}>Undecided ({undecided.length})</div>
-        {undecided.map(team => (
-          <TeamRow key={team.t} abbr={team.ab} name={team.t}
-            status={getTeamStatus(team.t).status} onToggle={toggleTeam} interactive={true} />
-        ))}
-      </div>
-
-      <div style={{ marginBottom: 16 }}>
-        <div style={{
-          fontSize: 11, fontWeight: 600, color: "#475569",
-          marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.06em",
-          fontFamily: "'DM Mono', monospace",
-        }}>Likely (pre-selected)</div>
-        {likely.map(team => (
-          <TeamRow key={team.t} abbr={team.ab} name={team.t}
-            status={getTeamStatus(team.t).status} onToggle={toggleTeam} interactive={true} />
-        ))}
-      </div>
-
-      <div>
-        <div style={{
-          fontSize: 11, fontWeight: 600, color: "#475569",
-          marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.06em",
-          fontFamily: "'DM Mono', monospace",
-        }}>Clinched</div>
-        {clinched.map(team => (
-          <TeamRow key={team.t} abbr={team.ab} name={team.t}
-            status={getTeamStatus(team.t).status} onToggle={() => {}} interactive={false} />
-        ))}
-      </div>
-    </div>
-  );
-}
-
-/* ===================================================================
-   TAB 1 COMPONENTS: Scenario Explorer
-   =================================================================== */
 
 function BarChart({ rankCounts, numScenarios, sortedPlayers }) {
   const barH = 38;
@@ -615,437 +262,50 @@ function BarChart({ rankCounts, numScenarios, sortedPlayers }) {
   );
 }
 
-function ScenarioExplorerTab({ teamOutcomes, toggleTeam, getTeamStatus, resetAll }) {
-  const results = useMemo(() => computeScenarios(teamOutcomes), [teamOutcomes]);
-
-  const sortedPlayers = useMemo(() => {
-    return [...PLAYERS].sort((a, b) => {
-      const aP = results.rankCounts[a].slice(0, 4).reduce((s, c) => s + c, 0);
-      const bP = results.rankCounts[b].slice(0, 4).reduce((s, c) => s + c, 0);
-      if (bP !== aP) return bP - aP;
-      return results.winCounts[b] - results.winCounts[a];
-    });
-  }, [results]);
-
-  return (
-    <div style={{ display: "flex", gap: 24, flexWrap: "wrap" }}>
-      <TeamSidebar toggleTeam={toggleTeam} getTeamStatus={getTeamStatus} resetAll={resetAll} />
-
-      <div style={{ flex: 1, minWidth: 320 }}>
-        <div style={{
-          fontSize: 13, fontWeight: 700, textTransform: "uppercase",
-          letterSpacing: "0.05em", color: "#94a3b8",
-          marginBottom: 12, fontFamily: "'DM Sans', system-ui",
-        }}>
-          Rank Distribution Across Scenarios
-        </div>
-
-        <div style={{
-          background: "#1e293b", borderRadius: 10,
-          padding: "16px 12px", border: "1px solid #334155",
-        }}>
-          <BarChart rankCounts={results.rankCounts}
-            numScenarios={results.numScenarios}
-            sortedPlayers={sortedPlayers} />
-        </div>
-
-        <div style={{
-          display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))",
-          gap: 10, marginTop: 16,
-        }}>
-          {sortedPlayers.map((player, i) => {
-            const playoffPct = Math.round(
-              results.rankCounts[player].slice(0, 4).reduce((s, c) => s + c, 0) /
-              results.numScenarios * 100
-            );
-            const winPct = Math.round(results.winCounts[player] / results.numScenarios * 100);
-            const avgScore = (results.scoreTotals[player] / results.numScenarios).toFixed(1);
-            const best = results.rankCounts[player].findIndex(c => c > 0) + 1;
-            const worst = 8 - [...results.rankCounts[player]].reverse().findIndex(c => c > 0);
-
-            return (
-              <div key={player} style={{
-                background: "#1e293b", borderRadius: 8, padding: "12px 14px",
-                border: playoffPct === 0 ? "1px solid #1e293b" : i < 4 ? "1px solid rgba(34,197,94,0.3)" : "1px solid #334155",
-                position: "relative", overflow: "hidden",
-                opacity: playoffPct === 0 ? 0.4 : 1,
-              }}>
-                {i < 4 && playoffPct > 0 && (
-                  <div style={{
-                    position: "absolute", top: 0, left: 0, right: 0, height: 3,
-                    background: "linear-gradient(90deg, #22c55e, #16a34a)",
-                  }} />
-                )}
-                <div style={{
-                  fontSize: 14, fontWeight: 700, marginBottom: 8,
-                  fontFamily: "'DM Sans', system-ui",
-                }}>{player}</div>
-                <div style={{
-                  fontSize: 11, color: "#94a3b8", lineHeight: 1.8,
-                  fontFamily: "'DM Mono', monospace",
-                }}>
-                  <div>Top 4: <b style={{ color: playoffPct === 100 ? "#22c55e" : playoffPct === 0 ? "#ef4444" : "#e2e8f0" }}>{playoffPct}%</b></div>
-                  <div>#1: <b style={{ color: winPct > 0 ? "#fbbf24" : "#94a3b8" }}>{winPct}%</b></div>
-                  <div>Avg Score: <b>{avgScore}</b></div>
-                  <div>Range: {best}-{worst}</div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ===================================================================
-   TAB 2 COMPONENTS: Playoff Clinch Analyzer
-   =================================================================== */
-
-function OutcomePill({ outcome, small }) {
-  const isOver = outcome === "OVER" || outcome === "O";
-  return (
-    <span style={{
-      display: "inline-block",
-      fontSize: small ? 9 : 10,
-      fontWeight: 700,
-      padding: small ? "1px 5px" : "2px 7px",
-      borderRadius: 3,
-      background: isOver ? "rgba(34,197,94,0.18)" : "rgba(239,68,68,0.15)",
-      color: isOver ? "#22c55e" : "#ef4444",
-      border: `1px solid ${isOver ? "rgba(34,197,94,0.3)" : "rgba(239,68,68,0.25)"}`,
-      fontFamily: "'DM Mono', monospace",
-      letterSpacing: "0.03em",
-    }}>
-      {outcome === "O" ? "OVER" : outcome === "U" ? "UNDER" : outcome}
-    </span>
-  );
-}
-
-function SwingBar({ overPct, underPct, swing, playerWants, abbr, wage, choice }) {
-  const barW = 180;
-  const overW = overPct / 100 * barW;
-  const underW = underPct / 100 * barW;
-  const beneficial = (playerWants === "O" && choice === "O") || (playerWants === "U" && choice === "U");
-
+function TeamRow({ abbr, name, status, onToggle, interactive }) {
+  const overActive = status === "O";
+  const underActive = status === "U";
   return (
     <div style={{
-      display: "flex", alignItems: "center", gap: 8, padding: "4px 0",
-      borderBottom: "1px solid rgba(51,65,85,0.3)",
+      display: "flex", alignItems: "center", gap: 8,
+      padding: "5px 0", borderBottom: "1px solid rgba(51,65,85,0.4)",
     }}>
       <span style={{
-        fontSize: 11, fontWeight: 700, fontFamily: "'DM Mono', monospace",
-        width: 32, color: "#94a3b8", textAlign: "right",
+        fontSize: 12, fontWeight: 700, fontFamily: "'DM Mono', monospace",
+        width: 36, color: "#94a3b8",
       }}>{abbr}</span>
-      <div style={{ width: barW, height: 20, background: "#0f172a", borderRadius: 3, position: "relative", overflow: "hidden" }}>
-        <div style={{
-          position: "absolute", left: 0, top: 0, height: "100%",
-          width: overW, background: "rgba(34,197,94,0.5)", borderRadius: "3px 0 0 3px",
-        }} />
-        <div style={{
-          position: "absolute", right: 0, top: 0, height: "100%",
-          width: underW, background: "rgba(239,68,68,0.4)", borderRadius: "0 3px 3px 0",
-        }} />
-        <div style={{
-          position: "absolute", left: barW / 2 - 0.5, top: 0, width: 1,
-          height: "100%", background: "#475569",
-        }} />
-      </div>
       <span style={{
-        fontSize: 10, fontFamily: "'DM Mono', monospace", width: 30, textAlign: "right",
-        color: Math.abs(swing) > 20 ? "#fbbf24" : "#94a3b8",
-        fontWeight: Math.abs(swing) > 20 ? 700 : 400,
-      }}>
-        {swing > 0 ? "+" : ""}{swing}
-      </span>
-      <span style={{
-        fontSize: 9, fontFamily: "'DM Mono', monospace", width: 42,
-        color: beneficial ? "#22c55e" : "#ef4444",
-        fontWeight: 600,
-      }}>
-        {wage}{choice === "O" ? "\u2191" : "\u2193"}
-      </span>
-    </div>
-  );
-}
-
-function ClinchPathSection({ title, icon, color, items, isCombo, label: customLabel }) {
-  if (!items || items.length === 0) return null;
-  const isPositive = color === "#22c55e" || color === "#fbbf24";
-  const defaultLabel = isPositive ? "CLINCH" : "ELIM";
-  const defaultLabelFull = isPositive ? "= CLINCH" : "= ELIMINATED";
-  const bgMap = {
-    "#22c55e": "rgba(34,197,94,0.08)",
-    "#ef4444": "rgba(239,68,68,0.06)",
-    "#fbbf24": "rgba(251,191,36,0.08)",
-    "#94a3b8": "rgba(148,163,184,0.06)",
-  };
-  const bg = bgMap[color] || "rgba(255,255,255,0.03)";
-
-  return (
-    <div style={{ marginBottom: 10 }}>
-      <div style={{
-        fontSize: 10, fontWeight: 700, color,
-        textTransform: "uppercase", letterSpacing: "0.06em",
-        marginBottom: 6, fontFamily: "'DM Mono', monospace",
-      }}>
-        {icon} {title}
-      </div>
-      {items.map((item, i) => {
-        const entries = isCombo ? item.teams : [item];
-        const label = customLabel || (isCombo ? defaultLabel : defaultLabelFull);
-        return (
-          <div key={i} style={{
-            display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap",
-            padding: "4px 8px", marginBottom: 3,
-            background: bg,
-            borderRadius: 4, fontSize: 11, fontFamily: "'DM Sans', system-ui",
-          }}>
-            {entries.map((e, ci) => (
-              <React.Fragment key={ci}>
-                {ci > 0 && <span style={{ color: "#475569", fontSize: 10, fontWeight: 700 }}> + </span>}
-                <span style={{ fontWeight: 700, fontFamily: "'DM Mono', monospace", color: "#94a3b8" }}>
-                  {ABBREV_LOOKUP[e.team]}
-                </span>
-                <span style={{ color: "#cbd5e1", fontSize: 11 }}>{e.team}</span>
-                <OutcomePill outcome={e.outcome} small />
-              </React.Fragment>
-            ))}
-            <span style={{ color, fontWeight: 700, fontSize: 10, marginLeft: "auto" }}>
-              {label}
-            </span>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
-function PlayerCard({ player, analysis, expanded, onToggle }) {
-  const { top4Pct, rank1Pct, clinched, eliminated, teamSwings,
-          singleClinchers, singleElim, twoClinchers, twoElim,
-          rank1Clinched, rank1Impossible,
-          singleR1Clinch, singleR1Elim, twoR1Clinch } = analysis;
-
-  const statusColor = clinched ? "#22c55e" : eliminated ? "#ef4444"
-    : top4Pct >= 75 ? "#22c55e" : top4Pct >= 40 ? "#fbbf24"
-    : top4Pct > 0 ? "#f97316" : "#ef4444";
-  const statusLabel = clinched ? "CLINCHED" : eliminated ? "ELIMINATED" : `${top4Pct}%`;
-
-  // Card is fully settled (no expandable detail) only if:
-  // - eliminated, OR
-  // - clinched AND #1 is also resolved (locked in or impossible)
-  const fullySettled = eliminated || (clinched && (rank1Clinched || rank1Impossible));
-
-  return (
-    <div style={{
-      background: "#1e293b", borderRadius: 10,
-      border: clinched ? "1px solid rgba(34,197,94,0.4)" : eliminated ? "1px solid rgba(239,68,68,0.3)" : "1px solid #334155",
-      overflow: "hidden", opacity: eliminated ? 0.55 : 1, transition: "all 0.2s",
-    }}>
-      <div onClick={fullySettled ? undefined : onToggle} style={{
-        display: "flex", alignItems: "center", gap: 12, padding: "14px 16px",
-        cursor: fullySettled ? "default" : "pointer", userSelect: "none",
-      }}>
-        <div style={{ flex: 1 }}>
-          <div style={{ fontSize: 16, fontWeight: 700, fontFamily: "'DM Sans', system-ui", color: "#f8fafc" }}>
-            {player}
-          </div>
-          <div style={{ fontSize: 10, color: "#64748b", fontFamily: "'DM Mono', monospace", marginTop: 2 }}>
-            {clinched
-              ? (rank1Clinched ? "Top 4 + #1 guaranteed" : rank1Impossible ? "Top 4 guaranteed" : `Top 4 guaranteed \u00B7 #1 in ${rank1Pct}% of scenarios`)
-              : eliminated ? "Cannot reach top 4" : `#1 in ${rank1Pct}% of scenarios`}
-          </div>
-        </div>
-        <div style={{ textAlign: "right" }}>
-          <div style={{ fontSize: 22, fontWeight: 800, color: statusColor, fontFamily: "'DM Mono', monospace", lineHeight: 1 }}>
-            {statusLabel}
-          </div>
-          <div style={{ fontSize: 9, color: "#64748b", fontFamily: "'DM Mono', monospace", marginTop: 2 }}>
-            {clinched || eliminated ? "" : "top 4 chance"}
-          </div>
-        </div>
-        {!fullySettled && (
-          <div style={{
-            fontSize: 14, color: "#475569",
-            transform: expanded ? "rotate(180deg)" : "rotate(0deg)",
-            transition: "transform 0.2s",
-          }}>{"\u25BC"}</div>
-        )}
-      </div>
-
-      {expanded && !fullySettled && (
-        <div style={{ padding: "0 16px 16px", borderTop: "1px solid rgba(51,65,85,0.5)" }}>
-          {!clinched && (
-          <div style={{ marginTop: 14 }}>
-            <ClinchPathSection title="Single-team clinch scenarios" icon={"\u2705"} color="#22c55e"
-              items={singleClinchers} isCombo={false} />
-            <ClinchPathSection title="Single-team elimination scenarios" icon={"\u26A0\uFE0F"} color="#ef4444"
-              items={singleElim} isCombo={false} />
-            {singleClinchers.length === 0 && (
-              <ClinchPathSection title="Two-team clinch combos" icon={"\u2705"} color="#22c55e"
-                items={twoClinchers} isCombo={true} />
-            )}
-            {singleElim.length === 0 && (
-              <ClinchPathSection title="Two-team elimination combos" icon={"\u26A0\uFE0F"} color="#ef4444"
-                items={twoElim} isCombo={true} />
-            )}
-            {singleClinchers.length === 0 && singleElim.length === 0 &&
-             twoClinchers.length === 0 && twoElim.length === 0 && !clinched && (
-              <div style={{ fontSize: 11, color: "#64748b", fontStyle: "italic", fontFamily: "'DM Sans', system-ui", padding: "4px 0" }}>
-                No single or two-team outcome guarantees clinch or elimination.
-              </div>
-            )}
-          </div>
-          )}
-
-          {/* #1 Seed Paths */}
-          {rank1Pct > 0 && (
-            <div style={{
-              marginTop: 14, paddingTop: 12,
-              borderTop: "1px solid rgba(251,191,36,0.15)",
-            }}>
-              <div style={{
-                fontSize: 11, fontWeight: 700, color: "#fbbf24",
-                marginBottom: 8, fontFamily: "'DM Mono', monospace",
-                display: "flex", alignItems: "center", gap: 6,
-              }}>
-                <span style={{ fontSize: 14 }}>{"\uD83C\uDFC6"}</span>
-                #1 SEED ({rank1Pct}% of scenarios)
-                {rank1Clinched && <span style={{ color: "#22c55e", fontSize: 10, marginLeft: 4 }}>LOCKED IN</span>}
-              </div>
-
-              {!rank1Clinched && !rank1Impossible && (
-                <React.Fragment>
-                  <ClinchPathSection title="Single-team #1 clinch" icon={"\uD83E\uDD47"} color="#fbbf24"
-                    items={singleR1Clinch} isCombo={false} label="= #1 LOCKED" />
-                  <ClinchPathSection title="Single-team #1 elimination" icon={"\u274C"} color="#94a3b8"
-                    items={singleR1Elim} isCombo={false} label="= #1 GONE" />
-                  {singleR1Clinch.length === 0 && (
-                    <ClinchPathSection title="Two-team #1 clinch combos" icon={"\uD83E\uDD47"} color="#fbbf24"
-                      items={twoR1Clinch} isCombo={true} label="#1 LOCKED" />
-                  )}
-                  {singleR1Clinch.length === 0 && singleR1Elim.length === 0 &&
-                   twoR1Clinch.length === 0 && (
-                    <div style={{ fontSize: 11, color: "#64748b", fontStyle: "italic", fontFamily: "'DM Sans', system-ui", padding: "4px 0" }}>
-                      No single or two-team outcome guarantees or eliminates #1.
-                    </div>
-                  )}
-                </React.Fragment>
-              )}
-            </div>
-          )}
-
-          {!clinched && (
-          <div style={{ marginTop: 14 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}>
-              <div style={{
-                fontSize: 10, fontWeight: 700, color: "#94a3b8",
-                textTransform: "uppercase", letterSpacing: "0.06em",
-                fontFamily: "'DM Mono', monospace",
-              }}>
-                Top 4% by team outcome
-              </div>
-              <div style={{ display: "flex", gap: 10, fontSize: 9, fontFamily: "'DM Mono', monospace", color: "#64748b" }}>
-                <span><span style={{ color: "rgba(34,197,94,0.7)" }}>{"\u2588"}</span> if OVER</span>
-                <span><span style={{ color: "rgba(239,68,68,0.6)" }}>{"\u2588"}</span> if UNDER</span>
-                <span>Swing = diff</span>
-              </div>
-            </div>
-            {teamSwings.map(ts => <SwingBar key={ts.team} {...ts} />)}
-          </div>
-          )}
-        </div>
-      )}
-    </div>
-  );
-}
-
-function ClinchAnalyzerTab({ teamOutcomes, toggleTeam, getTeamStatus, resetAll }) {
-  const results = useMemo(() => analyzePlayoffScenarios(teamOutcomes), [teamOutcomes]);
-  const [expandedPlayer, setExpandedPlayer] = useState(null);
-
-  const sortedPlayers = useMemo(() => {
-    return [...PLAYERS].sort((a, b) => {
-      const diff = results.playerAnalysis[b].top4Pct - results.playerAnalysis[a].top4Pct;
-      if (diff !== 0) return diff;
-      return results.playerAnalysis[b].rank1Pct - results.playerAnalysis[a].rank1Pct;
-    });
-  }, [results]);
-
-  const clinchCount = sortedPlayers.filter(p => results.playerAnalysis[p].clinched).length;
-  const elimCount = sortedPlayers.filter(p => results.playerAnalysis[p].eliminated).length;
-  const contestedCount = 8 - clinchCount - elimCount;
-
-  return (
-    <div style={{ display: "flex", gap: 24, flexWrap: "wrap" }}>
-      <div style={{ flex: "0 0 310px", minWidth: 280 }}>
-        <TeamSidebar toggleTeam={toggleTeam} getTeamStatus={getTeamStatus} resetAll={resetAll} />
-        <div style={{
-          marginTop: 16, padding: "10px 12px", background: "#1e293b",
-          borderRadius: 8, border: "1px solid #334155",
-          fontSize: 11, color: "#64748b", lineHeight: 1.6,
-          fontFamily: "'DM Sans', system-ui",
-        }}>
-          <strong style={{ color: "#94a3b8" }}>How it works:</strong> Lock in team outcomes
-          on the left, then expand each player card to see which remaining
-          outcomes clinch or eliminate their top-4 finish. The swing bars show
-          how each team's result shifts a player's playoff odds.
-        </div>
-      </div>
-
-      <div style={{ flex: 1, minWidth: 320 }}>
-        {/* Summary bar */}
-        <div style={{ display: "flex", gap: 12, marginBottom: 16, flexWrap: "wrap" }}>
-          {[
-            { count: clinchCount, color: "#22c55e", label: "Clinched Top 4" },
-            { count: contestedCount, color: "#fbbf24", label: "Contested" },
-            { count: elimCount, color: "#ef4444", label: "Eliminated" },
-          ].map(s => (
-            <div key={s.label} style={{
-              background: "#1e293b", borderRadius: 8, padding: "10px 16px",
-              border: "1px solid #334155", flex: "1 1 120px", minWidth: 120,
-            }}>
-              <div style={{ fontSize: 24, fontWeight: 800, color: s.color, fontFamily: "'DM Mono', monospace" }}>
-                {s.count}
-              </div>
-              <div style={{ fontSize: 10, color: "#64748b", fontFamily: "'DM Mono', monospace", textTransform: "uppercase" }}>
-                {s.label}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div style={{
-          fontSize: 13, fontWeight: 700, textTransform: "uppercase",
-          letterSpacing: "0.05em", color: "#94a3b8",
-          marginBottom: 10, fontFamily: "'DM Sans', system-ui",
-        }}>
-          Player Playoff Status (sorted by top-4 odds)
-        </div>
-
-        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          {sortedPlayers.map(player => (
-            <PlayerCard
-              key={player}
-              player={player}
-              analysis={results.playerAnalysis[player]}
-              expanded={expandedPlayer === player}
-              onToggle={() => setExpandedPlayer(expandedPlayer === player ? null : player)}
-            />
-          ))}
-        </div>
+        fontSize: 12, flex: 1, color: "#cbd5e1",
+        opacity: interactive ? 1 : 0.5,
+        fontFamily: "'DM Sans', system-ui",
+      }}>{name}</span>
+      <div style={{ display: "flex", gap: 3 }}>
+        <button onClick={() => interactive && onToggle(name, "O")} style={{
+          fontSize: 10, fontWeight: 700,
+          padding: "3px 8px", borderRadius: 3,
+          border: overActive ? "1px solid #22c55e" : "1px solid #334155",
+          background: overActive ? "rgba(34,197,94,0.2)" : "transparent",
+          color: overActive ? "#22c55e" : "#475569",
+          cursor: interactive ? "pointer" : "default",
+          opacity: interactive ? 1 : 0.5,
+          transition: "all 0.15s",
+        }}>OVER</button>
+        <button onClick={() => interactive && onToggle(name, "U")} style={{
+          fontSize: 10, fontWeight: 700,
+          padding: "3px 8px", borderRadius: 3,
+          border: underActive ? "1px solid #ef4444" : "1px solid #334155",
+          background: underActive ? "rgba(239,68,68,0.15)" : "transparent",
+          color: underActive ? "#ef4444" : "#475569",
+          cursor: interactive ? "pointer" : "default",
+          opacity: interactive ? 1 : 0.5,
+          transition: "all 0.15s",
+        }}>UNDER</button>
       </div>
     </div>
   );
 }
-
-/* ===================================================================
-   ROOT APP: tab management + shared state
-   =================================================================== */
 
 function App() {
-  const [activeTab, setActiveTab] = useState("scenarios");
   const [likelyOverrides, setLikelyOverrides] = useState(() => ({ ...LIKELY }));
   const [toggles, setToggles] = useState(() => {
     const init = {};
@@ -1060,15 +320,16 @@ function App() {
     return out;
   }, [likelyOverrides, toggles]);
 
-  const numUndecidedLeft = useMemo(() => {
-    let c = 0;
-    TEAMS.forEach(team => {
-      if (!CLINCHED[team.t] && !teamOutcomes[team.t]) c++;
-    });
-    return c;
-  }, [teamOutcomes]);
+  const results = useMemo(() => computeScenarios(teamOutcomes), [teamOutcomes]);
 
-  const numScenarios = 1 << numUndecidedLeft;
+  const sortedPlayers = useMemo(() => {
+    return [...PLAYERS].sort((a, b) => {
+      const aP = results.rankCounts[a].slice(0, 4).reduce((s, c) => s + c, 0);
+      const bP = results.rankCounts[b].slice(0, 4).reduce((s, c) => s + c, 0);
+      if (bP !== aP) return bP - aP;
+      return results.winCounts[b] - results.winCounts[a];
+    });
+  }, [results]);
 
   const toggleTeam = useCallback((team, value) => {
     if (UNDECIDED.includes(team)) {
@@ -1095,16 +356,15 @@ function App() {
     setLikelyOverrides({ ...LIKELY });
   }, []);
 
-  const getTeamStatus = useCallback((teamName) => {
+  const getTeamStatus = (teamName) => {
     if (CLINCHED[teamName]) return { status: CLINCHED[teamName], type: "clinched" };
     if (teamOutcomes[teamName]) return { status: teamOutcomes[teamName], type: "toggled" };
     return { status: null, type: "undecided" };
-  }, [teamOutcomes]);
+  };
 
-  const tabs = [
-    { id: "scenarios", label: "Scenario Explorer" },
-    { id: "clinch", label: "Playoff Clinch Analyzer" },
-  ];
+  const clinched = TEAMS.filter(t => CLINCHED[t.t]);
+  const likely = TEAMS.filter(t => LIKELY[t.t] !== undefined);
+  const undecided = TEAMS.filter(t => UNDECIDED.includes(t.t));
 
   return (
     <div style={{
@@ -1112,9 +372,8 @@ function App() {
       background: "#0f172a", color: "#e2e8f0",
       minHeight: "100vh", padding: "24px 20px",
     }}>
-      <div style={{ maxWidth: 1000, margin: "0 auto" }}>
-        {/* Header */}
-        <div style={{ marginBottom: 6 }}>
+      <div style={{ maxWidth: 960, margin: "0 auto" }}>
+        <div style={{ marginBottom: 28 }}>
           <h1 style={{
             fontSize: 22, fontWeight: 800, margin: 0, letterSpacing: "-0.02em",
             color: "#f8fafc",
@@ -1125,54 +384,131 @@ function App() {
             fontSize: 13, color: "#64748b", margin: "6px 0 0",
             fontFamily: "'DM Mono', monospace",
           }}>
-            2025-26 Season &mdash; {numScenarios.toLocaleString()} scenarios
-            ({numUndecidedLeft} undecided team{numUndecidedLeft !== 1 ? "s" : ""})
+            2025-26 Season &mdash; {results.numScenarios.toLocaleString()} scenarios
+            ({results.numUndecided} undecided team{results.numUndecided !== 1 ? "s" : ""})
           </p>
         </div>
 
-        {/* Tabs */}
-        <div style={{
-          display: "flex", gap: 0, marginBottom: 20,
-          borderBottom: "1px solid #334155",
-        }}>
-          {tabs.map(tab => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              style={{
-                fontSize: 13, fontWeight: 600,
-                padding: "10px 18px",
-                background: "transparent",
-                color: activeTab === tab.id ? "#3b82f6" : "#64748b",
-                border: "none",
-                borderBottom: activeTab === tab.id ? "2px solid #3b82f6" : "2px solid transparent",
+        <div style={{ display: "flex", gap: 24, flexWrap: "wrap" }}>
+          <div style={{ flex: "0 0 310px", minWidth: 280 }}>
+            <div style={{
+              display: "flex", justifyContent: "space-between", alignItems: "center",
+              marginBottom: 12,
+            }}>
+              <span style={{ fontSize: 13, fontWeight: 700, textTransform: "uppercase",
+                letterSpacing: "0.05em", color: "#94a3b8",
+                fontFamily: "'DM Sans', system-ui" }}>
+                Team Outcomes
+              </span>
+              <button onClick={resetAll} style={{
+                fontSize: 11, padding: "4px 10px", borderRadius: 4,
+                border: "1px solid #334155",
+                background: "transparent", color: "#94a3b8",
                 cursor: "pointer",
-                transition: "all 0.15s",
-                fontFamily: "'DM Sans', system-ui",
-              }}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
+              }}>Reset</button>
+            </div>
 
-        {/* Tab content */}
-        {activeTab === "scenarios" && (
-          <ScenarioExplorerTab
-            teamOutcomes={teamOutcomes}
-            toggleTeam={toggleTeam}
-            getTeamStatus={getTeamStatus}
-            resetAll={resetAll}
-          />
-        )}
-        {activeTab === "clinch" && (
-          <ClinchAnalyzerTab
-            teamOutcomes={teamOutcomes}
-            toggleTeam={toggleTeam}
-            getTeamStatus={getTeamStatus}
-            resetAll={resetAll}
-          />
-        )}
+            <div style={{ marginBottom: 16 }}>
+              <div style={{
+                fontSize: 11, fontWeight: 600, color: "#475569",
+                marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.06em",
+                fontFamily: "'DM Mono', monospace",
+              }}>Undecided ({undecided.length})</div>
+              {undecided.map(team => (
+                <TeamRow key={team.t} abbr={team.ab} name={team.t}
+                  status={getTeamStatus(team.t).status} onToggle={toggleTeam} interactive={true} />
+              ))}
+            </div>
+
+            <div style={{ marginBottom: 16 }}>
+              <div style={{
+                fontSize: 11, fontWeight: 600, color: "#475569",
+                marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.06em",
+                fontFamily: "'DM Mono', monospace",
+              }}>Likely (pre-selected)</div>
+              {likely.map(team => (
+                <TeamRow key={team.t} abbr={team.ab} name={team.t}
+                  status={getTeamStatus(team.t).status} onToggle={toggleTeam} interactive={true} />
+              ))}
+            </div>
+
+            <div>
+              <div style={{
+                fontSize: 11, fontWeight: 600, color: "#475569",
+                marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.06em",
+                fontFamily: "'DM Mono', monospace",
+              }}>Clinched</div>
+              {clinched.map(team => (
+                <TeamRow key={team.t} abbr={team.ab} name={team.t}
+                  status={getTeamStatus(team.t).status} onToggle={() => {}} interactive={false} />
+              ))}
+            </div>
+          </div>
+
+          <div style={{ flex: 1, minWidth: 320 }}>
+            <div style={{
+              fontSize: 13, fontWeight: 700, textTransform: "uppercase",
+              letterSpacing: "0.05em", color: "#94a3b8",
+              marginBottom: 12, fontFamily: "'DM Sans', system-ui",
+            }}>
+              Rank Distribution Across Scenarios
+            </div>
+
+            <div style={{
+              background: "#1e293b", borderRadius: 10,
+              padding: "16px 12px", border: "1px solid #334155",
+            }}>
+              <BarChart rankCounts={results.rankCounts}
+                numScenarios={results.numScenarios}
+                sortedPlayers={sortedPlayers} />
+            </div>
+
+            <div style={{
+              display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))",
+              gap: 10, marginTop: 16,
+            }}>
+              {sortedPlayers.map((player, i) => {
+                const playoffPct = Math.round(
+                  results.rankCounts[player].slice(0, 4).reduce((s, c) => s + c, 0) /
+                  results.numScenarios * 100
+                );
+                const winPct = Math.round(results.winCounts[player] / results.numScenarios * 100);
+                const avgScore = (results.scoreTotals[player] / results.numScenarios).toFixed(1);
+                const best = results.rankCounts[player].findIndex(c => c > 0) + 1;
+                const worst = 8 - [...results.rankCounts[player]].reverse().findIndex(c => c > 0);
+
+                return (
+                  <div key={player} style={{
+                    background: "#1e293b", borderRadius: 8, padding: "12px 14px",
+                    border: playoffPct === 0 ? "1px solid #1e293b" : i < 4 ? "1px solid rgba(34,197,94,0.3)" : "1px solid #334155",
+                    position: "relative", overflow: "hidden",
+                    opacity: playoffPct === 0 ? 0.4 : 1,
+                  }}>
+                    {i < 4 && playoffPct > 0 && (
+                      <div style={{
+                        position: "absolute", top: 0, left: 0, right: 0, height: 3,
+                        background: "linear-gradient(90deg, #22c55e, #16a34a)",
+                      }} />
+                    )}
+                    <div style={{
+                      fontSize: 14, fontWeight: 700, marginBottom: 8,
+                      fontFamily: "'DM Sans', system-ui",
+                    }}>{player}</div>
+                    <div style={{
+                      fontSize: 11, color: "#94a3b8", lineHeight: 1.8,
+                      fontFamily: "'DM Mono', monospace",
+                    }}>
+                      <div>Top 4: <b style={{ color: playoffPct === 100 ? "#22c55e" : playoffPct === 0 ? "#ef4444" : "#e2e8f0" }}>{playoffPct}%</b></div>
+                      <div>#1: <b style={{ color: winPct > 0 ? "#fbbf24" : "#94a3b8" }}>{winPct}%</b></div>
+                      <div>Avg Score: <b>{avgScore}</b></div>
+                      <div>Range: {best}-{worst}</div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
