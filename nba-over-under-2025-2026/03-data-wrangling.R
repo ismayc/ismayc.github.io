@@ -102,6 +102,8 @@ standings_grid <- crossing(team = teams, date = days_in_season_to_today) %>%
                             current_losses = 0,
                             `Current Record` = "0-0",
                             `Current Win %` = NA_real_))
+write_rds(standings_grid, 
+          here("rds", glue("standings_grid_through_{Sys.Date() - 1}.rds")))
 
 with_picks <- standings_grid %>% 
   inner_join(picks, by = "team") %>% 
