@@ -7,295 +7,137 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Anybody:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #06090f;
-  --surface: #0d1117;
-  --surface2: #151b27;
-  --border: #1c2333;
-  --border2: #2a3548;
-  --muted: #95a8be;
-  --dim: #b0c4d8;
-  --text: #c9d1d9;
-  --bright: #ecf0f5;
-  --gold: #f0c040;
-  --gold-dim: #a68520;
-  --green: #3fb950;
-  --green-bg: rgba(63,185,80,0.08);
-  --red: #f85149;
-  --red-bg: rgba(248,81,73,0.08);
-  --blue: #58a6ff;
-  --seed1: #f0c040; --seed1bg: rgba(240,192,64,0.12);
-  --seed2: #a0a8b4; --seed2bg: rgba(160,168,180,0.06);
-  --seed3: #d4845c; --seed3bg: rgba(212,132,92,0.06);
-  --seed4: #58a6ff; --seed4bg: rgba(88,166,255,0.06);
+  --bg:#06090f;--surface:#0d1117;--surface2:#151b27;
+  --border:#1c2333;--border2:#3e5570;
+  --muted:#95a8be;--dim:#b0c4d8;--text:#c9d1d9;
+  --gold:#f0c040;--green:#3fb950;--red:#f85149;--orange:#fb923c;
+  --s1:#f0c040;--s1bg:rgba(240,192,64,0.14);
+  --s2:#2dd4bf;--s2bg:rgba(45,212,191,0.10);
+  --s3:#c084fc;--s3bg:rgba(192,132,252,0.10);
+  --s4:#38bdf8;--s4bg:rgba(56,189,248,0.08);
+  --outbg:rgba(20,20,35,0.4);--outtxt:#7b8da0;
 }
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: var(--bg); color: var(--text); font-family: 'IBM Plex Mono', monospace; line-height: 1.4; }
-.wrap { max-width: 1160px; margin: 0 auto; padding: 20px 16px 60px; }
-
-h1 { font-family: 'Anybody', sans-serif; font-weight: 900; font-size: 28px; color: var(--gold);
-  letter-spacing: 2px; text-transform: uppercase; margin-bottom: 2px; }
-.sub { font-size: 11px; color: var(--dim); margin-bottom: 24px; }
-
-/* Toggle section */
-.toggles { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
-.team-toggle {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 10px 16px; border-radius: 10px; cursor: pointer;
-  border: 2px solid var(--border); background: var(--surface);
-  transition: all 0.2s; user-select: none;
-}
-.team-toggle:hover { border-color: var(--border2); background: var(--surface2); }
-.team-toggle.over { border-color: var(--green); background: var(--green-bg); }
-.team-toggle.under { border-color: var(--red); background: var(--red-bg); }
-.team-toggle .abbr { font-weight: 700; font-size: 15px; width: 40px; }
-.team-toggle .name { font-size: 11px; color: var(--dim); flex: 1; margin-left: 8px; }
-.team-toggle .info { font-size: 9px; color: var(--muted); margin-left: 8px; }
-.team-toggle .badge {
-  font-weight: 700; font-size: 11px; padding: 4px 14px; border-radius: 6px;
-  min-width: 120px; text-align: center; transition: all 0.2s;
-}
-.team-toggle .badge.undecided { background: var(--surface2); color: var(--muted); }
-.team-toggle .badge.over-badge { background: rgba(63,185,80,0.15); color: var(--green); }
-.team-toggle .badge.under-badge { background: rgba(248,81,73,0.15); color: var(--red); }
-
-.scenario-count {
-  text-align: center; font-size: 12px; color: var(--dim); margin-bottom: 20px;
-  padding: 8px; background: var(--surface); border-radius: 8px; border: 1px solid var(--border);
-}
-.scenario-count b { color: var(--gold); font-size: 14px; }
-
-/* Summary cards */
-.summary { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; margin-bottom: 20px; }
-.card {
-  background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
-  padding: 8px 4px; text-align: center; transition: all 0.3s;
-}
-.card .pname { font-size: 10px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
-.card .score { font-size: 16px; font-weight: 700; margin-bottom: 2px; }
-.card .score.pos { color: var(--green); }
-.card .score.neg { color: var(--red); }
-.card .meta { font-size: 8px; color: var(--muted); line-height: 1.3; }
-.card .bar-wrap { height: 4px; background: var(--surface2); border-radius: 2px; margin-top: 4px; overflow: hidden; }
-.card .bar-fill { height: 100%; border-radius: 2px; transition: width 0.3s; }
-
-/* Table */
-.table-wrap { overflow-x: auto; margin-bottom: 16px; }
-table { border-collapse: collapse; width: 100%; font-size: 10px; }
-thead th { padding: 6px 3px; font-size: 8px; color: var(--muted); text-transform: uppercase;
-  letter-spacing: 0.5px; border-bottom: 2px solid var(--border); position: sticky; top: 0;
-  background: var(--bg); z-index: 2; }
-tbody tr { transition: opacity 0.25s, background 0.15s; }
-tbody tr.dimmed { opacity: 0.38; }
-tbody tr.matched { background: var(--surface); }
-tbody tr.matched:hover { background: var(--surface2); }
-tbody td { padding: 4px 3px; text-align: center; border-bottom: 1px solid var(--border)11; }
-td.outcome-o { color: var(--green); font-weight: 700; }
-td.outcome-u { color: var(--red); font-weight: 700; }
-td.sep { border-left: 2px solid var(--gold-dim); width: 3px; padding: 0; }
-td.sep2 { border-left: 2px solid var(--border2); width: 3px; padding: 0; }
-td.seed { font-weight: 500; padding: 3px 4px; border-radius: 4px; }
-td.seed .sname { font-size: 10px; line-height: 1.1; }
-td.seed .sscore { font-size: 7px; opacity: 0.8; }
-td.seed1 { background: var(--seed1bg); color: var(--seed1); font-weight: 700; }
-td.seed2 { background: var(--seed2bg); color: var(--seed2); }
-td.seed3 { background: var(--seed3bg); color: var(--seed3); }
-td.seed4 { background: var(--seed4bg); color: var(--seed4); }
-td.out { color: var(--dim); opacity: 0.75; }
-
-.legend {
-  background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
-  padding: 10px 14px; font-size: 9px; color: var(--muted);
-}
-.legend b { color: var(--dim); }
-
-@media (max-width: 700px) {
-  .summary { grid-template-columns: repeat(4, 1fr); }
-  h1 { font-size: 20px; }
-  .team-toggle .name { display: none; }
-}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'IBM Plex Mono',monospace;line-height:1.4}
+.w{max-width:1280px;margin:0 auto;padding:20px 16px 60px}
+h1{font-family:'Anybody',sans-serif;font-weight:900;font-size:34px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.sub{font-size:15px;color:var(--dim);margin-bottom:24px}
+.tgs{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.tt{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-radius:12px;cursor:pointer;border:2px solid var(--border);background:var(--surface);transition:all .2s;user-select:none}
+.tt:hover{border-color:var(--border2);background:var(--surface2)}
+.tt.ov{border-color:var(--green);background:rgba(63,185,80,.08)}
+.tt.un{border-color:var(--red);background:rgba(248,81,73,.08)}
+.tt .a{font-weight:700;font-size:19px;width:48px}
+.tt .n{font-size:15px;color:var(--dim);flex:1;margin-left:10px}
+.tt .i{font-size:13px;color:var(--muted);margin-left:10px}
+.tt .b{font-weight:700;font-size:14px;padding:6px 18px;border-radius:8px;min-width:140px;text-align:center}
+.b.ud{background:var(--surface2);color:var(--muted)}.b.ob{background:rgba(63,185,80,.15);color:var(--green)}.b.ub{background:rgba(248,81,73,.15);color:var(--red)}
+.sc{text-align:center;font-size:16px;color:var(--dim);margin-bottom:20px;padding:10px;background:var(--surface);border-radius:10px;border:1px solid var(--border)}
+.sc b{color:var(--gold);font-size:18px}
+.sm{display:grid;grid-template-columns:repeat(8,1fr);gap:8px;margin-bottom:24px}
+.cd{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 8px;text-align:center}
+.cd .p{font-size:14px;font-weight:600;margin-bottom:6px}.cd .m{font-size:12px;color:var(--muted);line-height:1.4}
+.cd .bw{height:6px;background:var(--surface2);border-radius:3px;margin-top:6px;overflow:hidden}
+.cd .bf{height:100%;border-radius:3px;transition:width .3s}
+.sl{display:flex;gap:20px;margin-bottom:14px;font-size:13px;padding-left:4px;flex-wrap:wrap;align-items:center}
+.sl .si{display:flex;align-items:center;gap:5px}
+.si .sq{width:14px;height:14px;border-radius:4px;display:inline-block}
+.tw{overflow-x:auto;margin-bottom:16px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+thead th{padding:8px 5px;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid var(--border);position:sticky;top:0;background:var(--bg);z-index:2}
+tbody tr{transition:opacity .25s,background .15s}
+tbody tr.d{opacity:.35}tbody tr.mt{background:var(--surface)}tbody tr.mt:hover{background:var(--surface2)}
+tbody td{padding:6px 4px;text-align:center;border-bottom:1px solid rgba(28,35,51,.4)}
+td.go{color:var(--green);font-weight:700;font-size:13px}td.gu{color:var(--red);font-weight:700;font-size:13px}
+td.sp{border-left:3px solid rgba(240,192,64,.4);width:5px;padding:0}
+td.sp2{border-left:3px solid #2a2a44;width:5px;padding:0}
+td.sd{padding:6px 8px;border-radius:4px}
+td.sd .sn{font-size:14px;line-height:1.2}
+td.sd .ss{font-size:10px;opacity:.8;margin-top:1px}
+td.sd .st{font-size:9px;color:var(--orange);font-weight:600;margin-top:2px}
+td.s1{background:var(--s1bg);color:var(--s1);font-weight:700}
+td.s2{background:var(--s2bg);color:var(--s2);font-weight:500}
+td.s3{background:var(--s3bg);color:var(--s3);font-weight:500}
+td.s4{background:var(--s4bg);color:var(--s4);font-weight:500}
+td.ot{color:var(--outtxt);background:var(--outbg);border-radius:4px;padding:6px 8px}
+td.ot .sn{font-size:14px}td.ot .ss{font-size:10px;opacity:.6;margin-top:1px}td.ot .st{font-size:9px;color:var(--orange);font-weight:600;margin-top:2px}
+.tbm{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--orange);margin-left:3px;vertical-align:middle}
+.lg{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;font-size:13px;color:var(--muted);line-height:1.6}
+.lg b{color:var(--dim)}
+.rst{display:block;margin:20px auto 0;padding:10px 30px;border-radius:10px;border:1px solid var(--border2);background:var(--surface);color:var(--dim);cursor:pointer;font-family:inherit;font-size:14px}
+@media(max-width:700px){.sm{grid-template-columns:repeat(4,1fr)}h1{font-size:24px}.tt .n{display:none}}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <h1>Final Day Scenarios</h1>
-  <div class="sub">5 unclinched teams — 32 possible outcomes — top 4 make playoffs. Tap teams to lock in results.</div>
-
-  <div class="toggles" id="toggles"></div>
-  <div class="scenario-count" id="scenarioCount"></div>
-  <div class="summary" id="summary"></div>
-  <div class="table-wrap"><table><thead id="thead"></thead><tbody id="tbody"></tbody></table></div>
-  <div class="legend" id="legend"></div>
+<div class="w">
+<h1>Final Day Scenarios</h1>
+<div class="sub">5 unclinched teams &mdash; 32 outcomes &mdash; top 4 make playoffs. Tap teams to lock in results.</div>
+<div class="tgs" id="tg"></div>
+<div class="sc" id="sc"></div>
+<div class="sm" id="sm"></div>
+<div class="sl" id="sl"></div>
+<div class="tw"><table><thead id="th"></thead><tbody id="tb"></tbody></table></div>
+<div class="lg" id="lg"></div>
+<button class="rst" onclick="st=[null,null,null,null,null];rn()">Reset All</button>
 </div>
-
 <script>
-const TEAMS = [
-  { name: "Atlanta Hawks", abbr: "ATL", wins: 46, proj: 46.5 },
-  { name: "Brooklyn Nets", abbr: "BKN", wins: 20, proj: 20.5 },
-  { name: "Chicago Bulls", abbr: "CHI", wins: 31, proj: 31.5 },
-  { name: "New York Knicks", abbr: "NYK", wins: 53, proj: 53.5 },
-  { name: "Denver Nuggets", abbr: "DEN", wins: 53, proj: 53.5 },
-];
-const P = ["Adonis","Andy","Chester","Jake","Mary","Mike","Phil","Ryan"];
-const PICKS = {
-  "Atlanta Hawks":{Adonis:[14,"UNDER"],Andy:[10,"OVER"],Chester:[15,"OVER"],Jake:[10,"UNDER"],Mary:[10,"OVER"],Mike:[14,"OVER"],Phil:[14,"OVER"],Ryan:[6,"UNDER"]},
-  "Brooklyn Nets":{Adonis:[8,"UNDER"],Andy:[12,"OVER"],Chester:[8,"OVER"],Jake:[8,"OVER"],Mary:[6,"OVER"],Mike:[10,"UNDER"],Phil:[9,"UNDER"],Ryan:[7,"OVER"]},
-  "Chicago Bulls":{Adonis:[8,"OVER"],Andy:[9,"UNDER"],Chester:[13,"OVER"],Jake:[14,"OVER"],Mary:[10,"OVER"],Mike:[12,"OVER"],Phil:[10,"OVER"],Ryan:[11,"UNDER"]},
-  "New York Knicks":{Adonis:[12,"OVER"],Andy:[6,"UNDER"],Chester:[9,"UNDER"],Jake:[13,"UNDER"],Mary:[9,"OVER"],Mike:[14,"OVER"],Phil:[7,"UNDER"],Ryan:[15,"OVER"]},
-  "Denver Nuggets":{Adonis:[7,"OVER"],Andy:[14,"OVER"],Chester:[13,"OVER"],Jake:[6,"OVER"],Mary:[15,"OVER"],Mike:[13,"OVER"],Phil:[15,"OVER"],Ryan:[15,"OVER"]},
-};
-const BASE = {Adonis:-42,Andy:-36,Chester:-17,Jake:-36,Mary:-47,Mike:-24,Phil:-30,Ryan:-39};
+const T=[{n:"Atlanta Hawks",a:"ATL",w:46,p:46.5},{n:"Brooklyn Nets",a:"BKN",w:20,p:20.5},{n:"Chicago Bulls",a:"CHI",w:31,p:31.5},{n:"New York Knicks",a:"NYK",w:53,p:53.5},{n:"Denver Nuggets",a:"DEN",w:53,p:53.5}];
+const P=["Adonis","Andy","Chester","Jake","Mary","Mike","Phil","Ryan"];
+const AP={"Atlanta Hawks":{Adonis:[14,"UNDER"],Andy:[10,"OVER"],Chester:[15,"OVER"],Jake:[10,"UNDER"],Mary:[10,"OVER"],Mike:[14,"OVER"],Phil:[14,"OVER"],Ryan:[6,"UNDER"]},"Boston Celtics":{Adonis:[14,"UNDER"],Andy:[9,"OVER"],Chester:[7,"OVER"],Jake:[10,"OVER"],Mary:[6,"OVER"],Mike:[7,"OVER"],Phil:[11,"OVER"],Ryan:[12,"OVER"]},"Brooklyn Nets":{Adonis:[8,"UNDER"],Andy:[12,"OVER"],Chester:[8,"OVER"],Jake:[8,"OVER"],Mary:[6,"OVER"],Mike:[10,"UNDER"],Phil:[9,"UNDER"],Ryan:[7,"OVER"]},"Charlotte Hornets":{Adonis:[13,"UNDER"],Andy:[14,"UNDER"],Chester:[11,"UNDER"],Jake:[9,"OVER"],Mary:[13,"UNDER"],Mike:[8,"OVER"],Phil:[6,"UNDER"],Ryan:[6,"UNDER"]},"Chicago Bulls":{Adonis:[8,"OVER"],Andy:[9,"UNDER"],Chester:[13,"OVER"],Jake:[14,"OVER"],Mary:[10,"OVER"],Mike:[12,"OVER"],Phil:[10,"OVER"],Ryan:[11,"UNDER"]},"Cleveland Cavaliers":{Adonis:[12,"OVER"],Andy:[15,"OVER"],Chester:[14,"UNDER"],Jake:[15,"OVER"],Mary:[15,"OVER"],Mike:[15,"OVER"],Phil:[11,"OVER"],Ryan:[7,"UNDER"]},"Dallas Mavericks":{Adonis:[6,"OVER"],Andy:[9,"UNDER"],Chester:[6,"UNDER"],Jake:[6,"OVER"],Mary:[7,"UNDER"],Mike:[6,"OVER"],Phil:[8,"UNDER"],Ryan:[15,"OVER"]},"Denver Nuggets":{Adonis:[7,"OVER"],Andy:[14,"OVER"],Chester:[13,"OVER"],Jake:[6,"OVER"],Mary:[15,"OVER"],Mike:[13,"OVER"],Phil:[15,"OVER"],Ryan:[15,"OVER"]},"Detroit Pistons":{Adonis:[10,"OVER"],Andy:[13,"OVER"],Chester:[10,"OVER"],Jake:[12,"OVER"],Mary:[13,"OVER"],Mike:[9,"UNDER"],Phil:[6,"UNDER"],Ryan:[14,"UNDER"]},"Golden State Warriors":{Adonis:[13,"OVER"],Andy:[8,"UNDER"],Chester:[13,"OVER"],Jake:[7,"UNDER"],Mary:[7,"OVER"],Mike:[11,"OVER"],Phil:[14,"OVER"],Ryan:[11,"UNDER"]},"Houston Rockets":{Adonis:[11,"UNDER"],Andy:[14,"UNDER"],Chester:[14,"OVER"],Jake:[6,"OVER"],Mary:[14,"OVER"],Mike:[13,"UNDER"],Phil:[10,"OVER"],Ryan:[7,"OVER"]},"Indiana Pacers":{Adonis:[9,"UNDER"],Andy:[8,"OVER"],Chester:[8,"UNDER"],Jake:[9,"UNDER"],Mary:[7,"OVER"],Mike:[7,"UNDER"],Phil:[12,"OVER"],Ryan:[8,"UNDER"]},"Los Angeles Clippers":{Adonis:[6,"OVER"],Andy:[8,"UNDER"],Chester:[11,"UNDER"],Jake:[7,"UNDER"],Mary:[10,"UNDER"],Mike:[12,"OVER"],Phil:[7,"UNDER"],Ryan:[8,"UNDER"]},"Los Angeles Lakers":{Adonis:[11,"UNDER"],Andy:[12,"UNDER"],Chester:[12,"OVER"],Jake:[7,"UNDER"],Mary:[11,"OVER"],Mike:[12,"UNDER"],Phil:[9,"UNDER"],Ryan:[6,"UNDER"]},"Memphis Grizzlies":{Adonis:[6,"OVER"],Andy:[7,"OVER"],Chester:[9,"OVER"],Jake:[12,"OVER"],Mary:[9,"OVER"],Mike:[6,"UNDER"],Phil:[8,"OVER"],Ryan:[13,"OVER"]},"Miami Heat":{Adonis:[15,"UNDER"],Andy:[7,"OVER"],Chester:[10,"UNDER"],Jake:[12,"OVER"],Mary:[11,"OVER"],Mike:[8,"OVER"],Phil:[9,"OVER"],Ryan:[8,"OVER"]},"Milwaukee Bucks":{Adonis:[8,"OVER"],Andy:[13,"OVER"],Chester:[9,"UNDER"],Jake:[15,"OVER"],Mary:[9,"OVER"],Mike:[15,"OVER"],Phil:[8,"OVER"],Ryan:[14,"OVER"]},"Minnesota Timberwolves":{Adonis:[13,"UNDER"],Andy:[7,"OVER"],Chester:[7,"UNDER"],Jake:[14,"OVER"],Mary:[11,"OVER"],Mike:[13,"OVER"],Phil:[13,"UNDER"],Ryan:[14,"OVER"]},"New Orleans Pelicans":{Adonis:[10,"OVER"],Andy:[6,"UNDER"],Chester:[12,"OVER"],Jake:[10,"OVER"],Mary:[14,"UNDER"],Mike:[11,"OVER"],Phil:[12,"UNDER"],Ryan:[9,"UNDER"]},"New York Knicks":{Adonis:[12,"OVER"],Andy:[6,"UNDER"],Chester:[9,"UNDER"],Jake:[13,"UNDER"],Mary:[9,"OVER"],Mike:[14,"OVER"],Phil:[7,"UNDER"],Ryan:[15,"OVER"]},"Oklahoma City Thunder":{Adonis:[9,"OVER"],Andy:[15,"UNDER"],Chester:[14,"UNDER"],Jake:[15,"UNDER"],Mary:[15,"OVER"],Mike:[15,"OVER"],Phil:[15,"OVER"],Ryan:[9,"UNDER"]},"Orlando Magic":{Adonis:[9,"UNDER"],Andy:[10,"OVER"],Chester:[15,"OVER"],Jake:[14,"UNDER"],Mary:[12,"OVER"],Mike:[10,"UNDER"],Phil:[13,"OVER"],Ryan:[9,"OVER"]},"Philadelphia 76ers":{Adonis:[15,"OVER"],Andy:[11,"UNDER"],Chester:[10,"UNDER"],Jake:[11,"UNDER"],Mary:[12,"UNDER"],Mike:[7,"UNDER"],Phil:[14,"UNDER"],Ryan:[13,"OVER"]},"Phoenix Suns":{Adonis:[12,"OVER"],Andy:[10,"UNDER"],Chester:[12,"UNDER"],Jake:[13,"OVER"],Mary:[6,"UNDER"],Mike:[8,"UNDER"],Phil:[15,"UNDER"],Ryan:[13,"UNDER"]},"Portland Trail Blazers":{Adonis:[15,"UNDER"],Andy:[11,"UNDER"],Chester:[8,"OVER"],Jake:[11,"UNDER"],Mary:[13,"UNDER"],Mike:[10,"UNDER"],Phil:[12,"OVER"],Ryan:[10,"UNDER"]},"Sacramento Kings":{Adonis:[11,"OVER"],Andy:[12,"UNDER"],Chester:[6,"UNDER"],Jake:[11,"OVER"],Mary:[8,"OVER"],Mike:[11,"UNDER"],Phil:[11,"UNDER"],Ryan:[10,"OVER"]},"San Antonio Spurs":{Adonis:[10,"OVER"],Andy:[15,"OVER"],Chester:[15,"OVER"],Jake:[13,"OVER"],Mary:[8,"OVER"],Mike:[6,"OVER"],Phil:[6,"UNDER"],Ryan:[12,"OVER"]},"Toronto Raptors":{Adonis:[14,"UNDER"],Andy:[6,"UNDER"],Chester:[11,"UNDER"],Jake:[9,"UNDER"],Mary:[8,"UNDER"],Mike:[14,"OVER"],Phil:[13,"UNDER"],Ryan:[10,"UNDER"]},"Utah Jazz":{Adonis:[7,"OVER"],Andy:[13,"OVER"],Chester:[7,"OVER"],Jake:[8,"OVER"],Mary:[12,"UNDER"],Mike:[9,"UNDER"],Phil:[7,"OVER"],Ryan:[11,"OVER"]},"Washington Wizards":{Adonis:[7,"UNDER"],Andy:[11,"OVER"],Chester:[6,"OVER"],Jake:[8,"OVER"],Mary:[14,"UNDER"],Mike:[9,"UNDER"],Phil:[10,"UNDER"],Ryan:[12,"UNDER"]}};
+const PR={"Atlanta Hawks":46.5,"Boston Celtics":40.5,"Brooklyn Nets":20.5,"Charlotte Hornets":28.5,"Chicago Bulls":31.5,"Cleveland Cavaliers":56.5,"Detroit Pistons":45.5,"Indiana Pacers":38.5,"Miami Heat":38.5,"Milwaukee Bucks":44.5,"New York Knicks":53.5,"Orlando Magic":51.5,"Philadelphia 76ers":42.5,"Toronto Raptors":38.5,"Washington Wizards":20.5,"Dallas Mavericks":40.5,"Denver Nuggets":53.5,"Golden State Warriors":46.5,"Houston Rockets":53.5,"Los Angeles Clippers":47.5,"Los Angeles Lakers":48.5,"Memphis Grizzlies":40.5,"Minnesota Timberwolves":49.5,"New Orleans Pelicans":30.5,"Oklahoma City Thunder":62.5,"Phoenix Suns":31.5,"Portland Trail Blazers":33.5,"Sacramento Kings":34.5,"San Antonio Spurs":44.5,"Utah Jazz":18.5};
+const SA={"Detroit Pistons":59,"Cleveland Cavaliers":51,"Milwaukee Bucks":32,"Chicago Bulls":31,"Indiana Pacers":19,"Atlanta Hawks":46,"Orlando Magic":45,"Charlotte Hornets":43,"Miami Heat":42,"Washington Wizards":17,"Boston Celtics":55,"New York Knicks":53,"Toronto Raptors":45,"Philadelphia 76ers":44,"Brooklyn Nets":20,"Los Angeles Lakers":52,"Phoenix Suns":44,"Los Angeles Clippers":41,"Golden State Warriors":37,"Sacramento Kings":22,"Oklahoma City Thunder":64,"Denver Nuggets":53,"Minnesota Timberwolves":48,"Portland Trail Blazers":41,"Utah Jazz":22,"San Antonio Spurs":62,"Houston Rockets":51,"New Orleans Pelicans":26,"Memphis Grizzlies":25,"Dallas Mavericks":25};
+const UC=new Set(T.map(t=>t.n)),CL={};
+for(const[t,p]of Object.entries(PR))if(!UC.has(t))CL[t]=SA[t]>=Math.ceil(p)?"OVER":"UNDER";
 
-// State: null=undecided, true=OVER, false=UNDER
-let state = [null, null, null, null, null];
+function cf(so){const oc={...CL};T.forEach((t,i)=>{oc[t.n]=so[i]?"OVER":"UNDER";});const r={};P.forEach(p=>{let pt=0,co=0;const bw={};for(let w=15;w>=6;w--)bw[w]=0;for(const[t,a]of Object.entries(oc)){const[w,c]=AP[t][p];if(c===a){pt+=w;co++;bw[w]++;}else pt-=w;}r[p]={pts:pt,correct:co,byWage:bw};});return r;}
+function sp(d){return[...P].sort((a,b)=>{const da=d[a],db=d[b];if(da.pts!==db.pts)return db.pts-da.pts;if(da.correct!==db.correct)return db.correct-da.correct;for(let w=15;w>=6;w--)if((da.byWage[w]||0)!==(db.byWage[w]||0))return(db.byWage[w]||0)-(da.byWage[w]||0);return 0;});}
 
-function compute(outcomes) {
-  const s = {...BASE};
-  TEAMS.forEach((t,i) => {
-    const r = outcomes[i] ? "OVER" : "UNDER";
-    P.forEach(p => { const [w,c] = PICKS[t.name][p]; s[p] += c===r ? w : -w; });
-  });
-  return s;
+function tbr(da,db){
+  if(da.pts!==db.pts)return null;
+  if(da.correct!==db.correct)return{l:"correct",a:da.correct,b:db.correct};
+  for(let w=15;w>=6;w--){const aw=da.byWage[w]||0,bw=db.byWage[w]||0;if(aw!==bw)return{l:w+"w",a:aw,b:bw,w};}
+  return{l:"identical"};
 }
-
-// Precompute all 32
-const ALL = [];
-for (let i = 0; i < 32; i++) {
-  const o = TEAMS.map((_,j) => Boolean(i & (1 << (4-j))));
-  const scores = compute(o);
-  const sorted = [...P].sort((a,b) => scores[b] - scores[a]);
-  ALL.push({ id: i, outcomes: o, scores, sorted });
+function getTBI(d,s){
+  const info={};
+  for(let i=0;i<s.length;i++){
+    const p=s[i];
+    const ta=i>0&&d[s[i-1]].pts===d[p].pts;
+    const tb=i<s.length-1&&d[s[i+1]].pts===d[p].pts;
+    if(!ta&&!tb){info[p]=null;continue;}
+    const nb=ta?s[i-1]:s[i+1];
+    const r=tbr(d[p],d[nb]);
+    if(!r){info[p]=null;continue;}
+    if(r.l==="correct")info[p]=`${d[p].correct} correct`;
+    else if(r.l==="identical")info[p]="tied";
+    else info[p]=`${d[p].byWage[r.w]||0}&times; ${r.w}w correct`;
+  }
+  return info;
 }
+function ht(d,s){for(let i=0;i<s.length-1;i++)if(d[s[i]].pts===d[s[i+1]].pts)return true;return false;}
 
-function matches(scenario) {
-  return TEAMS.every((_, i) => state[i] === null || state[i] === scenario.outcomes[i]);
+const A=[];for(let i=0;i<32;i++){const o=T.map((_,j)=>Boolean(i&(1<<(4-j))));const d=cf(o);const s=sp(d);A.push({id:i,o,d,s,tb:ht(d,s),tbi:getTBI(d,s)});}
+let st=[null,null,null,null,null];
+function mt(s){return T.every((_,i)=>st[i]===null||st[i]===s.o[i]);}
+function tg(i){st[i]=st[i]===null?true:st[i]===true?false:null;rn();}
+
+function rn(){
+const md=A.filter(mt),tot=md.length,ad=st.every(s=>s!==null);
+document.getElementById("tg").innerHTML=T.map((t,i)=>{const s=st[i];return`<div class="tt ${s===null?"":s?"ov":"un"}" onclick="tg(${i})"><span class="a">${t.a}</span><span class="n">${t.n}</span><span class="i">${t.w}W &middot; proj ${t.p}</span><span class="b ${s===null?"ud":s?"ob":"ub"}">${s===null?"UNDECIDED":s?"WIN &rarr; OVER":"LOSE &rarr; UNDER"}</span></div>`;}).join("");
+document.getElementById("sc").innerHTML=ad?`<b>1</b> scenario locked in`:`<b>${tot}</b> of 32 scenarios remain`;
+const pc={},wc={},bs={},ws={};P.forEach(p=>{pc[p]=0;wc[p]=0;bs[p]=-999;ws[p]=999;});
+md.forEach(s=>{P.forEach(p=>{if(s.s.indexOf(p)<4)pc[p]++;if(s.s[0]===p)wc[p]++;const pt=s.d[p].pts;if(pt>bs[p])bs[p]=pt;if(pt<ws[p])ws[p]=pt;});});
+const sP=[...P].sort((a,b)=>pc[b]-pc[a]||bs[b]-bs[a]);
+document.getElementById("sm").innerHTML=sP.map(p=>{const pp=tot>0?Math.round(pc[p]/tot*100):0;const bc=pp>=75?"var(--green)":pp>=40?"var(--gold)":pp>0?"var(--red)":"var(--muted)";return`<div class="cd"><div class="p">${p}</div><div class="m">${tot>1?`Playoffs: ${pp}%`:(pc[p]?"IN":"OUT")}${wc[p]?`<br>1st: ${wc[p]}&times;`:""}${tot>1&&bs[p]!==ws[p]?`<br>${ws[p]} to ${bs[p]>0?"+":""}${bs[p]}`:(tot===1?`<br>${bs[p]>0?"+":""}${bs[p]} pts`:"")}</div><div class="bw"><div class="bf" style="width:${pp}%;background:${bc}"></div></div></div>`;}).join("");
+document.getElementById("sl").innerHTML=`<div class="si"><span class="sq" style="background:var(--s1bg);border:1px solid var(--s1)"></span><span style="color:var(--s1);font-weight:600">#1 Gold</span></div><div class="si"><span class="sq" style="background:var(--s2bg);border:1px solid var(--s2)"></span><span style="color:var(--s2);font-weight:600">#2 Teal</span></div><div class="si"><span class="sq" style="background:var(--s3bg);border:1px solid var(--s3)"></span><span style="color:var(--s3);font-weight:600">#3 Violet</span></div><div class="si"><span class="sq" style="background:var(--s4bg);border:1px solid var(--s4)"></span><span style="color:var(--s4);font-weight:600">#4 Sky</span></div><div class="si"><span class="sq" style="background:var(--outbg);border:1px solid #2a2a44"></span><span style="color:var(--outtxt)">#5-8 Out</span></div><div class="si" style="margin-left:12px"><span class="tbm"></span><span style="color:var(--orange);margin-left:5px">Tiebreaker applied</span></div>`;
+document.getElementById("th").innerHTML=`<tr><th style="width:30px">#</th>${T.map(t=>`<th style="width:38px">${t.a}</th>`).join("")}<th style="width:5px"></th><th style="color:var(--s1);font-weight:700">#1</th><th style="color:var(--s2);font-weight:700">#2</th><th style="color:var(--s3);font-weight:700">#3</th><th style="color:var(--s4);font-weight:700">#4</th><th style="width:5px"></th><th style="color:var(--outtxt)">#5</th><th style="color:var(--outtxt)">#6</th><th style="color:var(--outtxt)">#7</th><th style="color:var(--outtxt)">#8</th></tr>`;
+document.getElementById("tb").innerHTML=A.map((s,idx)=>{
+const m=mt(s),cl=m?"mt":"d";
+return`<tr class="${cl}"><td style="color:var(--muted);font-size:12px">${s.id+1}${s.tb?'<span class="tbm"></span>':""}</td>${s.o.map((o,j)=>`<td class="${o?"go":"gu"}" style="${st[j]!==null&&m?"font-size:15px":""}">${o?"O":"U"}</td>`).join("")}<td class="sp"></td>${s.s.slice(0,4).map((p,si)=>{const pt=s.d[p].pts;const tb=s.tbi[p];return`<td class="sd s${si+1}"><div class="sn">${p}</div><div class="ss">${pt>0?"+":""}${pt} pts</div>${tb?`<div class="st">${tb}</div>`:""}</td>`;}).join("")}<td class="sp2"></td>${s.s.slice(4).map((p)=>{const pt=s.d[p].pts;const tb=s.tbi[p];return`<td class="ot"><div class="sn">${p}</div><div class="ss">${pt} pts</div>${tb?`<div class="st">${tb}</div>`:""}</td>`;}).join("")}</tr>`;
+}).join("");
+document.getElementById("lg").innerHTML=`<div style="margin-bottom:6px">${T.map(t=>`<b>${t.a}</b> ${t.w}W proj ${t.p} &middot; `).join("")}</div><div><span style="color:var(--green)">O</span> = Win (OVER) | <span style="color:var(--red)">U</span> = Lose (UNDER)</div><div style="margin-top:6px"><span class="tbm" style="vertical-align:middle;margin-right:5px"></span>Tiebreaker chain: total points &rarr; most correct picks overall &rarr; most correct 15-wager picks &rarr; 14 &rarr; 13 &rarr; ... &rarr; 6</div><div style="margin-top:4px;color:var(--outtxt)">Orange text shows the deciding tiebreaker: e.g. "17 correct" = 17 total correct picks won the tie. "2&times; 15w correct" = 2 correct 15-wager picks was the decider.</div>`;
 }
-
-function toggle(i) {
-  if (state[i] === null) state[i] = true;
-  else if (state[i] === true) state[i] = false;
-  else state[i] = null;
-  render();
-}
-
-function render() {
-  const matched = ALL.filter(matches);
-  const total = matched.length;
-  const allDecided = state.every(s => s !== null);
-
-  // Toggles
-  const tEl = document.getElementById("toggles");
-  tEl.innerHTML = TEAMS.map((t,i) => {
-    const s = state[i];
-    const cls = s === null ? "" : s ? "over" : "under";
-    const label = s === null ? "UNDECIDED" : s ? "WIN → OVER" : "LOSE → UNDER";
-    const bcls = s === null ? "undecided" : s ? "over-badge" : "under-badge";
-    return `<div class="team-toggle ${cls}" onclick="toggle(${i})">
-      <span class="abbr">${t.abbr}</span>
-      <span class="name">${t.name}</span>
-      <span class="info">${t.wins}W · proj ${t.proj}</span>
-      <span class="badge ${bcls}">${label}</span>
-    </div>`;
-  }).join("");
-
-  // Count
-  document.getElementById("scenarioCount").innerHTML =
-    allDecided ? `<b>1</b> scenario locked in`
-    : `<b>${total}</b> of 32 scenarios remain`;
-
-  // Summary cards
-  const pCounts = {}, wCounts = {}, bestScores = {}, worstScores = {};
-  P.forEach(p => { pCounts[p]=0; wCounts[p]=0; bestScores[p]=-999; worstScores[p]=999; });
-  matched.forEach(s => {
-    P.forEach(p => {
-      if (s.sorted.indexOf(p) < 4) pCounts[p]++;
-      if (s.sorted[0] === p) wCounts[p]++;
-      if (s.scores[p] > bestScores[p]) bestScores[p] = s.scores[p];
-      if (s.scores[p] < worstScores[p]) worstScores[p] = s.scores[p];
-    });
-  });
-  const sortedP = [...P].sort((a,b) => pCounts[b] - pCounts[a] || bestScores[b] - bestScores[a]);
-
-  document.getElementById("summary").innerHTML = sortedP.map(p => {
-    const pPct = total > 0 ? Math.round(pCounts[p]/total*100) : 0;
-    const barColor = pPct >= 75 ? "var(--green)" : pPct >= 40 ? "var(--gold)" : pPct > 0 ? "var(--red)" : "var(--muted)";
-    const scoreClass = bestScores[p] > 0 ? "pos" : "neg";
-    return `<div class="card">
-      <div class="pname">${p}</div>
-      <div class="score ${scoreClass}">${bestScores[p]===worstScores[p] ? ((bestScores[p]>0?"+":"") + bestScores[p]) : ""}</div>
-      <div class="meta">
-        ${total > 1 ? `Playoffs: ${pPct}%` : (pCounts[p] ? "IN" : "OUT")}
-        ${wCounts[p] ? `<br>1st: ${wCounts[p]}×` : ""}
-        ${total > 1 && bestScores[p] !== worstScores[p] ? `<br>${worstScores[p]} to ${bestScores[p]>0?"+":""}${bestScores[p]}` : ""}
-      </div>
-      <div class="bar-wrap"><div class="bar-fill" style="width:${pPct}%;background:${barColor}"></div></div>
-    </div>`;
-  }).join("");
-
-  // Table header
-  document.getElementById("thead").innerHTML = `
-    <tr>
-      <th style="width:22px">#</th>
-      ${TEAMS.map(t => `<th style="width:30px">${t.abbr}</th>`).join("")}
-      <th style="width:3px"></th>
-      <th colspan="4" style="color:var(--gold);font-weight:700;font-size:9px">← PLAYOFFS</th>
-      <th style="width:3px"></th>
-      <th colspan="4" style="color:var(--muted);font-size:9px">OUT →</th>
-    </tr>
-    <tr style="border-bottom:1px solid var(--border)">
-      <th></th>${TEAMS.map(()=>"<th></th>").join("")}<th></th>
-      <th style="color:var(--seed1);font-size:8px">#1</th>
-      <th style="color:var(--seed2);font-size:8px">#2</th>
-      <th style="color:var(--seed3);font-size:8px">#3</th>
-      <th style="color:var(--seed4);font-size:8px">#4</th>
-      <th></th>
-      <th style="color:var(--muted);font-size:8px">#5</th>
-      <th style="color:var(--muted);font-size:8px">#6</th>
-      <th style="color:var(--muted);font-size:8px">#7</th>
-      <th style="color:var(--muted);font-size:8px">#8</th>
-    </tr>`;
-
-  // Table body
-  document.getElementById("tbody").innerHTML = ALL.map((s, idx) => {
-    const m = matches(s);
-    const cls = m ? "matched" : "dimmed";
-    return `<tr class="${cls}">
-      <td style="color:var(--muted);font-size:8px">${s.id+1}</td>
-      ${s.outcomes.map((o,j) => {
-        const locked = state[j] !== null;
-        const extra = locked && m ? (o ? "font-size:11px" : "font-size:11px") : "";
-        return `<td class="${o?"outcome-o":"outcome-u"}" style="${extra}">${o?"O":"U"}</td>`;
-      }).join("")}
-      <td class="sep"></td>
-      ${s.sorted.slice(0,4).map((p,si) => {
-        const seed = si+1;
-        const sc = s.scores[p];
-        return `<td class="seed seed${seed}">
-          <div class="sname">${p}</div>
-          <div class="sscore">${sc>0?"+":""}${sc}</div>
-        </td>`;
-      }).join("")}
-      <td class="sep2"></td>
-      ${s.sorted.slice(4).map(p => {
-        const sc = s.scores[p];
-        return `<td class="out">
-          <div class="sname">${p}</div>
-          <div class="sscore">${sc}</div>
-        </td>`;
-      }).join("")}
-    </tr>`;
-  }).join("");
-
-  // Legend
-  document.getElementById("legend").innerHTML = `
-    <div style="margin-bottom:4px">
-      ${TEAMS.map(t => `<b>${t.abbr}</b> ${t.wins}W proj ${t.proj} &nbsp;·&nbsp; `).join("")}
-    </div>
-    <div>O = Win last game (OVER projection) &nbsp;|&nbsp; U = Lose (UNDER) &nbsp;|&nbsp;
-    Gold line = playoff cut &nbsp;|&nbsp; Dimmed rows = eliminated by your toggle selections</div>
-  `;
-}
-
-render();
+rn();
 </script>
 </body>
 </html>
