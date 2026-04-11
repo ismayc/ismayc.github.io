@@ -1,0 +1,1471 @@
+team,player,wage,choice,season,conference,outcome,correct,points
+Portland Trail Blazers,Chester,14,OVER,2020-21,,OVER,True,14
+Portland Trail Blazers,Jake,12,OVER,2020-21,,OVER,True,12
+Portland Trail Blazers,Jenelle,12,OVER,2020-21,,OVER,True,12
+Portland Trail Blazers,Adonis,12,OVER,2020-21,,OVER,True,12
+Portland Trail Blazers,Mike,12,OVER,2020-21,,OVER,True,12
+Portland Trail Blazers,Mary,11,OVER,2020-21,,OVER,True,11
+Portland Trail Blazers,Ryan,10,OVER,2020-21,,OVER,True,10
+Portland Trail Blazers,Phil,8,OVER,2020-21,,OVER,True,8
+Brooklyn Nets,Mary,6,OVER,2020-21,,OVER,True,6
+Brooklyn Nets,Chester,15,UNDER,2020-21,,OVER,False,-15
+Brooklyn Nets,Ryan,14,UNDER,2020-21,,OVER,False,-14
+Brooklyn Nets,Jenelle,9,UNDER,2020-21,,OVER,False,-9
+Brooklyn Nets,Phil,8,UNDER,2020-21,,OVER,False,-8
+Brooklyn Nets,Jake,7,UNDER,2020-21,,OVER,False,-7
+Brooklyn Nets,Adonis,7,UNDER,2020-21,,OVER,False,-7
+Brooklyn Nets,Mike,7,UNDER,2020-21,,OVER,False,-7
+New Orleans Pelicans,Ryan,8,OVER,2020-21,,UNDER,False,-8
+New Orleans Pelicans,Mike,15,UNDER,2020-21,,UNDER,True,15
+New Orleans Pelicans,Jake,14,UNDER,2020-21,,UNDER,True,14
+New Orleans Pelicans,Adonis,12,UNDER,2020-21,,UNDER,True,12
+New Orleans Pelicans,Jenelle,11,UNDER,2020-21,,UNDER,True,11
+New Orleans Pelicans,Phil,10,UNDER,2020-21,,UNDER,True,10
+New Orleans Pelicans,Mary,8,UNDER,2020-21,,UNDER,True,8
+New Orleans Pelicans,Chester,7,UNDER,2020-21,,UNDER,True,7
+Washington Wizards,Mike,15,OVER,2020-21,,OVER,True,15
+Washington Wizards,Jake,14,OVER,2020-21,,OVER,True,14
+Washington Wizards,Adonis,14,OVER,2020-21,,OVER,True,14
+Washington Wizards,Jenelle,11,OVER,2020-21,,OVER,True,11
+Washington Wizards,Phil,11,OVER,2020-21,,OVER,True,11
+Washington Wizards,Mary,9,OVER,2020-21,,OVER,True,9
+Washington Wizards,Ryan,7,OVER,2020-21,,OVER,True,7
+Washington Wizards,Chester,8,UNDER,2020-21,,OVER,False,-8
+Oklahoma City Thunder,Mary,10,OVER,2020-21,,UNDER,False,-10
+Oklahoma City Thunder,Adonis,15,UNDER,2020-21,,UNDER,True,15
+Oklahoma City Thunder,Mike,14,UNDER,2020-21,,UNDER,True,14
+Oklahoma City Thunder,Jake,12,UNDER,2020-21,,UNDER,True,12
+Oklahoma City Thunder,Jenelle,11,UNDER,2020-21,,UNDER,True,11
+Oklahoma City Thunder,Chester,8,UNDER,2020-21,,UNDER,True,8
+Oklahoma City Thunder,Phil,7,UNDER,2020-21,,UNDER,True,7
+Oklahoma City Thunder,Ryan,6,UNDER,2020-21,,UNDER,True,6
+New York Knicks,Chester,12,OVER,2020-21,,OVER,True,12
+New York Knicks,Adonis,14,UNDER,2020-21,,OVER,False,-14
+New York Knicks,Mary,12,UNDER,2020-21,,OVER,False,-12
+New York Knicks,Mike,11,UNDER,2020-21,,OVER,False,-11
+New York Knicks,Jake,7,UNDER,2020-21,,OVER,False,-7
+New York Knicks,Jenelle,7,UNDER,2020-21,,OVER,False,-7
+New York Knicks,Ryan,6,UNDER,2020-21,,OVER,False,-6
+New York Knicks,Phil,6,UNDER,2020-21,,OVER,False,-6
+Denver Nuggets,Ryan,15,OVER,2020-21,,OVER,True,15
+Denver Nuggets,Mike,14,OVER,2020-21,,OVER,True,14
+Denver Nuggets,Mary,14,OVER,2020-21,,OVER,True,14
+Denver Nuggets,Chester,13,OVER,2020-21,,OVER,True,13
+Denver Nuggets,Phil,12,OVER,2020-21,,OVER,True,12
+Denver Nuggets,Jenelle,9,OVER,2020-21,,OVER,True,9
+Denver Nuggets,Jake,8,OVER,2020-21,,OVER,True,8
+Denver Nuggets,Adonis,9,UNDER,2020-21,,OVER,False,-9
+Phoenix Suns,Jenelle,15,OVER,2020-21,,OVER,True,15
+Phoenix Suns,Jake,14,OVER,2020-21,,OVER,True,14
+Phoenix Suns,Mary,14,OVER,2020-21,,OVER,True,14
+Phoenix Suns,Mike,12,OVER,2020-21,,OVER,True,12
+Phoenix Suns,Phil,12,OVER,2020-21,,OVER,True,12
+Phoenix Suns,Ryan,11,OVER,2020-21,,OVER,True,11
+Phoenix Suns,Adonis,9,OVER,2020-21,,OVER,True,9
+Phoenix Suns,Chester,12,UNDER,2020-21,,OVER,False,-12
+Houston Rockets,Jenelle,8,OVER,2020-21,,UNDER,False,-8
+Houston Rockets,Chester,6,OVER,2020-21,,UNDER,False,-6
+Houston Rockets,Mary,13,UNDER,2020-21,,UNDER,True,13
+Houston Rockets,Ryan,12,UNDER,2020-21,,UNDER,True,12
+Houston Rockets,Phil,12,UNDER,2020-21,,UNDER,True,12
+Houston Rockets,Jake,11,UNDER,2020-21,,UNDER,True,11
+Houston Rockets,Adonis,8,UNDER,2020-21,,UNDER,True,8
+Houston Rockets,Mike,6,UNDER,2020-21,,UNDER,True,6
+Sacramento Kings,Chester,10,OVER,2020-21,,OVER,True,10
+Sacramento Kings,Jake,8,OVER,2020-21,,OVER,True,8
+Sacramento Kings,Mike,14,UNDER,2020-21,,OVER,False,-14
+Sacramento Kings,Ryan,9,UNDER,2020-21,,OVER,False,-9
+Sacramento Kings,Mary,9,UNDER,2020-21,,OVER,False,-9
+Sacramento Kings,Adonis,8,UNDER,2020-21,,OVER,False,-8
+Sacramento Kings,Jenelle,6,UNDER,2020-21,,OVER,False,-6
+Sacramento Kings,Phil,6,UNDER,2020-21,,OVER,False,-6
+Orlando Magic,Phil,11,OVER,2020-21,,UNDER,False,-11
+Orlando Magic,Adonis,10,OVER,2020-21,,UNDER,False,-10
+Orlando Magic,Chester,14,UNDER,2020-21,,UNDER,True,14
+Orlando Magic,Jake,12,UNDER,2020-21,,UNDER,True,12
+Orlando Magic,Jenelle,12,UNDER,2020-21,,UNDER,True,12
+Orlando Magic,Mike,10,UNDER,2020-21,,UNDER,True,10
+Orlando Magic,Mary,9,UNDER,2020-21,,UNDER,True,9
+Orlando Magic,Ryan,7,UNDER,2020-21,,UNDER,True,7
+Memphis Grizzlies,Jenelle,10,OVER,2020-21,,OVER,True,10
+Memphis Grizzlies,Phil,9,OVER,2020-21,,OVER,True,9
+Memphis Grizzlies,Adonis,8,OVER,2020-21,,OVER,True,8
+Memphis Grizzlies,Mary,8,OVER,2020-21,,OVER,True,8
+Memphis Grizzlies,Chester,10,UNDER,2020-21,,OVER,False,-10
+Memphis Grizzlies,Ryan,8,UNDER,2020-21,,OVER,False,-8
+Memphis Grizzlies,Mike,7,UNDER,2020-21,,OVER,False,-7
+Memphis Grizzlies,Jake,6,UNDER,2020-21,,OVER,False,-6
+Los Angeles Clippers,Ryan,12,OVER,2020-21,,OVER,True,12
+Los Angeles Clippers,Phil,10,OVER,2020-21,,OVER,True,10
+Los Angeles Clippers,Jake,9,OVER,2020-21,,OVER,True,9
+Los Angeles Clippers,Chester,11,UNDER,2020-21,,OVER,False,-11
+Los Angeles Clippers,Jenelle,7,UNDER,2020-21,,OVER,False,-7
+Los Angeles Clippers,Mary,7,UNDER,2020-21,,OVER,False,-7
+Los Angeles Clippers,Adonis,6,UNDER,2020-21,,OVER,False,-6
+Los Angeles Clippers,Mike,6,UNDER,2020-21,,OVER,False,-6
+San Antonio Spurs,Jenelle,14,OVER,2020-21,,OVER,True,14
+San Antonio Spurs,Jake,13,OVER,2020-21,,OVER,True,13
+San Antonio Spurs,Phil,9,OVER,2020-21,,OVER,True,9
+San Antonio Spurs,Adonis,6,OVER,2020-21,,OVER,True,6
+San Antonio Spurs,Ryan,6,OVER,2020-21,,OVER,True,6
+San Antonio Spurs,Chester,10,UNDER,2020-21,,OVER,False,-10
+San Antonio Spurs,Mike,8,UNDER,2020-21,,OVER,False,-8
+San Antonio Spurs,Mary,7,UNDER,2020-21,,OVER,False,-7
+Cleveland Cavaliers,Ryan,9,OVER,2020-21,,UNDER,False,-9
+Cleveland Cavaliers,Jenelle,8,OVER,2020-21,,UNDER,False,-8
+Cleveland Cavaliers,Chester,7,OVER,2020-21,,UNDER,False,-7
+Cleveland Cavaliers,Adonis,13,UNDER,2020-21,,UNDER,True,13
+Cleveland Cavaliers,Mary,12,UNDER,2020-21,,UNDER,True,12
+Cleveland Cavaliers,Mike,11,UNDER,2020-21,,UNDER,True,11
+Cleveland Cavaliers,Jake,8,UNDER,2020-21,,UNDER,True,8
+Cleveland Cavaliers,Phil,8,UNDER,2020-21,,UNDER,True,8
+Philadelphia 76ers,Ryan,13,OVER,2020-21,,OVER,True,13
+Philadelphia 76ers,Adonis,11,OVER,2020-21,,OVER,True,11
+Philadelphia 76ers,Jake,7,OVER,2020-21,,OVER,True,7
+Philadelphia 76ers,Chester,6,OVER,2020-21,,OVER,True,6
+Philadelphia 76ers,Phil,11,UNDER,2020-21,,OVER,False,-11
+Philadelphia 76ers,Mike,9,UNDER,2020-21,,OVER,False,-9
+Philadelphia 76ers,Jenelle,7,UNDER,2020-21,,OVER,False,-7
+Philadelphia 76ers,Mary,6,UNDER,2020-21,,OVER,False,-6
+Los Angeles Lakers,Adonis,15,OVER,2020-21,,UNDER,False,-15
+Los Angeles Lakers,Chester,15,OVER,2020-21,,UNDER,False,-15
+Los Angeles Lakers,Mary,15,OVER,2020-21,,UNDER,False,-15
+Los Angeles Lakers,Phil,15,OVER,2020-21,,UNDER,False,-15
+Los Angeles Lakers,Mike,11,OVER,2020-21,,UNDER,False,-11
+Los Angeles Lakers,Jake,9,OVER,2020-21,,UNDER,False,-9
+Los Angeles Lakers,Ryan,15,UNDER,2020-21,,UNDER,True,15
+Los Angeles Lakers,Jenelle,6,UNDER,2020-21,,UNDER,True,6
+Utah Jazz,Jake,15,OVER,2020-21,,OVER,True,15
+Utah Jazz,Jenelle,15,OVER,2020-21,,OVER,True,15
+Utah Jazz,Ryan,14,OVER,2020-21,,OVER,True,14
+Utah Jazz,Mary,11,OVER,2020-21,,OVER,True,11
+Utah Jazz,Mike,6,OVER,2020-21,,OVER,True,6
+Utah Jazz,Adonis,9,UNDER,2020-21,,OVER,False,-9
+Utah Jazz,Chester,6,UNDER,2020-21,,OVER,False,-6
+Utah Jazz,Phil,6,UNDER,2020-21,,OVER,False,-6
+Golden State Warriors,Jenelle,14,OVER,2020-21,,OVER,True,14
+Golden State Warriors,Chester,13,OVER,2020-21,,OVER,True,13
+Golden State Warriors,Ryan,12,OVER,2020-21,,OVER,True,12
+Golden State Warriors,Adonis,11,OVER,2020-21,,OVER,True,11
+Golden State Warriors,Jake,10,OVER,2020-21,,OVER,True,10
+Golden State Warriors,Mike,7,OVER,2020-21,,OVER,True,7
+Golden State Warriors,Phil,15,UNDER,2020-21,,OVER,False,-15
+Golden State Warriors,Mary,12,UNDER,2020-21,,OVER,False,-12
+Detroit Pistons,Mike,10,OVER,2020-21,,UNDER,False,-10
+Detroit Pistons,Jenelle,10,OVER,2020-21,,UNDER,False,-10
+Detroit Pistons,Mary,10,OVER,2020-21,,UNDER,False,-10
+Detroit Pistons,Jake,6,OVER,2020-21,,UNDER,False,-6
+Detroit Pistons,Chester,12,UNDER,2020-21,,UNDER,True,12
+Detroit Pistons,Adonis,10,UNDER,2020-21,,UNDER,True,10
+Detroit Pistons,Phil,9,UNDER,2020-21,,UNDER,True,9
+Detroit Pistons,Ryan,8,UNDER,2020-21,,UNDER,True,8
+Boston Celtics,Phil,10,OVER,2020-21,,UNDER,False,-10
+Boston Celtics,Chester,9,OVER,2020-21,,UNDER,False,-9
+Boston Celtics,Adonis,7,OVER,2020-21,,UNDER,False,-7
+Boston Celtics,Ryan,14,UNDER,2020-21,,UNDER,True,14
+Boston Celtics,Jake,13,UNDER,2020-21,,UNDER,True,13
+Boston Celtics,Mike,13,UNDER,2020-21,,UNDER,True,13
+Boston Celtics,Jenelle,12,UNDER,2020-21,,UNDER,True,12
+Boston Celtics,Mary,6,UNDER,2020-21,,UNDER,True,6
+Dallas Mavericks,Jake,13,OVER,2020-21,,UNDER,False,-13
+Dallas Mavericks,Jenelle,13,OVER,2020-21,,UNDER,False,-13
+Dallas Mavericks,Chester,13,OVER,2020-21,,UNDER,False,-13
+Dallas Mavericks,Mary,13,OVER,2020-21,,UNDER,False,-13
+Dallas Mavericks,Mike,12,OVER,2020-21,,UNDER,False,-12
+Dallas Mavericks,Adonis,11,OVER,2020-21,,UNDER,False,-11
+Dallas Mavericks,Ryan,13,UNDER,2020-21,,UNDER,True,13
+Dallas Mavericks,Phil,13,UNDER,2020-21,,UNDER,True,13
+Atlanta Hawks,Mary,15,OVER,2020-21,,OVER,True,15
+Atlanta Hawks,Mike,13,OVER,2020-21,,OVER,True,13
+Atlanta Hawks,Chester,11,OVER,2020-21,,OVER,True,11
+Atlanta Hawks,Jake,10,OVER,2020-21,,OVER,True,10
+Atlanta Hawks,Phil,7,OVER,2020-21,,OVER,True,7
+Atlanta Hawks,Adonis,10,UNDER,2020-21,,OVER,False,-10
+Atlanta Hawks,Ryan,10,UNDER,2020-21,,OVER,False,-10
+Atlanta Hawks,Jenelle,8,UNDER,2020-21,,OVER,False,-8
+Indiana Pacers,Mary,13,OVER,2020-21,,UNDER,False,-13
+Indiana Pacers,Phil,13,OVER,2020-21,,UNDER,False,-13
+Indiana Pacers,Adonis,12,OVER,2020-21,,UNDER,False,-12
+Indiana Pacers,Mike,9,OVER,2020-21,,UNDER,False,-9
+Indiana Pacers,Jake,6,OVER,2020-21,,UNDER,False,-6
+Indiana Pacers,Chester,15,UNDER,2020-21,,UNDER,True,15
+Indiana Pacers,Ryan,10,UNDER,2020-21,,UNDER,True,10
+Indiana Pacers,Jenelle,6,UNDER,2020-21,,UNDER,True,6
+Toronto Raptors,Jake,15,OVER,2020-21,,UNDER,False,-15
+Toronto Raptors,Jenelle,15,OVER,2020-21,,UNDER,False,-15
+Toronto Raptors,Phil,13,OVER,2020-21,,UNDER,False,-13
+Toronto Raptors,Mary,8,OVER,2020-21,,UNDER,False,-8
+Toronto Raptors,Ryan,7,OVER,2020-21,,UNDER,False,-7
+Toronto Raptors,Adonis,13,UNDER,2020-21,,UNDER,True,13
+Toronto Raptors,Chester,9,UNDER,2020-21,,UNDER,True,9
+Toronto Raptors,Mike,8,UNDER,2020-21,,UNDER,True,8
+Charlotte Hornets,Jenelle,13,OVER,2020-21,,OVER,True,13
+Charlotte Hornets,Jake,11,OVER,2020-21,,OVER,True,11
+Charlotte Hornets,Mike,10,OVER,2020-21,,OVER,True,10
+Charlotte Hornets,Chester,7,OVER,2020-21,,OVER,True,7
+Charlotte Hornets,Adonis,15,UNDER,2020-21,,OVER,False,-15
+Charlotte Hornets,Mary,11,UNDER,2020-21,,OVER,False,-11
+Charlotte Hornets,Ryan,9,UNDER,2020-21,,OVER,False,-9
+Charlotte Hornets,Phil,7,UNDER,2020-21,,OVER,False,-7
+Miami Heat,Mary,15,OVER,2020-21,,UNDER,False,-15
+Miami Heat,Phil,14,OVER,2020-21,,UNDER,False,-14
+Miami Heat,Chester,11,OVER,2020-21,,UNDER,False,-11
+Miami Heat,Ryan,13,UNDER,2020-21,,UNDER,True,13
+Miami Heat,Jenelle,10,UNDER,2020-21,,UNDER,True,10
+Miami Heat,Jake,9,UNDER,2020-21,,UNDER,True,9
+Miami Heat,Mike,9,UNDER,2020-21,,UNDER,True,9
+Miami Heat,Adonis,6,UNDER,2020-21,,UNDER,True,6
+Milwaukee Bucks,Ryan,15,OVER,2020-21,,UNDER,False,-15
+Milwaukee Bucks,Phil,14,OVER,2020-21,,UNDER,False,-14
+Milwaukee Bucks,Mike,13,OVER,2020-21,,UNDER,False,-13
+Milwaukee Bucks,Jake,10,OVER,2020-21,,UNDER,False,-10
+Milwaukee Bucks,Jenelle,13,UNDER,2020-21,,UNDER,True,13
+Milwaukee Bucks,Chester,9,UNDER,2020-21,,UNDER,True,9
+Milwaukee Bucks,Adonis,7,UNDER,2020-21,,UNDER,True,7
+Milwaukee Bucks,Mary,7,UNDER,2020-21,,UNDER,True,7
+Minnesota Timberwolves,Jake,15,OVER,2020-21,,UNDER,False,-15
+Minnesota Timberwolves,Mike,15,OVER,2020-21,,UNDER,False,-15
+Minnesota Timberwolves,Jenelle,14,OVER,2020-21,,UNDER,False,-14
+Minnesota Timberwolves,Adonis,13,OVER,2020-21,,UNDER,False,-13
+Minnesota Timberwolves,Chester,8,OVER,2020-21,,UNDER,False,-8
+Minnesota Timberwolves,Phil,15,UNDER,2020-21,,UNDER,True,15
+Minnesota Timberwolves,Ryan,11,UNDER,2020-21,,UNDER,True,11
+Minnesota Timberwolves,Mary,10,UNDER,2020-21,,UNDER,True,10
+Chicago Bulls,Chester,14,OVER,2020-21,,OVER,True,14
+Chicago Bulls,Mary,14,OVER,2020-21,,OVER,True,14
+Chicago Bulls,Ryan,11,OVER,2020-21,,OVER,True,11
+Chicago Bulls,Jenelle,9,OVER,2020-21,,OVER,True,9
+Chicago Bulls,Adonis,14,UNDER,2020-21,,OVER,False,-14
+Chicago Bulls,Phil,14,UNDER,2020-21,,OVER,False,-14
+Chicago Bulls,Jake,11,UNDER,2020-21,,OVER,False,-11
+Chicago Bulls,Mike,8,UNDER,2020-21,,OVER,False,-8
+Atlanta Hawks,Adonis,6,UNDER,2021-22,East,UNDER,True,6
+Atlanta Hawks,Chester,15,OVER,2021-22,East,UNDER,False,-15
+Atlanta Hawks,Jake,10,UNDER,2021-22,East,UNDER,True,10
+Atlanta Hawks,Jenelle,6,UNDER,2021-22,East,UNDER,True,6
+Atlanta Hawks,Mary,10,OVER,2021-22,East,UNDER,False,-10
+Atlanta Hawks,Mike,14,OVER,2021-22,East,UNDER,False,-14
+Atlanta Hawks,Phil,15,OVER,2021-22,East,UNDER,False,-15
+Atlanta Hawks,Ryan,13,OVER,2021-22,East,UNDER,False,-13
+Boston Celtics,Adonis,12,OVER,2021-22,East,OVER,True,12
+Boston Celtics,Chester,9,UNDER,2021-22,East,OVER,False,-9
+Boston Celtics,Jake,11,OVER,2021-22,East,OVER,True,11
+Boston Celtics,Jenelle,7,OVER,2021-22,East,OVER,True,7
+Boston Celtics,Mary,13,OVER,2021-22,East,OVER,True,13
+Boston Celtics,Mike,9,OVER,2021-22,East,OVER,True,9
+Boston Celtics,Phil,11,OVER,2021-22,East,OVER,True,11
+Boston Celtics,Ryan,12,OVER,2021-22,East,OVER,True,12
+Brooklyn Nets,Adonis,6,UNDER,2021-22,East,UNDER,True,6
+Brooklyn Nets,Chester,11,UNDER,2021-22,East,UNDER,True,11
+Brooklyn Nets,Jake,6,UNDER,2021-22,East,UNDER,True,6
+Brooklyn Nets,Jenelle,15,UNDER,2021-22,East,UNDER,True,15
+Brooklyn Nets,Mary,8,OVER,2021-22,East,UNDER,False,-8
+Brooklyn Nets,Mike,12,UNDER,2021-22,East,UNDER,True,12
+Brooklyn Nets,Phil,11,OVER,2021-22,East,UNDER,False,-11
+Brooklyn Nets,Ryan,13,OVER,2021-22,East,UNDER,False,-13
+Charlotte Hornets,Adonis,11,UNDER,2021-22,East,OVER,False,-11
+Charlotte Hornets,Chester,12,OVER,2021-22,East,OVER,True,12
+Charlotte Hornets,Jake,7,UNDER,2021-22,East,OVER,False,-7
+Charlotte Hornets,Jenelle,13,UNDER,2021-22,East,OVER,False,-13
+Charlotte Hornets,Mary,8,UNDER,2021-22,East,OVER,False,-8
+Charlotte Hornets,Mike,11,OVER,2021-22,East,OVER,True,11
+Charlotte Hornets,Phil,12,UNDER,2021-22,East,OVER,False,-12
+Charlotte Hornets,Ryan,10,UNDER,2021-22,East,OVER,False,-10
+Chicago Bulls,Adonis,10,OVER,2021-22,East,OVER,True,10
+Chicago Bulls,Chester,15,OVER,2021-22,East,OVER,True,15
+Chicago Bulls,Jake,15,OVER,2021-22,East,OVER,True,15
+Chicago Bulls,Jenelle,14,OVER,2021-22,East,OVER,True,14
+Chicago Bulls,Mary,12,OVER,2021-22,East,OVER,True,12
+Chicago Bulls,Mike,15,OVER,2021-22,East,OVER,True,15
+Chicago Bulls,Phil,13,OVER,2021-22,East,OVER,True,13
+Chicago Bulls,Ryan,15,OVER,2021-22,East,OVER,True,15
+Cleveland Cavaliers,Adonis,14,UNDER,2021-22,East,OVER,False,-14
+Cleveland Cavaliers,Chester,10,OVER,2021-22,East,OVER,True,10
+Cleveland Cavaliers,Jake,13,UNDER,2021-22,East,OVER,False,-13
+Cleveland Cavaliers,Jenelle,10,OVER,2021-22,East,OVER,True,10
+Cleveland Cavaliers,Mary,15,OVER,2021-22,East,OVER,True,15
+Cleveland Cavaliers,Mike,11,OVER,2021-22,East,OVER,True,11
+Cleveland Cavaliers,Phil,12,UNDER,2021-22,East,OVER,False,-12
+Cleveland Cavaliers,Ryan,8,UNDER,2021-22,East,OVER,False,-8
+Detroit Pistons,Adonis,14,UNDER,2021-22,East,UNDER,True,14
+Detroit Pistons,Chester,13,OVER,2021-22,East,UNDER,False,-13
+Detroit Pistons,Jake,9,UNDER,2021-22,East,UNDER,True,9
+Detroit Pistons,Jenelle,9,UNDER,2021-22,East,UNDER,True,9
+Detroit Pistons,Mary,7,UNDER,2021-22,East,UNDER,True,7
+Detroit Pistons,Mike,7,OVER,2021-22,East,UNDER,False,-7
+Detroit Pistons,Phil,10,OVER,2021-22,East,UNDER,False,-10
+Detroit Pistons,Ryan,7,OVER,2021-22,East,UNDER,False,-7
+Indiana Pacers,Adonis,7,OVER,2021-22,East,UNDER,False,-7
+Indiana Pacers,Chester,14,OVER,2021-22,East,UNDER,False,-14
+Indiana Pacers,Jake,15,OVER,2021-22,East,UNDER,False,-15
+Indiana Pacers,Jenelle,14,OVER,2021-22,East,UNDER,False,-14
+Indiana Pacers,Mary,14,OVER,2021-22,East,UNDER,False,-14
+Indiana Pacers,Mike,10,OVER,2021-22,East,UNDER,False,-10
+Indiana Pacers,Phil,10,UNDER,2021-22,East,UNDER,True,10
+Indiana Pacers,Ryan,11,OVER,2021-22,East,UNDER,False,-11
+Miami Heat,Adonis,12,OVER,2021-22,East,OVER,True,12
+Miami Heat,Chester,12,OVER,2021-22,East,OVER,True,12
+Miami Heat,Jake,9,OVER,2021-22,East,OVER,True,9
+Miami Heat,Jenelle,8,OVER,2021-22,East,OVER,True,8
+Miami Heat,Mary,15,OVER,2021-22,East,OVER,True,15
+Miami Heat,Mike,9,OVER,2021-22,East,OVER,True,9
+Miami Heat,Phil,8,UNDER,2021-22,East,OVER,False,-8
+Miami Heat,Ryan,10,UNDER,2021-22,East,OVER,False,-10
+Milwaukee Bucks,Adonis,12,OVER,2021-22,East,UNDER,False,-12
+Milwaukee Bucks,Chester,12,UNDER,2021-22,East,UNDER,True,12
+Milwaukee Bucks,Jake,6,OVER,2021-22,East,UNDER,False,-6
+Milwaukee Bucks,Jenelle,14,UNDER,2021-22,East,UNDER,True,14
+Milwaukee Bucks,Mary,14,OVER,2021-22,East,UNDER,False,-14
+Milwaukee Bucks,Mike,12,UNDER,2021-22,East,UNDER,True,12
+Milwaukee Bucks,Phil,6,UNDER,2021-22,East,UNDER,True,6
+Milwaukee Bucks,Ryan,12,UNDER,2021-22,East,UNDER,True,12
+New York Knicks,Adonis,10,UNDER,2021-22,East,UNDER,True,10
+New York Knicks,Chester,13,OVER,2021-22,East,UNDER,False,-13
+New York Knicks,Jake,7,OVER,2021-22,East,UNDER,False,-7
+New York Knicks,Jenelle,11,UNDER,2021-22,East,UNDER,True,11
+New York Knicks,Mary,9,UNDER,2021-22,East,UNDER,True,9
+New York Knicks,Mike,7,OVER,2021-22,East,UNDER,False,-7
+New York Knicks,Phil,7,UNDER,2021-22,East,UNDER,True,7
+New York Knicks,Ryan,15,OVER,2021-22,East,UNDER,False,-15
+Orlando Magic,Adonis,15,UNDER,2021-22,East,UNDER,True,15
+Orlando Magic,Chester,7,UNDER,2021-22,East,UNDER,True,7
+Orlando Magic,Jake,8,UNDER,2021-22,East,UNDER,True,8
+Orlando Magic,Jenelle,6,OVER,2021-22,East,UNDER,False,-6
+Orlando Magic,Mary,6,OVER,2021-22,East,UNDER,False,-6
+Orlando Magic,Mike,6,UNDER,2021-22,East,UNDER,True,6
+Orlando Magic,Phil,10,UNDER,2021-22,East,UNDER,True,10
+Orlando Magic,Ryan,9,UNDER,2021-22,East,UNDER,True,9
+Philadelphia 76ers,Adonis,7,OVER,2021-22,East,OVER,True,7
+Philadelphia 76ers,Chester,6,OVER,2021-22,East,OVER,True,6
+Philadelphia 76ers,Jake,15,UNDER,2021-22,East,OVER,False,-15
+Philadelphia 76ers,Jenelle,6,OVER,2021-22,East,OVER,True,6
+Philadelphia 76ers,Mary,9,UNDER,2021-22,East,OVER,False,-9
+Philadelphia 76ers,Mike,14,UNDER,2021-22,East,OVER,False,-14
+Philadelphia 76ers,Phil,9,OVER,2021-22,East,OVER,True,9
+Philadelphia 76ers,Ryan,14,OVER,2021-22,East,OVER,True,14
+Toronto Raptors,Adonis,8,UNDER,2021-22,East,OVER,False,-8
+Toronto Raptors,Chester,14,OVER,2021-22,East,OVER,True,14
+Toronto Raptors,Jake,7,UNDER,2021-22,East,OVER,False,-7
+Toronto Raptors,Jenelle,7,OVER,2021-22,East,OVER,True,7
+Toronto Raptors,Mary,11,UNDER,2021-22,East,OVER,False,-11
+Toronto Raptors,Mike,15,OVER,2021-22,East,OVER,True,15
+Toronto Raptors,Phil,7,OVER,2021-22,East,OVER,True,7
+Toronto Raptors,Ryan,11,UNDER,2021-22,East,OVER,False,-11
+Washington Wizards,Adonis,14,OVER,2021-22,East,UNDER,False,-14
+Washington Wizards,Chester,14,UNDER,2021-22,East,UNDER,True,14
+Washington Wizards,Jake,13,UNDER,2021-22,East,UNDER,True,13
+Washington Wizards,Jenelle,13,UNDER,2021-22,East,UNDER,True,13
+Washington Wizards,Mary,12,OVER,2021-22,East,UNDER,False,-12
+Washington Wizards,Mike,11,OVER,2021-22,East,UNDER,False,-11
+Washington Wizards,Phil,14,OVER,2021-22,East,UNDER,False,-14
+Washington Wizards,Ryan,9,UNDER,2021-22,East,UNDER,True,9
+Dallas Mavericks,Adonis,6,UNDER,2021-22,East,OVER,False,-6
+Dallas Mavericks,Chester,15,OVER,2021-22,East,OVER,True,15
+Dallas Mavericks,Jake,8,UNDER,2021-22,East,OVER,False,-8
+Dallas Mavericks,Jenelle,7,OVER,2021-22,East,OVER,True,7
+Dallas Mavericks,Mary,10,OVER,2021-22,East,OVER,True,10
+Dallas Mavericks,Mike,13,UNDER,2021-22,East,OVER,False,-13
+Dallas Mavericks,Phil,14,UNDER,2021-22,East,OVER,False,-14
+Dallas Mavericks,Ryan,14,OVER,2021-22,East,OVER,True,14
+Denver Nuggets,Adonis,13,OVER,2021-22,East,UNDER,False,-13
+Denver Nuggets,Chester,7,UNDER,2021-22,East,UNDER,True,7
+Denver Nuggets,Jake,11,OVER,2021-22,East,UNDER,False,-11
+Denver Nuggets,Jenelle,13,UNDER,2021-22,East,UNDER,True,13
+Denver Nuggets,Mary,8,OVER,2021-22,East,UNDER,False,-8
+Denver Nuggets,Mike,15,UNDER,2021-22,East,UNDER,True,15
+Denver Nuggets,Phil,7,OVER,2021-22,East,UNDER,False,-7
+Denver Nuggets,Ryan,14,UNDER,2021-22,East,UNDER,True,14
+Golden State Warriors,Adonis,11,OVER,2021-22,East,OVER,True,11
+Golden State Warriors,Chester,8,UNDER,2021-22,East,OVER,False,-8
+Golden State Warriors,Jake,11,OVER,2021-22,East,OVER,True,11
+Golden State Warriors,Jenelle,9,UNDER,2021-22,East,OVER,False,-9
+Golden State Warriors,Mary,15,OVER,2021-22,East,OVER,True,15
+Golden State Warriors,Mike,12,UNDER,2021-22,East,OVER,False,-12
+Golden State Warriors,Phil,12,UNDER,2021-22,East,OVER,False,-12
+Golden State Warriors,Ryan,10,OVER,2021-22,East,OVER,True,10
+Houston Rockets,Adonis,15,UNDER,2021-22,East,UNDER,True,15
+Houston Rockets,Chester,7,UNDER,2021-22,East,UNDER,True,7
+Houston Rockets,Jake,14,OVER,2021-22,East,UNDER,False,-14
+Houston Rockets,Jenelle,15,OVER,2021-22,East,UNDER,False,-15
+Houston Rockets,Mary,7,UNDER,2021-22,East,UNDER,True,7
+Houston Rockets,Mike,6,UNDER,2021-22,East,UNDER,True,6
+Houston Rockets,Phil,15,OVER,2021-22,East,UNDER,False,-15
+Houston Rockets,Ryan,6,OVER,2021-22,East,UNDER,False,-6
+Los Angeles Clippers,Adonis,7,UNDER,2021-22,East,UNDER,True,7
+Los Angeles Clippers,Chester,9,UNDER,2021-22,East,UNDER,True,9
+Los Angeles Clippers,Jake,9,OVER,2021-22,East,UNDER,False,-9
+Los Angeles Clippers,Jenelle,10,OVER,2021-22,East,UNDER,False,-10
+Los Angeles Clippers,Mary,6,UNDER,2021-22,East,UNDER,True,6
+Los Angeles Clippers,Mike,8,UNDER,2021-22,East,UNDER,True,8
+Los Angeles Clippers,Phil,15,OVER,2021-22,East,UNDER,False,-15
+Los Angeles Clippers,Ryan,8,UNDER,2021-22,East,UNDER,True,8
+Los Angeles Lakers,Adonis,13,OVER,2021-22,East,UNDER,False,-13
+Los Angeles Lakers,Chester,8,UNDER,2021-22,East,UNDER,True,8
+Los Angeles Lakers,Jake,6,OVER,2021-22,East,UNDER,False,-6
+Los Angeles Lakers,Jenelle,8,OVER,2021-22,East,UNDER,False,-8
+Los Angeles Lakers,Mary,11,OVER,2021-22,East,UNDER,False,-11
+Los Angeles Lakers,Mike,13,UNDER,2021-22,East,UNDER,True,13
+Los Angeles Lakers,Phil,6,UNDER,2021-22,East,UNDER,True,6
+Los Angeles Lakers,Ryan,15,OVER,2021-22,East,UNDER,False,-15
+Memphis Grizzlies,Adonis,11,OVER,2021-22,East,OVER,True,11
+Memphis Grizzlies,Chester,13,OVER,2021-22,East,OVER,True,13
+Memphis Grizzlies,Jake,10,UNDER,2021-22,East,OVER,False,-10
+Memphis Grizzlies,Jenelle,8,UNDER,2021-22,East,OVER,False,-8
+Memphis Grizzlies,Mary,11,OVER,2021-22,East,OVER,True,11
+Memphis Grizzlies,Mike,10,UNDER,2021-22,East,OVER,False,-10
+Memphis Grizzlies,Phil,6,OVER,2021-22,East,OVER,True,6
+Memphis Grizzlies,Ryan,6,UNDER,2021-22,East,OVER,False,-6
+Minnesota Timberwolves,Adonis,9,UNDER,2021-22,East,OVER,False,-9
+Minnesota Timberwolves,Chester,10,OVER,2021-22,East,OVER,True,10
+Minnesota Timberwolves,Jake,13,OVER,2021-22,East,OVER,True,13
+Minnesota Timberwolves,Jenelle,12,UNDER,2021-22,East,OVER,False,-12
+Minnesota Timberwolves,Mary,13,UNDER,2021-22,East,OVER,False,-13
+Minnesota Timberwolves,Mike,7,OVER,2021-22,East,OVER,True,7
+Minnesota Timberwolves,Phil,9,UNDER,2021-22,East,OVER,False,-9
+Minnesota Timberwolves,Ryan,7,OVER,2021-22,East,OVER,True,7
+New Orleans Pelicans,Adonis,8,UNDER,2021-22,East,UNDER,True,8
+New Orleans Pelicans,Chester,8,OVER,2021-22,East,UNDER,False,-8
+New Orleans Pelicans,Jake,14,OVER,2021-22,East,UNDER,False,-14
+New Orleans Pelicans,Jenelle,11,OVER,2021-22,East,UNDER,False,-11
+New Orleans Pelicans,Mary,10,UNDER,2021-22,East,UNDER,True,10
+New Orleans Pelicans,Mike,9,UNDER,2021-22,East,UNDER,True,9
+New Orleans Pelicans,Phil,11,UNDER,2021-22,East,UNDER,True,11
+New Orleans Pelicans,Ryan,6,OVER,2021-22,East,UNDER,False,-6
+Oklahoma City Thunder,Adonis,10,UNDER,2021-22,East,OVER,False,-10
+Oklahoma City Thunder,Chester,6,UNDER,2021-22,East,OVER,False,-6
+Oklahoma City Thunder,Jake,10,UNDER,2021-22,East,OVER,False,-10
+Oklahoma City Thunder,Jenelle,10,OVER,2021-22,East,OVER,True,10
+Oklahoma City Thunder,Mary,7,UNDER,2021-22,East,OVER,False,-7
+Oklahoma City Thunder,Mike,6,UNDER,2021-22,East,OVER,False,-6
+Oklahoma City Thunder,Phil,13,UNDER,2021-22,East,OVER,False,-13
+Oklahoma City Thunder,Ryan,7,UNDER,2021-22,East,OVER,False,-7
+Phoenix Suns,Adonis,9,UNDER,2021-22,East,OVER,False,-9
+Phoenix Suns,Chester,9,UNDER,2021-22,East,OVER,False,-9
+Phoenix Suns,Jake,12,OVER,2021-22,East,OVER,True,12
+Phoenix Suns,Jenelle,11,OVER,2021-22,East,OVER,True,11
+Phoenix Suns,Mary,14,OVER,2021-22,East,OVER,True,14
+Phoenix Suns,Mike,13,OVER,2021-22,East,OVER,True,13
+Phoenix Suns,Phil,14,OVER,2021-22,East,OVER,True,14
+Phoenix Suns,Ryan,13,UNDER,2021-22,East,OVER,False,-13
+Portland Trail Blazers,Adonis,9,OVER,2021-22,East,UNDER,False,-9
+Portland Trail Blazers,Chester,6,UNDER,2021-22,East,UNDER,True,6
+Portland Trail Blazers,Jake,8,OVER,2021-22,East,UNDER,False,-8
+Portland Trail Blazers,Jenelle,12,OVER,2021-22,East,UNDER,False,-12
+Portland Trail Blazers,Mary,9,UNDER,2021-22,East,UNDER,True,9
+Portland Trail Blazers,Mike,10,UNDER,2021-22,East,UNDER,True,10
+Portland Trail Blazers,Phil,13,UNDER,2021-22,East,UNDER,True,13
+Portland Trail Blazers,Ryan,14,OVER,2021-22,East,UNDER,False,-14
+Sacramento Kings,Adonis,15,UNDER,2021-22,East,UNDER,True,15
+Sacramento Kings,Chester,11,UNDER,2021-22,East,UNDER,True,11
+Sacramento Kings,Jake,12,UNDER,2021-22,East,UNDER,True,12
+Sacramento Kings,Jenelle,9,UNDER,2021-22,East,UNDER,True,9
+Sacramento Kings,Mary,6,UNDER,2021-22,East,UNDER,True,6
+Sacramento Kings,Mike,8,OVER,2021-22,East,UNDER,False,-8
+Sacramento Kings,Phil,8,UNDER,2021-22,East,UNDER,True,8
+Sacramento Kings,Ryan,9,UNDER,2021-22,East,UNDER,True,9
+San Antonio Spurs,Adonis,13,UNDER,2021-22,East,OVER,False,-13
+San Antonio Spurs,Chester,11,OVER,2021-22,East,OVER,True,11
+San Antonio Spurs,Jake,14,UNDER,2021-22,East,OVER,False,-14
+San Antonio Spurs,Jenelle,12,UNDER,2021-22,East,OVER,False,-12
+San Antonio Spurs,Mary,12,OVER,2021-22,East,OVER,True,12
+San Antonio Spurs,Mike,8,UNDER,2021-22,East,OVER,False,-8
+San Antonio Spurs,Phil,8,OVER,2021-22,East,OVER,True,8
+San Antonio Spurs,Ryan,8,UNDER,2021-22,East,OVER,False,-8
+Utah Jazz,Adonis,8,UNDER,2021-22,East,UNDER,True,8
+Utah Jazz,Chester,10,UNDER,2021-22,East,UNDER,True,10
+Utah Jazz,Jake,12,OVER,2021-22,East,UNDER,False,-12
+Utah Jazz,Jenelle,15,UNDER,2021-22,East,UNDER,True,15
+Utah Jazz,Mary,13,OVER,2021-22,East,UNDER,False,-13
+Utah Jazz,Mike,14,UNDER,2021-22,East,UNDER,True,14
+Utah Jazz,Phil,9,OVER,2021-22,East,UNDER,False,-9
+Utah Jazz,Ryan,11,OVER,2021-22,East,UNDER,False,-11
+Atlanta Hawks,Adonis,6,UNDER,2022-23,,UNDER,True,6
+Atlanta Hawks,Andy,7,UNDER,2022-23,,UNDER,True,7
+Atlanta Hawks,Chester,11,OVER,2022-23,,UNDER,False,-11
+Atlanta Hawks,Jake,14,OVER,2022-23,,UNDER,False,-14
+Atlanta Hawks,Jenelle,12,UNDER,2022-23,,UNDER,True,12
+Atlanta Hawks,Mary,14,OVER,2022-23,,UNDER,False,-14
+Atlanta Hawks,Mike,7,OVER,2022-23,,UNDER,False,-7
+Atlanta Hawks,Phil,10,UNDER,2022-23,,UNDER,True,10
+Atlanta Hawks,Ryan,12,UNDER,2022-23,,UNDER,True,12
+Boston Celtics,Adonis,7,UNDER,2022-23,,OVER,False,-7
+Boston Celtics,Andy,12,UNDER,2022-23,,OVER,False,-12
+Boston Celtics,Chester,6,UNDER,2022-23,,OVER,False,-6
+Boston Celtics,Jake,9,UNDER,2022-23,,OVER,False,-9
+Boston Celtics,Jenelle,15,UNDER,2022-23,,OVER,False,-15
+Boston Celtics,Mary,6,UNDER,2022-23,,OVER,False,-6
+Boston Celtics,Mike,15,UNDER,2022-23,,OVER,False,-15
+Boston Celtics,Phil,9,UNDER,2022-23,,OVER,False,-9
+Boston Celtics,Ryan,9,UNDER,2022-23,,OVER,False,-9
+Brooklyn Nets,Adonis,13,UNDER,2022-23,,UNDER,True,13
+Brooklyn Nets,Andy,11,UNDER,2022-23,,UNDER,True,11
+Brooklyn Nets,Chester,7,UNDER,2022-23,,UNDER,True,7
+Brooklyn Nets,Jake,15,UNDER,2022-23,,UNDER,True,15
+Brooklyn Nets,Jenelle,8,OVER,2022-23,,UNDER,False,-8
+Brooklyn Nets,Mary,9,OVER,2022-23,,UNDER,False,-9
+Brooklyn Nets,Mike,11,OVER,2022-23,,UNDER,False,-11
+Brooklyn Nets,Phil,14,UNDER,2022-23,,UNDER,True,14
+Brooklyn Nets,Ryan,6,UNDER,2022-23,,UNDER,True,6
+Charlotte Hornets,Adonis,10,OVER,2022-23,,UNDER,False,-10
+Charlotte Hornets,Andy,6,UNDER,2022-23,,UNDER,True,6
+Charlotte Hornets,Chester,12,UNDER,2022-23,,UNDER,True,12
+Charlotte Hornets,Jake,11,OVER,2022-23,,UNDER,False,-11
+Charlotte Hornets,Jenelle,10,UNDER,2022-23,,UNDER,True,10
+Charlotte Hornets,Mary,12,UNDER,2022-23,,UNDER,True,12
+Charlotte Hornets,Mike,11,UNDER,2022-23,,UNDER,True,11
+Charlotte Hornets,Phil,15,UNDER,2022-23,,UNDER,True,15
+Charlotte Hornets,Ryan,14,UNDER,2022-23,,UNDER,True,14
+Chicago Bulls,Adonis,10,OVER,2022-23,,UNDER,False,-10
+Chicago Bulls,Andy,9,OVER,2022-23,,UNDER,False,-9
+Chicago Bulls,Chester,10,OVER,2022-23,,UNDER,False,-10
+Chicago Bulls,Jake,9,OVER,2022-23,,UNDER,False,-9
+Chicago Bulls,Jenelle,14,UNDER,2022-23,,UNDER,True,14
+Chicago Bulls,Mary,13,OVER,2022-23,,UNDER,False,-13
+Chicago Bulls,Mike,14,UNDER,2022-23,,UNDER,True,14
+Chicago Bulls,Phil,15,UNDER,2022-23,,UNDER,True,15
+Chicago Bulls,Ryan,12,OVER,2022-23,,UNDER,False,-12
+Cleveland Cavaliers,Adonis,13,OVER,2022-23,,OVER,True,13
+Cleveland Cavaliers,Andy,15,UNDER,2022-23,,OVER,False,-15
+Cleveland Cavaliers,Chester,15,OVER,2022-23,,OVER,True,15
+Cleveland Cavaliers,Jake,15,UNDER,2022-23,,OVER,False,-15
+Cleveland Cavaliers,Jenelle,15,OVER,2022-23,,OVER,True,15
+Cleveland Cavaliers,Mary,15,OVER,2022-23,,OVER,True,15
+Cleveland Cavaliers,Mike,15,OVER,2022-23,,OVER,True,15
+Cleveland Cavaliers,Phil,7,UNDER,2022-23,,OVER,False,-7
+Cleveland Cavaliers,Ryan,11,OVER,2022-23,,OVER,True,11
+Detroit Pistons,Adonis,8,UNDER,2022-23,,UNDER,True,8
+Detroit Pistons,Andy,6,UNDER,2022-23,,UNDER,True,6
+Detroit Pistons,Chester,14,OVER,2022-23,,UNDER,False,-14
+Detroit Pistons,Jake,8,UNDER,2022-23,,UNDER,True,8
+Detroit Pistons,Jenelle,15,OVER,2022-23,,UNDER,False,-15
+Detroit Pistons,Mary,13,OVER,2022-23,,UNDER,False,-13
+Detroit Pistons,Mike,14,OVER,2022-23,,UNDER,False,-14
+Detroit Pistons,Phil,8,UNDER,2022-23,,UNDER,True,8
+Detroit Pistons,Ryan,6,UNDER,2022-23,,UNDER,True,6
+Indiana Pacers,Adonis,9,UNDER,2022-23,,OVER,False,-9
+Indiana Pacers,Andy,7,OVER,2022-23,,OVER,True,7
+Indiana Pacers,Chester,8,UNDER,2022-23,,OVER,False,-8
+Indiana Pacers,Jake,10,OVER,2022-23,,OVER,True,10
+Indiana Pacers,Jenelle,13,UNDER,2022-23,,OVER,False,-13
+Indiana Pacers,Mary,10,UNDER,2022-23,,OVER,False,-10
+Indiana Pacers,Mike,6,OVER,2022-23,,OVER,True,6
+Indiana Pacers,Phil,12,UNDER,2022-23,,OVER,False,-12
+Indiana Pacers,Ryan,8,OVER,2022-23,,OVER,True,8
+Miami Heat,Adonis,15,OVER,2022-23,,UNDER,False,-15
+Miami Heat,Andy,8,OVER,2022-23,,UNDER,False,-8
+Miami Heat,Chester,10,UNDER,2022-23,,UNDER,True,10
+Miami Heat,Jake,12,OVER,2022-23,,UNDER,False,-12
+Miami Heat,Jenelle,11,UNDER,2022-23,,UNDER,True,11
+Miami Heat,Mary,15,OVER,2022-23,,UNDER,False,-15
+Miami Heat,Mike,8,UNDER,2022-23,,UNDER,True,8
+Miami Heat,Phil,6,OVER,2022-23,,UNDER,False,-6
+Miami Heat,Ryan,12,UNDER,2022-23,,UNDER,True,12
+Milwaukee Bucks,Adonis,11,OVER,2022-23,,OVER,True,11
+Milwaukee Bucks,Andy,14,OVER,2022-23,,OVER,True,14
+Milwaukee Bucks,Chester,11,OVER,2022-23,,OVER,True,11
+Milwaukee Bucks,Jake,11,OVER,2022-23,,OVER,True,11
+Milwaukee Bucks,Jenelle,13,OVER,2022-23,,OVER,True,13
+Milwaukee Bucks,Mary,12,OVER,2022-23,,OVER,True,12
+Milwaukee Bucks,Mike,13,OVER,2022-23,,OVER,True,13
+Milwaukee Bucks,Phil,8,OVER,2022-23,,OVER,True,8
+Milwaukee Bucks,Ryan,15,OVER,2022-23,,OVER,True,15
+New York Knicks,Adonis,15,UNDER,2022-23,,OVER,False,-15
+New York Knicks,Andy,10,OVER,2022-23,,OVER,True,10
+New York Knicks,Chester,7,UNDER,2022-23,,OVER,False,-7
+New York Knicks,Jake,12,OVER,2022-23,,OVER,True,12
+New York Knicks,Jenelle,11,OVER,2022-23,,OVER,True,11
+New York Knicks,Mary,10,OVER,2022-23,,OVER,True,10
+New York Knicks,Mike,9,OVER,2022-23,,OVER,True,9
+New York Knicks,Phil,13,OVER,2022-23,,OVER,True,13
+New York Knicks,Ryan,10,UNDER,2022-23,,OVER,False,-10
+Orlando Magic,Adonis,9,UNDER,2022-23,,OVER,False,-9
+Orlando Magic,Andy,8,OVER,2022-23,,OVER,True,8
+Orlando Magic,Chester,14,OVER,2022-23,,OVER,True,14
+Orlando Magic,Jake,9,UNDER,2022-23,,OVER,False,-9
+Orlando Magic,Jenelle,7,OVER,2022-23,,OVER,True,7
+Orlando Magic,Mary,8,OVER,2022-23,,OVER,True,8
+Orlando Magic,Mike,8,UNDER,2022-23,,OVER,False,-8
+Orlando Magic,Phil,11,OVER,2022-23,,OVER,True,11
+Orlando Magic,Ryan,8,UNDER,2022-23,,OVER,False,-8
+Philadelphia 76ers,Adonis,6,UNDER,2022-23,,OVER,False,-6
+Philadelphia 76ers,Andy,11,OVER,2022-23,,OVER,True,11
+Philadelphia 76ers,Chester,9,UNDER,2022-23,,OVER,False,-9
+Philadelphia 76ers,Jake,10,UNDER,2022-23,,OVER,False,-10
+Philadelphia 76ers,Jenelle,6,UNDER,2022-23,,OVER,False,-6
+Philadelphia 76ers,Mary,7,UNDER,2022-23,,OVER,False,-7
+Philadelphia 76ers,Mike,6,OVER,2022-23,,OVER,True,6
+Philadelphia 76ers,Phil,12,OVER,2022-23,,OVER,True,12
+Philadelphia 76ers,Ryan,15,OVER,2022-23,,OVER,True,15
+Washington Wizards,Adonis,13,UNDER,2022-23,,UNDER,True,13
+Washington Wizards,Andy,10,UNDER,2022-23,,UNDER,True,10
+Washington Wizards,Chester,6,OVER,2022-23,,UNDER,False,-6
+Washington Wizards,Jake,6,UNDER,2022-23,,UNDER,True,6
+Washington Wizards,Jenelle,9,UNDER,2022-23,,UNDER,True,9
+Washington Wizards,Mary,7,OVER,2022-23,,UNDER,False,-7
+Washington Wizards,Mike,9,UNDER,2022-23,,UNDER,True,9
+Washington Wizards,Phil,11,OVER,2022-23,,UNDER,False,-11
+Washington Wizards,Ryan,6,OVER,2022-23,,UNDER,False,-6
+Toronto Raptors,Adonis,8,UNDER,2022-23,,UNDER,True,8
+Toronto Raptors,Andy,7,UNDER,2022-23,,UNDER,True,7
+Toronto Raptors,Chester,11,OVER,2022-23,,UNDER,False,-11
+Toronto Raptors,Jake,6,UNDER,2022-23,,UNDER,True,6
+Toronto Raptors,Jenelle,11,OVER,2022-23,,UNDER,False,-11
+Toronto Raptors,Mary,13,OVER,2022-23,,UNDER,False,-13
+Toronto Raptors,Mike,9,UNDER,2022-23,,UNDER,True,9
+Toronto Raptors,Phil,14,OVER,2022-23,,UNDER,False,-14
+Toronto Raptors,Ryan,10,OVER,2022-23,,UNDER,False,-10
+Dallas Mavericks,Adonis,14,OVER,2022-23,,UNDER,False,-14
+Dallas Mavericks,Andy,15,OVER,2022-23,,UNDER,False,-15
+Dallas Mavericks,Chester,15,OVER,2022-23,,UNDER,False,-15
+Dallas Mavericks,Jake,7,OVER,2022-23,,UNDER,False,-7
+Dallas Mavericks,Jenelle,13,OVER,2022-23,,UNDER,False,-13
+Dallas Mavericks,Mary,6,UNDER,2022-23,,UNDER,True,6
+Dallas Mavericks,Mike,7,UNDER,2022-23,,UNDER,True,7
+Dallas Mavericks,Phil,9,OVER,2022-23,,UNDER,False,-9
+Dallas Mavericks,Ryan,13,OVER,2022-23,,UNDER,False,-13
+Denver Nuggets,Adonis,7,OVER,2022-23,,OVER,True,7
+Denver Nuggets,Andy,13,UNDER,2022-23,,OVER,False,-13
+Denver Nuggets,Chester,14,OVER,2022-23,,OVER,True,14
+Denver Nuggets,Jake,14,OVER,2022-23,,OVER,True,14
+Denver Nuggets,Jenelle,8,OVER,2022-23,,OVER,True,8
+Denver Nuggets,Mary,15,OVER,2022-23,,OVER,True,15
+Denver Nuggets,Mike,6,OVER,2022-23,,OVER,True,6
+Denver Nuggets,Phil,9,UNDER,2022-23,,OVER,False,-9
+Denver Nuggets,Ryan,9,OVER,2022-23,,OVER,True,9
+Golden State Warriors,Adonis,11,OVER,2022-23,,UNDER,False,-11
+Golden State Warriors,Andy,13,OVER,2022-23,,UNDER,False,-13
+Golden State Warriors,Chester,12,OVER,2022-23,,UNDER,False,-12
+Golden State Warriors,Jake,7,UNDER,2022-23,,UNDER,True,7
+Golden State Warriors,Jenelle,8,UNDER,2022-23,,UNDER,True,8
+Golden State Warriors,Mary,11,OVER,2022-23,,UNDER,False,-11
+Golden State Warriors,Mike,10,OVER,2022-23,,UNDER,False,-10
+Golden State Warriors,Phil,10,OVER,2022-23,,UNDER,False,-10
+Golden State Warriors,Ryan,15,OVER,2022-23,,UNDER,False,-15
+Houston Rockets,Adonis,9,UNDER,2022-23,,UNDER,True,9
+Houston Rockets,Andy,10,UNDER,2022-23,,UNDER,True,10
+Houston Rockets,Chester,8,OVER,2022-23,,UNDER,False,-8
+Houston Rockets,Jake,6,UNDER,2022-23,,UNDER,True,6
+Houston Rockets,Jenelle,7,UNDER,2022-23,,UNDER,True,7
+Houston Rockets,Mary,14,UNDER,2022-23,,UNDER,True,14
+Houston Rockets,Mike,10,OVER,2022-23,,UNDER,False,-10
+Houston Rockets,Phil,10,UNDER,2022-23,,UNDER,True,10
+Houston Rockets,Ryan,8,OVER,2022-23,,UNDER,False,-8
+Los Angeles Clippers,Adonis,12,OVER,2022-23,,UNDER,False,-12
+Los Angeles Clippers,Andy,12,UNDER,2022-23,,UNDER,True,12
+Los Angeles Clippers,Chester,12,OVER,2022-23,,UNDER,False,-12
+Los Angeles Clippers,Jake,8,UNDER,2022-23,,UNDER,True,8
+Los Angeles Clippers,Jenelle,6,UNDER,2022-23,,UNDER,True,6
+Los Angeles Clippers,Mary,7,UNDER,2022-23,,UNDER,True,7
+Los Angeles Clippers,Mike,10,OVER,2022-23,,UNDER,False,-10
+Los Angeles Clippers,Phil,7,UNDER,2022-23,,UNDER,True,7
+Los Angeles Clippers,Ryan,13,OVER,2022-23,,UNDER,False,-13
+Los Angeles Lakers,Adonis,7,OVER,2022-23,,UNDER,False,-7
+Los Angeles Lakers,Andy,9,OVER,2022-23,,UNDER,False,-9
+Los Angeles Lakers,Chester,13,UNDER,2022-23,,UNDER,True,13
+Los Angeles Lakers,Jake,13,UNDER,2022-23,,UNDER,True,13
+Los Angeles Lakers,Jenelle,10,UNDER,2022-23,,UNDER,True,10
+Los Angeles Lakers,Mary,11,UNDER,2022-23,,UNDER,True,11
+Los Angeles Lakers,Mike,12,UNDER,2022-23,,UNDER,True,12
+Los Angeles Lakers,Phil,13,UNDER,2022-23,,UNDER,True,13
+Los Angeles Lakers,Ryan,11,UNDER,2022-23,,UNDER,True,11
+Memphis Grizzlies,Adonis,11,OVER,2022-23,,OVER,True,11
+Memphis Grizzlies,Andy,12,UNDER,2022-23,,OVER,False,-12
+Memphis Grizzlies,Chester,13,OVER,2022-23,,OVER,True,13
+Memphis Grizzlies,Jake,8,OVER,2022-23,,OVER,True,8
+Memphis Grizzlies,Jenelle,12,UNDER,2022-23,,OVER,False,-12
+Memphis Grizzlies,Mary,12,OVER,2022-23,,OVER,True,12
+Memphis Grizzlies,Mike,8,UNDER,2022-23,,OVER,False,-8
+Memphis Grizzlies,Phil,14,OVER,2022-23,,OVER,True,14
+Memphis Grizzlies,Ryan,7,UNDER,2022-23,,OVER,False,-7
+Minnesota Timberwolves,Adonis,8,OVER,2022-23,,UNDER,False,-8
+Minnesota Timberwolves,Andy,9,UNDER,2022-23,,UNDER,True,9
+Minnesota Timberwolves,Chester,8,OVER,2022-23,,UNDER,False,-8
+Minnesota Timberwolves,Jake,13,UNDER,2022-23,,UNDER,True,13
+Minnesota Timberwolves,Jenelle,12,OVER,2022-23,,UNDER,False,-12
+Minnesota Timberwolves,Mary,14,OVER,2022-23,,UNDER,False,-14
+Minnesota Timberwolves,Mike,11,OVER,2022-23,,UNDER,False,-11
+Minnesota Timberwolves,Phil,13,UNDER,2022-23,,UNDER,True,13
+Minnesota Timberwolves,Ryan,10,OVER,2022-23,,UNDER,False,-10
+New Orleans Pelicans,Adonis,14,OVER,2022-23,,UNDER,False,-14
+New Orleans Pelicans,Andy,6,UNDER,2022-23,,UNDER,True,6
+New Orleans Pelicans,Chester,15,OVER,2022-23,,UNDER,False,-15
+New Orleans Pelicans,Jake,7,OVER,2022-23,,UNDER,False,-7
+New Orleans Pelicans,Jenelle,10,UNDER,2022-23,,UNDER,True,10
+New Orleans Pelicans,Mary,6,UNDER,2022-23,,UNDER,True,6
+New Orleans Pelicans,Mike,12,OVER,2022-23,,UNDER,False,-12
+New Orleans Pelicans,Phil,6,OVER,2022-23,,UNDER,False,-6
+New Orleans Pelicans,Ryan,7,OVER,2022-23,,UNDER,False,-7
+Oklahoma City Thunder,Adonis,15,UNDER,2022-23,,OVER,False,-15
+Oklahoma City Thunder,Andy,11,OVER,2022-23,,OVER,True,11
+Oklahoma City Thunder,Chester,9,OVER,2022-23,,OVER,True,9
+Oklahoma City Thunder,Jake,11,OVER,2022-23,,OVER,True,11
+Oklahoma City Thunder,Jenelle,7,OVER,2022-23,,OVER,True,7
+Oklahoma City Thunder,Mary,10,UNDER,2022-23,,OVER,False,-10
+Oklahoma City Thunder,Mike,15,UNDER,2022-23,,OVER,False,-15
+Oklahoma City Thunder,Phil,11,OVER,2022-23,,OVER,True,11
+Oklahoma City Thunder,Ryan,14,UNDER,2022-23,,OVER,False,-14
+Phoenix Suns,Adonis,6,UNDER,2022-23,,UNDER,True,6
+Phoenix Suns,Andy,13,OVER,2022-23,,UNDER,False,-13
+Phoenix Suns,Chester,6,UNDER,2022-23,,UNDER,True,6
+Phoenix Suns,Jake,10,OVER,2022-23,,UNDER,False,-10
+Phoenix Suns,Jenelle,14,OVER,2022-23,,UNDER,False,-14
+Phoenix Suns,Mary,9,OVER,2022-23,,UNDER,False,-9
+Phoenix Suns,Mike,12,OVER,2022-23,,UNDER,False,-12
+Phoenix Suns,Phil,12,OVER,2022-23,,UNDER,False,-12
+Phoenix Suns,Ryan,14,OVER,2022-23,,UNDER,False,-14
+Portland Trail Blazers,Adonis,10,UNDER,2022-23,,UNDER,True,10
+Portland Trail Blazers,Andy,14,OVER,2022-23,,UNDER,False,-14
+Portland Trail Blazers,Chester,10,OVER,2022-23,,UNDER,False,-10
+Portland Trail Blazers,Jake,13,UNDER,2022-23,,UNDER,True,13
+Portland Trail Blazers,Jenelle,9,OVER,2022-23,,UNDER,False,-9
+Portland Trail Blazers,Mary,11,UNDER,2022-23,,UNDER,True,11
+Portland Trail Blazers,Mike,13,UNDER,2022-23,,UNDER,True,13
+Portland Trail Blazers,Phil,15,OVER,2022-23,,UNDER,False,-15
+Portland Trail Blazers,Ryan,13,OVER,2022-23,,UNDER,False,-13
+Sacramento Kings,Adonis,14,UNDER,2022-23,,OVER,False,-14
+Sacramento Kings,Andy,15,OVER,2022-23,,OVER,True,15
+Sacramento Kings,Chester,9,UNDER,2022-23,,OVER,False,-9
+Sacramento Kings,Jake,12,OVER,2022-23,,OVER,True,12
+Sacramento Kings,Jenelle,9,UNDER,2022-23,,OVER,False,-9
+Sacramento Kings,Mary,8,OVER,2022-23,,OVER,True,8
+Sacramento Kings,Mike,14,OVER,2022-23,,OVER,True,14
+Sacramento Kings,Phil,6,UNDER,2022-23,,OVER,False,-6
+Sacramento Kings,Ryan,7,OVER,2022-23,,OVER,True,7
+San Antonio Spurs,Adonis,12,OVER,2022-23,,UNDER,False,-12
+San Antonio Spurs,Andy,14,OVER,2022-23,,UNDER,False,-14
+San Antonio Spurs,Chester,7,OVER,2022-23,,UNDER,False,-7
+San Antonio Spurs,Jake,14,OVER,2022-23,,UNDER,False,-14
+San Antonio Spurs,Jenelle,6,OVER,2022-23,,UNDER,False,-6
+San Antonio Spurs,Mary,8,OVER,2022-23,,UNDER,False,-8
+San Antonio Spurs,Mike,7,UNDER,2022-23,,UNDER,True,7
+San Antonio Spurs,Phil,7,OVER,2022-23,,UNDER,False,-7
+San Antonio Spurs,Ryan,9,UNDER,2022-23,,UNDER,True,9
+Utah Jazz,Adonis,12,UNDER,2022-23,,OVER,False,-12
+Utah Jazz,Andy,8,UNDER,2022-23,,OVER,False,-8
+Utah Jazz,Chester,13,UNDER,2022-23,,OVER,False,-13
+Utah Jazz,Jake,15,OVER,2022-23,,OVER,True,15
+Utah Jazz,Jenelle,14,UNDER,2022-23,,OVER,False,-14
+Utah Jazz,Mary,9,OVER,2022-23,,OVER,True,9
+Utah Jazz,Mike,13,UNDER,2022-23,,OVER,False,-13
+Utah Jazz,Phil,8,UNDER,2022-23,,OVER,False,-8
+Utah Jazz,Ryan,11,UNDER,2022-23,,OVER,False,-11
+Atlanta Hawks,Adonis,10,UNDER,2023-24,,UNDER,True,10
+Atlanta Hawks,Andy,10,UNDER,2023-24,,UNDER,True,10
+Atlanta Hawks,Chester,12,OVER,2023-24,,UNDER,False,-12
+Atlanta Hawks,Jake,11,OVER,2023-24,,UNDER,False,-11
+Atlanta Hawks,Mary,13,OVER,2023-24,,UNDER,False,-13
+Atlanta Hawks,Mike,6,UNDER,2023-24,,UNDER,True,6
+Atlanta Hawks,Phil,15,OVER,2023-24,,UNDER,False,-15
+Atlanta Hawks,Ryan,11,OVER,2023-24,,UNDER,False,-11
+Boston Celtics,Adonis,6,UNDER,2023-24,,OVER,False,-6
+Boston Celtics,Andy,14,OVER,2023-24,,OVER,True,14
+Boston Celtics,Chester,9,OVER,2023-24,,OVER,True,9
+Boston Celtics,Jake,6,UNDER,2023-24,,OVER,False,-6
+Boston Celtics,Mary,12,OVER,2023-24,,OVER,True,12
+Boston Celtics,Mike,13,OVER,2023-24,,OVER,True,13
+Boston Celtics,Phil,8,UNDER,2023-24,,OVER,False,-8
+Boston Celtics,Ryan,12,OVER,2023-24,,OVER,True,12
+Brooklyn Nets,Adonis,9,OVER,2023-24,,UNDER,False,-9
+Brooklyn Nets,Andy,8,UNDER,2023-24,,UNDER,True,8
+Brooklyn Nets,Chester,11,OVER,2023-24,,UNDER,False,-11
+Brooklyn Nets,Jake,10,UNDER,2023-24,,UNDER,True,10
+Brooklyn Nets,Mary,10,UNDER,2023-24,,UNDER,True,10
+Brooklyn Nets,Mike,13,OVER,2023-24,,UNDER,False,-13
+Brooklyn Nets,Phil,13,OVER,2023-24,,UNDER,False,-13
+Brooklyn Nets,Ryan,11,OVER,2023-24,,UNDER,False,-11
+Charlotte Hornets,Adonis,13,UNDER,2023-24,,UNDER,True,13
+Charlotte Hornets,Andy,12,OVER,2023-24,,UNDER,False,-12
+Charlotte Hornets,Chester,6,UNDER,2023-24,,UNDER,True,6
+Charlotte Hornets,Jake,7,OVER,2023-24,,UNDER,False,-7
+Charlotte Hornets,Mary,9,UNDER,2023-24,,UNDER,True,9
+Charlotte Hornets,Mike,14,OVER,2023-24,,UNDER,False,-14
+Charlotte Hornets,Phil,14,UNDER,2023-24,,UNDER,True,14
+Charlotte Hornets,Ryan,13,OVER,2023-24,,UNDER,False,-13
+Chicago Bulls,Adonis,6,OVER,2023-24,,OVER,True,6
+Chicago Bulls,Andy,6,UNDER,2023-24,,OVER,False,-6
+Chicago Bulls,Chester,11,UNDER,2023-24,,OVER,False,-11
+Chicago Bulls,Jake,12,UNDER,2023-24,,OVER,False,-12
+Chicago Bulls,Mary,11,UNDER,2023-24,,OVER,False,-11
+Chicago Bulls,Mike,10,UNDER,2023-24,,OVER,False,-10
+Chicago Bulls,Phil,15,UNDER,2023-24,,OVER,False,-15
+Chicago Bulls,Ryan,6,UNDER,2023-24,,OVER,False,-6
+Cleveland Cavaliers,Adonis,7,OVER,2023-24,,UNDER,False,-7
+Cleveland Cavaliers,Andy,14,UNDER,2023-24,,UNDER,True,14
+Cleveland Cavaliers,Chester,13,OVER,2023-24,,UNDER,False,-13
+Cleveland Cavaliers,Jake,7,UNDER,2023-24,,UNDER,True,7
+Cleveland Cavaliers,Mary,14,OVER,2023-24,,UNDER,False,-14
+Cleveland Cavaliers,Mike,8,UNDER,2023-24,,UNDER,True,8
+Cleveland Cavaliers,Phil,7,OVER,2023-24,,UNDER,False,-7
+Cleveland Cavaliers,Ryan,11,UNDER,2023-24,,UNDER,True,11
+Detroit Pistons,Adonis,15,OVER,2023-24,,UNDER,False,-15
+Detroit Pistons,Andy,9,UNDER,2023-24,,UNDER,True,9
+Detroit Pistons,Chester,7,OVER,2023-24,,UNDER,False,-7
+Detroit Pistons,Jake,15,OVER,2023-24,,UNDER,False,-15
+Detroit Pistons,Mary,8,UNDER,2023-24,,UNDER,True,8
+Detroit Pistons,Mike,6,OVER,2023-24,,UNDER,False,-6
+Detroit Pistons,Phil,13,OVER,2023-24,,UNDER,False,-13
+Detroit Pistons,Ryan,8,UNDER,2023-24,,UNDER,True,8
+Indiana Pacers,Adonis,14,UNDER,2023-24,,OVER,False,-14
+Indiana Pacers,Andy,7,UNDER,2023-24,,OVER,False,-7
+Indiana Pacers,Chester,15,OVER,2023-24,,OVER,True,15
+Indiana Pacers,Jake,8,OVER,2023-24,,OVER,True,8
+Indiana Pacers,Mary,6,UNDER,2023-24,,OVER,False,-6
+Indiana Pacers,Mike,11,OVER,2023-24,,OVER,True,11
+Indiana Pacers,Phil,9,UNDER,2023-24,,OVER,False,-9
+Indiana Pacers,Ryan,9,UNDER,2023-24,,OVER,False,-9
+Miami Heat,Adonis,10,OVER,2023-24,,UNDER,False,-10
+Miami Heat,Andy,11,OVER,2023-24,,UNDER,False,-11
+Miami Heat,Chester,13,UNDER,2023-24,,UNDER,True,13
+Miami Heat,Jake,10,UNDER,2023-24,,UNDER,True,10
+Miami Heat,Mary,6,UNDER,2023-24,,UNDER,True,6
+Miami Heat,Mike,11,UNDER,2023-24,,UNDER,True,11
+Miami Heat,Phil,9,UNDER,2023-24,,UNDER,True,9
+Miami Heat,Ryan,15,OVER,2023-24,,UNDER,False,-15
+Milwaukee Bucks,Adonis,13,OVER,2023-24,,UNDER,False,-13
+Milwaukee Bucks,Andy,15,OVER,2023-24,,UNDER,False,-15
+Milwaukee Bucks,Chester,10,OVER,2023-24,,UNDER,False,-10
+Milwaukee Bucks,Jake,12,OVER,2023-24,,UNDER,False,-12
+Milwaukee Bucks,Mary,15,OVER,2023-24,,UNDER,False,-15
+Milwaukee Bucks,Mike,15,OVER,2023-24,,UNDER,False,-15
+Milwaukee Bucks,Phil,11,OVER,2023-24,,UNDER,False,-11
+Milwaukee Bucks,Ryan,10,OVER,2023-24,,UNDER,False,-10
+New York Knicks,Adonis,7,OVER,2023-24,,OVER,True,7
+New York Knicks,Andy,10,UNDER,2023-24,,OVER,False,-10
+New York Knicks,Chester,14,OVER,2023-24,,OVER,True,14
+New York Knicks,Jake,11,UNDER,2023-24,,OVER,False,-11
+New York Knicks,Mary,12,OVER,2023-24,,OVER,True,12
+New York Knicks,Mike,14,OVER,2023-24,,OVER,True,14
+New York Knicks,Phil,14,OVER,2023-24,,OVER,True,14
+New York Knicks,Ryan,13,OVER,2023-24,,OVER,True,13
+Orlando Magic,Adonis,12,OVER,2023-24,,OVER,True,12
+Orlando Magic,Andy,6,OVER,2023-24,,OVER,True,6
+Orlando Magic,Chester,14,OVER,2023-24,,OVER,True,14
+Orlando Magic,Jake,11,UNDER,2023-24,,OVER,False,-11
+Orlando Magic,Mary,14,OVER,2023-24,,OVER,True,14
+Orlando Magic,Mike,7,OVER,2023-24,,OVER,True,7
+Orlando Magic,Phil,8,UNDER,2023-24,,OVER,False,-8
+Orlando Magic,Ryan,7,UNDER,2023-24,,OVER,False,-7
+Philadelphia 76ers,Adonis,7,UNDER,2023-24,,UNDER,True,7
+Philadelphia 76ers,Andy,12,UNDER,2023-24,,UNDER,True,12
+Philadelphia 76ers,Chester,6,UNDER,2023-24,,UNDER,True,6
+Philadelphia 76ers,Jake,13,OVER,2023-24,,UNDER,False,-13
+Philadelphia 76ers,Mary,9,UNDER,2023-24,,UNDER,True,9
+Philadelphia 76ers,Mike,11,OVER,2023-24,,UNDER,False,-11
+Philadelphia 76ers,Phil,6,OVER,2023-24,,UNDER,False,-6
+Philadelphia 76ers,Ryan,13,UNDER,2023-24,,UNDER,True,13
+Washington Wizards,Adonis,15,UNDER,2023-24,,UNDER,True,15
+Washington Wizards,Andy,9,OVER,2023-24,,UNDER,False,-9
+Washington Wizards,Chester,6,UNDER,2023-24,,UNDER,True,6
+Washington Wizards,Jake,8,OVER,2023-24,,UNDER,False,-8
+Washington Wizards,Mary,7,UNDER,2023-24,,UNDER,True,7
+Washington Wizards,Mike,8,UNDER,2023-24,,UNDER,True,8
+Washington Wizards,Phil,12,UNDER,2023-24,,UNDER,True,12
+Washington Wizards,Ryan,7,OVER,2023-24,,UNDER,False,-7
+Toronto Raptors,Adonis,11,UNDER,2023-24,,UNDER,True,11
+Toronto Raptors,Andy,7,OVER,2023-24,,UNDER,False,-7
+Toronto Raptors,Chester,8,UNDER,2023-24,,UNDER,True,8
+Toronto Raptors,Jake,8,UNDER,2023-24,,UNDER,True,8
+Toronto Raptors,Mary,8,UNDER,2023-24,,UNDER,True,8
+Toronto Raptors,Mike,14,OVER,2023-24,,UNDER,False,-14
+Toronto Raptors,Phil,6,UNDER,2023-24,,UNDER,True,6
+Toronto Raptors,Ryan,6,UNDER,2023-24,,UNDER,True,6
+Dallas Mavericks,Adonis,9,OVER,2023-24,,OVER,True,9
+Dallas Mavericks,Andy,9,OVER,2023-24,,OVER,True,9
+Dallas Mavericks,Chester,13,OVER,2023-24,,OVER,True,13
+Dallas Mavericks,Jake,14,OVER,2023-24,,OVER,True,14
+Dallas Mavericks,Mary,10,UNDER,2023-24,,OVER,False,-10
+Dallas Mavericks,Mike,9,OVER,2023-24,,OVER,True,9
+Dallas Mavericks,Phil,12,OVER,2023-24,,OVER,True,12
+Dallas Mavericks,Ryan,14,OVER,2023-24,,OVER,True,14
+Denver Nuggets,Adonis,13,OVER,2023-24,,OVER,True,13
+Denver Nuggets,Andy,11,OVER,2023-24,,OVER,True,11
+Denver Nuggets,Chester,12,OVER,2023-24,,OVER,True,12
+Denver Nuggets,Jake,14,OVER,2023-24,,OVER,True,14
+Denver Nuggets,Mary,15,OVER,2023-24,,OVER,True,15
+Denver Nuggets,Mike,12,OVER,2023-24,,OVER,True,12
+Denver Nuggets,Phil,9,UNDER,2023-24,,OVER,False,-9
+Denver Nuggets,Ryan,8,OVER,2023-24,,OVER,True,8
+Golden State Warriors,Adonis,6,OVER,2023-24,,UNDER,False,-6
+Golden State Warriors,Andy,13,UNDER,2023-24,,UNDER,True,13
+Golden State Warriors,Chester,8,UNDER,2023-24,,UNDER,True,8
+Golden State Warriors,Jake,6,UNDER,2023-24,,UNDER,True,6
+Golden State Warriors,Mary,13,OVER,2023-24,,UNDER,False,-13
+Golden State Warriors,Mike,15,OVER,2023-24,,UNDER,False,-15
+Golden State Warriors,Phil,12,UNDER,2023-24,,UNDER,True,12
+Golden State Warriors,Ryan,15,OVER,2023-24,,UNDER,False,-15
+Houston Rockets,Adonis,12,UNDER,2023-24,,OVER,False,-12
+Houston Rockets,Andy,14,UNDER,2023-24,,OVER,False,-14
+Houston Rockets,Chester,9,OVER,2023-24,,OVER,True,9
+Houston Rockets,Jake,15,OVER,2023-24,,OVER,True,15
+Houston Rockets,Mary,11,OVER,2023-24,,OVER,True,11
+Houston Rockets,Mike,13,OVER,2023-24,,OVER,True,13
+Houston Rockets,Phil,6,OVER,2023-24,,OVER,True,6
+Houston Rockets,Ryan,9,OVER,2023-24,,OVER,True,9
+Los Angeles Clippers,Adonis,9,UNDER,2023-24,,OVER,False,-9
+Los Angeles Clippers,Andy,8,OVER,2023-24,,OVER,True,8
+Los Angeles Clippers,Chester,12,UNDER,2023-24,,OVER,False,-12
+Los Angeles Clippers,Jake,12,OVER,2023-24,,OVER,True,12
+Los Angeles Clippers,Mary,8,OVER,2023-24,,OVER,True,8
+Los Angeles Clippers,Mike,6,OVER,2023-24,,OVER,True,6
+Los Angeles Clippers,Phil,8,UNDER,2023-24,,OVER,False,-8
+Los Angeles Clippers,Ryan,10,OVER,2023-24,,OVER,True,10
+Los Angeles Lakers,Adonis,8,OVER,2023-24,,OVER,True,8
+Los Angeles Lakers,Andy,15,UNDER,2023-24,,OVER,False,-15
+Los Angeles Lakers,Chester,11,OVER,2023-24,,OVER,True,11
+Los Angeles Lakers,Jake,6,UNDER,2023-24,,OVER,False,-6
+Los Angeles Lakers,Mary,14,OVER,2023-24,,OVER,True,14
+Los Angeles Lakers,Mike,9,UNDER,2023-24,,OVER,False,-9
+Los Angeles Lakers,Phil,13,OVER,2023-24,,OVER,True,13
+Los Angeles Lakers,Ryan,8,UNDER,2023-24,,OVER,False,-8
+Memphis Grizzlies,Adonis,14,UNDER,2023-24,,UNDER,True,14
+Memphis Grizzlies,Andy,11,OVER,2023-24,,UNDER,False,-11
+Memphis Grizzlies,Chester,7,UNDER,2023-24,,UNDER,True,7
+Memphis Grizzlies,Jake,14,OVER,2023-24,,UNDER,False,-14
+Memphis Grizzlies,Mary,11,OVER,2023-24,,UNDER,False,-11
+Memphis Grizzlies,Mike,15,OVER,2023-24,,UNDER,False,-15
+Memphis Grizzlies,Phil,7,OVER,2023-24,,UNDER,False,-7
+Memphis Grizzlies,Ryan,14,OVER,2023-24,,UNDER,False,-14
+Minnesota Timberwolves,Adonis,14,UNDER,2023-24,,OVER,False,-14
+Minnesota Timberwolves,Andy,8,OVER,2023-24,,OVER,True,8
+Minnesota Timberwolves,Chester,10,OVER,2023-24,,OVER,True,10
+Minnesota Timberwolves,Jake,9,OVER,2023-24,,OVER,True,9
+Minnesota Timberwolves,Mary,7,UNDER,2023-24,,OVER,False,-7
+Minnesota Timberwolves,Mike,8,UNDER,2023-24,,OVER,False,-8
+Minnesota Timberwolves,Phil,10,UNDER,2023-24,,OVER,False,-10
+Minnesota Timberwolves,Ryan,10,OVER,2023-24,,OVER,True,10
+New Orleans Pelicans,Adonis,12,OVER,2023-24,,OVER,True,12
+New Orleans Pelicans,Andy,7,OVER,2023-24,,OVER,True,7
+New Orleans Pelicans,Chester,10,UNDER,2023-24,,OVER,False,-10
+New Orleans Pelicans,Jake,13,OVER,2023-24,,OVER,True,13
+New Orleans Pelicans,Mary,13,UNDER,2023-24,,OVER,False,-13
+New Orleans Pelicans,Mike,7,UNDER,2023-24,,OVER,False,-7
+New Orleans Pelicans,Phil,11,OVER,2023-24,,OVER,True,11
+New Orleans Pelicans,Ryan,9,UNDER,2023-24,,OVER,False,-9
+Oklahoma City Thunder,Adonis,8,OVER,2023-24,,OVER,True,8
+Oklahoma City Thunder,Andy,13,UNDER,2023-24,,OVER,False,-13
+Oklahoma City Thunder,Chester,14,OVER,2023-24,,OVER,True,14
+Oklahoma City Thunder,Jake,9,UNDER,2023-24,,OVER,False,-9
+Oklahoma City Thunder,Mary,12,OVER,2023-24,,OVER,True,12
+Oklahoma City Thunder,Mike,10,OVER,2023-24,,OVER,True,10
+Oklahoma City Thunder,Phil,10,OVER,2023-24,,OVER,True,10
+Oklahoma City Thunder,Ryan,15,UNDER,2023-24,,OVER,False,-15
+Phoenix Suns,Adonis,10,OVER,2023-24,,UNDER,False,-10
+Phoenix Suns,Andy,12,UNDER,2023-24,,UNDER,True,12
+Phoenix Suns,Chester,8,UNDER,2023-24,,UNDER,True,8
+Phoenix Suns,Jake,7,OVER,2023-24,,UNDER,False,-7
+Phoenix Suns,Mary,15,OVER,2023-24,,UNDER,False,-15
+Phoenix Suns,Mike,7,UNDER,2023-24,,UNDER,True,7
+Phoenix Suns,Phil,7,OVER,2023-24,,UNDER,False,-7
+Phoenix Suns,Ryan,6,UNDER,2023-24,,UNDER,True,6
+Portland Trail Blazers,Adonis,15,UNDER,2023-24,,UNDER,True,15
+Portland Trail Blazers,Andy,6,UNDER,2023-24,,UNDER,True,6
+Portland Trail Blazers,Chester,7,UNDER,2023-24,,UNDER,True,7
+Portland Trail Blazers,Jake,9,OVER,2023-24,,UNDER,False,-9
+Portland Trail Blazers,Mary,10,OVER,2023-24,,UNDER,False,-10
+Portland Trail Blazers,Mike,12,OVER,2023-24,,UNDER,False,-12
+Portland Trail Blazers,Phil,11,OVER,2023-24,,UNDER,False,-11
+Portland Trail Blazers,Ryan,12,UNDER,2023-24,,UNDER,True,12
+Sacramento Kings,Adonis,8,UNDER,2023-24,,UNDER,True,8
+Sacramento Kings,Andy,13,OVER,2023-24,,UNDER,False,-13
+Sacramento Kings,Chester,9,UNDER,2023-24,,UNDER,True,9
+Sacramento Kings,Jake,13,UNDER,2023-24,,UNDER,True,13
+Sacramento Kings,Mary,6,UNDER,2023-24,,UNDER,True,6
+Sacramento Kings,Mike,12,UNDER,2023-24,,UNDER,True,12
+Sacramento Kings,Phil,14,OVER,2023-24,,UNDER,False,-14
+Sacramento Kings,Ryan,7,UNDER,2023-24,,UNDER,True,7
+San Antonio Spurs,Adonis,11,UNDER,2023-24,,UNDER,True,11
+San Antonio Spurs,Andy,15,OVER,2023-24,,UNDER,False,-15
+San Antonio Spurs,Chester,15,OVER,2023-24,,UNDER,False,-15
+San Antonio Spurs,Jake,15,OVER,2023-24,,UNDER,False,-15
+San Antonio Spurs,Mary,7,UNDER,2023-24,,UNDER,True,7
+San Antonio Spurs,Mike,9,UNDER,2023-24,,UNDER,True,9
+San Antonio Spurs,Phil,15,UNDER,2023-24,,UNDER,True,15
+San Antonio Spurs,Ryan,14,UNDER,2023-24,,UNDER,True,14
+Utah Jazz,Adonis,11,UNDER,2023-24,,UNDER,True,11
+Utah Jazz,Andy,10,UNDER,2023-24,,UNDER,True,10
+Utah Jazz,Chester,15,OVER,2023-24,,UNDER,False,-15
+Utah Jazz,Jake,10,UNDER,2023-24,,UNDER,True,10
+Utah Jazz,Mary,9,UNDER,2023-24,,UNDER,True,9
+Utah Jazz,Mike,10,OVER,2023-24,,UNDER,False,-10
+Utah Jazz,Phil,10,UNDER,2023-24,,UNDER,True,10
+Utah Jazz,Ryan,12,OVER,2023-24,,UNDER,False,-12
+Atlanta Hawks,Adonis,15,UNDER,2024-25,,OVER,False,-15
+Atlanta Hawks,Andy,10,OVER,2024-25,,OVER,True,10
+Atlanta Hawks,Chester,12,UNDER,2024-25,,OVER,False,-12
+Atlanta Hawks,Jake,7,OVER,2024-25,,OVER,True,7
+Atlanta Hawks,Mary,6,UNDER,2024-25,,OVER,False,-6
+Atlanta Hawks,Mike,7,OVER,2024-25,,OVER,True,7
+Atlanta Hawks,Phil,14,UNDER,2024-25,,OVER,False,-14
+Atlanta Hawks,Ryan,8,OVER,2024-25,,OVER,True,8
+Boston Celtics,Adonis,8,UNDER,2024-25,,OVER,False,-8
+Boston Celtics,Andy,14,UNDER,2024-25,,OVER,False,-14
+Boston Celtics,Chester,11,UNDER,2024-25,,OVER,False,-11
+Boston Celtics,Jake,9,UNDER,2024-25,,OVER,False,-9
+Boston Celtics,Mary,14,OVER,2024-25,,OVER,True,14
+Boston Celtics,Mike,11,UNDER,2024-25,,OVER,False,-11
+Boston Celtics,Phil,7,OVER,2024-25,,OVER,True,7
+Boston Celtics,Ryan,11,UNDER,2024-25,,OVER,False,-11
+Brooklyn Nets,Adonis,14,UNDER,2024-25,,OVER,False,-14
+Brooklyn Nets,Andy,15,UNDER,2024-25,,OVER,False,-15
+Brooklyn Nets,Chester,7,UNDER,2024-25,,OVER,False,-7
+Brooklyn Nets,Jake,14,UNDER,2024-25,,OVER,False,-14
+Brooklyn Nets,Mary,13,UNDER,2024-25,,OVER,False,-13
+Brooklyn Nets,Mike,12,UNDER,2024-25,,OVER,False,-12
+Brooklyn Nets,Phil,10,UNDER,2024-25,,OVER,False,-10
+Brooklyn Nets,Ryan,8,UNDER,2024-25,,OVER,False,-8
+Charlotte Hornets,Adonis,15,UNDER,2024-25,,UNDER,True,15
+Charlotte Hornets,Andy,6,UNDER,2024-25,,UNDER,True,6
+Charlotte Hornets,Chester,6,UNDER,2024-25,,UNDER,True,6
+Charlotte Hornets,Jake,14,OVER,2024-25,,UNDER,False,-14
+Charlotte Hornets,Mary,15,UNDER,2024-25,,UNDER,True,15
+Charlotte Hornets,Mike,15,UNDER,2024-25,,UNDER,True,15
+Charlotte Hornets,Phil,8,UNDER,2024-25,,UNDER,True,8
+Charlotte Hornets,Ryan,6,UNDER,2024-25,,UNDER,True,6
+Chicago Bulls,Adonis,10,UNDER,2024-25,,OVER,False,-10
+Chicago Bulls,Andy,6,UNDER,2024-25,,OVER,False,-6
+Chicago Bulls,Chester,10,OVER,2024-25,,OVER,True,10
+Chicago Bulls,Jake,15,UNDER,2024-25,,OVER,False,-15
+Chicago Bulls,Mary,8,UNDER,2024-25,,OVER,False,-8
+Chicago Bulls,Mike,15,UNDER,2024-25,,OVER,False,-15
+Chicago Bulls,Phil,11,UNDER,2024-25,,OVER,False,-11
+Chicago Bulls,Ryan,9,UNDER,2024-25,,OVER,False,-9
+Cleveland Cavaliers,Adonis,6,OVER,2024-25,,OVER,True,6
+Cleveland Cavaliers,Andy,11,OVER,2024-25,,OVER,True,11
+Cleveland Cavaliers,Chester,11,OVER,2024-25,,OVER,True,11
+Cleveland Cavaliers,Jake,12,OVER,2024-25,,OVER,True,12
+Cleveland Cavaliers,Mary,12,OVER,2024-25,,OVER,True,12
+Cleveland Cavaliers,Mike,14,OVER,2024-25,,OVER,True,14
+Cleveland Cavaliers,Phil,13,OVER,2024-25,,OVER,True,13
+Cleveland Cavaliers,Ryan,8,OVER,2024-25,,OVER,True,8
+Detroit Pistons,Adonis,11,UNDER,2024-25,,OVER,False,-11
+Detroit Pistons,Andy,7,OVER,2024-25,,OVER,True,7
+Detroit Pistons,Chester,6,OVER,2024-25,,OVER,True,6
+Detroit Pistons,Jake,15,OVER,2024-25,,OVER,True,15
+Detroit Pistons,Mary,9,OVER,2024-25,,OVER,True,9
+Detroit Pistons,Mike,13,OVER,2024-25,,OVER,True,13
+Detroit Pistons,Phil,15,OVER,2024-25,,OVER,True,15
+Detroit Pistons,Ryan,7,OVER,2024-25,,OVER,True,7
+Indiana Pacers,Adonis,7,OVER,2024-25,,OVER,True,7
+Indiana Pacers,Andy,8,UNDER,2024-25,,OVER,False,-8
+Indiana Pacers,Chester,15,OVER,2024-25,,OVER,True,15
+Indiana Pacers,Jake,12,OVER,2024-25,,OVER,True,12
+Indiana Pacers,Mary,12,OVER,2024-25,,OVER,True,12
+Indiana Pacers,Mike,13,OVER,2024-25,,OVER,True,13
+Indiana Pacers,Phil,6,OVER,2024-25,,OVER,True,6
+Indiana Pacers,Ryan,12,OVER,2024-25,,OVER,True,12
+Miami Heat,Adonis,8,OVER,2024-25,,UNDER,False,-8
+Miami Heat,Andy,11,OVER,2024-25,,UNDER,False,-11
+Miami Heat,Chester,14,UNDER,2024-25,,UNDER,True,14
+Miami Heat,Jake,7,OVER,2024-25,,UNDER,False,-7
+Miami Heat,Mary,7,OVER,2024-25,,UNDER,False,-7
+Miami Heat,Mike,11,UNDER,2024-25,,UNDER,True,11
+Miami Heat,Phil,10,UNDER,2024-25,,UNDER,True,10
+Miami Heat,Ryan,12,OVER,2024-25,,UNDER,False,-12
+Milwaukee Bucks,Adonis,10,UNDER,2024-25,,UNDER,True,10
+Milwaukee Bucks,Andy,13,OVER,2024-25,,UNDER,False,-13
+Milwaukee Bucks,Chester,9,OVER,2024-25,,UNDER,False,-9
+Milwaukee Bucks,Jake,11,UNDER,2024-25,,UNDER,True,11
+Milwaukee Bucks,Mary,8,UNDER,2024-25,,UNDER,True,8
+Milwaukee Bucks,Mike,9,UNDER,2024-25,,UNDER,True,9
+Milwaukee Bucks,Phil,12,UNDER,2024-25,,UNDER,True,12
+Milwaukee Bucks,Ryan,13,OVER,2024-25,,UNDER,False,-13
+New York Knicks,Adonis,10,OVER,2024-25,,UNDER,False,-10
+New York Knicks,Andy,15,OVER,2024-25,,UNDER,False,-15
+New York Knicks,Chester,8,UNDER,2024-25,,UNDER,True,8
+New York Knicks,Jake,9,OVER,2024-25,,UNDER,False,-9
+New York Knicks,Mary,11,UNDER,2024-25,,UNDER,True,11
+New York Knicks,Mike,12,OVER,2024-25,,UNDER,False,-12
+New York Knicks,Phil,8,OVER,2024-25,,UNDER,False,-8
+New York Knicks,Ryan,15,OVER,2024-25,,UNDER,False,-15
+Orlando Magic,Adonis,12,UNDER,2024-25,,UNDER,True,12
+Orlando Magic,Andy,11,UNDER,2024-25,,UNDER,True,11
+Orlando Magic,Chester,14,OVER,2024-25,,UNDER,False,-14
+Orlando Magic,Jake,6,UNDER,2024-25,,UNDER,True,6
+Orlando Magic,Mary,10,OVER,2024-25,,UNDER,False,-10
+Orlando Magic,Mike,6,UNDER,2024-25,,UNDER,True,6
+Orlando Magic,Phil,6,OVER,2024-25,,UNDER,False,-6
+Orlando Magic,Ryan,13,UNDER,2024-25,,UNDER,True,13
+Philadelphia 76ers,Adonis,9,OVER,2024-25,,UNDER,False,-9
+Philadelphia 76ers,Andy,13,UNDER,2024-25,,UNDER,True,13
+Philadelphia 76ers,Chester,8,UNDER,2024-25,,UNDER,True,8
+Philadelphia 76ers,Jake,9,UNDER,2024-25,,UNDER,True,9
+Philadelphia 76ers,Mary,13,OVER,2024-25,,UNDER,False,-13
+Philadelphia 76ers,Mike,6,UNDER,2024-25,,UNDER,True,6
+Philadelphia 76ers,Phil,11,OVER,2024-25,,UNDER,False,-11
+Philadelphia 76ers,Ryan,14,OVER,2024-25,,UNDER,False,-14
+Toronto Raptors,Adonis,13,UNDER,2024-25,,UNDER,True,13
+Toronto Raptors,Andy,6,OVER,2024-25,,UNDER,False,-6
+Toronto Raptors,Chester,14,OVER,2024-25,,UNDER,False,-14
+Toronto Raptors,Jake,6,OVER,2024-25,,UNDER,False,-6
+Toronto Raptors,Mary,7,UNDER,2024-25,,UNDER,True,7
+Toronto Raptors,Mike,7,UNDER,2024-25,,UNDER,True,7
+Toronto Raptors,Phil,10,OVER,2024-25,,UNDER,False,-10
+Toronto Raptors,Ryan,6,UNDER,2024-25,,UNDER,True,6
+Washington Wizards,Adonis,15,UNDER,2024-25,,UNDER,True,15
+Washington Wizards,Andy,12,UNDER,2024-25,,UNDER,True,12
+Washington Wizards,Chester,6,UNDER,2024-25,,UNDER,True,6
+Washington Wizards,Jake,14,UNDER,2024-25,,UNDER,True,14
+Washington Wizards,Mary,6,UNDER,2024-25,,UNDER,True,6
+Washington Wizards,Mike,13,UNDER,2024-25,,UNDER,True,13
+Washington Wizards,Phil,7,OVER,2024-25,,UNDER,False,-7
+Washington Wizards,Ryan,7,UNDER,2024-25,,UNDER,True,7
+Dallas Mavericks,Adonis,6,OVER,2024-25,,UNDER,False,-6
+Dallas Mavericks,Andy,9,OVER,2024-25,,UNDER,False,-9
+Dallas Mavericks,Chester,13,OVER,2024-25,,UNDER,False,-13
+Dallas Mavericks,Jake,10,UNDER,2024-25,,UNDER,True,10
+Dallas Mavericks,Mary,13,OVER,2024-25,,UNDER,False,-13
+Dallas Mavericks,Mike,8,OVER,2024-25,,UNDER,False,-8
+Dallas Mavericks,Phil,8,OVER,2024-25,,UNDER,False,-8
+Dallas Mavericks,Ryan,14,OVER,2024-25,,UNDER,False,-14
+Denver Nuggets,Adonis,7,UNDER,2024-25,,UNDER,True,7
+Denver Nuggets,Andy,14,OVER,2024-25,,UNDER,False,-14
+Denver Nuggets,Chester,7,OVER,2024-25,,UNDER,False,-7
+Denver Nuggets,Jake,10,UNDER,2024-25,,UNDER,True,10
+Denver Nuggets,Mary,12,OVER,2024-25,,UNDER,False,-12
+Denver Nuggets,Mike,14,UNDER,2024-25,,UNDER,True,14
+Denver Nuggets,Phil,6,UNDER,2024-25,,UNDER,True,6
+Denver Nuggets,Ryan,15,UNDER,2024-25,,UNDER,True,15
+Golden State Warriors,Adonis,12,UNDER,2024-25,,OVER,False,-12
+Golden State Warriors,Andy,7,OVER,2024-25,,OVER,True,7
+Golden State Warriors,Chester,10,OVER,2024-25,,OVER,True,10
+Golden State Warriors,Jake,8,OVER,2024-25,,OVER,True,8
+Golden State Warriors,Mary,9,UNDER,2024-25,,OVER,False,-9
+Golden State Warriors,Mike,10,UNDER,2024-25,,OVER,False,-10
+Golden State Warriors,Phil,12,OVER,2024-25,,OVER,True,12
+Golden State Warriors,Ryan,10,OVER,2024-25,,OVER,True,10
+Houston Rockets,Adonis,14,UNDER,2024-25,,OVER,False,-14
+Houston Rockets,Andy,10,UNDER,2024-25,,OVER,False,-10
+Houston Rockets,Chester,13,OVER,2024-25,,OVER,True,13
+Houston Rockets,Jake,12,OVER,2024-25,,OVER,True,12
+Houston Rockets,Mary,15,OVER,2024-25,,OVER,True,15
+Houston Rockets,Mike,10,UNDER,2024-25,,OVER,False,-10
+Houston Rockets,Phil,9,OVER,2024-25,,OVER,True,9
+Houston Rockets,Ryan,7,UNDER,2024-25,,OVER,False,-7
+Los Angeles Clippers,Adonis,12,UNDER,2024-25,,OVER,False,-12
+Los Angeles Clippers,Andy,12,OVER,2024-25,,OVER,True,12
+Los Angeles Clippers,Chester,10,UNDER,2024-25,,OVER,False,-10
+Los Angeles Clippers,Jake,15,UNDER,2024-25,,OVER,False,-15
+Los Angeles Clippers,Mary,7,UNDER,2024-25,,OVER,False,-7
+Los Angeles Clippers,Mike,12,UNDER,2024-25,,OVER,False,-12
+Los Angeles Clippers,Phil,15,UNDER,2024-25,,OVER,False,-15
+Los Angeles Clippers,Ryan,9,UNDER,2024-25,,OVER,False,-9
+Los Angeles Lakers,Adonis,7,OVER,2024-25,,OVER,True,7
+Los Angeles Lakers,Andy,9,UNDER,2024-25,,OVER,False,-9
+Los Angeles Lakers,Chester,12,OVER,2024-25,,OVER,True,12
+Los Angeles Lakers,Jake,13,UNDER,2024-25,,OVER,False,-13
+Los Angeles Lakers,Mary,14,UNDER,2024-25,,OVER,False,-14
+Los Angeles Lakers,Mike,15,UNDER,2024-25,,OVER,False,-15
+Los Angeles Lakers,Phil,15,UNDER,2024-25,,OVER,False,-15
+Los Angeles Lakers,Ryan,12,OVER,2024-25,,OVER,True,12
+Memphis Grizzlies,Adonis,9,UNDER,2024-25,,OVER,False,-9
+Memphis Grizzlies,Andy,7,OVER,2024-25,,OVER,True,7
+Memphis Grizzlies,Chester,11,UNDER,2024-25,,OVER,False,-11
+Memphis Grizzlies,Jake,13,OVER,2024-25,,OVER,True,13
+Memphis Grizzlies,Mary,10,OVER,2024-25,,OVER,True,10
+Memphis Grizzlies,Mike,7,OVER,2024-25,,OVER,True,7
+Memphis Grizzlies,Phil,9,UNDER,2024-25,,OVER,False,-9
+Memphis Grizzlies,Ryan,11,OVER,2024-25,,OVER,True,11
+Minnesota Timberwolves,Adonis,6,UNDER,2024-25,,UNDER,True,6
+Minnesota Timberwolves,Andy,13,UNDER,2024-25,,UNDER,True,13
+Minnesota Timberwolves,Chester,12,UNDER,2024-25,,UNDER,True,12
+Minnesota Timberwolves,Jake,8,UNDER,2024-25,,UNDER,True,8
+Minnesota Timberwolves,Mary,6,OVER,2024-25,,UNDER,False,-6
+Minnesota Timberwolves,Mike,8,UNDER,2024-25,,UNDER,True,8
+Minnesota Timberwolves,Phil,9,OVER,2024-25,,UNDER,False,-9
+Minnesota Timberwolves,Ryan,14,UNDER,2024-25,,UNDER,True,14
+New Orleans Pelicans,Adonis,11,UNDER,2024-25,,UNDER,True,11
+New Orleans Pelicans,Andy,8,UNDER,2024-25,,UNDER,True,8
+New Orleans Pelicans,Chester,9,UNDER,2024-25,,UNDER,True,9
+New Orleans Pelicans,Jake,8,OVER,2024-25,,UNDER,False,-8
+New Orleans Pelicans,Mary,8,UNDER,2024-25,,UNDER,True,8
+New Orleans Pelicans,Mike,11,UNDER,2024-25,,UNDER,True,11
+New Orleans Pelicans,Phil,12,OVER,2024-25,,UNDER,False,-12
+New Orleans Pelicans,Ryan,11,UNDER,2024-25,,UNDER,True,11
+Oklahoma City Thunder,Adonis,14,OVER,2024-25,,OVER,True,14
+Oklahoma City Thunder,Andy,14,UNDER,2024-25,,OVER,False,-14
+Oklahoma City Thunder,Chester,8,UNDER,2024-25,,OVER,False,-8
+Oklahoma City Thunder,Jake,10,OVER,2024-25,,OVER,True,10
+Oklahoma City Thunder,Mary,15,OVER,2024-25,,OVER,True,15
+Oklahoma City Thunder,Mike,8,OVER,2024-25,,OVER,True,8
+Oklahoma City Thunder,Phil,14,OVER,2024-25,,OVER,True,14
+Oklahoma City Thunder,Ryan,15,OVER,2024-25,,OVER,True,15
+Phoenix Suns,Adonis,13,OVER,2024-25,,UNDER,False,-13
+Phoenix Suns,Andy,8,UNDER,2024-25,,UNDER,True,8
+Phoenix Suns,Chester,13,UNDER,2024-25,,UNDER,True,13
+Phoenix Suns,Jake,11,OVER,2024-25,,UNDER,False,-11
+Phoenix Suns,Mary,11,OVER,2024-25,,UNDER,False,-11
+Phoenix Suns,Mike,14,OVER,2024-25,,UNDER,False,-14
+Phoenix Suns,Phil,11,UNDER,2024-25,,UNDER,True,11
+Phoenix Suns,Ryan,13,OVER,2024-25,,UNDER,False,-13
+Portland Trail Blazers,Adonis,13,UNDER,2024-25,,OVER,False,-13
+Portland Trail Blazers,Andy,10,OVER,2024-25,,OVER,True,10
+Portland Trail Blazers,Chester,7,OVER,2024-25,,OVER,True,7
+Portland Trail Blazers,Jake,6,OVER,2024-25,,OVER,True,6
+Portland Trail Blazers,Mary,14,UNDER,2024-25,,OVER,False,-14
+Portland Trail Blazers,Mike,10,UNDER,2024-25,,OVER,False,-10
+Portland Trail Blazers,Phil,13,UNDER,2024-25,,OVER,False,-13
+Portland Trail Blazers,Ryan,10,UNDER,2024-25,,OVER,False,-10
+Sacramento Kings,Adonis,9,OVER,2024-25,,UNDER,False,-9
+Sacramento Kings,Andy,9,OVER,2024-25,,UNDER,False,-9
+Sacramento Kings,Chester,15,UNDER,2024-25,,UNDER,True,15
+Sacramento Kings,Jake,7,OVER,2024-25,,UNDER,False,-7
+Sacramento Kings,Mary,9,OVER,2024-25,,UNDER,False,-9
+Sacramento Kings,Mike,9,OVER,2024-25,,UNDER,False,-9
+Sacramento Kings,Phil,7,UNDER,2024-25,,UNDER,True,7
+Sacramento Kings,Ryan,10,UNDER,2024-25,,UNDER,True,10
+San Antonio Spurs,Adonis,8,UNDER,2024-25,,UNDER,True,8
+San Antonio Spurs,Andy,15,OVER,2024-25,,UNDER,False,-15
+San Antonio Spurs,Chester,15,OVER,2024-25,,UNDER,False,-15
+San Antonio Spurs,Jake,13,OVER,2024-25,,UNDER,False,-13
+San Antonio Spurs,Mary,10,OVER,2024-25,,UNDER,False,-10
+San Antonio Spurs,Mike,9,OVER,2024-25,,UNDER,False,-9
+San Antonio Spurs,Phil,14,UNDER,2024-25,,UNDER,True,14
+San Antonio Spurs,Ryan,6,OVER,2024-25,,UNDER,False,-6
+Utah Jazz,Adonis,11,UNDER,2024-25,,UNDER,True,11
+Utah Jazz,Andy,12,UNDER,2024-25,,UNDER,True,12
+Utah Jazz,Chester,9,OVER,2024-25,,UNDER,False,-9
+Utah Jazz,Jake,11,OVER,2024-25,,UNDER,False,-11
+Utah Jazz,Mary,11,OVER,2024-25,,UNDER,False,-11
+Utah Jazz,Mike,6,UNDER,2024-25,,UNDER,True,6
+Utah Jazz,Phil,13,UNDER,2024-25,,UNDER,True,13
+Utah Jazz,Ryan,9,OVER,2024-25,,UNDER,False,-9
+Atlanta Hawks,Adonis,14,UNDER,2025-26,,UNDER,True,14
+Atlanta Hawks,Andy,10,OVER,2025-26,,UNDER,False,-10
+Atlanta Hawks,Chester,15,OVER,2025-26,,UNDER,False,-15
+Atlanta Hawks,Jake,10,UNDER,2025-26,,UNDER,True,10
+Atlanta Hawks,Mary,10,OVER,2025-26,,UNDER,False,-10
+Atlanta Hawks,Mike,14,OVER,2025-26,,UNDER,False,-14
+Atlanta Hawks,Phil,14,OVER,2025-26,,UNDER,False,-14
+Atlanta Hawks,Ryan,6,UNDER,2025-26,,UNDER,True,6
+Boston Celtics,Adonis,14,UNDER,2025-26,,OVER,False,-14
+Boston Celtics,Andy,9,OVER,2025-26,,OVER,True,9
+Boston Celtics,Chester,7,OVER,2025-26,,OVER,True,7
+Boston Celtics,Jake,10,OVER,2025-26,,OVER,True,10
+Boston Celtics,Mary,6,OVER,2025-26,,OVER,True,6
+Boston Celtics,Mike,7,OVER,2025-26,,OVER,True,7
+Boston Celtics,Phil,11,OVER,2025-26,,OVER,True,11
+Boston Celtics,Ryan,12,OVER,2025-26,,OVER,True,12
+Brooklyn Nets,Adonis,8,UNDER,2025-26,,UNDER,True,8
+Brooklyn Nets,Andy,12,OVER,2025-26,,UNDER,False,-12
+Brooklyn Nets,Chester,8,OVER,2025-26,,UNDER,False,-8
+Brooklyn Nets,Jake,8,OVER,2025-26,,UNDER,False,-8
+Brooklyn Nets,Mary,6,OVER,2025-26,,UNDER,False,-6
+Brooklyn Nets,Mike,10,UNDER,2025-26,,UNDER,True,10
+Brooklyn Nets,Phil,9,UNDER,2025-26,,UNDER,True,9
+Brooklyn Nets,Ryan,7,OVER,2025-26,,UNDER,False,-7
+Charlotte Hornets,Adonis,13,UNDER,2025-26,,OVER,False,-13
+Charlotte Hornets,Andy,14,UNDER,2025-26,,OVER,False,-14
+Charlotte Hornets,Chester,11,UNDER,2025-26,,OVER,False,-11
+Charlotte Hornets,Jake,9,OVER,2025-26,,OVER,True,9
+Charlotte Hornets,Mary,13,UNDER,2025-26,,OVER,False,-13
+Charlotte Hornets,Mike,8,OVER,2025-26,,OVER,True,8
+Charlotte Hornets,Phil,6,UNDER,2025-26,,OVER,False,-6
+Charlotte Hornets,Ryan,6,UNDER,2025-26,,OVER,False,-6
+Chicago Bulls,Adonis,8,OVER,2025-26,,UNDER,False,-8
+Chicago Bulls,Andy,9,UNDER,2025-26,,UNDER,True,9
+Chicago Bulls,Chester,13,OVER,2025-26,,UNDER,False,-13
+Chicago Bulls,Jake,14,OVER,2025-26,,UNDER,False,-14
+Chicago Bulls,Mary,10,OVER,2025-26,,UNDER,False,-10
+Chicago Bulls,Mike,12,OVER,2025-26,,UNDER,False,-12
+Chicago Bulls,Phil,10,OVER,2025-26,,UNDER,False,-10
+Chicago Bulls,Ryan,11,UNDER,2025-26,,UNDER,True,11
+Cleveland Cavaliers,Adonis,12,OVER,2025-26,,UNDER,False,-12
+Cleveland Cavaliers,Andy,15,OVER,2025-26,,UNDER,False,-15
+Cleveland Cavaliers,Chester,14,UNDER,2025-26,,UNDER,True,14
+Cleveland Cavaliers,Jake,15,OVER,2025-26,,UNDER,False,-15
+Cleveland Cavaliers,Mary,15,OVER,2025-26,,UNDER,False,-15
+Cleveland Cavaliers,Mike,15,OVER,2025-26,,UNDER,False,-15
+Cleveland Cavaliers,Phil,11,OVER,2025-26,,UNDER,False,-11
+Cleveland Cavaliers,Ryan,7,UNDER,2025-26,,UNDER,True,7
+Dallas Mavericks,Adonis,6,OVER,2025-26,,UNDER,False,-6
+Dallas Mavericks,Andy,9,UNDER,2025-26,,UNDER,True,9
+Dallas Mavericks,Chester,6,UNDER,2025-26,,UNDER,True,6
+Dallas Mavericks,Jake,6,OVER,2025-26,,UNDER,False,-6
+Dallas Mavericks,Mary,7,UNDER,2025-26,,UNDER,True,7
+Dallas Mavericks,Mike,6,OVER,2025-26,,UNDER,False,-6
+Dallas Mavericks,Phil,8,UNDER,2025-26,,UNDER,True,8
+Dallas Mavericks,Ryan,15,OVER,2025-26,,UNDER,False,-15
+Denver Nuggets,Adonis,7,OVER,2025-26,,UNDER,False,-7
+Denver Nuggets,Andy,14,OVER,2025-26,,UNDER,False,-14
+Denver Nuggets,Chester,13,OVER,2025-26,,UNDER,False,-13
+Denver Nuggets,Jake,6,OVER,2025-26,,UNDER,False,-6
+Denver Nuggets,Mary,15,OVER,2025-26,,UNDER,False,-15
+Denver Nuggets,Mike,13,OVER,2025-26,,UNDER,False,-13
+Denver Nuggets,Phil,15,OVER,2025-26,,UNDER,False,-15
+Denver Nuggets,Ryan,15,OVER,2025-26,,UNDER,False,-15
+Detroit Pistons,Adonis,10,OVER,2025-26,,OVER,True,10
+Detroit Pistons,Andy,13,OVER,2025-26,,OVER,True,13
+Detroit Pistons,Chester,10,OVER,2025-26,,OVER,True,10
+Detroit Pistons,Jake,12,OVER,2025-26,,OVER,True,12
+Detroit Pistons,Mary,13,OVER,2025-26,,OVER,True,13
+Detroit Pistons,Mike,9,UNDER,2025-26,,OVER,False,-9
+Detroit Pistons,Phil,6,UNDER,2025-26,,OVER,False,-6
+Detroit Pistons,Ryan,14,UNDER,2025-26,,OVER,False,-14
+Golden State Warriors,Adonis,13,OVER,2025-26,,UNDER,False,-13
+Golden State Warriors,Andy,8,UNDER,2025-26,,UNDER,True,8
+Golden State Warriors,Chester,13,OVER,2025-26,,UNDER,False,-13
+Golden State Warriors,Jake,7,UNDER,2025-26,,UNDER,True,7
+Golden State Warriors,Mary,7,OVER,2025-26,,UNDER,False,-7
+Golden State Warriors,Mike,11,OVER,2025-26,,UNDER,False,-11
+Golden State Warriors,Phil,14,OVER,2025-26,,UNDER,False,-14
+Golden State Warriors,Ryan,11,UNDER,2025-26,,UNDER,True,11
+Houston Rockets,Adonis,11,UNDER,2025-26,,UNDER,True,11
+Houston Rockets,Andy,14,UNDER,2025-26,,UNDER,True,14
+Houston Rockets,Chester,14,OVER,2025-26,,UNDER,False,-14
+Houston Rockets,Jake,6,OVER,2025-26,,UNDER,False,-6
+Houston Rockets,Mary,14,OVER,2025-26,,UNDER,False,-14
+Houston Rockets,Mike,13,UNDER,2025-26,,UNDER,True,13
+Houston Rockets,Phil,10,OVER,2025-26,,UNDER,False,-10
+Houston Rockets,Ryan,7,OVER,2025-26,,UNDER,False,-7
+Indiana Pacers,Adonis,9,UNDER,2025-26,,UNDER,True,9
+Indiana Pacers,Andy,8,OVER,2025-26,,UNDER,False,-8
+Indiana Pacers,Chester,8,UNDER,2025-26,,UNDER,True,8
+Indiana Pacers,Jake,9,UNDER,2025-26,,UNDER,True,9
+Indiana Pacers,Mary,7,OVER,2025-26,,UNDER,False,-7
+Indiana Pacers,Mike,7,UNDER,2025-26,,UNDER,True,7
+Indiana Pacers,Phil,12,OVER,2025-26,,UNDER,False,-12
+Indiana Pacers,Ryan,8,UNDER,2025-26,,UNDER,True,8
+Los Angeles Clippers,Adonis,6,OVER,2025-26,,UNDER,False,-6
+Los Angeles Clippers,Andy,8,UNDER,2025-26,,UNDER,True,8
+Los Angeles Clippers,Chester,11,UNDER,2025-26,,UNDER,True,11
+Los Angeles Clippers,Jake,7,UNDER,2025-26,,UNDER,True,7
+Los Angeles Clippers,Mary,10,UNDER,2025-26,,UNDER,True,10
+Los Angeles Clippers,Mike,12,OVER,2025-26,,UNDER,False,-12
+Los Angeles Clippers,Phil,7,UNDER,2025-26,,UNDER,True,7
+Los Angeles Clippers,Ryan,8,UNDER,2025-26,,UNDER,True,8
+Los Angeles Lakers,Adonis,11,UNDER,2025-26,,OVER,False,-11
+Los Angeles Lakers,Andy,12,UNDER,2025-26,,OVER,False,-12
+Los Angeles Lakers,Chester,12,OVER,2025-26,,OVER,True,12
+Los Angeles Lakers,Jake,7,UNDER,2025-26,,OVER,False,-7
+Los Angeles Lakers,Mary,11,OVER,2025-26,,OVER,True,11
+Los Angeles Lakers,Mike,12,UNDER,2025-26,,OVER,False,-12
+Los Angeles Lakers,Phil,9,UNDER,2025-26,,OVER,False,-9
+Los Angeles Lakers,Ryan,6,UNDER,2025-26,,OVER,False,-6
+Memphis Grizzlies,Adonis,6,OVER,2025-26,,UNDER,False,-6
+Memphis Grizzlies,Andy,7,OVER,2025-26,,UNDER,False,-7
+Memphis Grizzlies,Chester,9,OVER,2025-26,,UNDER,False,-9
+Memphis Grizzlies,Jake,12,OVER,2025-26,,UNDER,False,-12
+Memphis Grizzlies,Mary,9,OVER,2025-26,,UNDER,False,-9
+Memphis Grizzlies,Mike,6,UNDER,2025-26,,UNDER,True,6
+Memphis Grizzlies,Phil,8,OVER,2025-26,,UNDER,False,-8
+Memphis Grizzlies,Ryan,13,OVER,2025-26,,UNDER,False,-13
+Miami Heat,Adonis,15,UNDER,2025-26,,OVER,False,-15
+Miami Heat,Andy,7,OVER,2025-26,,OVER,True,7
+Miami Heat,Chester,10,UNDER,2025-26,,OVER,False,-10
+Miami Heat,Jake,12,OVER,2025-26,,OVER,True,12
+Miami Heat,Mary,11,OVER,2025-26,,OVER,True,11
+Miami Heat,Mike,8,OVER,2025-26,,OVER,True,8
+Miami Heat,Phil,9,OVER,2025-26,,OVER,True,9
+Miami Heat,Ryan,8,OVER,2025-26,,OVER,True,8
+Milwaukee Bucks,Adonis,8,OVER,2025-26,,UNDER,False,-8
+Milwaukee Bucks,Andy,13,OVER,2025-26,,UNDER,False,-13
+Milwaukee Bucks,Chester,9,UNDER,2025-26,,UNDER,True,9
+Milwaukee Bucks,Jake,15,OVER,2025-26,,UNDER,False,-15
+Milwaukee Bucks,Mary,9,OVER,2025-26,,UNDER,False,-9
+Milwaukee Bucks,Mike,15,OVER,2025-26,,UNDER,False,-15
+Milwaukee Bucks,Phil,8,OVER,2025-26,,UNDER,False,-8
+Milwaukee Bucks,Ryan,14,OVER,2025-26,,UNDER,False,-14
+Minnesota Timberwolves,Adonis,13,UNDER,2025-26,,UNDER,True,13
+Minnesota Timberwolves,Andy,7,OVER,2025-26,,UNDER,False,-7
+Minnesota Timberwolves,Chester,7,UNDER,2025-26,,UNDER,True,7
+Minnesota Timberwolves,Jake,14,OVER,2025-26,,UNDER,False,-14
+Minnesota Timberwolves,Mary,11,OVER,2025-26,,UNDER,False,-11
+Minnesota Timberwolves,Mike,13,OVER,2025-26,,UNDER,False,-13
+Minnesota Timberwolves,Phil,13,UNDER,2025-26,,UNDER,True,13
+Minnesota Timberwolves,Ryan,14,OVER,2025-26,,UNDER,False,-14
+New Orleans Pelicans,Adonis,10,OVER,2025-26,,UNDER,False,-10
+New Orleans Pelicans,Andy,6,UNDER,2025-26,,UNDER,True,6
+New Orleans Pelicans,Chester,12,OVER,2025-26,,UNDER,False,-12
+New Orleans Pelicans,Jake,10,OVER,2025-26,,UNDER,False,-10
+New Orleans Pelicans,Mary,14,UNDER,2025-26,,UNDER,True,14
+New Orleans Pelicans,Mike,11,OVER,2025-26,,UNDER,False,-11
+New Orleans Pelicans,Phil,12,UNDER,2025-26,,UNDER,True,12
+New Orleans Pelicans,Ryan,9,UNDER,2025-26,,UNDER,True,9
+New York Knicks,Adonis,12,OVER,2025-26,,UNDER,False,-12
+New York Knicks,Andy,6,UNDER,2025-26,,UNDER,True,6
+New York Knicks,Chester,9,UNDER,2025-26,,UNDER,True,9
+New York Knicks,Jake,13,UNDER,2025-26,,UNDER,True,13
+New York Knicks,Mary,9,OVER,2025-26,,UNDER,False,-9
+New York Knicks,Mike,14,OVER,2025-26,,UNDER,False,-14
+New York Knicks,Phil,7,UNDER,2025-26,,UNDER,True,7
+New York Knicks,Ryan,15,OVER,2025-26,,UNDER,False,-15
+Oklahoma City Thunder,Adonis,9,OVER,2025-26,,OVER,True,9
+Oklahoma City Thunder,Andy,15,UNDER,2025-26,,OVER,False,-15
+Oklahoma City Thunder,Chester,14,UNDER,2025-26,,OVER,False,-14
+Oklahoma City Thunder,Jake,15,UNDER,2025-26,,OVER,False,-15
+Oklahoma City Thunder,Mary,15,OVER,2025-26,,OVER,True,15
+Oklahoma City Thunder,Mike,15,OVER,2025-26,,OVER,True,15
+Oklahoma City Thunder,Phil,15,OVER,2025-26,,OVER,True,15
+Oklahoma City Thunder,Ryan,9,UNDER,2025-26,,OVER,False,-9
+Orlando Magic,Adonis,9,UNDER,2025-26,,UNDER,True,9
+Orlando Magic,Andy,10,OVER,2025-26,,UNDER,False,-10
+Orlando Magic,Chester,15,OVER,2025-26,,UNDER,False,-15
+Orlando Magic,Jake,14,UNDER,2025-26,,UNDER,True,14
+Orlando Magic,Mary,12,OVER,2025-26,,UNDER,False,-12
+Orlando Magic,Mike,10,UNDER,2025-26,,UNDER,True,10
+Orlando Magic,Phil,13,OVER,2025-26,,UNDER,False,-13
+Orlando Magic,Ryan,9,OVER,2025-26,,UNDER,False,-9
+Philadelphia 76ers,Adonis,15,OVER,2025-26,,OVER,True,15
+Philadelphia 76ers,Andy,11,UNDER,2025-26,,OVER,False,-11
+Philadelphia 76ers,Chester,10,UNDER,2025-26,,OVER,False,-10
+Philadelphia 76ers,Jake,11,UNDER,2025-26,,OVER,False,-11
+Philadelphia 76ers,Mary,12,UNDER,2025-26,,OVER,False,-12
+Philadelphia 76ers,Mike,7,UNDER,2025-26,,OVER,False,-7
+Philadelphia 76ers,Phil,14,UNDER,2025-26,,OVER,False,-14
+Philadelphia 76ers,Ryan,13,OVER,2025-26,,OVER,True,13
+Phoenix Suns,Adonis,12,OVER,2025-26,,OVER,True,12
+Phoenix Suns,Andy,10,UNDER,2025-26,,OVER,False,-10
+Phoenix Suns,Chester,12,UNDER,2025-26,,OVER,False,-12
+Phoenix Suns,Jake,13,OVER,2025-26,,OVER,True,13
+Phoenix Suns,Mary,6,UNDER,2025-26,,OVER,False,-6
+Phoenix Suns,Mike,8,UNDER,2025-26,,OVER,False,-8
+Phoenix Suns,Phil,15,UNDER,2025-26,,OVER,False,-15
+Phoenix Suns,Ryan,13,UNDER,2025-26,,OVER,False,-13
+Portland Trail Blazers,Adonis,15,UNDER,2025-26,,OVER,False,-15
+Portland Trail Blazers,Andy,11,UNDER,2025-26,,OVER,False,-11
+Portland Trail Blazers,Chester,8,OVER,2025-26,,OVER,True,8
+Portland Trail Blazers,Jake,11,UNDER,2025-26,,OVER,False,-11
+Portland Trail Blazers,Mary,13,UNDER,2025-26,,OVER,False,-13
+Portland Trail Blazers,Mike,10,UNDER,2025-26,,OVER,False,-10
+Portland Trail Blazers,Phil,12,OVER,2025-26,,OVER,True,12
+Portland Trail Blazers,Ryan,10,UNDER,2025-26,,OVER,False,-10
+Sacramento Kings,Adonis,11,OVER,2025-26,,UNDER,False,-11
+Sacramento Kings,Andy,12,UNDER,2025-26,,UNDER,True,12
+Sacramento Kings,Chester,6,UNDER,2025-26,,UNDER,True,6
+Sacramento Kings,Jake,11,OVER,2025-26,,UNDER,False,-11
+Sacramento Kings,Mary,8,OVER,2025-26,,UNDER,False,-8
+Sacramento Kings,Mike,11,UNDER,2025-26,,UNDER,True,11
+Sacramento Kings,Phil,11,UNDER,2025-26,,UNDER,True,11
+Sacramento Kings,Ryan,10,OVER,2025-26,,UNDER,False,-10
+San Antonio Spurs,Adonis,10,OVER,2025-26,,OVER,True,10
+San Antonio Spurs,Andy,15,OVER,2025-26,,OVER,True,15
+San Antonio Spurs,Chester,15,OVER,2025-26,,OVER,True,15
+San Antonio Spurs,Jake,13,OVER,2025-26,,OVER,True,13
+San Antonio Spurs,Mary,8,OVER,2025-26,,OVER,True,8
+San Antonio Spurs,Mike,6,OVER,2025-26,,OVER,True,6
+San Antonio Spurs,Phil,6,UNDER,2025-26,,OVER,False,-6
+San Antonio Spurs,Ryan,12,OVER,2025-26,,OVER,True,12
+Toronto Raptors,Adonis,14,UNDER,2025-26,,OVER,False,-14
+Toronto Raptors,Andy,6,UNDER,2025-26,,OVER,False,-6
+Toronto Raptors,Chester,11,UNDER,2025-26,,OVER,False,-11
+Toronto Raptors,Jake,9,UNDER,2025-26,,OVER,False,-9
+Toronto Raptors,Mary,8,UNDER,2025-26,,OVER,False,-8
+Toronto Raptors,Mike,14,OVER,2025-26,,OVER,True,14
+Toronto Raptors,Phil,13,UNDER,2025-26,,OVER,False,-13
+Toronto Raptors,Ryan,10,UNDER,2025-26,,OVER,False,-10
+Utah Jazz,Adonis,7,OVER,2025-26,,OVER,True,7
+Utah Jazz,Andy,13,OVER,2025-26,,OVER,True,13
+Utah Jazz,Chester,7,OVER,2025-26,,OVER,True,7
+Utah Jazz,Jake,8,OVER,2025-26,,OVER,True,8
+Utah Jazz,Mary,12,UNDER,2025-26,,OVER,False,-12
+Utah Jazz,Mike,9,UNDER,2025-26,,OVER,False,-9
+Utah Jazz,Phil,7,OVER,2025-26,,OVER,True,7
+Utah Jazz,Ryan,11,OVER,2025-26,,OVER,True,11
+Washington Wizards,Adonis,7,UNDER,2025-26,,UNDER,True,7
+Washington Wizards,Andy,11,OVER,2025-26,,UNDER,False,-11
+Washington Wizards,Chester,6,OVER,2025-26,,UNDER,False,-6
+Washington Wizards,Jake,8,OVER,2025-26,,UNDER,False,-8
+Washington Wizards,Mary,14,UNDER,2025-26,,UNDER,True,14
+Washington Wizards,Mike,9,UNDER,2025-26,,UNDER,True,9
+Washington Wizards,Phil,10,UNDER,2025-26,,UNDER,True,10
+Washington Wizards,Ryan,12,UNDER,2025-26,,UNDER,True,12

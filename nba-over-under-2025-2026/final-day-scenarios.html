@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NBA Over/Under — Final Day Scenarios</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=Anybody:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #06090f;
+  --surface: #0d1117;
+  --surface2: #151b27;
+  --border: #1c2333;
+  --border2: #2a3548;
+  --muted: #95a8be;
+  --dim: #b0c4d8;
+  --text: #c9d1d9;
+  --bright: #ecf0f5;
+  --gold: #f0c040;
+  --gold-dim: #a68520;
+  --green: #3fb950;
+  --green-bg: rgba(63,185,80,0.08);
+  --red: #f85149;
+  --red-bg: rgba(248,81,73,0.08);
+  --blue: #58a6ff;
+  --seed1: #f0c040; --seed1bg: rgba(240,192,64,0.12);
+  --seed2: #a0a8b4; --seed2bg: rgba(160,168,180,0.06);
+  --seed3: #d4845c; --seed3bg: rgba(212,132,92,0.06);
+  --seed4: #58a6ff; --seed4bg: rgba(88,166,255,0.06);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: 'IBM Plex Mono', monospace; line-height: 1.4; }
+.wrap { max-width: 1160px; margin: 0 auto; padding: 20px 16px 60px; }
+
+h1 { font-family: 'Anybody', sans-serif; font-weight: 900; font-size: 28px; color: var(--gold);
+  letter-spacing: 2px; text-transform: uppercase; margin-bottom: 2px; }
+.sub { font-size: 11px; color: var(--dim); margin-bottom: 24px; }
+
+/* Toggle section */
+.toggles { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+.team-toggle {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 16px; border-radius: 10px; cursor: pointer;
+  border: 2px solid var(--border); background: var(--surface);
+  transition: all 0.2s; user-select: none;
+}
+.team-toggle:hover { border-color: var(--border2); background: var(--surface2); }
+.team-toggle.over { border-color: var(--green); background: var(--green-bg); }
+.team-toggle.under { border-color: var(--red); background: var(--red-bg); }
+.team-toggle .abbr { font-weight: 700; font-size: 15px; width: 40px; }
+.team-toggle .name { font-size: 11px; color: var(--dim); flex: 1; margin-left: 8px; }
+.team-toggle .info { font-size: 9px; color: var(--muted); margin-left: 8px; }
+.team-toggle .badge {
+  font-weight: 700; font-size: 11px; padding: 4px 14px; border-radius: 6px;
+  min-width: 120px; text-align: center; transition: all 0.2s;
+}
+.team-toggle .badge.undecided { background: var(--surface2); color: var(--muted); }
+.team-toggle .badge.over-badge { background: rgba(63,185,80,0.15); color: var(--green); }
+.team-toggle .badge.under-badge { background: rgba(248,81,73,0.15); color: var(--red); }
+
+.scenario-count {
+  text-align: center; font-size: 12px; color: var(--dim); margin-bottom: 20px;
+  padding: 8px; background: var(--surface); border-radius: 8px; border: 1px solid var(--border);
+}
+.scenario-count b { color: var(--gold); font-size: 14px; }
+
+/* Summary cards */
+.summary { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; margin-bottom: 20px; }
+.card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+  padding: 8px 4px; text-align: center; transition: all 0.3s;
+}
+.card .pname { font-size: 10px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.card .score { font-size: 16px; font-weight: 700; margin-bottom: 2px; }
+.card .score.pos { color: var(--green); }
+.card .score.neg { color: var(--red); }
+.card .meta { font-size: 8px; color: var(--muted); line-height: 1.3; }
+.card .bar-wrap { height: 4px; background: var(--surface2); border-radius: 2px; margin-top: 4px; overflow: hidden; }
+.card .bar-fill { height: 100%; border-radius: 2px; transition: width 0.3s; }
+
+/* Table */
+.table-wrap { overflow-x: auto; margin-bottom: 16px; }
+table { border-collapse: collapse; width: 100%; font-size: 10px; }
+thead th { padding: 6px 3px; font-size: 8px; color: var(--muted); text-transform: uppercase;
+  letter-spacing: 0.5px; border-bottom: 2px solid var(--border); position: sticky; top: 0;
+  background: var(--bg); z-index: 2; }
+tbody tr { transition: opacity 0.25s, background 0.15s; }
+tbody tr.dimmed { opacity: 0.38; }
+tbody tr.matched { background: var(--surface); }
+tbody tr.matched:hover { background: var(--surface2); }
+tbody td { padding: 4px 3px; text-align: center; border-bottom: 1px solid var(--border)11; }
+td.outcome-o { color: var(--green); font-weight: 700; }
+td.outcome-u { color: var(--red); font-weight: 700; }
+td.sep { border-left: 2px solid var(--gold-dim); width: 3px; padding: 0; }
+td.sep2 { border-left: 2px solid var(--border2); width: 3px; padding: 0; }
+td.seed { font-weight: 500; padding: 3px 4px; border-radius: 4px; }
+td.seed .sname { font-size: 10px; line-height: 1.1; }
+td.seed .sscore { font-size: 7px; opacity: 0.8; }
+td.seed1 { background: var(--seed1bg); color: var(--seed1); font-weight: 700; }
+td.seed2 { background: var(--seed2bg); color: var(--seed2); }
+td.seed3 { background: var(--seed3bg); color: var(--seed3); }
+td.seed4 { background: var(--seed4bg); color: var(--seed4); }
+td.out { color: var(--dim); opacity: 0.75; }
+
+.legend {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+  padding: 10px 14px; font-size: 9px; color: var(--muted);
+}
+.legend b { color: var(--dim); }
+
+@media (max-width: 700px) {
+  .summary { grid-template-columns: repeat(4, 1fr); }
+  h1 { font-size: 20px; }
+  .team-toggle .name { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Final Day Scenarios</h1>
+  <div class="sub">5 unclinched teams — 32 possible outcomes — top 4 make playoffs. Tap teams to lock in results.</div>
+
+  <div class="toggles" id="toggles"></div>
+  <div class="scenario-count" id="scenarioCount"></div>
+  <div class="summary" id="summary"></div>
+  <div class="table-wrap"><table><thead id="thead"></thead><tbody id="tbody"></tbody></table></div>
+  <div class="legend" id="legend"></div>
+</div>
+
+<script>
+const TEAMS = [
+  { name: "Atlanta Hawks", abbr: "ATL", wins: 46, proj: 46.5 },
+  { name: "Brooklyn Nets", abbr: "BKN", wins: 20, proj: 20.5 },
+  { name: "Chicago Bulls", abbr: "CHI", wins: 31, proj: 31.5 },
+  { name: "New York Knicks", abbr: "NYK", wins: 53, proj: 53.5 },
+  { name: "Denver Nuggets", abbr: "DEN", wins: 53, proj: 53.5 },
+];
+const P = ["Adonis","Andy","Chester","Jake","Mary","Mike","Phil","Ryan"];
+const PICKS = {
+  "Atlanta Hawks":{Adonis:[14,"UNDER"],Andy:[10,"OVER"],Chester:[15,"OVER"],Jake:[10,"UNDER"],Mary:[10,"OVER"],Mike:[14,"OVER"],Phil:[14,"OVER"],Ryan:[6,"UNDER"]},
+  "Brooklyn Nets":{Adonis:[8,"UNDER"],Andy:[12,"OVER"],Chester:[8,"OVER"],Jake:[8,"OVER"],Mary:[6,"OVER"],Mike:[10,"UNDER"],Phil:[9,"UNDER"],Ryan:[7,"OVER"]},
+  "Chicago Bulls":{Adonis:[8,"OVER"],Andy:[9,"UNDER"],Chester:[13,"OVER"],Jake:[14,"OVER"],Mary:[10,"OVER"],Mike:[12,"OVER"],Phil:[10,"OVER"],Ryan:[11,"UNDER"]},
+  "New York Knicks":{Adonis:[12,"OVER"],Andy:[6,"UNDER"],Chester:[9,"UNDER"],Jake:[13,"UNDER"],Mary:[9,"OVER"],Mike:[14,"OVER"],Phil:[7,"UNDER"],Ryan:[15,"OVER"]},
+  "Denver Nuggets":{Adonis:[7,"OVER"],Andy:[14,"OVER"],Chester:[13,"OVER"],Jake:[6,"OVER"],Mary:[15,"OVER"],Mike:[13,"OVER"],Phil:[15,"OVER"],Ryan:[15,"OVER"]},
+};
+const BASE = {Adonis:-42,Andy:-36,Chester:-17,Jake:-36,Mary:-47,Mike:-24,Phil:-30,Ryan:-39};
+
+// State: null=undecided, true=OVER, false=UNDER
+let state = [null, null, null, null, null];
+
+function compute(outcomes) {
+  const s = {...BASE};
+  TEAMS.forEach((t,i) => {
+    const r = outcomes[i] ? "OVER" : "UNDER";
+    P.forEach(p => { const [w,c] = PICKS[t.name][p]; s[p] += c===r ? w : -w; });
+  });
+  return s;
+}
+
+// Precompute all 32
+const ALL = [];
+for (let i = 0; i < 32; i++) {
+  const o = TEAMS.map((_,j) => Boolean(i & (1 << (4-j))));
+  const scores = compute(o);
+  const sorted = [...P].sort((a,b) => scores[b] - scores[a]);
+  ALL.push({ id: i, outcomes: o, scores, sorted });
+}
+
+function matches(scenario) {
+  return TEAMS.every((_, i) => state[i] === null || state[i] === scenario.outcomes[i]);
+}
+
+function toggle(i) {
+  if (state[i] === null) state[i] = true;
+  else if (state[i] === true) state[i] = false;
+  else state[i] = null;
+  render();
+}
+
+function render() {
+  const matched = ALL.filter(matches);
+  const total = matched.length;
+  const allDecided = state.every(s => s !== null);
+
+  // Toggles
+  const tEl = document.getElementById("toggles");
+  tEl.innerHTML = TEAMS.map((t,i) => {
+    const s = state[i];
+    const cls = s === null ? "" : s ? "over" : "under";
+    const label = s === null ? "UNDECIDED" : s ? "WIN → OVER" : "LOSE → UNDER";
+    const bcls = s === null ? "undecided" : s ? "over-badge" : "under-badge";
+    return `<div class="team-toggle ${cls}" onclick="toggle(${i})">
+      <span class="abbr">${t.abbr}</span>
+      <span class="name">${t.name}</span>
+      <span class="info">${t.wins}W · proj ${t.proj}</span>
+      <span class="badge ${bcls}">${label}</span>
+    </div>`;
+  }).join("");
+
+  // Count
+  document.getElementById("scenarioCount").innerHTML =
+    allDecided ? `<b>1</b> scenario locked in`
+    : `<b>${total}</b> of 32 scenarios remain`;
+
+  // Summary cards
+  const pCounts = {}, wCounts = {}, bestScores = {}, worstScores = {};
+  P.forEach(p => { pCounts[p]=0; wCounts[p]=0; bestScores[p]=-999; worstScores[p]=999; });
+  matched.forEach(s => {
+    P.forEach(p => {
+      if (s.sorted.indexOf(p) < 4) pCounts[p]++;
+      if (s.sorted[0] === p) wCounts[p]++;
+      if (s.scores[p] > bestScores[p]) bestScores[p] = s.scores[p];
+      if (s.scores[p] < worstScores[p]) worstScores[p] = s.scores[p];
+    });
+  });
+  const sortedP = [...P].sort((a,b) => pCounts[b] - pCounts[a] || bestScores[b] - bestScores[a]);
+
+  document.getElementById("summary").innerHTML = sortedP.map(p => {
+    const pPct = total > 0 ? Math.round(pCounts[p]/total*100) : 0;
+    const barColor = pPct >= 75 ? "var(--green)" : pPct >= 40 ? "var(--gold)" : pPct > 0 ? "var(--red)" : "var(--muted)";
+    const scoreClass = bestScores[p] > 0 ? "pos" : "neg";
+    return `<div class="card">
+      <div class="pname">${p}</div>
+      <div class="score ${scoreClass}">${bestScores[p]===worstScores[p] ? ((bestScores[p]>0?"+":"") + bestScores[p]) : ""}</div>
+      <div class="meta">
+        ${total > 1 ? `Playoffs: ${pPct}%` : (pCounts[p] ? "IN" : "OUT")}
+        ${wCounts[p] ? `<br>1st: ${wCounts[p]}×` : ""}
+        ${total > 1 && bestScores[p] !== worstScores[p] ? `<br>${worstScores[p]} to ${bestScores[p]>0?"+":""}${bestScores[p]}` : ""}
+      </div>
+      <div class="bar-wrap"><div class="bar-fill" style="width:${pPct}%;background:${barColor}"></div></div>
+    </div>`;
+  }).join("");
+
+  // Table header
+  document.getElementById("thead").innerHTML = `
+    <tr>
+      <th style="width:22px">#</th>
+      ${TEAMS.map(t => `<th style="width:30px">${t.abbr}</th>`).join("")}
+      <th style="width:3px"></th>
+      <th colspan="4" style="color:var(--gold);font-weight:700;font-size:9px">← PLAYOFFS</th>
+      <th style="width:3px"></th>
+      <th colspan="4" style="color:var(--muted);font-size:9px">OUT →</th>
+    </tr>
+    <tr style="border-bottom:1px solid var(--border)">
+      <th></th>${TEAMS.map(()=>"<th></th>").join("")}<th></th>
+      <th style="color:var(--seed1);font-size:8px">#1</th>
+      <th style="color:var(--seed2);font-size:8px">#2</th>
+      <th style="color:var(--seed3);font-size:8px">#3</th>
+      <th style="color:var(--seed4);font-size:8px">#4</th>
+      <th></th>
+      <th style="color:var(--muted);font-size:8px">#5</th>
+      <th style="color:var(--muted);font-size:8px">#6</th>
+      <th style="color:var(--muted);font-size:8px">#7</th>
+      <th style="color:var(--muted);font-size:8px">#8</th>
+    </tr>`;
+
+  // Table body
+  document.getElementById("tbody").innerHTML = ALL.map((s, idx) => {
+    const m = matches(s);
+    const cls = m ? "matched" : "dimmed";
+    return `<tr class="${cls}">
+      <td style="color:var(--muted);font-size:8px">${s.id+1}</td>
+      ${s.outcomes.map((o,j) => {
+        const locked = state[j] !== null;
+        const extra = locked && m ? (o ? "font-size:11px" : "font-size:11px") : "";
+        return `<td class="${o?"outcome-o":"outcome-u"}" style="${extra}">${o?"O":"U"}</td>`;
+      }).join("")}
+      <td class="sep"></td>
+      ${s.sorted.slice(0,4).map((p,si) => {
+        const seed = si+1;
+        const sc = s.scores[p];
+        return `<td class="seed seed${seed}">
+          <div class="sname">${p}</div>
+          <div class="sscore">${sc>0?"+":""}${sc}</div>
+        </td>`;
+      }).join("")}
+      <td class="sep2"></td>
+      ${s.sorted.slice(4).map(p => {
+        const sc = s.scores[p];
+        return `<td class="out">
+          <div class="sname">${p}</div>
+          <div class="sscore">${sc}</div>
+        </td>`;
+      }).join("")}
+    </tr>`;
+  }).join("");
+
+  // Legend
+  document.getElementById("legend").innerHTML = `
+    <div style="margin-bottom:4px">
+      ${TEAMS.map(t => `<b>${t.abbr}</b> ${t.wins}W proj ${t.proj} &nbsp;·&nbsp; `).join("")}
+    </div>
+    <div>O = Win last game (OVER projection) &nbsp;|&nbsp; U = Lose (UNDER) &nbsp;|&nbsp;
+    Gold line = playoff cut &nbsp;|&nbsp; Dimmed rows = eliminated by your toggle selections</div>
+  `;
+}
+
+render();
+</script>
+</body>
+</html>
