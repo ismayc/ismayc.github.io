@@ -1023,14 +1023,41 @@ Playoff seeds are determined using the [NBA's official tiebreaker procedures](ht
 # ---------------------------------------------------------------------------
 # Compute playoff / play-in clinching and elimination status
 # ---------------------------------------------------------------------------
-# Key insight: teams_could_pass + 1 = the worst seed this team could fall to.
-# If only 0 opponents can exceed your worst case, you've clinched #1.
-# If only 3 can, you've clinched at worst #4 (home court in first round).
-#
-# Similarly: teams_guaranteed_ahead + 1 = the best seed this team can reach.
-# If 6+ opponents are guaranteed more wins, you can't crack the top 6.
+# Uses head-to-head records to resolve tie scenarios.  When two teams
+# could finish with identical win totals:
+#   - teams_could_pass:  opponent counts only if they would win the
+#     tiebreaker (or the tiebreaker is unresolved).
+#   - teams_guaranteed_ahead:  opponent counts only if they would win
+#     the tiebreaker AND no future h2h games remain.
 # ---------------------------------------------------------------------------
 
+# --- Head-to-head records from scores_tidy ---
+h2h_records <- scores_tidy %>%
+  group_by(team_slug, opponent_slug) %>%
+  summarize(
+    h2h_wins   = sum(score > opponent_score),
+    h2h_losses = sum(score < opponent_score),
+    .groups = "drop"
+  )
+
+# --- Remaining head-to-head games (today onward) ---
+name_to_abbr <- standings %>% distinct(team_name, abbreviation)
+
+remaining_h2h_pairs <- schedule %>%
+  filter(game_date >= Sys.Date()) %>%
+  inner_join(name_to_abbr, by = c("away_team" = "team_name")) %>%
+  rename(abbr1 = abbreviation) %>%
+  inner_join(name_to_abbr, by = c("home_team" = "team_name")) %>%
+  rename(abbr2 = abbreviation) %>%
+  select(abbr1, abbr2) %>%
+  {bind_rows(
+    transmute(., team_slug = abbr1, opponent_slug = abbr2),
+    transmute(., team_slug = abbr2, opponent_slug = abbr1)
+  )} %>%
+  distinct() %>%
+  mutate(has_future_h2h = TRUE)
+
+# --- Build clinch data ---
 clinch_data <- standings %>%
   mutate(
     games_played = wins + losses,
@@ -1040,26 +1067,50 @@ clinch_data <- standings %>%
   )
 
 clinch_cross <- clinch_data %>%
-  select(team_name, conference, max_wins, min_wins) %>%
+  select(team_name, conference, abbreviation, max_wins, min_wins) %>%
   inner_join(
     clinch_data %>%
       select(opp_team = team_name, opp_conf = conference,
+             opp_abbr = abbreviation,
              opp_max = max_wins, opp_min = min_wins),
     by = c("conference" = "opp_conf"),
     relationship = "many-to-many"
   ) %>%
-  filter(team_name != opp_team)
+  filter(team_name != opp_team) %>%
+  # Attach head-to-head records
+  left_join(h2h_records,
+            by = c("abbreviation" = "team_slug",
+                   "opp_abbr"     = "opponent_slug")) %>%
+  # Attach remaining h2h flag
+  left_join(remaining_h2h_pairs,
+            by = c("abbreviation" = "team_slug",
+                   "opp_abbr"     = "opponent_slug")) %>%
+  replace_na(list(h2h_wins = 0L, h2h_losses = 0L, has_future_h2h = FALSE)) %>%
+  mutate(
+    # h2h is resolved when there are no future games and the record is not tied
+    h2h_resolved    = !has_future_h2h & (h2h_wins != h2h_losses),
+    # TRUE when this team wins the h2h tiebreaker over this opponent
+    team_wins_h2h   = h2h_resolved & (h2h_wins > h2h_losses)
+  )
 
 clinch_summary <- clinch_cross %>%
   group_by(team_name, conference, max_wins, min_wins) %>%
   summarize(
-    teams_could_pass = sum(opp_max > min_wins),
-    teams_guaranteed_ahead = sum(opp_min > max_wins),
+    # Opponent can pass if they can get strictly more wins,
+    # OR they can tie AND this team does NOT have a resolved h2h win
+    teams_could_pass = sum(
+      opp_max > min_wins |
+      (opp_max == min_wins & !team_wins_h2h)
+    ),
+    # Opponent is guaranteed ahead if they will have strictly more wins,
+    # OR they will tie AND they hold a resolved h2h win
+    teams_guaranteed_ahead = sum(
+      opp_min > max_wins |
+      (opp_min == max_wins & h2h_resolved & h2h_wins < h2h_losses)
+    ),
     .groups = "drop"
   ) %>%
   mutate(
-    # Worst possible seed = teams_could_pass + 1
-    # Best possible seed  = teams_guaranteed_ahead + 1
     worst_possible_seed = teams_could_pass + 1L,
     best_possible_seed  = teams_guaranteed_ahead + 1L,
     seed_locked = (worst_possible_seed == best_possible_seed),
@@ -1067,15 +1118,72 @@ clinch_summary <- clinch_cross %>%
       seed_locked & worst_possible_seed <= 10 ~
         paste0("Clinched #", worst_possible_seed),
       worst_possible_seed == 1  ~ "Clinched #1",
-      worst_possible_seed <= 4  ~
+      worst_possible_seed <= 6  ~
         paste0("Clinched #", worst_possible_seed, " or better"),
-      worst_possible_seed <= 6  ~ "x - Playoffs",
       worst_possible_seed <= 10 ~ "pi - Play-In",
       teams_guaranteed_ahead >= 10 ~ "e - Eliminated",
       teams_guaranteed_ahead >= 6  ~ "o - Elim. Playoffs",
       TRUE                         ~ NA_character_
     )
-  ) %>%
+  )
+
+# Second pass: iteratively tighten labels by removing seeds locked by
+# other teams from each team's possible range.  Repeat until stable,
+# since newly locked seeds can cascade (e.g. locking #4 may then lock #5).
+repeat {
+  changed <- FALSE
+
+  conf_locked_list <- clinch_summary %>%
+    filter(seed_locked) %>%
+    group_by(conference) %>%
+    summarize(locked = list(worst_possible_seed), .groups = "drop")
+
+  unlocked <- clinch_summary %>%
+    filter(!seed_locked, !is.na(clinch_status),
+           !str_detect(clinch_status, "Eliminated|Elim"))
+
+  if (nrow(unlocked) == 0) break
+
+  for (i in seq_len(nrow(unlocked))) {
+    tm    <- unlocked$team_name[i]
+    conf  <- unlocked$conference[i]
+    best  <- unlocked$best_possible_seed[i]
+    worst <- unlocked$worst_possible_seed[i]
+
+    conf_locked <- conf_locked_list %>%
+      filter(conference == conf) %>%
+      pull(locked) %>%
+      unlist()
+    if (is.null(conf_locked)) conf_locked <- integer(0)
+
+    available <- setdiff(best:worst, conf_locked)
+
+    idx <- which(clinch_summary$team_name == tm)
+
+    if (length(available) == 1) {
+      clinch_summary$clinch_status[idx] <- paste0("Clinched #", available)
+      clinch_summary$seed_locked[idx]   <- TRUE
+      clinch_summary$worst_possible_seed[idx] <- available
+      clinch_summary$best_possible_seed[idx]  <- available
+      changed <- TRUE
+    } else if (length(available) == 2) {
+      clinch_summary$clinch_status[idx] <-
+        paste0("Either #", available[1], " or #", available[2])
+    } else if (length(available) == 3) {
+      clinch_summary$clinch_status[idx] <-
+        paste0("Either #", available[1], ", #", available[2],
+               ", or #", available[3])
+    } else if (length(available) == 4) {
+      clinch_summary$clinch_status[idx] <-
+        paste0("Either #", available[1], ", #", available[2],
+               ", #", available[3], ", or #", available[4])
+    }
+  }
+
+  if (!changed) break
+}
+
+clinch_summary <- clinch_summary %>%
   select(team_name, clinch_status)
 
 # Merge clinching info into seeded_standings, replacing the seed_note
@@ -1091,7 +1199,7 @@ seeded_standings <- seeded_standings %>%
 
 **Legend:** **Clinched #N** = seed locked in &nbsp;|&nbsp;
 **Clinched #N or better** = guaranteed seed N or better &nbsp;|&nbsp;
-**x** = clinched playoff berth &nbsp;|&nbsp;
+**Either #X or #Y** = seed is one of a few remaining options &nbsp;|&nbsp;
 **pi** = clinched play-in spot &nbsp;|&nbsp;
 **o** = eliminated from playoff contention &nbsp;|&nbsp;
 **e** = eliminated from postseason
