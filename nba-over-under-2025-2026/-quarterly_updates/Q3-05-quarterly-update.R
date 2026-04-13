@@ -180,7 +180,7 @@ ggplot(plot_data3, aes(x = team_reordered, y = dev, fill = mismatch)) +
   scale_x_reordered() +
   facet_wrap(~ player, nrow = 4, scales = "free_y") +
   labs(
-    title = "Most differentiating teams per player (End of Season)",
+    title = "Most differentiating teams per player (At Three-Quarter Point)",
     x = "Team",
     y = "Absolute deviation from group",
     fill = "Mismatch with actual"
@@ -191,7 +191,6 @@ ggplot(plot_data3, aes(x = team_reordered, y = dev, fill = mismatch)) +
 # Quarter 1 was sent out on 2025-12-01
 # Quarter 2 was sent out on 2026-01-15
 # Quarter 3 was sent out on 2026-03-10
-# Quarter 4 (end of season) on 2026-04-13
 
 projections <- read_csv("projections.csv") |> 
   mutate(win_proj_perc = win_projection / 82)
@@ -218,15 +217,8 @@ q3_standings <- read_rds("rds/standings_through_2026-03-09.rds") |>
   rename("Team" = "team_name") |> 
   mutate("Q3 Over/Under" = if_else(`Winning Pct` > win_proj_perc, "OVER", "UNDER"))
 
-q4_standings <- read_rds(paste0("rds/standings_through_", Sys.Date() - 1, ".rds")) |> 
-  select(team_name, conference, wins, losses, `Winning Pct`) |> 
-  inner_join(projections |> select(-win_projection), 
-             by = c("team_name" = "team", "conference")) |> 
-  rename("Team" = "team_name") |> 
-  mutate("Q4 Over/Under" = if_else(`Winning Pct` > win_proj_perc, "OVER", "UNDER"))
-
-# Compare Q1 to Q2 to Q3 to Q4
-q1_q2_q3_q4_compare <- q1_standings |>
+# Compare Q1 to Q2 to Q3
+q1_q2_q3_compare <- q1_standings |>
   select(Team, `Q1 Over/Under`) |>
   inner_join(
     q2_standings |> select(Team, `Q2 Over/Under`),
@@ -236,17 +228,12 @@ q1_q2_q3_q4_compare <- q1_standings |>
     q3_standings |> select(Team, `Q3 Over/Under`),
     by = "Team"
   ) |> 
-  inner_join(
-    q4_standings |> select(Team, `Q4 Over/Under`),
-    by = "Team"
-  ) |> 
   mutate(
     changed_q1_q2 = if_else(`Q1 Over/Under` == `Q2 Over/Under`, FALSE, TRUE),
     changed_q2_q3 = if_else(`Q2 Over/Under` == `Q3 Over/Under`, FALSE, TRUE),
-    changed_q3_q4 = if_else(`Q3 Over/Under` == `Q4 Over/Under`, FALSE, TRUE),
-    changed_q1_q4 = if_else(`Q1 Over/Under` == `Q4 Over/Under`, FALSE, TRUE)
+    changed_q1_q3 = if_else(`Q1 Over/Under` == `Q3 Over/Under`, FALSE, TRUE)
   ) |> 
-  arrange(desc(changed_q3_q4), desc(changed_q2_q3), desc(changed_q1_q2), Team)
+  arrange(desc(changed_q2_q3), desc(changed_q1_q2), Team)
 
 picks_signed_with_q_status <- picks_signed |>
   left_join(
@@ -256,8 +243,7 @@ picks_signed_with_q_status <- picks_signed |>
   mutate(choice = str_to_upper(choice)) |> 
   mutate(current_mismatch = if_else(choice == `Current Over/Under`, FALSE, TRUE)) |>
   left_join(
-    q1_q2_q3_q4_compare |> select(Team, `Q1 Over/Under`, `Q2 Over/Under`, 
-                                  `Q3 Over/Under`, `Q4 Over/Under`),
+    q1_q2_q3_compare |> select(Team, `Q1 Over/Under`, `Q2 Over/Under`, `Q3 Over/Under`),
     by = c("team" = "Team")
   ) |> 
   mutate(q1_mismatch = if_else(choice == `Q1 Over/Under`, FALSE, TRUE),
@@ -267,9 +253,6 @@ picks_signed_with_q_status <- picks_signed |>
   ) |> 
   mutate(q3_mismatch = if_else(choice == `Q3 Over/Under`, FALSE, TRUE),
          .after = `Q3 Over/Under`
-  ) |> 
-  mutate(q4_mismatch = if_else(choice == `Q4 Over/Under`, FALSE, TRUE),
-         .after = `Q4 Over/Under`
   ) |> 
   mutate(q1_signed = case_when(
     `Q1 Over/Under` == choice  ~ wage,
@@ -286,11 +269,6 @@ picks_signed_with_q_status <- picks_signed |>
     `Q3 Over/Under` != choice ~ -wage,
     TRUE                       ~ NA_real_
   ), .after = q3_mismatch) |> 
-  mutate(q4_signed = case_when(
-    `Q4 Over/Under` == choice  ~ wage,
-    `Q4 Over/Under` != choice ~ -wage,
-    TRUE                       ~ NA_real_
-  ), .after = q4_mismatch) |> 
   mutate(current_signed = case_when(
     `Current Over/Under` == choice  ~ wage,
     `Current Over/Under` != choice ~ -wage,
@@ -299,47 +277,22 @@ picks_signed_with_q_status <- picks_signed |>
   mutate(
     point_change_q1_to_q2 = q2_signed - q1_signed,
     point_change_q2_to_q3 = q3_signed - q2_signed,
-    point_change_q3_to_q4 = q4_signed - q3_signed,
-    point_change_q4_to_current = current_signed - q4_signed
+    point_change_q3_to_current = current_signed - q3_signed
   )
 
 point_total_progression <- picks_signed_with_q_status |> 
   group_by(player) |> 
-  summarize(
-    q1_score = sum(q1_signed),
-    num_q1_correct = sum(q1_mismatch == FALSE),
-    num_q1_15_correct = sum(q1_signed == 15, na.rm = TRUE),
-    num_q1_14_correct = sum(q1_signed == 14, na.rm = TRUE),
-    num_q1_13_correct = sum(q1_signed == 13, na.rm = TRUE),
-    num_q1_12_correct = sum(q1_signed == 12, na.rm = TRUE),
-    q2_score = sum(q2_signed),
-    num_q2_correct = sum(q2_mismatch == FALSE),
-    num_q2_15_correct = sum(q2_signed == 15, na.rm = TRUE),
-    num_q2_14_correct = sum(q2_signed == 14, na.rm = TRUE),
-    num_q2_13_correct = sum(q2_signed == 13, na.rm = TRUE),
-    num_q2_12_correct = sum(q2_signed == 12, na.rm = TRUE),
-    q3_score = sum(q3_signed),
-    num_q3_correct = sum(q3_mismatch == FALSE),
-    num_q3_15_correct = sum(q3_signed == 15, na.rm = TRUE),
-    num_q3_14_correct = sum(q3_signed == 14, na.rm = TRUE),
-    num_q3_13_correct = sum(q3_signed == 13, na.rm = TRUE),
-    num_q3_12_correct = sum(q3_signed == 12, na.rm = TRUE),
-    q4_score = sum(q4_signed),
-    num_q4_correct = sum(q4_mismatch == FALSE),
-    num_q4_15_correct = sum(q4_signed == 15, na.rm = TRUE),
-    num_q4_14_correct = sum(q4_signed == 14, na.rm = TRUE),
-    num_q4_13_correct = sum(q4_signed == 13, na.rm = TRUE),
-    num_q4_12_correct = sum(q4_signed == 12, na.rm = TRUE),
-    current_score = sum(current_signed),
-    num_current_correct = sum(current_mismatch == FALSE),
-    num_current_15_correct = sum(current_signed == 15, na.rm = TRUE),
-    num_current_14_correct = sum(current_signed == 14, na.rm = TRUE),
-    num_current_13_correct = sum(current_signed == 13, na.rm = TRUE),
-    num_current_12_correct = sum(current_signed == 12, na.rm = TRUE)
-  )
+  summarize(q1_score = sum(q1_signed),
+            num_q1_correct = sum(q1_mismatch == FALSE),
+            q2_score = sum(q2_signed),
+            num_q2_correct = sum(q2_mismatch == FALSE),
+            q3_score = sum(q3_signed),
+            num_q3_correct = sum(q3_mismatch == FALSE),
+            current_score = sum(current_signed),
+            num_current_correct = sum(current_mismatch == FALSE))
 
 # Count how changes in points happened per player based on
-# team changes from Q1 to Q2 to Q3 to Q4
+# team changes from Q1 to Q2 to Q3 to Current
 q2_changes <- picks_signed_with_q_status  |> 
   filter(point_change_q1_to_q2 != 0) |>
   select(team, player, point_change_q1_to_q2)
@@ -365,19 +318,6 @@ q3_changes_summary <- q3_changes |>
     num_teams_changed = n()
   ) |>
   arrange(desc(total_point_change_q2_to_q3), player)
-
-q4_changes <- picks_signed_with_q_status |>
-  filter(point_change_q3_to_q4 != 0) |>
-  select(team, player, point_change_q3_to_q4)
-
-# Overall changes from q3 to q4
-q4_changes_summary <- q4_changes |>
-  group_by(player) |>
-  summarize(
-    total_point_change_q3_to_q4 = sum(point_change_q3_to_q4),
-    num_teams_changed = n()
-  ) |>
-  arrange(desc(total_point_change_q3_to_q4), player)
 
 ## Faceted “lollipop” chart (great for per-team, per-player comparisons)
 
@@ -516,110 +456,25 @@ ggplot(
     strip.text = element_text(face = "bold")
   )
 
-## Q3 to Q4 lollipop chart
-
-q4_changes_ordered <- q4_changes %>%
-  group_by(team) %>%
-  mutate(team_avg = mean(point_change_q3_to_q4)) %>%
-  ungroup() %>%
-  mutate(team = reorder(team, team_avg))
-
-ggplot(
-  q4_changes_ordered,
-  aes(
-    x = point_change_q3_to_q4,
-    y = reorder(player, point_change_q3_to_q4)
-  )
-) +
-  # zero reference line
-  geom_vline(xintercept = 0, linewidth = 0.6, color = "grey70") +
-  
-  # lollipop stem
-  geom_segment(
-    aes(x = 0, xend = point_change_q3_to_q4, yend = player),
-    linewidth = 1.1,
-    color = "grey70"
-  ) +
-  
-  # lollipop head
-  geom_point(
-    aes(color = point_change_q3_to_q4 > 0),
-    size = 3
-  ) +
-  
-  # value labels with + sign
-  geom_text(
-    aes(
-      label = if_else(
-        point_change_q3_to_q4 > 0,
-        paste0("+", point_change_q3_to_q4),
-        as.character(point_change_q3_to_q4)
-      ),
-      hjust = if_else(point_change_q3_to_q4 > 0, -0.45, 1.45)
-    ),
-    size = 3.4
-  ) +
-  
-  facet_wrap(~ team, scales = "free_y") +
-  
-  scale_color_manual(
-    values = c("TRUE" = "forestgreen", "FALSE" = "firebrick"),
-    guide = "none"
-  ) +
-  
-  # extra space so labels do not clip
-  scale_x_continuous(
-    expand = expansion(mult = c(0.2, 0.25))
-  ) +
-  
-  labs(
-    title = "Player point change from Q3 to Q4 (End of Season) by team",
-    x = "\nPoint change (Q3 to Q4)",
-    y = NULL
-  ) +
-  
-  theme_minimal(base_size = 12) +
-  theme(
-    panel.grid.major.y = element_blank(),
-    strip.text = element_text(face = "bold")
-  )
-
 # Show how player rankings have changed in terms of total points
-# from Q1 to Q2 to Q3 to Q4 with rankings from 1 to 8
-# Tiebreaks: total points, # correct, # wage-15 correct, # wage-14, # wage-13, # wage-12
-
-# Helper: compute rank for a given quarter using tiebreak columns
-compute_quarter_rank <- function(df, prefix) {
-  score_col <- paste0(prefix, "_score")
-  correct_col <- paste0("num_", prefix, "_correct")
-  w15_col <- paste0("num_", prefix, "_15_correct")
-  w14_col <- paste0("num_", prefix, "_14_correct")
-  w13_col <- paste0("num_", prefix, "_13_correct")
-  w12_col <- paste0("num_", prefix, "_12_correct")
-  rank_col <- paste0("rank_", prefix)
-  
-  df |>
-    arrange(desc(.data[[score_col]]), desc(.data[[correct_col]]),
-            desc(.data[[w15_col]]), desc(.data[[w14_col]]),
-            desc(.data[[w13_col]]), desc(.data[[w12_col]])) |>
-    mutate(!!rank_col := row_number())
-}
-
+# from Q1 to Q2 to Q3 with rankings from 1 to 8
 point_total_progression_ranked <- point_total_progression |>
-  compute_quarter_rank("q1") |>
-  compute_quarter_rank("q2") |>
-  compute_quarter_rank("q3") |>
-  compute_quarter_rank("q4") |>
-  compute_quarter_rank("current") |>
+  mutate(
+    rank_q1 = min_rank(desc(q1_score)),
+    rank_q2 = min_rank(desc(q2_score)),
+    rank_q3 = min_rank(desc(q3_score)),
+    rank_current = min_rank(desc(current_score))
+  ) |>
   select(player, starts_with("rank_"), starts_with("q"), current_score) |>
+  mutate(rank_q1 = if_else(player == "Ryan", 6, rank_q1)) |> 
   arrange(rank_current)
 point_total_progression_ranked
 
-# Plot it: four-period slope chart (Q1 -> Q2 -> Q3 -> Q4)
+# Plot it: three-period slope chart (Q1 -> Q2 -> Q3)
 library(tidyverse)
 library(ggrepel)
 
-# Build a long-form segment data frame for Q1->Q2, Q2->Q3, and Q3->Q4
+# Build a long-form segment data frame for Q1->Q2 and Q2->Q3
 slope_segments <- point_total_progression_ranked %>%
   transmute(
     player,
@@ -631,14 +486,10 @@ slope_segments <- point_total_progression_ranked %>%
     x1_23 = "Q2", y1_23 = q2_score,
     x2_23 = "Q3", y2_23 = q3_score,
     change_23 = q3_score - q2_score,
-    # Q3 to Q4 segment
-    x1_34 = "Q3", y1_34 = q3_score,
-    x2_34 = "Q4", y2_34 = q4_score,
-    change_34 = q4_score - q3_score,
     # For labels
-    rank_q1, rank_q2, rank_q3, rank_q4,
-    q1_score, q2_score, q3_score, q4_score,
-    label = paste0(player, " (", rank_q1, " -> ", rank_q2, " -> ", rank_q3, " -> ", rank_q4, ")")
+    rank_q1, rank_q2, rank_q3,
+    q1_score, q2_score, q3_score,
+    label = paste0(player, " (", rank_q1, " -> ", rank_q2, " -> ", rank_q3, ")")
   )
 
 ggplot(slope_segments) +
@@ -656,17 +507,10 @@ ggplot(slope_segments) +
     linewidth = 1.0,
     show.legend = FALSE
   ) +
-  # Q3 -> Q4 segments (colored by that segment's change)
-  geom_segment(
-    aes(x = x1_34, y = y1_34, xend = x2_34, yend = y2_34, color = change_34),
-    arrow = arrow(length = unit(0.14, "inches")),
-    linewidth = 1.0,
-    show.legend = FALSE
-  ) +
   
   # Player labels (drawn first so connector lines sit underneath score bubbles)
   geom_text_repel(
-    aes(x = "Q4", y = q4_score, label = label),
+    aes(x = "Q3", y = q3_score, label = label),
     nudge_x = 0.15,
     hjust = 0,
     direction = "y",
@@ -689,8 +533,8 @@ ggplot(slope_segments) +
     label.padding = unit(0.14, "lines"),
     label.r = unit(0.2, "lines"),
     fill = "grey98",
-    alpha = 0.55,
-    color = "grey50",
+    alpha = 0.65,
+    color = "grey40",
     segment.color = "grey70",
     segment.size = 0.3,
     segment.alpha = 0.4,
@@ -708,25 +552,6 @@ ggplot(slope_segments) +
     label.padding = unit(0.18, "lines"),
     label.r = unit(0.2, "lines"),
     fill = "grey96",
-    alpha = 0.65,
-    color = "grey40",
-    segment.color = "grey70",
-    segment.size = 0.3,
-    segment.alpha = 0.4,
-    min.segment.length = 0,
-    box.padding = 0.15,
-    force = 2,
-    seed = 42
-  ) +
-  
-  # Q3 score bubble (repelled to avoid overlap)
-  geom_label_repel(
-    aes(x = "Q3", y = q3_score, label = q3_score),
-    direction = "y",
-    size = 2.4,
-    label.padding = unit(0.20, "lines"),
-    label.r = unit(0.2, "lines"),
-    fill = "grey96",
     alpha = 0.85,
     color = "grey30",
     segment.color = "grey70",
@@ -738,9 +563,9 @@ ggplot(slope_segments) +
     seed = 42
   ) +
   
-  # Q4 score bubble (most prominent, repelled to avoid overlap)
+  # Q3 score bubble (most prominent, repelled to avoid overlap)
   geom_label_repel(
-    aes(x = "Q4", y = q4_score, label = q4_score),
+    aes(x = "Q3", y = q3_score, label = q3_score),
     nudge_x = 0.03,
     direction = "y",
     size = 2.6,
@@ -763,12 +588,12 @@ ggplot(slope_segments) +
     midpoint = 0, name = "Score change"
   ) +
   scale_x_discrete(
-    limits = c("Q1", "Q2", "Q3", "Q4"),
-    expand = expansion(add = c(0.1, 0.75))
+    limits = c("Q1", "Q2", "Q3"),
+    expand = expansion(add = c(0.1, 0.65))
   ) +
   coord_cartesian(clip = "off") +
   labs(
-    title = "Score movement from Q1 to Q4 (rank progression shown in labels)",
+    title = "Score movement from Q1 to Q2 to Q3 (rank progression shown in labels)",
     x = NULL,
     y = "Score"
   ) +

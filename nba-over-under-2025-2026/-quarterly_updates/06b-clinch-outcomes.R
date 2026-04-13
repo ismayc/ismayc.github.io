@@ -2,7 +2,7 @@
 # 6b. FACETED STEP CHART -- one panel per player
 # =========================================================================
 
-source("06-season-progression-plots.R")
+source("-quarterly_updates/06-season-progression-plots.R")
 
 clinch_cumulative_simple <- clinch_impact %>%
   arrange(clinch_date) %>%
