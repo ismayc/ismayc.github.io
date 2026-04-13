@@ -172,7 +172,7 @@ player_projections_by_team <- player_projections_by_team %>%
     .before = `Current Projected Points`
   ) %>%
   mutate(`Outcome Determined` = factor(case_when(
-    `Winning % In Remaining Games Needed` <= 0 ~ "OVER",
+    `Wins To Go Over Vegas` <= 0 ~ "OVER",
     `Winning % In Remaining Games Needed` > 100 ~ "UNDER",
     TRUE ~ "not yet"
   ), levels = c("not yet", "OVER", "UNDER")
