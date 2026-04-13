@@ -1188,11 +1188,17 @@ clinch_summary <- clinch_summary %>%
 
 # Merge clinching info into seeded_standings, replacing the seed_note
 # when a team has clinched or been eliminated
+
+# When the season is complete, every seed is final -- use seeded_standings directly
+season_complete <- all(clinch_data$remaining == 0)
+
 seeded_standings <- seeded_standings %>%
   left_join(clinch_summary, by = "team_name") %>%
   mutate(seed_note = case_when(
-    !is.na(clinch_status) ~ clinch_status,
-    TRUE                  ~ seed_note
+    season_complete & seed <= 10 ~ paste0("Clinched #", seed),
+    season_complete & seed > 10  ~ "e - Eliminated",
+    !is.na(clinch_status)        ~ clinch_status,
+    TRUE                         ~ seed_note
   )) %>%
   select(-clinch_status)
 ```
