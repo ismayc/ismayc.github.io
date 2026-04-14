@@ -109,7 +109,7 @@
           <div style="font-size:19px;color:rgba(255,255,255,1);line-height:1.6;margin-bottom:16px;">Congratulations on making the playoffs!</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;" id="player-badges"></div>
         </div>
-        <div style="font-size:16px;color:rgba(255,255,255,0.4);">Tap through to learn the draft rules</div>
+        <div style="font-size:16px;color:rgba(255,255,255,0.4);">Tap through to learn the draft rules, see an example draft, and review the NBA Playoff teams for this season.</div>
       </div>
     </div>
 
@@ -119,7 +119,7 @@
         <h2 class="title" style="font-size:24px;margin-bottom:6px;">THE GROUPS</h2>
         <p class="subtitle" style="margin-bottom:16px;">The winner of each group reaches the conference finals</p>
         <div style="display:flex;flex-direction:column;gap:12px;" id="groups-container"></div>
-        <p style="font-size:15px;color:rgba(255,255,255,0.4);text-align:center;margin-top:14px;line-height:1.5;">7 seeds TBD (play-in games this week)<br>8 seeds TBD during draft night</p>
+        <p style="font-size:15px;color:rgba(255,255,255,0.4);text-align:center;margin-top:14px;line-height:1.5;">7 seeds will be updated Thursday after Tuesday/Wednesday play-in games<br>8 seeds TBD during draft night (play-in game happening then)</p>
       </div>
     </div>
 
@@ -170,7 +170,7 @@
       <div style="padding:12px 16px;">
         <h2 class="title" style="font-size:24px;margin-bottom:6px;">THE PASS RULE</h2>
         <p class="subtitle" style="margin-bottom:4px;">Tap through examples to see how it works</p>
-        <p style="font-size:11px;color:rgba(255,255,255,0.5);text-align:center;margin-bottom:12px;">Examples use teams from the 2011 NBA Playoffs to avoid influencing this year's picks</p>
+        <p style="font-size:13px;color:rgba(255,255,255,0.65);text-align:center;margin-bottom:12px;">Start with the 2011 example bracket, then tap through scenarios</p>
         <div class="ex-tabs" id="ex-tabs"></div>
         <div id="ex-text-box" class="card" style="margin-bottom:10px;min-height:110px;"></div>
         <div class="player-grid" id="ex-player-grid"></div>
@@ -193,8 +193,8 @@
         <div class="card" style="margin-bottom:16px;">
           <div class="oswald" style="font-size:13px;letter-spacing:2px;color:#F4A32E;margin-bottom:10px;">EXAMPLE</div>
           <div style="font-size:17px;color:rgba(255,255,255,0.97);line-height:1.7;">
-            In the examples, Jake was forced to use his <strong style="color:#fff;">#3 pick</strong> in Round 1 and <strong style="color:#fff;">#2 pick</strong> in Round 2 when other players passed to him.
-            <br><br>When Round 3 arrives and Jake is at pick position #2, he <strong style="color:#E8433E;">cannot use it</strong> because it's already spent. He passes, higher-seeded players fill in the remaining slots, and Jake ends up with the last team.
+            In the examples, Jake was forced to use his <strong style="color:#fff;">#2 pick</strong> in Round 1 (chain of passes) and voluntarily used his <strong style="color:#fff;">#3 pick</strong> in Round 2 to lock in a team.
+            <br><br>When Round 3 arrives and Jake is at position #2, he <strong style="color:#E8433E;">cannot use it</strong> because it's already spent. He passes, Phil jumps ahead and grabs a better team, and Jake ends up last.
           </div>
         </div>
         <div style="background:rgba(69,183,100,0.08);border:1px solid rgba(69,183,100,0.2);border-radius:14px;padding:16px 18px;">
@@ -284,43 +284,47 @@ const EX_GROUPS={
   D:{name:"D",color:"#45B764",teams:["Heat","Celtics","Knicks","East #7"]},
 };
 const EXAMPLES=[
-  { title:"Simple Pass",group:"B",color:"#2D7DD2",groupTeams:EX_GROUPS.B.teams,priorBoard:null,
+  { title:"2011 Bracket",group:"—",color:"#F4A32E",groupTeams:null,priorBoard:null,
     steps:[
-      {text:"Round 1 begins. Phil has the first pick, which means he chooses the group. Phil declares Group B and takes the Bulls.",highlight:"Phil chooses Group B",visual:{phil:"🏀 Bulls",andy:"...",ryan:"...",jake:"..."}},
-      {text:"Since Phil chose Group B, everyone must draft from Group B this round. Andy picks the Magic at #2.",highlight:"Andy picks Magic",visual:{phil:"🏀 Bulls",andy:"🏀 Magic",ryan:"🤔 ?",jake:"..."}},
-      {text:"Ryan is up at #3. He'd rather save his #3 pick for a later round. Jake (#4 seed) is still unpicked and ranked below him, so Ryan is allowed to pass.",highlight:"Ryan passes!",visual:{phil:"🏀 Bulls",andy:"🏀 Magic",ryan:"⏭️ PASS",jake:"🤔 ?"}},
-      {text:"Jake is the lowest ranked player remaining. He must pick. Jake takes the Hawks at #3.",highlight:"Jake must pick!",visual:{phil:"🏀 Bulls",andy:"🏀 Magic",ryan:"⏭️ PASS",jake:"🏀 Hawks"}},
-      {text:"Ryan gets the East #8 at #4. By passing, Ryan used #4 this round instead of #3, keeping #3 available for a future round.",highlight:"Ryan saves his #3",visual:{phil:"🏀 Bulls",andy:"🏀 Magic",ryan:"🏀 East #8",jake:"🏀 Hawks"}},
+      {text:"To show the power of the pass without biasing this year's picks, these examples use the 2011 NBA Playoffs. The 8 seeds are placeholders (those play-in games happen during draft night). The 7 seeds will be updated Thursday -- both here and in the actual draft groups -- once they're determined by Tuesday and Wednesday night's play-in games.",highlight:"Why 2011 teams?",showGroups:true,visual:{phil:"",andy:"",ryan:"",jake:""}},
+      {text:"Key rule: The \"lowest ranked player\" who cannot pass is whoever holds the #4 pick slot IN THAT ROUND -- not the overall lowest seed. This rotates every round.",highlight:"Who is \"lowest\" each round?",visual:{phil:"Rd1: #1 · Rd2: #4 (lowest)",andy:"Rd1: #2 · Rd2: #1",ryan:"Rd1: #3 · Rd2: #2",jake:"Rd1: #4 (lowest) · Rd2: #3"}},
     ]},
-  { title:"Chain of Passes",group:"A",color:"#E8433E",groupTeams:EX_GROUPS.A.teams,
-    priorBoard:{phil:[{g:"B",t:"Bulls",p:1}],andy:[{g:"B",t:"Magic",p:2}],ryan:[{g:"B",t:"East #8",p:4}],jake:[{g:"B",t:"Hawks",p:3}]},
+  { title:"Chain of Passes",group:"B",color:"#2D7DD2",groupTeams:EX_GROUPS.B.teams,priorBoard:null,roundSlots:{phil:1,andy:2,ryan:3,jake:4},
     steps:[
-      {text:"Round 2. Pick order: Andy (#1), Ryan (#2), Jake (#3), Phil (#4). Andy declares Group A and takes the Spurs.",highlight:"Andy chooses Group A",visual:{andy:"🏀 Spurs",ryan:"...",jake:"...",phil:"..."}},
-      {text:"Ryan is at #2. He wants to save this pick for later. Jake (#4 seed) is still ranked below him, so Ryan passes.",highlight:"Ryan passes at #2!",visual:{andy:"🏀 Spurs",ryan:"⏭️ PASS",jake:"🤔 ?",phil:"..."}},
-      {text:"Jake is the lowest ranked player remaining. He must pick at #2. Jake takes the Thunder.",highlight:"Jake forced to pick #2!",visual:{andy:"🏀 Spurs",ryan:"⏭️ PASS",jake:"🏀 Thunder",phil:"..."}},
-      {text:"Position #3: Ryan and Phil are still unpicked. Phil (#1 seed) is not the lowest remaining -- Ryan (#3 seed) is. Phil can pass.",highlight:"Phil passes at #3!",visual:{andy:"🏀 Spurs",jake:"🏀 Thunder",phil:"⏭️ PASS",ryan:"🤔 ?"}},
-      {text:"Ryan is now the lowest remaining player. He must pick. Ryan takes the Nuggets at #3.",highlight:"Ryan forced to pick #3!",visual:{andy:"🏀 Spurs",jake:"🏀 Thunder",ryan:"🏀 Nuggets",phil:"🤔 ?"}},
-      {text:"Phil gets the West #8 at #4. Multiple passes this round! Jake was forced to use #2, Ryan was forced to use #3, and Phil ended up at #4.",highlight:"Round 2 complete",visual:{andy:"🏀 Spurs",jake:"🏀 Thunder",ryan:"🏀 Nuggets",phil:"🏀 West #8"}},
+      {text:"Round 1 begins. Pick order: Phil (#1), Andy (#2), Ryan (#3), Jake (#4). Jake is the lowest ranked this round since he\'s in the #4 slot. Phil declares Group B and takes the Bulls.",highlight:"Phil chooses Group B",visual:{phil:"🏀 Bulls",andy:"...",ryan:"...",jake:"..."}},
+      {text:"Position #2: Andy could pick, but wants to save his #2 for later. He passes to Ryan.",highlight:"Andy passes at #2!",visual:{phil:"🏀 Bulls",andy:"⏭️ PASS",ryan:"🤔 ?",jake:"..."}},
+      {text:"Ryan also wants to save his pick. He passes to Jake.",highlight:"Ryan passes at #2!",visual:{phil:"🏀 Bulls",andy:"⏭️ PASS",ryan:"⏭️ PASS",jake:"🤔 ?"}},
+      {text:"Jake is the #4 slot this round -- the lowest ranked. He MUST pick. Jake takes the Magic at position #2.",highlight:"Jake forced at #2!",visual:{phil:"🏀 Bulls",andy:"⏭️ PASS",ryan:"⏭️ PASS",jake:"🏀 Magic"}},
+      {text:"Position #3: Andy is the next unpicked player. He could pick or pass to Ryan. Andy passes again!",highlight:"Andy passes at #3!",visual:{phil:"🏀 Bulls",andy:"⏭️ PASS",ryan:"🤔 ?",jake:"🏀 Magic"}},
+      {text:"Ryan is now the lowest remaining unpicked player. He must pick. Ryan takes the Hawks at #3.",highlight:"Ryan forced at #3!",visual:{phil:"🏀 Bulls",andy:"⏭️ PASS",ryan:"🏀 Hawks",jake:"🏀 Magic"}},
+      {text:"Andy gets the East #8 at #4. Three passes at position #2 and another at #3! Jake was forced to use his #2, Ryan his #3, and Andy ended up at #4.",highlight:"Round 1 complete",visual:{phil:"🏀 Bulls",andy:"🏀 East #8",ryan:"🏀 Hawks",jake:"🏀 Magic"}},
     ]},
-  { title:"The Lost Pick",group:"C",color:"#F4A32E",groupTeams:EX_GROUPS.C.teams,
-    priorBoard:{phil:[{g:"B",t:"Bulls",p:1},{g:"A",t:"West #8",p:4}],andy:[{g:"B",t:"Magic",p:2},{g:"A",t:"Spurs",p:1}],ryan:[{g:"B",t:"East #8",p:4},{g:"A",t:"Nuggets",p:3}],jake:[{g:"B",t:"Hawks",p:3},{g:"A",t:"Thunder",p:2}]},
+  { title:"Picking Smart",group:"A",color:"#E8433E",groupTeams:EX_GROUPS.A.teams,roundSlots:{andy:1,ryan:2,jake:3,phil:4},
+    priorBoard:{phil:[{g:"B",t:"Bulls",p:1}],andy:[{g:"B",t:"East #8",p:4}],ryan:[{g:"B",t:"Hawks",p:3}],jake:[{g:"B",t:"Magic",p:2}]},
     steps:[
-      {text:"Now for Round 3. After Rounds 1 and 2, Jake has used pick positions #3 (forced in Round 1) and #2 (forced in Round 2). He only has #1 and #4 left.",highlight:"Jake's pick history",visual:{jake:"Picks used: #3, #2",phil:"Picks used: #1, #4",andy:"Picks used: #2, #1",ryan:"Picks used: #4, #3"}},
-      {text:"Round 3 order: Ryan (#1), Jake (#2), Phil (#3), Andy (#4). Ryan declares Group C and takes the Lakers.",highlight:"Ryan chooses Group C",visual:{ryan:"🏀 Lakers",jake:"🤔 ?",phil:"...",andy:"..."}},
-      {text:"Position #2: Following the seed order among unpicked players, Jake (#4 seed) is up. But he already used #2 in Round 2! He MUST pass.",highlight:"Jake can't use #2!",visual:{ryan:"🏀 Lakers",jake:"❌ USED #2 IN RD2",phil:"🤔 ?",andy:"..."}},
-      {text:"Continuing in seed order, Phil (#1 seed) is next. Phil has #2 available and takes the Mavericks.",highlight:"Phil picks Mavericks",visual:{ryan:"🏀 Lakers",jake:"❌ USED #2 IN RD2",phil:"🏀 Mavericks",andy:"..."}},
-      {text:"Position #3: Next unpicked in seed order is Andy (#2 seed). Andy has #3 available and takes the Blazers. Jake is never even offered #3.",highlight:"Andy picks Blazers",visual:{ryan:"🏀 Lakers",phil:"🏀 Mavericks",andy:"🏀 Blazers",jake:"🤔 ?"}},
-      {text:"Jake is last and gets the West #7 at #4. Because his #2 pick was spent in Round 2, Jake had to pass and lost his shot at a better team.",highlight:"Jake stuck at #4",visual:{ryan:"🏀 Lakers",phil:"🏀 Mavericks",andy:"🏀 Blazers",jake:"🏀 West #7"}},
-      {text:"The lesson: being forced into earlier pick positions in Rounds 1 and 2 limits your options later. Jake had to pass at #2 and ended up with the last team. The lowest seed carries the most risk from other players' passes.",highlight:"Early picks have consequences",visual:{ryan:"🏀 Lakers",phil:"🏀 Mavericks",andy:"🏀 Blazers",jake:"🏀 West #7"}},
+      {text:"Round 2. Pick order: Andy (#1), Ryan (#2), Jake (#3), Phil (#4). Important: Phil is now the lowest ranked player this round (he\'s in the #4 slot). Andy declares Group A and takes the Spurs.",highlight:"Andy chooses Group A",visual:{andy:"🏀 Spurs",ryan:"...",jake:"...",phil:"..."}},
+      {text:"Ryan is at #2. He could pass -- both Jake (#3) and Phil (#4) are below him. But Ryan really wants the Thunder and doesn\'t want to risk it. He picks.",highlight:"Ryan picks Thunder",visual:{andy:"🏀 Spurs",ryan:"🏀 Thunder",jake:"🤔 ?",phil:"..."}},
+      {text:"Jake is at #3. He could pass since Phil (#4) is below him. But Jake wants the Nuggets locked in. He picks.",highlight:"Jake picks Nuggets",visual:{andy:"🏀 Spurs",ryan:"🏀 Thunder",jake:"🏀 Nuggets",phil:"🤔 ?"}},
+      {text:"Phil gets the West #8 at #4. A clean round! But notice: Jake has now used positions #2 (forced in Round 1) and #3 (his choice just now). In Round 3, Jake is slotted at #2. See the problem?",highlight:"Round 2 complete",visual:{andy:"🏀 Spurs",ryan:"🏀 Thunder",jake:"🏀 Nuggets",phil:"🏀 West #8"}},
     ]},
-  { title:"Picking Smart",group:"D",color:"#45B764",groupTeams:EX_GROUPS.D.teams,
-    priorBoard:{phil:[{g:"B",t:"Bulls",p:1},{g:"A",t:"West #8",p:4},{g:"C",t:"Mavs",p:2}],andy:[{g:"B",t:"Magic",p:2},{g:"A",t:"Spurs",p:1},{g:"C",t:"Blazers",p:3}],ryan:[{g:"B",t:"East #8",p:4},{g:"A",t:"Nuggets",p:3},{g:"C",t:"Lakers",p:1}],jake:[{g:"B",t:"Hawks",p:3},{g:"A",t:"Thunder",p:2},{g:"C",t:"West #7",p:4}]},
+  { title:"The Lost Pick",group:"C",color:"#F4A32E",groupTeams:EX_GROUPS.C.teams,roundSlots:{ryan:1,jake:2,phil:3,andy:4},
+    priorBoard:{phil:[{g:"B",t:"Bulls",p:1},{g:"A",t:"West #8",p:4}],andy:[{g:"B",t:"East #8",p:4},{g:"A",t:"Spurs",p:1}],ryan:[{g:"B",t:"Hawks",p:3},{g:"A",t:"Thunder",p:2}],jake:[{g:"B",t:"Magic",p:2},{g:"A",t:"Nuggets",p:3}]},
     steps:[
-      {text:"Final round! Jake has used picks #3, #2, and #4 -- he only has #1 left. And in Round 4, Jake IS the #1 pick. After three rounds of being forced into bad spots, Jake finally gets first choice.",highlight:"Jake's redemption",visual:{jake:"Picks left: #1 only",phil:"Picks left: #3 only",andy:"Picks left: #4 only",ryan:"Picks left: #2 only"}},
-      {text:"Jake declares Group D and takes the Heat -- the team he wanted most. Sometimes the best strategy is knowing which round gives you the most leverage and planning around it.",highlight:"Jake chooses Group D",visual:{jake:"🏀 Heat",phil:"...",andy:"...",ryan:"..."}},
-      {text:"With everyone down to their last pick, the rest fills in automatically. Ryan takes the Celtics at #2, Phil takes the Knicks at #3, and Andy takes the East #7 at #4.",highlight:"Draft complete!",visual:{jake:"🏀 Heat",ryan:"🏀 Celtics",phil:"🏀 Knicks",andy:"🏀 East #7"}},
-      {text:"Here are the final results across all four rounds. Every player has one team from each group. The two players whose teams go furthest in the NBA playoffs advance to the O/U Finals!",highlight:"Final draft board",visual:{phil:"4 teams",andy:"4 teams",ryan:"4 teams",jake:"4 teams"},
-        finalBoard:{phil:[{g:"B",t:"Bulls",p:1},{g:"A",t:"West #8",p:4},{g:"C",t:"Mavs",p:2},{g:"D",t:"Knicks",p:3}],andy:[{g:"B",t:"Magic",p:2},{g:"A",t:"Spurs",p:1},{g:"C",t:"Blazers",p:3},{g:"D",t:"East #7",p:4}],ryan:[{g:"B",t:"East #8",p:4},{g:"A",t:"Nuggets",p:3},{g:"C",t:"Lakers",p:1},{g:"D",t:"Celtics",p:2}],jake:[{g:"B",t:"Hawks",p:3},{g:"A",t:"Thunder",p:2},{g:"C",t:"West #7",p:4},{g:"D",t:"Heat",p:1}]}},
+      {text:"Round 3. Pick order: Ryan (#1), Jake (#2), Phil (#3), Andy (#4). Andy is the lowest this round. Jake has used picks #2 (forced, Rd1) and #3 (voluntary, Rd2). He only has #1 and #4 left.",highlight:"Jake\'s pick history",visual:{jake:"Used: #2, #3",phil:"Used: #1, #4",andy:"Used: #4, #1",ryan:"Used: #3, #2"}},
+      {text:"Ryan declares Group C and takes the Lakers at #1.",highlight:"Ryan chooses Group C",visual:{ryan:"🏀 Lakers",jake:"🤔 ?",phil:"...",andy:"..."}},
+      {text:"Position #2: Jake is up. But he used #2 in Round 1 (forced by the chain of passes). He MUST pass.",highlight:"Jake can\'t use #2!",visual:{ryan:"🏀 Lakers",jake:"❌ USED #2 IN RD1",phil:"🤔 ?",andy:"..."}},
+      {text:"Phil (#3 in this round) is next in the round order. Phil has #2 available and takes the Mavericks.",highlight:"Phil picks Mavericks",visual:{ryan:"🏀 Lakers",jake:"❌ USED #2 IN RD1",phil:"🏀 Mavericks",andy:"..."}},
+      {text:"Position #3: Phil (assigned) already picked. Continuing in round order, Andy (#4) is next. Andy has #3 available and takes the Blazers.",highlight:"Andy picks Blazers",visual:{ryan:"🏀 Lakers",phil:"🏀 Mavericks",andy:"🏀 Blazers",jake:"🤔 ?"}},
+      {text:"Jake is the only one left and gets the West #7 at #4. Because Jake\'s #2 was spent in Round 1, Phil jumped ahead of him and grabbed the Mavericks. Jake ended up last.",highlight:"Jake stuck at #4",visual:{ryan:"🏀 Lakers",phil:"🏀 Mavericks",andy:"🏀 Blazers",jake:"🏀 West #7"}},
+    ]},
+  { title:"The Payoff",group:"D",color:"#45B764",groupTeams:EX_GROUPS.D.teams,roundSlots:{jake:1,phil:2,andy:3,ryan:4},
+    priorBoard:{phil:[{g:"B",t:"Bulls",p:1},{g:"A",t:"West #8",p:4},{g:"C",t:"Mavs",p:2}],andy:[{g:"B",t:"East #8",p:4},{g:"A",t:"Spurs",p:1},{g:"C",t:"Blazers",p:3}],ryan:[{g:"B",t:"Hawks",p:3},{g:"A",t:"Thunder",p:2},{g:"C",t:"Lakers",p:1}],jake:[{g:"B",t:"Magic",p:2},{g:"A",t:"Nuggets",p:3},{g:"C",t:"West #7",p:4}]},
+    steps:[
+      {text:"Final round! Pick order: Jake (#1), Phil (#2), Andy (#3), Ryan (#4). Ryan is lowest this round. Jake finally has the #1 pick -- his only one left.",highlight:"Jake\'s redemption",visual:{jake:"Pick left: #1 only",phil:"Pick left: #3 only",andy:"Pick left: #2 only",ryan:"Pick left: #4 only"}},
+      {text:"Jake declares Group D and takes the Heat -- the team he wanted most. After three rounds of getting squeezed, the #4 seed gets first choice.",highlight:"Jake chooses Group D",visual:{jake:"🏀 Heat",phil:"...",andy:"...",ryan:"..."}},
+      {text:"The rest sorts out: Phil passes at #2 (needs #3), Andy picks the Celtics at #2, Phil picks the Knicks at #3, and Ryan gets the East #7 at #4.",highlight:"Draft complete!",visual:{jake:"🏀 Heat",andy:"🏀 Celtics",phil:"🏀 Knicks",ryan:"🏀 East #7"}},
+      {text:"Here are the complete results across all four rounds. Each player has one team from each group. The two players whose teams go furthest advance to the O/U Finals!",highlight:"Final draft board",visual:{phil:"4 teams",andy:"4 teams",ryan:"4 teams",jake:"4 teams"},
+        finalBoard:{phil:[{g:"B",t:"Bulls",p:1},{g:"A",t:"West #8",p:4},{g:"C",t:"Mavs",p:2},{g:"D",t:"Knicks",p:3}],andy:[{g:"B",t:"East #8",p:4},{g:"A",t:"Spurs",p:1},{g:"C",t:"Blazers",p:3},{g:"D",t:"Celtics",p:2}],ryan:[{g:"B",t:"Hawks",p:3},{g:"A",t:"Thunder",p:2},{g:"C",t:"Lakers",p:1},{g:"D",t:"East #7",p:4}],jake:[{g:"B",t:"Magic",p:2},{g:"A",t:"Nuggets",p:3},{g:"C",t:"West #7",p:4},{g:"D",t:"Heat",p:1}]}},
     ]},
 ];
 
@@ -531,15 +535,30 @@ function renderExample(){
   const ex=EXAMPLES[activeEx],s=ex.steps[exStep];
   const tb=document.getElementById('ex-text-box');
   tb.style.borderColor=ex.color+'22';
-  tb.innerHTML=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;"><div class="oswald" style="font-size:11px;letter-spacing:2px;color:${ex.color};background:${ex.color}18;padding:3px 8px;border-radius:4px;">GROUP ${ex.group}</div><div class="oswald" style="font-size:13px;letter-spacing:2px;color:${ex.color};">${s.highlight.toUpperCase()}</div></div><div style="font-size:17px;color:rgba(255,255,255,1);line-height:1.6;">${s.text}</div>`;
+  const groupBadge=ex.group==='—'?'':`<div class="oswald" style="font-size:11px;letter-spacing:2px;color:${ex.color};background:${ex.color}18;padding:3px 8px;border-radius:4px;">GROUP ${ex.group}</div>`;
+  tb.innerHTML=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">${groupBadge}<div class="oswald" style="font-size:13px;letter-spacing:2px;color:${ex.color};">${s.highlight.toUpperCase()}</div></div><div style="font-size:17px;color:rgba(255,255,255,1);line-height:1.6;">${s.text}</div>`;
   const pg=document.getElementById('ex-player-grid');pg.innerHTML='';
-  PLAYERS.forEach(p=>{
-    const v=s.visual[p.name.toLowerCase()]||'...';
-    const pick=v.includes('🏀'),pass=v.includes('PASS'),think=v.includes('🤔'),block=v.includes('❌');
-    let cls='player-card';if(think)cls+=' thinking';else if(pick)cls+=' picked';else if(pass)cls+=' passed';else if(block)cls+=' blocked';
-    let vc='rgba(255,255,255,0.4)';if(block)vc='#E8433E';else if(pass)vc='rgba(232,67,62,0.8)';else if(pick)vc='#45B764';
-    pg.innerHTML+=`<div class="${cls}"><div class="oswald" style="font-size:15px;font-weight:600;margin-bottom:4px;">${p.emoji} ${p.name}</div><div style="font-size:15px;color:${vc};font-weight:${pick||block?600:400};">${v}</div></div>`;
-  });
+  if(s.showGroups){
+    const exg=[EX_GROUPS.A,EX_GROUPS.B,EX_GROUPS.C,EX_GROUPS.D];
+    exg.forEach(g=>{
+      const chips=g.teams.map(t=>{
+        const ph=t.includes('#');
+        return `<span style="font-size:13px;font-weight:600;padding:3px 8px;border-radius:6px;display:inline-block;margin:2px;${ph?'background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.6);font-style:italic;border:1px dashed rgba(255,255,255,0.2);':'background:rgba(255,255,255,0.1);color:#fff;'}">${t}</span>`;
+      }).join('');
+      pg.innerHTML+=`<div style="border-radius:12px;padding:12px;border-left:3px solid ${g.color};background:rgba(255,255,255,0.04);"><div class="oswald" style="font-size:13px;font-weight:600;letter-spacing:2px;color:${g.color};margin-bottom:6px;">GROUP ${g.name}</div><div style="display:flex;flex-wrap:wrap;gap:2px;">${chips}</div></div>`;
+    });
+  } else {
+    const slots=ex.roundSlots||{};
+    PLAYERS.forEach(p=>{
+      const v=s.visual[p.name.toLowerCase()]||'...';
+      const pick=v.includes('🏀'),pass=v.includes('PASS'),think=v.includes('🤔'),block=v.includes('❌');
+      let cls='player-card';if(think)cls+=' thinking';else if(pick)cls+=' picked';else if(pass)cls+=' passed';else if(block)cls+=' blocked';
+      let vc='rgba(255,255,255,0.4)';if(block)vc='#E8433E';else if(pass)vc='rgba(232,67,62,0.8)';else if(pick)vc='#45B764';
+      const slot=slots[p.name.toLowerCase()];
+      const slotLabel=slot?` <span style="opacity:0.55;font-size:12px;">#${slot}${slot===4?' lowest':''}</span>`:'';
+      pg.innerHTML+=`<div class="${cls}"><div class="oswald" style="font-size:15px;font-weight:600;margin-bottom:4px;">${p.emoji} ${p.name}${slotLabel}</div><div style="font-size:15px;color:${vc};font-weight:${pick||block?600:400};">${v}</div></div>`;
+    });
+  }
 
   // Draft board
   const bd=document.getElementById('ex-board');
