@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects</title>
+<style>
+  /* ── Reset ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ── Tokens ── */
+  :root {
+    --bg:           #F5F3EE;
+    --surface:      #FFFFFF;
+    --ink:          #1A1D24;
+    --ink2:         #555B6A;
+    --ink3:         #9198A8;
+    --teal:         #0C6B57;
+    --teal-light:   #DCF0EA;
+    --teal-mid:     #23A882;
+    --border:       rgba(26,29,36,.09);
+    --border2:      rgba(26,29,36,.16);
+    --r:            10px;
+    --shadow:       0 1px 2px rgba(0,0,0,.05), 0 3px 12px rgba(0,0,0,.04);
+    --shadow2:      0 2px 6px rgba(0,0,0,.07), 0 8px 24px rgba(0,0,0,.06);
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font: 300 15px/1.65 'DM Sans', system-ui, sans-serif;
+    min-height: 100vh;
+  }
+
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Lora:wght@400;600&display=swap');
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ── Page shell ── */
+  .page { max-width: 1040px; margin: 0 auto; padding: 0 clamp(1.25rem,4vw,3rem); }
+
+  /* ── Header ── */
+  header { border-bottom: 1px solid var(--border); padding: 0; }
+  .hdr { display: flex; align-items: center; height: 56px; gap: 2rem; }
+  .hdr-title {
+    font: 600 1.0rem/1 'Lora', Georgia, serif;
+    letter-spacing: -.01em;
+    color: var(--ink);
+    margin-right: auto;
+  }
+  .hdr-title em { color: var(--teal); font-style: normal; }
+
+  /* ── Hero ── */
+  .hero { padding: clamp(2.5rem,6vw,4rem) 0 clamp(1.5rem,4vw,2.5rem); }
+  .eyebrow {
+    font: 500 .7rem/.9 'DM Sans', sans-serif;
+    letter-spacing: .11em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: .875rem;
+  }
+  h1 {
+    font: 400 clamp(2rem,4.5vw,2.9rem)/1.12 'Lora', Georgia, serif;
+    letter-spacing: -.025em;
+    color: var(--ink);
+    max-width: 540px;
+    margin-bottom: 1rem;
+  }
+  .hero-sub { font-size: .975rem; color: var(--ink2); max-width: 480px; }
+
+  /* ── Filter bar ── */
+  .filters { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; padding-bottom: 1.75rem; }
+  .chip {
+    font: 400 .78rem/1 'DM Sans', sans-serif;
+    padding: 5px 13px;
+    border-radius: 999px;
+    border: 1px solid var(--border2);
+    background: transparent;
+    color: var(--ink2);
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .chip:hover { background: var(--surface); color: var(--ink); }
+  .chip.on { background: var(--teal); border-color: var(--teal); color: #fff; font-weight: 500; }
+  .chip-count { margin-left: auto; font-size: .78rem; color: var(--ink3); }
+
+  /* ── Section ── */
+  .section { margin-bottom: 3rem; }
+  .section-hdr {
+    display: flex; align-items: center; gap: .625rem;
+    font: 500 .7rem/1 'DM Sans', sans-serif;
+    letter-spacing: .1em; text-transform: uppercase;
+    color: var(--ink3);
+    padding-bottom: .625rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 1.25rem;
+  }
+  .section-pip { width: 20px; height: 2px; background: var(--teal-mid); border-radius: 2px; flex-shrink: 0; }
+
+  /* ── Grid ── */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 1.1rem; }
+
+  /* ── Card ── */
+  .card {
+    display: flex; flex-direction: column; gap: .5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 1.375rem 1.5rem 1.25rem;
+    box-shadow: var(--shadow);
+    transition: box-shadow .18s, transform .18s, border-color .18s;
+    position: relative; overflow: hidden;
+    text-decoration: none;
+  }
+  .card::after {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2.5px;
+    background: var(--teal-mid);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .2s ease;
+  }
+  .card:hover {
+    box-shadow: var(--shadow2);
+    transform: translateY(-2px);
+    border-color: var(--border2);
+  }
+  .card:hover::after { transform: scaleX(1); }
+
+  .card-tag {
+    font: 500 .68rem/1 'DM Sans', sans-serif;
+    letter-spacing: .07em; text-transform: uppercase;
+    color: var(--teal);
+    background: var(--teal-light);
+    padding: 3px 8px; border-radius: 5px;
+    width: fit-content;
+  }
+  .card-title {
+    font: 600 1rem/1.3 'Lora', Georgia, serif;
+    color: var(--ink);
+  }
+  .card-desc { font-size: .855rem; color: var(--ink2); line-height: 1.65; flex-grow: 1; }
+  .card-foot {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: .625rem; border-top: 1px solid var(--border);
+    margin-top: auto;
+  }
+  .card-file { font: 400 .7rem/1 'Courier New', monospace; color: var(--ink3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 170px; }
+  .card-arrow {
+    font: 500 .78rem/1 'DM Sans', sans-serif;
+    color: var(--teal);
+    display: flex; align-items: center; gap: 3px;
+    flex-shrink: 0; transition: gap .15s;
+  }
+  .card:hover .card-arrow { gap: 6px; }
+  .arrow-icon { width: 12px; height: 12px; flex-shrink: 0; }
+
+  /* ── Footer ── */
+  footer { border-top: 1px solid var(--border); padding: 1.75rem 0; text-align: center; font-size: .78rem; color: var(--ink3); }
+  footer a { color: var(--teal); }
+
+  @media (max-width: 520px) { .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="page">
+    <div class="hdr">
+      <span class="hdr-title">Chester <em>Ismay</em></span>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+
+  <div class="hero">
+    <div class="eyebrow">Personal Projects</div>
+    <h1>Things I&rsquo;m building &amp; tinkering with</h1>
+    <p class="hero-sub">A private nav for my own tools, analyses, and experiments. Not for public consumption.</p>
+  </div>
+
+  <div class="filters" id="filters">
+    <button class="chip on" data-f="all">All</button>
+    <span class="chip-count" id="chip-count"></span>
+  </div>
+
+  <div id="sections"></div>
+
+</main>
+
+<footer>
+  <div class="page">
+    <a href="https://github.com/ismayc/ismayc.github.io/tree/master/projects" target="_blank" rel="noopener">View on GitHub</a>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   PROJECT DATA
+   To add a new project, copy a block and fill it in.
+   Fields:
+     path   – relative URL path from ismayc.github.io (starts with /projects/)
+     folder – display group name (e.g. "Sports", "Simulations")
+     title  – short display title
+     desc   – 1-2 sentence description
+   ============================================================ */
+const PROJECTS = [
+  {
+    path:   "/projects/draft-scheduler-2026.html",
+    folder: "Sports",
+    title:  "Draft Scheduler 2026",
+    desc:   "A scheduling tool for organizing a draft event in 2026, tracking picks, participants, and round order."
+  },
+  {
+    path:   "/projects/ou-playoff-draft.html",
+    folder: "Sports",
+    title:  "Over/Under Playoff Draft",
+    desc:   "An interactive game where participants draft over/under bets on playoff outcomes, with live scoring and standings."
+  },
+  {
+    path:   "/projects/sequence-sim/index.html",
+    folder: "Sequence",
+    title:  "Sequence Simulation Hub",
+    desc:   "Landing page and overview for a series of Monte Carlo simulations of the Sequence board game, exploring strategy and win rates."
+  },
+  {
+    path:   "/projects/sequence-sim/sequence_blind4th.html",
+    folder: "Sequence",
+    title:  "Blind Fourth Strategy Sim",
+    desc:   "Simulation exploring the 'blind fourth pick' strategy in Sequence, where the fourth player chooses a card without seeing prior plays."
+  },
+  {
+    path:   "/projects/sequence-sim/sequence_blind4th_report_30k.html",
+    folder: "Sequence",
+    title:  "Blind 4th Report (30k Runs)",
+    desc:   "Full statistical report from 30,000 simulation runs of the blind-fourth strategy, with win-rate distributions and confidence intervals."
+  },
+  {
+    path:   "/projects/sequence-sim/sequence_results_dashboard_generator.html",
+    folder: "Sequence",
+    title:  "Results Dashboard Generator",
+    desc:   "Interactive tool to generate and explore dashboards from Sequence simulation results; paste in data and get charts instantly."
+  },
+  {
+    path:   "/projects/sequence_play/index.html",
+    folder: "Sequence",
+    title:  "Sequence Playthrough Tool",
+    desc:   "An interactive interface for playing or logging a live game of Sequence, tracking board state and moves in real time."
+  },
+  {
+    path:   "/projects/us-statehood/index.html",
+    folder: "Visualizations",
+    title:  "US Statehood Timeline",
+    desc:   "A visualization of when each US state was admitted to the Union, showing the geographic expansion of the country over time."
+  },
+  {
+    path:   "/projects/us-statehood/with-territories.html",
+    folder: "Visualizations",
+    title:  "Statehood + Territories",
+    desc:   "Extended version of the statehood visualization that includes current US territories and their political status."
+  }
+];
+/* ============================================================ */
+
+const BASE = "https://ismayc.github.io";
+
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function arrowSVG() {
+  return `<svg class="arrow-icon" viewBox="0 0 12 12" fill="none"><path d="M1.5 10.5L10.5 1.5M10.5 1.5H4.5M10.5 1.5V7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+}
+
+function buildCard(p) {
+  const url = BASE + p.path;
+  const file = p.path.split('/').pop();
+  const card = document.createElement('a');
+  card.className = 'card';
+  card.href = url;
+  card.target = '_blank';
+  card.rel = 'noopener';
+  card.dataset.folder = p.folder;
+  card.innerHTML = `
+    <span class="card-tag">${esc(p.folder)}</span>
+    <div class="card-title">${esc(p.title)}</div>
+    <div class="card-desc">${esc(p.desc)}</div>
+    <div class="card-foot">
+      <span class="card-file">${esc(file)}</span>
+      <span class="card-arrow">Open ${arrowSVG()}</span>
+    </div>`;
+  return card;
+}
+
+function render(filter) {
+  const container = document.getElementById('sections');
+  container.innerHTML = '';
+
+  const visible = filter === 'all' ? PROJECTS : PROJECTS.filter(p => p.folder === filter);
+
+  const groups = {};
+  visible.forEach(p => {
+    if (!groups[p.folder]) groups[p.folder] = [];
+    groups[p.folder].push(p);
+  });
+
+  Object.keys(groups).sort().forEach(folder => {
+    const sec = document.createElement('div');
+    sec.className = 'section';
+    sec.innerHTML = `<div class="section-hdr"><span class="section-pip"></span>${esc(folder)}</div>`;
+    const grid = document.createElement('div');
+    grid.className = 'grid';
+    groups[folder].forEach(p => grid.appendChild(buildCard(p)));
+    sec.appendChild(grid);
+    container.appendChild(sec);
+  });
+
+  document.getElementById('chip-count').textContent =
+    `${visible.length} project${visible.length !== 1 ? 's' : ''}`;
+}
+
+function buildFilters() {
+  const folders = [...new Set(PROJECTS.map(p => p.folder))].sort();
+  const bar = document.getElementById('filters');
+  const countEl = document.getElementById('chip-count');
+
+  folders.forEach(f => {
+    const btn = document.createElement('button');
+    btn.className = 'chip';
+    btn.dataset.f = f;
+    btn.textContent = f;
+    bar.insertBefore(btn, countEl);
+  });
+
+  bar.addEventListener('click', e => {
+    const btn = e.target.closest('.chip[data-f]');
+    if (!btn) return;
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
+    btn.classList.add('on');
+    render(btn.dataset.f);
+  });
+}
+
+buildFilters();
+render('all');
+</script>
+</body>
+</html>
