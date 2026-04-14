@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>O/U Playoff Draft 2025-26</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Source Sans 3',sans-serif;background:linear-gradient(165deg,#0D1117 0%,#161B22 40%,#1A1F2B 100%);color:#fff;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  .app{max-width:480px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column}
+  .header{padding:14px 20px 0;display:flex;justify-content:space-between;align-items:center}
+  .header-label{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:3px;color:rgba(255,255,255,0.3)}
+  .screen-content{flex:1}
+  .screen{display:none}.screen.active{display:block;animation:fadeUp .5s cubic-bezier(.16,1,.3,1)}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  .nav-area{padding:0 20px}
+  .dots{display:flex;gap:8px;justify-content:center;padding:16px 0}
+  .dot{height:10px;border-radius:5px;border:none;background:rgba(255,255,255,0.2);cursor:pointer;transition:all .3s ease;width:10px}.dot.active{width:28px;background:#F4A32E}
+  .nav-buttons{display:flex;gap:12px;justify-content:center;padding:8px 0 28px}
+  .btn-back{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;padding:12px 28px;border-radius:30px;font-family:'Oswald',sans-serif;font-size:15px;letter-spacing:1px;cursor:pointer}
+  .btn-next{background:linear-gradient(135deg,#F4A32E,#E8433E);border:none;color:#fff;padding:12px 32px;border-radius:30px;font-family:'Oswald',sans-serif;font-size:16px;letter-spacing:1px;cursor:pointer;font-weight:600;box-shadow:0 4px 20px rgba(244,163,46,0.35)}
+  .title{font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:2px;text-align:center;color:#fff}
+  .subtitle{font-family:'Source Sans 3',sans-serif;font-size:16px;color:rgba(255,255,255,0.7);text-align:center}
+  .oswald{font-family:'Oswald',sans-serif}.accent{color:#F4A32E}
+  .card{background:rgba(255,255,255,0.05);border-radius:14px;padding:16px 18px;border:1px solid rgba(255,255,255,0.08)}
+  .ex-tabs{display:flex;gap:6px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
+  .ex-tab{font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:.5px;padding:7px 14px;border-radius:20px;border:none;cursor:pointer;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.5);transition:all .25s ease;white-space:nowrap}.ex-tab.active{color:#fff}
+  .player-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+  .player-card{border-radius:12px;padding:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.04);transition:all .4s ease}
+  .player-card.thinking{background:rgba(244,163,46,0.12);border-color:rgba(244,163,46,0.3)}
+  .player-card.picked{background:rgba(69,183,100,0.12);border-color:rgba(69,183,100,0.25)}
+  .player-card.passed{background:rgba(232,67,62,0.08)}
+  .player-card.blocked{background:rgba(232,67,62,0.15);border-color:rgba(232,67,62,0.35)}
+  .round-tabs{display:flex;gap:6px;margin-bottom:16px;justify-content:center}
+  .round-tab{font-family:'Oswald',sans-serif;font-size:15px;font-weight:600;letter-spacing:1px;padding:8px 18px;border-radius:20px;border:none;cursor:pointer;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.5);transition:all .25s ease}.round-tab.active{color:#fff}
+  .pick-row{display:flex;align-items:center;gap:14px;padding:12px 14px;margin-bottom:6px;border-radius:10px;border:1px solid transparent;transition:all .3s ease}
+  .pick-num{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-family:'Oswald',sans-serif;font-size:16px;font-weight:700;color:rgba(255,255,255,0.75);flex-shrink:0}
+  .step-nav{display:flex;gap:8px;justify-content:center;align-items:center}
+  .step-btn{font-family:'Oswald',sans-serif;font-size:15px;padding:10px 22px;border-radius:20px;cursor:pointer}
+  .step-btn-prev{border:1px solid rgba(255,255,255,0.15);background:transparent;color:rgba(255,255,255,0.7)}.step-btn-prev:disabled{color:rgba(255,255,255,0.2);cursor:default}
+  .step-btn-next{border:none;color:#fff;font-weight:600}.step-btn-next:disabled{background:rgba(255,255,255,0.08)!important;color:rgba(255,255,255,0.2);cursor:default}
+  .step-counter{font-size:15px;color:rgba(255,255,255,0.4);padding:0 8px;min-width:44px;text-align:center}
+  .check-item{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;font-size:17px;color:rgba(255,255,255,0.97);line-height:1.5}.check-mark{color:#45B764;font-size:14px;margin-top:2px;flex-shrink:0}
+  .group-card{background:rgba(255,255,255,0.05);border-radius:14px;padding:14px 16px;border-left:4px solid;opacity:0;transform:translateX(-20px);transition:all .5s cubic-bezier(.16,1,.3,1)}.group-card.revealed{opacity:1;transform:translateX(0)}
+  .team-chip{font-family:'Source Sans 3',sans-serif;font-size:16px;font-weight:600;background:rgba(255,255,255,0.1);color:#fff;padding:5px 12px;border-radius:8px;display:inline-block}
+  .team-chip.placeholder{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.5);font-style:italic;border:1px dashed rgba(255,255,255,0.2)}
+  .first-pick-badge{margin-left:auto;font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:1px;padding:4px 10px;border-radius:6px;white-space:nowrap}
+
+  /* Draft board */
+  .db-wrap{background:rgba(255,255,255,0.05);border-radius:10px;padding:10px 12px;border:1px solid rgba(255,255,255,0.1)}
+  .db-label{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:2px;color:rgba(255,255,255,0.5);margin-bottom:6px}
+  .db-avail{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
+  .db-avail-chip{font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:600;padding:3px 9px;border-radius:6px;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7)}
+  .db-avail-chip.taken{background:rgba(255,255,255,0.03);color:rgba(255,255,255,0.2);text-decoration:line-through}
+  .db-avail-chip.ph{font-style:italic;color:rgba(255,255,255,0.4);border:1px dashed rgba(255,255,255,0.15)}
+  .db-grid{display:grid;grid-template-columns:56px repeat(4,1fr);gap:2px 4px;font-size:10px;align-items:center}
+  .db-hdr{font-family:'Oswald',sans-serif;color:rgba(255,255,255,0.5);letter-spacing:1px;text-align:center;padding:2px 0}
+  .db-name{font-family:'Oswald',sans-serif;color:rgba(255,255,255,0.85);font-weight:600;font-size:13px}
+  .db-cell{text-align:center;padding:3px 2px;border-radius:4px;font-family:'Source Sans 3',sans-serif;font-weight:600;color:rgba(255,255,255,0.7);font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .db-cell.filled{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.95)}
+  .db-cell.current{background:rgba(244,163,46,0.12);color:#F4A32E;border:1px solid rgba(244,163,46,0.25)}
+
+  /* Bracket */
+  .bracket-conf{margin-bottom:18px}
+  .bracket-conf-label{font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:3px;text-align:center;margin-bottom:10px}
+  .bracket-row{display:flex;align-items:center;gap:0;margin-bottom:2px;height:32px}
+  .bracket-seed{font-family:'Oswald',sans-serif;font-size:11px;color:rgba(255,255,255,0.4);width:18px;text-align:right;flex-shrink:0}
+  .bracket-team{font-family:'Source Sans 3',sans-serif;font-size:12px;font-weight:600;padding:4px 10px;border-radius:6px;white-space:nowrap;margin-left:6px;flex-shrink:0}
+  .bracket-line{flex-shrink:0}
+  .bracket-label{font-family:'Oswald',sans-serif;font-size:9px;letter-spacing:1.5px;color:rgba(255,255,255,0.3);text-align:center;margin-bottom:6px}
+
+  /* Bracket SVG container */
+  .bracket-svg-wrap{position:relative;width:100%;overflow-x:auto}
+  .bracket-svg-wrap svg{display:block;margin:0 auto}
+
+  /* Cheat sheet */
+  .cs-group{border-radius:10px;padding:10px 12px;border-left:3px solid}
+  .cs-group-name{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:2px;margin-bottom:6px}
+  .cs-team{font-size:12px;color:rgba(255,255,255,0.95);padding:2px 0;line-height:1.4}
+  .cs-team.ph{color:rgba(255,255,255,0.4);font-style:italic}
+  .cs-order-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .cs-round{background:rgba(255,255,255,0.04);border-radius:8px;padding:8px 10px;border:1px solid rgba(255,255,255,0.06)}
+  .cs-round-label{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:1.5px;margin-bottom:4px}
+  .cs-pick{font-size:12px;color:rgba(255,255,255,0.8);line-height:1.6}
+
+  /* Countdown */
+  .cd-grid{display:flex;gap:10px;justify-content:center;margin:16px 0}
+  .cd-unit{text-align:center}
+  .cd-num{font-family:'Oswald',sans-serif;font-size:36px;font-weight:700;line-height:1;min-width:54px;background:rgba(255,255,255,0.08);border-radius:10px;padding:10px 6px;display:block}
+  .cd-label{font-family:'Source Sans 3',sans-serif;font-size:11px;color:rgba(255,255,255,0.4);margin-top:6px;letter-spacing:1px;text-transform:uppercase}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <div class="header-label">16TH ANNUAL O/U</div>
+    <div class="header-label" id="page-counter">1 / 9</div>
+  </div>
+  <div class="screen-content">
+
+    <!-- 0: WELCOME -->
+    <div class="screen active" id="screen-0">
+      <div style="text-align:center;padding:20px;">
+        <div style="font-size:72px;margin-bottom:8px;">🏆</div>
+        <h1 class="title" style="font-size:36px;margin-bottom:4px;line-height:1.1;background:linear-gradient(135deg,#F4A32E,#E8433E);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">O/U PLAYOFFS</h1>
+        <div class="oswald" style="font-size:19px;letter-spacing:4px;color:rgba(255,255,255,0.5);margin-bottom:28px;">2025 — 2026 SEASON</div>
+        <div class="card" style="margin-bottom:20px;padding:24px 20px;">
+          <div style="font-size:19px;color:rgba(255,255,255,1);line-height:1.6;margin-bottom:16px;">Congratulations on making the playoffs!</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;" id="player-badges"></div>
+        </div>
+        <div style="font-size:16px;color:rgba(255,255,255,0.4);">Tap through to learn the draft rules</div>
+      </div>
+    </div>
+
+    <!-- 1: GROUPS -->
+    <div class="screen" id="screen-1">
+      <div style="padding:12px 16px;">
+        <h2 class="title" style="font-size:24px;margin-bottom:6px;">THE GROUPS</h2>
+        <p class="subtitle" style="margin-bottom:16px;">The winner of each group reaches the conference finals</p>
+        <div style="display:flex;flex-direction:column;gap:12px;" id="groups-container"></div>
+        <p style="font-size:15px;color:rgba(255,255,255,0.4);text-align:center;margin-top:14px;line-height:1.5;">7 seeds TBD (play-in games this week)<br>8 seeds TBD during draft night</p>
+      </div>
+    </div>
+
+    <!-- 2: BRACKET -->
+    <div class="screen" id="screen-2">
+      <div style="padding:12px 12px;">
+        <h2 class="title" style="font-size:24px;margin-bottom:6px;">THE BRACKET</h2>
+        <p class="subtitle" style="margin-bottom:16px;">How each group maps to the NBA playoffs</p>
+        <div id="bracket-west"></div>
+        <div id="bracket-east"></div>
+        <p style="font-size:15px;color:rgba(255,255,255,0.4);text-align:center;margin-top:10px;line-height:1.5;">Your drafted team needs to win their group to reach the conference finals</p>
+      </div>
+    </div>
+
+    <!-- 3: GOAL -->
+    <div class="screen" id="screen-3">
+      <div style="padding:12px 20px;">
+        <h2 class="title" style="font-size:24px;margin-bottom:20px;">YOUR GOAL</h2>
+        <div style="background:rgba(244,163,46,0.1);border:1px solid rgba(244,163,46,0.25);border-radius:16px;padding:20px;margin-bottom:20px;text-align:center;">
+          <div style="font-size:42px;margin-bottom:10px;">🎯</div>
+          <div style="font-size:19px;color:#fff;line-height:1.6;font-weight:600;">Draft the team in each group you think will win and reach the conference finals.</div>
+        </div>
+        <div style="font-size:17px;color:rgba(255,255,255,0.95);line-height:1.7;margin-bottom:16px;">After 4 rounds, each player will have exactly <strong class="accent">one team per group</strong> (4 teams total).</div>
+        <div class="card">
+          <div class="oswald" style="font-size:14px;letter-spacing:2px;color:rgba(255,255,255,0.5);margin-bottom:10px;">ADVANCING TO O/U FINALS</div>
+          <div style="font-size:17px;color:rgba(255,255,255,0.97);line-height:1.7;">
+            The <strong class="accent">2 players</strong> with the most teams reaching the conference finals advance to the O/U Finals.
+            <br><br>Tie-breaker goes to the higher regular season seed.
+            <br><br>This means <strong style="color:#fff;">Phil only needs 1 team</strong> to make the conference finals to guarantee his spot. Everyone else needs 2 to lock it up.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4: DRAFT ORDER -->
+    <div class="screen" id="screen-4">
+      <div style="padding:12px 16px;">
+        <h2 class="title" style="font-size:24px;margin-bottom:6px;">DRAFT ORDER</h2>
+        <p class="subtitle" style="margin-bottom:16px;">4 rounds, rotating who picks first</p>
+        <div class="round-tabs" id="round-tabs"></div>
+        <div id="round-content" class="card" style="border-color:transparent;"></div>
+        <p class="subtitle" style="margin-top:14px;line-height:1.6;">The first pick in each round <strong class="accent">chooses which group</strong> everyone drafts from in that round.</p>
+      </div>
+    </div>
+
+    <!-- 5: PASS RULE -->
+    <div class="screen" id="screen-5">
+      <div style="padding:12px 16px;">
+        <h2 class="title" style="font-size:24px;margin-bottom:6px;">THE PASS RULE</h2>
+        <p class="subtitle" style="margin-bottom:4px;">Tap through examples to see how it works</p>
+        <p style="font-size:11px;color:rgba(255,255,255,0.5);text-align:center;margin-bottom:12px;">Examples use teams from the 2011 NBA Playoffs to avoid influencing this year's picks</p>
+        <div class="ex-tabs" id="ex-tabs"></div>
+        <div id="ex-text-box" class="card" style="margin-bottom:10px;min-height:110px;"></div>
+        <div class="player-grid" id="ex-player-grid"></div>
+        <div id="ex-board" style="margin-bottom:12px;"></div>
+        <div class="step-nav" id="ex-step-nav"></div>
+      </div>
+    </div>
+
+    <!-- 6: PICK TRACKING -->
+    <div class="screen" id="screen-6">
+      <div style="padding:12px 20px;">
+        <h2 class="title" style="font-size:24px;margin-bottom:6px;">PICK TRACKING</h2>
+        <p class="subtitle" style="margin-bottom:18px;">Picks carry across rounds</p>
+        <div style="background:rgba(232,67,62,0.08);border:1px solid rgba(232,67,62,0.2);border-radius:16px;padding:18px 20px;margin-bottom:16px;">
+          <div style="font-size:28px;text-align:center;margin-bottom:10px;">⚠️</div>
+          <div style="font-size:17px;color:rgba(255,255,255,1);line-height:1.7;text-align:center;">
+            <strong style="color:#E8433E;">Important:</strong> If you use a pick in an earlier round (by being forced to pick when everyone above you passed), that pick is <strong style="color:#fff;">gone</strong> for later rounds.
+          </div>
+        </div>
+        <div class="card" style="margin-bottom:16px;">
+          <div class="oswald" style="font-size:13px;letter-spacing:2px;color:#F4A32E;margin-bottom:10px;">EXAMPLE</div>
+          <div style="font-size:17px;color:rgba(255,255,255,0.97);line-height:1.7;">
+            In the examples, Jake was forced to use his <strong style="color:#fff;">#3 pick</strong> in Round 1 and <strong style="color:#fff;">#2 pick</strong> in Round 2 when other players passed to him.
+            <br><br>When Round 3 arrives and Jake is at pick position #2, he <strong style="color:#E8433E;">cannot use it</strong> because it's already spent. He passes, higher-seeded players fill in the remaining slots, and Jake ends up with the last team.
+          </div>
+        </div>
+        <div style="background:rgba(69,183,100,0.08);border:1px solid rgba(69,183,100,0.2);border-radius:14px;padding:16px 18px;">
+          <div style="font-size:17px;color:rgba(255,255,255,0.97);line-height:1.7;">
+            💡 <strong style="color:#45B764;">Strategy tip:</strong> Passing early lets you save your pick for a round where you have stronger preferences. But you risk getting stuck with a less desirable team if others pass to you. Check out the "Lost Pick" example on the previous page to see this in action.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7: CHEAT SHEET -->
+    <div class="screen" id="screen-7">
+      <div style="padding:12px 14px;">
+        <h2 class="title" style="font-size:22px;margin-bottom:4px;">📋 DRAFT CHEAT SHEET</h2>
+        <p class="subtitle" style="margin-bottom:12px;">Pull this up during the draft</p>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;" id="cs-groups"></div>
+
+        <div class="oswald" style="font-size:12px;letter-spacing:2px;color:rgba(255,255,255,0.4);margin-bottom:8px;text-align:center;">PICK ORDER BY ROUND</div>
+        <div class="cs-order-grid" id="cs-rounds"></div>
+
+        <div style="margin-top:14px;background:rgba(244,163,46,0.08);border:1px solid rgba(244,163,46,0.2);border-radius:12px;padding:14px;text-align:center;">
+          <div style="font-size:16px;color:rgba(255,255,255,0.7);line-height:1.6;">
+            <strong class="accent">Remember:</strong> The first pick in each round chooses the group. You can pass unless you're the lowest remaining player.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8: DRAFT DAY -->
+    <div class="screen" id="screen-8">
+      <div style="padding:12px 20px;text-align:center;">
+        <div style="font-size:64px;margin-bottom:12px;">📱</div>
+        <h2 class="title" style="font-size:28px;margin-bottom:8px;background:linear-gradient(135deg,#F4A32E,#E8433E);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">DRAFT DAY</h2>
+        <div class="card" style="padding:22px 20px;margin-bottom:4px;border-color:rgba(255,255,255,0.1);">
+          <div class="oswald" style="font-size:36px;font-weight:700;margin-bottom:4px;">FRIDAY</div>
+          <div class="oswald" style="font-size:20px;font-weight:500;color:#F4A32E;letter-spacing:1px;">8:30 PM CDT</div>
+          <div style="font-size:16px;color:rgba(255,255,255,0.5);margin-top:6px;">via group text</div>
+        </div>
+
+        <!-- Countdown -->
+        <div id="countdown-wrap">
+          <div class="cd-grid" id="countdown"></div>
+          <div id="countdown-msg" style="font-size:15px;color:rgba(255,255,255,0.4);margin-bottom:12px;"></div>
+        </div>
+
+        <div class="card" style="margin-bottom:16px;text-align:left;">
+          <div class="oswald" style="font-size:13px;letter-spacing:2px;color:rgba(255,255,255,0.5);margin-bottom:12px;">DRAFT CHECKLIST</div>
+          <div class="check-item"><span class="check-mark">✓</span> Phone charged and ready</div>
+          <div class="check-item"><span class="check-mark">✓</span> Review the groups and draft order</div>
+          <div class="check-item"><span class="check-mark">✓</span> Have your team preferences ranked</div>
+          <div class="check-item"><span class="check-mark">✓</span> Know which groups matter most to you</div>
+          <div class="check-item"><span class="check-mark">✓</span> Be ready to pick OR pass strategically</div>
+        </div>
+        <div style="font-size:17px;color:rgba(255,255,255,0.7);line-height:1.6;">Note: The play-in game determining the 8 seeds will be happening during the draft. Whichever team wins becomes your team if you drafted that slot.</div>
+        <div class="oswald" style="margin-top:24px;font-size:20px;font-weight:700;letter-spacing:2px;color:#F4A32E;">GOOD LUCK! 🍀</div>
+      </div>
+    </div>
+
+  </div>
+  <div class="nav-area">
+    <div class="dots" id="dots"></div>
+    <div class="nav-buttons" id="nav-buttons"></div>
+  </div>
+</div>
+
+<script>
+const PLAYERS=[
+  {seed:1,name:"Phil",emoji:"👑"},
+  {seed:2,name:"Andy",emoji:"🔥"},
+  {seed:3,name:"Ryan",emoji:"⚡"},
+  {seed:4,name:"Jake",emoji:"💪"},
+];
+const GROUPS=[
+  {name:"A",color:"#E8433E",teams:["Thunder","Lakers","Rockets","8 West Seed"]},
+  {name:"B",color:"#2D7DD2",teams:["Pistons","Cavaliers","Raptors","8 East Seed"]},
+  {name:"C",color:"#F4A32E",teams:["Spurs","Nuggets","Timberwolves","7 West Seed"]},
+  {name:"D",color:"#45B764",teams:["Celtics","Knicks","Hawks","7 East Seed"]},
+];
+const DRAFT_ORDER=[[0,1,2,3],[1,2,3,0],[2,3,0,1],[3,0,1,2]];
+const GROUP_COLORS=["#E8433E","#2D7DD2","#F4A32E","#45B764"];
+
+const EX_GROUPS={
+  B:{name:"B",color:"#2D7DD2",teams:["Bulls","Magic","Hawks","East #8"]},
+  A:{name:"A",color:"#E8433E",teams:["Spurs","Thunder","Nuggets","West #8"]},
+  C:{name:"C",color:"#F4A32E",teams:["Lakers","Mavericks","Blazers","West #7"]},
+  D:{name:"D",color:"#45B764",teams:["Heat","Celtics","Knicks","East #7"]},
+};
+const EXAMPLES=[
+  { title:"Simple Pass",group:"B",color:"#2D7DD2",groupTeams:EX_GROUPS.B.teams,priorBoard:null,
+    steps:[
+      {text:"Round 1 begins. Phil has the first pick, which means he chooses the group. Phil declares Group B and takes the Bulls.",highlight:"Phil chooses Group B",visual:{phil:"🏀 Bulls",andy:"...",ryan:"...",jake:"..."}},
+      {text:"Since Phil chose Group B, everyone must draft from Group B this round. Andy picks the Magic at #2.",highlight:"Andy picks Magic",visual:{phil:"🏀 Bulls",andy:"🏀 Magic",ryan:"🤔 ?",jake:"..."}},
+      {text:"Ryan is up at #3. He'd rather save his #3 pick for a later round. Jake (#4 seed) is still unpicked and ranked below him, so Ryan is allowed to pass.",highlight:"Ryan passes!",visual:{phil:"🏀 Bulls",andy:"🏀 Magic",ryan:"⏭️ PASS",jake:"🤔 ?"}},
+      {text:"Jake is the lowest ranked player remaining. He must pick. Jake takes the Hawks at #3.",highlight:"Jake must pick!",visual:{phil:"🏀 Bulls",andy:"🏀 Magic",ryan:"⏭️ PASS",jake:"🏀 Hawks"}},
+      {text:"Ryan gets the East #8 at #4. By passing, Ryan used #4 this round instead of #3, keeping #3 available for a future round.",highlight:"Ryan saves his #3",visual:{phil:"🏀 Bulls",andy:"🏀 Magic",ryan:"🏀 East #8",jake:"🏀 Hawks"}},
+    ]},
+  { title:"Chain of Passes",group:"A",color:"#E8433E",groupTeams:EX_GROUPS.A.teams,
+    priorBoard:{phil:[{g:"B",t:"Bulls",p:1}],andy:[{g:"B",t:"Magic",p:2}],ryan:[{g:"B",t:"East #8",p:4}],jake:[{g:"B",t:"Hawks",p:3}]},
+    steps:[
+      {text:"Round 2. Pick order: Andy (#1), Ryan (#2), Jake (#3), Phil (#4). Andy declares Group A and takes the Spurs.",highlight:"Andy chooses Group A",visual:{andy:"🏀 Spurs",ryan:"...",jake:"...",phil:"..."}},
+      {text:"Ryan is at #2. He wants to save this pick for later. Jake (#4 seed) is still ranked below him, so Ryan passes.",highlight:"Ryan passes at #2!",visual:{andy:"🏀 Spurs",ryan:"⏭️ PASS",jake:"🤔 ?",phil:"..."}},
+      {text:"Jake is the lowest ranked player remaining. He must pick at #2. Jake takes the Thunder.",highlight:"Jake forced to pick #2!",visual:{andy:"🏀 Spurs",ryan:"⏭️ PASS",jake:"🏀 Thunder",phil:"..."}},
+      {text:"Position #3: Ryan and Phil are still unpicked. Phil (#1 seed) is not the lowest remaining -- Ryan (#3 seed) is. Phil can pass.",highlight:"Phil passes at #3!",visual:{andy:"🏀 Spurs",jake:"🏀 Thunder",phil:"⏭️ PASS",ryan:"🤔 ?"}},
+      {text:"Ryan is now the lowest remaining player. He must pick. Ryan takes the Nuggets at #3.",highlight:"Ryan forced to pick #3!",visual:{andy:"🏀 Spurs",jake:"🏀 Thunder",ryan:"🏀 Nuggets",phil:"🤔 ?"}},
+      {text:"Phil gets the West #8 at #4. Multiple passes this round! Jake was forced to use #2, Ryan was forced to use #3, and Phil ended up at #4.",highlight:"Round 2 complete",visual:{andy:"🏀 Spurs",jake:"🏀 Thunder",ryan:"🏀 Nuggets",phil:"🏀 West #8"}},
+    ]},
+  { title:"The Lost Pick",group:"C",color:"#F4A32E",groupTeams:EX_GROUPS.C.teams,
+    priorBoard:{phil:[{g:"B",t:"Bulls",p:1},{g:"A",t:"West #8",p:4}],andy:[{g:"B",t:"Magic",p:2},{g:"A",t:"Spurs",p:1}],ryan:[{g:"B",t:"East #8",p:4},{g:"A",t:"Nuggets",p:3}],jake:[{g:"B",t:"Hawks",p:3},{g:"A",t:"Thunder",p:2}]},
+    steps:[
+      {text:"Now for Round 3. After Rounds 1 and 2, Jake has used pick positions #3 (forced in Round 1) and #2 (forced in Round 2). He only has #1 and #4 left.",highlight:"Jake's pick history",visual:{jake:"Picks used: #3, #2",phil:"Picks used: #1, #4",andy:"Picks used: #2, #1",ryan:"Picks used: #4, #3"}},
+      {text:"Round 3 order: Ryan (#1), Jake (#2), Phil (#3), Andy (#4). Ryan declares Group C and takes the Lakers.",highlight:"Ryan chooses Group C",visual:{ryan:"🏀 Lakers",jake:"🤔 ?",phil:"...",andy:"..."}},
+      {text:"Position #2: Following the seed order among unpicked players, Jake (#4 seed) is up. But he already used #2 in Round 2! He MUST pass.",highlight:"Jake can't use #2!",visual:{ryan:"🏀 Lakers",jake:"❌ USED #2 IN RD2",phil:"🤔 ?",andy:"..."}},
+      {text:"Continuing in seed order, Phil (#1 seed) is next. Phil has #2 available and takes the Mavericks.",highlight:"Phil picks Mavericks",visual:{ryan:"🏀 Lakers",jake:"❌ USED #2 IN RD2",phil:"🏀 Mavericks",andy:"..."}},
+      {text:"Position #3: Next unpicked in seed order is Andy (#2 seed). Andy has #3 available and takes the Blazers. Jake is never even offered #3.",highlight:"Andy picks Blazers",visual:{ryan:"🏀 Lakers",phil:"🏀 Mavericks",andy:"🏀 Blazers",jake:"🤔 ?"}},
+      {text:"Jake is last and gets the West #7 at #4. Because his #2 pick was spent in Round 2, Jake had to pass and lost his shot at a better team.",highlight:"Jake stuck at #4",visual:{ryan:"🏀 Lakers",phil:"🏀 Mavericks",andy:"🏀 Blazers",jake:"🏀 West #7"}},
+      {text:"The lesson: being forced into earlier pick positions in Rounds 1 and 2 limits your options later. Jake had to pass at #2 and ended up with the last team. The lowest seed carries the most risk from other players' passes.",highlight:"Early picks have consequences",visual:{ryan:"🏀 Lakers",phil:"🏀 Mavericks",andy:"🏀 Blazers",jake:"🏀 West #7"}},
+    ]},
+  { title:"Picking Smart",group:"D",color:"#45B764",groupTeams:EX_GROUPS.D.teams,
+    priorBoard:{phil:[{g:"B",t:"Bulls",p:1},{g:"A",t:"West #8",p:4},{g:"C",t:"Mavs",p:2}],andy:[{g:"B",t:"Magic",p:2},{g:"A",t:"Spurs",p:1},{g:"C",t:"Blazers",p:3}],ryan:[{g:"B",t:"East #8",p:4},{g:"A",t:"Nuggets",p:3},{g:"C",t:"Lakers",p:1}],jake:[{g:"B",t:"Hawks",p:3},{g:"A",t:"Thunder",p:2},{g:"C",t:"West #7",p:4}]},
+    steps:[
+      {text:"Final round! Jake has used picks #3, #2, and #4 -- he only has #1 left. And in Round 4, Jake IS the #1 pick. After three rounds of being forced into bad spots, Jake finally gets first choice.",highlight:"Jake's redemption",visual:{jake:"Picks left: #1 only",phil:"Picks left: #3 only",andy:"Picks left: #4 only",ryan:"Picks left: #2 only"}},
+      {text:"Jake declares Group D and takes the Heat -- the team he wanted most. Sometimes the best strategy is knowing which round gives you the most leverage and planning around it.",highlight:"Jake chooses Group D",visual:{jake:"🏀 Heat",phil:"...",andy:"...",ryan:"..."}},
+      {text:"With everyone down to their last pick, the rest fills in automatically. Ryan takes the Celtics at #2, Phil takes the Knicks at #3, and Andy takes the East #7 at #4.",highlight:"Draft complete!",visual:{jake:"🏀 Heat",ryan:"🏀 Celtics",phil:"🏀 Knicks",andy:"🏀 East #7"}},
+      {text:"Here are the final results across all four rounds. Every player has one team from each group. The two players whose teams go furthest in the NBA playoffs advance to the O/U Finals!",highlight:"Final draft board",visual:{phil:"4 teams",andy:"4 teams",ryan:"4 teams",jake:"4 teams"},
+        finalBoard:{phil:[{g:"B",t:"Bulls",p:1},{g:"A",t:"West #8",p:4},{g:"C",t:"Mavs",p:2},{g:"D",t:"Knicks",p:3}],andy:[{g:"B",t:"Magic",p:2},{g:"A",t:"Spurs",p:1},{g:"C",t:"Blazers",p:3},{g:"D",t:"East #7",p:4}],ryan:[{g:"B",t:"East #8",p:4},{g:"A",t:"Nuggets",p:3},{g:"C",t:"Lakers",p:1},{g:"D",t:"Celtics",p:2}],jake:[{g:"B",t:"Hawks",p:3},{g:"A",t:"Thunder",p:2},{g:"C",t:"West #7",p:4},{g:"D",t:"Heat",p:1}]}},
+    ]},
+];
+
+// Draft day: Friday Apr 17, 2026 8:30 PM CDT (UTC-5)
+const DRAFT_TIME = new Date('2026-04-17T20:30:00-05:00').getTime();
+
+const TOTAL=9;
+let cur=0,activeRound=0,activeEx=0,exStep=0;
+
+function init(){
+  renderBadges();renderGroups();renderBrackets();
+  renderDots();renderNav();
+  renderRoundTabs();renderRoundContent();
+  renderExTabs();renderExample();
+  renderCheatSheet();startCountdown();
+}
+
+// ── Nav ──
+function goTo(i){
+  if(i<0||i>=TOTAL)return;
+  document.querySelector('.screen.active')?.classList.remove('active');
+  document.getElementById('screen-'+i).classList.add('active');
+  cur=i;document.getElementById('page-counter').textContent=(i+1)+' / '+TOTAL;
+  renderDots();renderNav();
+  if(i===1)revealGroups();
+  window.scrollTo(0,0);
+}
+function renderDots(){
+  const c=document.getElementById('dots');c.innerHTML='';
+  for(let i=0;i<TOTAL;i++){const d=document.createElement('button');d.className='dot'+(i===cur?' active':'');d.onclick=()=>goTo(i);c.appendChild(d);}
+}
+function renderNav(){
+  const c=document.getElementById('nav-buttons');c.innerHTML='';
+  if(cur>0){const b=document.createElement('button');b.className='btn-back';b.textContent='BACK';b.onclick=()=>goTo(cur-1);c.appendChild(b);}
+  if(cur<TOTAL-1){const b=document.createElement('button');b.className='btn-next';b.textContent=cur===0?"LET'S GO":'NEXT';b.onclick=()=>goTo(cur+1);c.appendChild(b);}
+}
+
+// ── Welcome ──
+function renderBadges(){
+  const c=document.getElementById('player-badges');
+  PLAYERS.forEach(p=>{c.innerHTML+=`<div style="background:rgba(255,255,255,0.08);border-radius:12px;padding:10px 16px;display:flex;align-items:center;gap:8px;"><span style="font-size:19px;">${p.emoji}</span><div><div class="oswald" style="font-size:16px;font-weight:600;">${p.name}</div><div style="font-size:11px;color:rgba(255,255,255,0.6);">#${p.seed} SEED</div></div></div>`;});
+}
+
+// ── Groups ──
+function renderGroups(){
+  const c=document.getElementById('groups-container');
+  GROUPS.forEach((g,i)=>{
+    const chips=g.teams.map(t=>`<span class="team-chip${t.includes('Seed')?' placeholder':''}">${t}</span>`).join(' ');
+    c.innerHTML+=`<div class="group-card" id="group-${i}" style="border-left-color:${g.color};"><div class="oswald" style="font-size:14px;font-weight:600;letter-spacing:3px;color:${g.color};margin-bottom:8px;">GROUP ${g.name}</div><div style="display:flex;flex-wrap:wrap;gap:6px;">${chips}</div></div>`;
+  });
+}
+function revealGroups(){GROUPS.forEach((_,i)=>setTimeout(()=>document.getElementById('group-'+i)?.classList.add('revealed'),200+i*150));}
+
+// ── Bracket ──
+function renderBrackets(){
+  renderOneBracket('bracket-west','WESTERN CONFERENCE',
+    {name:'A',color:'#E8433E',
+     pair1:[{s:'1',t:'Thunder'},{s:'8',t:'8 West Seed',ph:true}],
+     pair2:[{s:'4',t:'Lakers'},{s:'5',t:'Rockets'}]},
+    {name:'C',color:'#F4A32E',
+     pair1:[{s:'2',t:'Spurs'},{s:'7',t:'7 West Seed',ph:true}],
+     pair2:[{s:'3',t:'Nuggets'},{s:'6',t:'T-Wolves'}]}
+  );
+  renderOneBracket('bracket-east','EASTERN CONFERENCE',
+    {name:'B',color:'#2D7DD2',
+     pair1:[{s:'1',t:'Pistons'},{s:'8',t:'8 East Seed',ph:true}],
+     pair2:[{s:'4',t:'Cavaliers'},{s:'5',t:'Raptors'}]},
+    {name:'D',color:'#45B764',
+     pair1:[{s:'2',t:'Celtics'},{s:'7',t:'7 East Seed',ph:true}],
+     pair2:[{s:'3',t:'Knicks'},{s:'6',t:'Hawks'}]}
+  );
+}
+
+function renderOneBracket(containerId, label, grpTop, grpBot){
+  const W=390, H=295, bw=114;
+  const c1=0, c2=148, c3=290;
+  const lc='rgba(255,255,255,0.3)';
+
+  function teamBox(x,y,team,color){
+    const bg=team.ph?'rgba(255,255,255,0.06)':'rgba(255,255,255,0.1)';
+    const fc=team.ph?'rgba(255,255,255,0.7)':'#fff';
+    const fs=team.ph?'italic':'normal';
+    return `<rect x="${x}" y="${y}" width="${bw}" height="28" rx="5" fill="${bg}" stroke="${color}" stroke-width="0.8" stroke-opacity="0.5"/>
+      <text x="${x+8}" y="${y+19}" fill="${fc}" font-family="Source Sans 3,sans-serif" font-size="13" font-weight="600" font-style="${fs}">(${team.s}) ${team.t}</text>`;
+  }
+
+  function connector(x1,y1a,y1b,x2,y2){
+    const midX=x1+10;
+    return `<line x1="${x1}" y1="${y1a}" x2="${midX}" y2="${y1a}" stroke="${lc}" stroke-width="1"/>
+      <line x1="${x1}" y1="${y1b}" x2="${midX}" y2="${y1b}" stroke="${lc}" stroke-width="1"/>
+      <line x1="${midX}" y1="${y1a}" x2="${midX}" y2="${y1b}" stroke="${lc}" stroke-width="1"/>
+      <line x1="${midX}" y1="${y2}" x2="${x2}" y2="${y2}" stroke="${lc}" stroke-width="1"/>`;
+  }
+
+  // 8 team y-positions (4 pairs)
+  const ty=[18, 48, 84, 114, 156, 186, 222, 252];
+  // Pair midpoints for Conf Semis
+  const semiA = (ty[0]+ty[1])/2 + 14;
+  const semiB = (ty[2]+ty[3])/2 + 14;
+  const groupTopMid = (semiA + semiB) / 2; // Group top result
+
+  const semiC = (ty[4]+ty[5])/2 + 14;
+  const semiD = (ty[6]+ty[7])/2 + 14;
+  const groupBotMid = (semiC + semiD) / 2;
+
+  const finalsMid = (groupTopMid + groupBotMid) / 2;
+
+  let svg = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
+
+  // Column labels
+  svg += `<text x="${c1+bw/2}" y="12" fill="rgba(255,255,255,0.6)" font-family="Oswald,sans-serif" font-size="11" letter-spacing="1.5" text-anchor="middle">ROUND 1</text>`;
+  svg += `<text x="${c2+bw/2}" y="12" fill="rgba(255,255,255,0.6)" font-family="Oswald,sans-serif" font-size="11" letter-spacing="1.5" text-anchor="middle">CONF SEMIS</text>`;
+
+  // Group top: pair 1 (1v8)
+  svg += teamBox(c1, ty[0], grpTop.pair1[0], grpTop.color);
+  svg += teamBox(c1, ty[1], grpTop.pair1[1], grpTop.color);
+  // Group top: pair 2 (4v5)
+  svg += teamBox(c1, ty[2], grpTop.pair2[0], grpTop.color);
+  svg += teamBox(c1, ty[3], grpTop.pair2[1], grpTop.color);
+
+  // Group bottom: pair 1 (2v7)
+  svg += teamBox(c1, ty[4], grpBot.pair1[0], grpBot.color);
+  svg += teamBox(c1, ty[5], grpBot.pair1[1], grpBot.color);
+  // Group bottom: pair 2 (3v6)
+  svg += teamBox(c1, ty[6], grpBot.pair2[0], grpBot.color);
+  svg += teamBox(c1, ty[7], grpBot.pair2[1], grpBot.color);
+
+  // Connectors: Round 1 → Conf Semis
+  const rx = c1 + bw; // right edge of team boxes
+  svg += connector(rx, ty[0]+14, ty[1]+14, c2, semiA);
+  svg += connector(rx, ty[2]+14, ty[3]+14, c2, semiB);
+  svg += connector(rx, ty[4]+14, ty[5]+14, c2, semiC);
+  svg += connector(rx, ty[6]+14, ty[7]+14, c2, semiD);
+
+  // Conf Semis slots (dashed)
+  function semiSlot(y, grp){
+    return `<rect x="${c2}" y="${y-12}" width="${bw}" height="28" rx="5" fill="rgba(255,255,255,0.05)" stroke="${grp.color}" stroke-width="1" stroke-opacity="0.5" stroke-dasharray="4,3"/>
+      <text x="${c2+bw/2}" y="${y+5}" fill="${grp.color}" font-family="Oswald,sans-serif" font-size="11" letter-spacing="1" opacity="0.9" text-anchor="middle">GRP ${grp.name} SEMI</text>`;
+  }
+  svg += semiSlot(semiA, grpTop);
+  svg += semiSlot(semiB, grpTop);
+  svg += semiSlot(semiC, grpBot);
+  svg += semiSlot(semiD, grpBot);
+
+  // Connectors: Conf Semis → Conf Finals
+  const rx2 = c2 + bw;
+  svg += connector(rx2, semiA, semiB, c3, groupTopMid);
+  svg += connector(rx2, semiC, semiD, c3, groupBotMid);
+
+  // Group winner slots
+  function groupSlot(y, grp){
+    return `<rect x="${c3}" y="${y-12}" width="90" height="28" rx="5" fill="${grp.color}20" stroke="${grp.color}" stroke-width="1" stroke-opacity="0.6"/>
+      <text x="${c3+45}" y="${y+5}" fill="${grp.color}" font-family="Oswald,sans-serif" font-size="11" letter-spacing="1" text-anchor="middle">GRP ${grp.name} WIN</text>`;
+  }
+  svg += groupSlot(groupTopMid, grpTop);
+  svg += groupSlot(groupBotMid, grpBot);
+
+  // Final connector + Conference Finals box
+  const rx3 = c3 + 90;
+  const cfX = c3 + 20;
+  svg += `<line x1="${rx3}" y1="${groupTopMid}" x2="${rx3+6}" y2="${groupTopMid}" stroke="${lc}" stroke-width="1"/>`;
+  svg += `<line x1="${rx3}" y1="${groupBotMid}" x2="${rx3+6}" y2="${groupBotMid}" stroke="${lc}" stroke-width="1"/>`;
+  svg += `<line x1="${rx3+6}" y1="${groupTopMid}" x2="${rx3+6}" y2="${groupBotMid}" stroke="${lc}" stroke-width="1"/>`;
+
+  // Conf Finals label centered between groups
+  svg += `<text x="${rx3+10}" y="${finalsMid-3}" fill="#F4A32E" font-family="Oswald,sans-serif" font-size="11" letter-spacing="1.5" opacity="0.9">CONF</text>`;
+  svg += `<text x="${rx3+10}" y="${finalsMid+7}" fill="#F4A32E" font-family="Oswald,sans-serif" font-size="11" letter-spacing="1.5" opacity="0.9">FINALS</text>`;
+
+  // Group divider line
+  const divY = (ty[3] + ty[4]) / 2 + 14;
+  svg += `<line x1="4" y1="${divY}" x2="${W-4}" y2="${divY}" stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="3,4"/>`;
+
+  // Group section labels
+  svg += `<text x="${W-4}" y="${ty[0]+6}" fill="${grpTop.color}" font-family="Oswald,sans-serif" font-size="11" letter-spacing="2" text-anchor="end" opacity="0.8">GROUP ${grpTop.name}</text>`;
+  svg += `<text x="${W-4}" y="${ty[4]+6}" fill="${grpBot.color}" font-family="Oswald,sans-serif" font-size="11" letter-spacing="2" text-anchor="end" opacity="0.8">GROUP ${grpBot.name}</text>`;
+
+  svg += '</svg>';
+
+  document.getElementById(containerId).innerHTML = `
+    <div class="bracket-conf">
+      <div class="bracket-conf-label" style="color:rgba(255,255,255,0.5);">${label}</div>
+      <div class="bracket-svg-wrap">${svg}</div>
+    </div>`;
+}
+
+// ── Draft Order ──
+function renderRoundTabs(){
+  const c=document.getElementById('round-tabs');c.innerHTML='';
+  for(let r=0;r<4;r++){const b=document.createElement('button');b.className='round-tab'+(r===activeRound?' active':'');b.textContent='RD '+(r+1);if(r===activeRound)b.style.background=GROUP_COLORS[r];b.onclick=()=>{activeRound=r;renderRoundTabs();renderRoundContent();};c.appendChild(b);}
+}
+function renderRoundContent(){
+  const c=document.getElementById('round-content'),col=GROUP_COLORS[activeRound];
+  c.style.borderColor=col+'33';
+  let h=`<div class="oswald" style="font-size:14px;letter-spacing:3px;color:${col};margin-bottom:14px;text-align:center;">ROUND ${activeRound+1}</div>`;
+  DRAFT_ORDER[activeRound].forEach((pi,pn)=>{
+    const p=PLAYERS[pi],first=pn===0;
+    h+=`<div class="pick-row" style="${first?`background:${col}18;border-color:${col}33;`:''}"><div class="pick-num">${pn+1}</div><span style="font-size:20px;">${p.emoji}</span><div><div class="oswald" style="font-size:19px;font-weight:600;">${p.name}</div><div style="font-size:12px;color:rgba(255,255,255,0.4);">#${p.seed} seed</div></div>${first?`<div class="first-pick-badge" style="color:${col};background:${col}18;">FIRST PICK</div>`:''}</div>`;
+  });
+  c.innerHTML=h;
+}
+
+// ── Pass Rule ──
+function renderExTabs(){
+  const c=document.getElementById('ex-tabs');c.innerHTML='';
+  EXAMPLES.forEach((e,i)=>{const b=document.createElement('button');b.className='ex-tab'+(i===activeEx?' active':'');b.textContent=e.title;if(i===activeEx)b.style.background=e.color;b.onclick=()=>{activeEx=i;exStep=0;renderExTabs();renderExample();};c.appendChild(b);});
+}
+function renderExample(){
+  const ex=EXAMPLES[activeEx],s=ex.steps[exStep];
+  const tb=document.getElementById('ex-text-box');
+  tb.style.borderColor=ex.color+'22';
+  tb.innerHTML=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;"><div class="oswald" style="font-size:11px;letter-spacing:2px;color:${ex.color};background:${ex.color}18;padding:3px 8px;border-radius:4px;">GROUP ${ex.group}</div><div class="oswald" style="font-size:13px;letter-spacing:2px;color:${ex.color};">${s.highlight.toUpperCase()}</div></div><div style="font-size:17px;color:rgba(255,255,255,1);line-height:1.6;">${s.text}</div>`;
+  const pg=document.getElementById('ex-player-grid');pg.innerHTML='';
+  PLAYERS.forEach(p=>{
+    const v=s.visual[p.name.toLowerCase()]||'...';
+    const pick=v.includes('🏀'),pass=v.includes('PASS'),think=v.includes('🤔'),block=v.includes('❌');
+    let cls='player-card';if(think)cls+=' thinking';else if(pick)cls+=' picked';else if(pass)cls+=' passed';else if(block)cls+=' blocked';
+    let vc='rgba(255,255,255,0.4)';if(block)vc='#E8433E';else if(pass)vc='rgba(232,67,62,0.8)';else if(pick)vc='#45B764';
+    pg.innerHTML+=`<div class="${cls}"><div class="oswald" style="font-size:15px;font-weight:600;margin-bottom:4px;">${p.emoji} ${p.name}</div><div style="font-size:15px;color:${vc};font-weight:${pick||block?600:400};">${v}</div></div>`;
+  });
+
+  // Draft board
+  const bd=document.getElementById('ex-board');
+  let bh='';
+  // Check for final board (overrides everything)
+  const boardData = s.finalBoard || ex.priorBoard;
+  const showAvail = !s.finalBoard;
+  // Available teams in this group
+  if(ex.groupTeams && showAvail){
+    const taken=[];
+    PLAYERS.forEach(p=>{const v=s.visual[p.name.toLowerCase()]||'';ex.groupTeams.forEach(t=>{if(v.includes(t))taken.push(t);});});
+    bh+=`<div class="db-wrap" style="margin-bottom:8px;"><div class="db-label">GROUP ${ex.group} — THIS ROUND</div><div class="db-avail">`;
+    ex.groupTeams.forEach(t=>{
+      const tk=taken.includes(t);
+      const ph=t.includes('#');
+      bh+=`<span class="db-avail-chip${tk?' taken':''}${ph&&!tk?' ph':''}">${t}</span>`;
+    });
+    bh+=`</div></div>`;
+  }
+  // Prior rounds board OR final board
+  if(boardData){
+    const gc={"A":"#FF7B75","B":"#6BB8FF","C":"#FFB94D","D":"#6DD88B"};
+    const numCols=boardData.phil.length;
+    const label=s.finalBoard?'COMPLETE DRAFT RESULTS':'DRAFT BOARD — PRIOR ROUNDS';
+    bh+=`<div class="db-wrap"><div class="db-label">${label}</div><div class="db-grid" style="grid-template-columns:56px repeat(${numCols},1fr);">`;
+    bh+=`<div class="db-hdr"></div>`;
+    for(let i=0;i<numCols;i++) bh+=`<div class="db-hdr">RD ${i+1}</div>`;
+    PLAYERS.forEach(p=>{
+      const picks=boardData[p.name.toLowerCase()]||[];
+      bh+=`<div class="db-name">${p.emoji} ${p.name}</div>`;
+      picks.forEach(pk=>{
+        const c=gc[pk.g]||'rgba(255,255,255,0.3)';
+        bh+=`<div class="db-cell filled" style="color:${c};border:1px solid ${c}33;"><span style="opacity:0.5;font-size:9px;">#${pk.p}</span> ${pk.t}</div>`;
+      });
+    });
+    bh+=`</div></div>`;
+  }
+  bd.innerHTML=bh;
+
+  const sn=document.getElementById('ex-step-nav'),atEnd=exStep===ex.steps.length-1;
+  sn.innerHTML=`<button class="step-btn step-btn-prev" ${exStep===0?'disabled':''} onclick="exPrev()">← PREV</button><div class="step-counter">${exStep+1} / ${ex.steps.length}</div><button class="step-btn step-btn-next" style="background:${atEnd?'':'linear-gradient(135deg,'+ex.color+','+ex.color+'cc)'};" ${atEnd?'disabled':''} onclick="exNext()">NEXT →</button>`;
+}
+function exPrev(){if(exStep>0){exStep--;renderExample();}}
+function exNext(){if(exStep<EXAMPLES[activeEx].steps.length-1){exStep++;renderExample();}}
+
+// ── Cheat Sheet ──
+function renderCheatSheet(){
+  const cg=document.getElementById('cs-groups');
+  GROUPS.forEach(g=>{
+    const teams=g.teams.map(t=>`<div class="cs-team${t.includes('Seed')?' ph':''}">${t}</div>`).join('');
+    cg.innerHTML+=`<div class="cs-group" style="border-left-color:${g.color};background:rgba(255,255,255,0.04);"><div class="cs-group-name" style="color:${g.color};">GROUP ${g.name}</div>${teams}</div>`;
+  });
+  const cr=document.getElementById('cs-rounds');
+  DRAFT_ORDER.forEach((order,r)=>{
+    const picks=order.map((pi,pn)=>`<div class="cs-pick">${pn+1}. ${PLAYERS[pi].emoji} ${PLAYERS[pi].name}</div>`).join('');
+    cr.innerHTML+=`<div class="cs-round"><div class="cs-round-label" style="color:${GROUP_COLORS[r]};">ROUND ${r+1}</div>${picks}</div>`;
+  });
+}
+
+// ── Countdown ──
+function startCountdown(){
+  function update(){
+    const now=Date.now(),diff=DRAFT_TIME-now;
+    const cd=document.getElementById('countdown'),msg=document.getElementById('countdown-msg');
+    if(diff<=0){
+      cd.innerHTML='';
+      msg.innerHTML='<span style="color:#F4A32E;font-size:16px;font-weight:600;">🏀 DRAFT TIME! 🏀</span>';
+      return;
+    }
+    const d=Math.floor(diff/86400000),h=Math.floor((diff%86400000)/3600000),m=Math.floor((diff%3600000)/60000),s=Math.floor((diff%60000)/1000);
+    cd.innerHTML=`
+      <div class="cd-unit"><span class="cd-num">${d}</span><div class="cd-label">Days</div></div>
+      <div class="cd-unit"><span class="cd-num">${String(h).padStart(2,'0')}</span><div class="cd-label">Hrs</div></div>
+      <div class="cd-unit"><span class="cd-num">${String(m).padStart(2,'0')}</span><div class="cd-label">Min</div></div>
+      <div class="cd-unit"><span class="cd-num">${String(s).padStart(2,'0')}</span><div class="cd-label">Sec</div></div>`;
+    msg.textContent='until draft night';
+  }
+  update();
+  setInterval(update,1000);
+}
+
+// ── Swipe ──
+let tx=0;
+document.addEventListener('touchstart',e=>{tx=e.changedTouches[0].screenX;},{passive:true});
+document.addEventListener('touchend',e=>{const d=e.changedTouches[0].screenX-tx;if(Math.abs(d)>60){d<0?goTo(cur+1):goTo(cur-1);}},{passive:true});
+
+init();
+</script>
+</body>
+</html>
