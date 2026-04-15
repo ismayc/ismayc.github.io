@@ -254,9 +254,6 @@ function getDraftTurn(rounds) {
   const picked = (round.picks||[]).map(p => p.player);
   const position = picked.length + 1;
 
-  if (position === 1) {
-    return {phase:"selectTeam",player:order[0],position:1,roundNum:rn,group:round.group,canPass:false,mustPickReason:"First pick in the round must draft."};
-  }
   if (position > 4) {
     return rounds.length >= 4 ? {phase:"complete"} : {phase:"roundComplete",roundNum:rn};
   }
@@ -273,7 +270,7 @@ function getDraftTurn(rounds) {
     const hasToken = !tokens[player].includes(position);
     if (!hasToken) {
       const usedIn = rounds.findIndex(r => (r.picks||[]).some(pk => pk.player===player && pk.position===position));
-      return {phase:"autoPass",player,position,roundNum:rn,group:round.group,usedInRound:usedIn+1};
+      return {phase:"autoPass",player,position,roundNum:rn,group:round.group||null,usedInRound:usedIn+1};
     }
 
     const remaining = unpicked.slice(i+1).filter(p => !passersHere.includes(p));
@@ -304,6 +301,10 @@ function getDraftTurn(rounds) {
       }
     }
 
+    // If no group selected yet, this player declares the group
+    if (!round.group) {
+      return {phase:"selectGroup",player,position,roundNum:rn,canPass,mustPickReason};
+    }
     return {phase:"selectTeam",player,position,roundNum:rn,group:round.group,canPass,mustPickReason};
   }
   return {phase:"error"};
@@ -479,7 +480,9 @@ function doAction(action, data) {
   }
   if (action === "selectGroup") {
     s.rounds[ri].group = data.group;
-    const pl = ROUND_ORDERS[ri][0];
+    const turn = getDraftTurn(normalize(s).rounds);
+    // The player who declared is whoever was offered selectGroup before this action
+    const pl = data.player || ROUND_ORDERS[ri][0];
     s.log.push({round:ri+1,text:declareFlavor(pl, data.group),color:GROUPS[data.group].color});
   }
   if (action === "pick") {
@@ -610,7 +613,13 @@ function renderStatus(turn) {
   if (p === "notStarted") { text = "Draft has not started yet."; }
   else if (p === "complete") { text = "🏆 Draft complete!"; color = "#45B764"; }
   else if (p === "roundComplete") { text = "Round "+turn.roundNum+" complete. Waiting for next round..."; }
-  else if (p === "selectGroup") { text = "Round "+turn.roundNum+": "+EMOJIS[turn.player]+" "+turn.player+" is selecting a group..."; }
+  else if (p === "selectGroup") {
+    const note = turn.canPass ? " (can pass)" : " (must pick)";
+    text = "Rd"+turn.roundNum+" #"+turn.position+": "+EMOJIS[turn.player]+" "+turn.player+" selects a group"+note;
+    if (!turn.canPass && turn.mustPickReason) {
+      text += '<br><span style="font-size:13px;opacity:0.7">'+turn.mustPickReason+'</span>';
+    }
+  }
   else if (p === "autoPass") { text = "Rd"+turn.roundNum+" #"+turn.position+": "+EMOJIS[turn.player]+" "+turn.player+" auto-passes (used #"+turn.position+" in Rd"+turn.usedInRound+")"; color = "#E8433E"; }
   else if (p === "selectTeam") {
     const note = turn.canPass ? " (can pass)" : " (must pick)";
@@ -676,9 +685,15 @@ function renderControls(turn) {
   else if (p === "selectGroup") {
     const used = getUsedGroups(state.rounds);
     const btns = GK.filter(g => !used.includes(g)).map(g =>
-      btn("Group "+g, GROUPS[g].color, `doAction('selectGroup',{group:'${g}'})`)
+      btn("Group "+g, GROUPS[g].color, `doAction('selectGroup',{group:'${g}',player:'${turn.player}'})`)
     ).join("");
-    h = panel(turn.player.toUpperCase()+" SELECTS GROUP", `<div class="btn-row">${btns}</div>`);
+    const passBtn = turn.canPass
+      ? `<div style="text-align:center;margin-top:12px"><button class="btn-pass" onclick="doAction('pass',{player:'${turn.player}',position:${turn.position}})">PASS</button></div>`
+      : "";
+    const reasonNote = (!turn.canPass && turn.mustPickReason)
+      ? `<div style="text-align:center;margin-top:10px;font-size:13px;color:rgba(255,255,255,0.5);line-height:1.5">⚠️ ${turn.mustPickReason}</div>`
+      : "";
+    h = panel(turn.player.toUpperCase()+" SELECTS GROUP · #"+turn.position, `<div class="btn-row">${btns}</div>${passBtn}${reasonNote}`);
   }
   else if (p === "autoPass") {
     h = panel("AUTO-PASS",
