@@ -174,14 +174,24 @@ function initFirebase(){
   }
 }
 
+function toArray(x) {
+  if (!x) return [];
+  if (Array.isArray(x)) return x;
+  // Firebase converts arrays to objects with numeric keys
+  const keys = Object.keys(x).sort((a,b) => Number(a) - Number(b));
+  return keys.map(k => x[k]);
+}
+
 function normalize(s) {
   return {
-    rounds: (s.rounds || []).map(r => ({
-      group: r.group || null,
-      picks: r.picks || [],
-      passedAt: r.passedAt || {},
+    rounds: toArray(s.rounds).map(r => ({
+      group: r.group || null,  // "" -> null
+      picks: toArray(r.picks),
+      passedAt: r.passedAt ? Object.fromEntries(
+        Object.entries(r.passedAt).filter(([k]) => k !== "_init").map(([k,v]) => [k, toArray(v)])
+      ) : {},
     })),
-    log: s.log || [],
+    log: toArray(s.log),
     startedAt: s.startedAt || null,
   };
 }
@@ -279,12 +289,12 @@ function doAction(action, data) {
   const ri = (s.rounds||[]).length - 1;
 
   if (action === "start") {
-    s.rounds = [{group:null,picks:[],passedAt:{}}];
+    s.rounds = [{group:"",picks:[],passedAt:{_init:true}}];
     s.log = [{round:1,text:"Draft started!",color:"#F4A32E"}];
     s.startedAt = Date.now();
   }
   if (action === "nextRound") {
-    s.rounds.push({group:null,picks:[],passedAt:{}});
+    s.rounds.push({group:"",picks:[],passedAt:{_init:true}});
     s.log.push({round:s.rounds.length,text:"Round "+s.rounds.length+" begins.",color:"#F4A32E"});
   }
   if (action === "selectGroup") {
@@ -294,7 +304,7 @@ function doAction(action, data) {
   }
   if (action === "pick") {
     s.rounds[ri].picks.push({player:data.player,team:data.team,position:data.position});
-    s.rounds[ri].passedAt = {};
+    s.rounds[ri].passedAt = {_init:true};
     s.log.push({round:ri+1,text:EMOJIS[data.player]+" "+data.player+" picks "+data.team+" at #"+data.position+".",color:GROUPS[s.rounds[ri].group].color});
   }
   if (action === "pass") {
