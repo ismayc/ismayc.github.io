@@ -255,7 +255,7 @@ function getDraftTurn(rounds) {
   const position = picked.length + 1;
 
   if (position === 1) {
-    return {phase:"selectTeam",player:order[0],position:1,roundNum:rn,group:round.group,canPass:false};
+    return {phase:"selectTeam",player:order[0],position:1,roundNum:rn,group:round.group,canPass:false,mustPickReason:"First pick in the round must draft."};
   }
   if (position > 4) {
     return rounds.length >= 4 ? {phase:"complete"} : {phase:"roundComplete",roundNum:rn};
@@ -278,7 +278,33 @@ function getDraftTurn(rounds) {
 
     const remaining = unpicked.slice(i+1).filter(p => !passersHere.includes(p));
     const canPass = remaining.some(p => !tokens[p].includes(position));
-    return {phase:"selectTeam",player,position,roundNum:rn,group:round.group,canPass};
+
+    let mustPickReason = "";
+    if (!canPass) {
+      if (remaining.length === 0) {
+        // Check if they're the #4 slot (lowest in round) or just last unpicked
+        const slotNum = order.indexOf(player) + 1;
+        if (slotNum === 4) {
+          mustPickReason = player + " is the #4 slot (lowest ranked) this round and cannot pass.";
+        } else {
+          mustPickReason = player + " is the last unpicked player remaining.";
+        }
+      } else {
+        // There are players below but none can use this position
+        const spentNames = remaining.filter(p => tokens[p].includes(position));
+        if (spentNames.length === 1) {
+          const who = spentNames[0];
+          const usedIn = rounds.findIndex(r => (r.picks||[]).some(pk => pk.player===who && pk.position===position));
+          mustPickReason = "Can't pass: " + who + " (below) already used #" + position + " in Rd" + (usedIn+1) + ".";
+        } else if (spentNames.length > 1) {
+          mustPickReason = "Can't pass: all players below already used #" + position + " in prior rounds.";
+        } else {
+          mustPickReason = player + " must pick (no eligible player below to accept the pass).";
+        }
+      }
+    }
+
+    return {phase:"selectTeam",player,position,roundNum:rn,group:round.group,canPass,mustPickReason};
   }
   return {phase:"error"};
 }
@@ -302,76 +328,76 @@ const FLAVOR = {
     "The board resets. Who's feeling bold?",
   ],
   declareGroup: [
-    "P declares Group G. The table is set.",
-    "P goes with Group G. Interesting...",
-    "P eyes Group G. Here come the fireworks.",
-    "Group G it is! P is locked in.",
-    "P doesn't hesitate -- Group G.",
-    "P plants their flag in Group G.",
+    "{P} declares Group {G}. The table is set.",
+    "{P} goes with Group {G}. Interesting...",
+    "{P} eyes Group {G}. Here come the fireworks.",
+    "Group {G} it is! {P} is locked in.",
+    "{P} doesn't hesitate -- Group {G}.",
+    "{P} plants their flag in Group {G}.",
   ],
   pickNormal: [
-    "P locks in T at #X. Solid choice.",
-    "P scoops up T at #X.",
-    "P takes T at #X. Moving on.",
-    "T goes to P at #X.",
-    "P grabs T at #X. Business as usual.",
-    "And just like that, T belongs to P (#X).",
-    "P secures T at #X. Well played.",
-    "No hesitation from P -- T at #X.",
-    "P at #X: T. Clean pick.",
+    "{P} locks in {T} at {X}. Solid choice.",
+    "{P} scoops up {T} at {X}.",
+    "{P} takes {T} at {X}. Moving on.",
+    "{T} goes to {P} at {X}.",
+    "{P} grabs {T} at {X}. Business as usual.",
+    "And just like that, {T} belongs to {P} ({X}).",
+    "{P} secures {T} at {X}. Well played.",
+    "No hesitation from {P} -- {T} at {X}.",
+    "{P} at {X}: {T}. Clean pick.",
   ],
   pickTopSeed: [
-    "P snags T at #X. The favorite is off the board!",
-    "P goes chalk with T at #X. Can't blame 'em.",
-    "T to P at #X. That's the pick everyone expected.",
-    "P plays it safe with T at #X. Smart money.",
-    "P locks in T at #X. The frontrunner finds a home.",
-    "P takes the top dog T at #X.",
+    "{P} snags {T} at {X}. The favorite is off the board!",
+    "{P} goes chalk with {T} at {X}. Can't blame 'em.",
+    "{T} to {P} at {X}. That's the pick everyone expected.",
+    "{P} plays it safe with {T} at {X}. Smart money.",
+    "{P} locks in {T} at {X}. The frontrunner finds a home.",
+    "{P} takes the top dog {T} at {X}.",
   ],
   pickSurprise: [
-    "P takes... T?! At #X?! 🤯 Bold move!",
-    "WHOA. P goes with T at #X. Nobody saw that coming!",
-    "P shocks the room with T at #X! What's the strategy here?",
-    "T to P at #X. That's a galaxy brain pick right there. 🧠",
-    "P with the wildcard -- T at #X! The group chat is buzzing.",
-    "Did P just pick T at #X?! Somebody check the connection!",
-    "T?! P is either a genius or... well, time will tell. (#X)",
-    "P zagging while everyone else zigs. T at #X. Wow.",
-    "🚨 UPSET ALERT: P takes T at #X!",
+    "{P} takes... {T}?! At {X}?! 🤯 Bold move!",
+    "WHOA. {P} goes with {T} at {X}. Nobody saw that coming!",
+    "{P} shocks the room with {T} at {X}! What's the strategy here?",
+    "{T} to {P} at {X}. That's a galaxy brain pick right there. 🧠",
+    "{P} with the wildcard -- {T} at {X}! The group chat is buzzing.",
+    "Did {P} just pick {T} at {X}?! Somebody check the connection!",
+    "{T}?! {P} is either a genius or... well, time will tell. ({X})",
+    "{P} zagging while everyone else zigs. {T} at {X}. Wow.",
+    "🚨 UPSET ALERT: {P} takes {T} at {X}!",
   ],
   pickForced: [
-    "P is stuck at #X and takes T. No choice here.",
-    "P had to take what's left: T at #X.",
-    "Last one standing. P gets T at #X.",
-    "P at #X... T by default. Tough break.",
-    "The draft gods have spoken: T for P at #X.",
-    "Not much to work with. P takes T at #X.",
+    "{P} is stuck at {X} and takes {T}. No choice here.",
+    "{P} had to take what's left: {T} at {X}.",
+    "Last one standing. {P} gets {T} at {X}.",
+    "{P} at {X}... {T} by default. Tough break.",
+    "The draft gods have spoken: {T} for {P} at {X}.",
+    "Not much to work with. {P} takes {T} at {X}.",
   ],
   pickPlaceholder: [
-    "P takes the mystery box (T) at #X. Who will it be? 🎰",
-    "P drafts T at #X. A gamble wrapped in a play-in game!",
-    "T goes to P at #X. The suspense continues...",
-    "P rolls the dice on T at #X. Could be anyone!",
-    "P at #X takes T. Fortune favors the bold... or the unlucky.",
+    "{P} takes the mystery box ({T}) at {X}. Who will it be? 🎰",
+    "{P} drafts {T} at {X}. A gamble wrapped in a play-in game!",
+    "{T} goes to {P} at {X}. The suspense continues...",
+    "{P} rolls the dice on {T} at {X}. Could be anyone!",
+    "{P} at {X} takes {T}. Fortune favors the bold... or the unlucky.",
   ],
   pass: [
-    "P passes at #X. Playing the long game! ♟️",
-    "P says 'nah' at #X. Saving it for later.",
-    "P waves off #X. Risky, but maybe brilliant?",
-    "P passes at #X. Calculated or reckless? Time will tell.",
-    "P slides past #X. The patience game is real.",
-    "P at #X: 'I'll wait.' Cold-blooded. 🥶",
-    "PASS from P at #X. The room holds its breath.",
-    "P declines at #X. Someone else's problem now.",
-    "P keeps the pick in the holster at #X.",
+    "{P} passes at {X}. Playing the long game! ♟️",
+    "{P} says 'nah' at {X}. Saving it for later.",
+    "{P} waves off {X}. Risky, but maybe brilliant?",
+    "{P} passes at {X}. Calculated or reckless? Time will tell.",
+    "{P} slides past {X}. The patience game is real.",
+    "{P} at {X}: 'I'll wait.' Cold-blooded. 🥶",
+    "PASS from {P} at {X}. The room holds its breath.",
+    "{P} declines at {X}. Someone else's problem now.",
+    "{P} keeps the pick in the holster at {X}.",
   ],
   autoPass: [
-    "P auto-passes at #X (used in RdU). The past catches up!",
-    "P can't use #X (spent in RdU). Forced to watch.",
-    "Ghost of Round U haunts P at #X. Auto-pass!",
-    "P at #X: pick's gone (RdU). Moving along...",
-    "That RdU pick comes back to bite P at #X.",
-    "P's #X token is spent (RdU). Nothing to do but wait.",
+    "{P} auto-passes at {X} (used in {U}). The past catches up!",
+    "{P} can't use {X} (spent in {U}). Forced to watch.",
+    "Ghost of Round {U} haunts {P} at {X}. Auto-pass!",
+    "{P} at {X}: pick's gone ({U}). Moving along...",
+    "That {U} pick comes back to bite {P} at {X}.",
+    "{P}'s {X} token is spent ({U}). Nothing to do but wait.",
   ],
   complete: [
     "🏆 THE DRAFT IS DONE! Let the playoff watching begin!",
@@ -406,24 +432,24 @@ function pickFlavor(player, team, position, group, isForced) {
     if (topStillThere && Math.random() < 0.6) pool = FLAVOR.pickSurprise;
   }
 
-  return rng(pool).replace(/P/g, EMOJIS[player]+" "+player).replace(/T/g, team).replace(/#X/g, "#"+position);
+  return rng(pool).replace(/{P}/g, EMOJIS[player]+" "+player).replace(/{T}/g, team).replace(/{X}/g, "#"+position);
 }
 
 function passFlavor(player, position) {
-  return rng(FLAVOR.pass).replace(/P/g, EMOJIS[player]+" "+player).replace(/#X/g, "#"+position);
+  return rng(FLAVOR.pass).replace(/{P}/g, EMOJIS[player]+" "+player).replace(/{X}/g, "#"+position);
 }
 
 function autoPassFlavor(player, position, usedInRound) {
   return rng(FLAVOR.autoPass)
-    .replace(/P/g, EMOJIS[player]+" "+player)
-    .replace(/#X/g, "#"+position)
-    .replace(/RdU/g, "Rd"+usedInRound);
+    .replace(/{P}/g, EMOJIS[player]+" "+player)
+    .replace(/{X}/g, "#"+position)
+    .replace(/{U}/g, "Rd"+usedInRound);
 }
 
 function declareFlavor(player, group) {
   return rng(FLAVOR.declareGroup)
-    .replace(/P/g, EMOJIS[player]+" "+player)
-    .replace(/G/g, group);
+    .replace(/{P}/g, EMOJIS[player]+" "+player)
+    .replace(/{G}/g, group);
 }
 
 // ══ Actions ══
@@ -438,7 +464,18 @@ function doAction(action, data) {
   }
   if (action === "nextRound") {
     s.rounds.push({group:"",picks:[],passedAt:{_init:true}});
+    const newRi = s.rounds.length - 1;
     s.log.push({round:s.rounds.length,text:"Round "+s.rounds.length+" begins. "+rng(FLAVOR.roundStart),color:"#F4A32E"});
+
+    // Auto-select if only one group remains
+    const used = s.rounds.slice(0, newRi).filter(r => r.group).map(r => r.group);
+    const remaining = GK.filter(g => !used.includes(g));
+    if (remaining.length === 1) {
+      const g = remaining[0];
+      const pl = ROUND_ORDERS[newRi][0];
+      s.rounds[newRi].group = g;
+      s.log.push({round:newRi+1,text:"Only Group "+g+" remains -- auto-assigned. "+EMOJIS[pl]+" "+pl+" picks first.",color:GROUPS[g].color});
+    }
   }
   if (action === "selectGroup") {
     s.rounds[ri].group = data.group;
@@ -578,6 +615,9 @@ function renderStatus(turn) {
   else if (p === "selectTeam") {
     const note = turn.canPass ? " (can pass)" : " (must pick)";
     text = "Rd"+turn.roundNum+" #"+turn.position+": "+EMOJIS[turn.player]+" "+turn.player+"'s turn"+note;
+    if (!turn.canPass && turn.mustPickReason) {
+      text += '<br><span style="font-size:13px;opacity:0.7">'+turn.mustPickReason+'</span>';
+    }
     color = GROUPS[turn.group].color;
   }
   else { el.innerHTML = ""; return; }
@@ -658,9 +698,12 @@ function renderControls(turn) {
     const passBtn = turn.canPass
       ? `<div style="text-align:center;margin-top:12px"><button class="btn-pass" onclick="doAction('pass',{player:'${turn.player}',position:${turn.position}})">PASS</button></div>`
       : "";
+    const reasonNote = (!turn.canPass && turn.mustPickReason)
+      ? `<div style="text-align:center;margin-top:10px;font-size:13px;color:rgba(255,255,255,0.5);line-height:1.5">⚠️ ${turn.mustPickReason}</div>`
+      : "";
     h = panel(
       turn.player.toUpperCase()+"'S PICK · GROUP "+turn.group+" · #"+turn.position,
-      `<div class="btn-row">${teamBtns}</div>${passBtn}`
+      `<div class="btn-row">${teamBtns}</div>${passBtn}${reasonNote}`
     );
   }
 
