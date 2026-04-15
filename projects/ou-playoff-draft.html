@@ -119,7 +119,7 @@
         <h2 class="title" style="font-size:24px;margin-bottom:6px;">THE GROUPS</h2>
         <p class="subtitle" style="margin-bottom:16px;">The winner of each group reaches the conference finals</p>
         <div style="display:flex;flex-direction:column;gap:12px;" id="groups-container"></div>
-        <p style="font-size:15px;color:rgba(255,255,255,0.4);text-align:center;margin-top:14px;line-height:1.5;">7 seeds will be updated Thursday after Tuesday/Wednesday play-in games<br>8 seeds TBD during draft night (play-in game happening then)</p>
+        <p style="font-size:15px;color:rgba(255,255,255,0.4);text-align:center;margin-top:14px;line-height:1.5;">East 7 seed will be updated Thursday after Wednesday play-in game<br>8 seeds TBD during draft night (play-in games happening then)</p>
       </div>
     </div>
 
@@ -271,7 +271,7 @@ const PLAYERS=[
 const GROUPS=[
   {name:"A",color:"#E8433E",teams:["Thunder","Lakers","Rockets","8 West Seed"]},
   {name:"B",color:"#2D7DD2",teams:["Pistons","Cavaliers","Raptors","8 East Seed"]},
-  {name:"C",color:"#F4A32E",teams:["Spurs","Nuggets","Timberwolves","7 West Seed"]},
+  {name:"C",color:"#F4A32E",teams:["Spurs","Nuggets","Timberwolves","Trail Blazers"]},
   {name:"D",color:"#45B764",teams:["Celtics","Knicks","Hawks","7 East Seed"]},
 ];
 const DRAFT_ORDER=[[0,1,2,3],[1,2,3,0],[2,3,0,1],[3,0,1,2]];
@@ -280,13 +280,13 @@ const GROUP_COLORS=["#E8433E","#2D7DD2","#F4A32E","#45B764"];
 const EX_GROUPS={
   B:{name:"B",color:"#2D7DD2",teams:["Bulls","Magic","Hawks","East #8"]},
   A:{name:"A",color:"#E8433E",teams:["Spurs","Thunder","Nuggets","West #8"]},
-  C:{name:"C",color:"#F4A32E",teams:["Lakers","Mavericks","Blazers","West #7"]},
+  C:{name:"C",color:"#F4A32E",teams:["Lakers","Mavericks","Blazers","Hornets"]},
   D:{name:"D",color:"#45B764",teams:["Heat","Celtics","Knicks","East #7"]},
 };
 const EXAMPLES=[
   { title:"2011 Bracket",group:"—",color:"#F4A32E",groupTeams:null,priorBoard:null,
     steps:[
-      {text:"To show the power of the pass without biasing this year's picks, these examples use the 2011 NBA Playoffs. The 8 seeds are placeholders (those play-in games happen during draft night). The 7 seeds will be updated Thursday -- both here and in the actual draft groups -- once they're determined by Tuesday and Wednesday night's play-in games.",highlight:"Why 2011 teams?",showGroups:true,visual:{phil:"",andy:"",ryan:"",jake:""}},
+      {text:"To show the power of the pass without biasing this year's picks, these examples use the 2011 NBA Playoffs. The 8 seeds are placeholders (those play-in games happen during draft night). In 2011, the West 7 seed was the New Orleans Hornets. The East 7 seed will be updated Thursday after the play-in game.",highlight:"Why 2011 teams?",showGroups:true,visual:{phil:"",andy:"",ryan:"",jake:""}},
       {text:"Key rule: The \"lowest ranked player\" who cannot pass is whoever holds the #4 pick slot IN THAT ROUND -- not the overall lowest seed. This rotates every round.",highlight:"Who is \"lowest\" each round?",visual:{phil:"Rd1: #1 · Rd2: #4 (lowest)",andy:"Rd1: #2 · Rd2: #1",ryan:"Rd1: #3 · Rd2: #2",jake:"Rd1: #4 (lowest) · Rd2: #3"}},
     ]},
   { title:"Chain of Passes",group:"B",color:"#2D7DD2",groupTeams:EX_GROUPS.B.teams,priorBoard:null,roundSlots:{phil:1,andy:2,ryan:3,jake:4},
@@ -315,16 +315,16 @@ const EXAMPLES=[
       {text:"Position #2: Jake is up. But he used #2 in Round 1 (forced by the chain of passes). He MUST pass.",highlight:"Jake can\'t use #2!",visual:{ryan:"🏀 Lakers",jake:"❌ USED #2 IN RD1",phil:"🤔 ?",andy:"..."}},
       {text:"Phil (#3 in this round) is next in the round order. Phil has #2 available and takes the Mavericks.",highlight:"Phil picks Mavericks",visual:{ryan:"🏀 Lakers",jake:"❌ USED #2 IN RD1",phil:"🏀 Mavericks",andy:"..."}},
       {text:"Position #3: Phil (assigned) already picked. Continuing in round order, Andy (#4) is next. Andy has #3 available and takes the Blazers.",highlight:"Andy picks Blazers",visual:{ryan:"🏀 Lakers",phil:"🏀 Mavericks",andy:"🏀 Blazers",jake:"🤔 ?"}},
-      {text:"Jake is the only one left and gets the West #7 at #4. Because Jake\'s #2 was spent in Round 1, Phil jumped ahead of him and grabbed the Mavericks. Jake ended up last.",highlight:"Jake stuck at #4",visual:{ryan:"🏀 Lakers",phil:"🏀 Mavericks",andy:"🏀 Blazers",jake:"🏀 West #7"}},
+      {text:"Jake is the only one left and gets the Hornets at #4. Because Jake\'s #2 was spent in Round 1, Phil jumped ahead of him and grabbed the Mavericks. Jake ended up last.",highlight:"Jake stuck at #4",visual:{ryan:"🏀 Lakers",phil:"🏀 Mavericks",andy:"🏀 Blazers",jake:"🏀 Hornets"}},
     ]},
   { title:"The Payoff",group:"D",color:"#45B764",groupTeams:EX_GROUPS.D.teams,roundSlots:{jake:1,phil:2,andy:3,ryan:4},
-    priorBoard:{phil:[{g:"B",t:"Bulls",p:1},{g:"A",t:"West #8",p:4},{g:"C",t:"Mavs",p:2}],andy:[{g:"B",t:"East #8",p:4},{g:"A",t:"Spurs",p:1},{g:"C",t:"Blazers",p:3}],ryan:[{g:"B",t:"Hawks",p:3},{g:"A",t:"Thunder",p:2},{g:"C",t:"Lakers",p:1}],jake:[{g:"B",t:"Magic",p:2},{g:"A",t:"Nuggets",p:3},{g:"C",t:"West #7",p:4}]},
+    priorBoard:{phil:[{g:"B",t:"Bulls",p:1},{g:"A",t:"West #8",p:4},{g:"C",t:"Mavs",p:2}],andy:[{g:"B",t:"East #8",p:4},{g:"A",t:"Spurs",p:1},{g:"C",t:"Blazers",p:3}],ryan:[{g:"B",t:"Hawks",p:3},{g:"A",t:"Thunder",p:2},{g:"C",t:"Lakers",p:1}],jake:[{g:"B",t:"Magic",p:2},{g:"A",t:"Nuggets",p:3},{g:"C",t:"Hornets",p:4}]},
     steps:[
       {text:"Final round! Pick order: Jake (#1), Phil (#2), Andy (#3), Ryan (#4). Ryan is lowest this round. Jake finally has the #1 pick -- his only one left.",highlight:"Jake\'s redemption",visual:{jake:"Pick left: #1 only",phil:"Pick left: #3 only",andy:"Pick left: #2 only",ryan:"Pick left: #4 only"}},
       {text:"Jake declares Group D and takes the Heat -- the team he wanted most. After three rounds of getting squeezed, the #4 seed gets first choice.",highlight:"Jake chooses Group D",visual:{jake:"🏀 Heat",phil:"...",andy:"...",ryan:"..."}},
       {text:"The rest sorts out: Phil passes at #2 (needs #3), Andy picks the Celtics at #2, Phil picks the Knicks at #3, and Ryan gets the East #7 at #4.",highlight:"Draft complete!",visual:{jake:"🏀 Heat",andy:"🏀 Celtics",phil:"🏀 Knicks",ryan:"🏀 East #7"}},
       {text:"Here are the complete results across all four rounds. Each player has one team from each group. The two players whose teams go furthest advance to the O/U Finals!",highlight:"Final draft board",visual:{phil:"4 teams",andy:"4 teams",ryan:"4 teams",jake:"4 teams"},
-        finalBoard:{phil:[{g:"B",t:"Bulls",p:1},{g:"A",t:"West #8",p:4},{g:"C",t:"Mavs",p:2},{g:"D",t:"Knicks",p:3}],andy:[{g:"B",t:"East #8",p:4},{g:"A",t:"Spurs",p:1},{g:"C",t:"Blazers",p:3},{g:"D",t:"Celtics",p:2}],ryan:[{g:"B",t:"Hawks",p:3},{g:"A",t:"Thunder",p:2},{g:"C",t:"Lakers",p:1},{g:"D",t:"East #7",p:4}],jake:[{g:"B",t:"Magic",p:2},{g:"A",t:"Nuggets",p:3},{g:"C",t:"West #7",p:4},{g:"D",t:"Heat",p:1}]}},
+        finalBoard:{phil:[{g:"B",t:"Bulls",p:1},{g:"A",t:"West #8",p:4},{g:"C",t:"Mavs",p:2},{g:"D",t:"Knicks",p:3}],andy:[{g:"B",t:"East #8",p:4},{g:"A",t:"Spurs",p:1},{g:"C",t:"Blazers",p:3},{g:"D",t:"Celtics",p:2}],ryan:[{g:"B",t:"Hawks",p:3},{g:"A",t:"Thunder",p:2},{g:"C",t:"Lakers",p:1},{g:"D",t:"East #7",p:4}],jake:[{g:"B",t:"Magic",p:2},{g:"A",t:"Nuggets",p:3},{g:"C",t:"Hornets",p:4},{g:"D",t:"Heat",p:1}]}},
     ]},
 ];
 
@@ -385,7 +385,7 @@ function renderBrackets(){
      pair1:[{s:'1',t:'Thunder'},{s:'8',t:'8 West Seed',ph:true}],
      pair2:[{s:'4',t:'Lakers'},{s:'5',t:'Rockets'}]},
     {name:'C',color:'#F4A32E',
-     pair1:[{s:'2',t:'Spurs'},{s:'7',t:'7 West Seed',ph:true}],
+     pair1:[{s:'2',t:'Spurs'},{s:'7',t:'Trail Blazers'}],
      pair2:[{s:'3',t:'Nuggets'},{s:'6',t:'T-Wolves'}]}
   );
   renderOneBracket('bracket-east','EASTERN CONFERENCE',
