@@ -283,6 +283,149 @@ function getDraftTurn(rounds) {
   return {phase:"error"};
 }
 
+// ══ Fun Commentary ══
+function rng(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+const FLAVOR = {
+  start: [
+    "🎬 The stage is set. Let the chaos begin!",
+    "🎬 Welcome to the show. May the best drafter win!",
+    "🎬 Phones out, game faces on. Here we go!",
+    "🎬 The 16th annual draft is officially underway!",
+    "🎬 This is not a drill. The draft is LIVE!",
+  ],
+  roundStart: [
+    "New round, new opportunities. Who's making moves?",
+    "Fresh round. The plot thickens...",
+    "Another round, another chance to make or break your bracket.",
+    "Buckle up. This round could change everything.",
+    "The board resets. Who's feeling bold?",
+  ],
+  declareGroup: [
+    "P declares Group G. The table is set.",
+    "P goes with Group G. Interesting...",
+    "P eyes Group G. Here come the fireworks.",
+    "Group G it is! P is locked in.",
+    "P doesn't hesitate -- Group G.",
+    "P plants their flag in Group G.",
+  ],
+  pickNormal: [
+    "P locks in T at #X. Solid choice.",
+    "P scoops up T at #X.",
+    "P takes T at #X. Moving on.",
+    "T goes to P at #X.",
+    "P grabs T at #X. Business as usual.",
+    "And just like that, T belongs to P (#X).",
+    "P secures T at #X. Well played.",
+    "No hesitation from P -- T at #X.",
+    "P at #X: T. Clean pick.",
+  ],
+  pickTopSeed: [
+    "P snags T at #X. The favorite is off the board!",
+    "P goes chalk with T at #X. Can't blame 'em.",
+    "T to P at #X. That's the pick everyone expected.",
+    "P plays it safe with T at #X. Smart money.",
+    "P locks in T at #X. The frontrunner finds a home.",
+    "P takes the top dog T at #X.",
+  ],
+  pickSurprise: [
+    "P takes... T?! At #X?! 🤯 Bold move!",
+    "WHOA. P goes with T at #X. Nobody saw that coming!",
+    "P shocks the room with T at #X! What's the strategy here?",
+    "T to P at #X. That's a galaxy brain pick right there. 🧠",
+    "P with the wildcard -- T at #X! The group chat is buzzing.",
+    "Did P just pick T at #X?! Somebody check the connection!",
+    "T?! P is either a genius or... well, time will tell. (#X)",
+    "P zagging while everyone else zigs. T at #X. Wow.",
+    "🚨 UPSET ALERT: P takes T at #X!",
+  ],
+  pickForced: [
+    "P is stuck at #X and takes T. No choice here.",
+    "P had to take what's left: T at #X.",
+    "Last one standing. P gets T at #X.",
+    "P at #X... T by default. Tough break.",
+    "The draft gods have spoken: T for P at #X.",
+    "Not much to work with. P takes T at #X.",
+  ],
+  pickPlaceholder: [
+    "P takes the mystery box (T) at #X. Who will it be? 🎰",
+    "P drafts T at #X. A gamble wrapped in a play-in game!",
+    "T goes to P at #X. The suspense continues...",
+    "P rolls the dice on T at #X. Could be anyone!",
+    "P at #X takes T. Fortune favors the bold... or the unlucky.",
+  ],
+  pass: [
+    "P passes at #X. Playing the long game! ♟️",
+    "P says 'nah' at #X. Saving it for later.",
+    "P waves off #X. Risky, but maybe brilliant?",
+    "P passes at #X. Calculated or reckless? Time will tell.",
+    "P slides past #X. The patience game is real.",
+    "P at #X: 'I'll wait.' Cold-blooded. 🥶",
+    "PASS from P at #X. The room holds its breath.",
+    "P declines at #X. Someone else's problem now.",
+    "P keeps the pick in the holster at #X.",
+  ],
+  autoPass: [
+    "P auto-passes at #X (used in RdU). The past catches up!",
+    "P can't use #X (spent in RdU). Forced to watch.",
+    "Ghost of Round U haunts P at #X. Auto-pass!",
+    "P at #X: pick's gone (RdU). Moving along...",
+    "That RdU pick comes back to bite P at #X.",
+    "P's #X token is spent (RdU). Nothing to do but wait.",
+  ],
+  complete: [
+    "🏆 THE DRAFT IS DONE! Let the playoff watching begin!",
+    "🏆 That's a wrap! Four teams each, winner take all!",
+    "🏆 Draft complete! Now we sit back and let the NBA decide our fate.",
+    "🏆 All picks are in! May the basketball gods smile upon you.",
+    "🏆 FINAL! The board is set. The pieces are in motion.",
+  ],
+};
+
+// Determine if a team is a top seed, placeholder, or normal
+function teamType(team, group) {
+  if (!team || !group) return "normal";
+  if (team.includes("Seed") || team.includes("#")) return "placeholder";
+  const teams = GROUPS[group]?.teams || [];
+  if (teams.indexOf(team) === 0) return "topSeed";  // First listed = highest seed
+  return "normal";
+}
+
+function pickFlavor(player, team, position, group, isForced) {
+  const tt = teamType(team, group);
+  let pool;
+  if (isForced && position === 4) pool = FLAVOR.pickForced;
+  else if (tt === "placeholder") pool = FLAVOR.pickPlaceholder;
+  else if (tt === "topSeed") pool = FLAVOR.pickTopSeed;
+  else pool = FLAVOR.pickNormal;
+
+  // Small chance of surprise reaction for any non-top-seed pick when top seed is still available
+  if (tt === "normal" && !isForced) {
+    const avail = getAvailableTeams(state.rounds, group);
+    const topStillThere = avail.length > 0 && teamType(avail[0], group) === "topSeed";
+    if (topStillThere && Math.random() < 0.6) pool = FLAVOR.pickSurprise;
+  }
+
+  return rng(pool).replace(/P/g, EMOJIS[player]+" "+player).replace(/T/g, team).replace(/#X/g, "#"+position);
+}
+
+function passFlavor(player, position) {
+  return rng(FLAVOR.pass).replace(/P/g, EMOJIS[player]+" "+player).replace(/#X/g, "#"+position);
+}
+
+function autoPassFlavor(player, position, usedInRound) {
+  return rng(FLAVOR.autoPass)
+    .replace(/P/g, EMOJIS[player]+" "+player)
+    .replace(/#X/g, "#"+position)
+    .replace(/RdU/g, "Rd"+usedInRound);
+}
+
+function declareFlavor(player, group) {
+  return rng(FLAVOR.declareGroup)
+    .replace(/P/g, EMOJIS[player]+" "+player)
+    .replace(/G/g, group);
+}
+
 // ══ Actions ══
 function doAction(action, data) {
   const s = JSON.parse(JSON.stringify(state));
@@ -290,34 +433,43 @@ function doAction(action, data) {
 
   if (action === "start") {
     s.rounds = [{group:"",picks:[],passedAt:{_init:true}}];
-    s.log = [{round:1,text:"Draft started!",color:"#F4A32E"}];
+    s.log = [{round:1,text:rng(FLAVOR.start),color:"#F4A32E"}];
     s.startedAt = Date.now();
   }
   if (action === "nextRound") {
     s.rounds.push({group:"",picks:[],passedAt:{_init:true}});
-    s.log.push({round:s.rounds.length,text:"Round "+s.rounds.length+" begins.",color:"#F4A32E"});
+    s.log.push({round:s.rounds.length,text:"Round "+s.rounds.length+" begins. "+rng(FLAVOR.roundStart),color:"#F4A32E"});
   }
   if (action === "selectGroup") {
     s.rounds[ri].group = data.group;
     const pl = ROUND_ORDERS[ri][0];
-    s.log.push({round:ri+1,text:EMOJIS[pl]+" "+pl+" declares Group "+data.group+".",color:GROUPS[data.group].color});
+    s.log.push({round:ri+1,text:declareFlavor(pl, data.group),color:GROUPS[data.group].color});
   }
   if (action === "pick") {
+    const isForced = !getDraftTurn(normalize(s).rounds).canPass;
     s.rounds[ri].picks.push({player:data.player,team:data.team,position:data.position});
     s.rounds[ri].passedAt = {_init:true};
-    s.log.push({round:ri+1,text:EMOJIS[data.player]+" "+data.player+" picks "+data.team+" at #"+data.position+".",color:GROUPS[s.rounds[ri].group].color});
+    const flavor = pickFlavor(data.player, data.team, data.position, s.rounds[ri].group, isForced);
+    s.log.push({round:ri+1,text:flavor,color:GROUPS[s.rounds[ri].group].color});
+
+    // Check if round is now complete
+    if (s.rounds[ri].picks.length === 4) {
+      if (s.rounds.length >= 4) {
+        s.log.push({round:ri+1,text:rng(FLAVOR.complete),color:"#45B764"});
+      }
+    }
   }
   if (action === "pass") {
     const pa = s.rounds[ri].passedAt || {};
     pa[data.position] = (pa[data.position]||[]).concat(data.player);
     s.rounds[ri].passedAt = pa;
-    s.log.push({round:ri+1,text:EMOJIS[data.player]+" "+data.player+" passes at #"+data.position+".",color:"#E8433E"});
+    s.log.push({round:ri+1,text:passFlavor(data.player, data.position),color:"#E8433E"});
   }
   if (action === "autoPass") {
     const pa = s.rounds[ri].passedAt || {};
     pa[data.position] = (pa[data.position]||[]).concat(data.player);
     s.rounds[ri].passedAt = pa;
-    s.log.push({round:ri+1,text:EMOJIS[data.player]+" "+data.player+" auto-passes at #"+data.position+" (used in Rd"+data.usedInRound+").",color:"rgba(255,255,255,0.45)"});
+    s.log.push({round:ri+1,text:autoPassFlavor(data.player, data.position, data.usedInRound),color:"rgba(255,255,255,0.45)"});
   }
   if (action === "reset") {
     save(makeEmpty());
