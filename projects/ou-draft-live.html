@@ -60,6 +60,7 @@ body{font-family:'Source Sans 3',sans-serif;background:linear-gradient(165deg,#0
 /* Live dot */
 .live-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#45B764;margin-right:6px;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+@keyframes fadeIn{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:scale(1)}}
 .footer{text-align:center;padding:12px 0 20px;font-size:12px;color:rgba(255,255,255,0.3)}
 
 /* Firebase status */
@@ -140,7 +141,7 @@ const ADMIN_CODE = "ou2026";
 const DB_PATH = "ou-draft-2026";
 
 // ══ State ══
-let state = {rounds:[],log:[],startedAt:null};
+let state = {rounds:[],log:[],startedAt:null,prevState:null,apology:null};
 let isAdmin = false;
 let db = null;
 let fbOk = false;
@@ -183,7 +184,7 @@ function toArray(x) {
 }
 
 function normalize(s) {
-  return {
+  const n = {
     rounds: toArray(s.rounds).map(r => ({
       group: r.group || null,  // "" -> null
       picks: toArray(r.picks),
@@ -193,10 +194,20 @@ function normalize(s) {
     })),
     log: toArray(s.log),
     startedAt: s.startedAt || null,
+    apology: s.apology || null,
   };
+  // Store prevState as raw JSON string to avoid Firebase mangling nested structure
+  if (s.prevState && typeof s.prevState === "string") {
+    n.prevState = s.prevState;
+  } else if (s.prevState && typeof s.prevState === "object") {
+    n.prevState = JSON.stringify(s.prevState);
+  } else {
+    n.prevState = null;
+  }
+  return n;
 }
 
-function makeEmpty(){ return {rounds:[],log:[],startedAt:null}; }
+function makeEmpty(){ return {rounds:[],log:[],startedAt:null,prevState:null,apology:null}; }
 
 async function save(s) {
   state = s;
@@ -248,13 +259,12 @@ function getDraftTurn(rounds) {
   const round = rounds[ri];
   const rn = ri + 1;
   const order = ROUND_ORDERS[ri];
-
-  if (!round.group) return {phase:"selectGroup",player:order[0],roundNum:rn};
-
   const picked = (round.picks||[]).map(p => p.player);
   const position = picked.length + 1;
 
-  if (position > 4) {
+  if (!round.group) {
+    // No group yet -- fall through to main loop which handles selectGroup with full pass logic
+  } else if (position > 4) {
     return rounds.length >= 4 ? {phase:"complete"} : {phase:"roundComplete",roundNum:rn};
   }
 
@@ -274,11 +284,16 @@ function getDraftTurn(rounds) {
     }
 
     const remaining = unpicked.slice(i+1).filter(p => !passersHere.includes(p));
-    const canPass = remaining.some(p => !tokens[p].includes(position));
+    let canPass = remaining.some(p => !tokens[p].includes(position));
+
+    // Position #1 can never be passed -- that token never comes back
+    if (position === 1) canPass = false;
 
     let mustPickReason = "";
     if (!canPass) {
-      if (remaining.length === 0) {
+      if (position === 1) {
+        mustPickReason = "Pick #1 must be used now (it doesn't come back in future rounds).";
+      } else if (remaining.length === 0) {
         // Check if they're the #4 slot (lowest in round) or just last unpicked
         const slotNum = order.indexOf(player) + 1;
         if (slotNum === 4) {
@@ -453,10 +468,47 @@ function declareFlavor(player, group) {
     .replace(/{G}/g, group);
 }
 
+const APOLOGIES = [
+  "🙈 Oops! The commissioner made an error. Rewinding...",
+  "🫣 Commissioner fumble! Rolling back the last action.",
+  "😅 My bad! Pretend that last one didn't happen.",
+  "🔄 Technical difficulties! Let's try that again.",
+  "🤦 Commissioner misclick. Undoing... nothing to see here.",
+  "⏪ Rewind! The commissioner needs a do-over.",
+  "😬 Commissioner error! Backing up one step.",
+  "🫠 Whoops. That wasn't supposed to happen. Fixed!",
+];
+
 // ══ Actions ══
 function doAction(action, data) {
   const s = JSON.parse(JSON.stringify(state));
   const ri = (s.rounds||[]).length - 1;
+
+  // Clear any existing apology on new actions (except undo)
+  if (action !== "undo") {
+    s.apology = null;
+  }
+
+  if (action === "undo") {
+    if (!state.prevState) return;
+    let prev;
+    try {
+      prev = typeof state.prevState === "string" ? JSON.parse(state.prevState) : state.prevState;
+    } catch { return; }
+    const restored = normalize(prev);
+    const apology = rng(APOLOGIES);
+    restored.log = toArray(restored.log);
+    restored.log.push({round: restored.rounds.length || 1, text: apology, color: "#F4A32E"});
+    restored.apology = apology;
+    restored.prevState = null;
+    save(restored);
+    return;
+  }
+
+  // Save current state as prevState (as JSON string to survive Firebase)
+  const prevSnapshot = JSON.parse(JSON.stringify(state));
+  delete prevSnapshot.prevState;  // Don't nest prevStates
+  s.prevState = JSON.stringify(prevSnapshot);
 
   if (action === "start") {
     s.rounds = [{group:"",picks:[],passedAt:{_init:true}}];
@@ -475,18 +527,17 @@ function doAction(action, data) {
       const g = remaining[0];
       const pl = ROUND_ORDERS[newRi][0];
       s.rounds[newRi].group = g;
-      s.log.push({round:newRi+1,text:"Only Group "+g+" remains -- auto-assigned. "+EMOJIS[pl]+" "+pl+" picks first.",color:GROUPS[g].color});
+      s.log.push({round:newRi+1,text:"Only Group "+g+" remains -- auto-assigned. "+EMOJIS[pl]+" "+pl+" is up first.",color:GROUPS[g].color});
     }
   }
   if (action === "selectGroup") {
     s.rounds[ri].group = data.group;
-    const turn = getDraftTurn(normalize(s).rounds);
-    // The player who declared is whoever was offered selectGroup before this action
     const pl = data.player || ROUND_ORDERS[ri][0];
     s.log.push({round:ri+1,text:declareFlavor(pl, data.group),color:GROUPS[data.group].color});
   }
   if (action === "pick") {
-    const isForced = !getDraftTurn(normalize(s).rounds).canPass;
+    const currentTurn = getDraftTurn(normalize(s).rounds);
+    const isForced = currentTurn.phase === "selectTeam" && !currentTurn.canPass;
     s.rounds[ri].picks.push({player:data.player,team:data.team,position:data.position});
     s.rounds[ri].passedAt = {_init:true};
     const flavor = pickFlavor(data.player, data.team, data.position, s.rounds[ri].group, isForced);
@@ -525,11 +576,26 @@ function render() {
   renderAdminCorner();
   renderRounds();
   renderPickOrder(turn);
+  renderApology();
   renderStatus(turn);
   renderBoard();
   renderActivity();
   renderControls(turn);
   renderFooter(turn);
+}
+
+function renderApology() {
+  let el = document.getElementById("apology-area");
+  if (!el) {
+    el = document.createElement("div");
+    el.id = "apology-area";
+    document.getElementById("status-area").before(el);
+  }
+  if (state.apology) {
+    el.innerHTML = `<div style="background:rgba(244,163,46,0.12);border:2px dashed rgba(244,163,46,0.4);border-radius:12px;padding:14px 18px;margin:0 16px 10px;text-align:center;font-size:16px;color:#F4A32E;font-weight:600;line-height:1.5;animation:fadeIn 0.4s ease">${state.apology}</div>`;
+  } else {
+    el.innerHTML = "";
+  }
 }
 
 function renderAdminCorner() {
@@ -722,9 +788,15 @@ function renderControls(turn) {
     );
   }
 
-  // Reset button
+  // Undo and Reset buttons
   if (state.rounds && state.rounds.length > 0) {
-    h += `<div style="text-align:center;margin:8px 0 20px"><button class="btn-reset" onclick="if(confirm('Reset entire draft? This cannot be undone.'))doAction('reset')">Reset Draft</button></div>`;
+    const undoBtn = state.prevState
+      ? `<button onclick="doAction('undo')" style="background:rgba(244,163,46,0.15);border:1px solid rgba(244,163,46,0.3);color:#F4A32E;padding:8px 20px;border-radius:6px;cursor:pointer;font-size:13px;font-family:'Oswald',sans-serif;letter-spacing:0.5px;font-weight:600">⏪ Undo Last Action</button>`
+      : `<button disabled style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);color:rgba(255,255,255,0.15);padding:8px 20px;border-radius:6px;font-size:13px;font-family:'Oswald',sans-serif;letter-spacing:0.5px;cursor:default">⏪ Undo Last Action</button>`;
+    h += `<div style="display:flex;gap:10px;justify-content:center;align-items:center;margin:8px 16px 20px">
+      ${undoBtn}
+      <button class="btn-reset" onclick="if(confirm('Reset entire draft? This cannot be undone.'))doAction('reset')">Reset Draft</button>
+    </div>`;
   }
 
   el.innerHTML = h;
