@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>O/U Live Draft 2025-26</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Source Sans 3',sans-serif;background:linear-gradient(165deg,#0D1117 0%,#161B22 40%,#1A1F2B 100%);color:#fff;min-height:100vh;-webkit-font-smoothing:antialiased;font-size:17px}
+.app{max-width:520px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column}
+.hdr{padding:14px 20px 0;display:flex;justify-content:space-between;align-items:center}
+.hdr-label{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:3px;color:rgba(255,255,255,0.35)}
+.title-area{text-align:center;padding:12px 20px 8px}
+.title{font-family:'Oswald',sans-serif;font-size:28px;font-weight:700;letter-spacing:2px;margin:0;background:linear-gradient(135deg,#F4A32E,#E8433E);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.title-sub{font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:3px;color:rgba(255,255,255,0.4);margin-top:2px}
+
+/* Status */
+.status{border-radius:12px;padding:14px 18px;margin:0 16px 14px;text-align:center;font-size:16px;line-height:1.5;font-weight:500;color:#fff}
+
+/* Round indicator */
+.rounds{display:flex;gap:8px;justify-content:center;margin-bottom:14px}
+.rd-pill{font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;padding:6px 16px;border-radius:20px}
+
+/* Pick order */
+.pick-order{display:flex;gap:6px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
+.po-chip{font-size:13px;font-weight:600;padding:4px 12px;border-radius:8px}
+
+/* Board */
+.board{overflow-x:auto;margin:0 12px 16px;padding:0 4px}
+.board table{width:100%;border-collapse:separate;border-spacing:2px;font-size:13px}
+.board th{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:2px;font-weight:600;padding:8px 4px;text-align:center}
+.board td{padding:8px 6px;text-align:center;font-weight:500;color:rgba(255,255,255,0.8)}
+.board .name-cell{font-family:'Oswald',sans-serif;font-weight:600;color:#fff;font-size:14px;text-align:left;padding-left:8px}
+.board .pick-cell{border-radius:6px;font-weight:600}
+.board .empty-cell{color:rgba(255,255,255,0.12)}
+
+/* Activity */
+.activity{background:rgba(255,255,255,0.03);border-radius:12px;padding:12px 14px;border:1px solid rgba(255,255,255,0.08);margin:0 16px 14px;max-height:220px;overflow-y:auto}
+.activity-label{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.4);margin-bottom:8px}
+.activity-row{font-size:14px;color:rgba(255,255,255,0.8);padding:4px 0;line-height:1.5;border-top:1px solid rgba(255,255,255,0.04)}
+.activity-row:first-of-type{border-top:none}
+
+/* Panel */
+.panel{background:rgba(255,255,255,0.04);border-radius:14px;padding:16px 18px;border:1px solid rgba(255,255,255,0.1);margin:0 16px 14px}
+.panel-title{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:2px;color:rgba(255,255,255,0.5);margin-bottom:12px;text-align:center}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+
+/* Buttons */
+.btn{border:none;color:#fff;padding:10px 22px;border-radius:8px;cursor:pointer;font-family:'Oswald',sans-serif;font-size:15px;letter-spacing:0.5px;font-weight:600}
+.btn-pass{background:rgba(232,67,62,0.15);border:1px solid rgba(232,67,62,0.3);color:#E8433E;padding:10px 28px;border-radius:8px;cursor:pointer;font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:1px}
+.btn-admin{background:none;border:none;color:rgba(255,255,255,0.2);font-size:11px;cursor:pointer}
+.btn-reset{background:none;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.3);padding:6px 16px;border-radius:6px;cursor:pointer;font-size:12px}
+
+/* Login */
+.login-input{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:8px;padding:10px 16px;color:#fff;font-size:15px;width:200px;outline:none}
+.login-input.err{border-color:#E8433E}
+.login-btn{margin-left:8px;background:linear-gradient(135deg,#F4A32E,#E8433E);border:none;color:#fff;padding:10px 20px;border-radius:8px;cursor:pointer;font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:1px}
+
+/* Live dot */
+.live-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#45B764;margin-right:6px;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+.footer{text-align:center;padding:12px 0 20px;font-size:12px;color:rgba(255,255,255,0.3)}
+
+/* Firebase status */
+.fb-status{text-align:center;padding:8px;font-size:12px;color:rgba(255,255,255,0.35)}
+.fb-status.error{color:#E8433E}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <div class="hdr">
+    <div class="hdr-label">16TH ANNUAL O/U</div>
+    <div id="admin-corner"></div>
+  </div>
+  <div class="title-area">
+    <h1 class="title">LIVE DRAFT</h1>
+    <div class="title-sub">2025 — 2026 PLAYOFFS</div>
+  </div>
+  <div id="login-area"></div>
+  <div id="fb-status-area"></div>
+  <div id="rounds-area"></div>
+  <div id="pick-order-area"></div>
+  <div id="status-area"></div>
+  <div id="board-area" class="board"></div>
+  <div id="activity-area"></div>
+  <div id="controls-area"></div>
+  <div style="flex:1"></div>
+  <div id="footer-area" class="footer"></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     FIREBASE SDK (v9 compat CDN)
+     ══════════════════════════════════════════ -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
+<script>
+/* ┌─────────────────────────────────────────────┐
+   │  PASTE YOUR FIREBASE CONFIG BELOW           │
+   │                                             │
+   │  1. Go to console.firebase.google.com       │
+   │  2. Create a project (or use existing)      │
+   │  3. Add a web app                           │
+   │  4. Create a Realtime Database              │
+   │     - Pick region                           │
+   │     - Start in TEST MODE                    │
+   │  5. Copy the config object and paste below  │
+   └─────────────────────────────────────────────┘ */
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDGcu91SmpVLAPOwzQqb9k1Z5515WoAlOk",
+  authDomain: "ou-draft.firebaseapp.com",
+  databaseURL: "https://ou-draft-default-rtdb.firebaseio.com",
+  projectId: "ou-draft",
+  storageBucket: "ou-draft.firebasestorage.app",
+  messagingSenderId: "607783556265",
+  appId: "1:607783556265:web:a0d2ad4bc901b911dec5b8"
+};
+
+/* ─── END CONFIG ─── */
+
+// ══ Constants ══
+const PLAYERS = ["Phil","Andy","Ryan","Jake"];
+const EMOJIS = {Phil:"👑",Andy:"🔥",Ryan:"⚡",Jake:"💪"};
+const ROUND_ORDERS = [
+  ["Phil","Andy","Ryan","Jake"],
+  ["Andy","Ryan","Jake","Phil"],
+  ["Ryan","Jake","Phil","Andy"],
+  ["Jake","Phil","Andy","Ryan"],
+];
+const GROUPS = {
+  A:{name:"A",color:"#E8433E",teams:["Thunder","Lakers","Rockets","8 West Seed"]},
+  B:{name:"B",color:"#2D7DD2",teams:["Pistons","Cavaliers","Raptors","8 East Seed"]},
+  C:{name:"C",color:"#F4A32E",teams:["Spurs","Nuggets","Timberwolves","7 West Seed"]},
+  D:{name:"D",color:"#45B764",teams:["Celtics","Knicks","Hawks","7 East Seed"]},
+};
+const GK = ["A","B","C","D"];
+const ADMIN_CODE = "ou2026";
+const DB_PATH = "ou-draft-2026";
+
+// ══ State ══
+let state = {rounds:[],log:[],startedAt:null};
+let isAdmin = false;
+let db = null;
+let fbOk = false;
+
+// ══ Firebase Init ══
+function initFirebase(){
+  try {
+    if (firebaseConfig.apiKey === "YOUR_API_KEY") {
+      showFbStatus("Firebase not configured. Paste your config in the HTML file.", true);
+      return;
+    }
+    firebase.initializeApp(firebaseConfig);
+    db = firebase.database();
+    fbOk = true;
+
+    // Listen for changes
+    db.ref(DB_PATH).on("value", snap => {
+      const val = snap.val();
+      if (val) {
+        // Firebase strips empty arrays, so normalize
+        state = normalize(val);
+      } else {
+        state = makeEmpty();
+      }
+      render();
+    });
+
+    showFbStatus("");
+  } catch(e) {
+    showFbStatus("Firebase error: " + e.message, true);
+  }
+}
+
+function normalize(s) {
+  return {
+    rounds: (s.rounds || []).map(r => ({
+      group: r.group || null,
+      picks: r.picks || [],
+      passedAt: r.passedAt || {},
+    })),
+    log: s.log || [],
+    startedAt: s.startedAt || null,
+  };
+}
+
+function makeEmpty(){ return {rounds:[],log:[],startedAt:null}; }
+
+async function save(s) {
+  state = s;
+  render();
+  if (db && fbOk) {
+    try { await db.ref(DB_PATH).set(s); }
+    catch(e) { console.error("Save failed:", e); }
+  }
+}
+
+function showFbStatus(msg, isErr) {
+  const el = document.getElementById("fb-status-area");
+  el.className = "fb-status" + (isErr ? " error" : "");
+  el.textContent = msg;
+}
+
+// ══ Draft Logic ══
+function getUsedTokens(rounds) {
+  const t = {};
+  PLAYERS.forEach(p => t[p] = []);
+  (rounds||[]).forEach(r => (r.picks||[]).forEach(pk => t[pk.player].push(pk.position)));
+  return t;
+}
+
+function getUsedGroups(rounds) {
+  return (rounds||[]).filter(r => r.group).map(r => r.group);
+}
+
+function getAvailableTeams(rounds, group) {
+  const picked = {};
+  (rounds||[]).forEach(r => (r.picks||[]).forEach(pk => picked[pk.team] = true));
+  return GROUPS[group].teams.filter(t => !picked[t]);
+}
+
+function getPlayerBoard(rounds) {
+  const b = {};
+  PLAYERS.forEach(p => b[p] = {});
+  (rounds||[]).forEach((r,ri) => {
+    (r.picks||[]).forEach(pk => {
+      b[pk.player][r.group] = {team:pk.team,position:pk.position,round:ri+1};
+    });
+  });
+  return b;
+}
+
+function getDraftTurn(rounds) {
+  if (!rounds || !rounds.length) return {phase:"notStarted"};
+  const ri = rounds.length - 1;
+  const round = rounds[ri];
+  const rn = ri + 1;
+  const order = ROUND_ORDERS[ri];
+
+  if (!round.group) return {phase:"selectGroup",player:order[0],roundNum:rn};
+
+  const picked = (round.picks||[]).map(p => p.player);
+  const position = picked.length + 1;
+
+  if (position === 1) {
+    return {phase:"selectTeam",player:order[0],position:1,roundNum:rn,group:round.group,canPass:false};
+  }
+  if (position > 4) {
+    return rounds.length >= 4 ? {phase:"complete"} : {phase:"roundComplete",roundNum:rn};
+  }
+
+  const unpicked = order.filter(p => !picked.includes(p));
+  const tokens = getUsedTokens(rounds);
+  const passedAt = round.passedAt || {};
+  const passersHere = passedAt[position] || [];
+
+  for (let i = 0; i < unpicked.length; i++) {
+    const player = unpicked[i];
+    if (passersHere.includes(player)) continue;
+
+    const hasToken = !tokens[player].includes(position);
+    if (!hasToken) {
+      const usedIn = rounds.findIndex(r => (r.picks||[]).some(pk => pk.player===player && pk.position===position));
+      return {phase:"autoPass",player,position,roundNum:rn,group:round.group,usedInRound:usedIn+1};
+    }
+
+    const remaining = unpicked.slice(i+1).filter(p => !passersHere.includes(p));
+    const canPass = remaining.some(p => !tokens[p].includes(position));
+    return {phase:"selectTeam",player,position,roundNum:rn,group:round.group,canPass};
+  }
+  return {phase:"error"};
+}
+
+// ══ Actions ══
+function doAction(action, data) {
+  const s = JSON.parse(JSON.stringify(state));
+  const ri = (s.rounds||[]).length - 1;
+
+  if (action === "start") {
+    s.rounds = [{group:null,picks:[],passedAt:{}}];
+    s.log = [{round:1,text:"Draft started!",color:"#F4A32E"}];
+    s.startedAt = Date.now();
+  }
+  if (action === "nextRound") {
+    s.rounds.push({group:null,picks:[],passedAt:{}});
+    s.log.push({round:s.rounds.length,text:"Round "+s.rounds.length+" begins.",color:"#F4A32E"});
+  }
+  if (action === "selectGroup") {
+    s.rounds[ri].group = data.group;
+    const pl = ROUND_ORDERS[ri][0];
+    s.log.push({round:ri+1,text:EMOJIS[pl]+" "+pl+" declares Group "+data.group+".",color:GROUPS[data.group].color});
+  }
+  if (action === "pick") {
+    s.rounds[ri].picks.push({player:data.player,team:data.team,position:data.position});
+    s.rounds[ri].passedAt = {};
+    s.log.push({round:ri+1,text:EMOJIS[data.player]+" "+data.player+" picks "+data.team+" at #"+data.position+".",color:GROUPS[s.rounds[ri].group].color});
+  }
+  if (action === "pass") {
+    const pa = s.rounds[ri].passedAt || {};
+    pa[data.position] = (pa[data.position]||[]).concat(data.player);
+    s.rounds[ri].passedAt = pa;
+    s.log.push({round:ri+1,text:EMOJIS[data.player]+" "+data.player+" passes at #"+data.position+".",color:"#E8433E"});
+  }
+  if (action === "autoPass") {
+    const pa = s.rounds[ri].passedAt || {};
+    pa[data.position] = (pa[data.position]||[]).concat(data.player);
+    s.rounds[ri].passedAt = pa;
+    s.log.push({round:ri+1,text:EMOJIS[data.player]+" "+data.player+" auto-passes at #"+data.position+" (used in Rd"+data.usedInRound+").",color:"rgba(255,255,255,0.45)"});
+  }
+  if (action === "reset") {
+    save(makeEmpty());
+    return;
+  }
+
+  save(s);
+}
+
+// ══ Render ══
+function render() {
+  const turn = getDraftTurn(state.rounds);
+  renderAdminCorner();
+  renderRounds();
+  renderPickOrder(turn);
+  renderStatus(turn);
+  renderBoard();
+  renderActivity();
+  renderControls(turn);
+  renderFooter(turn);
+}
+
+function renderAdminCorner() {
+  const el = document.getElementById("admin-corner");
+  if (isAdmin) {
+    el.innerHTML = `<div style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:2px;color:#F4A32E">COMMISSIONER</div>`;
+  } else {
+    el.innerHTML = `<button class="btn-admin" onclick="showLogin()">Admin</button>`;
+  }
+}
+
+function showLogin() {
+  const el = document.getElementById("login-area");
+  el.innerHTML = `
+    <div style="padding:16px;text-align:center;">
+      <input type="password" id="login-code" class="login-input" placeholder="Commissioner code"
+        onkeydown="if(event.key==='Enter')tryLogin()">
+      <button class="login-btn" onclick="tryLogin()">ENTER</button>
+      <div id="login-err" style="color:#E8433E;font-size:13px;margin-top:8px;display:none">Invalid code</div>
+    </div>`;
+  document.getElementById("login-code").focus();
+}
+
+function tryLogin() {
+  const code = document.getElementById("login-code").value;
+  if (code === ADMIN_CODE) {
+    isAdmin = true;
+    document.getElementById("login-area").innerHTML = "";
+    render();
+  } else {
+    document.getElementById("login-err").style.display = "block";
+    document.getElementById("login-code").classList.add("err");
+  }
+}
+
+function renderRounds() {
+  const el = document.getElementById("rounds-area");
+  if (!state.rounds.length) { el.innerHTML = ""; return; }
+  let h = '<div class="rounds">';
+  for (let r = 1; r <= 4; r++) {
+    const rd = state.rounds[r-1];
+    const active = r <= state.rounds.length;
+    const current = r === state.rounds.length;
+    const gc = rd?.group ? GROUPS[rd.group].color : "rgba(255,255,255,0.2)";
+    const bg = current ? gc : active ? gc+"30" : "rgba(255,255,255,0.06)";
+    const fg = current ? "#fff" : active ? gc : "rgba(255,255,255,0.3)";
+    const bdr = current ? "none" : "1px solid "+(active ? gc+"40" : "rgba(255,255,255,0.08)");
+    h += `<div class="rd-pill" style="background:${bg};color:${fg};border:${bdr}">RD ${r}${rd?.group?" · "+rd.group:""}</div>`;
+  }
+  h += '</div>';
+  el.innerHTML = h;
+}
+
+function renderPickOrder(turn) {
+  const el = document.getElementById("pick-order-area");
+  if (!state.rounds.length || ["complete","roundComplete","notStarted"].includes(turn.phase)) {
+    el.innerHTML = ""; return;
+  }
+  const ri = state.rounds.length - 1;
+  const rd = state.rounds[ri];
+  if (!rd || (rd.picks||[]).length >= 4) { el.innerHTML = ""; return; }
+  const order = ROUND_ORDERS[ri];
+  const picked = (rd.picks||[]).map(p => p.player);
+  let h = '<div class="pick-order">';
+  order.forEach((p,i) => {
+    const done = picked.includes(p);
+    const bg = done ? "rgba(69,183,100,0.12)" : "rgba(255,255,255,0.05)";
+    const fg = done ? "#45B764" : "rgba(255,255,255,0.6)";
+    const bdr = done ? "1px solid rgba(69,183,100,0.25)" : "1px solid rgba(255,255,255,0.08)";
+    const label = done ? "✓" : i===3 ? "(lowest)" : "";
+    h += `<div class="po-chip" style="background:${bg};color:${fg};border:${bdr}">#${i+1} ${EMOJIS[p]} ${p} ${label}</div>`;
+  });
+  h += '</div>';
+  el.innerHTML = h;
+}
+
+function renderStatus(turn) {
+  const el = document.getElementById("status-area");
+  let text = "", color = "#F4A32E";
+  const p = turn.phase;
+  if (p === "notStarted") { text = "Draft has not started yet."; }
+  else if (p === "complete") { text = "🏆 Draft complete!"; color = "#45B764"; }
+  else if (p === "roundComplete") { text = "Round "+turn.roundNum+" complete. Waiting for next round..."; }
+  else if (p === "selectGroup") { text = "Round "+turn.roundNum+": "+EMOJIS[turn.player]+" "+turn.player+" is selecting a group..."; }
+  else if (p === "autoPass") { text = "Rd"+turn.roundNum+" #"+turn.position+": "+EMOJIS[turn.player]+" "+turn.player+" auto-passes (used #"+turn.position+" in Rd"+turn.usedInRound+")"; color = "#E8433E"; }
+  else if (p === "selectTeam") {
+    const note = turn.canPass ? " (can pass)" : " (must pick)";
+    text = "Rd"+turn.roundNum+" #"+turn.position+": "+EMOJIS[turn.player]+" "+turn.player+"'s turn"+note;
+    color = GROUPS[turn.group].color;
+  }
+  else { el.innerHTML = ""; return; }
+  el.innerHTML = `<div class="status" style="background:${color}15;border:1px solid ${color}40">${text}</div>`;
+}
+
+function renderBoard() {
+  const el = document.getElementById("board-area");
+  const board = getPlayerBoard(state.rounds);
+  const used = getUsedGroups(state.rounds);
+  let h = '<table><thead><tr><th></th>';
+  GK.forEach(g => {
+    h += `<th style="color:${GROUPS[g].color};opacity:${used.includes(g)?1:0.35}">GRP ${g}</th>`;
+  });
+  h += '</tr></thead><tbody>';
+  PLAYERS.forEach(p => {
+    h += `<tr><td class="name-cell">${EMOJIS[p]} ${p}</td>`;
+    GK.forEach(g => {
+      const pk = board[p][g];
+      if (!pk) { h += '<td class="empty-cell">—</td>'; return; }
+      h += `<td class="pick-cell" style="color:${GROUPS[g].color};background:${GROUPS[g].color}15"><span style="opacity:0.5;font-size:10px">#${pk.position}</span> ${pk.team}</td>`;
+    });
+    h += '</tr>';
+  });
+  h += '</tbody></table>';
+  el.innerHTML = h;
+}
+
+function renderActivity() {
+  const el = document.getElementById("activity-area");
+  if (!state.log || !state.log.length) { el.innerHTML = ""; return; }
+  let h = '<div class="activity"><div class="activity-label">ACTIVITY</div>';
+  state.log.forEach(e => {
+    h += `<div class="activity-row"><span style="color:${e.color||"#fff"};font-weight:600">Rd${e.round}</span> ${e.text}</div>`;
+  });
+  h += '<div id="activity-end"></div></div>';
+  el.innerHTML = h;
+  const end = document.getElementById("activity-end");
+  if (end) end.scrollIntoView({behavior:"smooth"});
+}
+
+function renderControls(turn) {
+  const el = document.getElementById("controls-area");
+  if (!isAdmin) { el.innerHTML = ""; return; }
+
+  const p = turn.phase;
+  let h = "";
+
+  if (p === "notStarted") {
+    h = panel("START DRAFT", `<div class="btn-row">${btn("Start Draft","#45B764","doAction('start')")}</div>`);
+  }
+  else if (p === "complete") { h = ""; }
+  else if (p === "roundComplete") {
+    h = panel("START ROUND "+(turn.roundNum+1), `<div class="btn-row">${btn("Begin Round "+(turn.roundNum+1),"#F4A32E","doAction('nextRound')")}</div>`);
+  }
+  else if (p === "selectGroup") {
+    const used = getUsedGroups(state.rounds);
+    const btns = GK.filter(g => !used.includes(g)).map(g =>
+      btn("Group "+g, GROUPS[g].color, `doAction('selectGroup',{group:'${g}'})`)
+    ).join("");
+    h = panel(turn.player.toUpperCase()+" SELECTS GROUP", `<div class="btn-row">${btns}</div>`);
+  }
+  else if (p === "autoPass") {
+    h = panel("AUTO-PASS",
+      `<div style="font-size:16px;color:rgba(255,255,255,0.9);margin-bottom:12px;text-align:center;line-height:1.6">
+        ${EMOJIS[turn.player]} ${turn.player} auto-passes at #${turn.position}
+        <br><span style="font-size:14px;color:rgba(255,255,255,0.5)">(Used #${turn.position} in Round ${turn.usedInRound})</span>
+      </div>
+      <div class="btn-row">${btn("Continue","#F4A32E",`doAction('autoPass',{player:'${turn.player}',position:${turn.position},usedInRound:${turn.usedInRound}})`)}</div>`
+    );
+  }
+  else if (p === "selectTeam") {
+    const avail = getAvailableTeams(state.rounds, turn.group);
+    const gc = GROUPS[turn.group].color;
+    const teamBtns = avail.map(t =>
+      btn(t, gc, `doAction('pick',{player:'${turn.player}',team:'${t}',position:${turn.position}})`)
+    ).join("");
+    const passBtn = turn.canPass
+      ? `<div style="text-align:center;margin-top:12px"><button class="btn-pass" onclick="doAction('pass',{player:'${turn.player}',position:${turn.position}})">PASS</button></div>`
+      : "";
+    h = panel(
+      turn.player.toUpperCase()+"'S PICK · GROUP "+turn.group+" · #"+turn.position,
+      `<div class="btn-row">${teamBtns}</div>${passBtn}`
+    );
+  }
+
+  // Reset button
+  if (state.rounds && state.rounds.length > 0) {
+    h += `<div style="text-align:center;margin:8px 0 20px"><button class="btn-reset" onclick="if(confirm('Reset entire draft? This cannot be undone.'))doAction('reset')">Reset Draft</button></div>`;
+  }
+
+  el.innerHTML = h;
+}
+
+function renderFooter(turn) {
+  const el = document.getElementById("footer-area");
+  if (!["complete","notStarted"].includes(turn?.phase || "notStarted") && state.rounds.length) {
+    el.innerHTML = `<span class="live-dot"></span>Live — updates in real time`;
+  } else {
+    el.innerHTML = "";
+  }
+}
+
+function panel(title, content) {
+  return `<div class="panel"><div class="panel-title">${title}</div>${content}</div>`;
+}
+
+function btn(label, color, onclick) {
+  return `<button class="btn" style="background:linear-gradient(135deg,${color},${color}cc);box-shadow:0 2px 12px ${color}40" onclick="${onclick}">${label}</button>`;
+}
+
+// ══ Init ══
+initFirebase();
+render();
+</script>
+</body>
+</html>
