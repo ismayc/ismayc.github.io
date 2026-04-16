@@ -78,6 +78,28 @@ body{font-family:'Source Sans 3',sans-serif;background:linear-gradient(165deg,#0
 .gov-team.taken{color:rgba(255,255,255,0.3);text-decoration:line-through}
 .gov-team.placeholder{color:rgba(255,255,255,0.5);font-style:italic}
 .gov-label{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.4);margin-bottom:8px;text-align:center}
+
+/* Tabs */
+.tabs{display:flex;gap:4px;padding:0 16px;margin-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.08)}
+.tab-btn{flex:1;background:none;border:none;color:rgba(255,255,255,0.4);padding:12px 8px;cursor:pointer;font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:2px;font-weight:600;border-bottom:2px solid transparent;transition:all 0.15s}
+.tab-btn.active{color:#F4A32E;border-bottom-color:#F4A32E}
+.tab-btn:hover:not(.active){color:rgba(255,255,255,0.7)}
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+/* Reference tab */
+.ref-section{margin:0 16px 20px}
+.ref-heading{font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:3px;color:#F4A32E;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid rgba(244,163,46,0.25)}
+.ref-subheading{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.5);margin:14px 0 8px}
+.ref-row{display:flex;gap:8px;align-items:center;padding:5px 0}
+.ref-seed{font-family:'Oswald',sans-serif;font-size:11px;color:rgba(255,255,255,0.4);width:16px;text-align:right;flex-shrink:0}
+.ref-team{padding:4px 10px;border-radius:6px;font-size:13px;font-weight:600;white-space:nowrap}
+.ref-team.ph{font-style:italic;background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.55);border:1px dashed rgba(255,255,255,0.15)}
+.ref-order-table{width:100%;border-collapse:collapse;font-size:13px}
+.ref-order-table th{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:1.5px;color:rgba(255,255,255,0.5);padding:8px 6px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.1);font-weight:600}
+.ref-order-table td{padding:8px 6px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.04);color:rgba(255,255,255,0.85);font-family:'Source Sans 3',sans-serif;font-weight:500}
+.ref-order-table td.pos{font-family:'Oswald',sans-serif;font-size:12px;color:rgba(255,255,255,0.4);letter-spacing:1px}
+.ref-order-table td.lowest{color:#E8433E;font-weight:600}
 </style>
 </head>
 <body>
@@ -92,13 +114,22 @@ body{font-family:'Source Sans 3',sans-serif;background:linear-gradient(165deg,#0
   </div>
   <div id="login-area"></div>
   <div id="fb-status-area"></div>
-  <div id="rounds-area"></div>
-  <div id="pick-order-area"></div>
-  <div id="status-area"></div>
-  <div id="group-overview-area"></div>
-  <div id="board-area" class="board"></div>
-  <div id="activity-area"></div>
-  <div id="controls-area"></div>
+  <div id="tabs" class="tabs">
+    <button class="tab-btn active" data-tab="draft" onclick="switchTab('draft')">DRAFT</button>
+    <button class="tab-btn" data-tab="reference" onclick="switchTab('reference')">REFERENCE</button>
+  </div>
+  <div id="tab-draft" class="tab-content active">
+    <div id="welcome-area"></div>
+    <div id="rounds-area"></div>
+    <div id="pick-order-area"></div>
+    <div id="status-area"></div>
+    <div id="group-overview-area"></div>
+    <div id="board-area" class="board"></div>
+    <div id="summary-area"></div>
+    <div id="activity-area"></div>
+    <div id="controls-area"></div>
+  </div>
+  <div id="tab-reference" class="tab-content"></div>
   <div style="flex:1"></div>
   <div id="footer-area" class="footer"></div>
 </div>
@@ -137,6 +168,7 @@ const firebaseConfig = {
 // ══ Constants ══
 const PLAYERS = ["Phil","Andy","Ryan","Jake"];
 const EMOJIS = {Phil:"👑",Andy:"🔥",Ryan:"⚡",Jake:"💪"};
+const SEEDS = {Phil:1,Andy:2,Ryan:3,Jake:4};
 const ROUND_ORDERS = [
   ["Phil","Andy","Ryan","Jake"],
   ["Andy","Ryan","Jake","Phil"],
@@ -144,10 +176,10 @@ const ROUND_ORDERS = [
   ["Jake","Phil","Andy","Ryan"],
 ];
 const GROUPS = {
-  A:{name:"A",color:"#E8433E",teams:["Thunder","Lakers","Rockets","8 West Seed"]},
-  B:{name:"B",color:"#2D7DD2",teams:["Pistons","Cavaliers","Raptors","8 East Seed"]},
+  A:{name:"A",color:"#E8433E",teams:["Thunder","Lakers","Rockets","Suns/Warriors"]},
+  B:{name:"B",color:"#2D7DD2",teams:["Pistons","Cavaliers","Raptors","Magic/Hornets"]},
   C:{name:"C",color:"#F4A32E",teams:["Spurs","Nuggets","Timberwolves","Trail Blazers"]},
-  D:{name:"D",color:"#45B764",teams:["Celtics","Knicks","Hawks","7 East Seed"]},
+  D:{name:"D",color:"#45B764",teams:["Celtics","Knicks","Hawks","76ers"]},
 };
 const GK = ["A","B","C","D"];
 const ADMIN_CODE = "ou2026";
@@ -518,7 +550,7 @@ const FLAVOR = {
 // Determine if a team is a top seed, placeholder, or normal
 function teamType(team, group) {
   if (!team || !group) return "normal";
-  if (team.includes("Seed") || team.includes("#")) return "placeholder";
+  if (team.includes("Seed") || team.includes("#") || team.includes("/")) return "placeholder";
   const teams = GROUPS[group]?.teams || [];
   if (teams.indexOf(team) === 0) return "topSeed";  // First listed = highest seed
   return "normal";
@@ -666,18 +698,208 @@ function doAction(action, data) {
 }
 
 // ══ Render ══
+function switchTab(name) {
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === name);
+  });
+  document.querySelectorAll('.tab-content').forEach(c => {
+    c.classList.toggle('active', c.id === 'tab-' + name);
+  });
+  if (name === 'reference') renderReference();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// NBA Playoff bracket structure (seeds matched 1v8, 4v5, 3v6, 2v7)
+const BRACKET = {
+  West: {
+    color: "#F4A32E",
+    pairs: [
+      [{s:'1',t:'Thunder'},{s:'8',t:'Suns/Warriors',ph:true}],
+      [{s:'4',t:'Lakers'},{s:'5',t:'Rockets'}],
+      [{s:'3',t:'Nuggets'},{s:'6',t:'Timberwolves'}],
+      [{s:'2',t:'Spurs'},{s:'7',t:'Trail Blazers'}],
+    ],
+  },
+  East: {
+    color: "#2D7DD2",
+    pairs: [
+      [{s:'1',t:'Pistons'},{s:'8',t:'Magic/Hornets',ph:true}],
+      [{s:'4',t:'Cavaliers'},{s:'5',t:'Raptors'}],
+      [{s:'3',t:'Knicks'},{s:'6',t:'Hawks'}],
+      [{s:'2',t:'Celtics'},{s:'7',t:'76ers'}],
+    ],
+  },
+};
+
+// Which group each team belongs to
+function getTeamGroup(teamName) {
+  for (const g of GK) {
+    if (GROUPS[g].teams.includes(teamName)) return g;
+  }
+  return null;
+}
+
+function renderReference() {
+  const el = document.getElementById('tab-reference');
+
+  // Groups section
+  let groupsHtml = '<div class="ref-section"><div class="ref-heading">GROUPS</div>';
+  GK.forEach(g => {
+    const gr = GROUPS[g];
+    const teams = gr.teams.map(t => {
+      const ph = t.includes("Seed") || t.includes("#") || t.includes("/");
+      return `<span style="color:${ph?'rgba(255,255,255,0.55)':'rgba(255,255,255,0.9)'};${ph?'font-style:italic':''}">${t}</span>`;
+    }).join(', ');
+    groupsHtml += `<div style="padding:6px 0;display:flex;gap:10px;align-items:baseline;border-bottom:1px solid rgba(255,255,255,0.04)">
+      <span style="font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;color:${gr.color};min-width:72px;white-space:nowrap">GROUP ${g}</span>
+      <span style="font-size:14px;line-height:1.5">${teams}</span>
+    </div>`;
+  });
+  groupsHtml += '</div>';
+
+  // Bracket section
+  let bracketHtml = '<div class="ref-section"><div class="ref-heading">BRACKET</div>';
+  ["West","East"].forEach(conf => {
+    const cfg = BRACKET[conf];
+    bracketHtml += `<div class="ref-subheading" style="color:${cfg.color};margin-top:${conf==='West'?'4px':'18px'}">${conf.toUpperCase()}ERN CONFERENCE</div>`;
+    cfg.pairs.forEach(pair => {
+      pair.forEach(team => {
+        const g = getTeamGroup(team.t);
+        const color = g ? GROUPS[g].color : '#888';
+        const phClass = team.ph ? ' ph' : '';
+        bracketHtml += `<div class="ref-row">
+          <span class="ref-seed">${team.s}</span>
+          <span class="ref-team${phClass}" style="background:${g?color+'22':'rgba(255,255,255,0.04)'};color:${team.ph?'rgba(255,255,255,0.55)':color};border:1px solid ${g?color+'44':'rgba(255,255,255,0.1)'}">${team.t}</span>
+          ${g ? `<span style="font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:1px;color:${color};opacity:0.6">GRP ${g}</span>` : ''}
+        </div>`;
+      });
+      bracketHtml += '<div style="height:6px"></div>';
+    });
+  });
+  bracketHtml += '</div>';
+
+  // Draft order section
+  let orderHtml = '<div class="ref-section"><div class="ref-heading">DRAFT ORDER BY ROUND</div>';
+  orderHtml += '<div style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.5;margin-bottom:14px">The pick order rotates each round. The player in the #4 slot is the "lowest ranked" that round and cannot pass.</div>';
+  orderHtml += '<table class="ref-order-table"><thead><tr><th></th><th>#1</th><th>#2</th><th>#3</th><th>#4 (lowest)</th></tr></thead><tbody>';
+  ROUND_ORDERS.forEach((order, idx) => {
+    orderHtml += `<tr>
+      <td class="pos" style="text-align:left;padding-left:4px">RD ${idx+1}</td>`;
+    order.forEach((p, i) => {
+      const isLowest = i === 3;
+      orderHtml += `<td${isLowest?' class="lowest"':''}>${EMOJIS[p]} ${p}</td>`;
+    });
+    orderHtml += '</tr>';
+  });
+  orderHtml += '</tbody></table></div>';
+
+  el.innerHTML = groupsHtml + bracketHtml + orderHtml;
+}
+
 function render() {
   const turn = getDraftTurn(state.rounds);
   renderAdminCorner();
+  renderWelcome(turn);
   renderRounds();
   renderPickOrder(turn);
   renderApology();
   renderStatus(turn);
   renderGroupOverview(turn);
   renderBoard();
+  renderSummary(turn);
   renderActivity();
   renderControls(turn);
   renderFooter(turn);
+}
+
+function renderWelcome(turn) {
+  const el = document.getElementById("welcome-area");
+  if (turn.phase !== "notStarted") { el.innerHTML = ""; return; }
+
+  const playerCards = PLAYERS.map(p =>
+    `<div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(255,255,255,0.04);border-radius:8px">
+      <span style="font-size:20px">${EMOJIS[p]}</span>
+      <div>
+        <div style="font-family:'Oswald',sans-serif;font-size:15px;font-weight:600;color:#fff">${p}</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.4)">#${SEEDS[p]} seed</div>
+      </div>
+    </div>`
+  ).join("");
+
+  const groupList = GK.map(g => {
+    const gr = GROUPS[g];
+    const teams = gr.teams.map(t => {
+      const ph = t.includes("Seed") || t.includes("#") || t.includes("/");
+      return `<span style="color:${ph?'rgba(255,255,255,0.5)':'rgba(255,255,255,0.85)'};${ph?'font-style:italic':''};">${t}</span>`;
+    }).join(", ");
+    return `<div style="padding:6px 0;display:flex;gap:8px;align-items:baseline;border-bottom:1px solid rgba(255,255,255,0.04)">
+      <span style="font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;letter-spacing:1px;color:${gr.color};min-width:62px;white-space:nowrap">GROUP ${g}</span>
+      <span style="font-size:13px;line-height:1.5">${teams}</span>
+    </div>`;
+  }).join("");
+
+  el.innerHTML = `
+    <div style="margin:0 16px 16px;padding:20px;background:rgba(255,255,255,0.03);border-radius:14px;border:1px solid rgba(255,255,255,0.08)">
+      <div style="font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:2px;color:rgba(255,255,255,0.4);text-align:center;margin-bottom:12px">WELCOME TO THE DRAFT</div>
+      <div style="font-size:15px;color:rgba(255,255,255,0.7);line-height:1.6;text-align:center;margin-bottom:16px">
+        Four players. Four groups. Each round, the first pick chooses a group, then everyone drafts a team. Pass strategically or pick your favorite -- every position used now is one you can't use later.
+      </div>
+      <div style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.35);margin-bottom:8px">PLAYERS</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:16px">${playerCards}</div>
+      <div style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.35);margin-bottom:8px">GROUPS</div>
+      ${groupList}
+      <div style="text-align:center;margin-top:16px;font-size:13px;color:rgba(255,255,255,0.35)">Waiting for the commissioner to start the draft...</div>
+    </div>`;
+}
+
+const SUMMARY_QUIPS = [
+  "{P} walks away with {T}. Could be a championship roster... or a support group.",
+  "{P} drafted {T}. Bold strategy. Let's see if it pays off.",
+  "{P} is riding with {T}. No regrets. Probably.",
+  "{P} locked in {T}. The basketball gods are watching.",
+  "{P}'s squad: {T}. Sleep well tonight... or don't.",
+  "{P} bet it all on {T}. Fortune favors the brave. Maybe.",
+  "{P} goes home with {T}. Could be worse. Could be better. We'll see.",
+  "{P} built their roster: {T}. Now we wait and hope.",
+];
+
+function renderSummary(turn) {
+  const el = document.getElementById("summary-area");
+  if (turn.phase !== "complete") { el.innerHTML = ""; return; }
+
+  const board = getPlayerBoard(state.rounds);
+  let h = '<div style="margin:0 16px 14px">';
+  h += '<div style="font-family:\'Oswald\',sans-serif;font-size:12px;letter-spacing:2px;color:rgba(255,255,255,0.4);text-align:center;margin-bottom:10px">FINAL ROSTERS</div>';
+
+  PLAYERS.forEach(p => {
+    const teams = GK.map(g => board[p][g]).filter(Boolean).map(pk => pk.team);
+    const teamStr = teams.join(", ");
+    const quip = rng(SUMMARY_QUIPS).replace(/{P}/g, EMOJIS[p]+" "+p).replace(/{T}/g, teamStr);
+
+    h += `<div style="background:rgba(255,255,255,0.04);border-radius:12px;padding:14px 16px;margin-bottom:8px;border:1px solid rgba(255,255,255,0.06)">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <span style="font-size:22px">${EMOJIS[p]}</span>
+        <span style="font-family:'Oswald',sans-serif;font-size:18px;font-weight:700;color:#fff">${p}</span>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">`;
+
+    GK.forEach(g => {
+      const pk = board[p][g];
+      if (!pk) return;
+      const gr = GROUPS[g];
+      const ph = pk.team.includes("Seed") || pk.team.includes("#") || pk.team.includes("/");
+      h += `<div style="padding:4px 10px;border-radius:6px;font-size:13px;font-weight:600;background:${gr.color}18;color:${ph?'rgba(255,255,255,0.6)':gr.color};border:1px solid ${gr.color}30;${ph?'font-style:italic':''}">
+        <span style="opacity:0.5;font-size:10px">Grp ${g}</span> ${pk.team}
+      </div>`;
+    });
+
+    h += `</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.5;font-style:italic">${quip}</div>
+    </div>`;
+  });
+
+  h += '</div>';
+  el.innerHTML = h;
 }
 
 function renderGroupOverview(turn) {
@@ -693,7 +915,7 @@ function renderGroupOverview(turn) {
   function teamList(teams, groupColor, strikeOut) {
     return teams.map(t => {
       const taken = pickedTeams[t];
-      const ph = t.includes("Seed") || t.includes("#");
+      const ph = t.includes("Seed") || t.includes("#") || t.includes("/");
       if (strikeOut && taken) return `<span style="color:rgba(255,255,255,0.25);text-decoration:line-through">${t}</span>`;
       if (ph) return `<span style="color:rgba(255,255,255,0.5);font-style:italic">${t}</span>`;
       return `<span style="color:rgba(255,255,255,0.9)">${t}</span>`;
@@ -728,7 +950,7 @@ function renderGroupOverview(turn) {
     // Current group with available highlighted
     const currentTeams = gr.teams.map(t => {
       const taken = pickedTeams[t];
-      const ph = t.includes("Seed") || t.includes("#");
+      const ph = t.includes("Seed") || t.includes("#") || t.includes("/");
       if (taken) return `<span style="color:rgba(255,255,255,0.25);text-decoration:line-through">${t}</span>`;
       return `<span style="color:${gr.color};font-weight:600">${t}</span>`;
     }).join(', ');
@@ -930,7 +1152,7 @@ function renderControls(turn) {
     const groupCards = available.map(g => {
       const gr = GROUPS[g];
       const teams = gr.teams.map(t => {
-        const ph = t.includes("Seed") || t.includes("#");
+        const ph = t.includes("Seed") || t.includes("#") || t.includes("/");
         return `<div style="font-size:12px;color:${ph?'rgba(255,255,255,0.5)':'rgba(255,255,255,0.85)'};${ph?'font-style:italic;':''}line-height:1.4">${t}</div>`;
       }).join("");
       return `<button onclick="doAction('selectGroup',{group:'${g}',player:'${turn.player}'})"
@@ -1014,6 +1236,7 @@ function btn(label, color, onclick) {
 // ══ Init ══
 initFirebase();
 render();
+renderReference();
 </script>
 </body>
 </html>
