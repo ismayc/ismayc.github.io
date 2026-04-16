@@ -66,6 +66,18 @@ body{font-family:'Source Sans 3',sans-serif;background:linear-gradient(165deg,#0
 /* Firebase status */
 .fb-status{text-align:center;padding:8px;font-size:12px;color:rgba(255,255,255,0.35)}
 .fb-status.error{color:#E8433E}
+
+/* Group overview */
+.gov{margin:0 16px 14px}
+.gov-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.gov-card{border-radius:10px;padding:10px 12px;border-left:3px solid;background:rgba(255,255,255,0.04)}
+.gov-card.active{background:rgba(255,255,255,0.07);border-left-width:4px}
+.gov-card.done{opacity:0.35}
+.gov-name{font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;letter-spacing:2px;margin-bottom:6px}
+.gov-team{font-size:13px;color:rgba(255,255,255,0.8);padding:2px 0;line-height:1.4}
+.gov-team.taken{color:rgba(255,255,255,0.3);text-decoration:line-through}
+.gov-team.placeholder{color:rgba(255,255,255,0.5);font-style:italic}
+.gov-label{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.4);margin-bottom:8px;text-align:center}
 </style>
 </head>
 <body>
@@ -83,6 +95,7 @@ body{font-family:'Source Sans 3',sans-serif;background:linear-gradient(165deg,#0
   <div id="rounds-area"></div>
   <div id="pick-order-area"></div>
   <div id="status-area"></div>
+  <div id="group-overview-area"></div>
   <div id="board-area" class="board"></div>
   <div id="activity-area"></div>
   <div id="controls-area"></div>
@@ -578,10 +591,119 @@ function render() {
   renderPickOrder(turn);
   renderApology();
   renderStatus(turn);
+  renderGroupOverview(turn);
   renderBoard();
   renderActivity();
   renderControls(turn);
   renderFooter(turn);
+}
+
+function renderGroupOverview(turn) {
+  const el = document.getElementById("group-overview-area");
+  const p = turn.phase;
+
+  if (!state.rounds.length || p === "notStarted") { el.innerHTML = ""; return; }
+
+  const usedGroups = getUsedGroups(state.rounds);
+  const pickedTeams = {};
+  (state.rounds||[]).forEach(r => (r.picks||[]).forEach(pk => pickedTeams[pk.team] = pk.player));
+
+  // During group selection: show all available groups with full team listings
+  if (p === "selectGroup") {
+    const available = GK.filter(g => !usedGroups.includes(g));
+    let h = '<div class="gov"><div class="gov-label">AVAILABLE GROUPS</div><div class="gov-grid">';
+    available.forEach(g => {
+      const gr = GROUPS[g];
+      const teams = gr.teams.map(t => {
+        const ph = t.includes("Seed") || t.includes("#");
+        return `<div class="gov-team${ph?' placeholder':''}">${t}</div>`;
+      }).join("");
+      h += `<div class="gov-card active" style="border-left-color:${gr.color}"><div class="gov-name" style="color:${gr.color}">GROUP ${g}</div>${teams}</div>`;
+    });
+    // Show already-drafted groups faded
+    usedGroups.forEach(g => {
+      const gr = GROUPS[g];
+      const teams = gr.teams.map(t => {
+        const owner = pickedTeams[t];
+        return `<div class="gov-team taken">${t}${owner ? ' → '+EMOJIS[owner] : ''}</div>`;
+      }).join("");
+      h += `<div class="gov-card done" style="border-left-color:${gr.color}"><div class="gov-name" style="color:${gr.color}">GROUP ${g} ✓</div>${teams}</div>`;
+    });
+    h += '</div></div>';
+    el.innerHTML = h;
+    return;
+  }
+
+  // During team selection or auto-pass: show current group's available teams + completed groups
+  if (p === "selectTeam" || p === "autoPass") {
+    const g = turn.group;
+    const gr = GROUPS[g];
+    const avail = getAvailableTeams(state.rounds, g);
+
+    let h = '<div class="gov">';
+    // Current group - prominent
+    h += `<div class="gov-label">GROUP ${g} — NOW DRAFTING</div>`;
+    h += `<div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:12px">`;
+    gr.teams.forEach(t => {
+      const taken = pickedTeams[t];
+      const isAvail = avail.includes(t);
+      const ph = t.includes("Seed") || t.includes("#");
+      if (taken) {
+        h += `<div style="padding:5px 12px;border-radius:8px;font-size:13px;font-weight:600;background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.25);text-decoration:line-through">${t} → ${EMOJIS[taken]}</div>`;
+      } else {
+        h += `<div style="padding:5px 12px;border-radius:8px;font-size:13px;font-weight:600;background:${gr.color}18;color:${ph?'rgba(255,255,255,0.6)':gr.color};border:1px solid ${gr.color}30;${ph?'font-style:italic':''}">${t}</div>`;
+      }
+    });
+    h += '</div>';
+
+    // Other groups compact
+    const otherUsed = usedGroups.filter(gg => gg !== g);
+    const otherAvail = GK.filter(gg => gg !== g && !usedGroups.includes(gg));
+    if (otherUsed.length || otherAvail.length) {
+      h += '<div class="gov-grid">';
+      otherAvail.forEach(gg => {
+        const ggr = GROUPS[gg];
+        const teams = ggr.teams.map(t => {
+          const ph = t.includes("Seed") || t.includes("#");
+          return `<div class="gov-team${ph?' placeholder':''}">${t}</div>`;
+        }).join("");
+        h += `<div class="gov-card" style="border-left-color:${ggr.color};opacity:0.6"><div class="gov-name" style="color:${ggr.color}">GROUP ${gg}</div>${teams}</div>`;
+      });
+      otherUsed.forEach(gg => {
+        const ggr = GROUPS[gg];
+        const teams = ggr.teams.map(t => {
+          const owner = pickedTeams[t];
+          return `<div class="gov-team taken">${t}${owner ? ' → '+EMOJIS[owner] : ''}</div>`;
+        }).join("");
+        h += `<div class="gov-card done" style="border-left-color:${ggr.color}"><div class="gov-name" style="color:${ggr.color}">GROUP ${gg} ✓</div>${teams}</div>`;
+      });
+      h += '</div>';
+    }
+    h += '</div>';
+    el.innerHTML = h;
+    return;
+  }
+
+  // During roundComplete or complete: show all groups with results
+  if (p === "roundComplete" || p === "complete") {
+    let h = '<div class="gov"><div class="gov-label">ALL GROUPS</div><div class="gov-grid">';
+    GK.forEach(g => {
+      const gr = GROUPS[g];
+      const done = usedGroups.includes(g);
+      const teams = gr.teams.map(t => {
+        const owner = pickedTeams[t];
+        if (done && owner) return `<div class="gov-team">${t} → ${EMOJIS[owner]}</div>`;
+        const ph = t.includes("Seed") || t.includes("#");
+        return `<div class="gov-team${ph?' placeholder':''}">${t}</div>`;
+      }).join("");
+      h += `<div class="gov-card${done?' done':''}" style="border-left-color:${gr.color}"><div class="gov-name" style="color:${gr.color}">GROUP ${g}${done?' ✓':''}</div>${teams}</div>`;
+    });
+    h += '</div></div>';
+    el.innerHTML = h;
+    return;
+  }
+
+  el.innerHTML = "";
 }
 
 function renderApology() {
@@ -750,16 +872,28 @@ function renderControls(turn) {
   }
   else if (p === "selectGroup") {
     const used = getUsedGroups(state.rounds);
-    const btns = GK.filter(g => !used.includes(g)).map(g =>
-      btn("Group "+g, GROUPS[g].color, `doAction('selectGroup',{group:'${g}',player:'${turn.player}'})`)
-    ).join("");
+    const available = GK.filter(g => !used.includes(g));
+    const groupCards = available.map(g => {
+      const gr = GROUPS[g];
+      const teams = gr.teams.map(t => {
+        const ph = t.includes("Seed") || t.includes("#");
+        return `<div style="font-size:12px;color:${ph?'rgba(255,255,255,0.5)':'rgba(255,255,255,0.85)'};${ph?'font-style:italic;':''}line-height:1.4">${t}</div>`;
+      }).join("");
+      return `<button onclick="doAction('selectGroup',{group:'${g}',player:'${turn.player}'})"
+        style="background:${gr.color}18;border:2px solid ${gr.color}50;border-radius:12px;padding:12px 16px;cursor:pointer;text-align:left;width:100%;transition:all 0.2s"
+        onmouseover="this.style.borderColor='${gr.color}';this.style.background='${gr.color}25'"
+        onmouseout="this.style.borderColor='${gr.color}50';this.style.background='${gr.color}18'">
+        <div style="font-family:'Oswald',sans-serif;font-size:15px;font-weight:700;color:${gr.color};letter-spacing:1px;margin-bottom:4px">GROUP ${g}</div>
+        ${teams}
+      </button>`;
+    }).join("");
     const passBtn = turn.canPass
       ? `<div style="text-align:center;margin-top:12px"><button class="btn-pass" onclick="doAction('pass',{player:'${turn.player}',position:${turn.position}})">PASS</button></div>`
       : "";
     const reasonNote = (!turn.canPass && turn.mustPickReason)
       ? `<div style="text-align:center;margin-top:10px;font-size:13px;color:rgba(255,255,255,0.5);line-height:1.5">⚠️ ${turn.mustPickReason}</div>`
       : "";
-    h = panel(turn.player.toUpperCase()+" SELECTS GROUP · #"+turn.position, `<div class="btn-row">${btns}</div>${passBtn}${reasonNote}`);
+    h = panel(turn.player.toUpperCase()+" SELECTS GROUP · #"+turn.position, `<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">${groupCards}</div>${passBtn}${reasonNote}`);
   }
   else if (p === "autoPass") {
     h = panel("AUTO-PASS",
