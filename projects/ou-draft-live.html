@@ -346,6 +346,19 @@ function getDraftTurn(rounds) {
       return {phase:"autoPass",player,position,roundNum:rn,group:round.group||null,usedInRound:usedIn+1};
     }
 
+    // Check: if this player picks at this position, can remaining players
+    // be assigned to later positions? If not, skip this player.
+    const othersUnpicked = unpicked.filter(p => p !== player && !picked.includes(p));
+    if (othersUnpicked.length > 0) {
+      const laterPositions = [];
+      for (let pos = position + 1; pos <= 4; pos++) laterPositions.push(pos);
+      if (laterPositions.length > 0 && !canAssignAll(othersUnpicked, laterPositions, tokens, null, null)) {
+        // This player picking here would strand someone. Auto-skip.
+        return {phase:"autoPass",player,position,roundNum:rn,group:round.group||null,
+          usedInRound:-1, skipReason: player + " can't pick here -- it would strand " + othersUnpicked.join("/") + " with no valid position."};
+      }
+    }
+
     const remaining = unpicked.slice(i+1).filter(p => !passersHere.includes(p));
     let canPass = remaining.some(p => !tokens[p].includes(position));
 
@@ -638,7 +651,11 @@ function doAction(action, data) {
     const pa = s.rounds[ri].passedAt || {};
     pa[data.position] = (pa[data.position]||[]).concat(data.player);
     s.rounds[ri].passedAt = pa;
-    s.log.push({round:ri+1,text:autoPassFlavor(data.player, data.position, data.usedInRound),color:"rgba(255,255,255,0.45)"});
+    if (data.skipReason) {
+      s.log.push({round:ri+1,text:EMOJIS[data.player]+" "+data.player+" skips #"+data.position+" (picking here would strand others).",color:"rgba(255,255,255,0.45)"});
+    } else {
+      s.log.push({round:ri+1,text:autoPassFlavor(data.player, data.position, data.usedInRound),color:"rgba(255,255,255,0.45)"});
+    }
   }
   if (action === "reset") {
     save(makeEmpty());
@@ -839,7 +856,13 @@ function renderStatus(turn) {
       text += '<br><span style="font-size:13px;opacity:0.7">'+turn.mustPickReason+'</span>';
     }
   }
-  else if (p === "autoPass") { text = "Rd"+turn.roundNum+" #"+turn.position+": "+EMOJIS[turn.player]+" "+turn.player+" auto-passes (used #"+turn.position+" in Rd"+turn.usedInRound+")"; color = "#E8433E"; }
+  else if (p === "autoPass") {
+    if (turn.skipReason) {
+      text = "Rd"+turn.roundNum+" #"+turn.position+": "+EMOJIS[turn.player]+" "+turn.player+" skips"; color = "#F4A32E";
+    } else {
+      text = "Rd"+turn.roundNum+" #"+turn.position+": "+EMOJIS[turn.player]+" "+turn.player+" auto-passes (used #"+turn.position+" in Rd"+turn.usedInRound+")"; color = "#E8433E";
+    }
+  }
   else if (p === "selectTeam") {
     const note = turn.canPass ? " (can pass)" : " (must pick)";
     text = "Rd"+turn.roundNum+" #"+turn.position+": "+EMOJIS[turn.player]+" "+turn.player+"'s turn"+note;
@@ -927,12 +950,16 @@ function renderControls(turn) {
     h = panel(turn.player.toUpperCase()+" SELECTS GROUP · #"+turn.position, `<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">${groupCards}</div>${passBtn}${reasonNote}`);
   }
   else if (p === "autoPass") {
-    h = panel("AUTO-PASS",
-      `<div style="font-size:16px;color:rgba(255,255,255,0.9);margin-bottom:12px;text-align:center;line-height:1.6">
-        ${EMOJIS[turn.player]} ${turn.player} auto-passes at #${turn.position}
-        <br><span style="font-size:14px;color:rgba(255,255,255,0.5)">(Used #${turn.position} in Round ${turn.usedInRound})</span>
-      </div>
-      <div class="btn-row">${btn("Continue","#F4A32E",`doAction('autoPass',{player:'${turn.player}',position:${turn.position},usedInRound:${turn.usedInRound}})`)}</div>`
+    const title = turn.skipReason ? "SKIP" : "AUTO-PASS";
+    const desc = turn.skipReason
+      ? `${EMOJIS[turn.player]} ${turn.player} skips #${turn.position}<br><span style="font-size:14px;color:rgba(255,255,255,0.5)">${turn.skipReason}</span>`
+      : `${EMOJIS[turn.player]} ${turn.player} auto-passes at #${turn.position}<br><span style="font-size:14px;color:rgba(255,255,255,0.5)">(Used #${turn.position} in Round ${turn.usedInRound})</span>`;
+    const actionData = turn.skipReason
+      ? `doAction('autoPass',{player:'${turn.player}',position:${turn.position},usedInRound:${turn.usedInRound},skipReason:'${(turn.skipReason||'').replace(/'/g,"\\'")}'})` 
+      : `doAction('autoPass',{player:'${turn.player}',position:${turn.position},usedInRound:${turn.usedInRound}})`;
+    h = panel(title,
+      `<div style="font-size:16px;color:rgba(255,255,255,0.9);margin-bottom:12px;text-align:center;line-height:1.6">${desc}</div>
+      <div class="btn-row">${btn("Continue","#F4A32E",actionData)}</div>`
     );
   }
   else if (p === "selectTeam") {
