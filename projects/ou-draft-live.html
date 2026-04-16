@@ -1086,10 +1086,15 @@ function renderStatus(turn) {
     }
   }
   else if (p === "selectTeam") {
-    const note = turn.canPass ? " (can pass)" : " (must pick)";
-    text = "Rd"+turn.roundNum+" #"+turn.position+": "+EMOJIS[turn.player]+" "+turn.player+"'s turn"+note;
-    if (!turn.canPass && turn.mustPickReason) {
-      text += '<br><span style="font-size:13px;opacity:0.7">'+turn.mustPickReason+'</span>';
+    const avail = turn.group ? getAvailableTeams(state.rounds, turn.group) : [];
+    if (avail.length === 1 && !turn.canPass) {
+      text = "Rd"+turn.roundNum+" #"+turn.position+": "+EMOJIS[turn.player]+" "+turn.player+" gets "+avail[0];
+    } else {
+      const note = turn.canPass ? " (can pass)" : " (must pick)";
+      text = "Rd"+turn.roundNum+" #"+turn.position+": "+EMOJIS[turn.player]+" "+turn.player+"'s turn"+note;
+      if (!turn.canPass && turn.mustPickReason) {
+        text += '<br><span style="font-size:13px;opacity:0.7">'+turn.mustPickReason+'</span>';
+      }
     }
     color = GROUPS[turn.group].color;
   }
@@ -1187,19 +1192,34 @@ function renderControls(turn) {
   else if (p === "selectTeam") {
     const avail = getAvailableTeams(state.rounds, turn.group);
     const gc = GROUPS[turn.group].color;
-    const teamBtns = avail.map(t =>
-      btn(t, gc, `doAction('pick',{player:'${turn.player}',team:'${t}',position:${turn.position}})`)
-    ).join("");
-    const passBtn = turn.canPass
-      ? `<div style="text-align:center;margin-top:12px"><button class="btn-pass" onclick="doAction('pass',{player:'${turn.player}',position:${turn.position}})">PASS</button></div>`
-      : "";
-    const reasonNote = (!turn.canPass && turn.mustPickReason)
-      ? `<div style="text-align:center;margin-top:10px;font-size:13px;color:rgba(255,255,255,0.5);line-height:1.5">⚠️ ${turn.mustPickReason}</div>`
-      : "";
-    h = panel(
-      turn.player.toUpperCase()+"'S PICK · GROUP "+turn.group+" · #"+turn.position,
-      `<div class="btn-row">${teamBtns}</div>${passBtn}${reasonNote}`
-    );
+
+    // If only one team and can't pass: show as forced assignment with Continue
+    if (avail.length === 1 && !turn.canPass) {
+      const team = avail[0];
+      const ph = team.includes("Seed") || team.includes("#") || team.includes("/");
+      h = panel(
+        turn.player.toUpperCase()+" · GROUP "+turn.group+" · #"+turn.position,
+        `<div style="font-size:16px;color:rgba(255,255,255,0.9);margin-bottom:12px;text-align:center;line-height:1.6">
+          ${EMOJIS[turn.player]} ${turn.player} gets <span style="color:${gc};font-weight:700;${ph?'font-style:italic':''}">${team}</span> at #${turn.position}
+          <br><span style="font-size:13px;color:rgba(255,255,255,0.5)">Only team remaining in the group</span>
+        </div>
+        <div class="btn-row">${btn("Continue",gc,`doAction('pick',{player:'${turn.player}',team:'${team}',position:${turn.position}})`)}</div>`
+      );
+    } else {
+      const teamBtns = avail.map(t =>
+        btn(t, gc, `doAction('pick',{player:'${turn.player}',team:'${t}',position:${turn.position}})`)
+      ).join("");
+      const passBtn = turn.canPass
+        ? `<div style="text-align:center;margin-top:12px"><button class="btn-pass" onclick="doAction('pass',{player:'${turn.player}',position:${turn.position}})">PASS</button></div>`
+        : "";
+      const reasonNote = (!turn.canPass && turn.mustPickReason)
+        ? `<div style="text-align:center;margin-top:10px;font-size:13px;color:rgba(255,255,255,0.5);line-height:1.5">⚠️ ${turn.mustPickReason}</div>`
+        : "";
+      h = panel(
+        turn.player.toUpperCase()+"'S PICK · GROUP "+turn.group+" · #"+turn.position,
+        `<div class="btn-row">${teamBtns}</div>${passBtn}${reasonNote}`
+      );
+    }
   }
 
   // Undo and Reset buttons
