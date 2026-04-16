@@ -368,9 +368,9 @@ const FLAVOR = {
     "{P} locks in {T} at {X}. Solid choice.",
     "{P} scoops up {T} at {X}.",
     "{P} takes {T} at {X}. Moving on.",
-    "{T} goes to {P} at {X}.",
+    "{T} go to {P} at {X}.",
     "{P} grabs {T} at {X}. Business as usual.",
-    "And just like that, {T} belongs to {P} ({X}).",
+    "And just like that, {T} belong to {P} ({X}).",
     "{P} secures {T} at {X}. Well played.",
     "No hesitation from {P} -- {T} at {X}.",
     "{P} at {X}: {T}. Clean pick.",
@@ -405,7 +405,7 @@ const FLAVOR = {
   pickPlaceholder: [
     "{P} takes the mystery box ({T}) at {X}. Who will it be? 🎰",
     "{P} drafts {T} at {X}. A gamble wrapped in a play-in game!",
-    "{T} goes to {P} at {X}. The suspense continues...",
+    "{T} go to {P} at {X}. The suspense continues...",
     "{P} rolls the dice on {T} at {X}. Could be anyone!",
     "{P} at {X} takes {T}. Fortune favors the bold... or the unlucky.",
   ],
@@ -608,102 +608,68 @@ function renderGroupOverview(turn) {
   const pickedTeams = {};
   (state.rounds||[]).forEach(r => (r.picks||[]).forEach(pk => pickedTeams[pk.team] = pk.player));
 
-  // During group selection: show all available groups with full team listings
-  if (p === "selectGroup") {
-    const available = GK.filter(g => !usedGroups.includes(g));
-    let h = '<div class="gov"><div class="gov-label">AVAILABLE GROUPS</div><div class="gov-grid">';
-    available.forEach(g => {
-      const gr = GROUPS[g];
-      const teams = gr.teams.map(t => {
-        const ph = t.includes("Seed") || t.includes("#");
-        return `<div class="gov-team${ph?' placeholder':''}">${t}</div>`;
-      }).join("");
-      h += `<div class="gov-card active" style="border-left-color:${gr.color}"><div class="gov-name" style="color:${gr.color}">GROUP ${g}</div>${teams}</div>`;
-    });
-    // Show already-drafted groups faded
-    usedGroups.forEach(g => {
-      const gr = GROUPS[g];
-      const teams = gr.teams.map(t => {
-        const owner = pickedTeams[t];
-        return `<div class="gov-team taken">${t}${owner ? ' → '+EMOJIS[owner] : ''}</div>`;
-      }).join("");
-      h += `<div class="gov-card done" style="border-left-color:${gr.color}"><div class="gov-name" style="color:${gr.color}">GROUP ${g} ✓</div>${teams}</div>`;
-    });
-    h += '</div></div>';
-    el.innerHTML = h;
-    return;
+  function teamList(teams, groupColor, strikeOut) {
+    return teams.map(t => {
+      const taken = pickedTeams[t];
+      const ph = t.includes("Seed") || t.includes("#");
+      if (strikeOut && taken) return `<span style="color:rgba(255,255,255,0.25);text-decoration:line-through">${t}</span>`;
+      if (ph) return `<span style="color:rgba(255,255,255,0.5);font-style:italic">${t}</span>`;
+      return `<span style="color:rgba(255,255,255,0.9)">${t}</span>`;
+    }).join(', ');
   }
 
-  // During team selection or auto-pass: show current group's available teams + completed groups
-  if (p === "selectTeam" || p === "autoPass") {
+  function groupLine(g, opts) {
+    const gr = GROUPS[g];
+    const done = usedGroups.includes(g);
+    const active = opts?.active;
+    const opacity = opts?.dim ? '0.4' : '1';
+    const label = done ? `GROUP ${g} ✓` : `GROUP ${g}`;
+    const teams = teamList(gr.teams, gr.color, done);
+    return `<div style="padding:6px 0;opacity:${opacity};border-bottom:1px solid rgba(255,255,255,0.04);display:flex;gap:8px;align-items:baseline;${active?'padding:8px 10px;background:'+gr.color+'10;border-radius:8px;border-bottom:none;margin-bottom:4px':''}">
+      <span style="font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;letter-spacing:1px;color:${gr.color};white-space:nowrap;min-width:62px">${label}</span>
+      <span style="font-size:13px;line-height:1.5">${teams}</span>
+    </div>`;
+  }
+
+  let h = '<div style="margin:0 16px 10px;font-family:\'Source Sans 3\',sans-serif">';
+
+  if (p === "selectGroup") {
+    h += '<div style="font-family:\'Oswald\',sans-serif;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.4);margin-bottom:6px;text-align:center">AVAILABLE GROUPS</div>';
+    GK.filter(g => !usedGroups.includes(g)).forEach(g => { h += groupLine(g, {active:true}); });
+    if (usedGroups.length) {
+      usedGroups.forEach(g => { h += groupLine(g, {dim:true}); });
+    }
+  } else if (p === "selectTeam" || p === "autoPass") {
     const g = turn.group;
     const gr = GROUPS[g];
     const avail = getAvailableTeams(state.rounds, g);
-
-    let h = '<div class="gov">';
-    // Current group - prominent
-    h += `<div class="gov-label">GROUP ${g} — NOW DRAFTING</div>`;
-    h += `<div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:12px">`;
-    gr.teams.forEach(t => {
+    // Current group with available highlighted
+    const currentTeams = gr.teams.map(t => {
       const taken = pickedTeams[t];
-      const isAvail = avail.includes(t);
       const ph = t.includes("Seed") || t.includes("#");
-      if (taken) {
-        h += `<div style="padding:5px 12px;border-radius:8px;font-size:13px;font-weight:600;background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.25);text-decoration:line-through">${t} → ${EMOJIS[taken]}</div>`;
-      } else {
-        h += `<div style="padding:5px 12px;border-radius:8px;font-size:13px;font-weight:600;background:${gr.color}18;color:${ph?'rgba(255,255,255,0.6)':gr.color};border:1px solid ${gr.color}30;${ph?'font-style:italic':''}">${t}</div>`;
-      }
+      if (taken) return `<span style="color:rgba(255,255,255,0.25);text-decoration:line-through">${t}</span>`;
+      return `<span style="color:${gr.color};font-weight:600">${t}</span>`;
+    }).join(', ');
+    h += `<div style="padding:8px 10px;background:${gr.color}10;border-radius:8px;margin-bottom:6px;display:flex;gap:8px;align-items:baseline">
+      <span style="font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;letter-spacing:1px;color:${gr.color};white-space:nowrap;min-width:62px">GROUP ${g}</span>
+      <span style="font-size:13px;line-height:1.5">${currentTeams}</span>
+    </div>`;
+    // Other groups
+    GK.filter(gg => gg !== g).forEach(gg => {
+      const done = usedGroups.includes(gg);
+      h += groupLine(gg, {dim:done});
     });
-    h += '</div>';
-
-    // Other groups compact
-    const otherUsed = usedGroups.filter(gg => gg !== g);
-    const otherAvail = GK.filter(gg => gg !== g && !usedGroups.includes(gg));
-    if (otherUsed.length || otherAvail.length) {
-      h += '<div class="gov-grid">';
-      otherAvail.forEach(gg => {
-        const ggr = GROUPS[gg];
-        const teams = ggr.teams.map(t => {
-          const ph = t.includes("Seed") || t.includes("#");
-          return `<div class="gov-team${ph?' placeholder':''}">${t}</div>`;
-        }).join("");
-        h += `<div class="gov-card" style="border-left-color:${ggr.color};opacity:0.6"><div class="gov-name" style="color:${ggr.color}">GROUP ${gg}</div>${teams}</div>`;
-      });
-      otherUsed.forEach(gg => {
-        const ggr = GROUPS[gg];
-        const teams = ggr.teams.map(t => {
-          const owner = pickedTeams[t];
-          return `<div class="gov-team taken">${t}${owner ? ' → '+EMOJIS[owner] : ''}</div>`;
-        }).join("");
-        h += `<div class="gov-card done" style="border-left-color:${ggr.color}"><div class="gov-name" style="color:${ggr.color}">GROUP ${gg} ✓</div>${teams}</div>`;
-      });
-      h += '</div>';
-    }
-    h += '</div>';
-    el.innerHTML = h;
-    return;
-  }
-
-  // During roundComplete or complete: show all groups with results
-  if (p === "roundComplete" || p === "complete") {
-    let h = '<div class="gov"><div class="gov-label">ALL GROUPS</div><div class="gov-grid">';
+  } else if (p === "roundComplete" || p === "complete") {
     GK.forEach(g => {
-      const gr = GROUPS[g];
       const done = usedGroups.includes(g);
-      const teams = gr.teams.map(t => {
-        const owner = pickedTeams[t];
-        if (done && owner) return `<div class="gov-team">${t} → ${EMOJIS[owner]}</div>`;
-        const ph = t.includes("Seed") || t.includes("#");
-        return `<div class="gov-team${ph?' placeholder':''}">${t}</div>`;
-      }).join("");
-      h += `<div class="gov-card${done?' done':''}" style="border-left-color:${gr.color}"><div class="gov-name" style="color:${gr.color}">GROUP ${g}${done?' ✓':''}</div>${teams}</div>`;
+      h += groupLine(g, {dim:done});
     });
-    h += '</div></div>';
-    el.innerHTML = h;
-    return;
+  } else {
+    el.innerHTML = ""; return;
   }
 
-  el.innerHTML = "";
+  h += '</div>';
+  el.innerHTML = h;
 }
 
 function renderApology() {
