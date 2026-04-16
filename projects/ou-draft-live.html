@@ -309,10 +309,32 @@ function getDraftTurn(rounds) {
     return rounds.length >= 4 ? {phase:"complete"} : {phase:"roundComplete",roundNum:rn};
   }
 
-  const unpicked = order.filter(p => !picked.includes(p));
+  const unpickedSet = order.filter(p => !picked.includes(p));
   const tokens = getUsedTokens(rounds);
   const passedAt = round.passedAt || {};
   const passersHere = passedAt[position] || [];
+
+  // Determine where to start in the order for this position.
+  // After a pick, the next position continues from the player AFTER
+  // the one who picked, cycling through the round order.
+  let unpicked;
+  if (position === 1) {
+    unpicked = unpickedSet;
+  } else {
+    const lastPicker = (round.picks||[])[round.picks.length - 1]?.player;
+    if (lastPicker) {
+      const lastIdx = order.indexOf(lastPicker);
+      // Rotate: start from the player after lastPicker in round order, among unpicked
+      const rotated = [];
+      for (let j = 1; j <= order.length; j++) {
+        const candidate = order[(lastIdx + j) % order.length];
+        if (!picked.includes(candidate)) rotated.push(candidate);
+      }
+      unpicked = rotated;
+    } else {
+      unpicked = unpickedSet;
+    }
+  }
 
   for (let i = 0; i < unpicked.length; i++) {
     const player = unpicked[i];
