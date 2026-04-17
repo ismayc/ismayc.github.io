@@ -67,6 +67,16 @@ body{font-family:'Source Sans 3',sans-serif;background:linear-gradient(165deg,#0
 .fb-status{text-align:center;padding:8px;font-size:12px;color:rgba(255,255,255,0.35)}
 .fb-status.error{color:#E8433E}
 
+/* Countdown */
+.cd-bar{text-align:center;padding:6px 16px 10px}
+.cd-bar .cd-label{font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:2px;color:rgba(255,255,255,0.35);margin-bottom:4px}
+.cd-bar .cd-time{display:inline-flex;gap:10px;align-items:baseline}
+.cd-bar .cd-unit{text-align:center}
+.cd-bar .cd-num{font-family:'Oswald',sans-serif;font-size:20px;font-weight:600;color:#F4A32E;letter-spacing:1px}
+.cd-bar .cd-lbl{font-family:'Source Sans 3',sans-serif;font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:1px;text-transform:uppercase}
+.cd-bar .cd-sep{font-family:'Oswald',sans-serif;font-size:16px;color:rgba(255,255,255,0.15);margin:0 -2px}
+.cd-bar .cd-done{font-family:'Oswald',sans-serif;font-size:14px;color:#45B764;letter-spacing:1px}
+
 /* Group overview */
 .gov{margin:0 16px 14px}
 .gov-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -112,6 +122,7 @@ body{font-family:'Source Sans 3',sans-serif;background:linear-gradient(165deg,#0
     <h1 class="title">LIVE DRAFT</h1>
     <div class="title-sub">2025 — 2026 PLAYOFFS</div>
   </div>
+  <div id="countdown-bar"></div>
   <div id="login-area"></div>
   <div id="fb-status-area"></div>
   <div id="tabs" class="tabs">
@@ -1253,7 +1264,46 @@ function btn(label, color, onclick) {
   return `<button class="btn" style="background:linear-gradient(135deg,${color},${color}cc);box-shadow:0 2px 12px ${color}40" onclick="${onclick}">${label}</button>`;
 }
 
+// ══ Countdown ══
+// Draft day: Friday Apr 17, 2026 8:30 PM CDT (UTC-5)
+const DRAFT_TIME = new Date('2026-04-17T20:30:00-05:00').getTime();
+
+function startCountdown() {
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+}
+
+function updateCountdown() {
+  const el = document.getElementById("countdown-bar");
+  // Hide once draft has started
+  if (state.rounds && state.rounds.length > 0) {
+    el.innerHTML = "";
+    return;
+  }
+  const now = Date.now();
+  const diff = DRAFT_TIME - now;
+  if (diff <= 0) {
+    el.innerHTML = `<div class="cd-bar"><div class="cd-done">DRAFT TIME!</div></div>`;
+    return;
+  }
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+
+  let units = '';
+  if (d > 0) {
+    units = `<div class="cd-unit"><div class="cd-num">${d}</div><div class="cd-lbl">day${d!==1?'s':''}</div></div><span class="cd-sep">:</span>`;
+  }
+  units += `<div class="cd-unit"><div class="cd-num">${String(h).padStart(2,'0')}</div><div class="cd-lbl">hr</div></div>`;
+  units += `<span class="cd-sep">:</span><div class="cd-unit"><div class="cd-num">${String(m).padStart(2,'0')}</div><div class="cd-lbl">min</div></div>`;
+  units += `<span class="cd-sep">:</span><div class="cd-unit"><div class="cd-num">${String(s).padStart(2,'0')}</div><div class="cd-lbl">sec</div></div>`;
+
+  el.innerHTML = `<div class="cd-bar"><div class="cd-label">DRAFT STARTS IN</div><div class="cd-time">${units}</div></div>`;
+}
+
 // ══ Init ══
+startCountdown();
 initFirebase();
 render();
 renderReference();
