@@ -1,0 +1,176 @@
+---
+title: "Simple Logistic Regression Example"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cerulean
+    highlight: pygments
+references:
+- id: oi
+  title: OpenIntro Statistics, Third Edition
+  author:
+  - family: Diez
+    given: David
+  - family: Barr
+    given: Christopher
+  - family: Cetinkaya-Rundel
+    given: Mine
+  type: book
+  issued:
+    year: 2015
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+library(tidyverse)
+library(infer)
+library(moderndive)
+library(knitr)
+options(digits = 5, scipen = 99)
+```
+
+# Problem Statement
+
+On January 28, 1986, a routine launch was anticipated for
+the Challenger space shuttle. Seventy-three seconds into the
+flight, disaster happened: the shuttle
+broke apart, killing all seven crew members on board. An investigation into the cause of the
+disaster focused on a critical seal called an O-ring, and it is believed that damage to these O-rings
+during a shuttle launch may be related to the ambient temperature during the launch. Observational data on O-rings for 23 randomly selected shuttle missions was collected, where the mission order
+is based on the temperature at the time of the launch. `temp` gives the temperature in Fahrenheit and `damage` is 1 when an O-ring failed and 0 when it was undamaged. [Tweaked a bit from @oi [Chapter 8]]
+
+# Competing Hypotheses
+
+## In words
+
+- Null hypothesis: The population coefficient on `temp` corresponding to the logistic regression modeling whether or not an O-ring failed as a function of temperature is zero.
+
+- Alternative hypothesis:  The population coefficient on `temp` corresponding to the logistic regression modeling whether or not an O-ring failed as a function of temperature is nonzero.
+
+## Another way with words
+
+- Null hypothesis:  There is no association between temperature and whether or not an O-ring failed.
+
+- Alternative hypothesis: There is an association between temperature and whether or not an O-ring failed.
+
+## In symbols (with annotations)
+
+- $H_0: \beta_1 = 0$, where $\beta_1$ represents the population coefficient on `temp` corresponding to the logistic regression modeling whether or not an O-ring failed as a function of temperature
+- $H_A: \beta_1 \ne 0$
+
+## Set $\alpha$
+
+It's important to set the significance level before starting the testing using the data. Let's set the significance level at 5\% here.
+
+# Exploring the sample data
+
+```{r read_data}
+orings <- read.delim("orings.txt")
+```
+
+The plot below shows the relationship between `damage` and `temp`.  Note the use of `factor()` here which converts the `damage` variable into its two groups (1 and 0) instead of looking at it as a spectrum between 0 and 1.
+
+```{r jitter}
+orings |> ggplot(aes(x = temp, y = factor(damage))) +
+  geom_jitter(height = 0.1, alpha = 0.5)
+```
+
+
+## Guess about statistical significance
+
+We are looking to see if `temp` is a significant predictor of `damage`.  Based on the plot, it seems reasonable to guess that we will reject the null hypothesis here.  There are no failures below 65 degrees and most of the points above 65 degrees did not fail.
+
+***
+
+# Non-traditional methods
+
+We'll use **`infer`**'s `fit()` function.  Because the response is a two-level factor, `infer` fits a **logistic regression** via `glm()`.  Permuting the response and refitting gives a null distribution for the coefficient on `temp`.
+
+## Observed coefficients
+
+```{r obs_fit}
+obs_fit <- orings |>
+  mutate(damage = factor(damage)) |>
+  specify(damage ~ temp) |>
+  fit()
+obs_fit
+```
+
+## Randomization for Hypothesis Test
+
+Under the null of no association, the `damage` labels are exchangeable, so `infer` shuffles them with `hypothesize(null = "independence")`, refits the logistic model, and records each coefficient 1,000 times.
+
+```{r sim}
+set.seed(2018)
+null_fits <- orings |>
+  mutate(damage = factor(damage)) |>
+  specify(damage ~ temp) |>
+  hypothesize(null = "independence") |>
+  generate(reps = 1000, type = "permute") |>
+  fit()
+```
+
+```{r shade_pvalue}
+visualize(null_fits) +
+  shade_p_value(obs_stat = obs_fit, direction = "both")
+```
+
+### Calculate $p$-value
+
+```{r get_pvalue}
+get_p_value(null_fits, obs_stat = obs_fit, direction = "both")
+```
+
+The $p$-value for `temp` is small, so we reject the null hypothesis at the 5% level.
+
+***
+
+# Traditional methods
+
+## Check conditions
+
+Remember that in order to use the shortcut (formula-based, theoretical) approach, we need to check that some conditions are met.
+
+1. _Linear relationship between linked response and predictor_:
+This condition is difficult to check without binning the data and computing the empirical logit function.  The plot of the data and the fitted logistic curve can usually provide a good idea on the quality of the fit.
+
+    ```{r curve}
+    orings |> ggplot(aes(x = temp, y = damage)) +
+      geom_point() +
+      stat_smooth(method = "glm",
+        method.args = list(family = "binomial"),
+        se = FALSE)
+    ```
+
+    We have no clear reason to doubt the fit based on this plot.
+
+2. _Independent observations_:  The shuttle missions were selected at random here so the independent observations condition is met.
+
+## Test statistic
+
+We estimate the population coefficient $\beta_1$ with the sample coefficient $B_1$, a random variable that varies from sample to sample.  If the conditions are met and assuming $H_0$ is true, we can standardize $B_1$ into a $Z$ statistic that follows a $N(0,1)$ distribution:
+
+$$ Z =\dfrac{ B_1 - 0}{ {SE}_1 } \sim N(0, 1) $$
+
+## Observed test statistic
+
+We use the `glm` function with `family = binomial` to fit the logistic curve, summarizing the output with `moderndive`'s `get_regression_table()`.
+
+```{r glm_table}
+oring_glm <- glm(damage ~ temp, data = orings, family = binomial)
+get_regression_table(oring_glm)
+```
+
+We see here that the observed coefficient on `temp` is around -0.232, corresponding to a $z$ statistic of about -2.14 and a $p$-value near 0.032.  The negative sign corresponds to a negative relationship between temperature and failure, which is what we saw in the plot earlier.
+
+# State conclusion
+
+We, therefore, have sufficient evidence to reject the null hypothesis.  Our initial guess that `temp` is a significant predictor of `damage` is supported by evidence.
+
+***
+
+# Comparing results
+
+The simulation-based (`infer::fit()` permutation) and theory-based (`glm()` + `get_regression_table()`) approaches agree that the coefficient on `temp` is statistically significant, both leading us to reject the null hypothesis.

@@ -1,0 +1,204 @@
+---
+title: "Multiple Linear Regression Example"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cerulean
+    highlight: pygments
+references:
+- id: stat2
+  title: STAT2 - Building Models for a World of Data
+  author:
+  - family: Cannon
+    given: Ann R.
+  - family: Cobb
+    given: George W.
+  - family: Hartlaub
+    given: Bradley A.
+  - family: Legler
+    given: Julie M.
+  - family: Lock
+    given: Robin H.
+  - family: Moore
+    given: Thomas L.
+  - family: Rossman
+    given: Allan J.
+  - family: Witmer
+    given: Jeffrey A.
+  type: book
+  issued:
+    year: 2013
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+library(tidyverse)
+library(infer)
+library(moderndive)
+library(knitr)
+library(Stat2Data)
+options(digits = 5, scipen = 20)
+```
+
+# Problem Statement
+
+Mileage of used cars is often thought of as a good predictor of sale prices of used cars.  Does this same conjecture hold for so called "luxury cars": Porsches, Jaguars, and BMWs?  More precisely, do the slopes and intercepts differ when comparing mileage and price for these three brands of cars?  To answer this question, data was randomly selected from an Internet car sale site.  [Tweaked a bit from @stat2 [Chapter 1 and Chapter 4]]
+
+# Competing Hypotheses
+
+There are many hypothesis tests to run here.  It's important to first think about the model that we will fit to address these questions.  We want to predict `Price` (in thousands of dollars) based on `Mileage` (in thousands of miles).  A simple linear regression equation for this would be $\hat{Price} = b_0 + b_1 * Mileage$.
+
+We are dealing with a more complicated example in this case though.  We need to also include `CarType` in our model. Since `CarType` has three levels: `BMW`, `Porsche`, and `Jaguar`, we encode this as two dummy variables with `BMW` as the baseline.  To also allow the slopes to differ by car type, we incorporate _interaction_ terms between `Mileage` and the `CarType` dummy variables:
+
+$$\hat{Price} = b_0 + b_1 * Mileage + b_2 * Porsche + b_3 * Jaguar + b_4 \, Mileage*Jaguar + b_5 \, Mileage*Porsche.$$
+
+## In words
+
+- Null hypothesis: The coefficients on the parameters (including interaction terms) of the least squares regression modeling price as a function of mileage and car type are zero.
+
+- Alternative hypothesis:  At least one of the coefficients on the parameters (including interaction terms) of the least squares regression modeling price as a function of mileage and car type are nonzero.
+
+
+## In symbols (with annotations)
+
+- $H_0: \beta_i = 0$, where $\beta_i$ represents the population coefficient of the least squares regression modeling price as a function of mileage and car type.
+- $H_A:$ At least one $\beta_i \ne 0$
+
+## Set $\alpha$
+
+It's important to set the significance level before starting the testing using the data. Let's set the significance level at 5\% here.
+
+# Exploring the sample data
+
+```{r read_data}
+data(ThreeCars)
+three_cars <- ThreeCars |>
+  select(CarType, Price, Mileage) |>
+  mutate(CarType = as.character(CarType))
+```
+
+The scatterplot below shows the relationship between mileage, price, and car type, with separate least squares lines added.
+
+```{r scatter}
+three_cars |> ggplot(aes(x = Mileage, y = Price, color = CarType)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+
+## Guess about statistical significance
+
+It seems that there is a difference in the intercepts of linear regression for the three car types since Porsches tend to be above BMWs, which tend to be above Jaguars.  BMWs and Jaguars are a bit more clustered together though.  Based on the plot, we might guess that at least one of the coefficients will be statistically different since the BMW line does appear to not be parallel with the others.
+
+***
+
+# Non-traditional methods
+
+We'll use **`infer`**'s `fit()` function, which fits the regression model within the `infer` grammar.  Permuting the response and refitting many times gives a null distribution for **each** coefficient.
+
+## Observed coefficients
+
+```{r obs_fit}
+obs_fit <- three_cars |>
+  specify(Price ~ Mileage + CarType + Mileage:CarType) |>
+  fit()
+obs_fit
+```
+
+## Randomization for Hypothesis Test
+
+Under the null of no association, the `Price` values are exchangeable, so `infer` shuffles the response with `hypothesize(null = "independence")`, refits the model, and records each coefficient 1,000 times.
+
+```{r sim}
+set.seed(2018)
+null_fits <- three_cars |>
+  specify(Price ~ Mileage + CarType + Mileage:CarType) |>
+  hypothesize(null = "independence") |>
+  generate(reps = 1000, type = "permute") |>
+  fit()
+```
+
+```{r shade_pvalue}
+visualize(null_fits) +
+  shade_p_value(obs_stat = obs_fit, direction = "both")
+```
+
+### Calculate $p$-values
+
+```{r get_pvalue}
+get_p_value(null_fits, obs_stat = obs_fit, direction = "both")
+```
+
+The permutation-based $p$-values flag the same terms as important as the theory-based test below.
+
+***
+
+# Traditional methods
+
+## Check conditions
+
+Remember that in order to use the shortcut (formula-based, theoretical) approach, we need to check that some conditions are met.  We fit the model and obtain fitted values and residuals with `moderndive`'s `get_regression_points()`.
+
+```{r fit_mod}
+car_mult_lm <- lm(Price ~ Mileage * CarType, data = three_cars)
+car_points <- get_regression_points(car_mult_lm)
+```
+
+1. _Linear relationship between response and predictors_:  Look at the residual plot to see if the residuals are randomly distributed.
+
+    ```{r resid}
+    car_points |> ggplot(aes(x = Price_hat, y = residual)) +
+      geom_point() +
+      geom_hline(yintercept = 0, linetype = "dashed")
+    ```
+
+    There does not appear to be any strong pattern in the residuals so this condition is reasonably met.
+
+2. _Independent observations and errors_:  The cars were selected at random here so the independent observations condition is met.
+
+3. _Nearly normal residuals_:  Check a Q-Q plot on the residuals.
+
+    ```{r qq}
+    car_points |> ggplot(aes(sample = residual)) +
+      stat_qq() + stat_qq_line()
+    ```
+
+    There are some small deviations from normality but this is a pretty good fit for normality of residuals.
+
+4. _Equal variances across explanatory variable_:  The residual plot does show a bit of a fan-shaped pattern from left to right, but it is not drastic.
+
+## Test statistic
+
+We estimate each population coefficient $\beta_i$ with the sample coefficient $B_i$, a random variable that varies from sample to sample.  If the conditions are met and assuming $H_0$ is true, we can standardize each $B_i$ into a $T$ statistic that follows a $t$ distribution:
+
+$$ T =\dfrac{ B_i - 0}{ {SE}_i } \sim t (df = n - k) $$
+
+## Observed test statistic
+
+We use the `lm` function to fit the model and conduct the theory-based test, summarizing the output with `moderndive`'s `get_regression_table()`.
+
+```{r lm_table}
+get_regression_table(car_mult_lm)
+```
+
+A couple of interpretations of the coefficients:
+
+> For every one thousand mile increase in `Mileage` for a BMW car (holding all else fixed), we expect `Price` to decrease by about 0.49 thousands of dollars ($490).
+
+> We predict Porsches to cost about $14,800 more than BMWs (holding mileage and interaction terms fixed).
+
+# Compute $p$-values
+
+From the regression table, the `intercept`, `Mileage`, and `CarType-Porsche` terms are statistically significant at the 5% level, while the interaction terms are not.  This agrees with the simulation-based $p$-values above.
+
+# State conclusion
+
+We, therefore, have sufficient evidence to reject the null hypothesis for `Mileage` and the intercept difference on `Porsche` compared to `BMW`, assuming the other terms are in the model.  Our initial guess that the slopes would differ for at least one of the three fitted lines based on car type was not validated by our statistical analyses here though.
+
+***
+
+# Comparing results
+
+The simulation-based (`infer::fit()` permutation) and theory-based (`lm()` + `get_regression_table()`) approaches flag the same coefficients as important, giving us confidence in the conclusions despite the mild fan-shaped pattern in the residuals.

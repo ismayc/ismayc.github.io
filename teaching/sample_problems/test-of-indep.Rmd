@@ -1,0 +1,174 @@
+---
+title: "Chi-Square - Test of Independence Example"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cerulean
+    highlight: pygments
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+library(tidyverse)
+library(infer)
+library(janitor)
+library(knitr)
+options(digits = 5, scipen = 99)
+```
+
+# Problem Statement
+
+A random sample of 500 U.S. adults were questioned regarding their political affiliation (`democrat` or `republican`) and opinion on a tax reform bill (`favor`, `indifferent`, `opposed`). Based on this sample, do we have reason to believe that political party and opinion on the bill are related? [Tweaked a bit from https://onlinecourses.science.psu.edu/stat500/node/56]
+
+# Competing Hypotheses
+
+## In words
+
+- Null hypothesis: There is no association between the opinion on a tax reform bill and political affiliation for US adults.
+
+- Alternative hypothesis:  There is an association between the opinion on a tax reform bill and political affiliation for US adults.
+
+## Another way in words
+
+- Null hypothesis: The long-run probability that a US adult who favors the bill identifies as Democrat is the **same** as the long-run probability that a US adult who is indifferent towards the bill identifies as Democrat, which is the **same** as the long-run probability that a US adult who is opposed to the bill identifies as Democrat. In other words all three long-run probabilities are actually the same.
+
+- Alternative hypothesis:  At least one of these parameter (long-run) probabilities is different from the others
+
+## In symbols (with annotations)
+
+- $H_0: P_{favor} = P_{indifferent} =  P_{opposed}$, where $P$ represents the long-run probability of being a Democrat.
+- $H_A$: At least one of these parameter probabilities is different from the others
+
+## Set $\alpha$
+
+It's important to set the significance level before starting the testing using the data. Let's set the significance level at 5\% here.
+
+# Exploring the sample data
+
+```{r read_data}
+tax_opinion <- read_csv("party_tax.csv")
+```
+
+```{r summarize}
+tax_opinion |>
+  tabyl(opinion, party)
+```
+
+```{r stacked_bar}
+ggplot(data = tax_opinion, mapping = aes(x = party, fill = opinion)) +
+  geom_bar()
+```
+
+## Guess about statistical significance
+
+We are looking to see if a difference exists in the distribution of opinions across the two parties.  Based on the bar plot, we have reason to believe that a difference exists since the `favor`/`opposed` split looks different between Democrats and Republicans, BUT...it's important to use statistics to see if that difference is actually statistically significant!
+
+***
+
+# Non-traditional methods
+
+We'll use the **`infer`** package to carry out the simulation-based workflow with the $\chi^2$ statistic.
+
+## Observed statistic
+
+```{r obs_stat}
+chisq_hat <- tax_opinion |>
+  specify(opinion ~ party) |>
+  hypothesize(null = "independence") |>
+  calculate(stat = "Chisq")
+chisq_hat
+```
+
+## Randomization for Hypothesis Test
+
+Under the null of no association, the `opinion` and `party` labels are exchangeable, so `infer` shuffles them and recomputes the $\chi^2$ statistic 10,000 times to build the null distribution.
+
+```{r sim}
+set.seed(2018)
+null_distn <- tax_opinion |>
+  specify(opinion ~ party) |>
+  hypothesize(null = "independence") |>
+  generate(reps = 10000, type = "permute") |>
+  calculate(stat = "Chisq")
+```
+
+The $\chi^2$ statistic is always non-negative, so this is a one-sided (right-tailed) test.
+
+```{r shade_pvalue}
+null_distn |>
+  visualize() +
+  shade_p_value(obs_stat = chisq_hat, direction = "greater")
+```
+
+We can also overlay the theoretical $\chi^2$ distribution:
+
+```{r overlay}
+null_distn |>
+  visualize(method = "both") +
+  shade_p_value(obs_stat = chisq_hat, direction = "greater")
+```
+
+### Calculate $p$-value
+
+```{r get_pvalue}
+pvalue <- null_distn |>
+  get_p_value(obs_stat = chisq_hat, direction = "greater")
+pvalue
+```
+
+So our $p$-value is `r pvalue$p_value` and we reject the null hypothesis at the 5% level.
+
+***
+
+# Traditional methods
+
+## Check conditions
+
+Remember that in order to use the short-cut (formula-based, theoretical) approach, we need to check that some conditions are met.
+
+1. _Independence_:  Each case that contributes a count to the table must be independent of all the other cases in the table.
+
+    This condition is met since cases were selected at random to observe.
+
+2. _Sample size_:  Each cell count must have at least 5 expected cases.
+
+    This is met by observing the table above.
+
+3. _Degrees of freedom_:  We need 3 or more columns (or rows) in the table.
+
+    This is met by observing the table above.
+
+## Test statistic
+
+The test statistic measures deviations from what we would expect in the cells of the table if the null hypothesis were true.  This requires us to calculate expected counts via
+
+$$\text{Expected Count}_{\text{row } i, \text{col } j} = \dfrac{\text{row } i \text{ total} \times \text{column } j \text{ total}}{\text{table total}}$$
+
+$$X^2 = \sum_{\text{all cells in the table}} \dfrac{(\text{observed count} - \text{expected count})^2}{\text{expected count}}$$
+
+Assuming the conditions outlined above are met, $X^2 \sim \chi^2(df = (R - 1) \times (C - 1))$ where $R$ is the number of rows in the table and $C$ is the number of columns.
+
+## Observed test statistic
+
+We can use `infer`'s `chisq_test()` wrapper to perform the theory-based test for us, which reports the $\chi^2$ statistic, degrees of freedom, and $p$-value.
+
+```{r chisq_test}
+tax_opinion |>
+  chisq_test(opinion ~ party)
+```
+
+## Compute $p$-value
+
+The theory-based $p$-value closely matches the simulation-based $p$-value from above, both leading to the same conclusion.
+
+# State conclusion
+
+We, therefore, have sufficient evidence to reject the null hypothesis.  Our initial guess that a statistically significant difference existed in the proportions of Democrats across the three groups was backed up by this statistical analysis.  We do have evidence to suggest that there is a dependency between the position taken on the tax reform bill and political party for US adults, based on this sample.
+
+***
+
+# Comparing results
+
+The simulation-based and theory-based approaches give very similar $p$-values here, as the overlaid distributions above suggest.  Since the conditions for the theory-based test are met, both the randomization and $\chi^2$-distribution approaches lead to the same conclusion.

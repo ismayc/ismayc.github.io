@@ -1,0 +1,232 @@
+---
+title: "ANOVA Example 2"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cerulean
+    highlight: pygments
+references:
+- id: oi
+  title: OpenIntro Statistics, Third Edition
+  author:
+  - family: Diez
+    given: David
+  - family: Barr
+    given: Christopher
+  - family: Cetinkaya-Rundel
+    given: Mine
+  type: book
+  issued:
+    year: 2015
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+library(tidyverse)
+library(infer)
+library(moderndive)
+library(janitor)
+library(knitr)
+options(digits = 5, scipen = 99)
+```
+
+# Problem Statement
+
+Chicken farming is a multi-billion dollar industry,
+and any methods that increase the growth rate of young chicks can reduce consumer costs while
+increasing company profits, possibly by millions of dollars. An experiment was conducted to
+measure and compare the effectiveness of various feed supplements on the growth rate of chickens.
+Newly hatched chicks were randomly allocated into six groups, and each group was given a different
+feed supplement. Do these data provide strong evidence that the average weights of chickens that were fed
+different crops are different? [Tweaked a bit from @oi [Chapter 5]]
+
+# Competing Hypotheses
+
+## In words
+
+- Null hypothesis: The long-run mean weights are the same under all six crops.
+
+- Alternative hypothesis:  At least one of the long-run mean weights is different.
+
+## Another way with words
+
+- Null hypothesis:  There is no association between feed type and weight in the population of interest.
+
+- Alternative hypothesis:  There is an association between the variables in the population.
+
+## In symbols (with annotations)
+
+- $H_0: \mu_{casein} = \mu_{horsebean} = \mu_{linseed} = \mu_{meatmeal} = \mu_{soybean} = \mu_{sunflower}$, where $\mu$ represents the long-run mean weight.
+- $H_A$: At least one of these parameter means is different from the others
+
+## Set $\alpha$
+
+It's important to set the significance level before starting the testing using the data. Let's set the significance level at 5\% here.
+
+# Exploring the sample data
+
+The `chickwts` dataset is built into R.
+
+```{r read_data}
+chickwts <- as_tibble(chickwts)
+```
+
+```{r summarize}
+wgt_summ <- chickwts |>
+  group_by(feed) |>
+  summarize(sample_size = n(),
+    mean = mean(weight),
+    sd = sd(weight),
+    minimum = min(weight),
+    lower_quartile = quantile(weight, 0.25),
+    median = median(weight),
+    upper_quartile = quantile(weight, 0.75),
+    max = max(weight))
+kable(wgt_summ)
+```
+
+
+The boxplot below also shows the mean for each group highlighted by the red dots.
+
+```{r boxplot}
+chickwts |> ggplot(aes(x = feed, y = weight)) +
+  geom_boxplot() +
+  stat_summary(fun = "mean", geom = "point", color = "red")
+```
+
+
+## Guess about statistical significance
+
+We are looking to see if a difference exists in the mean weight of the six levels of the explanatory variable.  Based solely on the boxplot, we have reason to believe that a difference exists, but the overlap of the boxplots is a bit concerning.
+
+***
+
+# Non-traditional methods
+
+We'll use the **`infer`** package to carry out the simulation-based workflow with the $F$ statistic, the ratio of between-group to within-group variability.
+
+## Observed statistic
+
+```{r obs_stat}
+F_hat <- chickwts |>
+  specify(weight ~ feed) |>
+  hypothesize(null = "independence") |>
+  calculate(stat = "F")
+F_hat
+```
+
+## Randomization for Hypothesis Test
+
+Under the null of no association, the `feed` labels are exchangeable, so `infer` shuffles them with `hypothesize(null = "independence")` and recomputes the $F$ statistic 10,000 times to build the null distribution.
+
+```{r sim}
+set.seed(2018)
+null_distn <- chickwts |>
+  specify(weight ~ feed) |>
+  hypothesize(null = "independence") |>
+  generate(reps = 10000, type = "permute") |>
+  calculate(stat = "F")
+```
+
+A big $F$ ratio corresponds to between-group variability over-powering within-group variability, so this is a one-sided (right-tailed) test.
+
+```{r shade_pvalue}
+null_distn |>
+  visualize() +
+  shade_p_value(obs_stat = F_hat, direction = "greater")
+```
+
+We can also overlay the theoretical $F$ distribution to compare the simulation-based and theory-based null distributions:
+
+```{r overlay}
+null_distn |>
+  visualize(method = "both") +
+  shade_p_value(obs_stat = F_hat, direction = "greater")
+```
+
+### Calculate $p$-value
+
+```{r get_pvalue}
+pvalue <- null_distn |>
+  get_p_value(obs_stat = F_hat, direction = "greater")
+pvalue
+```
+
+So our $p$-value is `r pvalue$p_value` and we reject the null hypothesis at the 5% level.
+
+***
+
+# Traditional methods
+
+## Check conditions
+
+Remember that in order to use the shortcut (formula-based, theoretical) approach, we need to check that some conditions are met.
+
+1. _Independent observations_:  The observations are independent both within and across groups.
+
+    The random assignment assures that the observations are independent across groups, but without knowing anything more about the experimental design we aren't sure if random sampling was done.  We will assume so.
+
+2. _Approximately normal_:  The distribution of the response for each group should be normal or the sample sizes should be at least 30.
+
+```{r hist}
+chickwts |> ggplot(aes(x = weight)) +
+  geom_histogram(binwidth = 60, color = "white") +
+  facet_wrap(~ feed)
+```
+
+```{r qqplot}
+chickwts |> ggplot(aes(sample = weight)) +
+  stat_qq() + stat_qq_line() +
+  facet_wrap(~ feed)
+```
+
+We have some reason to doubt the normality assumption here since both the histograms and the Q-Q plots show some deviation from a normal model fitting the data well for each group.  The sample sizes are also small.
+
+
+3. _Constant variance_:  The variance in the groups is about equal from one group to the next.
+
+    The standard deviations above are differing more than we would like across the groups.  They are all on the same order of magnitude, but it might be a stretch to assume that variance is constant.
+
+## Test statistic
+
+The $F$ statistic is the ratio
+
+$$
+F = \frac{MSG}{MSE},
+$$
+
+where $MSG$ measures the **between** group variability
+
+$$ MSG = \dfrac{\sum_{i = 1}^k n_i (\bar{X}_i - \bar{X})^2}{k - 1} $$
+
+with $\bar{X}_i$ the mean for each group $i$ and $\bar{X}$ the overall mean, and $MSE$ is a pooled estimate of the **within** group variability
+
+$$MSE = \dfrac{\sum_{i, j} (X_{ij} - \bar{X}_j)^2}{n_{total} - k}. $$
+
+## Observed test statistic
+
+We fit the model with `lm()` and summarize it with the **`moderndive`** package.  `get_regression_table()` shows the estimated group differences, while `get_regression_summaries()` reports the overall $F$ statistic and $p$-value — which for a single categorical predictor is exactly the one-way ANOVA $F$-test.
+
+```{r lm}
+wgt_mod <- lm(weight ~ feed, data = chickwts)
+get_regression_table(wgt_mod)
+```
+
+```{r summaries}
+get_regression_summaries(wgt_mod)
+```
+
+We see that the `statistic` (the observed $F$ value) matches the `F_hat` computed with `infer` above, with $df_G = k - 1 = 6 - 1 = 5$ between-group degrees of freedom and $df_E = n_{total} - k = 71 - 6 = 65$.
+
+# State conclusion
+
+We, therefore, have sufficient evidence to reject the null hypothesis.  Our initial guess that a statistically significant difference existed in the means was backed by this statistical analysis.  We have evidence to suggest that weight of chickens is affected by
+feed given.
+
+***
+
+# Comparing results
+
+The simulation-based and theory-based approaches give very similar $p$-values here, as the overlaid distributions above suggest.  With the normality and constant-variance conditions only approximately met, the close agreement between the randomization and $F$-distribution results is reassuring.  If the conditions are reasonable, the next step would be to calculate pairwise analyses to better understand the reasons for the rejection of the null hypothesis in the ANOVA.

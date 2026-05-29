@@ -1,0 +1,200 @@
+---
+title: "Two Means - Paired Samples Example"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cerulean
+    highlight: pygments
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+library(tidyverse)
+library(infer)
+library(janitor)
+library(knitr)
+options(digits = 5, scipen = 99)
+```
+
+
+# Problem Statement
+
+Trace metals in drinking water affect the flavor and an unusually high concentration can pose a health hazard. Ten pairs of data were taken measuring zinc concentration in bottom water and surface water at 10 randomly selected locations on a stretch of river. Do the data suggest that the true average concentration in the surface water is smaller than that of bottom water? (Note that units are not given.)  [Tweaked a bit from https://onlinecourses.science.psu.edu/stat500/node/51]
+
+# Competing Hypotheses
+
+## In words
+
+- Null hypothesis: The mean concentration in the bottom water is the same as that of the surface water at different paired locations.
+
+- Alternative hypothesis:  The mean concentration in the surface water is smaller than that of the bottom water at different paired locations.
+
+## In symbols (with annotations)
+
+- $H_0: \mu_{diff} = 0$, where $\mu_{diff}$ represents the mean difference in concentration for surface water minus bottom water.
+- $H_A: \mu_{diff} < 0$
+
+## Set $\alpha$
+
+It's important to set the significance level before starting the testing using the data. Let's set the significance level at 5% here.
+
+# Exploring the sample data
+
+```{r read_data}
+zinc_tidy <- read_csv("zinc_tidy.csv")
+```
+
+We want to look at the differences in `surface - bottom` for each location:
+
+```{r diffs}
+zinc_diff <- zinc_tidy |>
+  group_by(loc_id) |>
+  summarize(pair_diff = diff(concentration)) |>
+  ungroup()
+```
+
+Descriptive statistics are now given.
+
+```{r summarize}
+zinc_summ <- zinc_diff |>
+  summarize(sample_size = n(),
+    mean = mean(pair_diff),
+    sd = sd(pair_diff),
+    minimum = min(pair_diff),
+    lower_quartile = quantile(pair_diff, 0.25),
+    median = median(pair_diff),
+    upper_quartile = quantile(pair_diff, 0.75),
+    max = max(pair_diff))
+kable(zinc_summ)
+```
+
+The histogram below also shows the distribution of `pair_diff`.
+
+```{r hist1}
+zinc_diff |> ggplot(aes(x = pair_diff)) +
+  geom_histogram(binwidth = 0.04, color = "white")
+```
+
+
+## Guess about statistical significance
+
+We are looking to see if the sample paired mean difference of `r zinc_summ$mean` is statistically less than 0.  They seem to be quite close, but we have a small number of pairs here.  Let's guess that we will fail to reject the null hypothesis.
+
+***
+
+# Non-traditional methods
+
+Once we have reduced the paired data to a single column of differences, a paired test is just a *one mean* test on those differences.  We'll use the **`infer`** package on `pair_diff`.
+
+## Observed statistic
+
+```{r obs_stat}
+d_hat <- zinc_diff |>
+  specify(response = pair_diff) |>
+  calculate(stat = "mean")
+d_hat
+```
+
+## Bootstrapping for Hypothesis Test
+
+In order to look to see if the observed sample mean difference $\bar{x}_{diff} = `r d_hat$stat`$ is statistically less than 0, we need to account for the number of pairs.  By setting `hypothesize(null = "point", mu = 0)`, `infer` resamples the differences with replacement and recenters the resulting distribution of bootstrap means at the null value of 0.
+
+```{r sim}
+set.seed(2018)
+null_distn_paired_means <- zinc_diff |>
+  specify(response = pair_diff) |>
+  hypothesize(null = "point", mu = 0) |>
+  generate(reps = 10000) |>
+  calculate(stat = "mean")
+```
+
+We can next use this distribution to observe our $p$-value.  Recall this is a left-tailed test so we will be shading values less than or equal to `r d_hat$stat`.
+
+```{r shade_pvalue}
+null_distn_paired_means |>
+  visualize() +
+  shade_p_value(obs_stat = d_hat, direction = "less")
+```
+
+### Calculate $p$-value
+
+```{r get_pvalue}
+pvalue <- null_distn_paired_means |>
+  get_p_value(obs_stat = d_hat, direction = "less")
+pvalue
+```
+
+So our $p$-value is essentially `r pvalue$p_value` and we reject the null hypothesis at the 5% level.  You can also see this from the histogram above that we are far into the left tail of the null distribution.
+
+## Bootstrapping for Confidence Interval
+
+We can also create a confidence interval for the unknown population parameter $\mu_{diff}$ using our sample data (the calculated differences) with *bootstrapping*.  This is similar to the bootstrapping done in a one sample mean case, except now our data is differences instead of raw numerical data.
+
+```{r boot}
+boot_distn_paired_means <- zinc_diff |>
+  specify(response = pair_diff) |>
+  generate(reps = 10000) |>
+  calculate(stat = "mean")
+
+ci <- boot_distn_paired_means |>
+  get_confidence_interval(level = 0.95)
+ci
+```
+
+```{r shade_ci}
+boot_distn_paired_means |>
+  visualize() +
+  shade_confidence_interval(endpoints = ci)
+```
+
+We see that 0 is not contained in this confidence interval as a plausible value of $\mu_{diff}$ (the unknown population parameter).  This matches with our hypothesis test results of rejecting the null hypothesis.  Since zero is not a plausible value of the population parameter and since the entire confidence interval falls below zero, we have evidence that surface zinc concentration levels are lower, on average, than bottom level zinc concentrations.
+
+**Interpretation**:  We are 95% confident the true mean difference in zinc concentration (surface minus bottom) is between `r ci$lower_ci` and `r ci$upper_ci` units.
+
+---
+
+# Traditional methods
+
+## Check conditions
+
+Remember that in order to use the shortcut (formula-based, theoretical) approach, we need to check that some conditions are met.
+
+1. _Independent observations_:  The observations among pairs are independent.
+
+   The locations are selected independently through random sampling so this condition is met.
+
+2. _Approximately normal_:  The distribution of population of differences is normal or the number of pairs is at least 30.
+
+    The histogram above does show some skew so we have reason to doubt the population being normal based on this sample.  We also only have 10 pairs which is fewer than the 30 needed.  A theory-based test may not be valid here.
+
+## Test statistic
+
+The test statistic is a random variable based on the sample data.  Here, we want to look at a way to estimate the population mean difference $\mu_{diff}$.  A good guess is the sample mean difference $\bar{X}_{diff}$.  If the conditions are met and assuming $H_0$ is true, we can "standardize" this original test statistic of $\bar{X}_{diff}$ into a $T$ statistic that follows a $t$ distribution with degrees of freedom equal to $df = n - 1$:
+
+$$ T =\dfrac{ \bar{X}_{diff} - 0}{ S_{diff} / \sqrt{n} } \sim t (df = n - 1) $$
+
+where $S$ represents the standard deviation of the sample differences and $n$ is the number of pairs.
+
+### Observed test statistic
+
+We can use `infer`'s `t_test()` wrapper on the differences to perform this analysis for us.
+
+```{r t_test}
+zinc_diff |>
+  t_test(
+    formula = pair_diff ~ NULL,
+    alternative = "less",
+    mu = 0
+  )
+```
+
+## State conclusion
+
+We, therefore, have sufficient evidence to reject the null hypothesis.  Our initial guess that our observed sample mean difference was not statistically less than the hypothesized mean of 0 has been invalidated here.  Based on this sample, we have evidence that the mean concentration in the bottom water is greater than that of the surface water at different paired locations.
+
+---
+
+# Comparing results
+
+Observing the bootstrap distribution and the null distribution that were created, it makes quite a bit of sense that the results are so similar for traditional and non-traditional methods in terms of the $p$-value and the confidence interval.  The conditions were not fully met since the number of pairs was small, but the sample data was not highly skewed.  Using any of the methods whether they are traditional (formula-based) or non-traditional (computational-based) lead to similar results here.

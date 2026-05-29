@@ -1,0 +1,229 @@
+---
+title: "Two Proportions Example"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cerulean
+    highlight: pygments
+references:
+- id: oi
+  title: OpenIntro Statistics, Third Edition
+  author:
+  - family: Diez
+    given: David
+  - family: Barr
+    given: Christopher
+  - family: Cetinkaya-Rundel
+    given: Mine
+  type: book
+  issued:
+    year: 2015
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+library(tidyverse)
+library(infer)
+library(janitor)
+library(knitr)
+options(digits = 5, scipen = 99)
+```
+
+# Problem Statement
+
+A 2010 survey asked 827 randomly sampled registered voters
+in California "Do you support? Or do you oppose? Drilling for oil and natural gas off the Coast of
+California? Or do you not know enough to say?" Conduct a hypothesis test to determine if the data
+provide strong evidence that the proportion of college
+graduates who do not have an opinion on this issue is
+different than that of non-college graduates. [Tweaked a bit from @oi [Chapter 6]]
+
+# Competing Hypotheses
+
+## In words
+
+- Null hypothesis: There is no association between having an opinion on drilling and having a college degree for all registered California voters in 2010.
+
+- Alternative hypothesis:  There is an association between having an opinion on drilling and having a college degree for all registered California voters in 2010.
+
+## Another way in words
+
+- Null hypothesis: The probability that a Californian voter in 2010 having no opinion on drilling and is a college graduate is the **same** as that of a non-college graduate.
+
+- Alternative hypothesis:  These parameter probabilities are different.
+
+## In symbols (with annotations)
+
+- $H_0: \pi_{college} = \pi_{no\_college}$ or $H_0: \pi_{college} - \pi_{no\_college} = 0$, where $\pi$ represents the probability of not having an opinion on drilling.
+- $H_A: \pi_{college} - \pi_{no\_college} \ne 0$
+
+## Set $\alpha$
+
+It's important to set the significance level before starting the testing using the data. Let's set the significance level at 5% here.
+
+# Exploring the sample data
+
+```{r read_data}
+offshore <- read_csv("offshore.csv") |>
+  mutate(response = fct_rev(response))
+```
+
+```{r summarize}
+offshore |>
+  tabyl(college_grad, response)
+
+off_summ <- offshore |>
+  group_by(college_grad) |>
+  summarize(prop_no_opinion = mean(response == "no opinion"),
+    sample_size = n())
+off_summ
+```
+
+
+```{r stacked_bar}
+offshore |> ggplot(aes(x = college_grad, fill = response)) +
+  geom_bar(position = "fill") +
+  coord_flip()
+```
+
+## Guess about statistical significance
+
+We are looking to see if a difference exists in the heights of the bars corresponding to `no opinion` for the plot.  Based solely on the plot, we have little reason to believe that a difference exists since the bars seem to be about the same height, BUT...it's important to use statistics to see if that difference is actually statistically significant!
+
+
+***
+
+# Non-traditional methods
+
+We'll use the **`infer`** package to carry out the simulation-based workflow.
+
+## Observed statistic
+
+```{r obs_stat}
+d_hat <- offshore |>
+  specify(response ~ college_grad, success = "no opinion") |>
+  calculate(stat = "diff in props", order = c("yes", "no"))
+d_hat
+```
+
+## Randomization for Hypothesis Test
+
+In order to look to see if the observed difference in proportions with no opinion (college minus non-college) of `r d_hat$stat` is statistically different than 0, we need to account for the sample sizes.  We can use the idea of *randomization testing* (also known as *permutation testing*): under the null of no association, the `response` labels are exchangeable across `college_grad`, so `infer` shuffles them with `hypothesize(null = "independence")` and recomputes the difference 10,000 times.
+
+```{r sim}
+set.seed(2018)
+null_distn_two_props <- offshore |>
+  specify(response ~ college_grad, success = "no opinion") |>
+  hypothesize(null = "independence") |>
+  generate(reps = 10000) |>
+  calculate(stat = "diff in props", order = c("yes", "no"))
+```
+
+We can next use this distribution to observe our $p$-value.  Recall this is a two-tailed test so we will be shading values at least as extreme as our observed difference in both directions.
+
+```{r shade_pvalue}
+null_distn_two_props |>
+  visualize() +
+  shade_p_value(obs_stat = d_hat, direction = "both")
+```
+
+### Calculate $p$-value
+
+```{r get_pvalue}
+pvalue <- null_distn_two_props |>
+  get_p_value(obs_stat = d_hat, direction = "both")
+pvalue
+```
+
+So our $p$-value is `r pvalue$p_value` and we reject the null hypothesis at the 5% level.  You can also see this from the histogram above that we are far into the tails of the null distribution.
+
+## Bootstrapping for Confidence Interval
+
+We can also create a confidence interval for the unknown population parameter $\pi_{college} - \pi_{no\_college}$ using our sample data with *bootstrapping*.  Here we omit `hypothesize()` and use `generate(type = "bootstrap")` so each group is resampled with replacement at its original size.
+
+```{r boot}
+boot_distn_two_props <- offshore |>
+  specify(response ~ college_grad, success = "no opinion") |>
+  generate(reps = 10000, type = "bootstrap") |>
+  calculate(stat = "diff in props", order = c("yes", "no"))
+
+ci <- boot_distn_two_props |>
+  get_confidence_interval(level = 0.95)
+ci
+```
+
+```{r shade_ci}
+boot_distn_two_props |>
+  visualize() +
+  shade_confidence_interval(endpoints = ci)
+```
+
+We see that 0 is not contained in this confidence interval as a plausible value of $\pi_{college} - \pi_{no\_college}$ (the unknown population parameter).  This matches with our hypothesis test results of rejecting the null hypothesis.  Since zero is not a plausible value of the population parameter, we have evidence that the proportion of college graduates in California with no opinion on drilling is different than that of non-college graduates.
+
+**Interpretation**:  We are 95% confident the true difference in the proportion with no opinion on offshore drilling (college graduates minus non-college graduates) in California is between `r ci$lower_ci` and `r ci$upper_ci`.
+
+---
+
+# Traditional methods
+
+## Check conditions
+
+Remember that in order to use the short-cut (formula-based, theoretical) approach, we need to check that some conditions are met.
+
+1. _Independent observations_:  Each case that was selected must be independent of all the other cases selected.
+
+    This condition is met since cases were selected at random to observe.
+
+2. _Sample size_:  The number of pooled successes and pooled failures must be at least 10 for each group.
+
+    We need to first figure out the pooled success rate:  $$\hat{p}_{obs} = \dfrac{131 + 104}{827} = 0.28.$$  We now determine expected (pooled) success and failure counts:
+
+    $0.28 \cdot (131 + 258) = `r 0.28 * (131 + 258)`$, $0.72 \cdot (131 + 258) = `r 0.72 * (131 + 258)`$
+
+    $0.28 \cdot (104 + 334) = `r 0.28 * (104 + 334)`$, $0.72 \cdot (104 + 334) = `r 0.72 * (104 + 334)`$
+
+3. _Independent selection of samples_:  The cases are not paired in any meaningful way.
+
+    We have no reason to suspect that a college graduate selected would have any relationship to a non-college graduate selected.
+
+## Test statistic
+
+The test statistic is a random variable based on the sample data.  Here, we are interested in seeing if our observed difference in sample proportions corresponding to no opinion on drilling ($\hat{p}_{college, obs} - \hat{p}_{no\_college, obs}$) is statistically different than 0.  Assuming that conditions are met and the null hypothesis is true, we can use the standard normal distribution to standardize the difference in sample proportions using the standard error and the pooled estimate:
+
+$$ Z =\dfrac{ (\hat{P}_1 - \hat{P}_2) - 0}{\sqrt{\dfrac{\hat{P}(1 - \hat{P})}{n_1} + \dfrac{\hat{P}(1 - \hat{P})}{n_2} }} \sim N(0, 1) $$ where $\hat{P} = \dfrac{\text{total number of successes} }{ \text{total number of cases}}.$
+
+### Observed test statistic
+
+The observed standardized statistic can be computed directly with `infer` via `calculate(stat = "z")`:
+
+```{r z_stat}
+z_hat <- offshore |>
+  specify(response ~ college_grad, success = "no opinion") |>
+  hypothesize(null = "independence") |>
+  calculate(stat = "z", order = c("yes", "no"))
+z_hat
+```
+
+We can also do this test directly with `infer`'s `prop_test()` wrapper, which reports the $p$-value and a theory-based confidence interval:
+
+```{r prop_test}
+offshore |>
+  prop_test(response ~ college_grad,
+    success = "no opinion",
+    order = c("yes", "no"),
+    alternative = "two.sided",
+    correct = FALSE,
+    z = TRUE)
+```
+
+## State conclusion
+
+We, therefore, have sufficient evidence to reject the null hypothesis.  Our initial guess that a statistically significant difference did not exist in the proportions of no opinion on offshore drilling between college educated and non-college educated Californians was not validated.  We do have evidence to suggest that there is a dependency between college graduation and position on offshore drilling for Californians.
+
+---
+
+# Comparing results
+
+Observing the bootstrap distribution and the null distribution that were created, it makes quite a bit of sense that the results are so similar for traditional and non-traditional methods in terms of the $p$-value and the confidence interval since these distributions look very similar to normal distributions.  Using any of the methods whether they are traditional (formula-based) or non-traditional (computational-based) lead to similar results here.

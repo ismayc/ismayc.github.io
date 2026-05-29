@@ -1,0 +1,273 @@
+---
+title: "ANOVA Example"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cerulean
+    highlight: pygments
+references:
+- id: isi2014
+  title: Introduction to Statistical Investigations
+  author:
+  - family: Tintle
+    given: Nathan
+  - family: Chance
+    given: Beth
+  - family: Cobb
+    given: George
+  - family: Rossman
+    given: Allan
+  - family: Roy
+    given: Soma
+  - family: Swanson
+    given: Todd
+  - family: VanderStoep
+    given: Jill
+  page: 8-2 - 8-13
+  type: book
+  issued:
+    year: 2014
+    month: 8
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+library(tidyverse)
+library(infer)
+library(moderndive)
+library(janitor)
+library(knitr)
+options(digits = 3, scipen = 99)
+```
+
+# Problem Statement
+
+Sometimes when reading esoteric prose we have a hard time comprehending what the author is trying to
+convey. A student project group decided to partially replicate part of a seminal 1972 study by Bransford
+and Johnson on memory encoding ("Contextual prerequisites for understanding: Some investigations of
+comprehension and recall," _Journal of Verbal Learning and Verbal Behavior_, 11, pp. 717-726). The study
+examined college students’ comprehension of following ambiguous prose passage.
+
+> If the balloons popped, the sound wouldn’t be able to carry since everything would be too far away from
+the correct floor. A closed window would also prevent the sound from carrying, since most buildings tend
+to be well insulated. Since the whole operation depends on a steady flow of electricity, a break in the
+middle of the wire would also cause problems. Of course, the fellow could shout, but the human voice is not
+loud enough to carry that far. An additional problem is that a string could break on the instrument. Then
+there could be no accompaniment to the message. It is clear that the best situation would involve less
+distance. Then there would be fewer potential problems. With face to face contact, the least number of
+things could go wrong. (p. 719)
+
+Did you understand what the passage was describing? Would it help to have a picture? The picture that
+goes along with the passage is shown below:
+
+![Pic](anova_pic.png)
+
+Before the college students were tested to see whether they understood the passage, they were randomly
+assigned to one of three groups, and then each group was read the passage under one of the following cue
+conditions:
+
+- Students were shown the picture before they heard the passage.
+- Students were shown the picture after they heard the passage.
+- Students were not shown any picture before or after hearing the passage.
+
+Is student comprehension of an ambiguous prose passage affected by
+viewing a picture designed to aid them in their understanding either before or after or not at all? So our
+research conjecture might be: The long-run mean comprehension score differs among the three
+treatments.
+
+Fifty-seven randomly selected students were randomly assigned to be in one of the three groups with
+nineteen in each group. After hearing the passage under the assigned cue condition, they were given a test
+and their comprehension of the passage was graded on a scale of 1 to 7 with 7 being the highest level of comprehension.
+Note that the data collected from this study design will not be paired, but will be
+independent, with the outcomes in one treatment group not affecting the outcomes in the other treatment
+groups. [Tweaked a bit from @isi2014 [Chapter 9]]
+
+# Competing Hypotheses
+
+## In words
+
+- Null hypothesis: The long-run mean comprehension scores are the same under all three cue conditions (after, before, none).
+
+- Alternative hypothesis:  At least one of the long-run mean comprehension scores is different.
+
+## Another way with words
+
+- Null hypothesis:  There is no association between when/whether a picture is shown and student comprehension of this passage in the population of interest.
+
+- Alternative hypothesis:  There is an association between the variables in the population.
+
+## In symbols (with annotations)
+
+- $H_0: \mu_{after} = \mu_{before} = \mu_{none}$, where $\mu$ represents the long-run mean comprehension score.
+- $H_A$: At least one of these parameter means is different from the others
+
+## Set $\alpha$
+
+It's important to set the significance level before starting the testing using the data. Let's set the significance level at 5\% here.
+
+# Exploring the sample data
+
+```{r read_data}
+comp <- read.table("comprehension.txt", header = TRUE) |>
+  as_tibble()
+```
+
+```{r summarize}
+comp_summ <- comp |>
+  group_by(Condition) |>
+  summarize(sample_size = n(),
+    mean = mean(Comprehension),
+    sd = sd(Comprehension),
+    minimum = min(Comprehension),
+    lower_quartile = quantile(Comprehension, 0.25),
+    median = median(Comprehension),
+    upper_quartile = quantile(Comprehension, 0.75),
+    max = max(Comprehension))
+kable(comp_summ)
+```
+
+
+The boxplot below also shows the mean for each group highlighted by the red dots.
+
+```{r boxplot}
+comp |> ggplot(aes(x = Condition, y = Comprehension)) +
+  geom_boxplot() +
+  stat_summary(fun = "mean", geom = "point", color = "red")
+```
+
+
+## Guess about statistical significance
+
+We are looking to see if a difference exists in the mean comprehension of the three levels of the explanatory variable.  Based solely on the boxplot, we have reason to believe that a difference exists, but the overlap of the boxplots is a bit concerning.
+
+***
+
+# Non-traditional methods
+
+We'll use the **`infer`** package to carry out the simulation-based workflow with the $F$ statistic, the ratio of between-group to within-group variability.
+
+## Observed statistic
+
+```{r obs_stat}
+F_hat <- comp |>
+  specify(Comprehension ~ Condition) |>
+  hypothesize(null = "independence") |>
+  calculate(stat = "F")
+F_hat
+```
+
+## Randomization for Hypothesis Test
+
+Under the null of no association, the `Condition` labels are exchangeable, so `infer` shuffles them with `hypothesize(null = "independence")` and recomputes the $F$ statistic 10,000 times to build the null distribution.
+
+```{r sim}
+set.seed(2018)
+null_distn <- comp |>
+  specify(Comprehension ~ Condition) |>
+  hypothesize(null = "independence") |>
+  generate(reps = 10000, type = "permute") |>
+  calculate(stat = "F")
+```
+
+A big $F$ ratio corresponds to between-group variability over-powering within-group variability, so this is a one-sided (right-tailed) test.
+
+```{r shade_pvalue}
+null_distn |>
+  visualize() +
+  shade_p_value(obs_stat = F_hat, direction = "greater")
+```
+
+We can also overlay the theoretical $F$ distribution to compare the simulation-based and theory-based null distributions:
+
+```{r overlay}
+null_distn |>
+  visualize(method = "both") +
+  shade_p_value(obs_stat = F_hat, direction = "greater")
+```
+
+### Calculate $p$-value
+
+```{r get_pvalue}
+pvalue <- null_distn |>
+  get_p_value(obs_stat = F_hat, direction = "greater")
+pvalue
+```
+
+So our $p$-value is `r pvalue$p_value` and we reject the null hypothesis at the 5% level.
+
+***
+
+# Traditional methods
+
+## Check conditions
+
+Remember that in order to use the short-cut (formula-based, theoretical) approach, we need to check that some conditions are met.
+
+1. _Independent observations_:  The observations are independent both within and across groups.
+
+    This condition is met since students were randomly assigned to be in one of the three groups and were initially randomly selected to be a part of the study.
+
+2. _Approximately normal_:  The distribution of the response for each group should be normal or the sample sizes should be at least 30.
+
+```{r hist}
+comp |> ggplot(aes(x = Comprehension)) +
+  geom_histogram(binwidth = 1, color = "white") +
+  facet_wrap(~ Condition)
+```
+
+```{r qqplot}
+comp |> ggplot(aes(sample = Comprehension)) +
+  stat_qq() + stat_qq_line() +
+  facet_wrap(~ Condition)
+```
+
+We have some reason to doubt the normality assumption here since both the histograms and the Q-Q plots show some deviation from a normal model fitting the data well for each group.
+
+
+3. _Constant variance_:  The variance in the groups is about equal from one group to the next.
+
+    This is met by observing the table above.  The `sd` values are all relatively close and the sample sizes are identical.
+
+## Test statistic
+
+The $F$ statistic is the ratio
+
+$$
+F = \frac{MSG}{MSE},
+$$
+
+where $MSG$ measures the **between** group variability
+
+$$ MSG = \dfrac{\sum_{i = 1}^k n_i (\bar{X}_i - \bar{X})^2}{k - 1} $$
+
+with $\bar{X}_i$ the mean for each group $i$ and $\bar{X}$ the overall mean, and $MSE$ is a pooled estimate of the **within** group variability
+
+$$MSE = \dfrac{\sum_{i, j} (X_{ij} - \bar{X}_j)^2}{n_{total} - k}. $$
+
+## Observed test statistic
+
+We fit the model with `lm()` and summarize it with the **`moderndive`** package.  `get_regression_table()` shows the estimated group differences, while `get_regression_summaries()` reports the overall $F$ statistic and $p$-value — which for a single categorical predictor is exactly the one-way ANOVA $F$-test.
+
+```{r lm}
+comp_mod <- lm(Comprehension ~ Condition, data = comp)
+get_regression_table(comp_mod)
+```
+
+```{r summaries}
+get_regression_summaries(comp_mod)
+```
+
+We see that the `statistic` (the observed $F$ value) matches the `F_hat` computed with `infer` above, with $df_G = k - 1 = 3 - 1 = 2$ between-group degrees of freedom and $df_E = n_{total} - k = 57 - 3 = 54$.
+
+# State conclusion
+
+We, therefore, have sufficient evidence to reject the null hypothesis.  Our initial guess that a statistically significant difference existed in the means was backed by this statistical analysis.  We have evidence to suggest that student comprehension of an ambiguous prose passage is affected by
+viewing a picture designed to aid them in their understanding either before or after or not at all.
+
+***
+
+# Comparing results
+
+The simulation-based and theory-based approaches give very similar $p$-values here, as the overlaid distributions above suggest.  With the normality condition only approximately met, the close agreement between the randomization and $F$-distribution results is reassuring.  If the conditions are reasonable, the next step would be to calculate pairwise analyses to better understand the reasons for the rejection of the null hypothesis in the ANOVA.

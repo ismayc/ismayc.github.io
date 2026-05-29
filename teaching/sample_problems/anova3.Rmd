@@ -1,0 +1,217 @@
+---
+title: "ANOVA Example for Phoenix departing flights in 2024"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cerulean
+    highlight: pygments
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+library(tidyverse)
+library(infer)
+library(moderndive)
+library(janitor)
+library(knitr)
+library(azflights24)
+options(digits = 5, scipen = 99)
+```
+
+# Problem Statement
+
+The `azflights24` R package is a modified version of Hadley Wickham's `nycflights13` package and
+contains information about all flights that departed from the five major airports of
+Arizona in 2024, including PHX in Phoenix and TUS in Tucson. To help understand what causes delays, it also includes a number
+of other useful datasets:
+
+* `weather`: hourly meteorological data for each airport
+* `planes`: construction information about each plane
+* `airports`: airport names and locations
+* `airlines`: translation between two letter carrier codes and names
+
+In this example, we will focus on a random sample of flights departing Phoenix (PHX) with no missing information:
+
+```{r get_data}
+data("flights", package = "azflights24")
+phx_flights <- flights |>
+  filter(origin == "PHX") |>
+  select(carrier, dep_delay) |>
+  drop_na()
+set.seed(2016)
+phx_rs <- phx_flights |> sample_n(6000)
+```
+
+We are interested in testing whether there is a difference in the mean departure delays by airline/`carrier` for departing flights from Phoenix in 2024.  The `carrier` variable is coded as a 2-character code.  The corresponding `airlines` dataset mentioned above contains the full name of the airline and we will link this together with our `flights` dataset later.
+
+# Competing Hypotheses
+
+## In words
+
+- Null hypothesis: The mean departure delays are the same for all `r length(unique(phx_rs$carrier))` carriers for all 2024 flights departing Phoenix, Arizona.
+
+- Alternative hypothesis:  At least one of the population mean departure delays is different.
+
+## Another way with words
+
+- Null hypothesis:  There is no association between departure delay and airline in the population of interest.
+
+- Alternative hypothesis:  There is an association between the variables in the population.
+
+## Set $\alpha$
+
+It's important to set the significance level before starting the testing using the data. Let's set the significance level at 5\% here.
+
+# Exploring the sample data
+
+```{r summarize}
+phx_summ <- phx_rs |>
+  group_by(carrier) |>
+  summarize(sample_size = n(),
+    mean = mean(dep_delay),
+    sd = sd(dep_delay),
+    minimum = min(dep_delay),
+    lower_quartile = quantile(dep_delay, 0.25),
+    median = median(dep_delay),
+    upper_quartile = quantile(dep_delay, 0.75),
+    max = max(dep_delay))
+kable(phx_summ)
+```
+
+
+The side-by-side boxplot below also shows the mean for each group highlighted by the red dots.  We remove the outliers and zoom in on the interquartile range to make the plot more readable.
+
+```{r boxplot}
+phx_rs |> ggplot(aes(x = carrier, y = dep_delay)) +
+  geom_boxplot(outlier.shape = NA) +
+  coord_cartesian(ylim = c(-20, 45)) +
+  stat_summary(fun = "mean", geom = "point", color = "red")
+```
+
+
+## Guess about statistical significance
+
+We are looking to see if a difference exists in the mean departure delay across the levels of the explanatory variable.  Based solely on the boxplot, we have reason to believe that a difference exists, but the overlap of the boxplots is potentially a bit concerning.
+
+***
+
+# Non-traditional methods
+
+We'll use the **`infer`** package to carry out the simulation-based workflow with the $F$ statistic.  Because the dataset is large, we use 1,000 replicates here.
+
+## Observed statistic
+
+```{r obs_stat}
+F_hat <- phx_rs |>
+  specify(dep_delay ~ carrier) |>
+  hypothesize(null = "independence") |>
+  calculate(stat = "F")
+F_hat
+```
+
+## Randomization for Hypothesis Test
+
+Under the null of no association, the `carrier` labels are exchangeable, so `infer` shuffles them and recomputes the $F$ statistic to build the null distribution.
+
+```{r sim}
+set.seed(2018)
+null_distn <- phx_rs |>
+  specify(dep_delay ~ carrier) |>
+  hypothesize(null = "independence") |>
+  generate(reps = 1000, type = "permute") |>
+  calculate(stat = "F")
+```
+
+A big $F$ ratio corresponds to between-group variability over-powering within-group variability, so this is a one-sided (right-tailed) test.
+
+```{r shade_pvalue}
+null_distn |>
+  visualize() +
+  shade_p_value(obs_stat = F_hat, direction = "greater")
+```
+
+We can also overlay the theoretical $F$ distribution:
+
+```{r overlay}
+null_distn |>
+  visualize(method = "both") +
+  shade_p_value(obs_stat = F_hat, direction = "greater")
+```
+
+### Calculate $p$-value
+
+```{r get_pvalue}
+pvalue <- null_distn |>
+  get_p_value(obs_stat = F_hat, direction = "greater")
+pvalue
+```
+
+So our $p$-value is `r pvalue$p_value` and we reject the null hypothesis at the 5% level.
+
+***
+
+# Traditional methods
+
+## Check conditions
+
+Remember that in order to use the shortcut (formula-based, theoretical) approach, we need to check that some conditions are met.
+
+1. _Independent observations_:  The observations are independent both within and across groups.
+
+    A pseudorandom generator was used in R to select a sample of 6000 flights from our population of all flights.  We also assume that the different airlines act independently, which may not always be the case, but shouldn't affect the results greatly here.
+
+2. _Approximately normal_:  The distribution of the response for each group should be normal or the sample sizes should be at least 30.
+
+```{r qqplot}
+phx_rs |> ggplot(aes(sample = dep_delay)) +
+  stat_qq() + stat_qq_line() +
+  facet_wrap(~ carrier)
+```
+
+The Q-Q plots should result in straight lines matching the theoretical quantiles of a standard normal distribution if the data were in fact normal.  We have serious reason to doubt they are normally distributed, which intuitively makes sense since flight departure delays are likely to have a right-skewed distribution.  The Central Limit Theorem can be invoked with reasonable certainty since each of the groups has many more than 30 observations.
+
+3. _Constant variance_:  The variance in the groups is about equal from one group to the next.
+
+    The standard deviations in the table above lead us to possibly suspect that the standard deviations of the groups in the population are not similar, but they are on the same order of magnitude so we proceed with some caution.
+
+## Test statistic
+
+The $F$ statistic is the ratio
+
+$$
+F = \frac{MSG}{MSE},
+$$
+
+where $MSG$ measures the **between** group variability and $MSE$ is a pooled estimate of the **within** group variability.
+
+## Observed test statistic
+
+We fit the model with `lm()` and summarize it with the **`moderndive`** package.  `get_regression_summaries()` reports the overall $F$ statistic and $p$-value — which for a single categorical predictor is exactly the one-way ANOVA $F$-test.
+
+```{r lm}
+phx_mod <- lm(dep_delay ~ carrier, data = phx_rs)
+get_regression_summaries(phx_mod)
+```
+
+We see that the `statistic` (the observed $F$ value) matches the `F_hat` computed with `infer` above.
+
+# State conclusion
+
+We, therefore, have sufficient evidence to reject the null hypothesis.  Our initial guess that a statistically significant difference existed in the means was backed by this statistical analysis.  We have evidence to suggest that departure delay is related to carrier.  If we'd like to get a sense for how the codes relate to the actual names of the airlines, we can use `inner_join()` to match the `carrier` code with its corresponding `name` in the `airlines` table:
+
+```{r join}
+data(airlines, package = "azflights24")
+phx_join <- phx_summ |>
+  select(carrier, mean, sd) |>
+  inner_join(airlines, by = "carrier")
+kable(phx_join)
+```
+
+
+***
+
+# Comparing results
+
+The simulation-based and theory-based approaches give very similar $p$-values here.  With the normality condition violated but large group sizes, the Central Limit Theorem supports the theory-based test, and the close agreement between the randomization and $F$-distribution results is reassuring.  If the conditions are reasonable, the next step would be to calculate pairwise analyses to better understand the reasons for the rejection of the null hypothesis in the ANOVA.

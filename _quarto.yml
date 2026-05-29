@@ -21,6 +21,7 @@ project:
     - "us-statehood.html"
     - "projects/**"
     - "nba-over-under-2025-2026/final-day-scenarios.html"
+    - "teaching/sample_problems/*.html"
   output-dir: docs  # for GitHub Pages compatibility
   render:
     - index.qmd

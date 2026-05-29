@@ -1,0 +1,222 @@
+---
+title: "Simple Linear Regression Example"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cerulean
+    highlight: pygments
+references:
+- id: stat2
+  title: STAT2 - Building Models for a World of Data
+  author:
+  - family: Cannon
+    given: Ann R.
+  - family: Cobb
+    given: George W.
+  - family: Hartlaub
+    given: Bradley A.
+  - family: Legler
+    given: Julie M.
+  - family: Lock
+    given: Robin H.
+  - family: Moore
+    given: Thomas L.
+  - family: Rossman
+    given: Allan J.
+  - family: Witmer
+    given: Jeffrey A.
+  type: book
+  issued:
+    year: 2013
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+library(tidyverse)
+library(infer)
+library(moderndive)
+library(knitr)
+library(Stat2Data)
+options(digits = 5, scipen = 99)
+```
+
+# Problem Statement
+
+Priscilla Erickson from Kenyon College collected data on a stratified random sample of 116 Savannah sparrows at Kent Island.  The weight (in grams) and wing length (in mm) were obtained for birds from nests that were reduced, controlled, or enlarged.  Is wing length a significant linear predictor of weight for Savannah sparrows? [Tweaked a bit from @stat2 [Chapter 1]]
+
+# Competing Hypotheses
+
+## In words
+
+- Null hypothesis: The population slope of the least squares regression line modeling weight as a function of wing length is zero.
+
+- Alternative hypothesis:  The population slope of the least squares regression line modeling weight as a function of wing length is nonzero.
+
+## Another way with words
+
+- Null hypothesis:  There is no association between wing length and weight for Savannah sparrows.
+
+- Alternative hypothesis: There is an association between wing length and weight for Savannah sparrows.
+
+## In symbols (with annotations)
+
+- $H_0: \beta_1 = 0$, where $\beta_1$ represents the population slope of the least squares regression line modeling weight as a function of wing length.
+- $H_A: \beta_1 \ne 0$
+
+## Set $\alpha$
+
+It's important to set the significance level before starting the testing using the data. Let's set the significance level at 5\% here.
+
+# Exploring the sample data
+
+```{r read_data}
+data(Sparrows)
+Sparrows <- as_tibble(Sparrows)
+```
+
+The scatterplot below shows the relationship between wing length and weight.
+
+```{r scatter}
+Sparrows |> ggplot(aes(x = WingLength, y = Weight)) +
+  geom_point()
+```
+
+
+## Guess about statistical significance
+
+We are looking to see if `WingLength` is a significant linear predictor of `Weight`.  Based on the plot, it seems reasonable to guess that we will reject the null hypothesis here.
+
+***
+
+# Non-traditional methods
+
+We'll use the **`infer`** package to carry out the simulation-based workflow with the `"slope"` statistic.
+
+## Observed statistic
+
+```{r obs_stat}
+slope_hat <- Sparrows |>
+  specify(Weight ~ WingLength) |>
+  calculate(stat = "slope")
+slope_hat
+```
+
+## Randomization for Hypothesis Test
+
+Under the null of no association, the `Weight` and `WingLength` values are exchangeable, so `infer` shuffles them with `hypothesize(null = "independence")` and recomputes the slope 10,000 times to build the null distribution.
+
+```{r sim}
+set.seed(2018)
+null_distn <- Sparrows |>
+  specify(Weight ~ WingLength) |>
+  hypothesize(null = "independence") |>
+  generate(reps = 10000, type = "permute") |>
+  calculate(stat = "slope")
+```
+
+We shade values at least as extreme as our observed slope in both directions (a two-tailed test).
+
+```{r shade_pvalue}
+null_distn |>
+  visualize() +
+  shade_p_value(obs_stat = slope_hat, direction = "both")
+```
+
+### Calculate $p$-value
+
+```{r get_pvalue}
+pvalue <- null_distn |>
+  get_p_value(obs_stat = slope_hat, direction = "both")
+pvalue
+```
+
+So our $p$-value is `r pvalue$p_value` and we reject the null hypothesis at the 5% level.
+
+## Bootstrapping for Confidence Interval
+
+We can also create a confidence interval for the population slope $\beta_1$ via *bootstrapping* — resampling rows with replacement and recomputing the slope.
+
+```{r boot}
+boot_distn <- Sparrows |>
+  specify(Weight ~ WingLength) |>
+  generate(reps = 10000, type = "bootstrap") |>
+  calculate(stat = "slope")
+
+ci <- boot_distn |>
+  get_confidence_interval(level = 0.95)
+ci
+```
+
+```{r shade_ci}
+boot_distn |>
+  visualize() +
+  shade_confidence_interval(endpoints = ci)
+```
+
+Since 0 is not contained in this confidence interval, we have evidence that the population slope is nonzero, matching our hypothesis test.
+
+***
+
+# Traditional methods
+
+## Check conditions
+
+Remember that in order to use the shortcut (formula-based, theoretical) approach, we need to check that some conditions are met.  We first fit the model and obtain the fitted values and residuals with `moderndive`'s `get_regression_points()`.
+
+```{r fit_mod}
+weight_wing_mod <- lm(Weight ~ WingLength, data = Sparrows)
+wing_points <- get_regression_points(weight_wing_mod)
+```
+
+1. _Linear relationship between response and predictor_:  Look at the residual plot to see if the residuals are randomly distributed.
+
+    ```{r resid}
+    wing_points |> ggplot(aes(x = Weight_hat, y = residual)) +
+      geom_point() +
+      geom_hline(yintercept = 0, linetype = "dashed")
+    ```
+
+    There does not appear to be any pattern (quadratic, sinusoidal, exponential, etc.) in the residuals so this condition is met.
+
+2. _Independent observations and errors_:  The birds were selected at random here so the independent observations condition is met.  We do not see any time series-like patterns in the residual plot above so that condition is met as well.
+
+3. _Nearly normal residuals_:  Check a Q-Q plot on the residuals.
+
+    ```{r qq}
+    wing_points |> ggplot(aes(sample = residual)) +
+      stat_qq() + stat_qq_line()
+    ```
+
+    There are some small deviations from normality in the tails but this is a pretty excellent fit for normality of residuals.
+
+4. _Equal variances across explanatory variable_:  The residual plot above doesn't show any sort of fan shapes with variance pretty much constant throughout.
+
+## Test statistic
+
+We want to estimate the population slope $\beta_1$ with the sample slope $B_1$, a random variable that varies from sample to sample.  If the conditions are met and assuming $H_0$ is true, we can standardize $B_1$ into a $T$ statistic that follows a $t$ distribution:
+
+$$ T =\dfrac{ B_1 - 0}{ {SE}_{B_1} } \sim t (df = n - 2) $$
+
+## Observed test statistic
+
+We use the `lm` function to fit the line and conduct the theory-based test, summarizing the output with `moderndive`'s `get_regression_table()`.
+
+```{r lm_summary}
+get_regression_table(weight_wing_mod)
+```
+
+We see here that the observed slope value is around 0.467, corresponding to a large $t$ statistic and an essentially-zero $p$-value.  We interpret the slope as:
+
+> For every one millimeter increase in `WingLength`, we expect `Weight` to increase by about 0.467 grams.
+
+# State conclusion
+
+We, therefore, have sufficient evidence to reject the null hypothesis.  Our initial guess that `WingLength` is a significant linear predictor of `Weight` for this population of sparrows has supporting evidence.
+
+***
+
+# Comparing results
+
+The simulation-based and theory-based approaches agree closely: the permutation $p$-value and the theory-based $p$-value both lead us to reject, and the bootstrap confidence interval for the slope agrees with the theory-based interval from `get_regression_table()`.  Since the conditions are reasonably met, both approaches lead to the same conclusion.

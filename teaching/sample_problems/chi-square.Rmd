@@ -1,0 +1,217 @@
+---
+title: "Chi-Square - Test of Independence Example"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cerulean
+    highlight: pygments
+references:
+- id: isi2014
+  title: Introduction to Statistical Investigations
+  author:
+  - family: Tintle
+    given: Nathan
+  - family: Chance
+    given: Beth
+  - family: Cobb
+    given: George
+  - family: Rossman
+    given: Allan
+  - family: Roy
+    given: Soma
+  - family: Swanson
+    given: Todd
+  - family: VanderStoep
+    given: Jill
+  page: 8-2 - 8-13
+  type: book
+  issued:
+    year: 2014
+    month: 8
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+library(tidyverse)
+library(infer)
+library(janitor)
+library(knitr)
+options(digits = 5, scipen = 99)
+```
+
+# Problem Statement
+
+Students at Virginia Tech studied which vehicles come to a complete stop at an intersection with four-way
+stop signs, selecting at random the cars to observe. They looked at several factors to see which (if any) were associated with coming to a
+complete stop. (They defined a complete stop as “the speed of the vehicle will become zero at least for an
+[instant]”). Some of these variables included the age of the driver, how many passengers were in the
+vehicle, and type of vehicle. The variable we are going to investigate is the arrival position of vehicles
+approaching an intersection all traveling in the same direction. They classified this arrival pattern into
+three groups: whether the vehicle arrives alone, is the lead in a group of vehicles, or is a follower in a
+group of vehicles. The students studied one specific intersection in Northern Virginia at a variety of
+different times. Because random assignment was not used, this is an observational study. Also note that
+no vehicle from one group is paired with a vehicle from another group. In other words, there is
+independence between the different groups of vehicles. [Tweaked a bit from @isi2014 [p. 8-2 - 8-13]]
+
+# Competing Hypotheses
+
+## In words
+
+- Null hypothesis: There is no association between the arrival position of the vehicle and whether
+or not it comes to a complete stop.
+
+- Alternative hypothesis:  There is an association between the arrival position of the vehicle and
+whether or not it comes to a complete stop.
+
+## Another way in words
+
+- Null hypothesis: The long-run probability that a single vehicle will stop is the **same** as the long-run
+probability a lead vehicle will stop, which is the **same** as the long-run probability that a
+following vehicle will stop. In other words all three long-run probabilities are actually the same.
+
+- Alternative hypothesis:  At least one of these parameter (long-run) probabilities is different from the others
+
+## In symbols (with annotations)
+
+- $H_0: p_{single} = p_{lead} =  p_{follow}$, where $p$ represents the long-run probability a vehicle will stop.
+- $H_A$: At least one of these parameter probabilities is different from the others
+
+## Set $\alpha$
+
+It's important to set the significance level before starting the testing using the data. Let's set the significance level at 5\% here.
+
+# Exploring the sample data
+
+```{r read_data}
+stop <- c(rep("complete", 265), rep("not_complete", 52))
+vehicle_type <- c(rep("single", 151), rep("lead", 38), rep("follow", 76),
+  rep("single", 25), rep("lead", 5), rep("follow", 22))
+vehicles <- tibble(stop, vehicle_type)
+```
+
+```{r table}
+vehicles |>
+  tabyl(vehicle_type, stop)
+```
+
+```{r bargraph}
+ggplot(data = vehicles, mapping = aes(x = vehicle_type, fill = stop)) +
+  geom_bar(position = "fill", color = "black") +
+  xlab("\nArrival Position of Vehicle") +
+  ylab("Conditional Probability\n")
+```
+
+## Guess about statistical significance
+
+We are looking to see if a difference exists in the heights of the bars corresponding to `complete`.  Based solely on the picture, we have reason to believe that a difference exists since the `follow` bar seems to be lower than the other two by quite a big margin.  BUT...it's important to use statistics to see if that difference is actually statistically significant!
+
+***
+
+# Non-traditional methods
+
+We'll use the **`infer`** package to carry out the simulation-based workflow with the $\chi^2$ statistic.
+
+## Observed statistic
+
+```{r obs_stat}
+chisq_hat <- vehicles |>
+  specify(stop ~ vehicle_type) |>
+  hypothesize(null = "independence") |>
+  calculate(stat = "Chisq")
+chisq_hat
+```
+
+## Randomization for Hypothesis Test
+
+Under the null of no association, the `stop` and `vehicle_type` labels are exchangeable, so `infer` shuffles them with `hypothesize(null = "independence")` and recomputes the $\chi^2$ statistic 10,000 times to build the null distribution.
+
+```{r sim}
+set.seed(2018)
+null_distn <- vehicles |>
+  specify(stop ~ vehicle_type) |>
+  hypothesize(null = "independence") |>
+  generate(reps = 10000, type = "permute") |>
+  calculate(stat = "Chisq")
+```
+
+The $\chi^2$ statistic is always non-negative, so larger values are more extreme — this is a one-sided (right-tailed) test.
+
+```{r shade_pvalue}
+null_distn |>
+  visualize() +
+  shade_p_value(obs_stat = chisq_hat, direction = "greater")
+```
+
+We can also overlay the theoretical $\chi^2$ distribution to compare the simulation-based and theory-based null distributions:
+
+```{r overlay}
+null_distn |>
+  visualize(method = "both") +
+  shade_p_value(obs_stat = chisq_hat, direction = "greater")
+```
+
+### Calculate $p$-value
+
+```{r get_pvalue}
+pvalue <- null_distn |>
+  get_p_value(obs_stat = chisq_hat, direction = "greater")
+pvalue
+```
+
+So our $p$-value is `r pvalue$p_value` and we fail to reject the null hypothesis at the 5% level.
+
+***
+
+# Traditional methods
+
+## Check conditions
+
+Remember that in order to use the short-cut (formula-based, theoretical) approach, we need to check that some conditions are met.
+
+1. _Independence_:  Each case that contributes a count to the table must be independent of all the other cases in the table.
+
+    This condition is met since cars were selected at random to observe.
+
+2. _Sample size_:  Each cell count must have at least 5 expected cases.
+
+    This is met by observing the table of expected counts below.
+
+3. _Degrees of freedom_:  We need 3 or more columns (or rows) in the table.
+
+    This is met by observing the table above.
+
+## Test statistic
+
+The test statistic measures deviations from what we would expect in the cells of the table if the null hypothesis were true.  This requires us to calculate expected counts via
+
+$$\text{Expected Count}_{\text{row } i, \text{col } j} = \dfrac{\text{row } i \text{ total} \times \text{column } j \text{ total}}{\text{table total}}$$
+
+$$X^2 = \sum_{\text{all cells in the table}} \dfrac{(\text{observed count} - \text{expected count})^2}{\text{expected count}}$$
+
+Assuming the conditions outlined above are met, $X^2 \sim \chi^2(df = (R - 1) \times (C - 1))$ where $R$ is the number of rows in the table and $C$ is the number of columns.
+
+## Observed test statistic
+
+We can use `infer`'s `chisq_test()` wrapper to perform the theory-based test for us, which reports the $\chi^2$ statistic, degrees of freedom, and $p$-value.
+
+```{r chisq_test}
+vehicles |>
+  chisq_test(stop ~ vehicle_type)
+```
+
+## Compute $p$-value
+
+We see that the theory-based $p$-value closely matches the simulation-based $p$-value from above, both leading to the same conclusion.
+
+# State conclusion
+
+We, therefore, do not have sufficient evidence to reject the null hypothesis.  Our initial guess that a statistically significant difference existed in the proportions was not backed up by this statistical analysis.  We do not have evidence to suggest that there is a dependency between the arrival position of the vehicle and
+whether or not it comes to a complete stop.
+
+***
+
+# Comparing results
+
+The simulation-based and theory-based approaches give very similar $p$-values here, as the overlaid distributions above suggest.  Since the conditions for the theory-based test are met, both the randomization and $\chi^2$-distribution approaches lead to the same conclusion.
