@@ -20,6 +20,13 @@ nba-over-under-2024-2025/rosters/playoffs_1990s/notes.xlsx
 nba-over-under-2024-2025/rosters/playoffs_1990s/~$notes.xlsx
 nba-over-under-2024-2025/rosters/playoffs_1990s/picks_for_phil.csv
 requirements.txt
+
+# Vestigial dependency manifests — not consumed by CI or the static site; tracked
+# copies only generated Dependabot noise. Kept locally, no longer pushed.
+_old-website/Gemfile
+nba-over-under-*/renv.lock
+nba-over-under-*/**/renv.lock
+
 /.quarto/
 
 **/*.quarto_ipynb
