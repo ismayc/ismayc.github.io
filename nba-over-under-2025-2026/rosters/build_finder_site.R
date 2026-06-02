@@ -52,4 +52,15 @@ dest_dir <- file.path(repo_root, "nba-player-finder")
 
 message("Exporting ", app_dir, " -> ", dest_dir)
 shinylive::export(appdir = app_dir, destdir = dest_dir)
-message("Done. Open ", file.path(dest_dir, "index.html"))
+
+# shinylive hard-codes "<title>Shiny App</title>" in the generated page; set a
+# real tab title so it reads correctly even before webR boots the app.
+index_html <- file.path(dest_dir, "index.html")
+if (file.exists(index_html)) {
+  html <- readLines(index_html, warn = FALSE)
+  html <- sub("<title>Shiny App</title>", "<title>NBA Player Finder</title>",
+              html, fixed = TRUE)
+  writeLines(html, index_html)
+}
+
+message("Done. Open ", index_html)

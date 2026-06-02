@@ -61,7 +61,7 @@ ui <- page_sidebar(
     secondary = "#c8102e",   # NBA red
     "border-radius" = "0.5rem"
   ),
-  tags$head(tags$style(HTML("
+  tags$head(tags$title("NBA Player Finder"), tags$style(HTML("
     .filter-section-label {
       font-weight: 600; font-size: .78rem; letter-spacing: .04em;
       text-transform: uppercase; color: #1d428a;
@@ -97,8 +97,8 @@ ui <- page_sidebar(
     width = 340,
     title = "Filters",
 
-    div(class = "d-flex justify-content-end align-items-center gap-2 mb-1",
-        tags$small(class = "text-muted", "Theme"),
+    div(class = "d-flex justify-content-between align-items-center mb-2",
+        tags$small(class = "text-muted", paste("Rosters last pulled", date_added)),
         input_dark_mode(id = "dark_mode")),
 
     selectInput("focus_team", "Focus on one team:",
@@ -193,10 +193,7 @@ ui <- page_sidebar(
     conditionalPanel("input.known_age != true",
       sliderInput("slider_age", "Age range",
                   min = min(players_data$age), max = max(players_data$age),
-                  value = c(min(players_data$age), max(players_data$age)))),
-
-    tags$div(class = "text-muted small mt-3",
-             paste("Rosters last pulled", date_added))
+                  value = c(min(players_data$age), max(players_data$age))))
   ),
 
   card(
