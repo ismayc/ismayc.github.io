@@ -22,6 +22,7 @@ project:
     - "projects/**"
     - "nba-over-under-2025-2026/final-day-scenarios.html"
     - "teaching/sample_problems/*.html"
+    - "nba-player-finder/**"
   output-dir: docs  # for GitHub Pages compatibility
   render:
     - index.qmd
@@ -31,6 +32,7 @@ project:
     - talks.qmd
     - projects.qmd
     - ecots2k16/template_pkg.qmd
+    - nba-over-under-2025-2026/roster-finder.qmd
 
 website:
   title: "Chester Ismay"

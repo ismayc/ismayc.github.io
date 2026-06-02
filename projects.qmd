@@ -63,7 +63,7 @@ A similar [German geography quiz](https://chesterismay.shinyapps.io/german-state
 
 ### 🏀 NBA Player Finder
 
-Explore NBA players by name, position, or team in this [app](https://chesterismay.shinyapps.io/nba-player-finder/) that uses the NBA API.
+Explore current NBA rosters by conference, division, team, height, age, and jersey number in this [app](nba-over-under-2025-2026/roster-finder.html). It runs entirely in your browser via shinylive, with rosters refreshed weekly from the NBA API.
 
 
 ---

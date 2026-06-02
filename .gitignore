@@ -30,3 +30,13 @@ nba-over-under-*/**/renv.lock
 /.quarto/
 
 **/*.quarto_ipynb
+
+# Generated copy of the shinylive player-finder app. The canonical copy lives at
+# /nba-player-finder (a Quarto resource); CI (quarto-netlify.yaml) re-renders this
+# docs/ copy into the Pages artifact, so committing it would just double the
+# ~75 MB webR runtime in git history.
+docs/nba-player-finder/
+
+# Python bytecode
+__pycache__/
+*.pyc
