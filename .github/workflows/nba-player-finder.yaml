@@ -35,7 +35,7 @@ jobs:
           python-version: '3.13'
 
       - name: Install Python packages
-        run: pip install nba_api pandas
+        run: pip install nba_api pandas requests
 
       - name: Pull current rosters
         run: python build_roster_csv.py

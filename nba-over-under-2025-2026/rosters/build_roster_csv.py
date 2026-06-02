@@ -17,12 +17,14 @@ the last good roster that is committed to the repo.
 """
 
 import os
+import re
 import sys
 import time
 import random
 from datetime import date
 
 import pandas as pd
+import requests
 from nba_api.stats.static import teams as static_teams
 from nba_api.stats.endpoints import commonteamroster
 
@@ -52,6 +54,20 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 TEAM_META_PATH = os.path.join(SCRIPT_DIR, "team_meta.csv")
 OUTPUT_PATH = os.path.join(SCRIPT_DIR, "finder_app", "players_finder.csv")
 
+# Column order the app expects (also the CSV header).
+OUTPUT_COLUMNS = [
+    "player", "team", "conference", "division",
+    "height_feet", "height_inches", "height_total_inches",
+    "age", "number_jersey", "date_pulled",
+]
+
+# ESPN fallback (reliable from cloud IPs when stats.nba.com is unreachable).
+ESPN_HEADERS = {"User-Agent": "Mozilla/5.0"}
+ESPN_TEAMS_URL = "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams"
+ESPN_ROSTER_URL = "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams/{id}/roster"
+# ESPN displayName -> team_meta full name, where the two differ.
+ESPN_NAME_FIX = {"LA Clippers": "Los Angeles Clippers"}
+
 
 def season_string(start_year):
     """2025 -> '2025-26'."""
@@ -77,7 +93,7 @@ def candidate_seasons(today=None):
     return seasons
 
 
-def fetch_team_roster(team_id, team_name, season, max_attempts=4):
+def fetch_team_roster(team_id, team_name, season, max_attempts=4, timeout=60):
     """Fetch one team's roster, retrying with backoff on failure."""
     for attempt in range(1, max_attempts + 1):
         try:
@@ -85,7 +101,7 @@ def fetch_team_roster(team_id, team_name, season, max_attempts=4):
                 team_id=team_id,
                 season=season,
                 headers=HEADERS,
-                timeout=60,
+                timeout=timeout,
             )
             df = roster.get_data_frames()[0]
             if len(df) > 0:
@@ -120,7 +136,10 @@ def season_is_available(season):
     rosters aren't posted yet, e.g. the upcoming season in early September.
     """
     sample = static_teams.get_teams()[0]
-    df = fetch_team_roster(sample["id"], sample["full_name"], season, max_attempts=2)
+    # Short timeout so we give up quickly and reach the ESPN fallback when
+    # stats.nba.com is unreachable (e.g. blocked from a GitHub Actions runner).
+    df = fetch_team_roster(sample["id"], sample["full_name"], season,
+                           max_attempts=2, timeout=15)
     return df is not None and len(df) > 0
 
 
@@ -154,22 +173,59 @@ def build_for_season(season, meta):
 
     out = out.merge(meta[["team", "conference", "division"]], on="team", how="inner")
     out["date_pulled"] = date.today().isoformat()
+    return out[OUTPUT_COLUMNS]
 
-    # Match app column order: player, team, conference, division, heights, age, jersey, date
-    return out[
-        [
-            "player",
-            "team",
-            "conference",
-            "division",
-            "height_feet",
-            "height_inches",
-            "height_total_inches",
-            "age",
-            "number_jersey",
-            "date_pulled",
-        ]
-    ]
+
+def parse_espn_height(value):
+    """'6\\' 5\"' -> (6, 5, 77). Returns (None, None, None) when unparseable."""
+    if not isinstance(value, str):
+        return (None, None, None)
+    m = re.match(r"\s*(\d+)'\s*(\d+)", value)
+    if not m:
+        return (None, None, None)
+    feet, inches = int(m.group(1)), int(m.group(2))
+    return (feet, inches, feet * 12 + inches)
+
+
+def fetch_espn_rosters(meta):
+    """Fallback source: ESPN's roster API. Returns the finder DataFrame, or None
+    if nothing usable came back."""
+    resp = requests.get(ESPN_TEAMS_URL, headers=ESPN_HEADERS, timeout=30)
+    resp.raise_for_status()
+    teams = resp.json()["sports"][0]["leagues"][0]["teams"]
+
+    rows = []
+    for entry in teams:
+        info = entry["team"]
+        full = ESPN_NAME_FIX.get(info["displayName"], info["displayName"])
+        try:
+            r = requests.get(ESPN_ROSTER_URL.format(id=info["id"]),
+                             headers=ESPN_HEADERS, timeout=30)
+            r.raise_for_status()
+            athletes = r.json().get("athletes", [])
+        except Exception as exc:  # noqa: BLE001
+            print(f"  ESPN {full}: failed: {exc}")
+            athletes = []
+        for a in athletes:
+            feet, inches, total = parse_espn_height(a.get("displayHeight"))
+            rows.append({
+                "player": a.get("displayName"),
+                "team": full,
+                "height_feet": feet,
+                "height_inches": inches,
+                "height_total_inches": total,
+                "age": pd.to_numeric(a.get("age"), errors="coerce"),
+                "number_jersey": a.get("jersey"),
+            })
+        time.sleep(0.4)
+
+    if not rows:
+        return None
+
+    out = pd.DataFrame(rows).merge(
+        meta[["team", "conference", "division"]], on="team", how="inner")
+    out["date_pulled"] = date.today().isoformat()
+    return out[OUTPUT_COLUMNS]
 
 
 def main():
@@ -194,19 +250,33 @@ def main():
             break
         print(f"  season {season}: only {n} players (< {MIN_PLAYERS}); trying fallback ...")
 
+    # Fallback to ESPN when nba_api is unreachable (e.g. stats.nba.com blocking
+    # the GitHub Actions runner).
+    if out is None:
+        print("nba_api did not return a full roster; trying ESPN fallback ...")
+        try:
+            espn = fetch_espn_rosters(meta)
+            n = 0 if espn is None else len(espn)
+            if espn is not None and n >= MIN_PLAYERS:
+                out, chosen = espn, "ESPN"
+            else:
+                print(f"  ESPN returned only {n} players (< {MIN_PLAYERS}).")
+        except Exception as exc:  # noqa: BLE001
+            print(f"  ESPN fallback failed: {exc}", file=sys.stderr)
+
     if out is None:
         print(
-            f"ERROR: no candidate season produced >= {MIN_PLAYERS} players; "
+            f"ERROR: no source produced >= {MIN_PLAYERS} players; "
             "refusing to overwrite the last good roster.",
             file=sys.stderr,
         )
         sys.exit(1)
 
-    print(f"Pulled {len(out)} players across {out['team'].nunique()} teams for {chosen}.")
+    print(f"Pulled {len(out)} players across {out['team'].nunique()} teams (source: {chosen}).")
 
     os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
     out.to_csv(OUTPUT_PATH, index=False)
-    print(f"Wrote {OUTPUT_PATH} (season {chosen})")
+    print(f"Wrote {OUTPUT_PATH} (source: {chosen})")
 
 
 if __name__ == "__main__":
