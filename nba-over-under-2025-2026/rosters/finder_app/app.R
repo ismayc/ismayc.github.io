@@ -32,6 +32,10 @@ se_teams       <- teams_in("Southeast")
 cen_teams      <- teams_in("Central")
 
 all_teams  <- sort(unique(players_data$team))
+# Real (non-empty) value so "ALL TEAMS" stays a selectable option; an empty
+# value would be treated by selectize as a placeholder and disappear once a
+# team is chosen.
+ALL_TEAMS_VALUE <- "__all_teams__"
 
 # Map a division to the id of its team checkbox group, and group the ids by
 # conference (used by the "Focus on one team" quick selector below).
@@ -67,15 +71,40 @@ ui <- page_sidebar(
     .sidebar .form-group { margin-bottom: .6rem; }
     table.dataTable tbody tr:hover { background-color: #eef2fb !important; }
     .result-count { font-weight: 600; color: #1d428a; }
+
+    /* Dark mode (Bootstrap 5.3 color mode set by input_dark_mode) */
+    [data-bs-theme=dark] .filter-section-label { color: #8ab0f0; border-color: #2b3340; }
+    [data-bs-theme=dark] .result-count { color: #8ab0f0; }
+    [data-bs-theme=dark] .dataTables_wrapper,
+    [data-bs-theme=dark] table.dataTable { color: #e9ecef; }
+    [data-bs-theme=dark] table.dataTable td,
+    [data-bs-theme=dark] table.dataTable thead th { border-color: #2b3340; }
+    [data-bs-theme=dark] table.dataTable.stripe > tbody > tr.odd > * {
+      box-shadow: inset 0 0 0 9999px rgba(255,255,255,.035);
+    }
+    [data-bs-theme=dark] table.dataTable tbody tr:hover { background-color: #243352 !important; }
+    [data-bs-theme=dark] .dataTables_wrapper .dataTables_filter input,
+    [data-bs-theme=dark] .dataTables_wrapper .dataTables_length select {
+      background-color: #1b1f26; color: #e9ecef; border-color: #2b3340;
+    }
+    [data-bs-theme=dark] .dataTables_wrapper .dataTables_info,
+    [data-bs-theme=dark] .dataTables_wrapper .dataTables_paginate .paginate_button {
+      color: #cdd3da !important;
+    }
   "))),
 
   sidebar = sidebar(
     width = 340,
     title = "Filters",
 
+    div(class = "d-flex justify-content-end align-items-center gap-2 mb-1",
+        tags$small(class = "text-muted", "Theme"),
+        input_dark_mode(id = "dark_mode")),
+
     selectInput("focus_team", "Focus on one team:",
-                choices = c("All teams" = "", all_teams), selected = ""),
-    helpText("Pick a team to show only its roster; choose \"All teams\" to reset."),
+                choices = c("ALL TEAMS" = ALL_TEAMS_VALUE, all_teams),
+                selected = ALL_TEAMS_VALUE),
+    helpText("Pick a team to show only its roster; choose \"ALL TEAMS\" to reset."),
 
     section("Location"),
     selectInput("conference", "Conference:",
@@ -205,7 +234,7 @@ server <- function(input, output, session) {
   # all teams in the current conference when "All teams" is chosen.
   observeEvent(input$focus_team, {
     ft <- input$focus_team
-    if (is.null(ft) || ft == "") {
+    if (is.null(ft) || ft == "" || identical(ft, ALL_TEAMS_VALUE)) {
       if (identical(input$conference, "West")) {
         updateCheckboxGroupInput(session, "division_west",
                                  selected = c("Southwest", "Northwest", "Pacific"))
