@@ -45,25 +45,25 @@ format:
 
 ### 🎲 Probability Distribution Viewer
 
-This [Shiny app](http://ismay.shinyapps.io/ProbApp) lets users explore and calculate probabilities for normal, binomial, Poisson, and other distributions.
+This [Shiny app](http://ismay.shinyapps.io/ProbApp){target="_blank"} lets users explore and calculate probabilities for normal, binomial, Poisson, and other distributions.
 
 
 
 ### 🦅️ US State/District Shape Quiz
 
-This [interactive quiz](https://chesterismay.shinyapps.io/us-states-quiz-app/) tests knowledge of US state shapes, capitals, and major cities. Built using [leaflet](https://rstudio.github.io/leaflet/).
+This [interactive quiz](https://chesterismay.shinyapps.io/us-states-quiz-app/){target="_blank"} tests knowledge of US state shapes, capitals, and major cities. Built using [leaflet](https://rstudio.github.io/leaflet/).
 
 
 
 ### 🇩🇪 German Federal State Shape Quiz
 
-A similar [German geography quiz](https://chesterismay.shinyapps.io/german-states-quiz-app/) that tests users on the shapes and cities of Germany’s federal states.
+A similar [German geography quiz](https://chesterismay.shinyapps.io/german-states-quiz-app/){target="_blank"} that tests users on the shapes and cities of Germany’s federal states.
 
 
 
 ### 🏀 NBA Player Finder
 
-Explore current NBA rosters by conference, division, team, height, age, and jersey number in this [app](nba-over-under-2025-2026/roster-finder.html). It runs entirely in your browser via shinylive, with rosters refreshed weekly from the NBA API.
+Explore current NBA rosters by conference, division, team, height, age, and jersey number in this [app](nba-over-under-2025-2026/roster-finder.html){target="_blank"}. It runs entirely in your browser via shinylive, with rosters refreshed weekly from the NBA API.
 
 
 ---
