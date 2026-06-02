@@ -21,6 +21,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      # Don't let the rosters/ renv .Rprofile hijack installs into a
+      # source-compiling project library; use default-lib RSPM binaries.
+      RENV_CONFIG_AUTOLOADER_ENABLED: false
     defaults:
       run:
         working-directory: nba-over-under-2025-2026/rosters
