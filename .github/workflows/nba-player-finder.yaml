@@ -62,8 +62,19 @@ jobs:
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          git fetch origin master
-          git reset --soft origin/master
-          git add nba-over-under-2025-2026/rosters/finder_app/players_finder.csv nba-player-finder
-          git commit -m "GitHub Actions weekly roster refresh" || echo "No changes to commit"
-          git push origin master
+          # Retry against a moving master (other workflows also commit here).
+          for attempt in 1 2 3 4 5; do
+            git fetch origin master
+            git reset --soft origin/master
+            git add nba-over-under-2025-2026/rosters/finder_app/players_finder.csv nba-player-finder
+            if git diff --cached --quiet; then
+              echo "No changes to commit"; exit 0
+            fi
+            git commit -m "GitHub Actions weekly roster refresh"
+            if git push origin master; then
+              echo "Pushed on attempt $attempt"; exit 0
+            fi
+            echo "Push rejected (attempt $attempt); re-syncing and retrying..."
+            sleep $((RANDOM % 5 + 2))
+          done
+          echo "Failed to push after retries"; exit 1
