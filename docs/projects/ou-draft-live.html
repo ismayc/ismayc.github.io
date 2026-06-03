@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>O/U Live Draft 2025-26</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Source Sans 3',sans-serif;background:linear-gradient(165deg,#0D1117 0%,#161B22 40%,#1A1F2B 100%);color:#fff;min-height:100vh;-webkit-font-smoothing:antialiased;font-size:17px}
+.app{max-width:520px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column}
+.hdr{padding:14px 20px 0;display:flex;justify-content:space-between;align-items:center}
+.hdr-label{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:3px;color:rgba(255,255,255,0.35)}
+.title-area{text-align:center;padding:12px 20px 8px}
+.title{font-family:'Oswald',sans-serif;font-size:28px;font-weight:700;letter-spacing:2px;margin:0;background:linear-gradient(135deg,#F4A32E,#E8433E);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.title-sub{font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:3px;color:rgba(255,255,255,0.4);margin-top:2px}
+
+/* Status */
+.status{border-radius:12px;padding:14px 18px;margin:0 16px 14px;text-align:center;font-size:16px;line-height:1.5;font-weight:500;color:#fff}
+
+/* Round indicator */
+.rounds{display:flex;gap:8px;justify-content:center;margin-bottom:14px}
+.rd-pill{font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;padding:6px 16px;border-radius:20px}
+
+/* Pick order */
+.pick-order{display:flex;gap:6px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
+.po-chip{font-size:13px;font-weight:600;padding:4px 12px;border-radius:8px}
+
+/* Board */
+.board{overflow-x:auto;margin:0 12px 16px;padding:0 4px}
+.board table{width:100%;border-collapse:separate;border-spacing:2px;font-size:13px}
+.board th{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:2px;font-weight:600;padding:8px 4px;text-align:center}
+.board td{padding:8px 6px;text-align:center;font-weight:500;color:rgba(255,255,255,0.8)}
+.board .name-cell{font-family:'Oswald',sans-serif;font-weight:600;color:#fff;font-size:14px;text-align:left;padding-left:8px}
+.board .pick-cell{border-radius:6px;font-weight:600}
+.board .empty-cell{color:rgba(255,255,255,0.12)}
+
+/* Activity */
+.activity{background:rgba(255,255,255,0.03);border-radius:12px;padding:12px 14px;border:1px solid rgba(255,255,255,0.08);margin:0 16px 14px;max-height:220px;overflow-y:auto}
+.activity-label{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.4);margin-bottom:8px}
+.activity-row{font-size:14px;color:rgba(255,255,255,0.8);padding:4px 0;line-height:1.5;border-top:1px solid rgba(255,255,255,0.04)}
+.activity-row:first-of-type{border-top:none}
+
+/* Panel */
+.panel{background:rgba(255,255,255,0.04);border-radius:14px;padding:16px 18px;border:1px solid rgba(255,255,255,0.1);margin:0 16px 14px}
+.panel-title{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:2px;color:rgba(255,255,255,0.5);margin-bottom:12px;text-align:center}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+
+/* Buttons */
+.btn{border:none;color:#fff;padding:10px 22px;border-radius:8px;cursor:pointer;font-family:'Oswald',sans-serif;font-size:15px;letter-spacing:0.5px;font-weight:600}
+.btn-pass{background:rgba(232,67,62,0.15);border:1px solid rgba(232,67,62,0.3);color:#E8433E;padding:10px 28px;border-radius:8px;cursor:pointer;font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:1px}
+.btn-admin{background:none;border:none;color:rgba(255,255,255,0.2);font-size:11px;cursor:pointer}
+.btn-reset{background:none;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.3);padding:6px 16px;border-radius:6px;cursor:pointer;font-size:12px}
+
+/* Login */
+.login-input{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:8px;padding:10px 16px;color:#fff;font-size:15px;width:200px;outline:none}
+.login-input.err{border-color:#E8433E}
+.login-btn{margin-left:8px;background:linear-gradient(135deg,#F4A32E,#E8433E);border:none;color:#fff;padding:10px 20px;border-radius:8px;cursor:pointer;font-family:'Oswald',sans-serif;font-size:14px;letter-spacing:1px}
+
+/* Live dot */
+.live-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#45B764;margin-right:6px;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+@keyframes fadeIn{from{opacity:0;transform:scale(0.95)}to{opacity:1;transform:scale(1)}}
+.footer{text-align:center;padding:12px 0 20px;font-size:12px;color:rgba(255,255,255,0.3)}
+
+/* Firebase status */
+.fb-status{text-align:center;padding:8px;font-size:12px;color:rgba(255,255,255,0.35)}
+.fb-status.error{color:#E8433E}
+
+/* Countdown */
+.cd-bar{text-align:center;padding:6px 16px 10px}
+.cd-bar .cd-label{font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:2px;color:rgba(255,255,255,0.35);margin-bottom:4px}
+.cd-bar .cd-time{display:inline-flex;gap:10px;align-items:baseline}
+.cd-bar .cd-unit{text-align:center}
+.cd-bar .cd-num{font-family:'Oswald',sans-serif;font-size:20px;font-weight:600;color:#F4A32E;letter-spacing:1px}
+.cd-bar .cd-lbl{font-family:'Source Sans 3',sans-serif;font-size:9px;color:rgba(255,255,255,0.3);letter-spacing:1px;text-transform:uppercase}
+.cd-bar .cd-sep{font-family:'Oswald',sans-serif;font-size:16px;color:rgba(255,255,255,0.15);margin:0 -2px}
+.cd-bar .cd-done{font-family:'Oswald',sans-serif;font-size:14px;color:#45B764;letter-spacing:1px}
+
+/* Group overview */
+.gov{margin:0 16px 14px}
+.gov-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.gov-card{border-radius:10px;padding:10px 12px;border-left:3px solid;background:rgba(255,255,255,0.04)}
+.gov-card.active{background:rgba(255,255,255,0.07);border-left-width:4px}
+.gov-card.done{opacity:0.35}
+.gov-name{font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;letter-spacing:2px;margin-bottom:6px}
+.gov-team{font-size:13px;color:rgba(255,255,255,0.8);padding:2px 0;line-height:1.4}
+.gov-team.taken{color:rgba(255,255,255,0.3);text-decoration:line-through}
+.gov-team.placeholder{color:rgba(255,255,255,0.5);font-style:italic}
+.gov-label{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.4);margin-bottom:8px;text-align:center}
+
+/* Tabs */
+.tabs{display:flex;gap:4px;padding:0 16px;margin-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.08)}
+.tab-btn{flex:1;background:none;border:none;color:rgba(255,255,255,0.4);padding:12px 8px;cursor:pointer;font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:2px;font-weight:600;border-bottom:2px solid transparent;transition:all 0.15s}
+.tab-btn.active{color:#F4A32E;border-bottom-color:#F4A32E}
+.tab-btn:hover:not(.active){color:rgba(255,255,255,0.7)}
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+/* Reference tab */
+.ref-section{margin:0 16px 20px}
+.ref-heading{font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:3px;color:#F4A32E;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid rgba(244,163,46,0.25)}
+.ref-subheading{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.5);margin:14px 0 8px}
+.ref-row{display:flex;gap:8px;align-items:center;padding:5px 0}
+.ref-seed{font-family:'Oswald',sans-serif;font-size:11px;color:rgba(255,255,255,0.4);width:16px;text-align:right;flex-shrink:0}
+.ref-team{padding:4px 10px;border-radius:6px;font-size:13px;font-weight:600;white-space:nowrap}
+.ref-team.ph{font-style:italic;background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.55);border:1px dashed rgba(255,255,255,0.15)}
+.ref-order-table{width:100%;border-collapse:collapse;font-size:13px}
+.ref-order-table th{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:1.5px;color:rgba(255,255,255,0.5);padding:8px 6px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.1);font-weight:600}
+.ref-order-table td{padding:8px 6px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.04);color:rgba(255,255,255,0.85);font-family:'Source Sans 3',sans-serif;font-weight:500}
+.ref-order-table td.pos{font-family:'Oswald',sans-serif;font-size:12px;color:rgba(255,255,255,0.4);letter-spacing:1px}
+.ref-order-table td.lowest{color:rgba(255,255,255,0.85);font-weight:600}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <div class="hdr">
+    <div class="hdr-label">16TH ANNUAL O/U</div>
+    <div id="admin-corner"></div>
+  </div>
+  <div class="title-area">
+    <h1 class="title">LIVE DRAFT</h1>
+    <div class="title-sub">2025 — 2026 PLAYOFFS</div>
+  </div>
+  <div id="countdown-bar"></div>
+  <div id="login-area"></div>
+  <div id="fb-status-area"></div>
+  <div id="tabs" class="tabs">
+    <button class="tab-btn active" data-tab="draft" onclick="switchTab('draft')">DRAFT</button>
+    <button class="tab-btn" data-tab="reference" onclick="switchTab('reference')">REFERENCE</button>
+  </div>
+  <div id="tab-draft" class="tab-content active">
+    <div id="welcome-area"></div>
+    <div id="rounds-area"></div>
+    <div id="pick-order-area"></div>
+    <div id="status-area"></div>
+    <div id="group-overview-area"></div>
+    <div id="board-area" class="board"></div>
+    <div id="summary-area"></div>
+    <div id="activity-area"></div>
+    <div id="controls-area"></div>
+  </div>
+  <div id="tab-reference" class="tab-content"></div>
+  <div style="flex:1"></div>
+  <div id="footer-area" class="footer"></div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     FIREBASE SDK (v9 compat CDN)
+     ══════════════════════════════════════════ -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+
+<script>
+/* ┌─────────────────────────────────────────────┐
+   │  PASTE YOUR FIREBASE CONFIG BELOW           │
+   │                                             │
+   │  1. Go to console.firebase.google.com       │
+   │  2. Create a project (or use existing)      │
+   │  3. Add a web app                           │
+   │  4. Create a Realtime Database              │
+   │     - Pick region                           │
+   │     - Start in TEST MODE                    │
+   │  5. Copy the config object and paste below  │
+   └─────────────────────────────────────────────┘ */
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDGcu91SmpVLAPOwzQqb9k1Z5515WoAlOk",
+  authDomain: "ou-draft.firebaseapp.com",
+  databaseURL: "https://ou-draft-default-rtdb.firebaseio.com",
+  projectId: "ou-draft",
+  storageBucket: "ou-draft.firebasestorage.app",
+  messagingSenderId: "607783556265",
+  appId: "1:607783556265:web:a0d2ad4bc901b911dec5b8"
+};
+
+/* ─── END CONFIG ─── */
+
+// ══ Constants ══
+const PLAYERS = ["Phil","Andy","Ryan","Jake"];
+const EMOJIS = {Phil:"👑",Andy:"🔥",Ryan:"⚡",Jake:"💪"};
+const SEEDS = {Phil:1,Andy:2,Ryan:3,Jake:4};
+const ROUND_ORDERS = [
+  ["Phil","Andy","Ryan","Jake"],
+  ["Andy","Ryan","Jake","Phil"],
+  ["Ryan","Jake","Phil","Andy"],
+  ["Jake","Phil","Andy","Ryan"],
+];
+const GROUPS = {
+  A:{name:"A",color:"#E8433E",teams:["Thunder","Lakers","Rockets","Suns/Warriors"]},
+  B:{name:"B",color:"#2D7DD2",teams:["Pistons","Cavaliers","Raptors","Magic/Hornets"]},
+  C:{name:"C",color:"#F4A32E",teams:["Spurs","Nuggets","Timberwolves","Trail Blazers"]},
+  D:{name:"D",color:"#45B764",teams:["Celtics","Knicks","Hawks","76ers"]},
+};
+const GK = ["A","B","C","D"];
+const ADMIN_CODE = "ou2026";
+const DB_PATH = "ou-draft-2026";
+
+// ══ State ══
+let state = {rounds:[],log:[],startedAt:null,prevState:null,apology:null};
+let isAdmin = false;
+let db = null;
+let fbOk = false;
+
+// ══ Firebase Init ══
+function initFirebase(){
+  try {
+    if (firebaseConfig.apiKey === "YOUR_API_KEY") {
+      showFbStatus("Firebase not configured. Paste your config in the HTML file.", true);
+      return;
+    }
+    firebase.initializeApp(firebaseConfig);
+    db = firebase.database();
+    fbOk = true;
+
+    // Listen for changes
+    db.ref(DB_PATH).on("value", snap => {
+      const val = snap.val();
+      if (val) {
+        // Firebase strips empty arrays, so normalize
+        state = normalize(val);
+      } else {
+        state = makeEmpty();
+      }
+      render();
+    });
+
+    showFbStatus("");
+  } catch(e) {
+    showFbStatus("Firebase error: " + e.message, true);
+  }
+}
+
+function toArray(x) {
+  if (!x) return [];
+  if (Array.isArray(x)) return x;
+  // Firebase converts arrays to objects with numeric keys
+  const keys = Object.keys(x).sort((a,b) => Number(a) - Number(b));
+  return keys.map(k => x[k]);
+}
+
+function normalize(s) {
+  const n = {
+    rounds: toArray(s.rounds).map(r => ({
+      group: r.group || null,  // "" -> null
+      picks: toArray(r.picks),
+      passedAt: r.passedAt ? Object.fromEntries(
+        Object.entries(r.passedAt).filter(([k]) => k !== "_init").map(([k,v]) => [k, toArray(v)])
+      ) : {},
+    })),
+    log: toArray(s.log),
+    startedAt: s.startedAt || null,
+    apology: s.apology || null,
+  };
+  // Store prevState as raw JSON string to avoid Firebase mangling nested structure
+  if (s.prevState && typeof s.prevState === "string") {
+    n.prevState = s.prevState;
+  } else if (s.prevState && typeof s.prevState === "object") {
+    n.prevState = JSON.stringify(s.prevState);
+  } else {
+    n.prevState = null;
+  }
+  return n;
+}
+
+function makeEmpty(){ return {rounds:[],log:[],startedAt:null,prevState:null,apology:null}; }
+
+async function save(s) {
+  state = s;
+  render();
+  if (db && fbOk) {
+    try { await db.ref(DB_PATH).set(s); }
+    catch(e) { console.error("Save failed:", e); }
+  }
+}
+
+function showFbStatus(msg, isErr) {
+  const el = document.getElementById("fb-status-area");
+  el.className = "fb-status" + (isErr ? " error" : "");
+  el.textContent = msg;
+}
+
+// ══ Draft Logic ══
+function getUsedTokens(rounds) {
+  const t = {};
+  PLAYERS.forEach(p => t[p] = []);
+  (rounds||[]).forEach(r => (r.picks||[]).forEach(pk => t[pk.player].push(pk.position)));
+  return t;
+}
+
+function getUsedGroups(rounds) {
+  return (rounds||[]).filter(r => r.group).map(r => r.group);
+}
+
+function getAvailableTeams(rounds, group) {
+  const picked = {};
+  (rounds||[]).forEach(r => (r.picks||[]).forEach(pk => picked[pk.team] = true));
+  return GROUPS[group].teams.filter(t => !picked[t]);
+}
+
+function getPlayerBoard(rounds) {
+  const b = {};
+  PLAYERS.forEach(p => b[p] = {});
+  (rounds||[]).forEach((r,ri) => {
+    (r.picks||[]).forEach(pk => {
+      b[pk.player][r.group] = {team:pk.team,position:pk.position,round:ri+1};
+    });
+  });
+  return b;
+}
+
+/**
+ * Check if all players can be validly assigned to positions.
+ * If skipPlayer/skipPosition is set, that player cannot use that position (they passed it).
+ * Uses brute-force permutation check (fine for 2-4 players).
+ */
+function canAssignAll(players, positions, tokens, skipPlayer, skipPosition) {
+  if (players.length === 0) return true;
+  if (positions.length === 0) return players.length === 0;
+
+  // Try all permutations
+  function solve(remaining, availPositions) {
+    if (remaining.length === 0) return true;
+    const p = remaining[0];
+    const rest = remaining.slice(1);
+    for (const pos of availPositions) {
+      // Check if this player can use this position
+      if (tokens[p].includes(pos)) continue; // already used this position
+      if (p === skipPlayer && pos === skipPosition) continue; // they passed this one
+      // Try assigning p to pos
+      const nextPositions = availPositions.filter(pp => pp !== pos);
+      if (solve(rest, nextPositions)) return true;
+    }
+    return false;
+  }
+
+  return solve(players, positions);
+}
+
+function getDraftTurn(rounds) {
+  if (!rounds || !rounds.length) return {phase:"notStarted"};
+  const ri = rounds.length - 1;
+  const round = rounds[ri];
+  const rn = ri + 1;
+  const order = ROUND_ORDERS[ri];
+  const picked = (round.picks||[]).map(p => p.player);
+  const position = picked.length + 1;
+
+  if (!round.group) {
+    // No group yet -- fall through to main loop which handles selectGroup with full pass logic
+  } else if (position > 4) {
+    return rounds.length >= 4 ? {phase:"complete"} : {phase:"roundComplete",roundNum:rn};
+  }
+
+  const unpickedSet = order.filter(p => !picked.includes(p));
+  const tokens = getUsedTokens(rounds);
+  const passedAt = round.passedAt || {};
+  const passersHere = passedAt[position] || [];
+
+  // Determine where to start in the order for this position.
+  // After a pick, the next position continues from the player AFTER
+  // the one who picked, cycling through the round order.
+  let unpicked;
+  if (position === 1) {
+    unpicked = unpickedSet;
+  } else {
+    const lastPicker = (round.picks||[])[round.picks.length - 1]?.player;
+    if (lastPicker) {
+      const lastIdx = order.indexOf(lastPicker);
+      // Rotate: start from the player after lastPicker in round order, among unpicked
+      const rotated = [];
+      for (let j = 1; j <= order.length; j++) {
+        const candidate = order[(lastIdx + j) % order.length];
+        if (!picked.includes(candidate)) rotated.push(candidate);
+      }
+      unpicked = rotated;
+    } else {
+      unpicked = unpickedSet;
+    }
+  }
+
+  for (let i = 0; i < unpicked.length; i++) {
+    const player = unpicked[i];
+    if (passersHere.includes(player)) continue;
+
+    const hasToken = !tokens[player].includes(position);
+    if (!hasToken) {
+      const usedIn = rounds.findIndex(r => (r.picks||[]).some(pk => pk.player===player && pk.position===position));
+      return {phase:"autoPass",player,position,roundNum:rn,group:round.group||null,usedInRound:usedIn+1};
+    }
+
+    // Check: if this player picks at this position, can remaining players
+    // be assigned to later positions? If not, skip this player.
+    const othersUnpicked = unpicked.filter(p => p !== player && !picked.includes(p));
+    if (othersUnpicked.length > 0) {
+      const laterPositions = [];
+      for (let pos = position + 1; pos <= 4; pos++) laterPositions.push(pos);
+      if (laterPositions.length > 0 && !canAssignAll(othersUnpicked, laterPositions, tokens, null, null)) {
+        // This player picking here would strand someone. Auto-skip.
+        return {phase:"autoPass",player,position,roundNum:rn,group:round.group||null,
+          usedInRound:-1, skipReason: player + " can't pick here -- it would strand " + othersUnpicked.join("/") + " with no valid position."};
+      }
+    }
+
+    const remaining = unpicked.slice(i+1).filter(p => !passersHere.includes(p));
+    let canPass = remaining.some(p => !tokens[p].includes(position));
+
+    // Position #1 can never be passed -- that token never comes back
+    if (position === 1) canPass = false;
+
+    // Check if passing would lead to an impossible state
+    // (i.e., can all remaining unpicked players still be validly assigned?)
+    if (canPass) {
+      const remainingPositions = [];
+      for (let pos = position; pos <= 4; pos++) remainingPositions.push(pos);
+      if (!canAssignAll(unpicked.slice(), remainingPositions, tokens, player, position)) {
+        canPass = false;
+      }
+    }
+
+    let mustPickReason = "";
+    if (!canPass) {
+      if (position === 1) {
+        mustPickReason = "Pick #1 must be used now (it doesn't come back in future rounds).";
+      } else if (remaining.length === 0) {
+        const slotNum = order.indexOf(player) + 1;
+        if (slotNum === 4) {
+          mustPickReason = player + " is the #4 slot (lowest ranked) this round and cannot pass.";
+        } else {
+          mustPickReason = player + " is the last unpicked player remaining.";
+        }
+      } else {
+        // Check if original pass check failed (nobody below can use this position)
+        const anyoneCanUse = remaining.some(p => !tokens[p].includes(position));
+        if (!anyoneCanUse) {
+          const spentNames = remaining.filter(p => tokens[p].includes(position));
+          if (spentNames.length === 1) {
+            const who = spentNames[0];
+            const usedIn = rounds.findIndex(r => (r.picks||[]).some(pk => pk.player===who && pk.position===position));
+            mustPickReason = "Can't pass: " + who + " (below) already used #" + position + " in Rd" + (usedIn+1) + ".";
+          } else if (spentNames.length > 1) {
+            mustPickReason = "Can't pass: all players below already used #" + position + " in prior rounds.";
+          } else {
+            mustPickReason = player + " must pick (no eligible player below to accept the pass).";
+          }
+        } else {
+          // Feasibility check caught it -- passing would deadlock the round
+          mustPickReason = "Passing would leave no valid assignment for remaining players. " + player + " must pick here.";
+        }
+      }
+    }
+
+    // If no group selected yet, this player declares the group
+    if (!round.group) {
+      return {phase:"selectGroup",player,position,roundNum:rn,canPass,mustPickReason};
+    }
+    return {phase:"selectTeam",player,position,roundNum:rn,group:round.group,canPass,mustPickReason};
+  }
+  return {phase:"error"};
+}
+
+// ══ Fun Commentary ══
+function rng(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+const FLAVOR = {
+  start: [
+    "🎬 The stage is set. Let the chaos begin!",
+    "🎬 Welcome to the show. May the best drafter win!",
+    "🎬 Phones out, game faces on. Here we go!",
+    "🎬 The 16th annual draft is officially underway!",
+    "🎬 This is not a drill. The draft is LIVE!",
+  ],
+  roundStart: [
+    "New round, new opportunities. Who's making moves?",
+    "Fresh round. The plot thickens...",
+    "Another round, another chance to make or break your bracket.",
+    "Buckle up. This round could change everything.",
+    "The board resets. Who's feeling bold?",
+  ],
+  declareGroup: [
+    "{P} declares Group {G}. The table is set.",
+    "{P} goes with Group {G}. Interesting...",
+    "{P} eyes Group {G}. Here come the fireworks.",
+    "Group {G} it is! {P} is locked in.",
+    "{P} doesn't hesitate -- Group {G}.",
+    "{P} plants their flag in Group {G}.",
+  ],
+  pickNormal: [
+    "{P} locks in {T} at {X}. Solid choice.",
+    "{P} scoops up {T} at {X}.",
+    "{P} takes {T} at {X}. Moving on.",
+    "{T} go to {P} at {X}.",
+    "{P} grabs {T} at {X}. Business as usual.",
+    "And just like that, {T} belong to {P} ({X}).",
+    "{P} secures {T} at {X}. Well played.",
+    "No hesitation from {P} -- {T} at {X}.",
+    "{P} at {X}: {T}. Clean pick.",
+  ],
+  pickTopSeed: [
+    "{P} snags {T} at {X}. The favorite is off the board!",
+    "{P} goes chalk with {T} at {X}. Can't blame 'em.",
+    "{T} to {P} at {X}. That's the pick everyone expected.",
+    "{P} plays it safe with {T} at {X}. Smart money.",
+    "{P} locks in {T} at {X}. The frontrunner finds a home.",
+    "{P} takes the top dog {T} at {X}.",
+  ],
+  pickSurprise: [
+    "{P} takes... {T}?! At {X}?! 🤯 Bold move!",
+    "WHOA. {P} goes with {T} at {X}. Nobody saw that coming!",
+    "{P} shocks the room with {T} at {X}! What's the strategy here?",
+    "{T} to {P} at {X}. That's a galaxy brain pick right there. 🧠",
+    "{P} with the wildcard -- {T} at {X}! The group chat is buzzing.",
+    "Did {P} just pick {T} at {X}?! Somebody check the connection!",
+    "{T}?! {P} is either a genius or... well, time will tell. ({X})",
+    "{P} zagging while everyone else zigs. {T} at {X}. Wow.",
+    "🚨 UPSET ALERT: {P} takes {T} at {X}!",
+  ],
+  pickForced: [
+    "{P} is stuck at {X} and takes {T}. No choice here.",
+    "{P} had to take what's left: {T} at {X}.",
+    "Last one standing. {P} gets {T} at {X}.",
+    "{P} at {X}... {T} by default. Tough break.",
+    "The draft gods have spoken: {T} for {P} at {X}.",
+    "Not much to work with. {P} takes {T} at {X}.",
+  ],
+  pickPlaceholder: [
+    "{P} takes the mystery box ({T}) at {X}. Who will it be? 🎰",
+    "{P} drafts {T} at {X}. A gamble wrapped in a play-in game!",
+    "{T} go to {P} at {X}. The suspense continues...",
+    "{P} rolls the dice on {T} at {X}. Could be anyone!",
+    "{P} at {X} takes {T}. Fortune favors the bold... or the unlucky.",
+  ],
+  pass: [
+    "{P} passes at {X}. Playing the long game! ♟️",
+    "{P} says 'nah' at {X}. Saving it for later.",
+    "{P} waves off {X}. Risky, but maybe brilliant?",
+    "{P} passes at {X}. Calculated or reckless? Time will tell.",
+    "{P} slides past {X}. The patience game is real.",
+    "{P} at {X}: 'I'll wait.' Cold-blooded. 🥶",
+    "PASS from {P} at {X}. The room holds its breath.",
+    "{P} declines at {X}. Someone else's problem now.",
+    "{P} keeps the pick in the holster at {X}.",
+  ],
+  autoPass: [
+    "{P} auto-passes at {X} (used in {U}). The past catches up!",
+    "{P} can't use {X} (spent in {U}). Forced to watch.",
+    "Ghost of Round {U} haunts {P} at {X}. Auto-pass!",
+    "{P} at {X}: pick's gone ({U}). Moving along...",
+    "That {U} pick comes back to bite {P} at {X}.",
+    "{P}'s {X} token is spent ({U}). Nothing to do but wait.",
+  ],
+  complete: [
+    "🏆 THE DRAFT IS DONE! Let the playoff watching begin!",
+    "🏆 That's a wrap! Four teams each, winner take all!",
+    "🏆 Draft complete! Now we sit back and let the NBA decide our fate.",
+    "🏆 All picks are in! May the basketball gods smile upon you.",
+    "🏆 FINAL! The board is set. The pieces are in motion.",
+  ],
+};
+
+// Determine if a team is a top seed, placeholder, or normal
+function teamType(team, group) {
+  if (!team || !group) return "normal";
+  if (team.includes("Seed") || team.includes("#") || team.includes("/")) return "placeholder";
+  const teams = GROUPS[group]?.teams || [];
+  if (teams.indexOf(team) === 0) return "topSeed";  // First listed = highest seed
+  return "normal";
+}
+
+function pickFlavor(player, team, position, group, isForced) {
+  const tt = teamType(team, group);
+  let pool;
+  if (isForced && position === 4) pool = FLAVOR.pickForced;
+  else if (tt === "placeholder") pool = FLAVOR.pickPlaceholder;
+  else if (tt === "topSeed") pool = FLAVOR.pickTopSeed;
+  else pool = FLAVOR.pickNormal;
+
+  // Small chance of surprise reaction for any non-top-seed pick when top seed is still available
+  if (tt === "normal" && !isForced) {
+    const avail = getAvailableTeams(state.rounds, group);
+    const topStillThere = avail.length > 0 && teamType(avail[0], group) === "topSeed";
+    if (topStillThere && Math.random() < 0.6) pool = FLAVOR.pickSurprise;
+  }
+
+  return rng(pool).replace(/{P}/g, EMOJIS[player]+" "+player).replace(/{T}/g, team).replace(/{X}/g, "#"+position);
+}
+
+function passFlavor(player, position) {
+  return rng(FLAVOR.pass).replace(/{P}/g, EMOJIS[player]+" "+player).replace(/{X}/g, "#"+position);
+}
+
+function autoPassFlavor(player, position, usedInRound) {
+  return rng(FLAVOR.autoPass)
+    .replace(/{P}/g, EMOJIS[player]+" "+player)
+    .replace(/{X}/g, "#"+position)
+    .replace(/{U}/g, "Rd"+usedInRound);
+}
+
+function declareFlavor(player, group) {
+  return rng(FLAVOR.declareGroup)
+    .replace(/{P}/g, EMOJIS[player]+" "+player)
+    .replace(/{G}/g, group);
+}
+
+const APOLOGIES = [
+  "🙈 Oops! The commissioner made an error. Rewinding...",
+  "🫣 Commissioner fumble! Rolling back the last action.",
+  "😅 My bad! Pretend that last one didn't happen.",
+  "🔄 Technical difficulties! Let's try that again.",
+  "🤦 Commissioner misclick. Undoing... nothing to see here.",
+  "⏪ Rewind! The commissioner needs a do-over.",
+  "😬 Commissioner error! Backing up one step.",
+  "🫠 Whoops. That wasn't supposed to happen. Fixed!",
+];
+
+// ══ Actions ══
+function doAction(action, data) {
+  const s = JSON.parse(JSON.stringify(state));
+  const ri = (s.rounds||[]).length - 1;
+
+  // Clear any existing apology on new actions (except undo)
+  if (action !== "undo") {
+    s.apology = null;
+  }
+
+  if (action === "undo") {
+    if (!state.prevState) return;
+    let prev;
+    try {
+      prev = typeof state.prevState === "string" ? JSON.parse(state.prevState) : state.prevState;
+    } catch { return; }
+    const restored = normalize(prev);
+    const apology = rng(APOLOGIES);
+    restored.log = toArray(restored.log);
+    restored.log.push({round: restored.rounds.length || 1, text: apology, color: "#F4A32E"});
+    restored.apology = apology;
+    restored.prevState = null;
+    save(restored);
+    return;
+  }
+
+  // Save current state as prevState (as JSON string to survive Firebase)
+  const prevSnapshot = JSON.parse(JSON.stringify(state));
+  delete prevSnapshot.prevState;  // Don't nest prevStates
+  s.prevState = JSON.stringify(prevSnapshot);
+
+  if (action === "start") {
+    s.rounds = [{group:"",picks:[],passedAt:{_init:true}}];
+    s.log = [{round:1,text:rng(FLAVOR.start),color:"#F4A32E"}];
+    s.startedAt = Date.now();
+  }
+  if (action === "nextRound") {
+    s.rounds.push({group:"",picks:[],passedAt:{_init:true}});
+    const newRi = s.rounds.length - 1;
+    s.log.push({round:s.rounds.length,text:"Round "+s.rounds.length+" begins. "+rng(FLAVOR.roundStart),color:"#F4A32E"});
+
+    // Auto-select if only one group remains
+    const used = s.rounds.slice(0, newRi).filter(r => r.group).map(r => r.group);
+    const remaining = GK.filter(g => !used.includes(g));
+    if (remaining.length === 1) {
+      const g = remaining[0];
+      const pl = ROUND_ORDERS[newRi][0];
+      s.rounds[newRi].group = g;
+      s.log.push({round:newRi+1,text:"Only Group "+g+" remains -- auto-assigned. "+EMOJIS[pl]+" "+pl+" is up first.",color:GROUPS[g].color});
+    }
+  }
+  if (action === "selectGroup") {
+    s.rounds[ri].group = data.group;
+    const pl = data.player || ROUND_ORDERS[ri][0];
+    s.log.push({round:ri+1,text:declareFlavor(pl, data.group),color:GROUPS[data.group].color});
+  }
+  if (action === "pick") {
+    const currentTurn = getDraftTurn(normalize(s).rounds);
+    const isForced = currentTurn.phase === "selectTeam" && !currentTurn.canPass;
+    s.rounds[ri].picks.push({player:data.player,team:data.team,position:data.position});
+    s.rounds[ri].passedAt = {_init:true};
+    const flavor = pickFlavor(data.player, data.team, data.position, s.rounds[ri].group, isForced);
+    s.log.push({round:ri+1,text:flavor,color:GROUPS[s.rounds[ri].group].color});
+
+    // Check if round is now complete
+    if (s.rounds[ri].picks.length === 4) {
+      if (s.rounds.length >= 4) {
+        s.log.push({round:ri+1,text:rng(FLAVOR.complete),color:"#45B764"});
+      }
+    }
+  }
+  if (action === "pass") {
+    const pa = s.rounds[ri].passedAt || {};
+    pa[data.position] = (pa[data.position]||[]).concat(data.player);
+    s.rounds[ri].passedAt = pa;
+    s.log.push({round:ri+1,text:passFlavor(data.player, data.position),color:"#E8433E"});
+  }
+  if (action === "autoPass") {
+    const pa = s.rounds[ri].passedAt || {};
+    pa[data.position] = (pa[data.position]||[]).concat(data.player);
+    s.rounds[ri].passedAt = pa;
+    if (data.skipReason) {
+      s.log.push({round:ri+1,text:EMOJIS[data.player]+" "+data.player+" skips #"+data.position+" (picking here would strand others).",color:"rgba(255,255,255,0.45)"});
+    } else {
+      s.log.push({round:ri+1,text:autoPassFlavor(data.player, data.position, data.usedInRound),color:"rgba(255,255,255,0.45)"});
+    }
+  }
+  if (action === "reset") {
+    save(makeEmpty());
+    return;
+  }
+
+  save(s);
+}
+
+// ══ Render ══
+function switchTab(name) {
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === name);
+  });
+  document.querySelectorAll('.tab-content').forEach(c => {
+    c.classList.toggle('active', c.id === 'tab-' + name);
+  });
+  if (name === 'reference') renderReference();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// NBA Playoff bracket structure (seeds matched 1v8, 4v5, 3v6, 2v7)
+const BRACKET = {
+  West: {
+    color: "#F4A32E",
+    pairs: [
+      [{s:'1',t:'Thunder'},{s:'8',t:'Suns/Warriors',ph:true}],
+      [{s:'4',t:'Lakers'},{s:'5',t:'Rockets'}],
+      [{s:'3',t:'Nuggets'},{s:'6',t:'Timberwolves'}],
+      [{s:'2',t:'Spurs'},{s:'7',t:'Trail Blazers'}],
+    ],
+  },
+  East: {
+    color: "#2D7DD2",
+    pairs: [
+      [{s:'1',t:'Pistons'},{s:'8',t:'Magic/Hornets',ph:true}],
+      [{s:'4',t:'Cavaliers'},{s:'5',t:'Raptors'}],
+      [{s:'3',t:'Knicks'},{s:'6',t:'Hawks'}],
+      [{s:'2',t:'Celtics'},{s:'7',t:'76ers'}],
+    ],
+  },
+};
+
+// Which group each team belongs to
+function getTeamGroup(teamName) {
+  for (const g of GK) {
+    if (GROUPS[g].teams.includes(teamName)) return g;
+  }
+  return null;
+}
+
+function renderReference() {
+  const el = document.getElementById('tab-reference');
+
+  // Groups section
+  let groupsHtml = '<div class="ref-section"><div class="ref-heading">GROUPS</div>';
+  GK.forEach(g => {
+    const gr = GROUPS[g];
+    const teams = gr.teams.map(t => {
+      const ph = t.includes("Seed") || t.includes("#") || t.includes("/");
+      return `<span style="color:${ph?'rgba(255,255,255,0.55)':'rgba(255,255,255,0.9)'};${ph?'font-style:italic':''}">${t}</span>`;
+    }).join(', ');
+    groupsHtml += `<div style="padding:6px 0;display:flex;gap:10px;align-items:baseline;border-bottom:1px solid rgba(255,255,255,0.04)">
+      <span style="font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;color:${gr.color};min-width:72px;white-space:nowrap">GROUP ${g}</span>
+      <span style="font-size:14px;line-height:1.5">${teams}</span>
+    </div>`;
+  });
+  groupsHtml += '</div>';
+
+  // Bracket section
+  let bracketHtml = '<div class="ref-section"><div class="ref-heading">BRACKET</div>';
+  ["West","East"].forEach(conf => {
+    const cfg = BRACKET[conf];
+    bracketHtml += `<div class="ref-subheading" style="color:${cfg.color};margin-top:${conf==='West'?'4px':'18px'}">${conf.toUpperCase()}ERN CONFERENCE</div>`;
+    cfg.pairs.forEach(pair => {
+      pair.forEach(team => {
+        const g = getTeamGroup(team.t);
+        const color = g ? GROUPS[g].color : '#888';
+        const phClass = team.ph ? ' ph' : '';
+        bracketHtml += `<div class="ref-row">
+          <span class="ref-seed">${team.s}</span>
+          <span class="ref-team${phClass}" style="background:${g?color+'22':'rgba(255,255,255,0.04)'};color:${team.ph?'rgba(255,255,255,0.55)':color};border:1px solid ${g?color+'44':'rgba(255,255,255,0.1)'}">${team.t}</span>
+          ${g ? `<span style="font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:1px;color:${color};opacity:0.6">GRP ${g}</span>` : ''}
+        </div>`;
+      });
+      bracketHtml += '<div style="height:6px"></div>';
+    });
+  });
+  bracketHtml += '</div>';
+
+  // Draft order section
+  let orderHtml = '<div class="ref-section"><div class="ref-heading">DRAFT ORDER BY ROUND</div>';
+  orderHtml += '<div style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.5;margin-bottom:14px">The pick order rotates each round. The player in the #4 slot is the "lowest ranked" that round and cannot pass.</div>';
+  orderHtml += '<table class="ref-order-table"><thead><tr><th></th><th>#1</th><th>#2</th><th>#3</th><th>#4 (lowest)</th></tr></thead><tbody>';
+  ROUND_ORDERS.forEach((order, idx) => {
+    orderHtml += `<tr>
+      <td class="pos" style="text-align:left;padding-left:4px">RD ${idx+1}</td>`;
+    order.forEach((p, i) => {
+      const isLowest = i === 3;
+      orderHtml += `<td${isLowest?' class="lowest"':''}>${EMOJIS[p]} ${p}</td>`;
+    });
+    orderHtml += '</tr>';
+  });
+  orderHtml += '</tbody></table></div>';
+
+  el.innerHTML = groupsHtml + bracketHtml + orderHtml;
+}
+
+function render() {
+  const turn = getDraftTurn(state.rounds);
+  renderAdminCorner();
+  renderWelcome(turn);
+  renderRounds();
+  renderPickOrder(turn);
+  renderApology();
+  renderStatus(turn);
+  renderGroupOverview(turn);
+  renderBoard();
+  renderSummary(turn);
+  renderActivity();
+  renderControls(turn);
+  renderFooter(turn);
+}
+
+function renderWelcome(turn) {
+  const el = document.getElementById("welcome-area");
+  if (turn.phase !== "notStarted") { el.innerHTML = ""; return; }
+
+  const playerCards = PLAYERS.map(p =>
+    `<div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(255,255,255,0.04);border-radius:8px">
+      <span style="font-size:20px">${EMOJIS[p]}</span>
+      <div>
+        <div style="font-family:'Oswald',sans-serif;font-size:15px;font-weight:600;color:#fff">${p}</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.4)">#${SEEDS[p]} seed</div>
+      </div>
+    </div>`
+  ).join("");
+
+  const groupList = GK.map(g => {
+    const gr = GROUPS[g];
+    const teams = gr.teams.map(t => {
+      const ph = t.includes("Seed") || t.includes("#") || t.includes("/");
+      return `<span style="color:${ph?'rgba(255,255,255,0.5)':'rgba(255,255,255,0.85)'};${ph?'font-style:italic':''};">${t}</span>`;
+    }).join(", ");
+    return `<div style="padding:6px 0;display:flex;gap:8px;align-items:baseline;border-bottom:1px solid rgba(255,255,255,0.04)">
+      <span style="font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;letter-spacing:1px;color:${gr.color};min-width:62px;white-space:nowrap">GROUP ${g}</span>
+      <span style="font-size:13px;line-height:1.5">${teams}</span>
+    </div>`;
+  }).join("");
+
+  el.innerHTML = `
+    <div style="margin:0 16px 16px;padding:20px;background:rgba(255,255,255,0.03);border-radius:14px;border:1px solid rgba(255,255,255,0.08)">
+      <div style="font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:2px;color:rgba(255,255,255,0.4);text-align:center;margin-bottom:12px">WELCOME TO THE DRAFT</div>
+      <div style="font-size:15px;color:rgba(255,255,255,0.7);line-height:1.6;text-align:center;margin-bottom:16px">
+        Four players. Four groups. Each round, the first pick chooses a group, then everyone drafts a team. Pass strategically or pick your favorite -- every position used now is one you can't use later.
+      </div>
+      <div style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.35);margin-bottom:8px">PLAYERS</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:16px">${playerCards}</div>
+      <div style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.35);margin-bottom:8px">GROUPS</div>
+      ${groupList}
+      <div style="text-align:center;margin-top:16px;font-size:13px;color:rgba(255,255,255,0.35)">Waiting for the commissioner to start the draft...</div>
+    </div>`;
+}
+
+const SUMMARY_QUIPS = [
+  "{P} walks away with {T}. Could be a championship roster... or a support group.",
+  "{P} drafted {T}. Bold strategy. Let's see if it pays off.",
+  "{P} is riding with {T}. No regrets. Probably.",
+  "{P} locked in {T}. The basketball gods are watching.",
+  "{P}'s squad: {T}. Sleep well tonight... or don't.",
+  "{P} bet it all on {T}. Fortune favors the brave. Maybe.",
+  "{P} goes home with {T}. Could be worse. Could be better. We'll see.",
+  "{P} built their roster: {T}. Now we wait and hope.",
+];
+
+function renderSummary(turn) {
+  const el = document.getElementById("summary-area");
+  if (turn.phase !== "complete") { el.innerHTML = ""; return; }
+
+  const board = getPlayerBoard(state.rounds);
+  let h = '<div style="margin:0 16px 14px">';
+  h += '<div style="font-family:\'Oswald\',sans-serif;font-size:12px;letter-spacing:2px;color:rgba(255,255,255,0.4);text-align:center;margin-bottom:10px">FINAL ROSTERS</div>';
+
+  PLAYERS.forEach(p => {
+    const teams = GK.map(g => board[p][g]).filter(Boolean).map(pk => pk.team);
+    const teamStr = teams.join(", ");
+    const quip = rng(SUMMARY_QUIPS).replace(/{P}/g, EMOJIS[p]+" "+p).replace(/{T}/g, teamStr);
+
+    h += `<div style="background:rgba(255,255,255,0.04);border-radius:12px;padding:14px 16px;margin-bottom:8px;border:1px solid rgba(255,255,255,0.06)">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <span style="font-size:22px">${EMOJIS[p]}</span>
+        <span style="font-family:'Oswald',sans-serif;font-size:18px;font-weight:700;color:#fff">${p}</span>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">`;
+
+    GK.forEach(g => {
+      const pk = board[p][g];
+      if (!pk) return;
+      const gr = GROUPS[g];
+      const ph = pk.team.includes("Seed") || pk.team.includes("#") || pk.team.includes("/");
+      h += `<div style="padding:4px 10px;border-radius:6px;font-size:13px;font-weight:600;background:${gr.color}18;color:${ph?'rgba(255,255,255,0.6)':gr.color};border:1px solid ${gr.color}30;${ph?'font-style:italic':''}">
+        <span style="opacity:0.5;font-size:10px">Grp ${g}</span> ${pk.team}
+      </div>`;
+    });
+
+    h += `</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.5;font-style:italic">${quip}</div>
+    </div>`;
+  });
+
+  h += '</div>';
+  el.innerHTML = h;
+}
+
+function renderGroupOverview(turn) {
+  const el = document.getElementById("group-overview-area");
+  const p = turn.phase;
+
+  if (!state.rounds.length || p === "notStarted") { el.innerHTML = ""; return; }
+
+  const usedGroups = getUsedGroups(state.rounds);
+  const pickedTeams = {};
+  (state.rounds||[]).forEach(r => (r.picks||[]).forEach(pk => pickedTeams[pk.team] = pk.player));
+
+  function teamList(teams, groupColor, strikeOut) {
+    return teams.map(t => {
+      const taken = pickedTeams[t];
+      const ph = t.includes("Seed") || t.includes("#") || t.includes("/");
+      if (strikeOut && taken) return `<span style="color:rgba(255,255,255,0.25);text-decoration:line-through">${t}</span>`;
+      if (ph) return `<span style="color:rgba(255,255,255,0.5);font-style:italic">${t}</span>`;
+      return `<span style="color:rgba(255,255,255,0.9)">${t}</span>`;
+    }).join(', ');
+  }
+
+  function groupLine(g, opts) {
+    const gr = GROUPS[g];
+    const done = usedGroups.includes(g);
+    const active = opts?.active;
+    const opacity = opts?.dim ? '0.4' : '1';
+    const label = done ? `GROUP ${g} ✓` : `GROUP ${g}`;
+    const teams = teamList(gr.teams, gr.color, done);
+    return `<div style="padding:6px 0;opacity:${opacity};border-bottom:1px solid rgba(255,255,255,0.04);display:flex;gap:8px;align-items:baseline;${active?'padding:8px 10px;background:'+gr.color+'10;border-radius:8px;border-bottom:none;margin-bottom:4px':''}">
+      <span style="font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;letter-spacing:1px;color:${gr.color};white-space:nowrap;min-width:62px">${label}</span>
+      <span style="font-size:13px;line-height:1.5">${teams}</span>
+    </div>`;
+  }
+
+  let h = '<div style="margin:0 16px 10px;font-family:\'Source Sans 3\',sans-serif">';
+
+  if (p === "selectGroup") {
+    h += '<div style="font-family:\'Oswald\',sans-serif;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.4);margin-bottom:6px;text-align:center">AVAILABLE GROUPS</div>';
+    GK.filter(g => !usedGroups.includes(g)).forEach(g => { h += groupLine(g, {active:true}); });
+    if (usedGroups.length) {
+      usedGroups.forEach(g => { h += groupLine(g, {dim:true}); });
+    }
+  } else if (p === "selectTeam" || p === "autoPass") {
+    const g = turn.group;
+    const gr = GROUPS[g];
+    const avail = getAvailableTeams(state.rounds, g);
+    // Current group with available highlighted
+    const currentTeams = gr.teams.map(t => {
+      const taken = pickedTeams[t];
+      const ph = t.includes("Seed") || t.includes("#") || t.includes("/");
+      if (taken) return `<span style="color:rgba(255,255,255,0.25);text-decoration:line-through">${t}</span>`;
+      return `<span style="color:${gr.color};font-weight:600">${t}</span>`;
+    }).join(', ');
+    h += `<div style="padding:8px 10px;background:${gr.color}10;border-radius:8px;margin-bottom:6px;display:flex;gap:8px;align-items:baseline">
+      <span style="font-family:'Oswald',sans-serif;font-size:12px;font-weight:600;letter-spacing:1px;color:${gr.color};white-space:nowrap;min-width:62px">GROUP ${g}</span>
+      <span style="font-size:13px;line-height:1.5">${currentTeams}</span>
+    </div>`;
+    // Other groups
+    GK.filter(gg => gg !== g).forEach(gg => {
+      const done = usedGroups.includes(gg);
+      h += groupLine(gg, {dim:done});
+    });
+  } else if (p === "roundComplete" || p === "complete") {
+    GK.forEach(g => {
+      const done = usedGroups.includes(g);
+      h += groupLine(g, {dim:done});
+    });
+  } else {
+    el.innerHTML = ""; return;
+  }
+
+  h += '</div>';
+  el.innerHTML = h;
+}
+
+function renderApology() {
+  let el = document.getElementById("apology-area");
+  if (!el) {
+    el = document.createElement("div");
+    el.id = "apology-area";
+    document.getElementById("status-area").before(el);
+  }
+  if (state.apology) {
+    el.innerHTML = `<div style="background:rgba(244,163,46,0.12);border:2px dashed rgba(244,163,46,0.4);border-radius:12px;padding:14px 18px;margin:0 16px 10px;text-align:center;font-size:16px;color:#F4A32E;font-weight:600;line-height:1.5;animation:fadeIn 0.4s ease">${state.apology}</div>`;
+  } else {
+    el.innerHTML = "";
+  }
+}
+
+function renderAdminCorner() {
+  const el = document.getElementById("admin-corner");
+  if (isAdmin) {
+    el.innerHTML = `<div style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:2px;color:#F4A32E">COMMISSIONER</div>`;
+  } else {
+    el.innerHTML = `<button class="btn-admin" onclick="showLogin()">Admin</button>`;
+  }
+}
+
+function showLogin() {
+  const el = document.getElementById("login-area");
+  el.innerHTML = `
+    <div style="padding:16px;text-align:center;">
+      <input type="password" id="login-code" class="login-input" placeholder="Commissioner code"
+        onkeydown="if(event.key==='Enter')tryLogin()">
+      <button class="login-btn" onclick="tryLogin()">ENTER</button>
+      <div id="login-err" style="color:#E8433E;font-size:13px;margin-top:8px;display:none">Invalid code</div>
+    </div>`;
+  document.getElementById("login-code").focus();
+}
+
+function tryLogin() {
+  const code = document.getElementById("login-code").value;
+  if (code === ADMIN_CODE) {
+    isAdmin = true;
+    document.getElementById("login-area").innerHTML = "";
+    render();
+  } else {
+    document.getElementById("login-err").style.display = "block";
+    document.getElementById("login-code").classList.add("err");
+  }
+}
+
+function renderRounds() {
+  const el = document.getElementById("rounds-area");
+  if (!state.rounds.length) { el.innerHTML = ""; return; }
+  let h = '<div class="rounds">';
+  for (let r = 1; r <= 4; r++) {
+    const rd = state.rounds[r-1];
+    const active = r <= state.rounds.length;
+    const current = r === state.rounds.length;
+    const gc = rd?.group ? GROUPS[rd.group].color : "rgba(255,255,255,0.2)";
+    const bg = current ? gc : active ? gc+"30" : "rgba(255,255,255,0.06)";
+    const fg = current ? "#fff" : active ? gc : "rgba(255,255,255,0.3)";
+    const bdr = current ? "none" : "1px solid "+(active ? gc+"40" : "rgba(255,255,255,0.08)");
+    h += `<div class="rd-pill" style="background:${bg};color:${fg};border:${bdr}">RD ${r}${rd?.group?" · "+rd.group:""}</div>`;
+  }
+  h += '</div>';
+  el.innerHTML = h;
+}
+
+function renderPickOrder(turn) {
+  const el = document.getElementById("pick-order-area");
+  if (!state.rounds.length || ["complete","roundComplete","notStarted"].includes(turn.phase)) {
+    el.innerHTML = ""; return;
+  }
+  const ri = state.rounds.length - 1;
+  const rd = state.rounds[ri];
+  if (!rd || (rd.picks||[]).length >= 4) { el.innerHTML = ""; return; }
+  const order = ROUND_ORDERS[ri];
+  const picked = (rd.picks||[]).map(p => p.player);
+  let h = '<div class="pick-order">';
+  order.forEach((p,i) => {
+    const done = picked.includes(p);
+    const bg = done ? "rgba(69,183,100,0.12)" : "rgba(255,255,255,0.05)";
+    const fg = done ? "#45B764" : "rgba(255,255,255,0.6)";
+    const bdr = done ? "1px solid rgba(69,183,100,0.25)" : "1px solid rgba(255,255,255,0.08)";
+    const label = done ? "✓" : i===3 ? "(lowest)" : "";
+    h += `<div class="po-chip" style="background:${bg};color:${fg};border:${bdr}">#${i+1} ${EMOJIS[p]} ${p} ${label}</div>`;
+  });
+  h += '</div>';
+  el.innerHTML = h;
+}
+
+function renderStatus(turn) {
+  const el = document.getElementById("status-area");
+  let text = "", color = "#F4A32E";
+  const p = turn.phase;
+  if (p === "notStarted") { text = "Draft has not started yet."; }
+  else if (p === "complete") { text = "🏆 Draft complete!"; color = "#45B764"; }
+  else if (p === "roundComplete") { text = "Round "+turn.roundNum+" complete. Waiting for next round..."; }
+  else if (p === "selectGroup") {
+    const note = turn.canPass ? " (can pass)" : " (must pick)";
+    text = "Rd"+turn.roundNum+" #"+turn.position+": "+EMOJIS[turn.player]+" "+turn.player+" selects a group"+note;
+    if (!turn.canPass && turn.mustPickReason) {
+      text += '<br><span style="font-size:13px;opacity:0.7">'+turn.mustPickReason+'</span>';
+    }
+  }
+  else if (p === "autoPass") {
+    if (turn.skipReason) {
+      text = "Rd"+turn.roundNum+" #"+turn.position+": "+EMOJIS[turn.player]+" "+turn.player+" skips"; color = "#F4A32E";
+    } else {
+      text = "Rd"+turn.roundNum+" #"+turn.position+": "+EMOJIS[turn.player]+" "+turn.player+" auto-passes (used #"+turn.position+" in Rd"+turn.usedInRound+")"; color = "#E8433E";
+    }
+  }
+  else if (p === "selectTeam") {
+    const avail = turn.group ? getAvailableTeams(state.rounds, turn.group) : [];
+    if (avail.length === 1 && !turn.canPass) {
+      text = "Rd"+turn.roundNum+" #"+turn.position+": "+EMOJIS[turn.player]+" "+turn.player+" gets "+avail[0];
+    } else {
+      const note = turn.canPass ? " (can pass)" : " (must pick)";
+      text = "Rd"+turn.roundNum+" #"+turn.position+": "+EMOJIS[turn.player]+" "+turn.player+"'s turn"+note;
+      if (!turn.canPass && turn.mustPickReason) {
+        text += '<br><span style="font-size:13px;opacity:0.7">'+turn.mustPickReason+'</span>';
+      }
+    }
+    color = GROUPS[turn.group].color;
+  }
+  else { el.innerHTML = ""; return; }
+  el.innerHTML = `<div class="status" style="background:${color}15;border:1px solid ${color}40">${text}</div>`;
+}
+
+function renderBoard() {
+  const el = document.getElementById("board-area");
+  const board = getPlayerBoard(state.rounds);
+  const used = getUsedGroups(state.rounds);
+  let h = '<table><thead><tr><th></th>';
+  GK.forEach(g => {
+    h += `<th style="color:${GROUPS[g].color};opacity:${used.includes(g)?1:0.35}">GRP ${g}</th>`;
+  });
+  h += '</tr></thead><tbody>';
+  PLAYERS.forEach(p => {
+    h += `<tr><td class="name-cell">${EMOJIS[p]} ${p}</td>`;
+    GK.forEach(g => {
+      const pk = board[p][g];
+      if (!pk) { h += '<td class="empty-cell">—</td>'; return; }
+      h += `<td class="pick-cell" style="color:${GROUPS[g].color};background:${GROUPS[g].color}15"><span style="opacity:0.5;font-size:10px">#${pk.position}</span> ${pk.team}</td>`;
+    });
+    h += '</tr>';
+  });
+  h += '</tbody></table>';
+  el.innerHTML = h;
+}
+
+function renderActivity() {
+  const el = document.getElementById("activity-area");
+  if (!state.log || !state.log.length) { el.innerHTML = ""; return; }
+  let h = '<div class="activity"><div class="activity-label">ACTIVITY</div>';
+  state.log.forEach(e => {
+    h += `<div class="activity-row"><span style="color:${e.color||"#fff"};font-weight:600">Rd${e.round}</span> ${e.text}</div>`;
+  });
+  h += '<div id="activity-end"></div></div>';
+  el.innerHTML = h;
+  const end = document.getElementById("activity-end");
+  if (end) end.scrollIntoView({behavior:"smooth"});
+}
+
+function renderControls(turn) {
+  const el = document.getElementById("controls-area");
+  if (!isAdmin) { el.innerHTML = ""; return; }
+
+  const p = turn.phase;
+  let h = "";
+
+  if (p === "notStarted") {
+    h = panel("START DRAFT", `<div class="btn-row">${btn("Start Draft","#45B764","doAction('start')")}</div>`);
+  }
+  else if (p === "complete") { h = ""; }
+  else if (p === "roundComplete") {
+    h = panel("START ROUND "+(turn.roundNum+1), `<div class="btn-row">${btn("Begin Round "+(turn.roundNum+1),"#F4A32E","doAction('nextRound')")}</div>`);
+  }
+  else if (p === "selectGroup") {
+    const used = getUsedGroups(state.rounds);
+    const available = GK.filter(g => !used.includes(g));
+    const groupCards = available.map(g => {
+      const gr = GROUPS[g];
+      const teams = gr.teams.map(t => {
+        const ph = t.includes("Seed") || t.includes("#") || t.includes("/");
+        return `<div style="font-size:12px;color:${ph?'rgba(255,255,255,0.5)':'rgba(255,255,255,0.85)'};${ph?'font-style:italic;':''}line-height:1.4">${t}</div>`;
+      }).join("");
+      return `<button onclick="doAction('selectGroup',{group:'${g}',player:'${turn.player}'})"
+        style="background:${gr.color}18;border:2px solid ${gr.color}50;border-radius:12px;padding:12px 16px;cursor:pointer;text-align:left;width:100%;transition:all 0.2s"
+        onmouseover="this.style.borderColor='${gr.color}';this.style.background='${gr.color}25'"
+        onmouseout="this.style.borderColor='${gr.color}50';this.style.background='${gr.color}18'">
+        <div style="font-family:'Oswald',sans-serif;font-size:15px;font-weight:700;color:${gr.color};letter-spacing:1px;margin-bottom:4px">GROUP ${g}</div>
+        ${teams}
+      </button>`;
+    }).join("");
+    const passBtn = turn.canPass
+      ? `<div style="text-align:center;margin-top:12px"><button class="btn-pass" onclick="doAction('pass',{player:'${turn.player}',position:${turn.position}})">PASS</button></div>`
+      : "";
+    const reasonNote = (!turn.canPass && turn.mustPickReason)
+      ? `<div style="text-align:center;margin-top:10px;font-size:13px;color:rgba(255,255,255,0.5);line-height:1.5">⚠️ ${turn.mustPickReason}</div>`
+      : "";
+    h = panel(turn.player.toUpperCase()+" SELECTS GROUP · #"+turn.position, `<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">${groupCards}</div>${passBtn}${reasonNote}`);
+  }
+  else if (p === "autoPass") {
+    const title = turn.skipReason ? "SKIP" : "AUTO-PASS";
+    const desc = turn.skipReason
+      ? `${EMOJIS[turn.player]} ${turn.player} skips #${turn.position}<br><span style="font-size:14px;color:rgba(255,255,255,0.5)">${turn.skipReason}</span>`
+      : `${EMOJIS[turn.player]} ${turn.player} auto-passes at #${turn.position}<br><span style="font-size:14px;color:rgba(255,255,255,0.5)">(Used #${turn.position} in Round ${turn.usedInRound})</span>`;
+    const actionData = turn.skipReason
+      ? `doAction('autoPass',{player:'${turn.player}',position:${turn.position},usedInRound:${turn.usedInRound},skipReason:'${(turn.skipReason||'').replace(/'/g,"\\'")}'})` 
+      : `doAction('autoPass',{player:'${turn.player}',position:${turn.position},usedInRound:${turn.usedInRound}})`;
+    h = panel(title,
+      `<div style="font-size:16px;color:rgba(255,255,255,0.9);margin-bottom:12px;text-align:center;line-height:1.6">${desc}</div>
+      <div class="btn-row">${btn("Continue","#F4A32E",actionData)}</div>`
+    );
+  }
+  else if (p === "selectTeam") {
+    const avail = getAvailableTeams(state.rounds, turn.group);
+    const gc = GROUPS[turn.group].color;
+
+    // If only one team and can't pass: show as forced assignment with Continue
+    if (avail.length === 1 && !turn.canPass) {
+      const team = avail[0];
+      const ph = team.includes("Seed") || team.includes("#") || team.includes("/");
+      h = panel(
+        turn.player.toUpperCase()+" · GROUP "+turn.group+" · #"+turn.position,
+        `<div style="font-size:16px;color:rgba(255,255,255,0.9);margin-bottom:12px;text-align:center;line-height:1.6">
+          ${EMOJIS[turn.player]} ${turn.player} gets <span style="color:${gc};font-weight:700;${ph?'font-style:italic':''}">${team}</span> at #${turn.position}
+          <br><span style="font-size:13px;color:rgba(255,255,255,0.5)">Only team remaining in the group</span>
+        </div>
+        <div class="btn-row">${btn("Continue",gc,`doAction('pick',{player:'${turn.player}',team:'${team}',position:${turn.position}})`)}</div>`
+      );
+    } else {
+      const teamBtns = avail.map(t =>
+        btn(t, gc, `doAction('pick',{player:'${turn.player}',team:'${t}',position:${turn.position}})`)
+      ).join("");
+      const passBtn = turn.canPass
+        ? `<div style="text-align:center;margin-top:12px"><button class="btn-pass" onclick="doAction('pass',{player:'${turn.player}',position:${turn.position}})">PASS</button></div>`
+        : "";
+      const reasonNote = (!turn.canPass && turn.mustPickReason)
+        ? `<div style="text-align:center;margin-top:10px;font-size:13px;color:rgba(255,255,255,0.5);line-height:1.5">⚠️ ${turn.mustPickReason}</div>`
+        : "";
+      h = panel(
+        turn.player.toUpperCase()+"'S PICK · GROUP "+turn.group+" · #"+turn.position,
+        `<div class="btn-row">${teamBtns}</div>${passBtn}${reasonNote}`
+      );
+    }
+  }
+
+  // Undo and Reset buttons
+  if (state.rounds && state.rounds.length > 0) {
+    const undoBtn = state.prevState
+      ? `<button onclick="doAction('undo')" style="background:rgba(244,163,46,0.15);border:1px solid rgba(244,163,46,0.3);color:#F4A32E;padding:8px 20px;border-radius:6px;cursor:pointer;font-size:13px;font-family:'Oswald',sans-serif;letter-spacing:0.5px;font-weight:600">⏪ Undo Last Action</button>`
+      : `<button disabled style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);color:rgba(255,255,255,0.15);padding:8px 20px;border-radius:6px;font-size:13px;font-family:'Oswald',sans-serif;letter-spacing:0.5px;cursor:default">⏪ Undo Last Action</button>`;
+    h += `<div style="display:flex;gap:10px;justify-content:center;align-items:center;margin:8px 16px 20px">
+      ${undoBtn}
+      <button class="btn-reset" onclick="if(confirm('Reset entire draft? This cannot be undone.'))doAction('reset')">Reset Draft</button>
+    </div>`;
+  }
+
+  el.innerHTML = h;
+}
+
+function renderFooter(turn) {
+  const el = document.getElementById("footer-area");
+  if (!["complete","notStarted"].includes(turn?.phase || "notStarted") && state.rounds.length) {
+    el.innerHTML = `<span class="live-dot"></span>Live — updates in real time`;
+  } else {
+    el.innerHTML = "";
+  }
+}
+
+function panel(title, content) {
+  return `<div class="panel"><div class="panel-title">${title}</div>${content}</div>`;
+}
+
+function btn(label, color, onclick) {
+  return `<button class="btn" style="background:linear-gradient(135deg,${color},${color}cc);box-shadow:0 2px 12px ${color}40" onclick="${onclick}">${label}</button>`;
+}
+
+// ══ Countdown ══
+// Draft day: Friday Apr 17, 2026 8:30 PM CDT (UTC-5)
+const DRAFT_TIME = new Date('2026-04-17T20:30:00-05:00').getTime();
+
+function startCountdown() {
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+}
+
+function updateCountdown() {
+  const el = document.getElementById("countdown-bar");
+  // Hide once draft has started
+  if (state.rounds && state.rounds.length > 0) {
+    el.innerHTML = "";
+    return;
+  }
+  const now = Date.now();
+  const diff = DRAFT_TIME - now;
+  if (diff <= 0) {
+    el.innerHTML = `<div class="cd-bar"><div class="cd-done">DRAFT TIME!</div></div>`;
+    return;
+  }
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+
+  let units = '';
+  if (d > 0) {
+    units = `<div class="cd-unit"><div class="cd-num">${d}</div><div class="cd-lbl">day${d!==1?'s':''}</div></div><span class="cd-sep">:</span>`;
+  }
+  units += `<div class="cd-unit"><div class="cd-num">${String(h).padStart(2,'0')}</div><div class="cd-lbl">hr</div></div>`;
+  units += `<span class="cd-sep">:</span><div class="cd-unit"><div class="cd-num">${String(m).padStart(2,'0')}</div><div class="cd-lbl">min</div></div>`;
+  units += `<span class="cd-sep">:</span><div class="cd-unit"><div class="cd-num">${String(s).padStart(2,'0')}</div><div class="cd-lbl">sec</div></div>`;
+
+  el.innerHTML = `<div class="cd-bar"><div class="cd-label">DRAFT STARTS IN</div><div class="cd-time">${units}</div></div>`;
+}
+
+// ══ Init ══
+startCountdown();
+initFirebase();
+render();
+renderReference();
+</script>
+</body>
+</html>
