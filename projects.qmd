@@ -63,7 +63,7 @@ A similar [German geography quiz](https://chesterismay.shinyapps.io/german-state
 
 ### 🏀 NBA Player Finder
 
-Explore current NBA rosters by conference, division, team, height, age, and jersey number in this [app](nba-over-under-2025-2026/roster-finder.html){target="_blank"}. It runs entirely in your browser via shinylive, with rosters refreshed weekly from the NBA API.
+Explore current NBA rosters by conference, division, team, height, age, and jersey number in this [app](/nba-player-finder/){target="_blank"}. It runs entirely in your browser via shinylive, with rosters refreshed weekly from the NBA API.
 
 
 ---
@@ -76,10 +76,14 @@ I've authored or contributed to several R packages:
 - [**moderndive**](https://moderndive.github.io/moderndive) — companion to the ModernDive book
 - [**fivethirtyeight**](https://fivethirtyeight-r.netlify.app) — access to FiveThirtyEight datasets
 - [**thesisdown**](https://github.com/ismayc/thesisdown) — thesis templates in R Markdown
-- [**azflights24**](https://moderndive.github.io/azflights24/)
-- [**nycflights23**](https://moderndive.github.io/nycflights23/)
-- [**pnwflights22**](https://moderndive.github.io/pnwflights22/)
-- [**izzyuntappd**](https://github.com/ismayc/izzyuntappd)
+- [**azflights24**](https://moderndive.github.io/azflights24/) — all out-bound flights from Arizona airports (PHX, TUS, and others) in 2024
+- [**nycflights23**](https://moderndive.github.io/nycflights23/) — all out-bound flights from New York City airports in 2023
+- [**pnwflights22**](https://moderndive.github.io/pnwflights22/) — all out-bound flights from Seattle (SEA) and Portland (PDX) in 2022
+- [**volcanoes**](https://github.com/moderndive/volcanoes) — Smithsonian Global Volcanism Program data on ~1,200 Holocene volcanoes, their eruptions, and individual events
+- [**olympicAthletes**](https://github.com/moderndive/olympicAthletes) — every athlete-event participation in the modern Olympics, Athens 1896 through Milano-Cortina 2026 (~315,000 rows)
+- [**exoplanets**](https://github.com/moderndive/exoplanets) — tidy data on confirmed exoplanets and their host stars from NASA's Exoplanet Archive
+- [**steves**](https://github.com/ismayc/steves) — every episode of *Rick Steves' Europe* (2000–2025), with ratings, geography, air dates, and summaries
+- [**izzyuntappd**](https://github.com/ismayc/izzyuntappd) — my Untappd beer check-ins (Feb 2015–June 2016), plus an R Markdown template for analyzing them
 
 ---
 
