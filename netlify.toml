@@ -5,3 +5,7 @@
 [build.environment]
   PYTHON_VERSION = "3.12"
   PIP_INSTALL = "false"
+  # Firebase web apiKey is public by design (client-side config, access is
+  # governed by Firebase Security Rules), so allow this known value past the
+  # secrets scanner instead of failing the deploy.
+  SECRETS_SCAN_SMART_DETECTION_OMIT_VALUES = "AIzaSyDGcu91SmpVLAPOwzQqb9k1Z5515WoAlOk"
