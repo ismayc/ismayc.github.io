@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Creating a basic template package in R – Chester Ismay</title>
+<title>Portfolio – Chester Ismay</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -26,23 +26,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-de60624a5cb141114e0ea2b9bc293073.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-de60624a5cb141114e0ea2b9bc293073.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -72,7 +72,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -82,7 +82,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Chester Ismay</span>
     </a>
   </div>
@@ -93,23 +93,23 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../about.html"> 
+    <a class="nav-link" href="./about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../consulting.html"> 
+    <a class="nav-link" href="./consulting.html"> 
 <span class="menu-text">Consulting</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../workshops.html"> 
+    <a class="nav-link" href="./workshops.html"> 
 <span class="menu-text">Workshops</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../talks.html"> 
+    <a class="nav-link" href="./talks.html"> 
 <span class="menu-text">Talks</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../portfolio.html"> 
+    <a class="nav-link active" href="./portfolio.html" aria-current="page"> 
 <span class="menu-text">Portfolio</span></a>
   </li>  
 </ul>
@@ -150,16 +150,21 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#check-working-directory" id="toc-check-working-directory" class="nav-link active" data-scroll-target="#check-working-directory">Check working directory</a>
+  <li><a href="#books" id="toc-books" class="nav-link active" data-scroll-target="#books">Books</a></li>
+  <li><a href="#shiny-apps" id="toc-shiny-apps" class="nav-link" data-scroll-target="#shiny-apps">Shiny Apps</a>
   <ul class="collapse">
-  <li><a href="#install-devtools" id="toc-install-devtools" class="nav-link" data-scroll-target="#install-devtools">Install <code>devtools</code></a></li>
+  <li><a href="#probability-distribution-viewer" id="toc-probability-distribution-viewer" class="nav-link" data-scroll-target="#probability-distribution-viewer">🎲 Probability Distribution Viewer</a></li>
+  <li><a href="#us-statedistrict-shape-quiz" id="toc-us-statedistrict-shape-quiz" class="nav-link" data-scroll-target="#us-statedistrict-shape-quiz">🦅️ US State/District Shape Quiz</a></li>
+  <li><a href="#german-federal-state-shape-quiz" id="toc-german-federal-state-shape-quiz" class="nav-link" data-scroll-target="#german-federal-state-shape-quiz">🇩🇪 German Federal State Shape Quiz</a></li>
+  <li><a href="#nba-player-finder" id="toc-nba-player-finder" class="nav-link" data-scroll-target="#nba-player-finder">🏀 NBA Player Finder</a></li>
   </ul></li>
-  <li><a href="#create-package" id="toc-create-package" class="nav-link" data-scroll-target="#create-package">Create package</a></li>
-  <li><a href="#create-skeleton-directory" id="toc-create-skeleton-directory" class="nav-link" data-scroll-target="#create-skeleton-directory">Create skeleton directory</a></li>
-  <li><a href="#create-skeleton.rmd" id="toc-create-skeleton.rmd" class="nav-link" data-scroll-target="#create-skeleton.rmd">Create skeleton.Rmd</a></li>
-  <li><a href="#create-template.yaml" id="toc-create-template.yaml" class="nav-link" data-scroll-target="#create-template.yaml">Create <code>template.yaml</code></a></li>
-  <li><a href="#install-package" id="toc-install-package" class="nav-link" data-scroll-target="#install-package">Install package</a></li>
-  <li><a href="#test-template-file" id="toc-test-template-file" class="nav-link" data-scroll-target="#test-template-file">Test template file</a></li>
+  <li><a href="#r-packages" id="toc-r-packages" class="nav-link" data-scroll-target="#r-packages">R Packages</a></li>
+  <li><a href="#projects-at-reed-college" id="toc-projects-at-reed-college" class="nav-link" data-scroll-target="#projects-at-reed-college">Projects at Reed College</a>
+  <ul class="collapse">
+  <li><a href="#teaching-tools" id="toc-teaching-tools" class="nav-link" data-scroll-target="#teaching-tools">Teaching Tools</a></li>
+  <li><a href="#educational-outreach" id="toc-educational-outreach" class="nav-link" data-scroll-target="#educational-outreach">Educational Outreach</a></li>
+  <li><a href="#faculty-student-support" id="toc-faculty-student-support" class="nav-link" data-scroll-target="#faculty-student-support">Faculty &amp; Student Support</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -168,7 +173,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Creating a basic template package in R</h1>
+<h1 class="title">Portfolio</h1>
 </div>
 
 
@@ -185,69 +190,94 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>The developers of RStudio have made creating R packages quite easy. The creation of an R Markdown template as the only thing residing in a package is an even easier task.</p>
-<section id="check-working-directory" class="level2">
-<h2 class="anchored" data-anchor-id="check-working-directory">Check working directory</h2>
-<p><img src="../ecots2k16/rstudio.png" class="img-fluid"></p>
-<p>If we look down at the Console in the left pane, we can see what our current working directory is. If you click the right arrow next to Console it will show your Current Working Directory in the Files tab in the bottom right pane.</p>
-<p>It’s important to keep track of where you keep files in R via this working directory and this is commonly a big struggle that students have. We see here that my home directory is the current working directory denoted by the <code>~/</code>. We can see this by entering <code>getwd()</code> in the Console.</p>
-<p><img src="../ecots2k16/getwd.png" class="img-fluid"></p>
-<section id="install-devtools" class="level3">
-<h3 class="anchored" data-anchor-id="install-devtools">Install <code>devtools</code></h3>
-<p>If you don’t have it installed already, make sure to run <code>install.packages("devtools")</code> in your Console. This will install a package of tools that makes creating packages simple. More info is available <a href="https://github.com/r-lib/devtools">here</a>.</p>
+<section id="books" class="level2">
+<h2 class="anchored" data-anchor-id="books">Books</h2>
+<div class="book-grid">
+<div class="book-card">
+<a href="https://www.moderndive.com/v2" target="_blank"> <img src="images/moderndive_v2_cover.jpg" class="book-cover img-fluid" alt="ModernDive Book Cover"> </a>
+<div class="book-text">
+<p><strong><a href="https://www.moderndive.com/v2">Statistical Inference via Data Science</a></strong></p>
+<p>Co-authored with <a href="https://rudeboybert.rbind.io">Albert Y. Kim</a> and <a href="https://stat.indiana.edu/about/core-faculty/core-faculty/valdivia-arturo.html">Arturo Valdivia</a>, this free online book teaches statistics via computation and data science fundamentals using R and the tidyverse.</p>
+<a href="https://www.routledge.com/Statistical-Inference-via-Data-Science-A-ModernDive-into-R-and-the-Tidyverse/Ismay-Kim-Valdivia/p/book/9781032708379">→ Print edition</a>
+</div>
+</div>
+<div class="book-card">
+<a href="https://rbasics.netlify.app" target="_blank"> <img src="images/rbasics-ai-cover.png" class="book-cover img-fluid" alt="Getting Used to R Book Cover"> </a>
+<div class="book-text">
+<p><strong><a href="https://rbasics.netlify.app">Getting Used to R, RStudio, and R Markdown</a></strong></p>
+A hands-on, beginner-friendly guide to using R and RStudio for data analysis. Co-authored with <a href="https://news.uoregon.edu/expert/patrick-kennedy-center-teaching-and-learning">Patrick Kennedy</a>. Designed to empower new users with confidence and clarity.
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="shiny-apps" class="level2">
+<h2 class="anchored" data-anchor-id="shiny-apps">Shiny Apps</h2>
+<section id="probability-distribution-viewer" class="level3">
+<h3 class="anchored" data-anchor-id="probability-distribution-viewer">🎲 Probability Distribution Viewer</h3>
+<p>This <a href="http://ismay.shinyapps.io/ProbApp" target="_blank">Shiny app</a> lets users explore and calculate probabilities for normal, binomial, Poisson, and other distributions.</p>
+</section>
+<section id="us-statedistrict-shape-quiz" class="level3">
+<h3 class="anchored" data-anchor-id="us-statedistrict-shape-quiz">🦅️ US State/District Shape Quiz</h3>
+<p>This <a href="https://chesterismay.shinyapps.io/us-states-quiz-app/" target="_blank">interactive quiz</a> tests knowledge of US state shapes, capitals, and major cities. Built using <a href="https://rstudio.github.io/leaflet/">leaflet</a>.</p>
+</section>
+<section id="german-federal-state-shape-quiz" class="level3">
+<h3 class="anchored" data-anchor-id="german-federal-state-shape-quiz">🇩🇪 German Federal State Shape Quiz</h3>
+<p>A similar <a href="https://chesterismay.shinyapps.io/german-states-quiz-app/" target="_blank">German geography quiz</a> that tests users on the shapes and cities of Germany’s federal states.</p>
+</section>
+<section id="nba-player-finder" class="level3">
+<h3 class="anchored" data-anchor-id="nba-player-finder">🏀 NBA Player Finder</h3>
+<p>Explore current NBA rosters by conference, division, team, height, age, and jersey number in this <a href="./nba-player-finder/" target="_blank">app</a>. It runs entirely in your browser via shinylive, with rosters refreshed weekly from the NBA API.</p>
+<hr>
 </section>
 </section>
-<section id="create-package" class="level2">
-<h2 class="anchored" data-anchor-id="create-package">Create package</h2>
-<p>We now invoke the <code>create()</code> function to create a package called “basictemplate” in the Console.</p>
-<pre><code>devtools::create("basictemplate")</code></pre>
-<p><img src="../ecots2k16/create.png" class="img-fluid"></p>
-<p>We see that a new folder has been created in my working directory called <code>basictemplate</code>.</p>
-<p>If we click on this <code>basictemplate</code> folder we see the files and folders that were created.</p>
-<p><img src="../ecots2k16/inside.png" class="img-fluid"></p>
+<section id="r-packages" class="level2">
+<h2 class="anchored" data-anchor-id="r-packages">R Packages</h2>
+<p>I’ve authored or contributed to several R packages:</p>
+<ul>
+<li><a href="https://infer.tidymodels.org/"><strong>infer</strong></a> — tidyverse-style statistical inference</li>
+<li><a href="https://moderndive.github.io/moderndive"><strong>moderndive</strong></a> — companion to the ModernDive book</li>
+<li><a href="https://fivethirtyeight-r.netlify.app"><strong>fivethirtyeight</strong></a> — access to FiveThirtyEight datasets</li>
+<li><a href="https://github.com/ismayc/thesisdown"><strong>thesisdown</strong></a> — thesis templates in R Markdown</li>
+<li><a href="https://moderndive.github.io/azflights24/"><strong>azflights24</strong></a> — all out-bound flights from Arizona airports (PHX, TUS, and others) in 2024</li>
+<li><a href="https://moderndive.github.io/nycflights23/"><strong>nycflights23</strong></a> — all out-bound flights from New York City airports in 2023</li>
+<li><a href="https://moderndive.github.io/pnwflights22/"><strong>pnwflights22</strong></a> — all out-bound flights from Seattle (SEA) and Portland (PDX) in 2022</li>
+<li><a href="https://github.com/moderndive/volcanoes"><strong>volcanoes</strong></a> — Smithsonian Global Volcanism Program data on ~1,200 Holocene volcanoes, their eruptions, and individual events</li>
+<li><a href="https://github.com/moderndive/olympicAthletes"><strong>olympicAthletes</strong></a> — every athlete-event participation in the modern Olympics, Athens 1896 through Milano-Cortina 2026 (~315,000 rows)</li>
+<li><a href="https://github.com/moderndive/exoplanets"><strong>exoplanets</strong></a> — tidy data on confirmed exoplanets and their host stars from NASA’s Exoplanet Archive</li>
+<li><a href="https://github.com/ismayc/steves"><strong>steves</strong></a> — every episode of <em>Rick Steves’ Europe</em> (2000–2025), with ratings, geography, air dates, and summaries</li>
+<li><a href="https://github.com/ismayc/izzyuntappd"><strong>izzyuntappd</strong></a> — my Untappd beer check-ins (Feb 2015–June 2016), plus an R Markdown template for analyzing them</li>
+</ul>
+<hr>
 </section>
-<section id="create-skeleton-directory" class="level2">
-<h2 class="anchored" data-anchor-id="create-skeleton-directory">Create skeleton directory</h2>
-<p>We now need to create a special path to specify a template file. Remember that case matters in R too! We are going to use the <code>dir.create</code> function to create nested directories:</p>
-<pre><code>dir.create("basictemplate/inst/rmarkdown/templates/report/skeleton",
-    recursive = TRUE)</code></pre>
-<p><img src="../ecots2k16/dircreate.png" class="img-fluid"></p>
-<p>We could call it something other than <code>report</code> here if we liked.</p>
-<p>If we click on the <code>inst</code> folder and continue clicking on the subsequent folders until the end, we have an empty folder called <code>skeleton</code>. This is where we will put an Rmd file that we will call <code>skeleton.Rmd.</code></p>
+<section id="projects-at-reed-college" class="level2">
+<h2 class="anchored" data-anchor-id="projects-at-reed-college">Projects at Reed College</h2>
+<section id="teaching-tools" class="level3">
+<h3 class="anchored" data-anchor-id="teaching-tools">Teaching Tools</h3>
+<ul>
+<li><a href="https://github.com/ismayc/chemistr"><strong>Chem 101/102 R templates and tools</strong></a><br>
+→ <a href="https://ismayc.github.io/chemistr-book">Help Manual</a></li>
+</ul>
 </section>
-<section id="create-skeleton.rmd" class="level2">
-<h2 class="anchored" data-anchor-id="create-skeleton.rmd">Create skeleton.Rmd</h2>
-<p>Let’s create a basic R Markdown file and then tweak it a bit before saving it here as <code>skeleton.Rmd</code>. We go <strong>File -&gt; New File -&gt; R Markdown</strong>. We could customize the boxes here but let’s just hit OK and we will customize later.</p>
-<p><img src="../ecots2k16/rmddialog.png" class="img-fluid"> <img src="../ecots2k16/newrmd.png" class="img-fluid"></p>
-<p>The default R Markdown document is now here. We see that we are creating an <code>html_document</code>. Let’s delete some of these lines of code to better fit our needs. Let’s rename the title to be “Basic Report” and delete all lines of code below line 5. At this point we are at a true bare bones document.</p>
-<p><img src="../ecots2k16/basicraw.png" class="img-fluid"></p>
-<p>Let’s add a few chunk holders for R code and provide some headings. Let’s add Overview, Load data, Data visualization, Analysis, and Discussion as headings and some blank R chunks as well. We could just stop there and that would be the template file. Since we frequently want to invoke using R in chunks in the R Markdown file, let’s add a little bit to an R chunk and include some packages that we’d never work without.</p>
-<p>We include a chunk called <code>load_data</code>, and we will include code to load some of Hadley’s packages. We add a few more chunks and name them.</p>
-<p><img src="../ecots2k16/fullrmd.png" class="img-fluid"></p>
-<p>We then save the file. Remember that this file needs to be saved as <code>skeleton.Rmd</code> in the <code>skeleton</code> folder.</p>
-<p><img src="../ecots2k16/save.png" class="img-fluid"></p>
+<section id="educational-outreach" class="level3">
+<h3 class="anchored" data-anchor-id="educational-outreach">Educational Outreach</h3>
+<ul>
+<li><a href="./ecots2k16/template_pkg.html">Creating a simple R Markdown template package</a></li>
+<li><a href="http://blogs.reed.edu/ed-tech/author/cismay/">EdTech blog posts at Reed</a></li>
+<li><a href="https://github.com/ismayc/pnwflights14">Flight data from PDX and SEA (2014)</a></li>
+<li><a href="https://github.com/Reedies">Reed College GitHub organization</a></li>
+</ul>
 </section>
-<section id="create-template.yaml" class="level2">
-<h2 class="anchored" data-anchor-id="create-template.yaml">Create <code>template.yaml</code></h2>
-<p>An often overlooked step is the creation of the <code>template.yaml</code> file. We do so here by doing <strong>File -&gt; New File -&gt; Text file</strong>. We then type name followed by a colon and the name of our template. It’s important to enter a new line after the name you have given.</p>
-<p><img src="../ecots2k16/yaml1.png" class="img-fluid"></p>
-<p>Now save the file as <code>template.yaml</code> in the folder containing the <code>skeleton</code> folder. Here it is the <code>report</code> folder.</p>
-<p><img src="../ecots2k16/tempsave.png" class="img-fluid"></p>
-</section>
-<section id="install-package" class="level2">
-<h2 class="anchored" data-anchor-id="install-package">Install package</h2>
-<p>The final step is to install our package:</p>
-<pre><code>devtools::install("basictemplate")</code></pre>
-<p><img src="../ecots2k16/install.png" class="img-fluid"></p>
-</section>
-<section id="test-template-file" class="level2">
-<h2 class="anchored" data-anchor-id="test-template-file">Test template file</h2>
-<p>We can now test that the template is working by entering the New R Markdown dialog as before, but selecting From Template from the menu. We now see Basic Report.</p>
-<p><img src="../ecots2k16/basicreport.png" class="img-fluid"></p>
-<p>Click on that and then hit OK. What opens up is that same template file we created before. One way to think about this is as follows: if you were distributing a template like this, each student would have the same starting point. This makes grading <strong><em>IMMENSELY</em></strong> more efficient since students are likely going to follow along with the template you have provided.</p>
-<p>Note that it is also good practice to modify the <code>DESCRIPTION</code> file to be more informative for the package, but we will skip that for brevity here. It’s also good practice to store these packages on GitHub and use version control to keep track of modifications. Excellent tutorials are available <a href="http://kbroman.org/github_tutorial/">here</a> from Karl Broman and <a href="http://r-pkgs.had.co.nz/git.html">here</a> from Hadley Wickham.</p>
+<section id="faculty-student-support" class="level3">
+<h3 class="anchored" data-anchor-id="faculty-student-support">Faculty &amp; Student Support</h3>
+<ul>
+<li>Supported departments: Chemistry, Biology, Linguistics, Sociology, Economics, Political Science, Mathematics</li>
+<li>Assisted senior thesis students with data analysis and visualization</li>
+<li>Provided R/R Markdown training for Chem 101/102 students</li>
+</ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
