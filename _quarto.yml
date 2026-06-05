@@ -19,6 +19,7 @@ project:
     - "nba-scenario-explorer.html"
     - "2026-nba-rooting-guide.html"
     - "us-statehood.html"
+    - "projects.html"   # redirect stub: bare /projects -> /portfolio (private launcher stays at /projects/)
     - "projects/**"
     - "nba-over-under-2025-2026/final-day-scenarios.html"
     - "teaching/sample_problems/*.html"
