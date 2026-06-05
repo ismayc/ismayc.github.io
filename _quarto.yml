@@ -30,7 +30,7 @@ project:
     - consulting.qmd
     - workshops.qmd
     - talks.qmd
-    - projects.qmd
+    - portfolio.qmd
     - ecots2k16/template_pkg.qmd
 
 website:
@@ -45,8 +45,8 @@ website:
         href: workshops.qmd
       - text: "Talks"
         href: talks.qmd
-      - text: "Projects"
-        href: projects.qmd
+      - text: "Portfolio"
+        href: portfolio.qmd
     right:
       - icon: github
         href: https://github.com/ismayc

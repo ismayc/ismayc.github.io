@@ -33,7 +33,7 @@ I create and teach hands-on learning experiences in R, Python, SQL, and AI. Thes
 ### [Speaker](/talks.qmd)  
 I speak on the future of data science education, practical uses of AI in analysis and learning, and what it takes to make technical ideas stick. My talks are energetic and example-driven, focused on bridging the gap between what’s possible and what’s useful for educators, analysts, and decision-makers.
 
-### [Author](/projects.qmd)  
+### [Author](/portfolio.qmd)
 I'm co-author of [ModernDive](https://moderndive.com/v2) and other open educational tools that help make statistics and data science more accessible, modern, and fun. My writing blends clarity, code, and context. I always keep the learner in mind.
 
 </div>
