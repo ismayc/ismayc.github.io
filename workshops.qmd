@@ -91,6 +91,10 @@ Each of the following were co-led with [Arturo Valdivia](https://stat.indiana.ed
 
 ## Virtual Asynchronous
 
+### Udacity
+
+- [Data Warehouses on AWS](https://www.udacity.com/course/data-engineering-with-aws--nd027) (Course 2 of the Data Engineering with AWS Nanodegree)
+
 ### DataCamp
 
 - [Programming with `dplyr`](https://www.datacamp.com/courses/programming-with-dplyr)
