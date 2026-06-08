@@ -34,10 +34,17 @@ jobs:
         with:
           to: html
 
-      # Upload the built site from docs/ as an artifact
+      # Upload the built site from docs/ as an artifact for GitHub Pages
       - name: Upload artifact for GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
+          path: docs
+
+      # Plain copy of the rendered site for the Netlify deploy job
+      - name: Upload rendered site for Netlify
+        uses: actions/upload-artifact@v4
+        with:
+          name: site
           path: docs
 
   deploy_pages:
@@ -50,25 +57,27 @@ jobs:
       - id: deployment
         uses: actions/deploy-pages@v4
 
-  # deploy_netlify:
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   env:
-  #     NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-  #     NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-  #   steps:
-  #     - name: Download built site from Pages artifact
-  #       uses: actions/download-artifact@v4
-  #       with:
-  #         name: github-pages
-  #         path: site
-  # 
-  #     - name: Install Netlify CLI and deploy
-  #       run: |
-  #         npm install -g netlify-cli
-  #         netlify deploy \
-  #           --auth "$NETLIFY_AUTH_TOKEN" \
-  #           --site "$NETLIFY_SITE_ID" \
-  #           --dir site \
-  #           --prod
+  deploy_netlify:
+    needs: build
+    # Only publish to production on pushes to the default branch, not on PRs
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    env:
+      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+    steps:
+      - name: Download rendered site
+        uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: site
 
+      - name: Install Netlify CLI and deploy
+        run: |
+          npm install -g netlify-cli
+          netlify deploy \
+            --auth "$NETLIFY_AUTH_TOKEN" \
+            --site "$NETLIFY_SITE_ID" \
+            --dir site \
+            --prod \
+            --message "Deploy from GitHub Actions: ${{ github.sha }}"
