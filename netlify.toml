@@ -1,6 +1,11 @@
 [build]
   command = "echo 'skipping build'"
   publish = "docs"
+  # GitHub Actions (.github/workflows/quarto-netlify.yaml) renders the site and
+  # deploys it to production via the Netlify CLI. So we skip Netlify's own
+  # git-triggered builds here (exit 0 = ignore/cancel the build). The CLI deploy
+  # uses `--dir` and bypasses this ignore command, so production still updates.
+  ignore = "exit 0"
 
 [build.environment]
   PYTHON_VERSION = "3.12"
