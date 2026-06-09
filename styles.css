@@ -109,7 +109,116 @@
   min-width: 360px;
 }
 img.rounded {
-  border-radius: 80%;
+  border-radius: 50%;
   max-width: 100%;
   height: auto;
+}
+
+/* ── Home page hero ── */
+.home-hero {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+.home-intro { flex: 1 1 50%; min-width: 340px; }
+.home-roles {
+  flex: 1 1 42%;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+/* Quarto wraps each card anchor in a <p>; let the flex gap own the spacing */
+.home-roles > p { margin: 0; }
+
+/* Clean circular headshot, constrained so it never dominates on mobile */
+.home-photo {
+  width: 240px;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  margin-bottom: 1rem;
+}
+
+.home-name {
+  font-size: 2.4rem;
+  line-height: 1.15;
+  margin: 0.25rem 0 0.35rem;
+}
+
+.home-tagline {
+  color: #0C6B57;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.82rem;
+  margin-bottom: 1.25rem;
+}
+
+/* Primary call-to-action button */
+.btn-cta {
+  display: inline-block;
+  background: #0C6B57;
+  color: #fff !important;
+  padding: 0.6rem 1.4rem;
+  border-radius: 8px;
+  font-weight: 500;
+  text-decoration: none !important;
+  margin-top: 0.75rem;
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+.btn-cta:hover { background: #0a5546; transform: translateY(-1px); }
+
+/* Role navigation cards */
+.role-card {
+  display: block;
+  background: #f9f9f9;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  border-left: 3px solid #23A882;
+  border-radius: 10px;
+  padding: 1.1rem 1.25rem;
+  text-decoration: none !important;
+  color: inherit;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+.role-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  background: #f0f8f5;
+}
+.role-title {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #0C6B57;
+  margin-bottom: 0.3rem;
+}
+.role-desc {
+  display: block;
+  color: #333;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+.role-more {
+  display: inline-block;
+  margin-top: 0.6rem;
+  color: #0C6B57;
+  font-weight: 500;
+  font-size: 0.88rem;
+}
+.role-card:hover .role-more { text-decoration: underline; }
+
+@media (max-width: 600px) {
+  .home-photo {
+    width: 180px;
+    height: 180px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .home-name { font-size: 1.95rem; text-align: center; }
+  .home-tagline { text-align: center; }
 }
