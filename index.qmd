@@ -1,4 +1,6 @@
 ---
+description: "Dr. Chester Ismay helps individuals and teams use AI and data science with confidence through consulting, education, speaking, and open-source tools."
+image: images/social-card.png
 format:
   html:
     page-layout: full

@@ -1,5 +1,7 @@
 ---
 title: "Talks"
+description: "Energetic, example-driven talks on the future of data science education and the practical use of AI in analysis and learning."
+image: images/social-card.png
 format:
   html:
     toc: false

@@ -1,5 +1,7 @@
 ---
 title: "Workshops"
+description: "Hands-on workshops and courses in R, Python, SQL, and AI — from short sessions to full-semester programs, for learners at every level."
+image: images/social-card.png
 format:
   html:
     toc: true
