@@ -118,6 +118,7 @@ img.rounded {
 .home-hero {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 2.5rem;
   justify-content: space-between;
   margin-top: 1rem;
