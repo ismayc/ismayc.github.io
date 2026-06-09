@@ -36,6 +36,7 @@ project:
 website:
   title: "Chester Ismay"
   site-url: https://ismayc.github.io
+  google-analytics: "G-T8CFEJLX14"
   description: "Dr. Chester Ismay helps individuals and teams use AI and data science with confidence through consulting, education, speaking, and open-source tools."
   favicon: images/favicon.png
   image: images/social-card.png
