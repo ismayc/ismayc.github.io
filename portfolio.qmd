@@ -66,6 +66,12 @@ A similar [German geography quiz](https://chesterismay.shinyapps.io/german-state
 Explore current NBA rosters by conference, division, team, height, age, and jersey number in this [app](/nba-player-finder/){target="_blank"}. It runs entirely in your browser via shinylive, with rosters refreshed weekly from the NBA API.
 
 
+
+### ⚽ World Cup 2026 Schedule Viewer
+
+Browse the full match schedule for the 2026 FIFA World Cup in this [viewer](https://ismayc.github.io/world-cup-viewer/){target="_blank"}, with dates, times, teams, and venues for every fixture across the tournament.
+
+
 ---
 
 ## R Packages

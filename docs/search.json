@@ -172,7 +172,7 @@
     "href": "portfolio.html#shiny-apps",
     "title": "Portfolio",
     "section": "Shiny Apps",
-    "text": "Shiny Apps\n\n🎲 Probability Distribution Viewer\nThis Shiny app lets users explore and calculate probabilities for normal, binomial, Poisson, and other distributions.\n\n\n🦅️ US State/District Shape Quiz\nThis interactive quiz tests knowledge of US state shapes, capitals, and major cities. Built using leaflet.\n\n\n🇩🇪 German Federal State Shape Quiz\nA similar German geography quiz that tests users on the shapes and cities of Germany’s federal states.\n\n\n🏀 NBA Player Finder\nExplore current NBA rosters by conference, division, team, height, age, and jersey number in this app. It runs entirely in your browser via shinylive, with rosters refreshed weekly from the NBA API."
+    "text": "Shiny Apps\n\n🎲 Probability Distribution Viewer\nThis Shiny app lets users explore and calculate probabilities for normal, binomial, Poisson, and other distributions.\n\n\n🦅️ US State/District Shape Quiz\nThis interactive quiz tests knowledge of US state shapes, capitals, and major cities. Built using leaflet.\n\n\n🇩🇪 German Federal State Shape Quiz\nA similar German geography quiz that tests users on the shapes and cities of Germany’s federal states.\n\n\n🏀 NBA Player Finder\nExplore current NBA rosters by conference, division, team, height, age, and jersey number in this app. It runs entirely in your browser via shinylive, with rosters refreshed weekly from the NBA API.\n\n\n⚽ World Cup 2026 Schedule Viewer\nBrowse the full match schedule for the 2026 FIFA World Cup in this viewer, with dates, times, teams, and venues for every fixture across the tournament."
   },
   {
     "objectID": "portfolio.html#r-packages",
