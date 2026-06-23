@@ -90,7 +90,7 @@ I've authored or contributed to several R packages:
 - [**volcanoes**](https://github.com/moderndive/volcanoes) — Smithsonian Global Volcanism Program data on ~1,200 Holocene volcanoes, their eruptions, and individual events
 - [**olympicAthletes**](https://github.com/moderndive/olympicAthletes) — every athlete-event participation in the modern Olympics, Athens 1896 through Milano-Cortina 2026 (~315,000 rows)
 - [**exoplanets**](https://github.com/moderndive/exoplanets) — tidy data on confirmed exoplanets and their host stars from NASA's Exoplanet Archive
-- [**steves**](https://github.com/ismayc/steves) — every episode of *Rick Steves' Europe* (2000–2025), with ratings, geography, air dates, and summaries
+- [**steves**](https://github.com/moderndive/steves) — every episode of *Rick Steves' Europe* (2000–2025), with ratings, geography, air dates, and summaries
 - [**izzyuntappd**](https://github.com/ismayc/izzyuntappd) — my Untappd beer check-ins (Feb 2015–June 2016), plus an R Markdown template for analyzing them
 
 ---
