@@ -189,11 +189,14 @@ ui <- page_sidebar(
     checkboxInput("known_age", "Exact age", value = FALSE),
     conditionalPanel("input.known_age == true",
       numericInput("input_age", "Age", value = 25,
-                   min = min(players_data$age), max = max(players_data$age))),
+                   min = min(players_data$age, na.rm = TRUE),
+                   max = max(players_data$age, na.rm = TRUE))),
     conditionalPanel("input.known_age != true",
       sliderInput("slider_age", "Age range",
-                  min = min(players_data$age), max = max(players_data$age),
-                  value = c(min(players_data$age), max(players_data$age))))
+                  min = min(players_data$age, na.rm = TRUE),
+                  max = max(players_data$age, na.rm = TRUE),
+                  value = c(min(players_data$age, na.rm = TRUE),
+                            max(players_data$age, na.rm = TRUE))))
   ),
 
   card(
