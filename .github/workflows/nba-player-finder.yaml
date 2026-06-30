@@ -57,6 +57,25 @@ jobs:
       - name: Export shinylive app
         run: Rscript build_finder_site.R
 
+      # Gate the deploy on the test suite: the freshly pulled roster must satisfy
+      # the data contract and the app must build against it (test-app-builds.R
+      # sources app.R, reproducing the UI-construction path that blanked the page
+      # when a player had an NA age). A failure here stops the job before the push
+      # step, so a bad roster never deploys.
+      - name: Test build before deploy
+        run: Rscript run_tests.R
+
+      - name: Verify export produced the expected files
+        working-directory: ${{ github.workspace }}
+        run: |
+          for f in nba-player-finder/index.html nba-player-finder/app.json \
+                   nba-player-finder/shinylive/shinylive.js; do
+            if [ ! -s "$f" ]; then
+              echo "ERROR: export is missing or empty: $f"; exit 1
+            fi
+          done
+          python3 -c "import json,sys; json.load(open('nba-player-finder/app.json')); print('app.json is valid JSON')"
+
       - name: Push changes
         working-directory: ${{ github.workspace }}
         run: |

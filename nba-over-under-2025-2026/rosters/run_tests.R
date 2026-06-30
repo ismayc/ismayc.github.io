@@ -14,7 +14,7 @@ ensure_packages <- function(pkgs) {
   install.packages(missing, repos = repos)
 }
 
-ensure_packages(c("testthat", "dplyr", "shiny", "DT"))
+ensure_packages(c("testthat", "dplyr", "shiny", "bslib", "DT"))
 
 # Resolve the directory of this script so tests run from any working directory.
 get_script_dir <- function() {
