@@ -1,6 +1,6 @@
 ---
 title: "Portfolio"
-description: "Books, apps, R packages, and projects from Chester Ismay — including ModernDive and tools for teaching statistics and data science."
+description: "Books, apps, packages, and projects from Chester Ismay — including ModernDive and tools for teaching statistics and data science."
 image: images/social-card.png
 format:
   html:
@@ -65,7 +65,7 @@ A similar [German geography quiz](https://chesterismay.shinyapps.io/german-state
 
 ### 🏀 NBA Player Finder
 
-Explore current NBA rosters by conference, division, team, height, age, and jersey number in this [app](/nba-player-finder/){target="_blank"}. It runs entirely in your browser via shinylive, with rosters refreshed weekly from the NBA API.
+Explore current NBA rosters by conference, division, team, height, age, and jersey number in this [app](https://ismayc.github.io/nba-player-finder/){target="_blank"}. It runs entirely in your browser via shinylive, with rosters refreshed weekly from the NBA API.
 
 
 
@@ -76,7 +76,7 @@ Browse the full match schedule for the 2026 FIFA World Cup in this [viewer](http
 
 ---
 
-## R Packages
+## Packages
 
 I've authored or contributed to several R packages:
 
@@ -92,6 +92,10 @@ I've authored or contributed to several R packages:
 - [**exoplanets**](https://github.com/moderndive/exoplanets) — tidy data on confirmed exoplanets and their host stars from NASA's Exoplanet Archive
 - [**steves**](https://github.com/moderndive/steves) — every episode of *Rick Steves' Europe* (2000–2025), with ratings, geography, air dates, and summaries
 - [**izzyuntappd**](https://github.com/ismayc/izzyuntappd) — my Untappd beer check-ins (Feb 2015–June 2016), plus an R Markdown template for analyzing them
+
+I've also authored the following Python package:
+
+- [**moderndive**](https://moderndive.readthedocs.io) — Python companion to the ModernDive book: a tidy simulation-inference grammar, regression helpers, datasets, and dual-engine plotly/plotnine plots
 
 ---
 
