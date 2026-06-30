@@ -1,6 +1,6 @@
 ---
 title: "Portfolio"
-description: "Books, Shiny apps, R packages, and projects from Chester Ismay — including ModernDive and tools for teaching statistics and data science."
+description: "Books, apps, R packages, and projects from Chester Ismay — including ModernDive and tools for teaching statistics and data science."
 image: images/social-card.png
 format:
   html:
@@ -42,7 +42,7 @@ format:
 
 ---
 
-##  Shiny Apps
+##  Apps
 
 
 ### 🎲 Probability Distribution Viewer

@@ -180,5 +180,12 @@
     "title": "Portfolio",
     "section": "Projects at Reed College",
     "text": "Projects at Reed College\n\nTeaching Tools\n\nChem 101/102 R templates and tools\n→ Help Manual\n\n\n\nEducational Outreach\n\nCreating a simple R Markdown template package\nEdTech blog posts at Reed\nFlight data from PDX and SEA (2014)\nReed College GitHub organization\n\n\n\nFaculty & Student Support\n\nSupported departments: Chemistry, Biology, Linguistics, Sociology, Economics, Political Science, Mathematics\nAssisted senior thesis students with data analysis and visualization\nProvided R/R Markdown training for Chem 101/102 students"
+  },
+  {
+    "objectID": "portfolio.html#apps",
+    "href": "portfolio.html#apps",
+    "title": "Portfolio",
+    "section": "Apps",
+    "text": "Apps\n\n🎲 Probability Distribution Viewer\nThis Shiny app lets users explore and calculate probabilities for normal, binomial, Poisson, and other distributions.\n\n\n🦅️ US State/District Shape Quiz\nThis interactive quiz tests knowledge of US state shapes, capitals, and major cities. Built using leaflet.\n\n\n🇩🇪 German Federal State Shape Quiz\nA similar German geography quiz that tests users on the shapes and cities of Germany’s federal states.\n\n\n🏀 NBA Player Finder\nExplore current NBA rosters by conference, division, team, height, age, and jersey number in this app. It runs entirely in your browser via shinylive, with rosters refreshed weekly from the NBA API.\n\n\n⚽ World Cup 2026 Schedule Viewer\nBrowse the full match schedule for the 2026 FIFA World Cup in this viewer, with dates, times, teams, and venues for every fixture across the tournament."
   }
 ]
