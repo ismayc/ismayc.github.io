@@ -31,6 +31,7 @@ project:
     - workshops.qmd
     - talks.qmd
     - portfolio.qmd
+    - 404.qmd
     - ecots2k16/template_pkg.qmd
 
 website:
@@ -79,4 +80,5 @@ format:
   html:
     theme: sandstone
     css: styles.css
+    include-in-header: includes/person-schema.html
     toc: true

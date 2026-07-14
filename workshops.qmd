@@ -48,11 +48,11 @@ Each of the following were co-led with [Arturo Valdivia](https://stat.indiana.ed
   </div>
 
   <div class="workshop-item">
-  <a href="https://whova.com/embedded/session/hRqar%40ceM1oCRxx8SaTASu%40-ruGH1z6nVU55djYhzR8%3D/4627684/?widget=primary" target="_blank">
+  <a href="https://moderndive-workshops.netlify.app/llm-wnar/slides.pdf" target="_blank">
     <img src="images/llm-analysis.png" alt="LLM-Driven Analysis and Reporting with R" />
   </a>
-  
-  <a href="https://whova.com/embedded/session/hRqar%40ceM1oCRxx8SaTASu%40-ruGH1z6nVU55djYhzR8%3D/4627684/?widget=primary">WNAR 2025</a>
+
+  <a href="https://moderndive-workshops.netlify.app/llm-wnar/slides.pdf">WNAR 2025</a>
 
   </div>
 
@@ -61,7 +61,7 @@ Each of the following were co-led with [Arturo Valdivia](https://stat.indiana.ed
     <img src="images/wnar-moderndive.png" alt="Statistical Inference via Data Science with R" />
   </a>
   
-  <a href="https://whova.com/embedded/session/hRqar%40ceM1oCRxx8SaTASu%40-ruGH1z6nVU55djYhzR8%3D/4627679/?widget=primary">WNAR 2025</a>
+  <a href="https://moderndive-workshops.netlify.app/moderndive-wnar/slides.pdf">WNAR 2025</a>
 
   </div>
 

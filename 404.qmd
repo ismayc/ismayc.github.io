@@ -1,0 +1,18 @@
+---
+title: "Page Not Found"
+description: "Sorry — that page doesn't exist or has moved."
+image: images/social-card.png
+format:
+  html:
+    toc: false
+---
+
+Here's where things live these days:
+
+- [Home](/) — who I am and what I do
+- [Consulting](/consulting.html) — data science & AI consulting
+- [Workshops](/workshops.html) — hands-on courses in R, Python, SQL, and AI
+- [Talks](/talks.html) — slides and recordings from past presentations
+- [Portfolio](/portfolio.html) — books, apps, and R/Python packages, including ModernDive
+
+If you followed a link here that you think should work, [let me know](mailto:chester.ismay@gmail.com).

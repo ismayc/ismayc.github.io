@@ -20,7 +20,7 @@ format:
   <div class="book-text">
   **[Statistical Inference via Data Science](https://www.moderndive.com/v2)**  
   
-  Co-authored with [Albert Y. Kim](https://rudeboybert.rbind.io) and [Arturo Valdivia](https://stat.indiana.edu/about/core-faculty/core-faculty/valdivia-arturo.html), this free online book teaches statistics via computation and data science fundamentals using R and the tidyverse.  
+  Co-authored with [Albert Y. Kim](https://rudeboybert.github.io/) and [Arturo Valdivia](https://stat.indiana.edu/about/core-faculty/core-faculty/valdivia-arturo.html), this free online book teaches statistics via computation and data science fundamentals using R and the tidyverse.  
   
   [→ Print edition](https://www.routledge.com/Statistical-Inference-via-Data-Science-A-ModernDive-into-R-and-the-Tidyverse/Ismay-Kim-Valdivia/p/book/9781032708379)
   </div>
@@ -48,7 +48,7 @@ format:
 
 ### 🎲 Probability Distribution Viewer
 
-This [Shiny app](http://ismay.shinyapps.io/ProbApp){target="_blank"} lets users explore and calculate probabilities for normal, binomial, Poisson, and other distributions.
+This [Shiny app](https://ismay.shinyapps.io/ProbApp){target="_blank"} lets users explore and calculate probabilities for normal, binomial, Poisson, and other distributions.
 
 
 
@@ -108,7 +108,7 @@ I've also authored the following Python package:
 
 ### Educational Outreach
 - [Creating a simple R Markdown template package](/ecots2k16/template_pkg.qmd)
-- [EdTech blog posts at Reed](http://blogs.reed.edu/ed-tech/author/cismay/)
+- [EdTech blog posts at Reed](https://blogs.reed.edu/ed-tech/author/cismay/)
 - [Flight data from PDX and SEA (2014)](https://github.com/ismayc/pnwflights14)
 - [Reed College GitHub organization](https://github.com/Reedies)
 

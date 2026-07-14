@@ -8,7 +8,7 @@ format:
     page-layout: full
 ---
 
-<img src="images/data-herder.jpg" class="about-photo" alt="AI generated image showing my interests" />
+<img src="images/data-herder.jpg" class="about-photo" alt="Cartoon of Chester smiling at a laptop in a basketball t-shirt, with desert artwork and the Statistical Inference via Data Science book behind him and a desk plate reading 'Chet Ismay, Data Herder'" />
 
 I grew up in Vale, South Dakota, a small town of 114 people just north of Rapid City. I earned my B.S. in Applied and Computational Mathematics from the South Dakota School of Mines & Technology. Drawn to the outdoors, I moved to Flagstaff and completed an M.S. in Statistics at Northern Arizona University. After working as an actuarial student in Scottsdale, I returned to graduate school and completed my Ph.D. in Statistics at Arizona State University. My [dissertation](https://repository.asu.edu/attachments/110682/content/Ismay_asu_0010E_13098.pdf) (under the guidance of [Dr. Randall Eubank](https://search.asu.edu/profile/842642)) focused on testing pseudorandom number generators in a parallel computing environment using R and C++.
 

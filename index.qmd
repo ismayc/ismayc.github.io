@@ -12,7 +12,7 @@ format:
 
 ::: {.home-intro}
 
-![](images/pro_photo_2026-06.jpeg){.home-photo}
+![](images/pro_photo_2026-06.jpeg){.home-photo fig-alt="Portrait of Dr. Chester Ismay"}
 
 <h1 class="home-name">Dr. Chester Ismay</h1>
 
