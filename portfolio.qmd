@@ -1,5 +1,6 @@
 ---
 title: "Portfolio"
+pagetitle: "Portfolio – ModernDive, R Packages & Data Science Apps"
 description: "Books, apps, packages, and projects from Chester Ismay — including ModernDive and tools for teaching statistics and data science."
 image: images/social-card.png
 format:

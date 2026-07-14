@@ -1,5 +1,5 @@
 ---
-title: "Consulting"
+title: "Data Science & AI Consulting"
 description: "Data workflow consulting for universities, nonprofits, agencies, and companies — AI, automation, and reproducible practices that cut through complexity."
 image: images/social-card.png
 format:

@@ -58,49 +58,49 @@
   {
     "objectID": "talks.html",
     "href": "talks.html",
-    "title": "Talks",
+    "title": "Talks & Speaking",
     "section": "",
     "text": "Here are a few examples of presentations I’ve given. I’m always eager to speak with others about the ways AI, statistics, and effective data communication intersect and how they can better support our day-to-day lives and our work processes. If you have an event or conference in mind, please get in touch.\n\n\nData Science in the Age of AI: AI is the Engine, You are the Engineer\nHow generative AI supports faster, clearer, and more responsible data science work while strengthening foundational skills and human insight.\n→ HTML slides\n→ Summary\n\n\nVignette-Driven Development: The Power of Unit Testing\nHow starting with a narrative, shaping APIs around real workflows, and using tests as guardrails leads to clearer, more intentional tools strengthened by AI-supported variation.\n→ HTML slides\n→ Announcement\n\n\nTidyverse Tools in R for Data Science and Statistical Inference (with Dr. Jessica Minnier)\nA tidyverse-driven introduction to crafting clean, reproducible data workflows and modern inference in R.\n→ HTML slides\n\n\nBuilding Data Fluency Through Analogies\nUsing real-world and movie examples to make data science approachable.\n→ PDF slides\n\n\nStatistical Inference: A Tidy Approach\nA modern, tidyverse-based take on inference in R.\n→ HTML slides\n→ Video recording\n\n\nTeaching Introductory Statistics Using the Tidyverse via bookdown\nA bookdown-enhanced framework for teaching introductory statistics and data science in R.\n→ HTML slides\n→ Video recording\n\n\nCreating the fivethirtyeight R package\nBehind-the-scenes of developing an R data package for reproducible journalism.\n→ HTML slides\n→ Video recording\n\n\nSomething old, something new, something borrowed, something blue: Ways to teach data science (and learn it too!)\nA gentle approach to launching students into data science with new tools, familiar stories, and tidy principles.\n→ HTML slides\n→ Video recording"
   },
   {
     "objectID": "consulting.html",
     "href": "consulting.html",
-    "title": "Consulting",
+    "title": "Data Science & AI Consulting",
     "section": "",
     "text": "I help individuals and teams make sense of messy data, build smart tools, and tell compelling stories with evidence.\nIf you’re navigating the ever-changing landscape of AI, data science, or statistical thinking, I can help you move from confusion to clarity and from dashboards to decisions.\nInterested in collaborating or just want to chat? Let’s find a time to talk via email or on LinkedIn. I’d love to hear what you’re working on and explore ways that I can help."
   },
   {
     "objectID": "consulting.html#lets-work-together",
     "href": "consulting.html#lets-work-together",
-    "title": "Consulting",
+    "title": "Data Science & AI Consulting",
     "section": "",
     "text": "I help individuals and teams make sense of messy data, build smart tools, and tell compelling stories with evidence.\nIf you’re navigating the ever-changing landscape of AI, data science, or statistical thinking, I can help you move from confusion to clarity and from dashboards to decisions.\nInterested in collaborating or just want to chat? Let’s find a time to talk via email or on LinkedIn. I’d love to hear what you’re working on and explore ways that I can help."
   },
   {
     "objectID": "consulting.html#how-i-work",
     "href": "consulting.html#how-i-work",
-    "title": "Consulting",
+    "title": "Data Science & AI Consulting",
     "section": "How I Work",
     "text": "How I Work\n\nClear and effective communication (no jargon overload)\nCollaborative by default\nTimely, organized, and prepared\nAlways focused on your actual questions, not just your data\nRemote-friendly, flexible, and fun to work with\nAble to travel if meeting up in person is preferred"
   },
   {
     "objectID": "consulting.html#areas-of-expertise",
     "href": "consulting.html#areas-of-expertise",
-    "title": "Consulting",
+    "title": "Data Science & AI Consulting",
     "section": "Areas of Expertise",
     "text": "Areas of Expertise\n\n\nTechnical Communication\nTranslate complex statistical and AI concepts into clear, engaging insights for all audiences.\n→ Slide decks, interactive tutorials, executive summaries, and curriculum design\n\n\nData Science Strategy\nBuild data and AI capabilities aligned with business goals through appropriate problem framing.\n→ From proof-of-concept to production-ready workflows\n\n\nLLM & AI Integration\nLeverage Large Language Models (LLMs) to augment and improve your analyses, reporting, or user-facing tools.\n→ Prompt engineering, RAG pipelines, trust and transparency\n\n\nProject Planning & Execution\nLead data projects from scoping to delivery with a clear, outcome-driven approach.\n→ Stakeholder alignment, milestones, deliverables, and retrospectives\n\n\nSupervised Machine Learning\nDevelop, tune, and evaluate predictive models that solve real-world problems.\n→ Classification, regression, cross-validation, and model deployment\n\n\nStatistical Consulting\nDesign sound experiments, choose the right models, and interpret results responsibly.\n→ From t-tests to simulation-based inference to multi-level models to causal inference\n\n\nReproducible Workflows\nStreamline your team’s work with R, Python, and literate programming.\n→ Reports, dashboards, automated pipelines, version control\n\n\nData Wrangling\nTame messy data using modern tools in Python like pandas and polars or in R with the tidyverse and tidymodels.\n→ Cleaning, reshaping, validating, and preparing data at scale\n\n\nData Visualization\nCraft dashboards and visual narratives that speak clearly and drive action.\n→ Storytelling with ggplot2, plotly, Shiny, and more"
   },
   {
     "objectID": "consulting.html#favorite-tools",
     "href": "consulting.html#favorite-tools",
-    "title": "Consulting",
+    "title": "Data Science & AI Consulting",
     "section": "Favorite Tools",
     "text": "Favorite Tools\nR • Python • Quarto/R Markdown • Shiny • Jupyter • HuggingFace • SQL • Git"
   },
   {
     "objectID": "consulting.html#ideal-projects",
     "href": "consulting.html#ideal-projects",
-    "title": "Consulting",
+    "title": "Data Science & AI Consulting",
     "section": "Ideal Projects",
     "text": "Ideal Projects\nI love working with…\n\nNonprofits, educators, and mission-driven teams looking to build trust in their data\nEarly-stage teams needing a fractional data lead\nEducators and curriculum teams creating AI/data learning tools\nOrganizations seeking guidance on building with LLMs or validating models\nResearchers or analysts who need to publish reproducible, interactive reports"
   },
@@ -121,28 +121,28 @@
   {
     "objectID": "workshops.html",
     "href": "workshops.html",
-    "title": "Workshops",
+    "title": "AI & Data Science Workshops",
     "section": "",
     "text": "Bucknell University 2025\n\n\n \nEach of the following were co-led with Arturo Valdivia.\n\n\n  \nUSCOTS 2025\n\n\n  \nUSCOTS 2025\n\n\n  \nWNAR 2025\n\n\n  \nWNAR 2025"
   },
   {
     "objectID": "workshops.html#in-person",
     "href": "workshops.html#in-person",
-    "title": "Workshops",
+    "title": "AI & Data Science Workshops",
     "section": "",
     "text": "Bucknell University 2025\n\n\n \nEach of the following were co-led with Arturo Valdivia.\n\n\n  \nUSCOTS 2025\n\n\n  \nUSCOTS 2025\n\n\n  \nWNAR 2025\n\n\n  \nWNAR 2025"
   },
   {
     "objectID": "workshops.html#virtual-synchronous",
     "href": "workshops.html#virtual-synchronous",
-    "title": "Workshops",
+    "title": "AI & Data Science Workshops",
     "section": "Virtual Synchronous",
     "text": "Virtual Synchronous\n\nO’Reilly Learning\n\nDeep Learning Made Simple\nGenAI-Powered Data Analysis with Python\nMachine Learning for Data Analytics with Python\nFundamentals of Statistics with Python\nStatistical Inference and Modeling with Python\nData Analysis with Python\n\n\n\nInstats\n\nStatistics in R with the Tidyverse\nExploratory Data Analysis in R with the Tidyverse\n\n\n\nPortland State University\n\nFundamentals of Data Analysis\nData Warehousing\nData Mining"
   },
   {
     "objectID": "workshops.html#virtual-asynchronous",
     "href": "workshops.html#virtual-asynchronous",
-    "title": "Workshops",
+    "title": "AI & Data Science Workshops",
     "section": "Virtual Asynchronous",
     "text": "Virtual Asynchronous\n\nUdacity\n\nData Warehouses on AWS (Course 2 of the Data Engineering with AWS Nanodegree)\n\n\n\nDataCamp\n\nProgramming with dplyr"
   },
@@ -161,27 +161,6 @@
     "text": "Statistical Inference via Data Science\nCo-authored with Albert Y. Kim and Arturo Valdivia, this free online book teaches statistics via computation and data science fundamentals using R and the tidyverse.\n→ Print edition\n\n\n\n  \n\nGetting Used to R, RStudio, and R Markdown\nA hands-on, beginner-friendly guide to using R and RStudio for data analysis. Co-authored with Patrick Kennedy. Designed to empower new users with confidence and clarity."
   },
   {
-    "objectID": "portfolio.html#shiny-apps",
-    "href": "portfolio.html#shiny-apps",
-    "title": "Portfolio",
-    "section": "Shiny Apps",
-    "text": "Shiny Apps\n\n🎲 Probability Distribution Viewer\nThis Shiny app lets users explore and calculate probabilities for normal, binomial, Poisson, and other distributions.\n\n\n🦅️ US State/District Shape Quiz\nThis interactive quiz tests knowledge of US state shapes, capitals, and major cities. Built using leaflet.\n\n\n🇩🇪 German Federal State Shape Quiz\nA similar German geography quiz that tests users on the shapes and cities of Germany’s federal states.\n\n\n🏀 NBA Player Finder\nExplore current NBA rosters by conference, division, team, height, age, and jersey number in this app. It runs entirely in your browser via shinylive, with rosters refreshed weekly from the NBA API.\n\n\n⚽ World Cup 2026 Schedule Viewer\nBrowse the full match schedule for the 2026 FIFA World Cup in this viewer, with dates, times, teams, and venues for every fixture across the tournament."
-  },
-  {
-    "objectID": "portfolio.html#r-packages",
-    "href": "portfolio.html#r-packages",
-    "title": "Portfolio",
-    "section": "R Packages",
-    "text": "R Packages\nI’ve authored or contributed to several R packages:\n\ninfer — tidyverse-style statistical inference\nmoderndive — companion to the ModernDive book\nfivethirtyeight — access to FiveThirtyEight datasets\nthesisdown — thesis templates in R Markdown\nazflights24 — all out-bound flights from Arizona airports (PHX, TUS, and others) in 2024\nnycflights23 — all out-bound flights from New York City airports in 2023\npnwflights22 — all out-bound flights from Seattle (SEA) and Portland (PDX) in 2022\nvolcanoes — Smithsonian Global Volcanism Program data on ~1,200 Holocene volcanoes, their eruptions, and individual events\nolympicAthletes — every athlete-event participation in the modern Olympics, Athens 1896 through Milano-Cortina 2026 (~315,000 rows)\nexoplanets — tidy data on confirmed exoplanets and their host stars from NASA’s Exoplanet Archive\nsteves — every episode of Rick Steves’ Europe (2000–2025), with ratings, geography, air dates, and summaries\nizzyuntappd — my Untappd beer check-ins (Feb 2015–June 2016), plus an R Markdown template for analyzing them"
-  },
-  {
-    "objectID": "portfolio.html#projects-at-reed-college",
-    "href": "portfolio.html#projects-at-reed-college",
-    "title": "Portfolio",
-    "section": "Projects at Reed College",
-    "text": "Projects at Reed College\n\nTeaching Tools\n\nChem 101/102 R templates and tools\n→ Help Manual\n\n\n\nEducational Outreach\n\nCreating a simple R Markdown template package\nEdTech blog posts at Reed\nFlight data from PDX and SEA (2014)\nReed College GitHub organization\n\n\n\nFaculty & Student Support\n\nSupported departments: Chemistry, Biology, Linguistics, Sociology, Economics, Political Science, Mathematics\nAssisted senior thesis students with data analysis and visualization\nProvided R/R Markdown training for Chem 101/102 students"
-  },
-  {
     "objectID": "portfolio.html#apps",
     "href": "portfolio.html#apps",
     "title": "Portfolio",
@@ -194,5 +173,12 @@
     "title": "Portfolio",
     "section": "Packages",
     "text": "Packages\nI’ve authored or contributed to several R packages:\n\ninfer — tidyverse-style statistical inference\nmoderndive — companion to the ModernDive book\nfivethirtyeight — access to FiveThirtyEight datasets\nthesisdown — thesis templates in R Markdown\nazflights24 — all out-bound flights from Arizona airports (PHX, TUS, and others) in 2024\nnycflights23 — all out-bound flights from New York City airports in 2023\npnwflights22 — all out-bound flights from Seattle (SEA) and Portland (PDX) in 2022\nvolcanoes — Smithsonian Global Volcanism Program data on ~1,200 Holocene volcanoes, their eruptions, and individual events\nolympicAthletes — every athlete-event participation in the modern Olympics, Athens 1896 through Milano-Cortina 2026 (~315,000 rows)\nexoplanets — tidy data on confirmed exoplanets and their host stars from NASA’s Exoplanet Archive\nsteves — every episode of Rick Steves’ Europe (2000–2025), with ratings, geography, air dates, and summaries\nizzyuntappd — my Untappd beer check-ins (Feb 2015–June 2016), plus an R Markdown template for analyzing them\n\nI’ve also authored the following Python package:\n\nmoderndive — Python companion to the ModernDive book: a tidy simulation-inference grammar, regression helpers, datasets, and dual-engine plotly/plotnine plots"
+  },
+  {
+    "objectID": "portfolio.html#projects-at-reed-college",
+    "href": "portfolio.html#projects-at-reed-college",
+    "title": "Portfolio",
+    "section": "Projects at Reed College",
+    "text": "Projects at Reed College\n\nTeaching Tools\n\nChem 101/102 R templates and tools\n→ Help Manual\n\n\n\nEducational Outreach\n\nCreating a simple R Markdown template package\nEdTech blog posts at Reed\nFlight data from PDX and SEA (2014)\nReed College GitHub organization\n\n\n\nFaculty & Student Support\n\nSupported departments: Chemistry, Biology, Linguistics, Sociology, Economics, Political Science, Mathematics\nAssisted senior thesis students with data analysis and visualization\nProvided R/R Markdown training for Chem 101/102 students"
   }
 ]

@@ -1,5 +1,6 @@
 ---
-title: "Talks"
+title: "Talks & Speaking"
+pagetitle: "AI & Data Science Speaker – Talks & Keynotes"
 description: "Energetic, example-driven talks on the future of data science education and the practical use of AI in analysis and learning."
 image: images/social-card.png
 format:

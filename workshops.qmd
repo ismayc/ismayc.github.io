@@ -1,5 +1,6 @@
 ---
-title: "Workshops"
+title: "AI & Data Science Workshops"
+pagetitle: "AI & Data Science Workshops in R, Python & SQL"
 description: "Hands-on workshops and courses in R, Python, SQL, and AI — from short sessions to full-semester programs, for learners at every level."
 image: images/social-card.png
 format:

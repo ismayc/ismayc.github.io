@@ -1,5 +1,6 @@
 ---
 title: "About Me"
+pagetitle: "About – Statistician, Data Scientist & Educator"
 description: "From Vale, South Dakota to a Ph.D. in Statistics — and the work at the intersection of statistics, data science, AI, and education that followed."
 image: images/social-card.png
 format:
