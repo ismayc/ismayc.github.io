@@ -1,578 +1,545 @@
 player,team,conference,division,height_feet,height_inches,height_total_inches,age,number_jersey,date_pulled
-Nickeil Alexander-Walker,Atlanta Hawks,East,Southeast,6,5,77,27,7,2026-07-13
-Tony Bradley,Atlanta Hawks,East,Southeast,6,10,82,28,13,2026-07-13
-Devin Carter,Atlanta Hawks,East,Southeast,6,2,74,24,22,2026-07-13
-Dyson Daniels,Atlanta Hawks,East,Southeast,6,7,79,23,5,2026-07-13
-RayJ Dennis,Atlanta Hawks,East,Southeast,6,2,74,25,00,2026-07-13
-Zuby Ejiofor,Atlanta Hawks,East,Southeast,6,8,80,22,,2026-07-13
-Kingston Flemings,Atlanta Hawks,East,Southeast,6,3,75,19,,2026-07-13
-Keshon Gilbert,Atlanta Hawks,East,Southeast,6,4,76,23,,2026-07-13
-Mouhamed Gueye,Atlanta Hawks,East,Southeast,6,11,83,23,18,2026-07-13
-Buddy Hield,Atlanta Hawks,East,Southeast,6,4,76,33,8,2026-07-13
-Jalen Johnson,Atlanta Hawks,East,Southeast,6,8,80,24,1,2026-07-13
-Corey Kispert,Atlanta Hawks,East,Southeast,6,6,78,27,24,2026-07-13
-Christian Koloko,Atlanta Hawks,East,Southeast,6,11,83,26,35,2026-07-13
-Jock Landale,Atlanta Hawks,East,Southeast,6,11,83,30,31,2026-07-13
-CJ McCollum,Atlanta Hawks,East,Southeast,6,3,75,34,3,2026-07-13
-Asa Newell,Atlanta Hawks,East,Southeast,6,11,83,20,14,2026-07-13
-Onyeka Okongwu,Atlanta Hawks,East,Southeast,6,10,82,25,17,2026-07-13
-Zaccharie Risacher,Atlanta Hawks,East,Southeast,6,8,80,21,10,2026-07-13
-Henri Veesaar,Atlanta Hawks,East,Southeast,7,0,84,22,,2026-07-13
-Gabe Vincent,Atlanta Hawks,East,Southeast,6,2,74,30,4,2026-07-13
-Keaton Wallace,Atlanta Hawks,East,Southeast,6,3,75,27,2,2026-07-13
-Aaron Wiggins,Atlanta Hawks,East,Southeast,6,5,77,27,21,2026-07-13
-Chris Cenac Jr.,Boston Celtics,East,Atlantic,6,11,83,19,12,2026-07-13
-Mike Conley,Boston Celtics,East,Atlantic,6,1,73,38,,2026-07-13
-Luka Garza,Boston Celtics,East,Atlantic,6,10,82,27,52,2026-07-13
-Paul George,Boston Celtics,East,Atlantic,6,8,80,36,8,2026-07-13
-Hugo Gonzalez,Boston Celtics,East,Atlantic,6,6,78,20,28,2026-07-13
-Ron Harper Jr.,Boston Celtics,East,Atlantic,6,5,77,26,13,2026-07-13
-Sam Hauser,Boston Celtics,East,Atlantic,6,7,79,28,30,2026-07-13
-Dillon Mitchell,Boston Celtics,East,Atlantic,6,8,80,22,,2026-07-13
-Payton Pritchard,Boston Celtics,East,Atlantic,6,1,73,28,11,2026-07-13
-Neemias Queta,Boston Celtics,East,Atlantic,7,0,84,27,88,2026-07-13
-Mitchell Robinson,Boston Celtics,East,Atlantic,7,0,84,28,,2026-07-13
-Baylor Scheierman,Boston Celtics,East,Atlantic,6,6,78,25,55,2026-07-13
-Jayson Tatum,Boston Celtics,East,Atlantic,6,8,80,28,0,2026-07-13
-John Tonje,Boston Celtics,East,Atlantic,6,5,77,25,8,2026-07-13
-Jordan Walsh,Boston Celtics,East,Atlantic,6,6,78,22,27,2026-07-13
-Derrick White,Boston Celtics,East,Atlantic,6,4,76,32,9,2026-07-13
-Amari Williams,Boston Celtics,East,Atlantic,7,0,84,24,77,2026-07-13
-Tyler Bilodeau,Brooklyn Nets,East,Atlantic,6,8,80,22,34,2026-07-13
-Mikel Brown Jr.,Brooklyn Nets,East,Atlantic,6,5,77,20,0,2026-07-13
-Noah Clowney,Brooklyn Nets,East,Atlantic,6,10,82,21,21,2026-07-13
-Egor Demin,Brooklyn Nets,East,Atlantic,6,8,80,20,8,2026-07-13
-Keon Ellis,Brooklyn Nets,East,Atlantic,6,4,76,26,,2026-07-13
-Tyson Etienne,Brooklyn Nets,East,Atlantic,6,0,72,26,10,2026-07-13
-Joshua Jefferson,Brooklyn Nets,East,Atlantic,6,8,80,22,,2026-07-13
-Chaney Johnson,Brooklyn Nets,East,Atlantic,6,8,80,24,31,2026-07-13
-E.J. Liddell,Brooklyn Nets,East,Atlantic,6,6,78,25,9,2026-07-13
-Terance Mann,Brooklyn Nets,East,Atlantic,6,6,78,29,14,2026-07-13
-Josh Minott,Brooklyn Nets,East,Atlantic,6,8,80,23,00,2026-07-13
-Michael Porter Jr.,Brooklyn Nets,East,Atlantic,6,10,82,28,17,2026-07-13
-Drake Powell,Brooklyn Nets,East,Atlantic,6,5,77,20,4,2026-07-13
-Julius Randle,Brooklyn Nets,East,Atlantic,6,9,81,31,30,2026-07-13
-Ben Saraf,Brooklyn Nets,East,Atlantic,6,6,78,20,77,2026-07-13
-Day'Ron Sharpe,Brooklyn Nets,East,Atlantic,6,10,82,24,20,2026-07-13
-Nolan Traore,Brooklyn Nets,East,Atlantic,6,3,75,20,13,2026-07-13
-Moritz Wagner,Brooklyn Nets,East,Atlantic,6,11,83,29,,2026-07-13
-Ziaire Williams,Brooklyn Nets,East,Atlantic,6,9,81,24,1,2026-07-13
-Jalen Wilson,Brooklyn Nets,East,Atlantic,6,6,78,25,22,2026-07-13
-Danny Wolf,Brooklyn Nets,East,Atlantic,6,11,83,22,2,2026-07-13
-Grayson Allen,Charlotte Hornets,East,Southeast,6,3,75,30,,2026-07-13
-Christian Anderson,Charlotte Hornets,East,Southeast,6,1,73,20,,2026-07-13
-Pat Connaughton,Charlotte Hornets,East,Southeast,6,5,77,33,21,2026-07-13
-Moussa Diabate,Charlotte Hornets,East,Southeast,6,10,82,24,14,2026-07-13
-Dorian Finney-Smith,Charlotte Hornets,East,Southeast,6,7,79,33,,2026-07-13
-Mouhamadou Gueye,Charlotte Hornets,East,Southeast,6,9,81,28,16,2026-07-13
-PJ Hall,Charlotte Hornets,East,Southeast,6,8,80,24,16,2026-07-13
-Sion James,Charlotte Hornets,East,Southeast,6,5,77,23,4,2026-07-13
-Ryan Kalkbrenner,Charlotte Hornets,East,Southeast,7,1,85,24,11,2026-07-13
-Kon Knueppel,Charlotte Hornets,East,Southeast,6,6,78,20,7,2026-07-13
-Tre Mann,Charlotte Hornets,East,Southeast,6,4,76,25,23,2026-07-13
-Liam McNeeley,Charlotte Hornets,East,Southeast,6,7,79,20,33,2026-07-13
-Brandon Miller,Charlotte Hornets,East,Southeast,6,7,79,23,24,2026-07-13
-Royce O'Neale,Charlotte Hornets,East,Southeast,6,6,78,33,,2026-07-13
-Naz Reid,Charlotte Hornets,East,Southeast,6,9,81,26,,2026-07-13
-Tidjane Salaun,Charlotte Hornets,East,Southeast,6,10,82,20,31,2026-07-13
-Hannes Steinbach,Charlotte Hornets,East,Southeast,6,10,82,20,,2026-07-13
-Xavier Tillman,Charlotte Hornets,East,Southeast,6,8,80,27,26,2026-07-13
-Coby White,Charlotte Hornets,East,Southeast,6,4,76,26,3,2026-07-13
-Grant Williams,Charlotte Hornets,East,Southeast,6,7,79,27,2,2026-07-13
-Tobe Awaka,Chicago Bulls,East,Central,6,8,80,22,,2026-07-13
-Matas Buzelis,Chicago Bulls,East,Central,6,8,80,21,14,2026-07-13
-Nic Claxton,Chicago Bulls,East,Central,6,11,83,27,,2026-07-13
-Zach Collins,Chicago Bulls,East,Central,6,9,81,28,12,2026-07-13
-Rob Dillingham,Chicago Bulls,East,Central,6,2,74,21,7,2026-07-13
-Noa Essengue,Chicago Bulls,East,Central,6,11,83,19,24,2026-07-13
-Josh Giddey,Chicago Bulls,East,Central,6,7,79,23,3,2026-07-13
-Tre Jones,Chicago Bulls,East,Central,6,1,73,26,30,2026-07-13
-Mac McClung,Chicago Bulls,East,Central,6,2,74,27,5,2026-07-13
-Leonard Miller,Chicago Bulls,East,Central,6,10,82,22,11,2026-07-13
-Isaac Okoro,Chicago Bulls,East,Central,6,4,76,25,35,2026-07-13
-Norman Powell,Chicago Bulls,East,Central,6,4,76,33,,2026-07-13
-Nick Richards,Chicago Bulls,East,Central,6,11,83,28,13,2026-07-13
-Jalen Smith,Chicago Bulls,East,Central,6,8,80,26,25,2026-07-13
-Dailyn Swain,Chicago Bulls,East,Central,6,7,79,20,5,2026-07-13
-Patrick Williams,Chicago Bulls,East,Central,6,6,78,24,44,2026-07-13
-Caleb Wilson,Chicago Bulls,East,Central,6,9,81,19,8,2026-07-13
-Guerschon Yabusele,Chicago Bulls,East,Central,6,7,79,30,28,2026-07-13
-Jarrett Allen,Cleveland Cavaliers,East,Central,6,9,81,28,31,2026-07-13
-Thomas Bryant,Cleveland Cavaliers,East,Central,6,9,81,28,3,2026-07-13
-Tristan Enaruna,Cleveland Cavaliers,East,Central,6,8,80,25,21,2026-07-13
-James Harden,Cleveland Cavaliers,East,Central,6,5,77,36,1,2026-07-13
-Sam Merrill,Cleveland Cavaliers,East,Central,6,4,76,30,5,2026-07-13
-Riley Minix,Cleveland Cavaliers,East,Central,6,7,79,25,12,2026-07-13
-Donovan Mitchell,Cleveland Cavaliers,East,Central,6,2,74,29,45,2026-07-13
-Evan Mobley,Cleveland Cavaliers,East,Central,6,11,83,25,4,2026-07-13
-Craig Porter Jr.,Cleveland Cavaliers,East,Central,6,1,73,26,9,2026-07-13
-Tyrese Proctor,Cleveland Cavaliers,East,Central,6,4,76,22,24,2026-07-13
-Olivier Sarr,Cleveland Cavaliers,East,Central,6,10,82,27,33,2026-07-13
-Dennis Schroder,Cleveland Cavaliers,East,Central,6,1,73,32,8,2026-07-13
-Max Strus,Cleveland Cavaliers,East,Central,6,5,77,30,2,2026-07-13
-Meleek Thomas,Cleveland Cavaliers,East,Central,6,3,75,19,,2026-07-13
-Nae'Qwan Tomlin,Cleveland Cavaliers,East,Central,6,8,80,25,35,2026-07-13
-Jaylon Tyson,Cleveland Cavaliers,East,Central,6,6,78,23,20,2026-07-13
-Ernest Udeh Jr.,Cleveland Cavaliers,East,Central,6,11,83,22,,2026-07-13
-Santi Aldama,Dallas Mavericks,West,Southwest,7,0,84,25,,2026-07-13
-Tarik Biberovic,Dallas Mavericks,West,Southwest,6,7,79,25,,2026-07-13
-Max Christie,Dallas Mavericks,West,Southwest,6,5,77,23,00,2026-07-13
-Moussa Cisse,Dallas Mavericks,West,Southwest,6,11,83,23,30,2026-07-13
-Sergio de Larrea,Dallas Mavericks,West,Southwest,6,7,79,20,55,2026-07-13
-Cooper Flagg,Dallas Mavericks,West,Southwest,6,9,81,19,32,2026-07-13
-Daniel Gafford,Dallas Mavericks,West,Southwest,6,10,82,27,21,2026-07-13
-Kyrie Irving,Dallas Mavericks,West,Southwest,6,2,74,34,11,2026-07-13
-Vsevolod Ishchenko,Dallas Mavericks,West,Southwest,6,8,80,21,,2026-07-13
-Morez Johnson Jr.,Dallas Mavericks,West,Southwest,6,9,81,20,14,2026-07-13
-Tobi Lawal,Dallas Mavericks,West,Southwest,6,8,80,23,,2026-07-13
-Dereck Lively II,Dallas Mavericks,West,Southwest,7,1,85,22,2,2026-07-13
-Naji Marshall,Dallas Mavericks,West,Southwest,6,6,78,28,3,2026-07-13
-Caleb Martin,Dallas Mavericks,West,Southwest,6,5,77,30,16,2026-07-13
-Ryan Nembhard,Dallas Mavericks,West,Southwest,5,11,71,23,9,2026-07-13
-John Poulakidas,Dallas Mavericks,West,Southwest,6,6,78,23,1,2026-07-13
-Dwight Powell,Dallas Mavericks,West,Southwest,6,10,82,34,7,2026-07-13
-Marcus Sasser,Dallas Mavericks,West,Southwest,6,1,73,25,25,2026-07-13
-Tyler Smith,Dallas Mavericks,West,Southwest,6,9,81,21,23,2026-07-13
-Klay Thompson,Dallas Mavericks,West,Southwest,6,5,77,36,31,2026-07-13
-P.J. Washington,Dallas Mavericks,West,Southwest,6,7,79,27,25,2026-07-13
-Brandon Williams,Dallas Mavericks,West,Southwest,6,1,73,26,10,2026-07-13
-Marvin Bagley III,Denver Nuggets,West,Northwest,6,10,82,27,35,2026-07-13
-Christian Braun,Denver Nuggets,West,Northwest,6,6,78,25,0,2026-07-13
-Trevon Brazile,Denver Nuggets,West,Northwest,6,10,82,23,,2026-07-13
-Bruce Brown,Denver Nuggets,West,Northwest,6,4,76,29,11,2026-07-13
-Aaron Gordon,Denver Nuggets,West,Northwest,6,8,80,30,32,2026-07-13
-DaRon Holmes II,Denver Nuggets,West,Northwest,6,9,81,23,14,2026-07-13
-Bryce Hopkins,Denver Nuggets,West,Northwest,6,7,79,23,,2026-07-13
-Cameron Johnson,Denver Nuggets,West,Northwest,6,8,80,30,23,2026-07-13
-Nikola Jokic,Denver Nuggets,West,Northwest,6,11,83,31,15,2026-07-13
-Spencer Jones,Denver Nuggets,West,Northwest,6,7,79,25,21,2026-07-13
-Tyus Jones,Denver Nuggets,West,Northwest,6,0,72,30,5,2026-07-13
-Jamal Murray,Denver Nuggets,West,Northwest,6,4,76,29,27,2026-07-13
-Zeke Nnaji,Denver Nuggets,West,Northwest,6,10,82,25,22,2026-07-13
-Jalen Pickett,Denver Nuggets,West,Northwest,6,2,74,26,24,2026-07-13
-David Roddy,Denver Nuggets,West,Northwest,6,4,76,25,45,2026-07-13
-KJ Simpson,Denver Nuggets,West,Northwest,6,1,73,23,25,2026-07-13
-Julian Strawther,Denver Nuggets,West,Northwest,6,6,78,24,3,2026-07-13
-Peyton Watson,Denver Nuggets,West,Northwest,6,8,80,23,8,2026-07-13
-John Collins,Detroit Pistons,East,Central,6,9,81,28,,2026-07-13
-Cade Cunningham,Detroit Pistons,East,Central,6,6,78,24,2,2026-07-13
-Jalen Duren,Detroit Pistons,East,Central,6,10,82,22,0,2026-07-13
-Javonte Green,Detroit Pistons,East,Central,6,5,77,32,31,2026-07-13
-Elijah Harkless,Detroit Pistons,East,Central,6,3,75,26,,2026-07-13
-Gary Harris,Detroit Pistons,East,Central,6,4,76,31,,2026-07-13
-Ronald Holland II,Detroit Pistons,East,Central,6,8,80,21,5,2026-07-13
-Kevin Huerter,Detroit Pistons,East,Central,6,6,78,27,27,2026-07-13
-Daniss Jenkins,Detroit Pistons,East,Central,6,4,76,24,24,2026-07-13
-Isaiah Joe,Detroit Pistons,East,Central,6,4,76,27,,2026-07-13
-Isaac Jones,Detroit Pistons,East,Central,6,8,80,26,3,2026-07-13
-Chaz Lanier,Detroit Pistons,East,Central,6,3,75,24,20,2026-07-13
-Wendell Moore Jr.,Detroit Pistons,East,Central,6,5,77,24,14,2026-07-13
-Ebuka Okorie,Detroit Pistons,East,Central,6,2,74,19,,2026-07-13
-Ugonna Onyenso,Detroit Pistons,East,Central,7,0,84,21,,2026-07-13
-Taurean Prince,Detroit Pistons,East,Central,6,6,78,32,12,2026-07-13
-Paul Reed,Detroit Pistons,East,Central,6,9,81,27,7,2026-07-13
-Duncan Robinson,Detroit Pistons,East,Central,6,7,79,32,55,2026-07-13
-Tolu Smith,Detroit Pistons,East,Central,6,11,83,25,35,2026-07-13
-Ausar Thompson,Detroit Pistons,East,Central,6,7,79,23,9,2026-07-13
-Charles Bassey,Golden State Warriors,West,Pacific,6,10,82,25,28,2026-07-13
-Jimmy Butler III,Golden State Warriors,West,Pacific,6,6,78,36,10,2026-07-13
-LJ Cryer,Golden State Warriors,West,Pacific,6,0,72,24,18,2026-07-13
-Seth Curry,Golden State Warriors,West,Pacific,6,1,73,35,31,2026-07-13
-Stephen Curry,Golden State Warriors,West,Pacific,6,2,74,38,30,2026-07-13
-Draymond Green,Golden State Warriors,West,Pacific,6,6,78,36,23,2026-07-13
-Al Horford,Golden State Warriors,West,Pacific,6,8,80,40,20,2026-07-13
-Lajae Jones,Golden State Warriors,West,Pacific,6,7,79,22,,2026-07-13
-Yaxel Lendeborg,Golden State Warriors,West,Pacific,6,9,81,23,,2026-07-13
-Malevy Leons,Golden State Warriors,West,Pacific,6,9,81,26,33,2026-07-13
-De'Anthony Melton,Golden State Warriors,West,Pacific,6,2,74,28,8,2026-07-13
-Moses Moody,Golden State Warriors,West,Pacific,6,5,77,24,4,2026-07-13
-Gary Payton II,Golden State Warriors,West,Pacific,6,2,74,33,0,2026-07-13
-Brandin Podziemski,Golden State Warriors,West,Pacific,6,4,76,23,2,2026-07-13
-Kristaps Porzingis,Golden State Warriors,West,Pacific,7,2,86,30,7,2026-07-13
-Will Richard,Golden State Warriors,West,Pacific,6,3,75,23,3,2026-07-13
-Gui Santos,Golden State Warriors,West,Pacific,6,7,79,24,15,2026-07-13
-Nate Williams,Golden State Warriors,West,Pacific,6,5,77,27,19,2026-07-13
-Steven Adams,Houston Rockets,West,Southwest,6,11,83,32,12,2026-07-13
-Bogdan Bogdanovic,Houston Rockets,West,Southwest,6,5,77,33,,2026-07-13
-Clint Capela,Houston Rockets,West,Southwest,6,10,82,32,30,2026-07-13
-Quadir Copeland,Houston Rockets,West,Southwest,6,6,78,22,,2026-07-13
-Isaiah Crawford,Houston Rockets,West,Southwest,6,6,78,24,27,2026-07-13
-JD Davison,Houston Rockets,West,Southwest,6,1,73,23,4,2026-07-13
-Kevin Durant,Houston Rockets,West,Southwest,6,11,83,37,7,2026-07-13
-Tari Eason,Houston Rockets,West,Southwest,6,8,80,25,17,2026-07-13
-Jeff Green,Houston Rockets,West,Southwest,6,8,80,39,32,2026-07-13
-Aaron Holiday,Houston Rockets,West,Southwest,6,0,72,29,0,2026-07-13
-Tristen Newton,Houston Rockets,West,Southwest,6,5,77,25,13,2026-07-13
-Alperen Sengun,Houston Rockets,West,Southwest,6,11,83,23,28,2026-07-13
-Reed Sheppard,Houston Rockets,West,Southwest,6,2,74,22,15,2026-07-13
-Marcus Smart,Houston Rockets,West,Southwest,6,3,75,32,,2026-07-13
-Jabari Smith Jr.,Houston Rockets,West,Southwest,6,11,83,23,10,2026-07-13
-Jae'Sean Tate,Houston Rockets,West,Southwest,6,4,76,30,8,2026-07-13
-Amen Thompson,Houston Rockets,West,Southwest,6,7,79,23,1,2026-07-13
-Bruce Thornton,Houston Rockets,West,Southwest,6,0,72,22,,2026-07-13
-Fred VanVleet,Houston Rockets,West,Southwest,6,0,72,32,5,2026-07-13
-Kobe Brown,Indiana Pacers,East,Central,6,7,79,26,24,2026-07-13
-Johnny Furphy,Indiana Pacers,East,Central,6,8,80,21,12,2026-07-13
-Tyrese Haliburton,Indiana Pacers,East,Central,6,5,77,26,0,2026-07-13
-Jay Huff,Indiana Pacers,East,Central,7,1,85,28,32,2026-07-13
-Quenton Jackson,Indiana Pacers,East,Central,6,4,76,27,29,2026-07-13
-T.J. McConnell,Indiana Pacers,East,Central,6,1,73,34,9,2026-07-13
-Larry Nance Jr.,Indiana Pacers,East,Central,6,6,78,33,,2026-07-13
-Andrew Nembhard,Indiana Pacers,East,Central,6,4,76,26,2,2026-07-13
-Aaron Nesmith,Indiana Pacers,East,Central,6,5,77,26,23,2026-07-13
-Kelly Oubre Jr.,Indiana Pacers,East,Central,6,8,80,30,,2026-07-13
-Taelon Peter,Indiana Pacers,East,Central,6,3,75,24,4,2026-07-13
-Ben Sheppard,Indiana Pacers,East,Central,6,6,78,24,26,2026-07-13
-Pascal Siakam,Indiana Pacers,East,Central,6,8,80,32,43,2026-07-13
-Jalen Slawson,Indiana Pacers,East,Central,6,7,79,26,18,2026-07-13
-Braden Smith,Indiana Pacers,East,Central,5,10,70,22,,2026-07-13
-Ethan Thompson,Indiana Pacers,East,Central,6,5,77,27,55,2026-07-13
-Obi Toppin,Indiana Pacers,East,Central,6,9,81,28,1,2026-07-13
-Jarace Walker,Indiana Pacers,East,Central,6,7,79,22,5,2026-07-13
-Ivica Zubac,Indiana Pacers,East,Central,7,0,84,29,40,2026-07-13
-Cam Christie,Los Angeles Clippers,West,Pacific,6,5,77,20,24,2026-07-13
-Kris Dunn,Los Angeles Clippers,West,Pacific,6,3,75,32,8,2026-07-13
-Darius Garland,Los Angeles Clippers,West,Pacific,6,1,73,26,10,2026-07-13
-Rui Hachimura,Los Angeles Clippers,West,Pacific,6,8,80,28,28,2026-07-13
-Isaiah Jackson,Los Angeles Clippers,West,Pacific,6,8,80,24,23,2026-07-13
-Derrick Jones Jr.,Los Angeles Clippers,West,Pacific,6,6,78,29,5,2026-07-13
-Kawhi Leonard,Los Angeles Clippers,West,Pacific,6,6,78,35,2,2026-07-13
-Brook Lopez,Los Angeles Clippers,West,Pacific,7,1,85,38,11,2026-07-13
-Nick Martinelli,Los Angeles Clippers,West,Pacific,6,7,79,22,,2026-07-13
-Bennedict Mathurin,Los Angeles Clippers,West,Pacific,6,5,77,24,9,2026-07-13
-Baba Miller,Los Angeles Clippers,West,Pacific,6,11,83,22,,2026-07-13
-Jordan Miller,Los Angeles Clippers,West,Pacific,6,5,77,26,22,2026-07-13
-Narcisse Ngoy,Los Angeles Clippers,West,Pacific,6,10,82,21,,2026-07-13
-Yanic Konan Niederhauser,Los Angeles Clippers,West,Pacific,6,11,83,23,14,2026-07-13
-Sean Pedulla,Los Angeles Clippers,West,Pacific,6,1,73,23,00,2026-07-13
-Kobe Sanders,Los Angeles Clippers,West,Pacific,6,8,80,24,4,2026-07-13
-Keaton Wagler,Los Angeles Clippers,West,Pacific,6,5,77,19,,2026-07-13
-TyTy Washington Jr.,Los Angeles Clippers,West,Pacific,6,3,75,24,15,2026-07-13
-Cameron Carr,Los Angeles Lakers,West,Pacific,6,5,77,21,,2026-07-13
-Luka Doncic,Los Angeles Lakers,West,Pacific,6,8,80,27,77,2026-07-13
-Quentin Grimes,Los Angeles Lakers,West,Pacific,6,4,76,26,,2026-07-13
-Jaden Hardy,Los Angeles Lakers,West,Pacific,6,3,75,24,,2026-07-13
-Bronny James,Los Angeles Lakers,West,Pacific,6,2,74,21,9,2026-07-13
-Walker Kessler,Los Angeles Lakers,West,Pacific,7,2,86,24,,2026-07-13
-Dalton Knecht,Los Angeles Lakers,West,Pacific,6,6,78,25,4,2026-07-13
-Jake LaRavia,Los Angeles Lakers,West,Pacific,6,7,79,24,12,2026-07-13
-Kevon Looney,Los Angeles Lakers,West,Pacific,6,9,81,30,,2026-07-13
-Sandro Mamukelashvili,Los Angeles Lakers,West,Pacific,6,9,81,27,,2026-07-13
-Chris Manon,Los Angeles Lakers,West,Pacific,6,4,76,24,30,2026-07-13
-AK Okereke,Los Angeles Lakers,West,Pacific,6,7,79,23,,2026-07-13
-Austin Reaves,Los Angeles Lakers,West,Pacific,6,5,77,28,15,2026-07-13
-Collin Sexton,Los Angeles Lakers,West,Pacific,6,3,75,27,,2026-07-13
-Peter Suder,Los Angeles Lakers,West,Pacific,6,4,76,22,35,2026-07-13
-Adou Thiero,Los Angeles Lakers,West,Pacific,6,8,80,22,1,2026-07-13
-Jarred Vanderbilt,Los Angeles Lakers,West,Pacific,6,8,80,27,2,2026-07-13
-Cameron Boozer,Memphis Grizzlies,West,Southwest,6,8,80,18,,2026-07-13
-Kentavious Caldwell-Pope,Memphis Grizzlies,West,Southwest,6,5,77,33,3,2026-07-13
-Walter Clayton Jr.,Memphis Grizzlies,West,Southwest,6,4,76,23,4,2026-07-13
-Cedric Coward,Memphis Grizzlies,West,Southwest,6,5,77,22,23,2026-07-13
-Zach Edey,Memphis Grizzlies,West,Southwest,7,3,87,24,14,2026-07-13
-Taj Gibson,Memphis Grizzlies,West,Southwest,6,9,81,41,67,2026-07-13
-Jerami Grant,Memphis Grizzlies,West,Southwest,6,7,79,32,9,2026-07-13
-Taylor Hendricks,Memphis Grizzlies,West,Southwest,6,9,81,22,22,2026-07-13
-GG Jackson,Memphis Grizzlies,West,Southwest,6,9,81,21,45,2026-07-13
-Ty Jerome,Memphis Grizzlies,West,Southwest,6,5,77,29,2,2026-07-13
-AJ Johnson,Memphis Grizzlies,West,Southwest,6,5,77,21,,2026-07-13
-Karim Lopez,Memphis Grizzlies,West,Southwest,6,8,80,19,,2026-07-13
-Jahmai Mashack,Memphis Grizzlies,West,Southwest,6,3,75,23,21,2026-07-13
-Kris Murray,Memphis Grizzlies,West,Southwest,6,8,80,25,24,2026-07-13
-Scotty Pippen Jr.,Memphis Grizzlies,West,Southwest,6,2,74,25,1,2026-07-13
-Quinten Post,Memphis Grizzlies,West,Southwest,7,0,84,26,,2026-07-13
-Olivier-Maxence Prosper,Memphis Grizzlies,West,Southwest,6,7,79,24,18,2026-07-13
-D'Angelo Russell,Memphis Grizzlies,West,Southwest,6,3,75,30,,2026-07-13
-Richie Saunders,Memphis Grizzlies,West,Southwest,6,5,77,24,,2026-07-13
-Javon Small,Memphis Grizzlies,West,Southwest,6,1,73,23,10,2026-07-13
-Cam Spencer,Memphis Grizzlies,West,Southwest,6,3,75,26,24,2026-07-13
-Isaiah Stewart,Memphis Grizzlies,West,Southwest,6,8,80,25,,2026-07-13
-Jaylen Wells,Memphis Grizzlies,West,Southwest,6,7,79,22,0,2026-07-13
-Bam Adebayo,Miami Heat,East,Southeast,6,9,81,28,13,2026-07-13
-Giannis Antetokounmpo,Miami Heat,East,Southeast,6,11,83,31,7,2026-07-13
-Ryan Conwell,Miami Heat,East,Southeast,6,3,75,22,,2026-07-13
-Tre Donaldson,Miami Heat,East,Southeast,6,2,74,22,,2026-07-13
-Simone Fontecchio,Miami Heat,East,Southeast,6,7,79,30,0,2026-07-13
-Myron Gardner,Miami Heat,East,Southeast,6,5,77,25,15,2026-07-13
-Vladislav Goldin,Miami Heat,East,Southeast,7,0,84,25,50,2026-07-13
-Tim Hardaway Jr.,Miami Heat,East,Southeast,6,5,77,34,10,2026-07-13
-Keshad Johnson,Miami Heat,East,Southeast,6,6,78,25,16,2026-07-13
-Nikola Jovic,Miami Heat,East,Southeast,6,10,82,23,5,2026-07-13
-Trevor Keels,Miami Heat,East,Southeast,6,5,77,22,8,2026-07-13
-Pelle Larsson,Miami Heat,East,Southeast,6,5,77,25,9,2026-07-13
-Davion Mitchell,Miami Heat,East,Southeast,6,0,72,27,45,2026-07-13
-Bobby Portis,Miami Heat,East,Southeast,6,9,81,31,95,2026-07-13
-Dru Smith,Miami Heat,East,Southeast,6,2,74,28,12,2026-07-13
-Andrew Wiggins,Miami Heat,East,Southeast,6,7,79,31,22,2026-07-13
-Jahmir Young,Miami Heat,East,Southeast,6,0,72,25,17,2026-07-13
-Nate Ament,Milwaukee Bucks,East,Central,6,10,82,19,,2026-07-13
-Brayden Burries,Milwaukee Bucks,East,Central,6,4,76,20,,2026-07-13
-Ousmane Dieng,Milwaukee Bucks,East,Central,6,9,81,23,21,2026-07-13
-AJ Green,Milwaukee Bucks,East,Central,6,4,76,26,20,2026-07-13
-Tyler Herro,Milwaukee Bucks,East,Central,6,5,77,26,14,2026-07-13
-Andre Jackson Jr.,Milwaukee Bucks,East,Central,6,6,78,24,44,2026-07-13
-Kasparas Jakucionis,Milwaukee Bucks,East,Central,6,5,77,20,25,2026-07-13
-Jaime Jaquez Jr.,Milwaukee Bucks,East,Central,6,6,78,25,11,2026-07-13
-Kam Jones,Milwaukee Bucks,East,Central,6,4,76,24,,2026-07-13
-Kyle Kuzma,Milwaukee Bucks,East,Central,6,8,80,30,18,2026-07-13
-Caris LeVert,Milwaukee Bucks,East,Central,6,7,79,31,,2026-07-13
-Malique Lewis,Milwaukee Bucks,East,Central,6,8,80,21,,2026-07-13
-Bogoljub Markovic,Milwaukee Bucks,East,Central,6,11,83,21,,2026-07-13
-Pete Nance,Milwaukee Bucks,East,Central,6,9,81,26,35,2026-07-13
-Kevin Porter Jr.,Milwaukee Bucks,East,Central,6,5,77,26,7,2026-07-13
-Ryan Rollins,Milwaukee Bucks,East,Central,6,3,75,24,13,2026-07-13
-Cormac Ryan,Milwaukee Bucks,East,Central,6,5,77,27,30,2026-07-13
-Jericho Sims,Milwaukee Bucks,East,Central,6,10,82,27,00,2026-07-13
-Gary Trent Jr.,Milwaukee Bucks,East,Central,6,5,77,27,5,2026-07-13
-Myles Turner,Milwaukee Bucks,East,Central,6,11,83,30,3,2026-07-13
-Kel'el Ware,Milwaukee Bucks,East,Central,7,0,84,22,7,2026-07-13
-LaMelo Ball,Minnesota Timberwolves,West,Northwest,6,7,79,24,,2026-07-13
-Joan Beringer,Minnesota Timberwolves,West,Northwest,6,11,83,19,19,2026-07-13
-Jaylen Clark,Minnesota Timberwolves,West,Northwest,6,5,77,24,22,2026-07-13
-Donte DiVincenzo,Minnesota Timberwolves,West,Northwest,6,4,76,29,0,2026-07-13
-Ayo Dosunmu,Minnesota Timberwolves,West,Northwest,6,4,76,26,13,2026-07-13
-Anthony Edwards,Minnesota Timberwolves,West,Northwest,6,4,76,24,5,2026-07-13
-Isaiah Evans,Minnesota Timberwolves,West,Northwest,6,6,78,20,,2026-07-13
-Enrique Freeman,Minnesota Timberwolves,West,Northwest,6,9,81,25,25,2026-07-13
-Rudy Gobert,Minnesota Timberwolves,West,Northwest,7,1,85,34,27,2026-07-13
-Josh Green,Minnesota Timberwolves,West,Northwest,6,6,78,25,,2026-07-13
-Bones Hyland,Minnesota Timberwolves,West,Northwest,6,2,74,25,8,2026-07-13
-Joe Ingles,Minnesota Timberwolves,West,Northwest,6,8,80,38,7,2026-07-13
-Trey Kaufman-Renn,Minnesota Timberwolves,West,Northwest,6,9,81,23,,2026-07-13
-Jaden McDaniels,Minnesota Timberwolves,West,Northwest,6,9,81,25,3,2026-07-13
-Julian Phillips,Minnesota Timberwolves,West,Northwest,6,6,78,22,4,2026-07-13
-Zyon Pullin,Minnesota Timberwolves,West,Northwest,6,4,76,25,15,2026-07-13
-Terrence Shannon Jr.,Minnesota Timberwolves,West,Northwest,6,6,78,25,1,2026-07-13
-Rocco Zikarsky,Minnesota Timberwolves,West,Northwest,7,3,87,20,44,2026-07-13
-Saddiq Bey,New Orleans Pelicans,West,Southwest,6,8,80,27,41,2026-07-13
-Hunter Dickinson,New Orleans Pelicans,West,Southwest,7,1,85,25,4,2026-07-13
-Jeremiah Fears,New Orleans Pelicans,West,Southwest,6,3,75,19,0,2026-07-13
-Jordan Hawkins,New Orleans Pelicans,West,Southwest,6,5,77,24,24,2026-07-13
-Herbert Jones,New Orleans Pelicans,West,Southwest,6,7,79,27,2,2026-07-13
-DeAndre Jordan,New Orleans Pelicans,West,Southwest,6,11,83,37,6,2026-07-13
-Karlo Matkovic,New Orleans Pelicans,West,Southwest,6,10,82,25,17,2026-07-13
-Bryce McGowens,New Orleans Pelicans,West,Southwest,6,6,78,23,11,2026-07-13
-Yves Missi,New Orleans Pelicans,West,Southwest,6,11,83,22,21,2026-07-13
-Trey Murphy III,New Orleans Pelicans,West,Southwest,6,8,80,26,25,2026-07-13
-Dejounte Murray,New Orleans Pelicans,West,Southwest,6,4,76,29,5,2026-07-13
-Josh Oduro,New Orleans Pelicans,West,Southwest,6,9,81,25,13,2026-07-13
-Micah Peavy,New Orleans Pelicans,West,Southwest,6,7,79,24,14,2026-07-13
-Jaron Pierre Jr.,New Orleans Pelicans,West,Southwest,6,6,78,24,,2026-07-13
-Jordan Poole,New Orleans Pelicans,West,Southwest,6,4,76,27,3,2026-07-13
-Derik Queen,New Orleans Pelicans,West,Southwest,6,9,81,21,22,2026-07-13
-Zion Williamson,New Orleans Pelicans,West,Southwest,6,6,78,26,1,2026-07-13
-Jose Alvarado,New York Knicks,East,Atlantic,6,0,72,28,5,2026-07-13
-OG Anunoby,New York Knicks,East,Atlantic,6,7,79,28,8,2026-07-13
-Mikal Bridges,New York Knicks,East,Atlantic,6,6,78,29,25,2026-07-13
-Jalen Brunson,New York Knicks,East,Atlantic,6,2,74,29,11,2026-07-13
-Jordan Clarkson,New York Knicks,East,Atlantic,6,5,77,34,00,2026-07-13
-Pacome Dadiet,New York Knicks,East,Atlantic,6,9,81,20,4,2026-07-13
-Mohamed Diawara,New York Knicks,East,Atlantic,6,9,81,21,51,2026-07-13
-Andre Drummond,New York Knicks,East,Atlantic,6,11,83,32,,2026-07-13
-Josh Hart,New York Knicks,East,Atlantic,6,5,77,31,3,2026-07-13
-Trey Jemison III,New York Knicks,East,Atlantic,6,10,82,26,50,2026-07-13
-Dillon Jones,New York Knicks,East,Atlantic,6,5,77,24,1,2026-07-13
-Jack Kayil,New York Knicks,East,Atlantic,6,5,77,20,,2026-07-13
-Tyler Kolek,New York Knicks,East,Atlantic,6,2,74,25,13,2026-07-13
-Miles McBride,New York Knicks,East,Atlantic,6,2,74,25,2,2026-07-13
-Kevin McCullar Jr.,New York Knicks,East,Atlantic,6,6,78,25,9,2026-07-13
-Tyler Nickel,New York Knicks,East,Atlantic,6,8,80,22,,2026-07-13
-Landry Shamet,New York Knicks,East,Atlantic,6,5,77,29,44,2026-07-13
-Jeremy Sochan,New York Knicks,East,Atlantic,6,8,80,23,20,2026-07-13
-Karl-Anthony Towns,New York Knicks,East,Atlantic,7,0,84,30,32,2026-07-13
-Brooks Barnhizer,Oklahoma City Thunder,West,Northwest,6,6,78,24,23,2026-07-13
-Alex Caruso,Oklahoma City Thunder,West,Northwest,6,5,77,32,9,2026-07-13
-Josh Dix,Oklahoma City Thunder,West,Northwest,6,5,77,22,,2026-07-13
-Luguentz Dort,Oklahoma City Thunder,West,Northwest,6,4,76,27,5,2026-07-13
-Shai Gilgeous-Alexander,Oklahoma City Thunder,West,Northwest,6,6,78,28,2,2026-07-13
-Isaiah Hartenstein,Oklahoma City Thunder,West,Northwest,7,0,84,28,55,2026-07-13
-Chet Holmgren,Oklahoma City Thunder,West,Northwest,7,1,85,24,7,2026-07-13
-Aday Mara,Oklahoma City Thunder,West,Northwest,7,3,87,21,,2026-07-13
-Jared McCain,Oklahoma City Thunder,West,Northwest,6,3,75,22,3,2026-07-13
-Ajay Mitchell,Oklahoma City Thunder,West,Northwest,6,4,76,24,25,2026-07-13
-Otega Oweh,Oklahoma City Thunder,West,Northwest,6,4,76,23,,2026-07-13
-Thomas Sorber,Oklahoma City Thunder,West,Northwest,6,9,81,20,12,2026-07-13
-Bennett Stirtz,Oklahoma City Thunder,West,Northwest,6,4,76,22,,2026-07-13
-Nikola Topic,Oklahoma City Thunder,West,Northwest,6,6,78,20,44,2026-07-13
-Cason Wallace,Oklahoma City Thunder,West,Northwest,6,3,75,22,22,2026-07-13
-Jalen Williams,Oklahoma City Thunder,West,Northwest,6,5,77,25,8,2026-07-13
-Jaylin Williams,Oklahoma City Thunder,West,Northwest,6,9,81,24,6,2026-07-13
-Kenrich Williams,Oklahoma City Thunder,West,Northwest,6,7,79,31,34,2026-07-13
-Paolo Banchero,Orlando Magic,East,Southeast,6,10,82,23,5,2026-07-13
-Desmond Bane,Orlando Magic,East,Southeast,6,6,78,28,3,2026-07-13
-Goga Bitadze,Orlando Magic,East,Southeast,6,11,83,26,35,2026-07-13
-Anthony Black,Orlando Magic,East,Southeast,6,7,79,22,0,2026-07-13
-Jamal Cain,Orlando Magic,East,Southeast,6,7,79,27,8,2026-07-13
-Jevon Carter,Orlando Magic,East,Southeast,6,0,72,30,2,2026-07-13
-Wendell Carter Jr.,Orlando Magic,East,Southeast,6,10,82,27,34,2026-07-13
-Colin Castleton,Orlando Magic,East,Southeast,6,10,82,26,14,2026-07-13
-Tristan da Silva,Orlando Magic,East,Southeast,6,8,80,25,23,2026-07-13
-Jett Howard,Orlando Magic,East,Southeast,6,8,80,22,13,2026-07-13
-Jonathan Isaac,Orlando Magic,East,Southeast,6,10,82,28,1,2026-07-13
-Alex Morales,Orlando Magic,East,Southeast,6,6,78,28,30,2026-07-13
-Izaiyah Nelson,Orlando Magic,East,Southeast,6,8,80,22,,2026-07-13
-Noah Penda,Orlando Magic,East,Southeast,6,7,79,21,93,2026-07-13
-Jase Richardson,Orlando Magic,East,Southeast,6,1,73,20,11,2026-07-13
-Jalen Suggs,Orlando Magic,East,Southeast,6,5,77,25,4,2026-07-13
-Nikola Vucevic,Orlando Magic,East,Southeast,6,9,81,35,9,2026-07-13
-Franz Wagner,Orlando Magic,East,Southeast,6,10,82,24,22,2026-07-13
-Dominick Barlow,Philadelphia 76ers,East,Atlantic,6,9,81,23,25,2026-07-13
-Adem Bona,Philadelphia 76ers,East,Atlantic,6,10,82,23,30,2026-07-13
-Johni Broome,Philadelphia 76ers,East,Atlantic,6,10,82,23,22,2026-07-13
-Jaylen Brown,Philadelphia 76ers,East,Atlantic,6,6,78,29,7,2026-07-13
-VJ Edgecombe,Philadelphia 76ers,East,Atlantic,6,4,76,20,77,2026-07-13
-Justin Edwards,Philadelphia 76ers,East,Atlantic,6,7,79,22,11,2026-07-13
-Joel Embiid,Philadelphia 76ers,East,Atlantic,7,0,84,32,21,2026-07-13
-Ariel Hukporti,Philadelphia 76ers,East,Atlantic,7,0,84,24,,2026-07-13
-Caleb Love,Philadelphia 76ers,East,Atlantic,6,3,75,24,9,2026-07-13
-Tyrese Martin,Philadelphia 76ers,East,Atlantic,6,6,78,27,23,2026-07-13
-Tyrese Maxey,Philadelphia 76ers,East,Atlantic,6,2,74,25,0,2026-07-13
-Duke Miles,Philadelphia 76ers,East,Atlantic,6,0,72,24,,2026-07-13
-Labaron Philon Jr.,Philadelphia 76ers,East,Atlantic,6,3,75,20,,2026-07-13
-Rayan Rupert,Philadelphia 76ers,East,Atlantic,6,7,79,22,12,2026-07-13
-Anfernee Simons,Philadelphia 76ers,East,Atlantic,6,3,75,27,5,2026-07-13
-Dalen Terry,Philadelphia 76ers,East,Atlantic,6,6,78,24,14,2026-07-13
-Dean Wade,Philadelphia 76ers,East,Atlantic,6,9,81,29,,2026-07-13
-Jabari Walker,Philadelphia 76ers,East,Atlantic,6,7,79,23,33,2026-07-13
-Trendon Watford,Philadelphia 76ers,East,Atlantic,6,8,80,25,12,2026-07-13
-Devin Booker,Phoenix Suns,West,Pacific,6,5,77,29,15,2026-07-13
-Jamaree Bouyea,Phoenix Suns,West,Pacific,6,2,74,27,17,2026-07-13
-Koby Brea,Phoenix Suns,West,Pacific,6,6,78,23,14,2026-07-13
-Miles Bridges,Phoenix Suns,West,Pacific,6,7,79,28,,2026-07-13
-Dillon Brooks,Phoenix Suns,West,Pacific,6,7,79,30,3,2026-07-13
-Amir Coffey,Phoenix Suns,West,Pacific,6,7,79,29,2,2026-07-13
-Ryan Dunn,Phoenix Suns,West,Pacific,6,7,79,23,0,2026-07-13
-Rasheer Fleming,Phoenix Suns,West,Pacific,6,9,81,22,20,2026-07-13
-Collin Gillespie,Phoenix Suns,West,Pacific,6,1,73,27,12,2026-07-13
-Jordan Goodwin,Phoenix Suns,West,Pacific,6,3,75,27,23,2026-07-13
-Jalen Green,Phoenix Suns,West,Pacific,6,4,76,24,4,2026-07-13
-Haywood Highsmith,Phoenix Suns,West,Pacific,6,5,77,29,7,2026-07-13
-CJ Huntley,Phoenix Suns,West,Pacific,6,10,82,24,22,2026-07-13
-Oso Ighodaro,Phoenix Suns,West,Pacific,6,11,83,23,11,2026-07-13
-Luke Kennard,Phoenix Suns,West,Pacific,6,5,77,30,,2026-07-13
-Isaiah Livers,Phoenix Suns,West,Pacific,6,6,78,27,18,2026-07-13
-Khaman Maluach,Phoenix Suns,West,Pacific,7,2,86,19,10,2026-07-13
-Koa Peat,Phoenix Suns,West,Pacific,6,8,80,19,,2026-07-13
-Pat Spencer,Phoenix Suns,West,Pacific,6,2,74,30,,2026-07-13
-Mark Williams,Phoenix Suns,West,Pacific,7,1,85,24,15,2026-07-13
-Deni Avdija,Portland Trail Blazers,West,Northwest,6,8,80,25,8,2026-07-13
-Toumani Camara,Portland Trail Blazers,West,Northwest,6,7,79,26,33,2026-07-13
-Branden Carlson,Portland Trail Blazers,West,Northwest,7,0,84,27,,2026-07-13
-Sidy Cissoko,Portland Trail Blazers,West,Northwest,6,6,78,22,91,2026-07-13
-Donovan Clingan,Portland Trail Blazers,West,Northwest,7,2,86,22,23,2026-07-13
-Yang Hansen,Portland Trail Blazers,West,Northwest,7,1,85,21,16,2026-07-13
-Scoot Henderson,Portland Trail Blazers,West,Northwest,6,3,75,22,00,2026-07-13
-Jrue Holiday,Portland Trail Blazers,West,Northwest,6,4,76,36,5,2026-07-13
-Jayson Kent,Portland Trail Blazers,West,Northwest,6,8,80,24,29,2026-07-13
-Vit Krejci,Portland Trail Blazers,West,Northwest,6,8,80,26,27,2026-07-13
-Damian Lillard,Portland Trail Blazers,West,Northwest,6,2,74,35,0,2026-07-13
-Ja Morant,Portland Trail Blazers,West,Northwest,6,2,74,26,1,2026-07-13
-Micah Potter,Portland Trail Blazers,West,Northwest,6,9,81,28,11,2026-07-13
-Shaedon Sharpe,Portland Trail Blazers,West,Northwest,6,5,77,23,17,2026-07-13
-Matisse Thybulle,Portland Trail Blazers,West,Northwest,6,5,77,29,4,2026-07-13
-Blake Wesley,Portland Trail Blazers,West,Northwest,6,4,76,23,1,2026-07-13
-Robert Williams III,Portland Trail Blazers,West,Northwest,6,9,81,28,35,2026-07-13
-Chris Youngblood,Portland Trail Blazers,West,Northwest,6,4,76,24,11,2026-07-13
-Precious Achiuwa,Sacramento Kings,West,Pacific,6,8,80,26,9,2026-07-13
-Darius Acuff Jr.,Sacramento Kings,West,Pacific,6,2,74,19,5,2026-07-13
-Dylan Cardwell,Sacramento Kings,West,Pacific,6,10,82,24,32,2026-07-13
-Nique Clifford,Sacramento Kings,West,Pacific,6,5,77,24,5,2026-07-13
-Drew Eubanks,Sacramento Kings,West,Pacific,6,10,82,29,19,2026-07-13
-Adam Flagler,Sacramento Kings,West,Pacific,6,1,73,26,,2026-07-13
-Killian Hayes,Sacramento Kings,West,Pacific,6,4,76,24,3,2026-07-13
-De'Andre Hunter,Sacramento Kings,West,Pacific,6,7,79,28,15,2026-07-13
-Alex Karaban,Sacramento Kings,West,Pacific,6,7,79,23,33,2026-07-13
-Zach LaVine,Sacramento Kings,West,Pacific,6,5,77,31,8,2026-07-13
-Doug McDermott,Sacramento Kings,West,Pacific,6,7,79,34,7,2026-07-13
-Jonathan Mogbo,Sacramento Kings,West,Pacific,6,9,81,24,,2026-07-13
-Malik Monk,Sacramento Kings,West,Pacific,6,3,75,28,0,2026-07-13
-Keegan Murray,Sacramento Kings,West,Pacific,6,8,80,25,13,2026-07-13
-Daeqwon Plowden,Sacramento Kings,West,Pacific,6,6,78,27,29,2026-07-13
-Maxime Raynaud,Sacramento Kings,West,Pacific,7,1,85,23,42,2026-07-13
-Domantas Sabonis,Sacramento Kings,West,Pacific,6,10,82,30,11,2026-07-13
-Emanuel Sharp,Sacramento Kings,West,Pacific,6,3,75,22,34,2026-07-13
-Isaiah Stevens,Sacramento Kings,West,Pacific,5,11,71,25,24,2026-07-13
-Russell Westbrook,Sacramento Kings,West,Pacific,6,4,76,37,18,2026-07-13
-Harrison Barnes,San Antonio Spurs,West,Southwest,6,7,79,34,40,2026-07-13
-Bismack Biyombo,San Antonio Spurs,West,Southwest,6,8,80,33,18,2026-07-13
-Maliq Brown,San Antonio Spurs,West,Southwest,6,9,81,22,,2026-07-13
-Carter Bryant,San Antonio Spurs,West,Southwest,6,7,79,20,11,2026-07-13
-Stephon Castle,San Antonio Spurs,West,Southwest,6,6,78,21,5,2026-07-13
-Julian Champagnie,San Antonio Spurs,West,Southwest,6,7,79,25,30,2026-07-13
-De'Aaron Fox,San Antonio Spurs,West,Southwest,6,3,75,28,4,2026-07-13
-Ja'Kobi Gillespie,San Antonio Spurs,West,Southwest,6,1,73,22,,2026-07-13
-Dylan Harper,San Antonio Spurs,West,Southwest,6,5,77,20,2,2026-07-13
-Tobias Harris,San Antonio Spurs,West,Southwest,6,8,80,33,,2026-07-13
-Harrison Ingram,San Antonio Spurs,West,Southwest,6,5,77,23,55,2026-07-13
-Keldon Johnson,San Antonio Spurs,West,Southwest,6,5,77,26,3,2026-07-13
-David Jones Garcia,San Antonio Spurs,West,Southwest,6,4,76,24,25,2026-07-13
-Luke Kornet,San Antonio Spurs,West,Southwest,7,1,85,30,7,2026-07-13
-Jordan McLaughlin,San Antonio Spurs,West,Southwest,6,0,72,30,0,2026-07-13
-Emanuel Miller,San Antonio Spurs,West,Southwest,6,7,79,26,14,2026-07-13
-Kelly Olynyk,San Antonio Spurs,West,Southwest,7,0,84,35,8,2026-07-13
-Mason Plumlee,San Antonio Spurs,West,Southwest,7,0,84,36,45,2026-07-13
-Jayden Quaintance,San Antonio Spurs,West,Southwest,6,10,82,19,,2026-07-13
-Tarris Reed Jr.,San Antonio Spurs,West,Southwest,6,10,82,22,,2026-07-13
-Devin Vassell,San Antonio Spurs,West,Southwest,6,5,77,25,24,2026-07-13
-Lindy Waters III,San Antonio Spurs,West,Southwest,6,5,77,28,43,2026-07-13
-Victor Wembanyama,San Antonio Spurs,West,Southwest,7,4,88,22,1,2026-07-13
-Kyle Anderson,Toronto Raptors,East,Atlantic,6,8,80,32,,2026-07-13
-Scottie Barnes,Toronto Raptors,East,Atlantic,6,8,80,24,4,2026-07-13
-RJ Barrett,Toronto Raptors,East,Atlantic,6,6,78,26,9,2026-07-13
-Jamison Battle,Toronto Raptors,East,Atlantic,6,7,79,25,77,2026-07-13
-Nate Bittle,Toronto Raptors,East,Atlantic,7,0,84,23,,2026-07-13
-Jaden Bradley,Toronto Raptors,East,Atlantic,6,3,75,22,,2026-07-13
-Gradey Dick,Toronto Raptors,East,Atlantic,6,7,79,22,1,2026-07-13
-Allen Graves,Toronto Raptors,East,Atlantic,6,8,80,19,,2026-07-13
-Chucky Hepburn,Toronto Raptors,East,Atlantic,6,0,72,23,24,2026-07-13
-Brandon Ingram,Toronto Raptors,East,Atlantic,6,8,80,28,3,2026-07-13
-Trayce Jackson-Davis,Toronto Raptors,East,Atlantic,6,9,81,26,32,2026-07-13
-A.J. Lawson,Toronto Raptors,East,Atlantic,6,6,78,25,0,2026-07-13
-Alijah Martin,Toronto Raptors,East,Atlantic,6,2,74,24,55,2026-07-13
-Collin Murray-Boyles,Toronto Raptors,East,Atlantic,6,7,79,21,30,2026-07-13
-Jakob Poeltl,Toronto Raptors,East,Atlantic,7,0,84,30,19,2026-07-13
-Immanuel Quickley,Toronto Raptors,East,Atlantic,6,2,74,27,5,2026-07-13
-Jamal Shead,Toronto Raptors,East,Atlantic,6,1,73,23,23,2026-07-13
-Garrett Temple,Toronto Raptors,East,Atlantic,6,5,77,40,17,2026-07-13
-Ja'Kobe Walter,Toronto Raptors,East,Atlantic,6,4,76,21,14,2026-07-13
-Trey Alexander,Utah Jazz,West,Northwest,6,5,77,23,23,2026-07-13
-Ace Bailey,Utah Jazz,West,Northwest,6,9,81,19,19,2026-07-13
-Mo Bamba,Utah Jazz,West,Northwest,7,0,84,28,11,2026-07-13
-Tamar Bates,Utah Jazz,West,Northwest,6,4,76,23,,2026-07-13
-Isaiah Collier,Utah Jazz,West,Northwest,6,4,76,21,8,2026-07-13
-Kyle Filipowski,Utah Jazz,West,Northwest,6,11,83,22,22,2026-07-13
-Keyonte George,Utah Jazz,West,Northwest,6,4,76,22,3,2026-07-13
-Hayden Gray,Utah Jazz,West,Northwest,6,4,76,23,3,2026-07-13
-Jaxson Hayes,Utah Jazz,West,Northwest,7,0,84,26,,2026-07-13
-Blake Hinson,Utah Jazz,West,Northwest,6,8,80,26,2,2026-07-13
-Jaren Jackson Jr.,Utah Jazz,West,Northwest,6,10,82,26,20,2026-07-13
-John Konchar,Utah Jazz,West,Northwest,6,5,77,30,55,2026-07-13
-Kevin Love,Utah Jazz,West,Northwest,6,10,82,37,42,2026-07-13
-Lauri Markkanen,Utah Jazz,West,Northwest,7,1,85,29,23,2026-07-13
-Bez Mbeng,Utah Jazz,West,Northwest,6,4,76,24,21,2026-07-13
-Svi Mykhailiuk,Utah Jazz,West,Northwest,6,7,79,29,10,2026-07-13
-Jusuf Nurkic,Utah Jazz,West,Northwest,6,11,83,31,30,2026-07-13
-Josh Okogie,Utah Jazz,West,Northwest,6,4,76,27,,2026-07-13
-Darryn Peterson,Utah Jazz,West,Northwest,6,5,77,19,,2026-07-13
-Brice Sensabaugh,Utah Jazz,West,Northwest,6,6,78,22,28,2026-07-13
-Oscar Tshiebwe,Utah Jazz,West,Northwest,6,8,80,26,34,2026-07-13
-Cody Williams,Utah Jazz,West,Northwest,6,8,80,21,5,2026-07-13
-Deandre Ayton,Washington Wizards,East,Southeast,7,0,84,27,,2026-07-13
-Bub Carrington,Washington Wizards,East,Southeast,6,4,76,20,7,2026-07-13
-Justin Champagnie,Washington Wizards,East,Southeast,6,6,78,25,9,2026-07-13
-Sharife Cooper,Washington Wizards,East,Southeast,6,0,72,25,13,2026-07-13
-Bilal Coulibaly,Washington Wizards,East,Southeast,6,7,79,21,0,2026-07-13
-Anthony Davis,Washington Wizards,East,Southeast,6,10,82,33,23,2026-07-13
-AJ Dybantsa,Washington Wizards,East,Southeast,6,9,81,19,4,2026-07-13
-Kyshawn George,Washington Wizards,East,Southeast,6,8,80,22,18,2026-07-13
-Anthony Gill,Washington Wizards,East,Southeast,6,7,79,33,16,2026-07-13
-Tre Johnson,Washington Wizards,East,Southeast,6,5,77,20,12,2026-07-13
-Khris Middleton,Washington Wizards,East,Southeast,6,7,79,34,22,2026-07-13
-Felix Okpara,Washington Wizards,East,Southeast,6,10,82,22,,2026-07-13
-Julian Reese,Washington Wizards,East,Southeast,6,9,81,23,15,2026-07-13
-Will Riley,Washington Wizards,East,Southeast,6,9,81,20,27,2026-07-13
-Alex Sarr,Washington Wizards,East,Southeast,7,0,84,21,20,2026-07-13
-Tristan Vukcevic,Washington Wizards,East,Southeast,7,0,84,23,00,2026-07-13
-Jamir Watkins,Washington Wizards,East,Southeast,6,6,78,25,5,2026-07-13
-Cam Whitmore,Washington Wizards,East,Southeast,6,6,78,22,1,2026-07-13
-Trae Young,Washington Wizards,East,Southeast,6,2,74,27,3,2026-07-13
+Nickeil Alexander-Walker,Atlanta Hawks,East,Southeast,6,5,77,27,7,2026-07-20
+Devin Carter,Atlanta Hawks,East,Southeast,6,2,74,24,22,2026-07-20
+Dyson Daniels,Atlanta Hawks,East,Southeast,6,7,79,23,5,2026-07-20
+RayJ Dennis,Atlanta Hawks,East,Southeast,6,2,74,25,00,2026-07-20
+Luguentz Dort,Atlanta Hawks,East,Southeast,6,4,76,27,5,2026-07-20
+Zuby Ejiofor,Atlanta Hawks,East,Southeast,6,8,80,22,,2026-07-20
+Kingston Flemings,Atlanta Hawks,East,Southeast,6,3,75,19,,2026-07-20
+Keshon Gilbert,Atlanta Hawks,East,Southeast,6,4,76,23,,2026-07-20
+Mouhamed Gueye,Atlanta Hawks,East,Southeast,6,11,83,23,18,2026-07-20
+Buddy Hield,Atlanta Hawks,East,Southeast,6,4,76,33,8,2026-07-20
+Jalen Johnson,Atlanta Hawks,East,Southeast,6,8,80,24,1,2026-07-20
+Corey Kispert,Atlanta Hawks,East,Southeast,6,6,78,27,24,2026-07-20
+Christian Koloko,Atlanta Hawks,East,Southeast,6,11,83,26,35,2026-07-20
+Jock Landale,Atlanta Hawks,East,Southeast,6,11,83,30,31,2026-07-20
+CJ McCollum,Atlanta Hawks,East,Southeast,6,3,75,34,3,2026-07-20
+Ryan Nembhard,Atlanta Hawks,East,Southeast,5,11,71,23,9,2026-07-20
+Asa Newell,Atlanta Hawks,East,Southeast,6,11,83,20,14,2026-07-20
+Onyeka Okongwu,Atlanta Hawks,East,Southeast,6,10,82,25,17,2026-07-20
+Henri Veesaar,Atlanta Hawks,East,Southeast,7,0,84,22,,2026-07-20
+Keaton Wallace,Atlanta Hawks,East,Southeast,6,3,75,27,2,2026-07-20
+Aaron Wiggins,Atlanta Hawks,East,Southeast,6,5,77,27,21,2026-07-20
+Chris Cenac Jr.,Boston Celtics,East,Atlantic,6,11,83,19,12,2026-07-20
+Mike Conley,Boston Celtics,East,Atlantic,6,1,73,38,,2026-07-20
+Luka Garza,Boston Celtics,East,Atlantic,6,10,82,27,52,2026-07-20
+Paul George,Boston Celtics,East,Atlantic,6,8,80,36,8,2026-07-20
+Hugo Gonzalez,Boston Celtics,East,Atlantic,6,6,78,20,28,2026-07-20
+Ron Harper Jr.,Boston Celtics,East,Atlantic,6,5,77,26,13,2026-07-20
+Sam Hauser,Boston Celtics,East,Atlantic,6,7,79,28,30,2026-07-20
+Dillon Mitchell,Boston Celtics,East,Atlantic,6,8,80,22,,2026-07-20
+Payton Pritchard,Boston Celtics,East,Atlantic,6,1,73,28,11,2026-07-20
+Neemias Queta,Boston Celtics,East,Atlantic,7,0,84,27,88,2026-07-20
+Mitchell Robinson,Boston Celtics,East,Atlantic,7,0,84,28,,2026-07-20
+Baylor Scheierman,Boston Celtics,East,Atlantic,6,6,78,25,55,2026-07-20
+Jayson Tatum,Boston Celtics,East,Atlantic,6,8,80,28,0,2026-07-20
+John Tonje,Boston Celtics,East,Atlantic,6,5,77,25,8,2026-07-20
+Jordan Walsh,Boston Celtics,East,Atlantic,6,6,78,22,27,2026-07-20
+Derrick White,Boston Celtics,East,Atlantic,6,4,76,32,9,2026-07-20
+Amari Williams,Boston Celtics,East,Atlantic,7,0,84,24,77,2026-07-20
+Tyler Bilodeau,Brooklyn Nets,East,Atlantic,6,8,80,22,34,2026-07-20
+Mikel Brown Jr.,Brooklyn Nets,East,Atlantic,6,5,77,20,0,2026-07-20
+Noah Clowney,Brooklyn Nets,East,Atlantic,6,10,82,22,21,2026-07-20
+Egor Demin,Brooklyn Nets,East,Atlantic,6,8,80,20,8,2026-07-20
+Keon Ellis,Brooklyn Nets,East,Atlantic,6,4,76,26,,2026-07-20
+Tyson Etienne,Brooklyn Nets,East,Atlantic,6,0,72,26,10,2026-07-20
+Joshua Jefferson,Brooklyn Nets,East,Atlantic,6,8,80,22,,2026-07-20
+Chaney Johnson,Brooklyn Nets,East,Atlantic,6,8,80,24,31,2026-07-20
+E.J. Liddell,Brooklyn Nets,East,Atlantic,6,6,78,25,9,2026-07-20
+Terance Mann,Brooklyn Nets,East,Atlantic,6,6,78,29,14,2026-07-20
+Josh Minott,Brooklyn Nets,East,Atlantic,6,8,80,23,00,2026-07-20
+Michael Porter Jr.,Brooklyn Nets,East,Atlantic,6,10,82,28,17,2026-07-20
+Drake Powell,Brooklyn Nets,East,Atlantic,6,5,77,20,4,2026-07-20
+Julius Randle,Brooklyn Nets,East,Atlantic,6,9,81,31,30,2026-07-20
+Ben Saraf,Brooklyn Nets,East,Atlantic,6,6,78,20,77,2026-07-20
+Day'Ron Sharpe,Brooklyn Nets,East,Atlantic,6,10,82,24,20,2026-07-20
+Nolan Traore,Brooklyn Nets,East,Atlantic,6,3,75,20,13,2026-07-20
+Moritz Wagner,Brooklyn Nets,East,Atlantic,6,11,83,29,,2026-07-20
+Danny Wolf,Brooklyn Nets,East,Atlantic,6,11,83,22,2,2026-07-20
+Grayson Allen,Charlotte Hornets,East,Southeast,6,3,75,30,,2026-07-20
+Christian Anderson,Charlotte Hornets,East,Southeast,6,1,73,20,,2026-07-20
+Pat Connaughton,Charlotte Hornets,East,Southeast,6,5,77,33,21,2026-07-20
+Moussa Diabate,Charlotte Hornets,East,Southeast,6,10,82,24,14,2026-07-20
+Dorian Finney-Smith,Charlotte Hornets,East,Southeast,6,7,79,33,,2026-07-20
+Mouhamadou Gueye,Charlotte Hornets,East,Southeast,6,9,81,28,16,2026-07-20
+PJ Hall,Charlotte Hornets,East,Southeast,6,8,80,24,16,2026-07-20
+Sion James,Charlotte Hornets,East,Southeast,6,5,77,23,4,2026-07-20
+Ryan Kalkbrenner,Charlotte Hornets,East,Southeast,7,1,85,24,11,2026-07-20
+Kon Knueppel,Charlotte Hornets,East,Southeast,6,6,78,20,7,2026-07-20
+Tre Mann,Charlotte Hornets,East,Southeast,6,4,76,25,23,2026-07-20
+Liam McNeeley,Charlotte Hornets,East,Southeast,6,7,79,20,33,2026-07-20
+Brandon Miller,Charlotte Hornets,East,Southeast,6,7,79,23,24,2026-07-20
+Royce O'Neale,Charlotte Hornets,East,Southeast,6,6,78,33,,2026-07-20
+Naz Reid,Charlotte Hornets,East,Southeast,6,9,81,26,,2026-07-20
+Tidjane Salaun,Charlotte Hornets,East,Southeast,6,10,82,20,31,2026-07-20
+Hannes Steinbach,Charlotte Hornets,East,Southeast,6,10,82,20,,2026-07-20
+Coby White,Charlotte Hornets,East,Southeast,6,4,76,26,3,2026-07-20
+Grant Williams,Charlotte Hornets,East,Southeast,6,7,79,27,2,2026-07-20
+Tobe Awaka,Chicago Bulls,East,Central,6,8,80,22,,2026-07-20
+Matas Buzelis,Chicago Bulls,East,Central,6,8,80,21,14,2026-07-20
+Nic Claxton,Chicago Bulls,East,Central,6,11,83,27,,2026-07-20
+Zach Collins,Chicago Bulls,East,Central,6,9,81,28,12,2026-07-20
+Rob Dillingham,Chicago Bulls,East,Central,6,2,74,21,7,2026-07-20
+Noa Essengue,Chicago Bulls,East,Central,6,11,83,19,24,2026-07-20
+Josh Giddey,Chicago Bulls,East,Central,6,7,79,23,3,2026-07-20
+Tre Jones,Chicago Bulls,East,Central,6,1,73,26,30,2026-07-20
+Mac McClung,Chicago Bulls,East,Central,6,2,74,27,5,2026-07-20
+Leonard Miller,Chicago Bulls,East,Central,6,10,82,22,11,2026-07-20
+Isaac Okoro,Chicago Bulls,East,Central,6,4,76,25,35,2026-07-20
+Norman Powell,Chicago Bulls,East,Central,6,4,76,33,,2026-07-20
+Jalen Smith,Chicago Bulls,East,Central,6,8,80,26,25,2026-07-20
+Dailyn Swain,Chicago Bulls,East,Central,6,7,79,21,5,2026-07-20
+Patrick Williams,Chicago Bulls,East,Central,6,6,78,24,44,2026-07-20
+Caleb Wilson,Chicago Bulls,East,Central,6,9,81,20,8,2026-07-20
+Guerschon Yabusele,Chicago Bulls,East,Central,6,7,79,30,28,2026-07-20
+Jarrett Allen,Cleveland Cavaliers,East,Central,6,9,81,28,31,2026-07-20
+Thomas Bryant,Cleveland Cavaliers,East,Central,6,9,81,28,3,2026-07-20
+Tristan Enaruna,Cleveland Cavaliers,East,Central,6,8,80,25,21,2026-07-20
+James Harden,Cleveland Cavaliers,East,Central,6,5,77,36,1,2026-07-20
+Sam Merrill,Cleveland Cavaliers,East,Central,6,4,76,30,5,2026-07-20
+Riley Minix,Cleveland Cavaliers,East,Central,6,7,79,25,12,2026-07-20
+Donovan Mitchell,Cleveland Cavaliers,East,Central,6,2,74,29,45,2026-07-20
+Evan Mobley,Cleveland Cavaliers,East,Central,6,11,83,25,4,2026-07-20
+Craig Porter Jr.,Cleveland Cavaliers,East,Central,6,1,73,26,9,2026-07-20
+Tyrese Proctor,Cleveland Cavaliers,East,Central,6,4,76,22,24,2026-07-20
+Olivier Sarr,Cleveland Cavaliers,East,Central,6,10,82,27,33,2026-07-20
+Dennis Schroder,Cleveland Cavaliers,East,Central,6,1,73,32,8,2026-07-20
+Max Strus,Cleveland Cavaliers,East,Central,6,5,77,30,2,2026-07-20
+Meleek Thomas,Cleveland Cavaliers,East,Central,6,3,75,19,,2026-07-20
+Nae'Qwan Tomlin,Cleveland Cavaliers,East,Central,6,8,80,25,35,2026-07-20
+Jaylon Tyson,Cleveland Cavaliers,East,Central,6,6,78,23,20,2026-07-20
+Ernest Udeh Jr.,Cleveland Cavaliers,East,Central,6,11,83,22,,2026-07-20
+Santi Aldama,Dallas Mavericks,West,Southwest,7,0,84,25,,2026-07-20
+Tarik Biberovic,Dallas Mavericks,West,Southwest,6,7,79,25,,2026-07-20
+Max Christie,Dallas Mavericks,West,Southwest,6,5,77,23,00,2026-07-20
+Moussa Cisse,Dallas Mavericks,West,Southwest,6,11,83,23,30,2026-07-20
+Sergio de Larrea,Dallas Mavericks,West,Southwest,6,7,79,20,55,2026-07-20
+Cooper Flagg,Dallas Mavericks,West,Southwest,6,9,81,19,32,2026-07-20
+Daniel Gafford,Dallas Mavericks,West,Southwest,6,10,82,27,21,2026-07-20
+Kyrie Irving,Dallas Mavericks,West,Southwest,6,2,74,34,11,2026-07-20
+Vsevolod Ishchenko,Dallas Mavericks,West,Southwest,6,8,80,21,,2026-07-20
+Morez Johnson Jr.,Dallas Mavericks,West,Southwest,6,9,81,20,14,2026-07-20
+Tobi Lawal,Dallas Mavericks,West,Southwest,6,8,80,23,,2026-07-20
+Dereck Lively II,Dallas Mavericks,West,Southwest,7,1,85,22,2,2026-07-20
+Naji Marshall,Dallas Mavericks,West,Southwest,6,6,78,28,3,2026-07-20
+Caleb Martin,Dallas Mavericks,West,Southwest,6,5,77,30,16,2026-07-20
+John Poulakidas,Dallas Mavericks,West,Southwest,6,6,78,23,1,2026-07-20
+Zaccharie Risacher,Dallas Mavericks,West,Southwest,6,8,80,21,10,2026-07-20
+Marcus Sasser,Dallas Mavericks,West,Southwest,6,1,73,25,25,2026-07-20
+Tyler Smith,Dallas Mavericks,West,Southwest,6,9,81,21,23,2026-07-20
+Klay Thompson,Dallas Mavericks,West,Southwest,6,5,77,36,31,2026-07-20
+P.J. Washington,Dallas Mavericks,West,Southwest,6,7,79,27,25,2026-07-20
+Marvin Bagley III,Denver Nuggets,West,Northwest,6,10,82,27,35,2026-07-20
+Christian Braun,Denver Nuggets,West,Northwest,6,6,78,25,0,2026-07-20
+Trevon Brazile,Denver Nuggets,West,Northwest,6,10,82,23,,2026-07-20
+Aaron Gordon,Denver Nuggets,West,Northwest,6,8,80,30,32,2026-07-20
+DaRon Holmes II,Denver Nuggets,West,Northwest,6,9,81,23,14,2026-07-20
+Bryce Hopkins,Denver Nuggets,West,Northwest,6,7,79,23,,2026-07-20
+Cameron Johnson,Denver Nuggets,West,Northwest,6,8,80,30,23,2026-07-20
+Nikola Jokic,Denver Nuggets,West,Northwest,6,11,83,31,15,2026-07-20
+Spencer Jones,Denver Nuggets,West,Northwest,6,7,79,25,21,2026-07-20
+Tyus Jones,Denver Nuggets,West,Northwest,6,0,72,30,5,2026-07-20
+Jamal Murray,Denver Nuggets,West,Northwest,6,4,76,29,27,2026-07-20
+Zeke Nnaji,Denver Nuggets,West,Northwest,6,10,82,25,22,2026-07-20
+Jalen Pickett,Denver Nuggets,West,Northwest,6,2,74,26,24,2026-07-20
+David Roddy,Denver Nuggets,West,Northwest,6,4,76,25,45,2026-07-20
+KJ Simpson,Denver Nuggets,West,Northwest,6,1,73,23,25,2026-07-20
+Julian Strawther,Denver Nuggets,West,Northwest,6,6,78,24,3,2026-07-20
+Peyton Watson,Denver Nuggets,West,Northwest,6,8,80,23,8,2026-07-20
+John Collins,Detroit Pistons,East,Central,6,9,81,28,,2026-07-20
+Cade Cunningham,Detroit Pistons,East,Central,6,6,78,24,2,2026-07-20
+Jalen Duren,Detroit Pistons,East,Central,6,10,82,22,0,2026-07-20
+Javonte Green,Detroit Pistons,East,Central,6,5,77,32,31,2026-07-20
+Elijah Harkless,Detroit Pistons,East,Central,6,3,75,26,,2026-07-20
+Gary Harris,Detroit Pistons,East,Central,6,4,76,31,,2026-07-20
+Ronald Holland II,Detroit Pistons,East,Central,6,8,80,21,5,2026-07-20
+Kevin Huerter,Detroit Pistons,East,Central,6,6,78,27,27,2026-07-20
+Daniss Jenkins,Detroit Pistons,East,Central,6,4,76,24,24,2026-07-20
+Isaiah Joe,Detroit Pistons,East,Central,6,4,76,27,,2026-07-20
+Isaac Jones,Detroit Pistons,East,Central,6,8,80,26,3,2026-07-20
+Chaz Lanier,Detroit Pistons,East,Central,6,3,75,24,20,2026-07-20
+Wendell Moore Jr.,Detroit Pistons,East,Central,6,5,77,24,14,2026-07-20
+Ebuka Okorie,Detroit Pistons,East,Central,6,2,74,19,,2026-07-20
+Ugonna Onyenso,Detroit Pistons,East,Central,7,0,84,21,,2026-07-20
+Taurean Prince,Detroit Pistons,East,Central,6,6,78,32,12,2026-07-20
+Paul Reed,Detroit Pistons,East,Central,6,9,81,27,7,2026-07-20
+Duncan Robinson,Detroit Pistons,East,Central,6,7,79,32,55,2026-07-20
+Tolu Smith,Detroit Pistons,East,Central,6,11,83,25,35,2026-07-20
+Ausar Thompson,Detroit Pistons,East,Central,6,7,79,23,9,2026-07-20
+Charles Bassey,Golden State Warriors,West,Pacific,6,10,82,25,28,2026-07-20
+Jimmy Butler III,Golden State Warriors,West,Pacific,6,6,78,36,10,2026-07-20
+LJ Cryer,Golden State Warriors,West,Pacific,6,0,72,24,18,2026-07-20
+Stephen Curry,Golden State Warriors,West,Pacific,6,2,74,38,30,2026-07-20
+Draymond Green,Golden State Warriors,West,Pacific,6,6,78,36,23,2026-07-20
+Al Horford,Golden State Warriors,West,Pacific,6,8,80,40,20,2026-07-20
+Lajae Jones,Golden State Warriors,West,Pacific,6,7,79,22,,2026-07-20
+Yaxel Lendeborg,Golden State Warriors,West,Pacific,6,9,81,23,,2026-07-20
+Malevy Leons,Golden State Warriors,West,Pacific,6,9,81,26,33,2026-07-20
+De'Anthony Melton,Golden State Warriors,West,Pacific,6,2,74,28,8,2026-07-20
+Moses Moody,Golden State Warriors,West,Pacific,6,5,77,24,4,2026-07-20
+Brandin Podziemski,Golden State Warriors,West,Pacific,6,4,76,23,2,2026-07-20
+Kristaps Porzingis,Golden State Warriors,West,Pacific,7,2,86,30,7,2026-07-20
+Will Richard,Golden State Warriors,West,Pacific,6,3,75,23,3,2026-07-20
+Gui Santos,Golden State Warriors,West,Pacific,6,7,79,24,15,2026-07-20
+Nate Williams,Golden State Warriors,West,Pacific,6,5,77,27,19,2026-07-20
+Steven Adams,Houston Rockets,West,Southwest,6,11,83,32,12,2026-07-20
+Bogdan Bogdanovic,Houston Rockets,West,Southwest,6,5,77,33,,2026-07-20
+Clint Capela,Houston Rockets,West,Southwest,6,10,82,32,30,2026-07-20
+Quadir Copeland,Houston Rockets,West,Southwest,6,6,78,22,,2026-07-20
+Isaiah Crawford,Houston Rockets,West,Southwest,6,6,78,24,27,2026-07-20
+JD Davison,Houston Rockets,West,Southwest,6,1,73,23,4,2026-07-20
+Kevin Durant,Houston Rockets,West,Southwest,6,11,83,37,7,2026-07-20
+Tari Eason,Houston Rockets,West,Southwest,6,8,80,25,17,2026-07-20
+Tristen Newton,Houston Rockets,West,Southwest,6,5,77,25,13,2026-07-20
+Alperen Sengun,Houston Rockets,West,Southwest,6,11,83,23,28,2026-07-20
+Reed Sheppard,Houston Rockets,West,Southwest,6,2,74,22,15,2026-07-20
+Marcus Smart,Houston Rockets,West,Southwest,6,3,75,32,,2026-07-20
+Jabari Smith Jr.,Houston Rockets,West,Southwest,6,11,83,23,10,2026-07-20
+Amen Thompson,Houston Rockets,West,Southwest,6,7,79,23,1,2026-07-20
+Bruce Thornton,Houston Rockets,West,Southwest,6,0,72,22,,2026-07-20
+Fred VanVleet,Houston Rockets,West,Southwest,6,0,72,32,5,2026-07-20
+Kobe Brown,Indiana Pacers,East,Central,6,7,79,26,24,2026-07-20
+Johnny Furphy,Indiana Pacers,East,Central,6,8,80,21,12,2026-07-20
+Tyrese Haliburton,Indiana Pacers,East,Central,6,5,77,26,0,2026-07-20
+Jay Huff,Indiana Pacers,East,Central,7,1,85,28,32,2026-07-20
+Quenton Jackson,Indiana Pacers,East,Central,6,4,76,27,29,2026-07-20
+T.J. McConnell,Indiana Pacers,East,Central,6,1,73,34,9,2026-07-20
+Larry Nance Jr.,Indiana Pacers,East,Central,6,6,78,33,,2026-07-20
+Andrew Nembhard,Indiana Pacers,East,Central,6,4,76,26,2,2026-07-20
+Aaron Nesmith,Indiana Pacers,East,Central,6,5,77,26,23,2026-07-20
+Kelly Oubre Jr.,Indiana Pacers,East,Central,6,8,80,30,,2026-07-20
+Taelon Peter,Indiana Pacers,East,Central,6,3,75,24,4,2026-07-20
+Ben Sheppard,Indiana Pacers,East,Central,6,6,78,25,26,2026-07-20
+Pascal Siakam,Indiana Pacers,East,Central,6,8,80,32,43,2026-07-20
+Jalen Slawson,Indiana Pacers,East,Central,6,7,79,26,18,2026-07-20
+Braden Smith,Indiana Pacers,East,Central,5,10,70,22,,2026-07-20
+Ethan Thompson,Indiana Pacers,East,Central,6,5,77,27,55,2026-07-20
+Obi Toppin,Indiana Pacers,East,Central,6,9,81,28,1,2026-07-20
+Jarace Walker,Indiana Pacers,East,Central,6,7,79,22,5,2026-07-20
+Ivica Zubac,Indiana Pacers,East,Central,7,0,84,29,40,2026-07-20
+Cam Christie,Los Angeles Clippers,West,Pacific,6,5,77,20,24,2026-07-20
+Kris Dunn,Los Angeles Clippers,West,Pacific,6,3,75,32,8,2026-07-20
+Darius Garland,Los Angeles Clippers,West,Pacific,6,1,73,26,10,2026-07-20
+Rui Hachimura,Los Angeles Clippers,West,Pacific,6,8,80,28,28,2026-07-20
+Isaiah Jackson,Los Angeles Clippers,West,Pacific,6,8,80,24,23,2026-07-20
+Derrick Jones Jr.,Los Angeles Clippers,West,Pacific,6,6,78,29,5,2026-07-20
+Kawhi Leonard,Los Angeles Clippers,West,Pacific,6,6,78,35,2,2026-07-20
+Brook Lopez,Los Angeles Clippers,West,Pacific,7,1,85,38,11,2026-07-20
+Nick Martinelli,Los Angeles Clippers,West,Pacific,6,7,79,22,,2026-07-20
+Bennedict Mathurin,Los Angeles Clippers,West,Pacific,6,5,77,24,9,2026-07-20
+Baba Miller,Los Angeles Clippers,West,Pacific,6,11,83,22,,2026-07-20
+Jordan Miller,Los Angeles Clippers,West,Pacific,6,5,77,26,22,2026-07-20
+Narcisse Ngoy,Los Angeles Clippers,West,Pacific,6,10,82,22,,2026-07-20
+Yanic Konan Niederhauser,Los Angeles Clippers,West,Pacific,6,11,83,23,14,2026-07-20
+Sean Pedulla,Los Angeles Clippers,West,Pacific,6,1,73,23,00,2026-07-20
+Kobe Sanders,Los Angeles Clippers,West,Pacific,6,8,80,24,4,2026-07-20
+Keaton Wagler,Los Angeles Clippers,West,Pacific,6,5,77,19,,2026-07-20
+TyTy Washington Jr.,Los Angeles Clippers,West,Pacific,6,3,75,24,15,2026-07-20
+Cameron Carr,Los Angeles Lakers,West,Pacific,6,5,77,21,,2026-07-20
+Luka Doncic,Los Angeles Lakers,West,Pacific,6,8,80,27,77,2026-07-20
+Quentin Grimes,Los Angeles Lakers,West,Pacific,6,4,76,26,,2026-07-20
+Jaden Hardy,Los Angeles Lakers,West,Pacific,6,3,75,24,,2026-07-20
+Bronny James,Los Angeles Lakers,West,Pacific,6,2,74,21,9,2026-07-20
+Walker Kessler,Los Angeles Lakers,West,Pacific,7,2,86,24,,2026-07-20
+Dalton Knecht,Los Angeles Lakers,West,Pacific,6,6,78,25,4,2026-07-20
+Jake LaRavia,Los Angeles Lakers,West,Pacific,6,7,79,24,12,2026-07-20
+Kevon Looney,Los Angeles Lakers,West,Pacific,6,9,81,30,,2026-07-20
+Sandro Mamukelashvili,Los Angeles Lakers,West,Pacific,6,9,81,27,,2026-07-20
+Chris Manon,Los Angeles Lakers,West,Pacific,6,4,76,24,30,2026-07-20
+AK Okereke,Los Angeles Lakers,West,Pacific,6,7,79,23,,2026-07-20
+Austin Reaves,Los Angeles Lakers,West,Pacific,6,5,77,28,15,2026-07-20
+Collin Sexton,Los Angeles Lakers,West,Pacific,6,3,75,27,,2026-07-20
+Peter Suder,Los Angeles Lakers,West,Pacific,6,4,76,22,35,2026-07-20
+Adou Thiero,Los Angeles Lakers,West,Pacific,6,8,80,22,1,2026-07-20
+Jarred Vanderbilt,Los Angeles Lakers,West,Pacific,6,8,80,27,2,2026-07-20
+Ziaire Williams,Los Angeles Lakers,West,Pacific,6,9,81,24,,2026-07-20
+Cameron Boozer,Memphis Grizzlies,West,Southwest,6,8,80,19,27,2026-07-20
+Kentavious Caldwell-Pope,Memphis Grizzlies,West,Southwest,6,5,77,33,3,2026-07-20
+Walter Clayton Jr.,Memphis Grizzlies,West,Southwest,6,4,76,23,4,2026-07-20
+Cedric Coward,Memphis Grizzlies,West,Southwest,6,5,77,22,23,2026-07-20
+Zach Edey,Memphis Grizzlies,West,Southwest,7,3,87,24,14,2026-07-20
+Taj Gibson,Memphis Grizzlies,West,Southwest,6,9,81,41,67,2026-07-20
+Jerami Grant,Memphis Grizzlies,West,Southwest,6,7,79,32,9,2026-07-20
+Taylor Hendricks,Memphis Grizzlies,West,Southwest,6,9,81,22,22,2026-07-20
+GG Jackson,Memphis Grizzlies,West,Southwest,6,9,81,21,45,2026-07-20
+Ty Jerome,Memphis Grizzlies,West,Southwest,6,5,77,29,2,2026-07-20
+AJ Johnson,Memphis Grizzlies,West,Southwest,6,5,77,21,,2026-07-20
+Karim Lopez,Memphis Grizzlies,West,Southwest,6,8,80,19,,2026-07-20
+Jahmai Mashack,Memphis Grizzlies,West,Southwest,6,3,75,23,21,2026-07-20
+Kris Murray,Memphis Grizzlies,West,Southwest,6,8,80,25,24,2026-07-20
+Scotty Pippen Jr.,Memphis Grizzlies,West,Southwest,6,2,74,25,1,2026-07-20
+Quinten Post,Memphis Grizzlies,West,Southwest,7,0,84,26,,2026-07-20
+Olivier-Maxence Prosper,Memphis Grizzlies,West,Southwest,6,7,79,24,18,2026-07-20
+D'Angelo Russell,Memphis Grizzlies,West,Southwest,6,3,75,30,,2026-07-20
+Richie Saunders,Memphis Grizzlies,West,Southwest,6,5,77,24,,2026-07-20
+Javon Small,Memphis Grizzlies,West,Southwest,6,1,73,23,10,2026-07-20
+Cam Spencer,Memphis Grizzlies,West,Southwest,6,3,75,26,24,2026-07-20
+Isaiah Stewart,Memphis Grizzlies,West,Southwest,6,8,80,25,,2026-07-20
+Jaylen Wells,Memphis Grizzlies,West,Southwest,6,7,79,22,0,2026-07-20
+Bam Adebayo,Miami Heat,East,Southeast,6,9,81,29,13,2026-07-20
+Giannis Antetokounmpo,Miami Heat,East,Southeast,6,11,83,31,7,2026-07-20
+Ryan Conwell,Miami Heat,East,Southeast,6,3,75,22,,2026-07-20
+Tre Donaldson,Miami Heat,East,Southeast,6,2,74,22,,2026-07-20
+Simone Fontecchio,Miami Heat,East,Southeast,6,7,79,30,0,2026-07-20
+Myron Gardner,Miami Heat,East,Southeast,6,5,77,25,15,2026-07-20
+Vladislav Goldin,Miami Heat,East,Southeast,7,0,84,25,50,2026-07-20
+Tim Hardaway Jr.,Miami Heat,East,Southeast,6,5,77,34,10,2026-07-20
+Nikola Jovic,Miami Heat,East,Southeast,6,10,82,23,5,2026-07-20
+Trevor Keels,Miami Heat,East,Southeast,6,5,77,22,8,2026-07-20
+Pelle Larsson,Miami Heat,East,Southeast,6,5,77,25,9,2026-07-20
+Davion Mitchell,Miami Heat,East,Southeast,6,0,72,27,45,2026-07-20
+Bobby Portis,Miami Heat,East,Southeast,6,9,81,31,95,2026-07-20
+Dru Smith,Miami Heat,East,Southeast,6,2,74,28,12,2026-07-20
+Andrew Wiggins,Miami Heat,East,Southeast,6,7,79,31,22,2026-07-20
+Jahmir Young,Miami Heat,East,Southeast,6,0,72,25,17,2026-07-20
+Nate Ament,Milwaukee Bucks,East,Central,6,10,82,19,,2026-07-20
+Brayden Burries,Milwaukee Bucks,East,Central,6,4,76,20,,2026-07-20
+Ousmane Dieng,Milwaukee Bucks,East,Central,6,9,81,23,21,2026-07-20
+AJ Green,Milwaukee Bucks,East,Central,6,4,76,26,20,2026-07-20
+Tyler Herro,Milwaukee Bucks,East,Central,6,5,77,26,14,2026-07-20
+Kasparas Jakucionis,Milwaukee Bucks,East,Central,6,5,77,20,25,2026-07-20
+Jaime Jaquez Jr.,Milwaukee Bucks,East,Central,6,6,78,25,11,2026-07-20
+Kam Jones,Milwaukee Bucks,East,Central,6,4,76,24,,2026-07-20
+Kyle Kuzma,Milwaukee Bucks,East,Central,6,8,80,30,18,2026-07-20
+Caris LeVert,Milwaukee Bucks,East,Central,6,7,79,31,,2026-07-20
+Malique Lewis,Milwaukee Bucks,East,Central,6,8,80,21,,2026-07-20
+Bogoljub Markovic,Milwaukee Bucks,East,Central,6,11,83,21,,2026-07-20
+Pete Nance,Milwaukee Bucks,East,Central,6,9,81,26,35,2026-07-20
+Kevin Porter Jr.,Milwaukee Bucks,East,Central,6,5,77,26,7,2026-07-20
+Ryan Rollins,Milwaukee Bucks,East,Central,6,3,75,24,13,2026-07-20
+Cormac Ryan,Milwaukee Bucks,East,Central,6,5,77,27,30,2026-07-20
+Jericho Sims,Milwaukee Bucks,East,Central,6,10,82,27,00,2026-07-20
+Gary Trent Jr.,Milwaukee Bucks,East,Central,6,5,77,27,5,2026-07-20
+Myles Turner,Milwaukee Bucks,East,Central,6,11,83,30,3,2026-07-20
+Kel'el Ware,Milwaukee Bucks,East,Central,7,0,84,22,7,2026-07-20
+LaMelo Ball,Minnesota Timberwolves,West,Northwest,6,7,79,24,,2026-07-20
+Joan Beringer,Minnesota Timberwolves,West,Northwest,6,11,83,19,19,2026-07-20
+Jaylen Clark,Minnesota Timberwolves,West,Northwest,6,5,77,24,22,2026-07-20
+Donte DiVincenzo,Minnesota Timberwolves,West,Northwest,6,4,76,29,0,2026-07-20
+Ayo Dosunmu,Minnesota Timberwolves,West,Northwest,6,4,76,26,13,2026-07-20
+Anthony Edwards,Minnesota Timberwolves,West,Northwest,6,4,76,24,5,2026-07-20
+Isaiah Evans,Minnesota Timberwolves,West,Northwest,6,6,78,20,,2026-07-20
+Enrique Freeman,Minnesota Timberwolves,West,Northwest,6,9,81,25,25,2026-07-20
+Rudy Gobert,Minnesota Timberwolves,West,Northwest,7,1,85,34,27,2026-07-20
+Josh Green,Minnesota Timberwolves,West,Northwest,6,6,78,25,,2026-07-20
+Bones Hyland,Minnesota Timberwolves,West,Northwest,6,2,74,25,8,2026-07-20
+Trey Kaufman-Renn,Minnesota Timberwolves,West,Northwest,6,9,81,23,,2026-07-20
+Trey Lyles,Minnesota Timberwolves,West,Northwest,6,9,81,30,,2026-07-20
+Jaden McDaniels,Minnesota Timberwolves,West,Northwest,6,9,81,25,3,2026-07-20
+Julian Phillips,Minnesota Timberwolves,West,Northwest,6,6,78,22,4,2026-07-20
+Zyon Pullin,Minnesota Timberwolves,West,Northwest,6,4,76,25,15,2026-07-20
+Terrence Shannon Jr.,Minnesota Timberwolves,West,Northwest,6,6,78,25,1,2026-07-20
+Rocco Zikarsky,Minnesota Timberwolves,West,Northwest,7,3,87,20,44,2026-07-20
+Saddiq Bey,New Orleans Pelicans,West,Southwest,6,8,80,27,41,2026-07-20
+Hunter Dickinson,New Orleans Pelicans,West,Southwest,7,1,85,25,4,2026-07-20
+Jeremiah Fears,New Orleans Pelicans,West,Southwest,6,3,75,19,0,2026-07-20
+Jordan Hawkins,New Orleans Pelicans,West,Southwest,6,5,77,24,24,2026-07-20
+Herbert Jones,New Orleans Pelicans,West,Southwest,6,7,79,27,2,2026-07-20
+DeAndre Jordan,New Orleans Pelicans,West,Southwest,6,11,83,37,6,2026-07-20
+Karlo Matkovic,New Orleans Pelicans,West,Southwest,6,10,82,25,17,2026-07-20
+Bryce McGowens,New Orleans Pelicans,West,Southwest,6,6,78,23,11,2026-07-20
+Yves Missi,New Orleans Pelicans,West,Southwest,6,11,83,22,21,2026-07-20
+Trey Murphy III,New Orleans Pelicans,West,Southwest,6,8,80,26,25,2026-07-20
+Dejounte Murray,New Orleans Pelicans,West,Southwest,6,4,76,29,5,2026-07-20
+Josh Oduro,New Orleans Pelicans,West,Southwest,6,9,81,25,13,2026-07-20
+Micah Peavy,New Orleans Pelicans,West,Southwest,6,7,79,25,14,2026-07-20
+Jaron Pierre Jr.,New Orleans Pelicans,West,Southwest,6,6,78,24,,2026-07-20
+Jordan Poole,New Orleans Pelicans,West,Southwest,6,4,76,27,3,2026-07-20
+Derik Queen,New Orleans Pelicans,West,Southwest,6,9,81,21,22,2026-07-20
+Zion Williamson,New Orleans Pelicans,West,Southwest,6,6,78,26,1,2026-07-20
+Jose Alvarado,New York Knicks,East,Atlantic,6,0,72,28,5,2026-07-20
+OG Anunoby,New York Knicks,East,Atlantic,6,7,79,29,8,2026-07-20
+Mikal Bridges,New York Knicks,East,Atlantic,6,6,78,29,25,2026-07-20
+Jalen Brunson,New York Knicks,East,Atlantic,6,2,74,29,11,2026-07-20
+Jordan Clarkson,New York Knicks,East,Atlantic,6,5,77,34,00,2026-07-20
+Pacome Dadiet,New York Knicks,East,Atlantic,6,9,81,20,4,2026-07-20
+Mohamed Diawara,New York Knicks,East,Atlantic,6,9,81,21,51,2026-07-20
+Andre Drummond,New York Knicks,East,Atlantic,6,11,83,32,,2026-07-20
+Josh Hart,New York Knicks,East,Atlantic,6,5,77,31,3,2026-07-20
+Trey Jemison III,New York Knicks,East,Atlantic,6,10,82,26,50,2026-07-20
+Jack Kayil,New York Knicks,East,Atlantic,6,5,77,20,,2026-07-20
+Tyler Kolek,New York Knicks,East,Atlantic,6,2,74,25,13,2026-07-20
+Miles McBride,New York Knicks,East,Atlantic,6,2,74,25,2,2026-07-20
+Kevin McCullar Jr.,New York Knicks,East,Atlantic,6,6,78,25,9,2026-07-20
+Tyler Nickel,New York Knicks,East,Atlantic,6,8,80,22,,2026-07-20
+Landry Shamet,New York Knicks,East,Atlantic,6,5,77,29,44,2026-07-20
+Karl-Anthony Towns,New York Knicks,East,Atlantic,7,0,84,30,32,2026-07-20
+Brooks Barnhizer,Oklahoma City Thunder,West,Northwest,6,6,78,24,23,2026-07-20
+Alex Caruso,Oklahoma City Thunder,West,Northwest,6,5,77,32,9,2026-07-20
+Josh Dix,Oklahoma City Thunder,West,Northwest,6,5,77,22,,2026-07-20
+Shai Gilgeous-Alexander,Oklahoma City Thunder,West,Northwest,6,6,78,28,2,2026-07-20
+Isaiah Hartenstein,Oklahoma City Thunder,West,Northwest,7,0,84,28,55,2026-07-20
+Chet Holmgren,Oklahoma City Thunder,West,Northwest,7,1,85,24,7,2026-07-20
+Aday Mara,Oklahoma City Thunder,West,Northwest,7,3,87,21,,2026-07-20
+Jared McCain,Oklahoma City Thunder,West,Northwest,6,3,75,22,3,2026-07-20
+Ajay Mitchell,Oklahoma City Thunder,West,Northwest,6,4,76,24,25,2026-07-20
+Otega Oweh,Oklahoma City Thunder,West,Northwest,6,4,76,23,,2026-07-20
+Thomas Sorber,Oklahoma City Thunder,West,Northwest,6,9,81,20,12,2026-07-20
+Bennett Stirtz,Oklahoma City Thunder,West,Northwest,6,4,76,22,,2026-07-20
+Nikola Topic,Oklahoma City Thunder,West,Northwest,6,6,78,20,44,2026-07-20
+Cason Wallace,Oklahoma City Thunder,West,Northwest,6,3,75,22,22,2026-07-20
+Jalen Williams,Oklahoma City Thunder,West,Northwest,6,5,77,25,8,2026-07-20
+Jaylin Williams,Oklahoma City Thunder,West,Northwest,6,9,81,24,6,2026-07-20
+Kenrich Williams,Oklahoma City Thunder,West,Northwest,6,7,79,31,34,2026-07-20
+Paolo Banchero,Orlando Magic,East,Southeast,6,10,82,23,5,2026-07-20
+Desmond Bane,Orlando Magic,East,Southeast,6,6,78,28,3,2026-07-20
+Goga Bitadze,Orlando Magic,East,Southeast,6,11,83,27,35,2026-07-20
+Anthony Black,Orlando Magic,East,Southeast,6,7,79,22,0,2026-07-20
+Jamal Cain,Orlando Magic,East,Southeast,6,7,79,27,8,2026-07-20
+Jevon Carter,Orlando Magic,East,Southeast,6,0,72,30,2,2026-07-20
+Wendell Carter Jr.,Orlando Magic,East,Southeast,6,10,82,27,34,2026-07-20
+Colin Castleton,Orlando Magic,East,Southeast,6,10,82,26,14,2026-07-20
+Tristan da Silva,Orlando Magic,East,Southeast,6,8,80,25,23,2026-07-20
+Jonathan Isaac,Orlando Magic,East,Southeast,6,10,82,28,1,2026-07-20
+Alex Morales,Orlando Magic,East,Southeast,6,6,78,28,30,2026-07-20
+Izaiyah Nelson,Orlando Magic,East,Southeast,6,8,80,22,,2026-07-20
+Noah Penda,Orlando Magic,East,Southeast,6,7,79,21,93,2026-07-20
+Jase Richardson,Orlando Magic,East,Southeast,6,1,73,20,11,2026-07-20
+Jalen Suggs,Orlando Magic,East,Southeast,6,5,77,25,4,2026-07-20
+Nikola Vucevic,Orlando Magic,East,Southeast,6,9,81,35,9,2026-07-20
+Franz Wagner,Orlando Magic,East,Southeast,6,10,82,24,22,2026-07-20
+Dominick Barlow,Philadelphia 76ers,East,Atlantic,6,9,81,23,25,2026-07-20
+Adem Bona,Philadelphia 76ers,East,Atlantic,6,10,82,23,30,2026-07-20
+Johni Broome,Philadelphia 76ers,East,Atlantic,6,10,82,24,22,2026-07-20
+Jaylen Brown,Philadelphia 76ers,East,Atlantic,6,6,78,29,7,2026-07-20
+VJ Edgecombe,Philadelphia 76ers,East,Atlantic,6,4,76,20,77,2026-07-20
+Justin Edwards,Philadelphia 76ers,East,Atlantic,6,7,79,22,11,2026-07-20
+Joel Embiid,Philadelphia 76ers,East,Atlantic,7,0,84,32,21,2026-07-20
+Ariel Hukporti,Philadelphia 76ers,East,Atlantic,7,0,84,24,,2026-07-20
+Caleb Love,Philadelphia 76ers,East,Atlantic,6,3,75,24,9,2026-07-20
+Tyrese Martin,Philadelphia 76ers,East,Atlantic,6,6,78,27,23,2026-07-20
+Tyrese Maxey,Philadelphia 76ers,East,Atlantic,6,2,74,25,0,2026-07-20
+Duke Miles,Philadelphia 76ers,East,Atlantic,6,0,72,24,,2026-07-20
+Labaron Philon Jr.,Philadelphia 76ers,East,Atlantic,6,3,75,20,,2026-07-20
+Rayan Rupert,Philadelphia 76ers,East,Atlantic,6,7,79,22,12,2026-07-20
+Anfernee Simons,Philadelphia 76ers,East,Atlantic,6,3,75,27,5,2026-07-20
+Dalen Terry,Philadelphia 76ers,East,Atlantic,6,6,78,24,14,2026-07-20
+Dean Wade,Philadelphia 76ers,East,Atlantic,6,9,81,29,,2026-07-20
+Jabari Walker,Philadelphia 76ers,East,Atlantic,6,7,79,23,33,2026-07-20
+Trendon Watford,Philadelphia 76ers,East,Atlantic,6,8,80,25,12,2026-07-20
+Devin Booker,Phoenix Suns,West,Pacific,6,5,77,29,15,2026-07-20
+Jamaree Bouyea,Phoenix Suns,West,Pacific,6,2,74,27,17,2026-07-20
+Koby Brea,Phoenix Suns,West,Pacific,6,6,78,23,14,2026-07-20
+Miles Bridges,Phoenix Suns,West,Pacific,6,7,79,28,,2026-07-20
+Dillon Brooks,Phoenix Suns,West,Pacific,6,7,79,30,3,2026-07-20
+Ryan Dunn,Phoenix Suns,West,Pacific,6,7,79,23,0,2026-07-20
+Rasheer Fleming,Phoenix Suns,West,Pacific,6,9,81,22,20,2026-07-20
+Collin Gillespie,Phoenix Suns,West,Pacific,6,1,73,27,12,2026-07-20
+Jordan Goodwin,Phoenix Suns,West,Pacific,6,3,75,27,23,2026-07-20
+Jalen Green,Phoenix Suns,West,Pacific,6,4,76,24,4,2026-07-20
+Haywood Highsmith,Phoenix Suns,West,Pacific,6,5,77,29,7,2026-07-20
+CJ Huntley,Phoenix Suns,West,Pacific,6,10,82,24,22,2026-07-20
+Oso Ighodaro,Phoenix Suns,West,Pacific,6,11,83,24,11,2026-07-20
+Luke Kennard,Phoenix Suns,West,Pacific,6,5,77,30,,2026-07-20
+Isaiah Livers,Phoenix Suns,West,Pacific,6,6,78,27,18,2026-07-20
+Khaman Maluach,Phoenix Suns,West,Pacific,7,2,86,19,10,2026-07-20
+Koa Peat,Phoenix Suns,West,Pacific,6,8,80,19,,2026-07-20
+Pat Spencer,Phoenix Suns,West,Pacific,6,2,74,30,,2026-07-20
+Mark Williams,Phoenix Suns,West,Pacific,7,1,85,24,15,2026-07-20
+Deni Avdija,Portland Trail Blazers,West,Northwest,6,8,80,25,8,2026-07-20
+Toumani Camara,Portland Trail Blazers,West,Northwest,6,7,79,26,33,2026-07-20
+Branden Carlson,Portland Trail Blazers,West,Northwest,7,0,84,27,,2026-07-20
+Sidy Cissoko,Portland Trail Blazers,West,Northwest,6,6,78,22,91,2026-07-20
+Donovan Clingan,Portland Trail Blazers,West,Northwest,7,2,86,22,23,2026-07-20
+Yang Hansen,Portland Trail Blazers,West,Northwest,7,1,85,21,16,2026-07-20
+Scoot Henderson,Portland Trail Blazers,West,Northwest,6,3,75,22,00,2026-07-20
+Jrue Holiday,Portland Trail Blazers,West,Northwest,6,4,76,36,5,2026-07-20
+Jayson Kent,Portland Trail Blazers,West,Northwest,6,8,80,24,29,2026-07-20
+Vit Krejci,Portland Trail Blazers,West,Northwest,6,8,80,26,27,2026-07-20
+Damian Lillard,Portland Trail Blazers,West,Northwest,6,2,74,36,0,2026-07-20
+Ja Morant,Portland Trail Blazers,West,Northwest,6,2,74,26,1,2026-07-20
+Micah Potter,Portland Trail Blazers,West,Northwest,6,9,81,28,11,2026-07-20
+Shaedon Sharpe,Portland Trail Blazers,West,Northwest,6,5,77,23,17,2026-07-20
+Robert Williams III,Portland Trail Blazers,West,Northwest,6,9,81,28,35,2026-07-20
+Chris Youngblood,Portland Trail Blazers,West,Northwest,6,4,76,24,11,2026-07-20
+Precious Achiuwa,Sacramento Kings,West,Pacific,6,8,80,26,9,2026-07-20
+Darius Acuff Jr.,Sacramento Kings,West,Pacific,6,2,74,19,5,2026-07-20
+Dylan Cardwell,Sacramento Kings,West,Pacific,6,10,82,24,32,2026-07-20
+Nique Clifford,Sacramento Kings,West,Pacific,6,5,77,24,5,2026-07-20
+Adam Flagler,Sacramento Kings,West,Pacific,6,1,73,26,,2026-07-20
+De'Andre Hunter,Sacramento Kings,West,Pacific,6,7,79,28,15,2026-07-20
+Alex Karaban,Sacramento Kings,West,Pacific,6,7,79,23,33,2026-07-20
+Zach LaVine,Sacramento Kings,West,Pacific,6,5,77,31,8,2026-07-20
+Jonathan Mogbo,Sacramento Kings,West,Pacific,6,9,81,24,,2026-07-20
+Malik Monk,Sacramento Kings,West,Pacific,6,3,75,28,0,2026-07-20
+Keegan Murray,Sacramento Kings,West,Pacific,6,8,80,25,13,2026-07-20
+Daeqwon Plowden,Sacramento Kings,West,Pacific,6,6,78,27,29,2026-07-20
+Maxime Raynaud,Sacramento Kings,West,Pacific,7,1,85,23,42,2026-07-20
+Domantas Sabonis,Sacramento Kings,West,Pacific,6,10,82,30,11,2026-07-20
+Emanuel Sharp,Sacramento Kings,West,Pacific,6,3,75,22,34,2026-07-20
+Isaiah Stevens,Sacramento Kings,West,Pacific,5,11,71,25,24,2026-07-20
+Harrison Barnes,San Antonio Spurs,West,Southwest,6,7,79,34,40,2026-07-20
+Maliq Brown,San Antonio Spurs,West,Southwest,6,9,81,22,,2026-07-20
+Carter Bryant,San Antonio Spurs,West,Southwest,6,7,79,20,11,2026-07-20
+Stephon Castle,San Antonio Spurs,West,Southwest,6,6,78,21,5,2026-07-20
+Julian Champagnie,San Antonio Spurs,West,Southwest,6,7,79,25,30,2026-07-20
+De'Aaron Fox,San Antonio Spurs,West,Southwest,6,3,75,28,4,2026-07-20
+Ja'Kobi Gillespie,San Antonio Spurs,West,Southwest,6,1,73,22,,2026-07-20
+Dylan Harper,San Antonio Spurs,West,Southwest,6,5,77,20,2,2026-07-20
+Tobias Harris,San Antonio Spurs,West,Southwest,6,8,80,34,,2026-07-20
+Harrison Ingram,San Antonio Spurs,West,Southwest,6,5,77,23,55,2026-07-20
+Keldon Johnson,San Antonio Spurs,West,Southwest,6,5,77,26,3,2026-07-20
+David Jones Garcia,San Antonio Spurs,West,Southwest,6,4,76,24,25,2026-07-20
+Luke Kornet,San Antonio Spurs,West,Southwest,7,1,85,31,7,2026-07-20
+Jordan McLaughlin,San Antonio Spurs,West,Southwest,6,0,72,30,0,2026-07-20
+Emanuel Miller,San Antonio Spurs,West,Southwest,6,7,79,26,14,2026-07-20
+Jayden Quaintance,San Antonio Spurs,West,Southwest,6,10,82,19,,2026-07-20
+Tarris Reed Jr.,San Antonio Spurs,West,Southwest,6,10,82,22,,2026-07-20
+Devin Vassell,San Antonio Spurs,West,Southwest,6,5,77,25,24,2026-07-20
+Victor Wembanyama,San Antonio Spurs,West,Southwest,7,4,88,22,1,2026-07-20
+Kyle Anderson,Toronto Raptors,East,Atlantic,6,8,80,32,,2026-07-20
+Scottie Barnes,Toronto Raptors,East,Atlantic,6,8,80,24,4,2026-07-20
+RJ Barrett,Toronto Raptors,East,Atlantic,6,6,78,26,9,2026-07-20
+Jamison Battle,Toronto Raptors,East,Atlantic,6,7,79,25,77,2026-07-20
+Nate Bittle,Toronto Raptors,East,Atlantic,7,0,84,23,,2026-07-20
+Jaden Bradley,Toronto Raptors,East,Atlantic,6,3,75,22,,2026-07-20
+Gradey Dick,Toronto Raptors,East,Atlantic,6,7,79,22,1,2026-07-20
+Allen Graves,Toronto Raptors,East,Atlantic,6,8,80,19,,2026-07-20
+Chucky Hepburn,Toronto Raptors,East,Atlantic,6,0,72,23,24,2026-07-20
+Brandon Ingram,Toronto Raptors,East,Atlantic,6,8,80,28,3,2026-07-20
+Trayce Jackson-Davis,Toronto Raptors,East,Atlantic,6,9,81,26,32,2026-07-20
+A.J. Lawson,Toronto Raptors,East,Atlantic,6,6,78,26,0,2026-07-20
+Alijah Martin,Toronto Raptors,East,Atlantic,6,2,74,24,55,2026-07-20
+Collin Murray-Boyles,Toronto Raptors,East,Atlantic,6,7,79,21,30,2026-07-20
+Jakob Poeltl,Toronto Raptors,East,Atlantic,7,0,84,30,19,2026-07-20
+Immanuel Quickley,Toronto Raptors,East,Atlantic,6,2,74,27,5,2026-07-20
+Jamal Shead,Toronto Raptors,East,Atlantic,6,1,73,23,23,2026-07-20
+Ja'Kobe Walter,Toronto Raptors,East,Atlantic,6,4,76,21,14,2026-07-20
+Trey Alexander,Utah Jazz,West,Northwest,6,5,77,23,23,2026-07-20
+Ace Bailey,Utah Jazz,West,Northwest,6,9,81,19,19,2026-07-20
+Mo Bamba,Utah Jazz,West,Northwest,7,0,84,28,11,2026-07-20
+Tamar Bates,Utah Jazz,West,Northwest,6,4,76,23,,2026-07-20
+Isaiah Collier,Utah Jazz,West,Northwest,6,4,76,21,8,2026-07-20
+Kyle Filipowski,Utah Jazz,West,Northwest,6,11,83,22,22,2026-07-20
+Keyonte George,Utah Jazz,West,Northwest,6,4,76,22,3,2026-07-20
+Jaxson Hayes,Utah Jazz,West,Northwest,7,0,84,26,,2026-07-20
+Blake Hinson,Utah Jazz,West,Northwest,6,8,80,26,2,2026-07-20
+Jaren Jackson Jr.,Utah Jazz,West,Northwest,6,10,82,26,20,2026-07-20
+John Konchar,Utah Jazz,West,Northwest,6,5,77,30,55,2026-07-20
+Lauri Markkanen,Utah Jazz,West,Northwest,7,1,85,29,23,2026-07-20
+Bez Mbeng,Utah Jazz,West,Northwest,6,4,76,24,21,2026-07-20
+Svi Mykhailiuk,Utah Jazz,West,Northwest,6,7,79,29,10,2026-07-20
+Jusuf Nurkic,Utah Jazz,West,Northwest,6,11,83,31,30,2026-07-20
+Josh Okogie,Utah Jazz,West,Northwest,6,4,76,27,,2026-07-20
+Darryn Peterson,Utah Jazz,West,Northwest,6,5,77,19,22,2026-07-20
+Brice Sensabaugh,Utah Jazz,West,Northwest,6,6,78,22,28,2026-07-20
+Oscar Tshiebwe,Utah Jazz,West,Northwest,6,8,80,26,34,2026-07-20
+Cody Williams,Utah Jazz,West,Northwest,6,8,80,21,5,2026-07-20
+Deandre Ayton,Washington Wizards,East,Southeast,7,0,84,27,,2026-07-20
+Bub Carrington,Washington Wizards,East,Southeast,6,4,76,20,7,2026-07-20
+Justin Champagnie,Washington Wizards,East,Southeast,6,6,78,25,9,2026-07-20
+Sharife Cooper,Washington Wizards,East,Southeast,6,0,72,25,13,2026-07-20
+Bilal Coulibaly,Washington Wizards,East,Southeast,6,7,79,21,0,2026-07-20
+Anthony Davis,Washington Wizards,East,Southeast,6,10,82,33,23,2026-07-20
+AJ Dybantsa,Washington Wizards,East,Southeast,6,9,81,19,4,2026-07-20
+Kyshawn George,Washington Wizards,East,Southeast,6,8,80,22,18,2026-07-20
+Tre Johnson,Washington Wizards,East,Southeast,6,5,77,20,12,2026-07-20
+Khris Middleton,Washington Wizards,East,Southeast,6,7,79,34,22,2026-07-20
+Felix Okpara,Washington Wizards,East,Southeast,6,10,82,22,,2026-07-20
+Julian Reese,Washington Wizards,East,Southeast,6,9,81,23,15,2026-07-20
+Will Riley,Washington Wizards,East,Southeast,6,9,81,20,27,2026-07-20
+Alex Sarr,Washington Wizards,East,Southeast,7,0,84,21,20,2026-07-20
+Tristan Vukcevic,Washington Wizards,East,Southeast,7,0,84,23,00,2026-07-20
+Jamir Watkins,Washington Wizards,East,Southeast,6,6,78,25,5,2026-07-20
+Cam Whitmore,Washington Wizards,East,Southeast,6,6,78,22,1,2026-07-20
+Trae Young,Washington Wizards,East,Southeast,6,2,74,27,3,2026-07-20
