@@ -67,7 +67,7 @@ Related: the [**NBA Player Finder**](https://ismayc.github.io/nba-player-finder/
 ### 🖥️ macOS Menu Bar Apps
 
 - [**Text Adder**](https://ismayc.github.io/text-adder/){target="_blank"} — persistent, styled text overlays while screen sharing: lower-thirds, break timers, and quick phrases
-- [**Sash**](https://github.com/ismayc/sash){target="_blank"} — snaps windows into custom layouts with drag-to-snap zones, a layout designer, and keyboard shortcuts — FancyZones for Mac
+- [**Sash**](https://github.com/ismayc/sash){target="_blank"} — snaps windows into custom layouts with drag-to-snap zones, a layout designer, and keyboard shortcuts — FancyZones for Mac. Its auto-arrange mode is one toggle that keeps a whole screen tiled automatically
 
 ### 🗣️ AI Tools
 
@@ -77,24 +77,31 @@ Related: the [**NBA Player Finder**](https://ismayc.github.io/nba-player-finder/
 
 ## Packages
 
-I've authored or contributed to several R packages:
+Many of these live in the [ModernDive organization on GitHub](https://moderndive.github.io/){target="_blank"}.
 
-- [**infer**](https://infer.tidymodels.org/) — tidyverse-style statistical inference
-- [**moderndive**](https://moderndive.github.io/moderndive) — companion to the ModernDive book
-- [**fivethirtyeight**](https://fivethirtyeight-r.netlify.app) — access to FiveThirtyEight datasets
-- [**thesisdown**](https://github.com/ismayc/thesisdown) — thesis templates in R Markdown
-- [**azflights24**](https://moderndive.github.io/azflights24/) — all out-bound flights from Arizona airports (PHX, TUS, and others) in 2024
-- [**nycflights23**](https://moderndive.github.io/nycflights23/) — all out-bound flights from New York City airports in 2023
-- [**pnwflights22**](https://moderndive.github.io/pnwflights22/) — all out-bound flights from Seattle (SEA) and Portland (PDX) in 2022
-- [**volcanoes**](https://github.com/moderndive/volcanoes) — Smithsonian Global Volcanism Program data on ~1,200 Holocene volcanoes, their eruptions, and individual events
-- [**olympicAthletes**](https://github.com/moderndive/olympicAthletes) — every athlete-event participation in the modern Olympics, Athens 1896 through Milano-Cortina 2026 (~315,000 rows)
-- [**exoplanets**](https://github.com/moderndive/exoplanets) — tidy data on confirmed exoplanets and their host stars from NASA's Exoplanet Archive
-- [**steves**](https://github.com/moderndive/steves) — every episode of *Rick Steves' Europe* (2000–2025), with ratings, geography, air dates, and summaries
-- [**izzyuntappd**](https://github.com/ismayc/izzyuntappd) — my Untappd beer check-ins (Feb 2015–June 2016), plus an R Markdown template for analyzing them
+### R Packages
 
-I've also authored the following Python package:
+- [**infer**](https://infer.tidymodels.org/){target="_blank"} — tidyverse-style statistical inference ([CRAN](https://cran.r-project.org/package=infer){target="_blank"} · [GitHub](https://github.com/tidymodels/infer){target="_blank"})
+- [**moderndive**](https://moderndive.github.io/moderndive){target="_blank"} — companion to the ModernDive book: tidyverse-friendly introductory linear regression plus all datasets used in the book ([CRAN](https://cran.r-project.org/package=moderndive){target="_blank"} · [GitHub](https://github.com/moderndive/moderndive){target="_blank"})
+- [**fivethirtyeight**](https://fivethirtyeight-r.netlify.app){target="_blank"} — access to FiveThirtyEight datasets ([CRAN](https://cran.r-project.org/package=fivethirtyeight){target="_blank"} · [GitHub](https://github.com/rudeboybert/fivethirtyeight){target="_blank"})
+- [**thesisdown**](https://github.com/ismayc/thesisdown){target="_blank"} — thesis templates in R Markdown ([GitHub](https://github.com/ismayc/thesisdown){target="_blank"})
 
-- [**moderndive**](https://moderndive.readthedocs.io) — Python companion to the ModernDive book: a tidy simulation-inference grammar, regression helpers, datasets, and dual-engine plotly/plotnine plots
+### R Data Packages
+
+Tidy, documented datasets ready for teaching, in the spirit of `nycflights13`:
+
+- [**nycflights23**](https://moderndive.github.io/nycflights23/){target="_blank"} — all out-bound flights from New York City airports in 2023 ([CRAN](https://cran.r-project.org/package=nycflights23){target="_blank"} · [GitHub](https://github.com/moderndive/nycflights23){target="_blank"})
+- [**pnwflights22**](https://moderndive.github.io/pnwflights22/){target="_blank"} — all out-bound flights from Seattle (SEA) and Portland (PDX) in 2022 ([GitHub](https://github.com/moderndive/pnwflights22){target="_blank"})
+- [**azflights24**](https://moderndive.github.io/azflights24/){target="_blank"} — all out-bound flights from Arizona airports (PHX, TUS, and others) in 2024 ([GitHub](https://github.com/moderndive/azflights24){target="_blank"})
+- [**volcanoes**](https://moderndive.github.io/volcanoes/){target="_blank"} — Smithsonian Global Volcanism Program data on ~1,200 Holocene volcanoes, their eruptions, and individual events ([CRAN](https://cran.r-project.org/package=volcanoes){target="_blank"} · [GitHub](https://github.com/moderndive/volcanoes){target="_blank"})
+- [**olympicAthletes**](https://moderndive.github.io/olympicAthletes/){target="_blank"} — every athlete-event participation in the modern Olympics, Athens 1896 through Milano-Cortina 2026 (~315,000 rows) ([GitHub](https://github.com/moderndive/olympicAthletes){target="_blank"})
+- [**exoplanetdata**](https://moderndive.github.io/exoplanetdata/){target="_blank"} — tidy data on confirmed exoplanets and their host stars from NASA's Exoplanet Archive ([CRAN](https://cran.r-project.org/package=exoplanetdata){target="_blank"} · [GitHub](https://github.com/moderndive/exoplanetdata){target="_blank"})
+- [**steves**](https://moderndive.github.io/steves/){target="_blank"} — every episode of *Rick Steves' Europe* (2000–2025), with ratings, geography, air dates, and summaries ([CRAN](https://cran.r-project.org/package=steves){target="_blank"} · [GitHub](https://github.com/moderndive/steves){target="_blank"})
+- [**izzyuntappd**](https://github.com/ismayc/izzyuntappd){target="_blank"} — my Untappd beer check-ins (Feb 2015–June 2016), plus an R Markdown template for analyzing them ([GitHub](https://github.com/ismayc/izzyuntappd){target="_blank"})
+
+### Python Packages
+
+- [**moderndive**](https://moderndive.readthedocs.io){target="_blank"} — Python companion to the ModernDive book: a tidy simulation-inference grammar, regression helpers, datasets, and dual-engine plotly/plotnine plots ([PyPI](https://pypi.org/project/moderndive/){target="_blank"} · [GitHub](https://github.com/moderndive/moderndive-python){target="_blank"})
 
 ---
 
