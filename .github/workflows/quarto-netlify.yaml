@@ -49,6 +49,9 @@ jobs:
 
   deploy_pages:
     needs: build
+    # Only deploy to GitHub Pages on pushes to the default branch, not on PRs
+    # (the github-pages environment rejects PR branches before any step runs)
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
