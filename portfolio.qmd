@@ -45,35 +45,33 @@ format:
 
 ##  Apps
 
+### 🏟️ Sports Viewers
 
-### 🎲 Probability Distribution Viewer
+A family of unofficial, timezone-aware schedule and bracket viewers that run entirely in your browser — game times in your local timezone, where to watch, live scores, standings, and calendar export. Start at the [Sports Trackers hub](https://ismayc.github.io/sports-trackers/){target="_blank"}, which shows which leagues have games today, or jump straight in:
 
-This [Shiny app](https://ismay.shinyapps.io/ProbApp){target="_blank"} lets users explore and calculate probabilities for normal, binomial, Poisson, and other distributions.
+- [**World Cup 2026**](https://ismayc.github.io/world-cup-viewer/){target="_blank"} ⚽ — every fixture across the tournament, with group standings, FIFA tie-breakers, and the knockout bracket
+- [**NBA**](https://ismayc.github.io/nba-schedule/){target="_blank"} 🏀 — the full season, playoff bracket with play-in, conference standings, and league leaders
+- [**WNBA**](https://ismayc.github.io/wnba-schedule/){target="_blank"} 🏀 — the WNBA season with weekly calendar, playoff bracket, and league leaders
+- [**NFL**](https://ismayc.github.io/nfl-schedule/){target="_blank"} 🏈 — the 2026 week-by-week slate, standings with division seeding, and the playoff bracket
+- [**Premier League**](https://ismayc.github.io/premier-league/){target="_blank"} ⚽ — fixtures, the live table with home/away splits, player leaderboards, and every final table since 1992–93
+- [**Men's**](https://ismayc.github.io/mens-march-madness/){target="_blank"} and [**Women's March Madness**](https://ismayc.github.io/womens-march-madness/){target="_blank"} 🏀 — the full NCAA Division I tournament brackets, every game
 
+Related: the [**NBA Player Finder**](https://ismayc.github.io/nba-player-finder/){target="_blank"} lets you explore current NBA rosters by conference, division, team, height, age, and jersey number. It runs entirely in your browser via shinylive, with rosters refreshed weekly from the NBA API.
 
+### 🎓 Learning & Quiz Apps
 
-### 🦅️ US State/District Shape Quiz
+- [**Probability Distribution Viewer**](https://ismay.shinyapps.io/ProbApp){target="_blank"} 🎲 — a Shiny app for exploring and calculating probabilities for normal, binomial, Poisson, and other distributions
+- [**US State/District Shape Quiz**](https://chesterismay.shinyapps.io/us-states-quiz-app/){target="_blank"} 🦅 — an interactive quiz on US state shapes, capitals, and major cities, built with [leaflet](https://rstudio.github.io/leaflet/)
+- [**German Federal State Shape Quiz**](https://chesterismay.shinyapps.io/german-states-quiz-app/){target="_blank"} 🇩🇪 — a similar quiz on the shapes and cities of Germany's federal states
 
-This [interactive quiz](https://chesterismay.shinyapps.io/us-states-quiz-app/){target="_blank"} tests knowledge of US state shapes, capitals, and major cities. Built using [leaflet](https://rstudio.github.io/leaflet/).
+### 🖥️ macOS Menu Bar Apps
 
+- [**Text Adder**](https://ismayc.github.io/text-adder/){target="_blank"} — persistent, styled text overlays while screen sharing: lower-thirds, break timers, and quick phrases
+- [**Sash**](https://github.com/ismayc/sash){target="_blank"} — snaps windows into custom layouts with drag-to-snap zones, a layout designer, and keyboard shortcuts — FancyZones for Mac
 
+### 🗣️ AI Tools
 
-### 🇩🇪 German Federal State Shape Quiz
-
-A similar [German geography quiz](https://chesterismay.shinyapps.io/german-states-quiz-app/){target="_blank"} that tests users on the shapes and cities of Germany’s federal states.
-
-
-
-### 🏀 NBA Player Finder
-
-Explore current NBA rosters by conference, division, team, height, age, and jersey number in this [app](https://ismayc.github.io/nba-player-finder/){target="_blank"}. It runs entirely in your browser via shinylive, with rosters refreshed weekly from the NBA API.
-
-
-
-### ⚽ World Cup 2026 Schedule Viewer
-
-Browse the full match schedule for the 2026 FIFA World Cup in this [viewer](https://ismayc.github.io/world-cup-viewer/){target="_blank"}, with dates, times, teams, and venues for every fixture across the tournament.
-
+- [**AllKlaro**](https://ismayc.github.io/AllKlaro/){target="_blank"} — live, fully local speech translation between German, English, and Spanish, powered by Whisper, Silero VAD, and Ollama on Apple Silicon
 
 ---
 

@@ -227,11 +227,10 @@ cookieconsent.run({
   <li><a href="#books" id="toc-books" class="nav-link active" data-scroll-target="#books">Books</a></li>
   <li><a href="#apps" id="toc-apps" class="nav-link" data-scroll-target="#apps">Apps</a>
   <ul class="collapse">
-  <li><a href="#probability-distribution-viewer" id="toc-probability-distribution-viewer" class="nav-link" data-scroll-target="#probability-distribution-viewer">🎲 Probability Distribution Viewer</a></li>
-  <li><a href="#us-statedistrict-shape-quiz" id="toc-us-statedistrict-shape-quiz" class="nav-link" data-scroll-target="#us-statedistrict-shape-quiz">🦅️ US State/District Shape Quiz</a></li>
-  <li><a href="#german-federal-state-shape-quiz" id="toc-german-federal-state-shape-quiz" class="nav-link" data-scroll-target="#german-federal-state-shape-quiz">🇩🇪 German Federal State Shape Quiz</a></li>
-  <li><a href="#nba-player-finder" id="toc-nba-player-finder" class="nav-link" data-scroll-target="#nba-player-finder">🏀 NBA Player Finder</a></li>
-  <li><a href="#world-cup-2026-schedule-viewer" id="toc-world-cup-2026-schedule-viewer" class="nav-link" data-scroll-target="#world-cup-2026-schedule-viewer">⚽ World Cup 2026 Schedule Viewer</a></li>
+  <li><a href="#sports-viewers" id="toc-sports-viewers" class="nav-link" data-scroll-target="#sports-viewers">🏟️ Sports Viewers</a></li>
+  <li><a href="#learning-quiz-apps" id="toc-learning-quiz-apps" class="nav-link" data-scroll-target="#learning-quiz-apps">🎓 Learning &amp; Quiz Apps</a></li>
+  <li><a href="#macos-menu-bar-apps" id="toc-macos-menu-bar-apps" class="nav-link" data-scroll-target="#macos-menu-bar-apps">🖥️ macOS Menu Bar Apps</a></li>
+  <li><a href="#ai-tools" id="toc-ai-tools" class="nav-link" data-scroll-target="#ai-tools">🗣️ AI Tools</a></li>
   </ul></li>
   <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">Packages</a></li>
   <li><a href="#projects-at-reed-college" id="toc-projects-at-reed-college" class="nav-link" data-scroll-target="#projects-at-reed-college">Projects at Reed College</a>
@@ -293,25 +292,39 @@ A hands-on, beginner-friendly guide to using R and RStudio for data analysis. Co
 </section>
 <section id="apps" class="level2">
 <h2 class="anchored" data-anchor-id="apps">Apps</h2>
-<section id="probability-distribution-viewer" class="level3">
-<h3 class="anchored" data-anchor-id="probability-distribution-viewer">🎲 Probability Distribution Viewer</h3>
-<p>This <a href="https://ismay.shinyapps.io/ProbApp" target="_blank">Shiny app</a> lets users explore and calculate probabilities for normal, binomial, Poisson, and other distributions.</p>
+<section id="sports-viewers" class="level3">
+<h3 class="anchored" data-anchor-id="sports-viewers">🏟️ Sports Viewers</h3>
+<p>A family of unofficial, timezone-aware schedule and bracket viewers that run entirely in your browser — game times in your local timezone, where to watch, live scores, standings, and calendar export. Start at the <a href="https://ismayc.github.io/sports-trackers/" target="_blank">Sports Trackers hub</a>, which shows which leagues have games today, or jump straight in:</p>
+<ul>
+<li><a href="https://ismayc.github.io/world-cup-viewer/" target="_blank"><strong>World Cup 2026</strong></a> ⚽ — every fixture across the tournament, with group standings, FIFA tie-breakers, and the knockout bracket</li>
+<li><a href="https://ismayc.github.io/nba-schedule/" target="_blank"><strong>NBA</strong></a> 🏀 — the full season, playoff bracket with play-in, conference standings, and league leaders</li>
+<li><a href="https://ismayc.github.io/wnba-schedule/" target="_blank"><strong>WNBA</strong></a> 🏀 — the WNBA season with weekly calendar, playoff bracket, and league leaders</li>
+<li><a href="https://ismayc.github.io/nfl-schedule/" target="_blank"><strong>NFL</strong></a> 🏈 — the 2026 week-by-week slate, standings with division seeding, and the playoff bracket</li>
+<li><a href="https://ismayc.github.io/premier-league/" target="_blank"><strong>Premier League</strong></a> ⚽ — fixtures, the live table with home/away splits, player leaderboards, and every final table since 1992–93</li>
+<li><a href="https://ismayc.github.io/mens-march-madness/" target="_blank"><strong>Men’s</strong></a> and <a href="https://ismayc.github.io/womens-march-madness/" target="_blank"><strong>Women’s March Madness</strong></a> 🏀 — the full NCAA Division I tournament brackets, every game</li>
+</ul>
+<p>Related: the <a href="https://ismayc.github.io/nba-player-finder/" target="_blank"><strong>NBA Player Finder</strong></a> lets you explore current NBA rosters by conference, division, team, height, age, and jersey number. It runs entirely in your browser via shinylive, with rosters refreshed weekly from the NBA API.</p>
 </section>
-<section id="us-statedistrict-shape-quiz" class="level3">
-<h3 class="anchored" data-anchor-id="us-statedistrict-shape-quiz">🦅️ US State/District Shape Quiz</h3>
-<p>This <a href="https://chesterismay.shinyapps.io/us-states-quiz-app/" target="_blank">interactive quiz</a> tests knowledge of US state shapes, capitals, and major cities. Built using <a href="https://rstudio.github.io/leaflet/">leaflet</a>.</p>
+<section id="learning-quiz-apps" class="level3">
+<h3 class="anchored" data-anchor-id="learning-quiz-apps">🎓 Learning &amp; Quiz Apps</h3>
+<ul>
+<li><a href="https://ismay.shinyapps.io/ProbApp" target="_blank"><strong>Probability Distribution Viewer</strong></a> 🎲 — a Shiny app for exploring and calculating probabilities for normal, binomial, Poisson, and other distributions</li>
+<li><a href="https://chesterismay.shinyapps.io/us-states-quiz-app/" target="_blank"><strong>US State/District Shape Quiz</strong></a> 🦅 — an interactive quiz on US state shapes, capitals, and major cities, built with <a href="https://rstudio.github.io/leaflet/">leaflet</a></li>
+<li><a href="https://chesterismay.shinyapps.io/german-states-quiz-app/" target="_blank"><strong>German Federal State Shape Quiz</strong></a> 🇩🇪 — a similar quiz on the shapes and cities of Germany’s federal states</li>
+</ul>
 </section>
-<section id="german-federal-state-shape-quiz" class="level3">
-<h3 class="anchored" data-anchor-id="german-federal-state-shape-quiz">🇩🇪 German Federal State Shape Quiz</h3>
-<p>A similar <a href="https://chesterismay.shinyapps.io/german-states-quiz-app/" target="_blank">German geography quiz</a> that tests users on the shapes and cities of Germany’s federal states.</p>
+<section id="macos-menu-bar-apps" class="level3">
+<h3 class="anchored" data-anchor-id="macos-menu-bar-apps">🖥️ macOS Menu Bar Apps</h3>
+<ul>
+<li><a href="https://ismayc.github.io/text-adder/" target="_blank"><strong>Text Adder</strong></a> — persistent, styled text overlays while screen sharing: lower-thirds, break timers, and quick phrases</li>
+<li><a href="https://github.com/ismayc/sash" target="_blank"><strong>Sash</strong></a> — snaps windows into custom layouts with drag-to-snap zones, a layout designer, and keyboard shortcuts — FancyZones for Mac</li>
+</ul>
 </section>
-<section id="nba-player-finder" class="level3">
-<h3 class="anchored" data-anchor-id="nba-player-finder">🏀 NBA Player Finder</h3>
-<p>Explore current NBA rosters by conference, division, team, height, age, and jersey number in this <a href="https://ismayc.github.io/nba-player-finder/" target="_blank">app</a>. It runs entirely in your browser via shinylive, with rosters refreshed weekly from the NBA API.</p>
-</section>
-<section id="world-cup-2026-schedule-viewer" class="level3">
-<h3 class="anchored" data-anchor-id="world-cup-2026-schedule-viewer">⚽ World Cup 2026 Schedule Viewer</h3>
-<p>Browse the full match schedule for the 2026 FIFA World Cup in this <a href="https://ismayc.github.io/world-cup-viewer/" target="_blank">viewer</a>, with dates, times, teams, and venues for every fixture across the tournament.</p>
+<section id="ai-tools" class="level3">
+<h3 class="anchored" data-anchor-id="ai-tools">🗣️ AI Tools</h3>
+<ul>
+<li><a href="https://ismayc.github.io/AllKlaro/" target="_blank"><strong>AllKlaro</strong></a> — live, fully local speech translation between German, English, and Spanish, powered by Whisper, Silero VAD, and Ollama on Apple Silicon</li>
+</ul>
 <hr>
 </section>
 </section>
