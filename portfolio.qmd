@@ -63,6 +63,7 @@ Related: the [**NBA Player Finder**](https://ismayc.github.io/nba-player-finder/
 - [**Probability Distribution Viewer**](https://ismay.shinyapps.io/ProbApp){target="_blank"} 🎲 — a Shiny app for exploring and calculating probabilities for normal, binomial, Poisson, and other distributions
 - [**US State/District Shape Quiz**](https://chesterismay.shinyapps.io/us-states-quiz-app/){target="_blank"} 🦅 — an interactive quiz on US state shapes, capitals, and major cities, built with [leaflet](https://rstudio.github.io/leaflet/)
 - [**German Federal State Shape Quiz**](https://chesterismay.shinyapps.io/german-states-quiz-app/){target="_blank"} 🇩🇪 — a similar quiz on the shapes and cities of Germany's federal states
+- [**SQL Tutorial**](https://ismayc.github.io/sql-tutorial/){target="_blank"} 🗄️ — an interactive, browser-based SQL tutorial with hands-on exercises against Pacific Northwest towns and flights data, powered by sql.js (SQLite in WebAssembly), so no database install is required
 
 ### 🖥️ macOS Menu Bar Apps
 
