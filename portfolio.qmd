@@ -43,6 +43,14 @@ format:
 
 ---
 
+## Analyses
+
+### ⛹️ Basketball Data Science
+
+[**Basketball Data Science: Studies, Tools, and Standards**](https://ismayc.github.io/basketball-data-science/){target="_blank"} — a growing collection of evidence-based basketball research studies spanning 45 NBA seasons, the WNBA and G League, over 56,000 college player-seasons, and millions of tracking frames and shot records. Topics include player measurement trends, 2-for-1 possession strategy, tracking-data quality, player and lineup valuation, shot selection, and draft evaluation. Every analysis is implemented in both R and Python and reconciled to numeric tolerance before publication, with DuckDB SQL layers and auto-generated scouting reports for all 30 NBA teams.
+
+---
+
 ##  Apps
 
 ### 🏟️ Sports Viewers
