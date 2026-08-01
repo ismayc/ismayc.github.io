@@ -121,7 +121,6 @@ Tidy, documented datasets ready for teaching, in the spirit of `nycflights13`:
 - [**exoplanetdata**](https://moderndive.github.io/exoplanetdata/){target="_blank"} — tidy data on confirmed exoplanets and their host stars from NASA's Exoplanet Archive ([CRAN](https://cran.r-project.org/package=exoplanetdata){target="_blank"} · [GitHub](https://github.com/moderndive/exoplanetdata){target="_blank"})
 - [**steves**](https://moderndive.github.io/steves/){target="_blank"} — every episode of *Rick Steves' Europe* (2000–2025), with ratings, geography, air dates, and summaries ([CRAN](https://cran.r-project.org/package=steves){target="_blank"} · [GitHub](https://github.com/moderndive/steves){target="_blank"})
 - [**izzyuntappd**](https://github.com/ismayc/izzyuntappd){target="_blank"} — my Untappd beer check-ins (Feb 2015–June 2016), plus an R Markdown template for analyzing them ([GitHub](https://github.com/ismayc/izzyuntappd){target="_blank"})
-- [**tamedata**](https://github.com/ismayc/tamedata){target="_blank"} — interesting teaching examples for R, meant as an alternative to `mtcars`, `iris`, and `diamonds` ([GitHub](https://github.com/ismayc/tamedata){target="_blank"})
 
 ### Python Packages
 
