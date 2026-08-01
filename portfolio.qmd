@@ -53,6 +53,12 @@ New analyses:
 
 - [**The Mebound**](https://ismayc.github.io/mebounds/){target="_blank"} 🏀, a WNBA-and-NBA play-by-play study of Angel Reese's signature stat. Across two million events and 4,434 games, she recovers her own misses at three to four times the league rate while carrying league-leading rebound volume: a combination no player in either league matches.
 - [**Draft value by team and college**](https://ismayc.github.io/draft-potential-by-team/analysis/){target="_blank"} 🎯, which prices every pick slot from 27 draft classes and asks who beats the price. Oklahoma City leads at +489 Win Shares above slot, yet 27 of 30 franchise intervals cross zero, and the era's biggest steal went first overall. Paired with an [interactive viewer](https://ismayc.github.io/draft-potential-by-team/){target="_blank"} of every lottery and draft board since 1989.
+- [**Are NBA players really getting shorter?**](https://ismayc.github.io/jersey-height-study/){target="_blank"} 📏, 45 seasons of NBA rosters showing the apparent decline is mostly explained by a 2019 measurement-rule change, not players actually getting smaller.
+- [**Does college production beat the scouts?**](https://ismayc.github.io/draft-study/){target="_blank"} 🎓, a draft-value model with an era holdout that returns an honest negative result — box-score production doesn't beat scouting consensus.
+- [**The end-of-quarter 2-for-1**](https://ismayc.github.io/playbyplay-study/){target="_blank"} ⏱️, a full season of NBA play-by-play testing whether the classic late-quarter strategy actually pays off.
+- [**Shot quality across three leagues**](https://ismayc.github.io/shot-quality-study/){target="_blank"} 🏀, an xMake/xPTS shot model spanning three NBA seasons, the WNBA, and the G League, separating shot selection from shot-making with a persistence and empirical-Bayes projection.
+- [**Player and lineup value with honest error bars**](https://ismayc.github.io/lineup-valuation-study/){target="_blank"} 📊, a RAPM-family valuation of players and lineups across the 2023-24 and 2025-26 seasons.
+- [**Ten years of NBA tracking data**](https://ismayc.github.io/tracking-study/){target="_blank"} 🛰️, 7.5 million frames of raw SportVU tracking at 25 Hz, surfacing a clock-latency trap and validating movement trends across the tracking era.
 
 ---
 
@@ -63,6 +69,9 @@ New analyses:
 A family of unofficial, timezone-aware schedule and bracket viewers that run entirely in your browser — game times in your local timezone, where to watch, live scores, standings, and calendar export. Start at the [Sports Trackers hub](https://ismayc.github.io/sports-trackers/){target="_blank"}, which shows which leagues have games today, or jump straight in:
 
 - [**World Cup 2026**](https://ismayc.github.io/world-cup-viewer/){target="_blank"} ⚽ — every fixture across the tournament, with group standings, FIFA tie-breakers, and the knockout bracket
+- [**Euro 2024**](https://ismayc.github.io/football-euros-viewer/){target="_blank"} ⚽ — every fixture in your timezone, with group standings, UEFA tie-breakers, clinch/elimination math, and the knockout bracket
+- [**Copa América 2024**](https://ismayc.github.io/copa-america-viewer/){target="_blank"} ⚽ — every fixture in your timezone, with bracket, group standings, CONMEBOL tie-breakers, and clinch detection
+- [**Women's World Cup 2023**](https://ismayc.github.io/womens-world-cup-viewer/){target="_blank"} ⚽ — all 64 matches in your timezone, with group standings, tie-breakers, and the knockout bracket
 - [**NBA**](https://ismayc.github.io/nba-schedule/){target="_blank"} 🏀 — the full season, playoff bracket with play-in, conference standings, and league leaders
 - [**WNBA**](https://ismayc.github.io/wnba-schedule/){target="_blank"} 🏀 — the WNBA season with weekly calendar, playoff bracket, and league leaders
 - [**NFL**](https://ismayc.github.io/nfl-schedule/){target="_blank"} 🏈 — the 2026 week-by-week slate, standings with division seeding, and the playoff bracket
@@ -112,6 +121,7 @@ Tidy, documented datasets ready for teaching, in the spirit of `nycflights13`:
 - [**exoplanetdata**](https://moderndive.github.io/exoplanetdata/){target="_blank"} — tidy data on confirmed exoplanets and their host stars from NASA's Exoplanet Archive ([CRAN](https://cran.r-project.org/package=exoplanetdata){target="_blank"} · [GitHub](https://github.com/moderndive/exoplanetdata){target="_blank"})
 - [**steves**](https://moderndive.github.io/steves/){target="_blank"} — every episode of *Rick Steves' Europe* (2000–2025), with ratings, geography, air dates, and summaries ([CRAN](https://cran.r-project.org/package=steves){target="_blank"} · [GitHub](https://github.com/moderndive/steves){target="_blank"})
 - [**izzyuntappd**](https://github.com/ismayc/izzyuntappd){target="_blank"} — my Untappd beer check-ins (Feb 2015–June 2016), plus an R Markdown template for analyzing them ([GitHub](https://github.com/ismayc/izzyuntappd){target="_blank"})
+- [**tamedata**](https://github.com/ismayc/tamedata){target="_blank"} — interesting teaching examples for R, meant as an alternative to `mtcars`, `iris`, and `diamonds` ([GitHub](https://github.com/ismayc/tamedata){target="_blank"})
 
 ### Python Packages
 
