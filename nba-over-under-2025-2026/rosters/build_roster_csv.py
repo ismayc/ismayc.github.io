@@ -62,7 +62,9 @@ OUTPUT_COLUMNS = [
 ]
 
 # ESPN fallback (reliable from cloud IPs when stats.nba.com is unreachable).
-ESPN_HEADERS = {"User-Agent": "Mozilla/5.0"}
+# ESPN's edge now 403s spoofed browser UAs from non-browser TLS clients, but
+# accepts honest client UAs — so let requests send its own default UA.
+ESPN_HEADERS = {}
 ESPN_TEAMS_URL = "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams"
 ESPN_ROSTER_URL = "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams/{id}/roster"
 # ESPN displayName -> team_meta full name, where the two differ.
