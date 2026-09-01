@@ -59,6 +59,7 @@ New analyses:
 - [**Shot quality across three leagues**](https://ismayc.github.io/shot-quality-study/){target="_blank"} 🏀, an xMake/xPTS shot model spanning three NBA seasons, the WNBA, and the G League, separating shot selection from shot-making with a persistence and empirical-Bayes projection.
 - [**Player and lineup value with honest error bars**](https://ismayc.github.io/lineup-valuation-study/){target="_blank"} 📊, a RAPM-family valuation of players and lineups across the 2023-24 and 2025-26 seasons.
 - [**Ten years of NBA tracking data**](https://ismayc.github.io/tracking-study/){target="_blank"} 🛰️, 7.5 million frames of raw SportVU tracking at 25 Hz, surfacing a clock-latency trap and validating movement trends across the tracking era.
+- [**Scouting one-pagers for all 30 teams**](https://ismayc.github.io/nba-scouting-onepagers/){target="_blank"} 📋, auto-generated opponent scouting reports for the full 2025-26 NBA season.
 
 ---
 
@@ -74,6 +75,7 @@ A family of unofficial, timezone-aware schedule and bracket viewers that run ent
 - [**Women's World Cup 2023**](https://ismayc.github.io/womens-world-cup-viewer/){target="_blank"} ⚽ — all 64 matches in your timezone, with group standings, tie-breakers, and the knockout bracket
 - [**NBA**](https://ismayc.github.io/nba-schedule/){target="_blank"} 🏀 — the full season, playoff bracket with play-in, conference standings, and league leaders
 - [**WNBA**](https://ismayc.github.io/wnba-schedule/){target="_blank"} 🏀 — the WNBA season with weekly calendar, playoff bracket, and league leaders
+- [**FIBA Women's World Cup 2026**](https://ismayc.github.io/fiba-womens-world-cup-viewer/){target="_blank"} 🏀 — all 36 games in Berlin in your timezone, with group standings and the final-phase bracket
 - [**NFL**](https://ismayc.github.io/nfl-schedule/){target="_blank"} 🏈 — the 2026 week-by-week slate, standings with division seeding, and the playoff bracket
 - [**Premier League**](https://ismayc.github.io/premier-league/){target="_blank"} ⚽ — fixtures, the live table with home/away splits, player leaderboards, and every final table since 1992–93
 - [**Men's**](https://ismayc.github.io/mens-march-madness/){target="_blank"} and [**Women's March Madness**](https://ismayc.github.io/womens-march-madness/){target="_blank"} 🏀 — the full NCAA Division I tournament brackets, every game
