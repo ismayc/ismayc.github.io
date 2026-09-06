@@ -61,6 +61,10 @@ New analyses:
 - [**Ten years of NBA tracking data**](https://ismayc.github.io/tracking-study/){target="_blank"} 🛰️, 7.5 million frames of raw SportVU tracking at 25 Hz, surfacing a clock-latency trap and validating movement trends across the tracking era.
 - [**Scouting one-pagers for all 30 teams**](https://ismayc.github.io/nba-scouting-onepagers/){target="_blank"} 📋, auto-generated opponent scouting reports for the full 2025-26 NBA season.
 
+### 🎤 Music & Television
+
+[**Kellyoke**](https://kellyokes.netlify.app){target="_blank"} 🎤 — a complete catalog of the karaoke segment that opens *The Kelly Clarkson Show*. She has sung 1,178 songs there since the 2019 premiere, and every one is matched to a surviving video. Air dates come from what the uploads themselves state rather than from assumption, and all 1,245 entries carry a genre across 19 families, read from each song's Wikipedia article where one gives it and classified by hand where none does. Comes with a [data explorer](https://kellyokes.netlify.app/explore){target="_blank"} for filtering by season, genre, decade and performer, and [playlists](https://kellyokes.netlify.app/playlists){target="_blank"} covering 1,001 clips ([GitHub](https://github.com/ismayc/kellyoke){target="_blank"}).
+
 ---
 
 ##  Apps
