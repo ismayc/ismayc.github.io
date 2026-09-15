@@ -79,7 +79,8 @@
 }
 
 .book-cover {
-  max-width: 100%;
+  max-width: 200px;
+  width: 100%;
   height: auto;
   border-radius: 8px;
   box-shadow: 0 0 6px rgba(0,0,0,0.1);

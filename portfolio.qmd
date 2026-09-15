@@ -7,6 +7,8 @@ format:
   html:
     toc: true
     toc-location: right
+    grid:
+      body-width: 1140px
 ---
 
 ## Books
@@ -27,17 +29,6 @@ format:
 </div>
 
 <div class="book-card">
-  <a href="https://rbasics.netlify.app" target="_blank">
-    ![Getting Used to R Book Cover](images/rbasics-ai-cover.png){.book-cover}
-  </a>
-  <div class="book-text">
-  **[Getting Used to R, RStudio, and R Markdown](https://rbasics.netlify.app)**
-
-  A hands-on, beginner-friendly guide to using R and RStudio for data analysis. Co-authored with [Patrick Kennedy](https://news.uoregon.edu/expert/patrick-kennedy-center-teaching-and-learning). Designed to empower new users with confidence and clarity.
-  </div>
-</div>
-
-<div class="book-card">
   <a href="https://parallel-simulation-book.netlify.app/" target="_blank">
     ![Parallel Simulation Experiments Book Cover](images/parallel-simulation-cover.png){.book-cover}
   </a>
@@ -45,6 +36,17 @@ format:
   **[Parallel Simulation Experiments on a Personal Computer](https://parallel-simulation-book.netlify.app/)**
 
   Co-authored with [Randall L. Eubank](https://search.asu.edu/profile/842642), this openly available guide shows how to run parallel simulation experiments on an everyday personal computer, with worked case studies in both R and Python covering topics from random number generation to epidemic modeling. It extends much of the work from my dissertation. Part of the Chapman & Hall/CRC Data Science Series, with a print edition coming in 2027.
+  </div>
+</div>
+
+<div class="book-card">
+  <a href="https://rbasics.netlify.app" target="_blank">
+    ![Getting Used to R Book Cover](images/rbasics-ai-cover.png){.book-cover}
+  </a>
+  <div class="book-text">
+  **[Getting Used to R, RStudio, and R Markdown](https://rbasics.netlify.app)**
+
+  A hands-on, beginner-friendly guide to using R and RStudio for data analysis. Co-authored with [Patrick Kennedy](https://news.uoregon.edu/expert/patrick-kennedy-center-teaching-and-learning). Designed to empower new users with confidence and clarity.
   </div>
 </div>
 
