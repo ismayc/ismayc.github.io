@@ -80,6 +80,7 @@ A family of unofficial, timezone-aware schedule and bracket viewers that run ent
 - [**NBA**](https://ismayc.github.io/nba-schedule/){target="_blank"} 🏀 — the full season, playoff bracket with play-in, conference standings, and league leaders
 - [**WNBA**](https://ismayc.github.io/wnba-schedule/){target="_blank"} 🏀 — the WNBA season with weekly calendar, playoff bracket, and league leaders
 - [**FIBA Women's World Cup 2026**](https://ismayc.github.io/fiba-womens-world-cup-viewer/){target="_blank"} 🏀 — all 36 games in Berlin in your timezone, with group standings and the final-phase bracket
+- [**FIBA Men's World Cup 2023**](https://ismayc.github.io/fiba-mens-world-cup-viewer/){target="_blank"} 🏀 — all 92 games across the Philippines, Japan, and Indonesia in your timezone, with group standings, the second round, and the knockout bracket
 - [**NFL**](https://ismayc.github.io/nfl-schedule/){target="_blank"} 🏈 — the 2026 week-by-week slate, standings with division seeding, and the playoff bracket
 - [**Premier League**](https://ismayc.github.io/premier-league/){target="_blank"} ⚽ — fixtures, the live table with home/away splits, player leaderboards, and every final table since 1992–93
 - [**Men's**](https://ismayc.github.io/mens-march-madness/){target="_blank"} and [**Women's March Madness**](https://ismayc.github.io/womens-march-madness/){target="_blank"} 🏀 — the full NCAA Division I tournament brackets, every game
