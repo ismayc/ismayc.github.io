@@ -13,6 +13,15 @@ Here are a few examples of presentations I've given. I'm always eager to speak w
 <div class="talk-grid">
 
 ::: {.card}
+**Never Miss a Game: Build a Sports Concierge Agent in 25 Minutes**  
+A live 30-minute demo and Q&A for O'Reilly's recurring [The Monday Morning Agent](https://learning.oreilly.com/live-events/the-monday-morning-agent/0642572456054/) series (September 16, 2026). What are agents good for when they aren't writing code? I build a sports concierge agent that reads the schedules for every sport I follow, picks the events worth my time, and sends one message to my phone each week, then hand over the repeatable pattern: prompt file, tool permissions, schedule, and notification.
+
+→ [Video recording](https://youtu.be/W1_p5WRstFw)  
+→ [Walkthrough](https://ismayc.github.io/never-miss-a-game/)  
+→ [Series page](https://learning.oreilly.com/live-events/the-monday-morning-agent/0642572456054/)
+:::
+
+::: {.card}
 **Data Science in the Age of AI:  AI is the Engine, You are the Engineer**  
 How generative AI supports faster, clearer, and more responsible data science work while strengthening foundational skills and human insight. 
 
