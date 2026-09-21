@@ -23,7 +23,7 @@ An eight-episode O'Reilly live series I host, every other Monday starting Octobe
 **Never Miss a Game: Build a Sports Concierge Agent in 25 Minutes**  
 A live 30-minute demo and Q&A in O'Reilly's [Zero to Agent in 30 Minutes](https://learning.oreilly.com/live-events/zero-to-agent-in-30-minutes/0642572392338/) series (September 16, 2026). What are agents good for when they aren't writing code? I build a sports concierge agent that reads the schedules for every sport I follow, picks the events worth my time, and sends one message to my phone each week, then hand over the repeatable pattern: prompt file, tool permissions, schedule, and notification.
 
-→ [Recap](https://www.oreilly.com/radar/zero-to-agent-in-30-minutes-build-a-sports-concierge-agent-with-chester-ismay/)
+→ [Recap and video](https://www.oreilly.com/radar/zero-to-agent-in-30-minutes-build-a-sports-concierge-agent-with-chester-ismay/)
 → [Walkthrough](https://ismayc.github.io/never-miss-a-game/)
 :::
 
