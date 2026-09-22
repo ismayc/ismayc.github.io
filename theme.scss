@@ -1,0 +1,11 @@
+/*-- scss:defaults --*/
+
+// Sandstone's default link color is its $success green (#93c54b), which is only
+// 2.0:1 against white (its hover shade is about 3.1:1), below the 4.5:1 WCAG AA
+// minimum for text. Use the site's own accent teal instead: #0C6B57 is 6.45:1,
+// and #0a5546 matches the .btn-cta hover in styles.css.
+// Setting it here, rather than overriding --bs-link-color in styles.css, also
+// recolors the places Bootstrap and Quarto compile the value in as a literal:
+// the active and hovered table-of-contents entries, .nav links, and .btn-link.
+$link-color: #0C6B57;
+$link-hover-color: #0a5546;

@@ -78,7 +78,7 @@ website:
 
 format:
   html:
-    theme: sandstone
+    theme: [sandstone, theme.scss]
     css: styles.css
     include-in-header: includes/person-schema.html
     toc: true

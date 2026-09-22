@@ -6,6 +6,9 @@ format:
   html:
     page-layout: full
     toc: false
+    # The role-card titles are <h2>s inside the card links; Quarto's hover
+    # anchor would add a link inside a link, so leave anchors off here.
+    anchor-sections: false
 ---
 
 ::: {.home-hero}
@@ -32,29 +35,34 @@ Whether it's a university rolling out an AI curriculum, a nonprofit streamlining
 
 ::: {.home-roles}
 
+<!-- A raw HTML block, so Quarto does not wrap each card link in a <p>. A <p>
+     cannot hold the <h2> titles, and the browser would split the card. Raw
+     HTML also skips smart quotes, hence the &rsquo; entities. -->
+```{=html}
 <a class="role-card" href="consulting.html">
-<span class="role-title">Consultant</span>
+<h2 class="role-title">Consultant</h2>
 <span class="role-desc">I partner with universities, nonprofits, agencies, and companies to design data workflows powered by AI, automation, and reproducible practices — helping teams cut through complexity and focus on what works.</span>
 <span class="role-more">Learn more &rarr;</span>
 </a>
 
 <a class="role-card" href="workshops.html">
-<span class="role-title">Educator</span>
+<h2 class="role-title">Educator</h2>
 <span class="role-desc">I create and teach hands-on learning experiences in R, Python, SQL, and AI — from short workshops to full-semester courses — empowering learners at all levels to use data with confidence.</span>
 <span class="role-more">Learn more &rarr;</span>
 </a>
 
 <a class="role-card" href="talks.html">
-<span class="role-title">Speaker</span>
-<span class="role-desc">I give energetic, example-driven talks on the future of data science education and the practical use of AI — bridging the gap between what's possible and what's useful.</span>
+<h2 class="role-title">Speaker</h2>
+<span class="role-desc">I give energetic, example-driven talks on the future of data science education and the practical use of AI — bridging the gap between what&rsquo;s possible and what&rsquo;s useful.</span>
 <span class="role-more">Learn more &rarr;</span>
 </a>
 
 <a class="role-card" href="portfolio.html">
-<span class="role-title">Author</span>
-<span class="role-desc">I'm co-author of ModernDive and other open educational tools that make statistics and data science more accessible, modern, and fun — always with the learner in mind.</span>
+<h2 class="role-title">Author</h2>
+<span class="role-desc">I&rsquo;m co-author of ModernDive and other open educational tools that make statistics and data science more accessible, modern, and fun — always with the learner in mind.</span>
 <span class="role-more">Learn more &rarr;</span>
 </a>
+```
 
 :::
 

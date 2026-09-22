@@ -34,6 +34,23 @@
   margin-bottom: 0.25rem;
 }
 
+/* Talk titles are <h2>s (for the page outline and screen readers), styled to
+   match the bold title line above. The #quarto-content ID lifts this above
+   Quarto's "#quarto-content section:first-of-type h2:first-of-type" rule,
+   which would otherwise add a top margin to every card's title. */
+#quarto-content .talk-grid .card h2.talk-title {
+  font-family: inherit;
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: inherit;
+  /* 0.25rem plus one 1.5-line-height blank line: the old bold title was
+     followed by a <br> that left an empty line before the description. */
+  margin: 0 0 1.75rem;
+  padding: 0;
+  border: 0;
+}
+
 .workshop-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -132,8 +149,6 @@ img.rounded {
   flex-direction: column;
   gap: 1rem;
 }
-/* Quarto wraps each card anchor in a <p>; let the flex gap own the spacing */
-.home-roles > p { margin: 0; }
 
 /* Clean circular headshot, constrained so it never dominates on mobile */
 .home-photo {
@@ -191,12 +206,19 @@ img.rounded {
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
   background: #f0f8f5;
 }
-.role-title {
+/* The role titles are real <h2>s, so they show up in the page outline and
+   screen readers can jump between them. Reset Quarto's h2 size, weight,
+   margins, and underline so the cards look as they did. */
+.role-card h2.role-title {
   display: block;
+  font-family: inherit;
   font-size: 1.15rem;
   font-weight: 600;
+  line-height: 1.5;
   color: #0C6B57;
-  margin-bottom: 0.3rem;
+  margin: 0 0 0.3rem;
+  padding: 0;
+  border: 0;
 }
 .role-desc {
   display: block;
@@ -212,6 +234,27 @@ img.rounded {
   font-size: 0.88rem;
 }
 .role-card:hover .role-more { text-decoration: underline; }
+
+/* ── Readable line length ──
+   Pages with page-layout: full stretch text up to 1135px, over 110 characters
+   a line. Cap running text near 70 characters instead. In 17px Roboto, 56ch
+   measures about 72 characters a line, because "0" (the glyph ch is based on)
+   is wider than the average letter. */
+main.content p,
+main.content li,
+#title-block-header .description {
+  max-width: 56ch;
+}
+/* About: make each paragraph its own block formatting context, so its box sits
+   entirely beside the floated photo instead of running underneath it. Without
+   this, lines that wrap below the photo span the full paragraph box. Only on
+   wider screens: on a narrow one the box beside the 300px photo is a sliver,
+   and flow-root would keep the whole paragraph in it. */
+@media (min-width: 768px) {
+  main.content p:has(> .about-photo) ~ p {
+    display: flow-root;
+  }
+}
 
 @media (max-width: 600px) {
   .home-photo {

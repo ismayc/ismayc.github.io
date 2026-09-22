@@ -6,6 +6,9 @@ image: images/social-card.png
 format:
   html:
     toc: false
+    # The talk titles are ## headings styled as card titles (styles.css);
+    # skip Quarto's hover anchor icon so the cards look the same as before.
+    anchor-sections: false
 ---
 
 Here are a few examples of presentations I've given. I'm always eager to speak with others about the ways AI, statistics, and effective data communication intersect and how they can better support our day-to-day lives and our work processes. If you have an event or conference in mind, please [get in touch](mailto:chester.ismay@gmail.com).
@@ -13,14 +16,14 @@ Here are a few examples of presentations I've given. I'm always eager to speak w
 <div class="talk-grid">
 
 ::: {.card}
-**The Monday Morning Agent**  
+## The Monday Morning Agent {.talk-title}
 An eight-episode O'Reilly live series I host, every other Monday starting October 2026. Each episode uses real NFL play-by-play data to settle an enduring football debate while gradually building an AI data analyst that can do that work on its own.
 
 → [Series page](https://learning.oreilly.com/live-events/the-monday-morning-agent/0642572456054/)
 :::
 
 ::: {.card}
-**Never Miss a Game: Build a Sports Concierge Agent in 25 Minutes**  
+## Never Miss a Game: Build a Sports Concierge Agent in 25 Minutes {.talk-title}
 A live 30-minute demo and Q&A in O'Reilly's [Zero to Agent in 30 Minutes](https://learning.oreilly.com/live-events/zero-to-agent-in-30-minutes/0642572392338/) series (September 16, 2026). What are agents good for when they aren't writing code? I build a sports concierge agent that reads the schedules for every sport I follow, picks the events worth my time, and sends one message to my phone each week, then hand over the repeatable pattern: prompt file, tool permissions, schedule, and notification.
 
 → [Recap and video](https://www.oreilly.com/radar/zero-to-agent-in-30-minutes-build-a-sports-concierge-agent-with-chester-ismay/)  
@@ -28,7 +31,7 @@ A live 30-minute demo and Q&A in O'Reilly's [Zero to Agent in 30 Minutes](https:
 :::
 
 ::: {.card}
-**Data Science in the Age of AI:  AI is the Engine, You are the Engineer**  
+## Data Science in the Age of AI:  AI is the Engine, You are the Engineer {.talk-title}
 How generative AI supports faster, clearer, and more responsible data science work while strengthening foundational skills and human insight. 
 
 → [HTML slides](https://gamma.app/docs/Data-Science-in-the-Age-of-AI-b1b6dj7dav03n8r?follow_on_start=true&following_id=f67f1376ykr0npc&mode=doc)  
@@ -36,7 +39,7 @@ How generative AI supports faster, clearer, and more responsible data science wo
 :::
 
 ::: {.card}
-**Vignette-Driven Development:  The Power of Unit Testing**  
+## Vignette-Driven Development:  The Power of Unit Testing {.talk-title}
 How starting with a narrative, shaping APIs around real workflows, and using tests as guardrails leads to clearer, more intentional tools strengthened by AI-supported variation.
 
 → [HTML slides](https://gamma.app/docs/Vignette-Driven-Development-ckyfqaa2oncheem?follow_on_start=true&following_id=f67f1376ykr0npc&mode=doc)  
@@ -44,14 +47,14 @@ How starting with a narrative, shaping APIs around real workflows, and using tes
 :::
 
 ::: {.card}
-**Tidyverse Tools in R for Data Science and Statistical Inference (with Dr. Jessica Minnier)**  
+## Tidyverse Tools in R for Data Science and Statistical Inference (with Dr. Jessica Minnier) {.talk-title}
 A tidyverse-driven introduction to crafting clean, reproducible data workflows and modern inference in R.  
 
 → [HTML slides](https://ismayc.github.io/talks/csp-2021/slide_deck.html)
 :::
 
 ::: {.card}
-**Building Data Fluency Through Analogies**  
+## Building Data Fluency Through Analogies {.talk-title}
 Using real-world and movie examples to make data science approachable.  
 
 → [PDF slides](https://ismayc.github.io/talks/Building%20Data%20Fluency%20through%20Analogies%20from%20the%20Real%20World%20and%20Movies.pdf)
@@ -59,7 +62,7 @@ Using real-world and movie examples to make data science approachable.
 
 
 ::: {.card}
-**Statistical Inference: A Tidy Approach**  
+## Statistical Inference: A Tidy Approach {.talk-title}
 A modern, tidyverse-based take on inference in R.  
 
 → [HTML slides](https://ismayc.github.io/talks/infer-useR/slide_deck.html)  
@@ -67,7 +70,7 @@ A modern, tidyverse-based take on inference in R.
 :::
 
 ::: {.card}
-**Teaching Introductory Statistics Using the Tidyverse via bookdown**  
+## Teaching Introductory Statistics Using the Tidyverse via bookdown {.talk-title}
 A bookdown-enhanced framework for teaching introductory statistics and data science in R.  
 
 → [HTML slides](https://ismayc.github.io/rstudioconf/slides.html)  
@@ -75,7 +78,7 @@ A bookdown-enhanced framework for teaching introductory statistics and data scie
 :::
 
 ::: {.card}
-**Creating the `fivethirtyeight` R package**  
+## Creating the `fivethirtyeight` R package {.talk-title}
 Behind-the-scenes of developing an R data package for reproducible journalism.  
 
 → [HTML slides](https://ismayc.github.io/talks/pdx538/slide_deck.html)  
@@ -83,7 +86,7 @@ Behind-the-scenes of developing an R data package for reproducible journalism.
 :::
 
 ::: {.card}
-**Something old, something new, something borrowed, something blue: Ways to teach data science (and learn it too!)**  
+## Something old, something new, something borrowed, something blue: Ways to teach data science (and learn it too!) {.talk-title}
 A gentle approach to launching students into data science with new tools, familiar stories, and tidy principles. 
 
 → [HTML slides](https://ismayc.github.io/talks/asa-oregon-fall17/slide_deck.html)  
