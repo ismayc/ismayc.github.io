@@ -73,6 +73,7 @@ New analyses:
 - [**Player and lineup value with honest error bars**](https://ismayc.github.io/lineup-valuation-study/){target="_blank"} 📊, a RAPM-family valuation of players and lineups across the 2023-24 and 2025-26 seasons.
 - [**Ten years of NBA tracking data**](https://ismayc.github.io/tracking-study/){target="_blank"} 🛰️, 7.5 million frames of raw SportVU tracking at 25 Hz, surfacing a clock-latency trap and validating movement trends across the tracking era.
 - [**Scouting one-pagers for all 30 teams**](https://ismayc.github.io/nba-scouting-onepagers/){target="_blank"} 📋, auto-generated opponent scouting reports for the full 2025-26 NBA season.
+- [**Do players perform better in contract years?**](https://ismayc.github.io/contract-year-study/){target="_blank"} 💰, 27 seasons of free agency (1999-00 to 2025-26) testing the contract-year effect — role players get a small lift (+0.21 Box Plus/Minus per 100 possessions), stars show none.
 
 ### 🎤 Music & Television
 
