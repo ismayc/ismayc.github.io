@@ -7,7 +7,7 @@ on:
     branches:
       - master
     paths:
-      - 'nba-over-under-2025-2026/**'
+      - 'nba-over-under-2026-2027/**'
 
 jobs:
   check-date:
@@ -15,11 +15,20 @@ jobs:
     outputs:
       should_run: ${{ steps.date_check.outputs.should_run }}
     steps:
+      # The page cannot build until this season's picks are saved, so skip
+      # (rather than fail every day) until rds/gs_picks_raw.rds is committed.
+      - uses: actions/checkout@v6
+        with:
+          sparse-checkout: nba-over-under-2026-2027/rds
+          sparse-checkout-cone-mode: false
       - id: date_check
         run: |
           CURRENT_DATE=$(date -u +%Y-%m-%d)
-          CUTOFF_DATE="2026-04-13"
-          if [[ "$CURRENT_DATE" < "$CUTOFF_DATE" || "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+          CUTOFF_DATE="2027-04-12"
+          if [[ ! -f nba-over-under-2026-2027/rds/gs_picks_raw.rds ]]; then
+            echo "No 2026-27 picks yet; skipping the build."
+            echo "should_run=false" >> $GITHUB_OUTPUT
+          elif [[ "$CURRENT_DATE" < "$CUTOFF_DATE" || "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             echo "should_run=true" >> $GITHUB_OUTPUT
           else
             echo "should_run=false" >> $GITHUB_OUTPUT
@@ -90,7 +99,7 @@ jobs:
       
       - name: Build webpage
         run: |
-          Rscript nba-over-under-2025-2026/make_plot_html.R
+          Rscript nba-over-under-2026-2027/make_plot_html.R
       
       - name: Push changes
         run: |

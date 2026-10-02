@@ -1,0 +1,31 @@
+team,conference,win_projection
+Atlanta Hawks,East,43.5
+Boston Celtics,East,50.5
+Brooklyn Nets,East,24.5
+Charlotte Hornets,East,39.5
+Chicago Bulls,East,29.5
+Cleveland Cavaliers,East,48.5
+Detroit Pistons,East,49.5
+Indiana Pacers,East,43.5
+Miami Heat,East,45.5
+Milwaukee Bucks,East,25.5
+New York Knicks,East,52.5
+Orlando Magic,East,43.5
+Philadelphia 76ers,East,50.5
+Toronto Raptors,East,46.5
+Washington Wizards,East,34.5
+Dallas Mavericks,West,33.5
+Denver Nuggets,West,48.5
+Golden State Warriors,West,38.5
+Houston Rockets,West,47.5
+Los Angeles Clippers,West,28.5
+Los Angeles Lakers,West,45.5
+Memphis Grizzlies,West,29.5
+Minnesota Timberwolves,West,48.5
+New Orleans Pelicans,West,28.5
+Oklahoma City Thunder,West,61.5
+Phoenix Suns,West,39.5
+Portland Trail Blazers,West,41.5
+Sacramento Kings,West,20.5
+San Antonio Spurs,West,60.5
+Utah Jazz,West,37.5

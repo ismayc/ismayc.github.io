@@ -1,0 +1,1 @@
+system("/bin/bash /Users/chesterismay/repos/ismayc.github.io/nba-over-under-2026-2027/update_nba_data.sh")

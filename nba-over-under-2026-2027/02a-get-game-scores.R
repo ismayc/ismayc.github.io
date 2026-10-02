@@ -1,0 +1,67 @@
+#install.packages("devtools")
+#devtools::install_github("abresler/nbastatR")
+
+library(tidyverse)
+# library(nbastatR)
+library(here)
+library(glue)
+library(readxl)
+
+# Season dates and names live in 00-season-config.R
+source("00-season-config.R")
+Sys.setenv("VROOM_CONNECTION_SIZE" = 131072 * 2)
+season <- starting_season_year
+
+meta <- read_excel(path = "picks.xlsx", sheet = "meta") 
+
+#setwd("/Users/chester/Desktop/ismayc.github.io/nba-over-under-2022-2023")
+#here::set_here("/Users/chester/Desktop/ismayc.github.io/nba-over-under-2022-2023")
+
+# if(!file.exists(here(
+#   "rds", glue("game_results_raw_through_{Sys.Date() - 1}.rds")))
+# ) {
+#   source("R/game_logs.R")
+#   season <- game_logs(seasons = season)   
+#   
+#   game_results_raw <- season %>% 
+#     distinct(slugSeason, nameTeam, dateGame, numberGameTeamSeason, 
+#              slugMatchup, slugTeam, slugOpponent, slugTeamLoser)
+#   
+#   write_rds(game_results_raw, 
+#             here("rds", glue("game_results_raw_through_{Sys.Date() - 1}.rds")))
+# } else {
+#   game_results_raw <- read_rds(
+#     here("rds", glue("game_results_raw_through_{Sys.Date() - 1}.rds"))
+#   )
+# }
+# 
+# slug_lookup <- game_results_raw %>% 
+#   distinct(nameTeam, slugTeam) %>% 
+#   arrange(slugTeam)
+# 
+# .get_slug_year <- function() {
+#   current_date <- Sys.Date()
+#   current_year <- lubridate::year(current_date)
+#   current_month <- lubridate::month(current_date)
+#   slug_year <- dplyr::case_when(current_month >= 10 ~  current_year,
+#                                 TRUE ~ current_year - 1)
+#   slug_year
+# }
+
+#library(feather)
+#current_year_results <- read_feather("2022.feather")
+
+# reticulate::virtualenv_create()
+# reticulate::use_virtualenv("~/.virtualenvs/r-reticulate", required = TRUE)
+
+if (!reticulate::py_module_available("nba_api")) {
+  reticulate::py_install("nba_api", pip = TRUE)
+}
+
+if (!reticulate::py_module_available("pandas")) {
+  reticulate::py_install("pandas")
+}
+
+if (!reticulate::py_module_available("bs4")) {
+  reticulate::py_install("bs4")
+}
