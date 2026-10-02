@@ -21,6 +21,8 @@ project:
     - "us-statehood.html"
     - "projects/**"
     - "nba-over-under-2025-2026/final-day-scenarios.html"
+    # Redirects to nba-fantasy-draft.netlify.app, where the drafts moved
+    - "nba-over-under-202*/fantasy-draft/**/index.html"
     - "teaching/sample_problems/*.html"
     - "nba-player-finder/**"
   output-dir: docs  # for GitHub Pages compatibility
