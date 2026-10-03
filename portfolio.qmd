@@ -75,6 +75,10 @@ New analyses:
 - [**Scouting one-pagers for all 30 teams**](https://ismayc.github.io/nba-scouting-onepagers/){target="_blank"} 📋, auto-generated opponent scouting reports for the full 2025-26 NBA season.
 - [**Do players perform better in contract years?**](https://ismayc.github.io/contract-year-study/){target="_blank"} 💰, 27 seasons of free agency (1999-00 to 2025-26) testing the contract-year effect — role players get a small lift (+0.21 Box Plus/Minus per 100 possessions), stars show none.
 
+### 🧩 Puzzles & Games
+
+[**Rebus & Wordle History**](https://nyt-games-alerter.netlify.app){target="_blank"} 🧩 — a running history of the tricks in New York Times games, updated daily. Every daily crossword since November 1993 (12,005 puzzles) is scanned for rebus squares, the cells that hold more than one letter: about 1 in 25 puzzles has one, Thursday carries 15% of them, and Thursday's share has climbed every decade. Alternate-answer gimmicks like Schrödinger squares are tracked separately. The Wordle tab checks every answer since 2021 against chosen letter patterns, revealed only after the day has passed, and a difficulty calendar shades each crossword by how the median solver fared against their weekday norm ([GitHub](https://github.com/ismayc/nyt-games-alerter){target="_blank"}).
+
 ### 🎤 Music & Television
 
 [**Kellyoke**](https://kellyokes.netlify.app){target="_blank"} 🎤 — a complete catalog of the karaoke segment that opens *The Kelly Clarkson Show*. She has sung 1,178 songs there since the 2019 premiere, and every one is matched to a surviving video. Air dates come from what the uploads themselves state rather than from assumption, and all 1,245 entries carry a genre across 19 families, read from each song's Wikipedia article where one gives it and classified by hand where none does. Comes with a [data explorer](https://kellyokes.netlify.app/explore){target="_blank"} for filtering by season, genre, decade and performer, and [playlists](https://kellyokes.netlify.app/playlists){target="_blank"} covering 1,001 clips ([GitHub](https://github.com/ismayc/kellyoke){target="_blank"}).
