@@ -120,6 +120,7 @@ Related: the [**NBA Player Finder**](https://ismayc.github.io/nba-player-finder/
 ### 🗣️ AI Tools
 
 - [**AllKlaro**](https://ismayc.github.io/AllKlaro/){target="_blank"} — live, fully local speech translation between German, English, and Spanish, powered by Whisper, Silero VAD, and Ollama on Apple Silicon
+- [**Corral**](https://ismayc.github.io/corral/){target="_blank"} — a local browser workspace for [herdr](https://github.com/herdrdev/herdr){target="_blank"} spaces: click a project and Claude Code opens in its folder in a real terminal, tiled in Sash-style layouts, with agent status, categories, a file tree, and terminals that survive a closed tab ([GitHub](https://github.com/ismayc/corral){target="_blank"})
 
 ---
 
