@@ -19,7 +19,8 @@ Here are a few examples of presentations I've given. I'm always eager to speak w
 ## The Monday Morning Agent {.talk-title}
 An eight-episode O'Reilly live series I host, every other Monday starting October 2026. Each episode uses real NFL play-by-play data to settle an enduring football debate while gradually building an AI data analyst that can do that work on its own.
 
-→ [Series page](https://learning.oreilly.com/live-events/the-monday-morning-agent/0642572456054/)
+→ [Series page](https://learning.oreilly.com/live-events/the-monday-morning-agent/0642572456054/)  
+→ [Trailer](https://www.youtube.com/watch?v=CfWT4FaiMls)
 :::
 
 ::: {.card}
