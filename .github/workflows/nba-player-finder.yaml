@@ -17,6 +17,9 @@ on:
 jobs:
   build-player-finder:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write   # push the refreshed roster
+      actions: write    # dispatch the site deploy
     defaults:
       run:
         working-directory: nba-over-under-2025-2026/rosters
@@ -47,6 +50,7 @@ jobs:
         run: node --test nba-over-under-2025-2026/rosters/tests/js/finder.test.mjs
 
       - name: Push changes
+        id: push
         working-directory: ${{ github.workspace }}
         run: |
           git config --local user.email "actions@github.com"
@@ -61,9 +65,20 @@ jobs:
             fi
             git commit -m "GitHub Actions weekly roster refresh"
             if git push origin master; then
+              echo "pushed=true" >> "$GITHUB_OUTPUT"
               echo "Pushed on attempt $attempt"; exit 0
             fi
             echo "Push rejected (attempt $attempt); re-syncing and retrying..."
             sleep $((RANDOM % 5 + 2))
           done
           echo "Failed to push after retries"; exit 1
+
+      # A push made with GITHUB_TOKEN does not trigger other workflows, so the
+      # site deploy would otherwise wait for the next human push. A
+      # workflow_dispatch from GITHUB_TOKEN is the documented exception.
+      - name: Deploy the refreshed roster
+        if: steps.push.outputs.pushed == 'true'
+        working-directory: ${{ github.workspace }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run quarto-netlify.yaml --ref master
