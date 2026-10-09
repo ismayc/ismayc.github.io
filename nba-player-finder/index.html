@@ -1,28 +1,95 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NBA Player Finder</title>
-    <script
-      src="./shinylive/load-shinylive-sw.js"
-      type="module"
-    ></script>
-    <script type="module">
-      import { runExportedApp } from "./shinylive/shinylive.js";
-      runExportedApp({
-        id: "root",
-        appEngine: "r",
-        relPath: "",
-      });
-    </script>
-    <link rel="stylesheet" href="./shinylive/style-resets.css" />
-    <link rel="stylesheet" href="./shinylive/shinylive.css" />
-    
-  </head>
-  <body>
-    
-    <div style="height: 100vh; width: 100vw" id="root"></div>
-    
-  </body>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NBA Player Finder</title>
+  <meta name="description" content="Name an NBA player from what you saw: jersey number, height, age, and team. Current rosters, refreshed every Monday." />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="NBA Player Finder" />
+  <meta property="og:description" content="Name an NBA player from what you saw: jersey number, height, age, and team." />
+  <meta property="og:url" content="https://ismayc.github.io/nba-player-finder/" />
+  <meta property="og:image" content="https://ismayc.github.io/nba-player-finder/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Big+Shoulders+Display:wght@700;800&display=swap" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preload" href="players.csv" as="fetch" crossorigin />
+  <script>
+    try { const t = localStorage.getItem("npf-theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <header class="masthead">
+    <h1>NBA Player Finder</h1>
+    <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch color theme">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg>
+    </button>
+  </header>
+
+  <main>
+    <form class="clues" id="clues" autocomplete="off" onsubmit="return false">
+      <p class="sentence">
+        Find a player
+        <label class="slot slot-name"><span class="sr">Name contains</span><input id="name" type="search" placeholder="any name" spellcheck="false" /></label>
+        wearing number
+        <label class="slot slot-num"><span class="sr">Jersey number</span><input id="jersey" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" placeholder="#" /></label>,
+        between
+        <label class="slot"><span class="sr">Shortest height</span><select id="hmin"></select></label>
+        and
+        <label class="slot"><span class="sr">Tallest height</span><select id="hmax"></select></label>
+        tall, aged
+        <label class="slot"><span class="sr">Youngest age</span><select id="amin"></select></label>
+        to
+        <label class="slot"><span class="sr">Oldest age</span><select id="amax"></select></label>,
+        playing for
+        <label class="slot slot-team"><span class="sr">Team</span><select id="team"></select></label>.
+      </p>
+
+      <div class="where">
+        <fieldset class="seg" id="conference">
+          <legend class="sr">Conference</legend>
+          <label><input type="radio" name="conference" value="" checked /><span>Both conferences</span></label>
+          <label><input type="radio" name="conference" value="East" /><span>East</span></label>
+          <label><input type="radio" name="conference" value="West" /><span>West</span></label>
+        </fieldset>
+        <fieldset class="seg" id="division" hidden>
+          <legend class="sr">Division</legend>
+        </fieldset>
+      </div>
+    </form>
+
+    <section class="results" aria-labelledby="count">
+      <div class="results-bar">
+        <p id="count" class="count" aria-live="polite">Loading rosters</p>
+        <button type="button" id="clear" class="clear" hidden>Clear clues</button>
+        <div class="sort" role="group" aria-label="Sort players">
+          <span class="sort-label">Sort</span>
+          <button type="button" data-sort="player" aria-pressed="true">Name</button>
+          <button type="button" data-sort="jersey">Number</button>
+          <button type="button" data-sort="team">Team</button>
+          <button type="button" data-sort="height">Height</button>
+          <button type="button" data-sort="age">Age</button>
+        </div>
+      </div>
+      <ul id="list" class="list"></ul>
+      <div id="empty" class="empty" hidden>
+        <p>No current player fits all of these clues. Try widening the height or age range, or check the jersey number.</p>
+        <button type="button" id="clear-empty" class="clear">Clear clues</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p id="pulled">Rosters come from the NBA and ESPN roster feeds and refresh every Monday.</p>
+    <p>Built by <a href="https://ismayc.github.io/">Chester Ismay</a>. Jersey colors approximate each team's palette.</p>
+  </footer>
+</body>
 </html>

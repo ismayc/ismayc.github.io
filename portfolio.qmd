@@ -103,7 +103,7 @@ A family of unofficial, timezone-aware schedule and bracket viewers that run ent
 - [**Premier League**](https://ismayc.github.io/premier-league/){target="_blank"} ⚽ — fixtures, the live table with home/away splits, player leaderboards, and every final table since 1992–93
 - [**Men's**](https://ismayc.github.io/mens-march-madness/){target="_blank"} and [**Women's March Madness**](https://ismayc.github.io/womens-march-madness/){target="_blank"} 🏀 — the full NCAA Division I tournament brackets, every game
 
-Related: the [**NBA Player Finder**](https://ismayc.github.io/nba-player-finder/){target="_blank"} lets you explore current NBA rosters by conference, division, team, height, age, and jersey number. It runs entirely in your browser via shinylive, with rosters refreshed weekly from the NBA API.
+Related: the [**NBA Player Finder**](https://ismayc.github.io/nba-player-finder/){target="_blank"} searches current NBA rosters. Fill in what you saw (a jersey number, a height, an age, or a team) and it names the player, with rosters refreshed every Monday.
 
 ### 🎓 Learning & Quiz Apps
 
