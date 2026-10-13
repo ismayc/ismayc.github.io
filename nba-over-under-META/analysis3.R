@@ -1,4 +1,8 @@
+library(tidyverse)
 library(plotly)
+
+# Uses the `results` data frame from ou_team_analysis.R.
+if (!exists("results")) source("ou_team_analysis.R")
 
 analysis <- results %>%
   mutate(differential = wins - projection)
@@ -154,8 +158,10 @@ p
 cat("\n=== Mean Reversion Summary ===\n")
 cat(sprintf("Regression slope: %.3f\n", slope))
 cat(sprintf("R-squared: %.3f\n", r2))
-cat(sprintf("Interpretation: For every +1 win above projection,\n"))
-cat(sprintf("  the next year's result drops by %.2f wins on average.\n", abs(slope)))
+cat(sprintf("Interpretation: For every +1 win above projection last season,\n"))
+cat(sprintf("  this season's wins vs projection change by %+.2f on average.\n", slope))
+cat("  A slope near zero with R-squared near zero means the new line already\n")
+cat("  absorbs last season's miss; there is no reversion left to bet on.\n")
 
 cat("\n=== After going +12 or more ===\n")
 big_over <- reversion %>% filter(prev_diff >= 12)

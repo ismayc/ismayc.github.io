@@ -89,26 +89,30 @@ outcomes <- tribble(
   "2024-25","Oklahoma City Thunder",68,55.5,"2024-25","Phoenix Suns",36,46.5,
   "2024-25","Portland Trail Blazers",36,22.5,"2024-25","Sacramento Kings",40,46.5,
   "2024-25","San Antonio Spurs",34,35.5,"2024-25","Utah Jazz",17,28.5,
-  "2025-26","Atlanta Hawks",45,46.5,"2025-26","Boston Celtics",54,40.5,
-  "2025-26","Brooklyn Nets",20,20.5,"2025-26","Charlotte Hornets",43,28.5,
-  "2025-26","Chicago Bulls",30,31.5,"2025-26","Cleveland Cavaliers",51,56.5,
-  "2025-26","Detroit Pistons",58,45.5,"2025-26","Indiana Pacers",18,38.5,
-  "2025-26","Miami Heat",41,38.5,"2025-26","Milwaukee Bucks",31,44.5,
-  "2025-26","New York Knicks",51,53.5,"2025-26","Orlando Magic",44,51.5,
-  "2025-26","Philadelphia 76ers",43,42.5,"2025-26","Toronto Raptors",44,38.5,
-  "2025-26","Washington Wizards",17,20.5,"2025-26","Dallas Mavericks",25,40.5,
-  "2025-26","Denver Nuggets",52,53.5,"2025-26","Golden State Warriors",37,46.5,
-  "2025-26","Houston Rockets",50,53.5,"2025-26","Los Angeles Clippers",41,47.5,
-  "2025-26","Los Angeles Lakers",50,48.5,"2025-26","Memphis Grizzlies",25,40.5,
-  "2025-26","Minnesota Timberwolves",47,49.5,"2025-26","New Orleans Pelicans",26,30.5,
-  "2025-26","Oklahoma City Thunder",64,62.5,"2025-26","Phoenix Suns",44,31.5,
-  "2025-26","Portland Trail Blazers",40,33.5,"2025-26","Sacramento Kings",21,34.5,
-  "2025-26","San Antonio Spurs",61,44.5,"2025-26","Utah Jazz",21,18.5,
+  # 2025-26 final records (nba-over-under-2025-2026/official_standings.csv)
+  "2025-26","Atlanta Hawks",46,46.5,"2025-26","Boston Celtics",56,40.5,
+  "2025-26","Brooklyn Nets",20,20.5,"2025-26","Charlotte Hornets",44,28.5,
+  "2025-26","Chicago Bulls",31,31.5,"2025-26","Cleveland Cavaliers",52,56.5,
+  "2025-26","Detroit Pistons",60,45.5,"2025-26","Indiana Pacers",19,38.5,
+  "2025-26","Miami Heat",43,38.5,"2025-26","Milwaukee Bucks",32,44.5,
+  "2025-26","New York Knicks",53,53.5,"2025-26","Orlando Magic",45,51.5,
+  "2025-26","Philadelphia 76ers",45,42.5,"2025-26","Toronto Raptors",46,38.5,
+  "2025-26","Washington Wizards",17,20.5,"2025-26","Dallas Mavericks",26,40.5,
+  "2025-26","Denver Nuggets",54,53.5,"2025-26","Golden State Warriors",37,46.5,
+  "2025-26","Houston Rockets",52,53.5,"2025-26","Los Angeles Clippers",42,47.5,
+  "2025-26","Los Angeles Lakers",53,48.5,"2025-26","Memphis Grizzlies",25,40.5,
+  "2025-26","Minnesota Timberwolves",49,49.5,"2025-26","New Orleans Pelicans",26,30.5,
+  "2025-26","Oklahoma City Thunder",64,62.5,"2025-26","Phoenix Suns",45,31.5,
+  "2025-26","Portland Trail Blazers",42,33.5,"2025-26","Sacramento Kings",22,34.5,
+  "2025-26","San Antonio Spurs",62,44.5,"2025-26","Utah Jazz",22,18.5,
 ) %>%
   mutate(outcome = if_else(wins > projection, "OVER", "UNDER"))
 
 # --- Join ---
+# The CSV carries its own outcome/correct/points columns; drop them so the
+# outcomes table above is the single source and the join has no name clash.
 df <- picks %>%
+  select(-any_of(c("outcome", "correct", "points"))) %>%
   inner_join(outcomes %>% select(season, team, outcome), by = c("season", "team")) %>%
   mutate(correct = choice == outcome,
          points = if_else(correct, wage, -wage))
@@ -189,6 +193,9 @@ team_majority <- df %>%
   count(season, team, choice) %>%
   group_by(season, team) %>%
   slice_max(n, n = 1) %>%
+  # An even split (4-4) keeps both rows and would count those picks twice;
+  # such teams have no majority, so leave them out.
+  filter(n() == 1) %>%
   ungroup() %>%
   select(season, team, majority = choice)
 
@@ -257,7 +264,8 @@ p6 <- cumulative %>%
                            "\nCumulative: ", cum_points))) +
   geom_line(linewidth = 0.8) +
   geom_hline(yintercept = 0, linewidth = 0.4, color = "gray70") +
-  scale_color_brewer(palette = "Set2", name = NULL) +
+  # Set2 has only 8 colors and there are 9 players; Set1 has 9.
+  scale_color_brewer(palette = "Set1", name = NULL) +
   labs(title = "Cumulative point progression (all 6 seasons, hover for details)",
        x = "Pick number (chronological)", y = "Cumulative points") +
   theme_minimal(base_size = 12)
@@ -291,11 +299,14 @@ df %>%
   group_by(player) %>%
   summarize(
     seasons = n_distinct(season), picks = n(),
-    correct = sum(correct), accuracy = round(mean(correct)*100,1),
-    total_pts = sum(points),
-    over_pct = round(mean(choice=="OVER")*100,0),
+    # n_correct, not correct: renaming `correct` here would replace the
+    # per-pick column for every line below it.
+    accuracy = round(mean(correct)*100,1),
     over_acc = round(mean(correct[choice=="OVER"])*100,1),
     under_acc = round(mean(correct[choice=="UNDER"])*100,1),
+    n_correct = sum(correct),
+    total_pts = sum(points),
+    over_pct = round(mean(choice=="OVER")*100,0),
     .groups = "drop"
   ) %>%
   arrange(desc(total_pts)) %>%

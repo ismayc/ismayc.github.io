@@ -3,7 +3,7 @@ library(forcats)
 library(tidytext)
 
 # =============================================================================
-# Five-year NBA Over/Under vs Playoff Status Analysis
+# Six-season NBA Over/Under vs Playoff Status Analysis
 # Seasons: 2020-21 through 2025-26
 # =============================================================================
 
@@ -172,43 +172,47 @@ results <- tribble(
   "2024-25", "Charlotte Hornets",             19, 63, 27.5, "East",
   "2024-25", "Washington Wizards",            18, 64, 22.5, "East",
   
-  # --- 2025-26 (in progress, through Apr 8) ---
-  "2025-26", "Oklahoma City Thunder",         64, 16, 62.5, "West",
-  "2025-26", "San Antonio Spurs",             61, 19, 44.5, "West",
-  "2025-26", "Denver Nuggets",                52, 28, 53.5, "West",
-  "2025-26", "Los Angeles Lakers",            50, 29, 48.5, "West",
-  "2025-26", "Houston Rockets",               50, 29, 53.5, "West",
-  "2025-26", "Minnesota Timberwolves",        47, 33, 49.5, "West",
-  "2025-26", "Phoenix Suns",                  44, 36, 31.5, "West",
-  "2025-26", "Los Angeles Clippers",          41, 39, 47.5, "West",
-  "2025-26", "Portland Trail Blazers",        40, 40, 33.5, "West",
-  "2025-26", "Golden State Warriors",         37, 42, 46.5, "West",
-  "2025-26", "New Orleans Pelicans",          26, 54, 30.5, "West",
-  "2025-26", "Memphis Grizzlies",             25, 55, 40.5, "West",
-  "2025-26", "Dallas Mavericks",              25, 55, 40.5, "West",
-  "2025-26", "Sacramento Kings",              21, 59, 34.5, "West",
-  "2025-26", "Utah Jazz",                     21, 59, 18.5, "West",
-  "2025-26", "Detroit Pistons",               58, 22, 45.5, "East",
-  "2025-26", "Boston Celtics",                54, 25, 40.5, "East",
-  "2025-26", "New York Knicks",               51, 28, 53.5, "East",
-  "2025-26", "Cleveland Cavaliers",           51, 29, 56.5, "East",
-  "2025-26", "Atlanta Hawks",                 45, 35, 46.5, "East",
-  "2025-26", "Toronto Raptors",               44, 35, 38.5, "East",
-  "2025-26", "Orlando Magic",                 44, 36, 51.5, "East",
-  "2025-26", "Philadelphia 76ers",            43, 36, 42.5, "East",
-  "2025-26", "Charlotte Hornets",             43, 37, 28.5, "East",
-  "2025-26", "Miami Heat",                    41, 38, 38.5, "East",
-  "2025-26", "Milwaukee Bucks",               31, 49, 44.5, "East",
-  "2025-26", "Chicago Bulls",                 30, 49, 31.5, "East",
-  "2025-26", "Brooklyn Nets",                 20, 59, 20.5, "East",
-  "2025-26", "Indiana Pacers",                18, 61, 38.5, "East",
-  "2025-26", "Washington Wizards",            17, 62, 20.5, "East",
+  # --- 2025-26 (final; nba-over-under-2025-2026/official_standings.csv) ---
+  "2025-26", "Oklahoma City Thunder",         64, 18, 62.5, "West",
+  "2025-26", "San Antonio Spurs",             62, 20, 44.5, "West",
+  "2025-26", "Denver Nuggets",                54, 28, 53.5, "West",
+  "2025-26", "Los Angeles Lakers",            53, 29, 48.5, "West",
+  "2025-26", "Houston Rockets",               52, 30, 53.5, "West",
+  "2025-26", "Minnesota Timberwolves",        49, 33, 49.5, "West",
+  "2025-26", "Phoenix Suns",                  45, 37, 31.5, "West",
+  "2025-26", "Los Angeles Clippers",          42, 40, 47.5, "West",
+  "2025-26", "Portland Trail Blazers",        42, 40, 33.5, "West",
+  "2025-26", "Golden State Warriors",         37, 45, 46.5, "West",
+  "2025-26", "New Orleans Pelicans",          26, 56, 30.5, "West",
+  "2025-26", "Memphis Grizzlies",             25, 57, 40.5, "West",
+  "2025-26", "Dallas Mavericks",              26, 56, 40.5, "West",
+  "2025-26", "Sacramento Kings",              22, 60, 34.5, "West",
+  "2025-26", "Utah Jazz",                     22, 60, 18.5, "West",
+  "2025-26", "Detroit Pistons",               60, 22, 45.5, "East",
+  "2025-26", "Boston Celtics",                56, 26, 40.5, "East",
+  "2025-26", "New York Knicks",               53, 29, 53.5, "East",
+  "2025-26", "Cleveland Cavaliers",           52, 30, 56.5, "East",
+  "2025-26", "Atlanta Hawks",                 46, 36, 46.5, "East",
+  "2025-26", "Toronto Raptors",               46, 36, 38.5, "East",
+  "2025-26", "Orlando Magic",                 45, 37, 51.5, "East",
+  "2025-26", "Philadelphia 76ers",            45, 37, 42.5, "East",
+  "2025-26", "Charlotte Hornets",             44, 38, 28.5, "East",
+  "2025-26", "Miami Heat",                    43, 39, 38.5, "East",
+  "2025-26", "Milwaukee Bucks",               32, 50, 44.5, "East",
+  "2025-26", "Chicago Bulls",                 31, 51, 31.5, "East",
+  "2025-26", "Brooklyn Nets",                 20, 62, 20.5, "East",
+  "2025-26", "Indiana Pacers",                19, 63, 38.5, "East",
+  "2025-26", "Washington Wizards",            17, 65, 20.5, "East",
 )
 
 # =============================================================================
 # Compute derived columns
 # =============================================================================
 
+# conf_seed ranks by wins and breaks ties alphabetically, not by the NBA's
+# tiebreakers, so a tied team can land on the wrong side of a cutoff.
+# Playoff status is known only after the season, so the cross-tab describes
+# results; it cannot be used to pick before the season starts.
 analysis <- results %>%
   group_by(season, conference) %>%
   arrange(desc(wins), team) %>%
@@ -256,7 +260,7 @@ p1 <- cross_tab %>%
   scale_y_continuous(labels = \(x) paste0(x, "%"), limits = c(0, 100)) +
   labs(
     title = "Percentage of teams going OVER by playoff status",
-    subtitle = "Five NBA seasons (2020-21 through 2025-26)",
+    subtitle = "Six NBA seasons (2020-21 through 2025-26)",
     x = NULL, y = "% of group that went OVER"
   ) +
   theme_minimal(base_size = 13) +
@@ -355,10 +359,10 @@ p4 <- extremes %>%
 print(p4)
 
 # =============================================================================
-# Five-year aggregate summary
+# Six-season aggregate summary
 # =============================================================================
 
-five_year <- analysis %>%
+six_season <- analysis %>%
   count(playoff_status, over_under) %>%
   pivot_wider(names_from = over_under, values_from = n, values_fill = 0) %>%
   mutate(
@@ -366,8 +370,11 @@ five_year <- analysis %>%
     pct_over = round(OVER / total * 100, 1)
   )
 
-cat("\n=== Five-Year Aggregate ===\n")
-print(five_year)
-cat("\nKey finding: Playoff teams go OVER ~69% of the time.\n")
-cat("Play-In teams split roughly 50/50 (except 2022-23 outlier at 12.5%).\n")
-cat("Eliminated teams go UNDER ~84% of the time.\n")
+cat("\n=== Six-Season Aggregate ===\n")
+print(six_season)
+pct <- function(status) {
+  six_season %>% filter(playoff_status == status) %>% pull(pct_over)
+}
+cat(sprintf("\nKey finding: Playoff teams went OVER %.1f%% of the time.\n", pct("Playoffs")))
+cat(sprintf("Play-In teams went OVER %.1f%% of the time.\n", pct("Play-In")))
+cat(sprintf("Eliminated teams went UNDER %.1f%% of the time.\n", 100 - pct("Eliminated")))

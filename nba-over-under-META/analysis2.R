@@ -6,11 +6,9 @@ library(tidytext) # for reorder_within / scale_x_reordered
 # Team-by-team O/U patterns across 6 seasons
 # =============================================================================
 
-# (Uses the `analysis` data frame from ou_playoff_analysis.R)
-# Run that script first, or source it. This script extends it.
-
-# If you haven't run it yet, source it:
-# source("ou_playoff_analysis.R")
+# Uses the `analysis` data frame from ou_team_analysis.R; sources it when
+# `analysis` is not already in the session.
+if (!exists("analysis")) source("ou_team_analysis.R")
 
 # --- Team-level summary ---
 team_summary <- analysis %>%
@@ -24,9 +22,11 @@ team_summary <- analysis %>%
     .groups = "drop"
   ) %>%
   mutate(
+    # A lean needs the count and the average to agree: a team that went
+    # OVER 4 times but averaged below its line is not underrated.
     category = case_when(
-      overs >= 4 ~ "Vegas underrates",
-      unders >= 4 ~ "Vegas overrates",
+      overs >= 4 & avg_diff > 0 ~ "Vegas underrates",
+      unders >= 4 & avg_diff < 0 ~ "Vegas overrates",
       TRUE ~ "Coin flip"
     ),
     category = factor(category, levels = c("Vegas underrates", "Coin flip", "Vegas overrates"))
@@ -103,6 +103,8 @@ reversion <- analysis %>%
   filter(!is.na(prev_diff)) %>%
   ungroup()
 
+model <- lm(differential ~ prev_diff, data = reversion)
+
 p7 <- reversion %>%
   ggplot(aes(x = prev_diff, y = differential)) +
   geom_hline(yintercept = 0, color = "gray70", linewidth = 0.4) +
@@ -117,7 +119,9 @@ p7 <- reversion %>%
            size = 3, color = "gray50", hjust = 0.5) +
   labs(
     title = "Mean reversion: this year's diff vs last year's diff",
-    subtitle = "Negative slope confirms teams regress toward their projection",
+    subtitle = sprintf(
+      "Slope %.3f, R-squared %.3f. Near zero means last year's result says little about this year's.",
+      coef(model)[2], summary(model)$r.squared),
     x = "Previous season (wins - projection)", y = "Next season (wins - projection)"
   ) +
   theme_minimal(base_size = 12)
@@ -125,29 +129,30 @@ p7 <- reversion %>%
 print(p7)
 
 # Print the regression
-model <- lm(differential ~ prev_diff, data = reversion)
 cat("\n=== Mean reversion regression ===\n")
-cat(sprintf("Slope: %.3f (each +1 win above projection predicts %.1f fewer next year)\n",
-            coef(model)[2], -coef(model)[2]))
+cat(sprintf("Slope: %.3f (each +1 win above projection last season goes with %+.2f wins vs projection this season)\n",
+            coef(model)[2], coef(model)[2]))
 cat(sprintf("R-squared: %.3f\n", summary(model)$r.squared))
 
 # --- Actionable summary table ---
-cat("\n\n=== PICK GUIDE FOR NEXT SEASON ===\n\n")
+# With a slope near zero, these lists describe the past; they are weak
+# evidence for next season on their own.
+cat("\n\n=== TEAM HISTORY VS THE LINE ===\n\n")
 
-cat("CONSISTENT OVER teams (bet OVER with confidence):\n")
+cat("Mostly OVER teams (count and average agree):\n")
 team_summary %>% filter(category == "Vegas underrates") %>%
   mutate(rec = paste0("  ", team, ": ", overs, "/", seasons, " OVER, avg ", 
                        sprintf("%+.1f", avg_diff), " wins/yr")) %>%
   pull(rec) %>% walk(cat, "\n")
 
-cat("\nCONSISTENT UNDER teams (bet UNDER with confidence):\n")
+cat("\nMostly UNDER teams (count and average agree):\n")
 team_summary %>% filter(category == "Vegas overrates") %>%
   arrange(total_diff) %>%
   mutate(rec = paste0("  ", team, ": ", unders, "/", seasons, " UNDER, avg ", 
                        sprintf("%+.1f", avg_diff), " wins/yr")) %>%
   pull(rec) %>% walk(cat, "\n")
 
-cat("\nCOIN FLIP teams (save your high-confidence points for elsewhere):\n")
+cat("\nCoin flip teams (split record, or record and average disagree):\n")
 team_summary %>% filter(category == "Coin flip") %>%
   mutate(rec = paste0("  ", team, ": ", overs, "-", unders, " split, avg ",
                        sprintf("%+.1f", avg_diff))) %>%
