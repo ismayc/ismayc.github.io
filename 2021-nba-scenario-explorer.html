@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NBA Over/Under Scenario Explorer 2020-21</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  /* Scorer's book theme: tokens from nba-over-under-META/site-style/ou-theme.css */
+  :root {
+    --paper: #edf1e8;
+    --sheet: #fafbf7;
+    --rule: #cdd6c6;
+    --rule-faint: #dfe5d9;
+    --ink: #1c2a44;
+    --ink-soft: #56627a;
+    --over: #2457a6;
+    --under: #b8322f;
+    --alt: #6b5a9e;
+    --warn: #8a5a00;
+    --font-display: "Big Shoulders Display", "Arial Narrow", "Helvetica Neue", sans-serif;
+    --font-body: "Source Sans 3", "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+    color-scheme: light;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: var(--paper); }
+  body {
+    color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.4;
+    font-variant-numeric: tabular-nums; -webkit-text-size-adjust: 100%;
+  }
+  button, select { font-family: var(--font-body); color: var(--ink); }
+  button:focus-visible, select:focus-visible, [role="button"]:focus-visible {
+    outline: 2px solid var(--over); outline-offset: 2px;
+  }
+
+  /* Page frame: paper with a centered sheet standalone, bare when embedded */
+  .ou-app { min-height: 100vh; padding: 32px 16px 48px; }
+  .ou-sheet {
+    max-width: 1040px; margin: 0 auto; padding: 28px 32px 36px;
+    background: var(--sheet); border: 1px solid var(--rule);
+    border-top: 3px solid var(--ink);
+  }
+  .ou-title {
+    font-family: var(--font-display); font-weight: 800; font-size: 40px;
+    line-height: 1; color: var(--ink); text-wrap: balance;
+  }
+  .ou-meta {
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px;
+    margin-top: 10px; color: var(--ink-soft); font-size: 15px;
+  }
+  .ou-meta b { color: var(--ink); font-weight: 600; }
+  .ou-date { display: inline-flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .ou-select {
+    appearance: none; -webkit-appearance: none;
+    font-size: 15px; font-weight: 600; color: var(--ink);
+    background-color: var(--sheet);
+    background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%),
+                      linear-gradient(135deg, var(--ink) 50%, transparent 50%);
+    background-position: calc(100% - 15px) 55%, calc(100% - 10px) 55%;
+    background-size: 5px 5px; background-repeat: no-repeat;
+    border: 1px solid var(--rule); border-bottom: 2px solid var(--ink);
+    border-radius: 0; padding: 4px 30px 4px 8px; max-width: 100%; cursor: pointer;
+  }
+  .ou-select:hover { border-color: var(--ink-soft); border-bottom-color: var(--ink); }
+
+  /* Tabs: ruled, the active one inked */
+  .ou-tabs {
+    display: flex; flex-wrap: wrap; margin: 22px 0 24px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .ou-tab {
+    font-size: 16px; font-weight: 600; padding: 10px 16px 9px; margin-bottom: -2px;
+    background: transparent; color: var(--ink-soft); border: none;
+    border-bottom: 4px solid transparent; cursor: pointer;
+  }
+  .ou-tab:hover { color: var(--ink); background: rgba(28, 42, 68, 0.04); }
+  .ou-tab.is-active { color: var(--ink); border-bottom-color: var(--under); }
+  .ou-tab:focus-visible { outline-offset: -2px; }
+
+  .ou-h2 {
+    font-family: var(--font-display); font-weight: 800; font-size: 24px;
+    line-height: 1.05; color: var(--ink);
+  }
+  .ou-toggle:not(:disabled):hover { border-color: var(--ink-soft); }
+  .ou-reset:hover { color: var(--ink); border-color: var(--ink); }
+  .ou-pill { text-transform: lowercase; }
+  .ou-pill::first-letter { text-transform: uppercase; }
+  .ou-card-head:hover { background: rgba(28, 42, 68, 0.03); }
+
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: var(--paper); }
+  ::-webkit-scrollbar-thumb { background: var(--rule); }
+
+  /* Embedded in a season page: no paper, no title, no viewport-height floor */
+  html.embedded, html.embedded body { background: transparent; }
+  .embedded .ou-app { min-height: 0; padding: 0; }
+  .embedded .ou-sheet { max-width: none; padding: 4px 0 8px; background: transparent; border: none; }
+  .embedded .ou-title { display: none; }
+  .embedded .ou-meta { margin-top: 0; }
+
+  @media (max-width: 600px) {
+    .ou-app { padding: 0; }
+    .ou-sheet { padding: 20px 14px 28px; border-left: none; border-right: none; }
+    .ou-title { font-size: 32px; }
+    .ou-tab { padding: 9px 10px 8px; font-size: 15px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+// Injected by R at build time (10-scenario-explorer.R): one snapshot per date
+// with 20 or fewer teams open, each holding that day's clinched teams, likely
+// teams, and undecided teams. ?date=YYYY-MM-DD picks one; otherwise
+// DEFAULT_DATE does.
+const SNAPSHOTS = [{"date":"2021-04-20","through":"April 20, 2021","n_open":20,"clinched":{"Boston Celtics":"U","Charlotte Hornets":"O","Houston Rockets":"U","Miami Heat":"U","Milwaukee Bucks":"U","New York Knicks":"O","Orlando Magic":"U","Phoenix Suns":"O","Toronto Raptors":"U","Utah Jazz":"O"},"likely":{"Dallas Mavericks":"U","Indiana Pacers":"U","Los Angeles Lakers":"U","Memphis Grizzlies":"O","Minnesota Timberwolves":"U","New Orleans Pelicans":"U","Philadelphia 76ers":"O","San Antonio Spurs":"O"},"undecided":["Atlanta Hawks","Brooklyn Nets","Chicago Bulls","Cleveland Cavaliers","Denver Nuggets","Detroit Pistons","Golden State Warriors","Los Angeles Clippers","Oklahoma City Thunder","Portland Trail Blazers","Sacramento Kings","Washington Wizards"]},{"date":"2021-04-21","through":"April 21, 2021","n_open":20,"clinched":{"Boston Celtics":"U","Charlotte Hornets":"O","Houston Rockets":"U","Miami Heat":"U","Milwaukee Bucks":"U","New York Knicks":"O","Orlando Magic":"U","Phoenix Suns":"O","Toronto Raptors":"U","Utah Jazz":"O"},"likely":{"Dallas Mavericks":"U","Indiana Pacers":"U","Los Angeles Lakers":"U","Memphis Grizzlies":"O","Minnesota Timberwolves":"U","New Orleans Pelicans":"U","San Antonio Spurs":"O"},"undecided":["Atlanta Hawks","Brooklyn Nets","Chicago Bulls","Cleveland Cavaliers","Denver Nuggets","Detroit Pistons","Golden State Warriors","Los Angeles Clippers","Oklahoma City Thunder","Philadelphia 76ers","Portland Trail Blazers","Sacramento Kings","Washington Wizards"]},{"date":"2021-04-22","through":"April 22, 2021","n_open":19,"clinched":{"Boston Celtics":"U","Charlotte Hornets":"O","Houston Rockets":"U","Miami Heat":"U","Milwaukee Bucks":"U","New York Knicks":"O","Orlando Magic":"U","Phoenix Suns":"O","San Antonio Spurs":"O","Toronto Raptors":"U","Utah Jazz":"O"},"likely":{"Indiana Pacers":"U","Los Angeles Lakers":"U","Memphis Grizzlies":"O","Minnesota Timberwolves":"U","New Orleans Pelicans":"U"},"undecided":["Atlanta Hawks","Brooklyn Nets","Chicago Bulls","Cleveland Cavaliers","Dallas Mavericks","Denver Nuggets","Detroit Pistons","Golden State Warriors","Los Angeles Clippers","Oklahoma City Thunder","Philadelphia 76ers","Portland Trail Blazers","Sacramento Kings","Washington Wizards"]},{"date":"2021-04-23","through":"April 23, 2021","n_open":19,"clinched":{"Boston Celtics":"U","Charlotte Hornets":"O","Houston Rockets":"U","Miami Heat":"U","Milwaukee Bucks":"U","New York Knicks":"O","Orlando Magic":"U","Phoenix Suns":"O","San Antonio Spurs":"O","Toronto Raptors":"U","Utah Jazz":"O"},"likely":{"Indiana Pacers":"U","Los Angeles Clippers":"O","Los Angeles Lakers":"U","Memphis Grizzlies":"O","Minnesota Timberwolves":"U","New Orleans Pelicans":"U"},"undecided":["Atlanta Hawks","Brooklyn Nets","Chicago Bulls","Cleveland Cavaliers","Dallas Mavericks","Denver Nuggets","Detroit Pistons","Golden State Warriors","Oklahoma City Thunder","Philadelphia 76ers","Portland Trail Blazers","Sacramento Kings","Washington Wizards"]},{"date":"2021-04-24","through":"April 24, 2021","n_open":18,"clinched":{"Boston Celtics":"U","Charlotte Hornets":"O","Houston Rockets":"U","Los Angeles Lakers":"U","Miami Heat":"U","Milwaukee Bucks":"U","New York Knicks":"O","Orlando Magic":"U","Phoenix Suns":"O","San Antonio Spurs":"O","Toronto Raptors":"U","Utah Jazz":"O"},"likely":{"Detroit Pistons":"U","Indiana Pacers":"U","Los Angeles Clippers":"O","Memphis Grizzlies":"O","Minnesota Timberwolves":"U","New Orleans Pelicans":"U"},"undecided":["Atlanta Hawks","Brooklyn Nets","Chicago Bulls","Cleveland Cavaliers","Dallas Mavericks","Denver Nuggets","Golden State Warriors","Oklahoma City Thunder","Philadelphia 76ers","Portland Trail Blazers","Sacramento Kings","Washington Wizards"]},{"date":"2021-04-25","through":"April 25, 2021","n_open":18,"clinched":{"Boston Celtics":"U","Charlotte Hornets":"O","Houston Rockets":"U","Los Angeles Lakers":"U","Miami Heat":"U","Milwaukee Bucks":"U","New York Knicks":"O","Orlando Magic":"U","Phoenix Suns":"O","San Antonio Spurs":"O","Toronto Raptors":"U","Utah Jazz":"O"},"likely":{"Atlanta Hawks":"O","Detroit Pistons":"U","Indiana Pacers":"U","Los Angeles Clippers":"O","Memphis Grizzlies":"O","Minnesota Timberwolves":"U","New Orleans Pelicans":"U"},"undecided":["Brooklyn Nets","Chicago Bulls","Cleveland Cavaliers","Dallas Mavericks","Denver Nuggets","Golden State Warriors","Oklahoma City Thunder","Philadelphia 76ers","Portland Trail Blazers","Sacramento Kings","Washington Wizards"]},{"date":"2021-04-26","through":"April 26, 2021","n_open":18,"clinched":{"Boston Celtics":"U","Charlotte Hornets":"O","Houston Rockets":"U","Los Angeles Lakers":"U","Miami Heat":"U","Milwaukee Bucks":"U","New York Knicks":"O","Orlando Magic":"U","Phoenix Suns":"O","San Antonio Spurs":"O","Toronto Raptors":"U","Utah Jazz":"O"},"likely":{"Dallas Mavericks":"U","Indiana Pacers":"U","Memphis Grizzlies":"O","Minnesota Timberwolves":"U","New Orleans Pelicans":"U"},"undecided":["Atlanta Hawks","Brooklyn Nets","Chicago Bulls","Cleveland Cavaliers","Denver Nuggets","Detroit Pistons","Golden State Warriors","Los Angeles Clippers","Oklahoma City Thunder","Philadelphia 76ers","Portland Trail Blazers","Sacramento Kings","Washington Wizards"]},{"date":"2021-04-27","through":"April 27, 2021","n_open":18,"clinched":{"Boston Celtics":"U","Charlotte Hornets":"O","Houston Rockets":"U","Los Angeles Lakers":"U","Miami Heat":"U","Milwaukee Bucks":"U","New York Knicks":"O","Orlando Magic":"U","Phoenix Suns":"O","San Antonio Spurs":"O","Toronto Raptors":"U","Utah Jazz":"O"},"likely":{"Brooklyn Nets":"O","Dallas Mavericks":"U","Indiana Pacers":"U","Memphis Grizzlies":"O","Minnesota Timberwolves":"U","New Orleans Pelicans":"U"},"undecided":["Atlanta Hawks","Chicago Bulls","Cleveland Cavaliers","Denver Nuggets","Detroit Pistons","Golden State Warriors","Los Angeles Clippers","Oklahoma City Thunder","Philadelphia 76ers","Portland Trail Blazers","Sacramento Kings","Washington Wizards"]},{"date":"2021-04-28","through":"April 28, 2021","n_open":18,"clinched":{"Boston Celtics":"U","Charlotte Hornets":"O","Houston Rockets":"U","Los Angeles Lakers":"U","Miami Heat":"U","Milwaukee Bucks":"U","New York Knicks":"O","Orlando Magic":"U","Phoenix Suns":"O","San Antonio Spurs":"O","Toronto Raptors":"U","Utah Jazz":"O"},"likely":{"Brooklyn Nets":"O","Dallas Mavericks":"U","Denver Nuggets":"O","Indiana Pacers":"U","Memphis Grizzlies":"O","Minnesota Timberwolves":"U","New Orleans Pelicans":"U","Philadelphia 76ers":"O","Washington Wizards":"O"},"undecided":["Atlanta Hawks","Chicago Bulls","Cleveland Cavaliers","Detroit Pistons","Golden State Warriors","Los Angeles Clippers","Oklahoma City Thunder","Portland Trail Blazers","Sacramento Kings"]},{"date":"2021-04-29","through":"April 29, 2021","n_open":17,"clinched":{"Boston Celtics":"U","Charlotte Hornets":"O","Houston Rockets":"U","Indiana Pacers":"U","Los Angeles Lakers":"U","Miami Heat":"U","Milwaukee Bucks":"U","New York Knicks":"O","Orlando Magic":"U","Phoenix Suns":"O","San Antonio Spurs":"O","Toronto Raptors":"U","Utah Jazz":"O"},"likely":{"Brooklyn Nets":"O","Denver Nuggets":"O","Detroit Pistons":"U","Memphis Grizzlies":"O","Minnesota Timberwolves":"U","New Orleans Pelicans":"U","Philadelphia 76ers":"O","Washington Wizards":"O"},"undecided":["Atlanta Hawks","Chicago Bulls","Cleveland Cavaliers","Dallas Mavericks","Golden State Warriors","Los Angeles Clippers","Oklahoma City Thunder","Portland Trail Blazers","Sacramento Kings"]},{"date":"2021-04-30","through":"April 30, 2021","n_open":16,"clinched":{"Boston Celtics":"U","Charlotte Hornets":"O","Houston Rockets":"U","Indiana Pacers":"U","Los Angeles Lakers":"U","Memphis Grizzlies":"O","Miami Heat":"U","Milwaukee Bucks":"U","New York Knicks":"O","Orlando Magic":"U","Phoenix Suns":"O","San Antonio Spurs":"O","Toronto Raptors":"U","Utah Jazz":"O"},"likely":{"Brooklyn Nets":"O","Denver Nuggets":"O","Detroit Pistons":"U","Minnesota Timberwolves":"U","New Orleans Pelicans":"U","Philadelphia 76ers":"O","Washington Wizards":"O"},"undecided":["Atlanta Hawks","Chicago Bulls","Cleveland Cavaliers","Dallas Mavericks","Golden State Warriors","Los Angeles Clippers","Oklahoma City Thunder","Portland Trail Blazers","Sacramento Kings"]},{"date":"2021-05-01","through":"May 1, 2021","n_open":15,"clinched":{"Boston Celtics":"U","Charlotte Hornets":"O","Houston Rockets":"U","Indiana Pacers":"U","Los Angeles Lakers":"U","Memphis Grizzlies":"O","Miami Heat":"U","Milwaukee Bucks":"U","Minnesota Timberwolves":"U","New York Knicks":"O","Orlando Magic":"U","Phoenix Suns":"O","San Antonio Spurs":"O","Toronto Raptors":"U","Utah Jazz":"O"},"likely":{"Atlanta Hawks":"O","Brooklyn Nets":"O","Denver Nuggets":"O","Detroit Pistons":"U","New Orleans Pelicans":"U","Philadelphia 76ers":"O","Washington Wizards":"O"},"undecided":["Chicago Bulls","Cleveland Cavaliers","Dallas Mavericks","Golden State Warriors","Los Angeles Clippers","Oklahoma City Thunder","Portland Trail Blazers","Sacramento Kings"]},{"date":"2021-05-02","through":"May 2, 2021","n_open":15,"clinched":{"Boston Celtics":"U","Charlotte Hornets":"O","Houston Rockets":"U","Indiana Pacers":"U","Los Angeles Lakers":"U","Memphis Grizzlies":"O","Miami Heat":"U","Milwaukee Bucks":"U","Minnesota Timberwolves":"U","New York Knicks":"O","Orlando Magic":"U","Phoenix Suns":"O","San Antonio Spurs":"O","Toronto Raptors":"U","Utah Jazz":"O"},"likely":{"Atlanta Hawks":"O","Dallas Mavericks":"U","Denver Nuggets":"O","Detroit Pistons":"U","New Orleans Pelicans":"U","Philadelphia 76ers":"O","Washington Wizards":"O"},"undecided":["Brooklyn Nets","Chicago Bulls","Cleveland Cavaliers","Golden State Warriors","Los Angeles Clippers","Oklahoma City Thunder","Portland Trail Blazers","Sacramento Kings"]},{"date":"2021-05-03","through":"May 3, 2021","n_open":13,"clinched":{"Boston Celtics":"U","Charlotte Hornets":"O","Houston Rockets":"U","Indiana Pacers":"U","Los Angeles Lakers":"U","Memphis Grizzlies":"O","Miami Heat":"U","Milwaukee Bucks":"U","Minnesota Timberwolves":"U","New Orleans Pelicans":"U","New York Knicks":"O","Orlando Magic":"U","Phoenix Suns":"O","San Antonio Spurs":"O","Toronto Raptors":"U","Utah Jazz":"O","Washington Wizards":"O"},"likely":{"Atlanta Hawks":"O","Dallas Mavericks":"U","Denver Nuggets":"O","Detroit Pistons":"U","Philadelphia 76ers":"O"},"undecided":["Brooklyn Nets","Chicago Bulls","Cleveland Cavaliers","Golden State Warriors","Los Angeles Clippers","Oklahoma City Thunder","Portland Trail Blazers","Sacramento Kings"]},{"date":"2021-05-04","through":"May 4, 2021","n_open":13,"clinched":{"Boston Celtics":"U","Charlotte Hornets":"O","Houston Rockets":"U","Indiana Pacers":"U","Los Angeles Lakers":"U","Memphis Grizzlies":"O","Miami Heat":"U","Milwaukee Bucks":"U","Minnesota Timberwolves":"U","New Orleans Pelicans":"U","New York Knicks":"O","Orlando Magic":"U","Phoenix Suns":"O","San Antonio Spurs":"O","Toronto Raptors":"U","Utah Jazz":"O","Washington Wizards":"O"},"likely":{"Atlanta Hawks":"O","Dallas Mavericks":"U","Denver Nuggets":"O","Detroit Pistons":"U","Philadelphia 76ers":"O","Sacramento Kings":"O"},"undecided":["Brooklyn Nets","Chicago Bulls","Cleveland Cavaliers","Golden State Warriors","Los Angeles Clippers","Oklahoma City Thunder","Portland Trail Blazers"]},{"date":"2021-05-05","through":"May 5, 2021","n_open":10,"clinched":{"Atlanta Hawks":"O","Boston Celtics":"U","Charlotte Hornets":"O","Houston Rockets":"U","Indiana Pacers":"U","Los Angeles Lakers":"U","Memphis Grizzlies":"O","Miami Heat":"U","Milwaukee Bucks":"U","Minnesota Timberwolves":"U","New Orleans Pelicans":"U","New York Knicks":"O","Orlando Magic":"U","Philadelphia 76ers":"O","Phoenix Suns":"O","Sacramento Kings":"O","San Antonio Spurs":"O","Toronto Raptors":"U","Utah Jazz":"O","Washington Wizards":"O"},"likely":{"Dallas Mavericks":"U","Denver Nuggets":"O","Detroit Pistons":"U"},"undecided":["Brooklyn Nets","Chicago Bulls","Cleveland Cavaliers","Golden State Warriors","Los Angeles Clippers","Oklahoma City Thunder","Portland Trail Blazers"]},{"date":"2021-05-06","through":"May 6, 2021","n_open":10,"clinched":{"Atlanta Hawks":"O","Boston Celtics":"U","Charlotte Hornets":"O","Houston Rockets":"U","Indiana Pacers":"U","Los Angeles Lakers":"U","Memphis Grizzlies":"O","Miami Heat":"U","Milwaukee Bucks":"U","Minnesota Timberwolves":"U","New Orleans Pelicans":"U","New York Knicks":"O","Orlando Magic":"U","Philadelphia 76ers":"O","Phoenix Suns":"O","Sacramento Kings":"O","San Antonio Spurs":"O","Toronto Raptors":"U","Utah Jazz":"O","Washington Wizards":"O"},"likely":{"Dallas Mavericks":"U","Denver Nuggets":"O","Detroit Pistons":"U","Los Angeles Clippers":"O","Oklahoma City Thunder":"U"},"undecided":["Brooklyn Nets","Chicago Bulls","Cleveland Cavaliers","Golden State Warriors","Portland Trail Blazers"]},{"date":"2021-05-07","through":"May 7, 2021","n_open":10,"clinched":{"Atlanta Hawks":"O","Boston Celtics":"U","Charlotte Hornets":"O","Houston Rockets":"U","Indiana Pacers":"U","Los Angeles Lakers":"U","Memphis Grizzlies":"O","Miami Heat":"U","Milwaukee Bucks":"U","Minnesota Timberwolves":"U","New Orleans Pelicans":"U","New York Knicks":"O","Orlando Magic":"U","Philadelphia 76ers":"O","Phoenix Suns":"O","Sacramento Kings":"O","San Antonio Spurs":"O","Toronto Raptors":"U","Utah Jazz":"O","Washington Wizards":"O"},"likely":{"Denver Nuggets":"O","Detroit Pistons":"U","Los Angeles Clippers":"O","Oklahoma City Thunder":"U"},"undecided":["Brooklyn Nets","Chicago Bulls","Cleveland Cavaliers","Dallas Mavericks","Golden State Warriors","Portland Trail Blazers"]},{"date":"2021-05-08","through":"May 8, 2021","n_open":10,"clinched":{"Atlanta Hawks":"O","Boston Celtics":"U","Charlotte Hornets":"O","Houston Rockets":"U","Indiana Pacers":"U","Los Angeles Lakers":"U","Memphis Grizzlies":"O","Miami Heat":"U","Milwaukee Bucks":"U","Minnesota Timberwolves":"U","New Orleans Pelicans":"U","New York Knicks":"O","Orlando Magic":"U","Philadelphia 76ers":"O","Phoenix Suns":"O","Sacramento Kings":"O","San Antonio Spurs":"O","Toronto Raptors":"U","Utah Jazz":"O","Washington Wizards":"O"},"likely":{"Denver Nuggets":"O","Detroit Pistons":"U","Los Angeles Clippers":"O","Oklahoma City Thunder":"U"},"undecided":["Brooklyn Nets","Chicago Bulls","Cleveland Cavaliers","Dallas Mavericks","Golden State Warriors","Portland Trail Blazers"]},{"date":"2021-05-09","through":"May 9, 2021","n_open":9,"clinched":{"Atlanta Hawks":"O","Boston Celtics":"U","Charlotte Hornets":"O","Detroit Pistons":"U","Houston Rockets":"U","Indiana Pacers":"U","Los Angeles Lakers":"U","Memphis Grizzlies":"O","Miami Heat":"U","Milwaukee Bucks":"U","Minnesota Timberwolves":"U","New Orleans Pelicans":"U","New York Knicks":"O","Orlando Magic":"U","Philadelphia 76ers":"O","Phoenix Suns":"O","Sacramento Kings":"O","San Antonio Spurs":"O","Toronto Raptors":"U","Utah Jazz":"O","Washington Wizards":"O"},"likely":{"Denver Nuggets":"O","Oklahoma City Thunder":"U"},"undecided":["Brooklyn Nets","Chicago Bulls","Cleveland Cavaliers","Dallas Mavericks","Golden State Warriors","Los Angeles Clippers","Portland Trail Blazers"]},{"date":"2021-05-10","through":"May 10, 2021","n_open":9,"clinched":{"Atlanta Hawks":"O","Boston Celtics":"U","Charlotte Hornets":"O","Detroit Pistons":"U","Houston Rockets":"U","Indiana Pacers":"U","Los Angeles Lakers":"U","Memphis Grizzlies":"O","Miami Heat":"U","Milwaukee Bucks":"U","Minnesota Timberwolves":"U","New Orleans Pelicans":"U","New York Knicks":"O","Orlando Magic":"U","Philadelphia 76ers":"O","Phoenix Suns":"O","Sacramento Kings":"O","San Antonio Spurs":"O","Toronto Raptors":"U","Utah Jazz":"O","Washington Wizards":"O"},"likely":{"Cleveland Cavaliers":"U","Denver Nuggets":"O","Oklahoma City Thunder":"U"},"undecided":["Brooklyn Nets","Chicago Bulls","Dallas Mavericks","Golden State Warriors","Los Angeles Clippers","Portland Trail Blazers"]},{"date":"2021-05-11","through":"May 11, 2021","n_open":6,"clinched":{"Atlanta Hawks":"O","Boston Celtics":"U","Charlotte Hornets":"O","Denver Nuggets":"O","Detroit Pistons":"U","Golden State Warriors":"O","Houston Rockets":"U","Indiana Pacers":"U","Los Angeles Lakers":"U","Memphis Grizzlies":"O","Miami Heat":"U","Milwaukee Bucks":"U","Minnesota Timberwolves":"U","New Orleans Pelicans":"U","New York Knicks":"O","Oklahoma City Thunder":"U","Orlando Magic":"U","Philadelphia 76ers":"O","Phoenix Suns":"O","Sacramento Kings":"O","San Antonio Spurs":"O","Toronto Raptors":"U","Utah Jazz":"O","Washington Wizards":"O"},"likely":{"Brooklyn Nets":"O","Cleveland Cavaliers":"U","Dallas Mavericks":"U","Los Angeles Clippers":"O"},"undecided":["Chicago Bulls","Portland Trail Blazers"]},{"date":"2021-05-12","through":"May 12, 2021","n_open":4,"clinched":{"Atlanta Hawks":"O","Boston Celtics":"U","Brooklyn Nets":"O","Charlotte Hornets":"O","Denver Nuggets":"O","Detroit Pistons":"U","Golden State Warriors":"O","Houston Rockets":"U","Indiana Pacers":"U","Los Angeles Lakers":"U","Memphis Grizzlies":"O","Miami Heat":"U","Milwaukee Bucks":"U","Minnesota Timberwolves":"U","New Orleans Pelicans":"U","New York Knicks":"O","Oklahoma City Thunder":"U","Orlando Magic":"U","Philadelphia 76ers":"O","Phoenix Suns":"O","Portland Trail Blazers":"O","Sacramento Kings":"O","San Antonio Spurs":"O","Toronto Raptors":"U","Utah Jazz":"O","Washington Wizards":"O"},"likely":{"Dallas Mavericks":"U","Los Angeles Clippers":"O"},"undecided":["Chicago Bulls","Cleveland Cavaliers"]},{"date":"2021-05-13","through":"May 13, 2021","n_open":2,"clinched":{"Atlanta Hawks":"O","Boston Celtics":"U","Brooklyn Nets":"O","Charlotte Hornets":"O","Chicago Bulls":"O","Denver Nuggets":"O","Detroit Pistons":"U","Golden State Warriors":"O","Houston Rockets":"U","Indiana Pacers":"U","Los Angeles Clippers":"O","Los Angeles Lakers":"U","Memphis Grizzlies":"O","Miami Heat":"U","Milwaukee Bucks":"U","Minnesota Timberwolves":"U","New Orleans Pelicans":"U","New York Knicks":"O","Oklahoma City Thunder":"U","Orlando Magic":"U","Philadelphia 76ers":"O","Phoenix Suns":"O","Portland Trail Blazers":"O","Sacramento Kings":"O","San Antonio Spurs":"O","Toronto Raptors":"U","Utah Jazz":"O","Washington Wizards":"O"},"likely":{"Dallas Mavericks":"U"},"undecided":["Cleveland Cavaliers"]},{"date":"2021-05-14","through":"May 14, 2021","n_open":2,"clinched":{"Atlanta Hawks":"O","Boston Celtics":"U","Brooklyn Nets":"O","Charlotte Hornets":"O","Chicago Bulls":"O","Denver Nuggets":"O","Detroit Pistons":"U","Golden State Warriors":"O","Houston Rockets":"U","Indiana Pacers":"U","Los Angeles Clippers":"O","Los Angeles Lakers":"U","Memphis Grizzlies":"O","Miami Heat":"U","Milwaukee Bucks":"U","Minnesota Timberwolves":"U","New Orleans Pelicans":"U","New York Knicks":"O","Oklahoma City Thunder":"U","Orlando Magic":"U","Philadelphia 76ers":"O","Phoenix Suns":"O","Portland Trail Blazers":"O","Sacramento Kings":"O","San Antonio Spurs":"O","Toronto Raptors":"U","Utah Jazz":"O","Washington Wizards":"O"},"likely":{"Cleveland Cavaliers":"U","Dallas Mavericks":"U"},"undecided":[]},{"date":"2021-05-15","through":"May 15, 2021","n_open":2,"clinched":{"Atlanta Hawks":"O","Boston Celtics":"U","Brooklyn Nets":"O","Charlotte Hornets":"O","Chicago Bulls":"O","Denver Nuggets":"O","Detroit Pistons":"U","Golden State Warriors":"O","Houston Rockets":"U","Indiana Pacers":"U","Los Angeles Clippers":"O","Los Angeles Lakers":"U","Memphis Grizzlies":"O","Miami Heat":"U","Milwaukee Bucks":"U","Minnesota Timberwolves":"U","New Orleans Pelicans":"U","New York Knicks":"O","Oklahoma City Thunder":"U","Orlando Magic":"U","Philadelphia 76ers":"O","Phoenix Suns":"O","Portland Trail Blazers":"O","Sacramento Kings":"O","San Antonio Spurs":"O","Toronto Raptors":"U","Utah Jazz":"O","Washington Wizards":"O"},"likely":{"Cleveland Cavaliers":"U","Dallas Mavericks":"U"},"undecided":[]}];
+const DEFAULT_DATE = "2021-04-20";
+const _wanted = new URLSearchParams(location.search).get("date") || DEFAULT_DATE;
+const SNAP = SNAPSHOTS.find(s => s.date === _wanted) || SNAPSHOTS[SNAPSHOTS.length - 1];
+const CLINCHED = SNAP.clinched;
+const LIKELY = SNAP.likely;
+const UNDECIDED = SNAP.undecided;
+
+function chooseDate(date) {
+  const q = new URLSearchParams(location.search);
+  q.set("date", date);
+  location.search = q.toString();
+}
+
+// Embedded in a season page: tell the page how tall to make the frame
+if (window.parent !== window) {
+  document.documentElement.classList.add("embedded");
+  const report = () => window.parent.postMessage(
+    { ouExplorerHeight: document.documentElement.scrollHeight }, "*");
+  new ResizeObserver(report).observe(document.documentElement);
+  window.addEventListener("load", report);
+}
+</script>
+<script type="text/babel">
+const { useState, useMemo, useCallback } = React;
+
+const PLAYERS = ["Adonis","Chester","Jake","Jenelle","Mary","Mike","Phil","Ryan"];
+const N_PLAYERS = PLAYERS.length;
+
+const TEAMS = [{"t":"Atlanta Hawks","ab":"ATL","p":{"Adonis":[10,"U"],"Chester":[11,"O"],"Jake":[10,"O"],"Jenelle":[8,"U"],"Mary":[15,"O"],"Mike":[13,"O"],"Phil":[7,"O"],"Ryan":[10,"U"]}},{"t":"Boston Celtics","ab":"BOS","p":{"Adonis":[7,"O"],"Chester":[9,"O"],"Jake":[13,"U"],"Jenelle":[12,"U"],"Mary":[6,"U"],"Mike":[13,"U"],"Phil":[10,"O"],"Ryan":[14,"U"]}},{"t":"Brooklyn Nets","ab":"BKN","p":{"Adonis":[7,"U"],"Chester":[15,"U"],"Jake":[7,"U"],"Jenelle":[9,"U"],"Mary":[6,"O"],"Mike":[7,"U"],"Phil":[8,"U"],"Ryan":[14,"U"]}},{"t":"Charlotte Hornets","ab":"CHA","p":{"Adonis":[15,"U"],"Chester":[7,"O"],"Jake":[11,"O"],"Jenelle":[13,"O"],"Mary":[11,"U"],"Mike":[10,"O"],"Phil":[7,"U"],"Ryan":[9,"U"]}},{"t":"Chicago Bulls","ab":"CHI","p":{"Adonis":[14,"U"],"Chester":[14,"O"],"Jake":[11,"U"],"Jenelle":[9,"O"],"Mary":[14,"O"],"Mike":[8,"U"],"Phil":[14,"U"],"Ryan":[11,"O"]}},{"t":"Cleveland Cavaliers","ab":"CLE","p":{"Adonis":[13,"U"],"Chester":[7,"O"],"Jake":[8,"U"],"Jenelle":[8,"O"],"Mary":[12,"U"],"Mike":[11,"U"],"Phil":[8,"U"],"Ryan":[9,"O"]}},{"t":"Dallas Mavericks","ab":"DAL","p":{"Adonis":[11,"O"],"Chester":[13,"O"],"Jake":[13,"O"],"Jenelle":[13,"O"],"Mary":[13,"O"],"Mike":[12,"O"],"Phil":[13,"U"],"Ryan":[13,"U"]}},{"t":"Denver Nuggets","ab":"DEN","p":{"Adonis":[9,"U"],"Chester":[13,"O"],"Jake":[8,"O"],"Jenelle":[9,"O"],"Mary":[14,"O"],"Mike":[14,"O"],"Phil":[12,"O"],"Ryan":[15,"O"]}},{"t":"Detroit Pistons","ab":"DET","p":{"Adonis":[10,"U"],"Chester":[12,"U"],"Jake":[6,"O"],"Jenelle":[10,"O"],"Mary":[10,"O"],"Mike":[10,"O"],"Phil":[9,"U"],"Ryan":[8,"U"]}},{"t":"Golden State Warriors","ab":"GSW","p":{"Adonis":[11,"O"],"Chester":[13,"O"],"Jake":[10,"O"],"Jenelle":[14,"O"],"Mary":[12,"U"],"Mike":[7,"O"],"Phil":[15,"U"],"Ryan":[12,"O"]}},{"t":"Houston Rockets","ab":"HOU","p":{"Adonis":[8,"U"],"Chester":[6,"O"],"Jake":[11,"U"],"Jenelle":[8,"O"],"Mary":[13,"U"],"Mike":[6,"U"],"Phil":[12,"U"],"Ryan":[12,"U"]}},{"t":"Indiana Pacers","ab":"IND","p":{"Adonis":[12,"O"],"Chester":[15,"U"],"Jake":[6,"O"],"Jenelle":[6,"U"],"Mary":[13,"O"],"Mike":[9,"O"],"Phil":[13,"O"],"Ryan":[10,"U"]}},{"t":"Los Angeles Clippers","ab":"LAC","p":{"Adonis":[6,"U"],"Chester":[11,"U"],"Jake":[9,"O"],"Jenelle":[7,"U"],"Mary":[7,"U"],"Mike":[6,"U"],"Phil":[10,"O"],"Ryan":[12,"O"]}},{"t":"Los Angeles Lakers","ab":"LAL","p":{"Adonis":[15,"O"],"Chester":[15,"O"],"Jake":[9,"O"],"Jenelle":[6,"U"],"Mary":[15,"O"],"Mike":[11,"O"],"Phil":[15,"O"],"Ryan":[15,"U"]}},{"t":"Memphis Grizzlies","ab":"MEM","p":{"Adonis":[8,"O"],"Chester":[10,"U"],"Jake":[6,"U"],"Jenelle":[10,"O"],"Mary":[8,"O"],"Mike":[7,"U"],"Phil":[9,"O"],"Ryan":[8,"U"]}},{"t":"Miami Heat","ab":"MIA","p":{"Adonis":[6,"U"],"Chester":[11,"O"],"Jake":[9,"U"],"Jenelle":[10,"U"],"Mary":[15,"O"],"Mike":[9,"U"],"Phil":[14,"O"],"Ryan":[13,"U"]}},{"t":"Milwaukee Bucks","ab":"MIL","p":{"Adonis":[7,"U"],"Chester":[9,"U"],"Jake":[10,"O"],"Jenelle":[13,"U"],"Mary":[7,"U"],"Mike":[13,"O"],"Phil":[14,"O"],"Ryan":[15,"O"]}},{"t":"Minnesota Timberwolves","ab":"MIN","p":{"Adonis":[13,"O"],"Chester":[8,"O"],"Jake":[15,"O"],"Jenelle":[14,"O"],"Mary":[10,"U"],"Mike":[15,"O"],"Phil":[15,"U"],"Ryan":[11,"U"]}},{"t":"New Orleans Pelicans","ab":"NOP","p":{"Adonis":[12,"U"],"Chester":[7,"U"],"Jake":[14,"U"],"Jenelle":[11,"U"],"Mary":[8,"U"],"Mike":[15,"U"],"Phil":[10,"U"],"Ryan":[8,"O"]}},{"t":"New York Knicks","ab":"NYK","p":{"Adonis":[14,"U"],"Chester":[12,"O"],"Jake":[7,"U"],"Jenelle":[7,"U"],"Mary":[12,"U"],"Mike":[11,"U"],"Phil":[6,"U"],"Ryan":[6,"U"]}},{"t":"Oklahoma City Thunder","ab":"OKC","p":{"Adonis":[15,"U"],"Chester":[8,"U"],"Jake":[12,"U"],"Jenelle":[11,"U"],"Mary":[10,"O"],"Mike":[14,"U"],"Phil":[7,"U"],"Ryan":[6,"U"]}},{"t":"Orlando Magic","ab":"ORL","p":{"Adonis":[10,"O"],"Chester":[14,"U"],"Jake":[12,"U"],"Jenelle":[12,"U"],"Mary":[9,"U"],"Mike":[10,"U"],"Phil":[11,"O"],"Ryan":[7,"U"]}},{"t":"Philadelphia 76ers","ab":"PHI","p":{"Adonis":[11,"O"],"Chester":[6,"O"],"Jake":[7,"O"],"Jenelle":[7,"U"],"Mary":[6,"U"],"Mike":[9,"U"],"Phil":[11,"U"],"Ryan":[13,"O"]}},{"t":"Phoenix Suns","ab":"PHX","p":{"Adonis":[9,"O"],"Chester":[12,"U"],"Jake":[14,"O"],"Jenelle":[15,"O"],"Mary":[14,"O"],"Mike":[12,"O"],"Phil":[12,"O"],"Ryan":[11,"O"]}},{"t":"Portland Trail Blazers","ab":"POR","p":{"Adonis":[12,"O"],"Chester":[14,"O"],"Jake":[12,"O"],"Jenelle":[12,"O"],"Mary":[11,"O"],"Mike":[12,"O"],"Phil":[8,"O"],"Ryan":[10,"O"]}},{"t":"Sacramento Kings","ab":"SAC","p":{"Adonis":[8,"U"],"Chester":[10,"O"],"Jake":[8,"O"],"Jenelle":[6,"U"],"Mary":[9,"U"],"Mike":[14,"U"],"Phil":[6,"U"],"Ryan":[9,"U"]}},{"t":"San Antonio Spurs","ab":"SAS","p":{"Adonis":[6,"O"],"Chester":[10,"U"],"Jake":[13,"O"],"Jenelle":[14,"O"],"Mary":[7,"U"],"Mike":[8,"U"],"Phil":[9,"O"],"Ryan":[6,"O"]}},{"t":"Toronto Raptors","ab":"TOR","p":{"Adonis":[13,"U"],"Chester":[9,"U"],"Jake":[15,"O"],"Jenelle":[15,"O"],"Mary":[8,"O"],"Mike":[8,"U"],"Phil":[13,"O"],"Ryan":[7,"O"]}},{"t":"Utah Jazz","ab":"UTA","p":{"Adonis":[9,"U"],"Chester":[6,"U"],"Jake":[15,"O"],"Jenelle":[15,"O"],"Mary":[11,"O"],"Mike":[6,"O"],"Phil":[6,"U"],"Ryan":[14,"O"]}},{"t":"Washington Wizards","ab":"WAS","p":{"Adonis":[14,"O"],"Chester":[8,"U"],"Jake":[14,"O"],"Jenelle":[11,"O"],"Mary":[9,"O"],"Mike":[15,"O"],"Phil":[11,"O"],"Ryan":[7,"O"]}}];
+
+const TEAM_LOOKUP = {};
+TEAMS.forEach(t => { TEAM_LOOKUP[t.t] = t; });
+const ABBREV_LOOKUP = {};
+TEAMS.forEach(t => { ABBREV_LOOKUP[t.t] = t.ab; });
+
+// Theme colors (ou-theme.css). Over is blue and Under is red, nothing else.
+const T = {
+  paper: "#edf1e8", sheet: "#fafbf7", rule: "#cdd6c6", ruleFaint: "#dfe5d9",
+  ink: "#1c2a44", inkSoft: "#56627a", over: "#2457a6", under: "#b8322f",
+  alt: "#6b5a9e", warn: "#8a5a00",
+  overTint: "#e4ebf6", underTint: "#f7e6e4",
+  display: "'Big Shoulders Display', 'Arial Narrow', sans-serif",
+  body: "'Source Sans 3', 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif",
+};
+// Places 1 to 4 (the playoff spots) step down in ink; 5th and below drop to
+// pale pencil grays, so the break after 4th reads at a glance.
+const RANK_COLORS = [
+  "#1c2a44","#34476b","#556a93","#7f92b5","#b3bcab","#c6cebf","#d6ddd0","#e3e8dd"
+];
+const RANK_LABELS = ["1st","2nd","3rd","4th","5th","6th","7th","8th"];
+// More than eight players: extra places get gray and their own labels
+while (RANK_COLORS.length < N_PLAYERS) RANK_COLORS.push("#e3e8dd");
+while (RANK_LABELS.length < N_PLAYERS) RANK_LABELS.push((RANK_LABELS.length + 1) + "th");
+
+/* ===================================================================
+   SHARED: scenario computation engine (used by both tabs)
+   =================================================================== */
+
+function buildDeltas(undecidedTeams) {
+  return undecidedTeams.map(tName => {
+    const team = TEAM_LOOKUP[tName];
+    const overDelta = {};
+    const underDelta = {};
+    PLAYERS.forEach(p => {
+      const [wage, choice] = team.p[p];
+      const matchOver = choice === "O";
+      overDelta[p] = {
+        score: matchOver ? wage : -wage,
+        correct: matchOver ? 1 : 0,
+        c15: (matchOver && wage === 15) ? 1 : 0,
+      };
+      underDelta[p] = {
+        score: !matchOver ? wage : -wage,
+        correct: !matchOver ? 1 : 0,
+        c15: (!matchOver && wage === 15) ? 1 : 0,
+      };
+    });
+    return { overDelta, underDelta };
+  });
+}
+
+function computeBase(decided) {
+  const baseScores = {};
+  const baseCorrect = {};
+  const base15 = {};
+  PLAYERS.forEach(p => { baseScores[p] = 0; baseCorrect[p] = 0; base15[p] = 0; });
+  TEAMS.forEach(team => {
+    const outcome = decided[team.t];
+    if (!outcome) return;
+    PLAYERS.forEach(p => {
+      const [wage, choice] = team.p[p];
+      const match = choice === outcome;
+      baseScores[p] += match ? wage : -wage;
+      if (match) { baseCorrect[p]++; if (wage === 15) base15[p]++; }
+    });
+  });
+  return { baseScores, baseCorrect, base15 };
+}
+
+function resolveDecided(teamOutcomes) {
+  const decided = {};
+  const undecidedTeams = [];
+  TEAMS.forEach(team => {
+    const outcome = CLINCHED[team.t] || teamOutcomes[team.t] || null;
+    if (outcome) decided[team.t] = outcome;
+    else undecidedTeams.push(team.t);
+  });
+  return { decided, undecidedTeams };
+}
+
+/* ===================================================================
+   TAB 1: Scenario Explorer - rank distribution computation
+   =================================================================== */
+
+function computeScenarios(teamOutcomes) {
+  const { decided, undecidedTeams } = resolveDecided(teamOutcomes);
+  const numUndecided = undecidedTeams.length;
+  const numScenarios = 1 << numUndecided;
+  const { baseScores, baseCorrect, base15 } = computeBase(decided);
+  const deltas = buildDeltas(undecidedTeams);
+
+  const rankCounts = {};
+  const winCounts = {};
+  const scoreTotals = {};
+  PLAYERS.forEach(p => {
+    rankCounts[p] = new Array(N_PLAYERS).fill(0);
+    winCounts[p] = 0;
+    scoreTotals[p] = 0;
+  });
+
+  const scores = new Float64Array(N_PLAYERS);
+  const correct = new Int32Array(N_PLAYERS);
+  const c15 = new Int32Array(N_PLAYERS);
+
+  for (let mask = 0; mask < numScenarios; mask++) {
+    PLAYERS.forEach((p, pi) => {
+      scores[pi] = baseScores[p];
+      correct[pi] = baseCorrect[p];
+      c15[pi] = base15[p];
+    });
+    for (let j = 0; j < numUndecided; j++) {
+      const isOver = (mask >> j) & 1;
+      const d = isOver ? deltas[j].overDelta : deltas[j].underDelta;
+      PLAYERS.forEach((p, pi) => {
+        scores[pi] += d[p].score;
+        correct[pi] += d[p].correct;
+        c15[pi] += d[p].c15;
+      });
+    }
+
+    const indices = PLAYERS.map((_, i) => i);
+    indices.sort((a, b) => {
+      if (scores[b] !== scores[a]) return scores[b] - scores[a];
+      if (correct[b] !== correct[a]) return correct[b] - correct[a];
+      return c15[b] - c15[a];
+    });
+    const ranks = new Array(N_PLAYERS);
+    indices.forEach((pi, rank) => { ranks[pi] = rank; });
+
+    PLAYERS.forEach((p, pi) => {
+      rankCounts[p][ranks[pi]]++;
+      scoreTotals[p] += scores[pi];
+      if (ranks[pi] === 0) winCounts[p]++;
+    });
+  }
+  return { rankCounts, winCounts, scoreTotals, numScenarios, numUndecided };
+}
+
+/* ===================================================================
+   TAB 2: Clinch Analyzer - playoff path computation
+   =================================================================== */
+
+function analyzePlayoffScenarios(teamOutcomes) {
+  const { decided, undecidedTeams } = resolveDecided(teamOutcomes);
+  const numUndecided = undecidedTeams.length;
+  const numScenarios = 1 << numUndecided;
+  const { baseScores, baseCorrect, base15 } = computeBase(decided);
+  const deltas = buildDeltas(undecidedTeams);
+
+  const scores = new Float64Array(N_PLAYERS);
+  const correct = new Int32Array(N_PLAYERS);
+  const c15 = new Int32Array(N_PLAYERS);
+
+  // Per-player: which scenario masks land them in top 4
+  const playerTop4Sets = {};
+  const playerRank1Count = {};
+  PLAYERS.forEach(p => {
+    playerTop4Sets[p] = new Uint8Array(numScenarios);
+    playerRank1Count[p] = 0;
+  });
+
+  // Also track rank-1 per scenario for #1 seed clinch analysis
+  const playerRank1Sets = {};
+  PLAYERS.forEach(p => { playerRank1Sets[p] = new Uint8Array(numScenarios); });
+
+  // Per-team conditional top-4 counts
+  const teamImpact = {};
+  undecidedTeams.forEach(t => {
+    teamImpact[t] = {};
+    PLAYERS.forEach(p => {
+      teamImpact[t][p] = { overTop4: 0, underTop4: 0, overTotal: 0, underTotal: 0 };
+    });
+  });
+
+  for (let mask = 0; mask < numScenarios; mask++) {
+    PLAYERS.forEach((p, pi) => {
+      scores[pi] = baseScores[p];
+      correct[pi] = baseCorrect[p];
+      c15[pi] = base15[p];
+    });
+    for (let j = 0; j < numUndecided; j++) {
+      const isOver = (mask >> j) & 1;
+      const d = isOver ? deltas[j].overDelta : deltas[j].underDelta;
+      PLAYERS.forEach((p, pi) => {
+        scores[pi] += d[p].score;
+        correct[pi] += d[p].correct;
+        c15[pi] += d[p].c15;
+      });
+    }
+    const indices = PLAYERS.map((_, i) => i);
+    indices.sort((a, b) => {
+      if (scores[b] !== scores[a]) return scores[b] - scores[a];
+      if (correct[b] !== correct[a]) return correct[b] - correct[a];
+      return c15[b] - c15[a];
+    });
+    const ranks = new Array(N_PLAYERS);
+    indices.forEach((pi, rank) => { ranks[pi] = rank; });
+
+    PLAYERS.forEach((p, pi) => {
+      if (ranks[pi] < 4) playerTop4Sets[p][mask] = 1;
+      if (ranks[pi] === 0) { playerRank1Count[p]++; playerRank1Sets[p][mask] = 1; }
+    });
+
+    for (let j = 0; j < numUndecided; j++) {
+      const tName = undecidedTeams[j];
+      const isOver = (mask >> j) & 1;
+      PLAYERS.forEach((p, pi) => {
+        if (isOver) {
+          teamImpact[tName][p].overTotal++;
+          if (ranks[pi] < 4) teamImpact[tName][p].overTop4++;
+        } else {
+          teamImpact[tName][p].underTotal++;
+          if (ranks[pi] < 4) teamImpact[tName][p].underTop4++;
+        }
+      });
+    }
+  }
+
+  const playerAnalysis = {};
+  PLAYERS.forEach(p => {
+    let top4Count = 0;
+    for (let m = 0; m < numScenarios; m++) if (playerTop4Sets[p][m]) top4Count++;
+    const top4Pct = top4Count / numScenarios * 100;
+    const rank1Pct = playerRank1Count[p] / numScenarios * 100;
+    const clinched = top4Pct === 100;
+    const eliminated = top4Pct === 0;
+
+    const rank1Clinched = rank1Pct === 100;
+    const rank1Impossible = rank1Pct === 0;
+
+    // Fully settled: eliminated, or clinched with #1 also resolved
+    if (eliminated || (clinched && (rank1Clinched || rank1Impossible))) {
+      playerAnalysis[p] = {
+        top4Pct: Math.round(top4Pct), rank1Pct: Math.round(rank1Pct),
+        clinched, eliminated, teamSwings: [],
+        singleClinchers: [], singleElim: [],
+        twoClinchers: [], twoElim: [],
+        rank1Clinched, rank1Impossible,
+        singleR1Clinch: [], singleR1Elim: [], twoR1Clinch: [],
+      };
+      return;
+    }
+
+    // --- Top-4 path-finding (skip if already clinched) ---
+    let teamSwings = [];
+    let singleClinchers = [];
+    let singleElim = [];
+    let twoClinchers = [];
+    let twoElim = [];
+
+    if (!clinched) {
+      teamSwings = undecidedTeams.map(t => {
+        const imp = teamImpact[t][p];
+        const overPct = imp.overTotal > 0 ? imp.overTop4 / imp.overTotal * 100 : 0;
+        const underPct = imp.underTotal > 0 ? imp.underTop4 / imp.underTotal * 100 : 0;
+        const swing = overPct - underPct;
+        const pick = TEAM_LOOKUP[t].p[p];
+        return {
+          team: t, abbr: ABBREV_LOOKUP[t],
+          overPct: Math.round(overPct), underPct: Math.round(underPct),
+          swing: Math.round(swing), absSwing: Math.round(Math.abs(swing)),
+          playerWants: swing > 0 ? "O" : swing < 0 ? "U" : "-",
+          wage: pick[0], choice: pick[1],
+        };
+      }).sort((a, b) => b.absSwing - a.absSwing);
+
+      undecidedTeams.forEach((t, j) => {
+        let overAll = true, overNone = true, underAll = true, underNone = true;
+        for (let mask = 0; mask < numScenarios; mask++) {
+          const bit = (mask >> j) & 1;
+          const inTop4 = playerTop4Sets[p][mask] === 1;
+          if (bit) { if (!inTop4) overAll = false; if (inTop4) overNone = false; }
+          else { if (!inTop4) underAll = false; if (inTop4) underNone = false; }
+          if (!overAll && !overNone && !underAll && !underNone) break;
+        }
+        if (overAll) singleClinchers.push({ team: t, outcome: "OVER" });
+        if (underAll) singleClinchers.push({ team: t, outcome: "UNDER" });
+        if (overNone) singleElim.push({ team: t, outcome: "OVER" });
+        if (underNone) singleElim.push({ team: t, outcome: "UNDER" });
+      });
+
+      if (singleClinchers.length === 0 && numUndecided <= 10) {
+        for (let j1 = 0; j1 < numUndecided; j1++) {
+          for (let j2 = j1 + 1; j2 < numUndecided; j2++) {
+            for (let o1 = 0; o1 <= 1; o1++) {
+              for (let o2 = 0; o2 <= 1; o2++) {
+                let allTop4 = true, noneTop4 = true;
+                for (let mask = 0; mask < numScenarios; mask++) {
+                  if (((mask >> j1) & 1) === o1 && ((mask >> j2) & 1) === o2) {
+                    if (!playerTop4Sets[p][mask]) allTop4 = false;
+                    if (playerTop4Sets[p][mask]) noneTop4 = false;
+                  }
+                  if (!allTop4 && !noneTop4) break;
+                }
+                const pair = [
+                  { team: undecidedTeams[j1], outcome: o1 ? "OVER" : "UNDER" },
+                  { team: undecidedTeams[j2], outcome: o2 ? "OVER" : "UNDER" },
+                ];
+                if (allTop4) twoClinchers.push({ teams: pair });
+                if (noneTop4) twoElim.push({ teams: pair });
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // --- #1 Seed path-finding ---
+    const singleR1Clinch = [];
+    const singleR1Elim = [];
+
+    if (!rank1Clinched && !rank1Impossible) {
+      undecidedTeams.forEach((t, j) => {
+        let overAll = true, overNone = true, underAll = true, underNone = true;
+        for (let mask = 0; mask < numScenarios; mask++) {
+          const bit = (mask >> j) & 1;
+          const isR1 = playerRank1Sets[p][mask] === 1;
+          if (bit) { if (!isR1) overAll = false; if (isR1) overNone = false; }
+          else { if (!isR1) underAll = false; if (isR1) underNone = false; }
+          if (!overAll && !overNone && !underAll && !underNone) break;
+        }
+        if (overAll) singleR1Clinch.push({ team: t, outcome: "OVER" });
+        if (underAll) singleR1Clinch.push({ team: t, outcome: "UNDER" });
+        if (overNone) singleR1Elim.push({ team: t, outcome: "OVER" });
+        if (underNone) singleR1Elim.push({ team: t, outcome: "UNDER" });
+      });
+    }
+
+    const twoR1Clinch = [];
+    if (singleR1Clinch.length === 0 && !rank1Clinched && !rank1Impossible && numUndecided <= 10) {
+      for (let j1 = 0; j1 < numUndecided; j1++) {
+        for (let j2 = j1 + 1; j2 < numUndecided; j2++) {
+          for (let o1 = 0; o1 <= 1; o1++) {
+            for (let o2 = 0; o2 <= 1; o2++) {
+              let allR1 = true;
+              for (let mask = 0; mask < numScenarios; mask++) {
+                if (((mask >> j1) & 1) === o1 && ((mask >> j2) & 1) === o2) {
+                  if (!playerRank1Sets[p][mask]) { allR1 = false; break; }
+                }
+              }
+              if (allR1) {
+                twoR1Clinch.push({ teams: [
+                  { team: undecidedTeams[j1], outcome: o1 ? "OVER" : "UNDER" },
+                  { team: undecidedTeams[j2], outcome: o2 ? "OVER" : "UNDER" },
+                ]});
+              }
+            }
+          }
+        }
+      }
+    }
+
+    playerAnalysis[p] = {
+      top4Pct: Math.round(top4Pct), rank1Pct: Math.round(rank1Pct),
+      clinched, eliminated, teamSwings,
+      singleClinchers, singleElim,
+      twoClinchers: twoClinchers.slice(0, 8),
+      twoElim: twoElim.slice(0, 8),
+      rank1Clinched, rank1Impossible,
+      singleR1Clinch, singleR1Elim: singleR1Elim.slice(0, 8),
+      twoR1Clinch: twoR1Clinch.slice(0, 8),
+    };
+  });
+
+  return { playerAnalysis, numScenarios, numUndecided, undecidedTeams };
+}
+
+/* ===================================================================
+   SHARED COMPONENTS
+   =================================================================== */
+
+function TeamRow({ abbr, name, status, onToggle, interactive }) {
+  const overActive = status === "O";
+  const underActive = status === "U";
+  return (
+    <div style={{
+      display: "flex", alignItems: "center", gap: 10,
+      padding: "5px 0", borderBottom: `1px solid ${T.ruleFaint}`,
+    }}>
+      <span style={{
+        fontSize: 13, fontWeight: 600, width: 34, color: T.inkSoft,
+      }}>{abbr}</span>
+      <span style={{
+        fontSize: 14, flex: 1, minWidth: 0, color: interactive ? T.ink : T.inkSoft,
+      }}>{name}</span>
+      <div style={{ display: "flex", gap: 4 }}>
+        <button className="ou-toggle ou-pill" onClick={() => interactive && onToggle(name, "O")} style={{
+          fontSize: 13, fontWeight: 600, minWidth: 52,
+          padding: "3px 8px", borderRadius: 2,
+          border: overActive ? `1px solid ${T.over}` : `1px solid ${T.rule}`,
+          background: overActive ? T.overTint : "transparent",
+          color: overActive ? T.over : T.inkSoft,
+          cursor: interactive ? "pointer" : "default",
+          opacity: interactive ? 1 : 0.6,
+          transition: "background-color 0.15s, border-color 0.15s, color 0.15s",
+        }}>OVER</button>
+        <button className="ou-toggle ou-pill" onClick={() => interactive && onToggle(name, "U")} style={{
+          fontSize: 13, fontWeight: 600, minWidth: 58,
+          padding: "3px 8px", borderRadius: 2,
+          border: underActive ? `1px solid ${T.under}` : `1px solid ${T.rule}`,
+          background: underActive ? T.underTint : "transparent",
+          color: underActive ? T.under : T.inkSoft,
+          cursor: interactive ? "pointer" : "default",
+          opacity: interactive ? 1 : 0.6,
+          transition: "background-color 0.15s, border-color 0.15s, color 0.15s",
+        }}>UNDER</button>
+      </div>
+    </div>
+  );
+}
+
+const groupLabel = {
+  fontSize: 14, fontWeight: 600, color: T.inkSoft,
+  padding: "0 0 4px", borderBottom: `1px solid ${T.rule}`,
+};
+
+function TeamSidebar({ toggleTeam, getTeamStatus, resetAll }) {
+  const clinched = TEAMS.filter(t => CLINCHED[t.t]);
+  const likely = TEAMS.filter(t => LIKELY[t.t] !== undefined);
+  const undecided = TEAMS.filter(t => UNDECIDED.includes(t.t));
+
+  return (
+    <div style={{ flex: "0 0 310px", minWidth: 280, maxWidth: "100%" }}>
+      <div style={{
+        display: "flex", justifyContent: "space-between", alignItems: "baseline",
+        marginBottom: 14,
+      }}>
+        <h2 className="ou-h2">Team outcomes</h2>
+        <button className="ou-reset" onClick={resetAll} style={{
+          fontSize: 14, fontWeight: 600, padding: "3px 12px", borderRadius: 2,
+          border: `1px solid ${T.rule}`,
+          background: "transparent", color: T.inkSoft,
+          cursor: "pointer",
+        }}>Reset</button>
+      </div>
+
+      <div style={{ marginBottom: 18 }}>
+        <div style={groupLabel}>
+          Undecided ({undecided.filter(team => !getTeamStatus(team.t).status).length} of {undecided.length} still open)
+        </div>
+        {undecided.map(team => (
+          <TeamRow key={team.t} abbr={team.ab} name={team.t}
+            status={getTeamStatus(team.t).status} onToggle={toggleTeam} interactive={true} />
+        ))}
+      </div>
+
+      <div style={{ marginBottom: 18 }}>
+        <div style={groupLabel}>Likely (preselected)</div>
+        {likely.map(team => (
+          <TeamRow key={team.t} abbr={team.ab} name={team.t}
+            status={getTeamStatus(team.t).status} onToggle={toggleTeam} interactive={true} />
+        ))}
+      </div>
+
+      <div>
+        <div style={groupLabel}>Clinched</div>
+        {clinched.map(team => (
+          <TeamRow key={team.t} abbr={team.ab} name={team.t}
+            status={getTeamStatus(team.t).status} onToggle={() => {}} interactive={false} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ===================================================================
+   TAB 1 COMPONENTS: Scenario Explorer
+   =================================================================== */
+
+function BarChart({ rankCounts, numScenarios, sortedPlayers }) {
+  const barH = 38;
+  const gap = 6;
+  const leftPad = 72;
+  const rightPad = 60;
+  const topPad = 32;
+  const chartW = 580;
+  const barArea = chartW - leftPad - rightPad;
+  const totalH = topPad + sortedPlayers.length * (barH + gap) + 22;
+  // Legend steps narrow so nine or more places still fit the width
+  const step = Math.min(62, (chartW - leftPad - 8 - 44) / Math.max(RANK_LABELS.length - 1, 1));
+
+  return (
+    <svg width="100%" viewBox={`0 0 ${chartW} ${totalH}`} style={{ display: "block", minWidth: 480 }}>
+      {RANK_LABELS.map((label, i) => (
+        <g key={i} transform={`translate(${leftPad + i * step + (i >= 4 ? 8 : 0)}, 6)`}>
+          <rect width={14} height={14} fill={RANK_COLORS[i]}
+            stroke={i >= 4 ? T.rule : "none"} />
+          <text x={18} y={12} fontSize={13} fontWeight={i < 4 ? 600 : 400}
+            fill={i < 4 ? T.ink : T.inkSoft} fontFamily={T.body}>{label}</text>
+        </g>
+      ))}
+      {sortedPlayers.map((player, row) => {
+        const y = topPad + row * (barH + gap);
+        const counts = rankCounts[player];
+        const playoffPct = Math.round(
+          counts.slice(0, 4).reduce((s, c) => s + c, 0) / numScenarios * 100
+        );
+        const eliminated = playoffPct === 0;
+        let x = leftPad;
+        return (
+          <g key={player} opacity={eliminated ? 0.6 : 1}>
+            <text x={leftPad - 8} y={y + barH / 2 + 5} textAnchor="end"
+              fontSize={15} fontWeight={600} fill={eliminated ? T.inkSoft : T.ink}
+              fontFamily={T.body}>{player}</text>
+            <rect x={leftPad} y={y} width={barArea} height={barH}
+              fill="none" stroke={T.rule} />
+            {counts.map((count, rank) => {
+              const w = (count / numScenarios) * barArea;
+              const el = (
+                <g key={rank}>
+                  {w > 0 && (
+                    <React.Fragment>
+                      <rect x={x} y={y} width={w} height={barH}
+                        fill={eliminated ? T.ruleFaint : RANK_COLORS[rank]}
+                        stroke={T.sheet} strokeWidth={1} />
+                      {w > 28 && (
+                        <text x={x + w / 2} y={y + barH / 2 + 5} textAnchor="middle"
+                          fontSize={13} fontWeight={600}
+                          fill={eliminated ? T.inkSoft : rank < 4 ? T.sheet : T.ink}
+                          fontFamily={T.body}>
+                          {Math.round(count / numScenarios * 100)}%
+                        </text>
+                      )}
+                    </React.Fragment>
+                  )}
+                </g>
+              );
+              x += w;
+              return el;
+            })}
+            {(() => {
+              return eliminated ? (
+                <text x={leftPad + barArea + 8} y={y + barH / 2 + 5}
+                  fontSize={14} fontFamily={T.body}
+                  fontWeight={400} fill={T.inkSoft} fontStyle="italic">
+                  Out
+                </text>
+              ) : (
+                <text x={leftPad + barArea + 8} y={y + barH / 2 + 6}
+                  fontSize={playoffPct === 100 ? 19 : 18} fontFamily={T.display}
+                  fontWeight={800}
+                  fill={T.ink}>
+                  {playoffPct === 100 ? "✓" : ""}{playoffPct}%
+                </text>
+              );
+            })()}
+          </g>
+        );
+      })}
+      <text x={leftPad + barArea + 30} y={topPad + sortedPlayers.length * (barH + gap) + 6}
+        textAnchor="middle" fontSize={12} fill={T.inkSoft} fontFamily={T.body}>
+        Top 4
+      </text>
+    </svg>
+  );
+}
+
+function ScenarioExplorerTab({ teamOutcomes, toggleTeam, getTeamStatus, resetAll }) {
+  const results = useMemo(() => computeScenarios(teamOutcomes), [teamOutcomes]);
+
+  const sortedPlayers = useMemo(() => {
+    return [...PLAYERS].sort((a, b) => {
+      const aP = results.rankCounts[a].slice(0, 4).reduce((s, c) => s + c, 0);
+      const bP = results.rankCounts[b].slice(0, 4).reduce((s, c) => s + c, 0);
+      if (bP !== aP) return bP - aP;
+      return results.winCounts[b] - results.winCounts[a];
+    });
+  }, [results]);
+
+  return (
+    <div style={{ display: "flex", gap: "32px 40px", flexWrap: "wrap" }}>
+      <TeamSidebar toggleTeam={toggleTeam} getTeamStatus={getTeamStatus} resetAll={resetAll} />
+
+      <div style={{ flex: 1, minWidth: 300 }}>
+        <h2 className="ou-h2" style={{ marginBottom: 4 }}>
+          Where each player finishes
+        </h2>
+        <p style={{ fontSize: 14, color: T.inkSoft, marginBottom: 12, maxWidth: "60ch" }}>
+          Share of the remaining scenarios in which each player lands in each
+          place. The four ink shades are the playoff spots.
+        </p>
+
+        <div style={{ borderTop: `2px solid ${T.ink}`, paddingTop: 10, overflowX: "auto" }}>
+          <BarChart rankCounts={results.rankCounts}
+            numScenarios={results.numScenarios}
+            sortedPlayers={sortedPlayers} />
+        </div>
+
+        <div style={{
+          display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))",
+          gap: "6px 20px", marginTop: 20,
+        }}>
+          {sortedPlayers.map((player, i) => {
+            const playoffPct = Math.round(
+              results.rankCounts[player].slice(0, 4).reduce((s, c) => s + c, 0) /
+              results.numScenarios * 100
+            );
+            const winPct = Math.round(results.winCounts[player] / results.numScenarios * 100);
+            const avgScore = (results.scoreTotals[player] / results.numScenarios).toFixed(1);
+            const best = results.rankCounts[player].findIndex(c => c > 0) + 1;
+            const worst = N_PLAYERS - [...results.rankCounts[player]].reverse().findIndex(c => c > 0);
+
+            return (
+              <div key={player} style={{
+                padding: "8px 0 10px",
+                borderTop: i < 4 && playoffPct > 0 ? `3px solid ${T.ink}` : `1px solid ${T.rule}`,
+                marginTop: i < 4 && playoffPct > 0 ? 0 : 2,
+                opacity: playoffPct === 0 ? 0.6 : 1,
+              }}>
+                <div style={{ fontSize: 16, fontWeight: 600, color: T.ink }}>{player}</div>
+                <div style={{ fontSize: 14, color: T.inkSoft, lineHeight: 1.45 }}>
+                  <div style={{ display: "flex", alignItems: "baseline", gap: 6, margin: "2px 0 2px" }}>
+                    <b style={{
+                      fontFamily: T.display, fontWeight: 800, fontSize: 32, lineHeight: 1,
+                      color: playoffPct === 0 ? T.inkSoft : T.ink,
+                      textDecoration: playoffPct === 0 ? "line-through" : "none",
+                    }}>{playoffPct === 100 ? "✓" : ""}{playoffPct}%</b>
+                    <span>top 4</span>
+                  </div>
+                  <div>#1 seed: <b style={{ fontWeight: 600, color: winPct > 0 ? T.alt : T.inkSoft }}>{winPct}%</b></div>
+                  <div>Avg. score: <b style={{ fontWeight: 600, color: T.ink }}>{avgScore}</b></div>
+                  <div>Range: {best}{best === worst ? "" : "–" + worst}</div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ===================================================================
+   TAB 2 COMPONENTS: Playoff Clinch Analyzer
+   =================================================================== */
+
+function OutcomePill({ outcome, small }) {
+  const isOver = outcome === "OVER" || outcome === "O";
+  return (
+    <span className="ou-pill" style={{
+      display: "inline-block",
+      fontSize: small ? 12 : 13,
+      fontWeight: 600,
+      lineHeight: 1.3,
+      padding: small ? "0 6px" : "1px 8px",
+      borderRadius: 2,
+      background: isOver ? T.overTint : T.underTint,
+      color: isOver ? T.over : T.under,
+      border: `1px solid ${isOver ? T.over : T.under}`,
+    }}>
+      {outcome === "O" ? "OVER" : outcome === "U" ? "UNDER" : outcome}
+    </span>
+  );
+}
+
+function SwingBar({ overPct, underPct, swing, playerWants, abbr, wage, choice }) {
+  const barW = 150;
+  const overW = overPct / 100 * barW;
+  const underW = underPct / 100 * barW;
+  const beneficial = (playerWants === "O" && choice === "O") || (playerWants === "U" && choice === "U");
+
+  return (
+    <div style={{
+      display: "flex", alignItems: "center", gap: 10, padding: "4px 0",
+      borderBottom: `1px solid ${T.ruleFaint}`,
+    }}>
+      <span style={{
+        fontSize: 13, fontWeight: 600, width: 34, color: T.inkSoft, textAlign: "right",
+      }}>{abbr}</span>
+      <div style={{ width: barW, flex: "0 0 auto", height: 18, background: T.ruleFaint, position: "relative", overflow: "hidden" }}>
+        <div style={{
+          position: "absolute", left: 0, top: 1, height: 8,
+          width: overW, background: T.over,
+        }} />
+        <div style={{
+          position: "absolute", left: 0, top: 10, height: 8,
+          width: underW, background: T.under,
+        }} />
+        <div style={{
+          position: "absolute", left: barW / 2 - 0.5, top: 0, width: 1,
+          height: "100%", background: "rgba(28,42,68,0.45)",
+        }} />
+      </div>
+      <span style={{
+        fontSize: 14, width: 34, textAlign: "right",
+        color: Math.abs(swing) > 20 ? T.warn : T.inkSoft,
+        fontWeight: Math.abs(swing) > 20 ? 600 : 400,
+      }}>
+        {swing > 0 ? "+" : ""}{swing}
+      </span>
+      <span style={{
+        fontSize: 13, width: 40,
+        color: beneficial ? T.ink : T.warn,
+        fontWeight: 600,
+      }}>
+        {wage}{choice === "O" ? "↑" : "↓"}
+      </span>
+    </div>
+  );
+}
+
+// Path colors: ink = clinches top 4, ink-soft = eliminates, alt (violet) =
+// locks #1, faint ink = ends the #1 chance. Blue and red stay Over and Under.
+const PATH_INK = "#1c2a44";
+const PATH_ELIM = "#56627a";
+const PATH_R1 = "#6b5a9e";
+const PATH_R1_GONE = "#7d8597";
+
+function ClinchPathSection({ title, icon, color, items, isCombo, label: customLabel }) {
+  if (!items || items.length === 0) return null;
+  const isPositive = color === PATH_INK || color === PATH_R1;
+  const defaultLabel = isPositive ? "clinches" : "eliminates";
+  const defaultLabelFull = isPositive ? "clinches top 4" : "eliminates";
+  const bgMap = {
+    [PATH_INK]: "rgba(28,42,68,0.05)",
+    [PATH_ELIM]: "rgba(86,98,122,0.05)",
+    [PATH_R1]: "rgba(107,90,158,0.08)",
+    [PATH_R1_GONE]: "rgba(86,98,122,0.04)",
+  };
+  const bg = bgMap[color] || "rgba(28,42,68,0.03)";
+
+  return (
+    <div style={{ marginBottom: 12 }}>
+      <div style={{
+        fontSize: 14, fontWeight: 600, color,
+        marginBottom: 4,
+      }}>
+        <span aria-hidden="true" style={{ display: "inline-block", width: 16 }}>{icon}</span>{title}
+      </div>
+      {items.map((item, i) => {
+        const entries = isCombo ? item.teams : [item];
+        const label = customLabel || (isCombo ? defaultLabel : defaultLabelFull);
+        return (
+          <div key={i} style={{
+            display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap",
+            padding: "4px 8px", marginBottom: 2,
+            background: bg, borderLeft: `3px solid ${color}`,
+            fontSize: 14,
+          }}>
+            {entries.map((e, ci) => (
+              <React.Fragment key={ci}>
+                {ci > 0 && <span style={{ color: T.inkSoft, fontSize: 13 }}>and</span>}
+                <span style={{ fontWeight: 600, color: T.inkSoft }}>
+                  {ABBREV_LOOKUP[e.team]}
+                </span>
+                <span style={{ color: T.ink }}>{e.team}</span>
+                <OutcomePill outcome={e.outcome} small />
+              </React.Fragment>
+            ))}
+            <span style={{ color, fontWeight: 600, fontSize: 13, marginLeft: "auto", fontStyle: "italic" }}>
+              {label}
+            </span>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function PlayerCard({ player, analysis, expanded, onToggle }) {
+  const { top4Pct, rank1Pct, clinched, eliminated, teamSwings,
+          singleClinchers, singleElim, twoClinchers, twoElim,
+          rank1Clinched, rank1Impossible,
+          singleR1Clinch, singleR1Elim, twoR1Clinch } = analysis;
+
+  const statusColor = clinched ? T.ink : eliminated ? T.inkSoft
+    : top4Pct >= 75 ? T.ink : top4Pct >= 40 ? T.warn
+    : top4Pct > 0 ? T.warn : T.inkSoft;
+  const statusLabel = clinched ? "✓ Clinched" : eliminated ? "Eliminated" : `${top4Pct}%`;
+
+  // Card is fully settled (no expandable detail) only if:
+  // - eliminated, OR
+  // - clinched AND #1 is also resolved (locked in or impossible)
+  const fullySettled = eliminated || (clinched && (rank1Clinched || rank1Impossible));
+
+  return (
+    <div style={{
+      borderTop: `1px solid ${T.rule}`,
+      borderLeft: clinched ? `4px solid ${T.ink}` : "4px solid transparent",
+      background: expanded && !fullySettled ? "rgba(28,42,68,0.025)" : "transparent",
+      opacity: eliminated ? 0.65 : 1,
+    }}>
+      <div className={fullySettled ? undefined : "ou-card-head"} onClick={fullySettled ? undefined : onToggle}
+        {...(fullySettled ? {} : {
+          role: "button", tabIndex: 0, "aria-expanded": expanded,
+          onKeyDown: e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onToggle(); } },
+        })}
+        style={{
+        display: "flex", alignItems: "center", gap: 12, padding: "12px 12px",
+        cursor: fullySettled ? "default" : "pointer", userSelect: "none",
+      }}>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ fontSize: 26, fontWeight: 800, fontFamily: T.display, color: T.ink, lineHeight: 1 }}>
+            {player}
+          </div>
+          <div style={{ fontSize: 14, color: T.inkSoft, marginTop: 4 }}>
+            {clinched
+              ? (rank1Clinched ? "Top 4 and #1 guaranteed" : rank1Impossible ? "Top 4 guaranteed" : `Top 4 guaranteed · #1 in ${rank1Pct}% of scenarios`)
+              : eliminated ? "Cannot reach top 4" : `#1 in ${rank1Pct}% of scenarios`}
+          </div>
+        </div>
+        <div style={{ textAlign: "right" }}>
+          <div style={{
+            fontSize: clinched || eliminated ? 24 : 34, fontWeight: 800, color: statusColor,
+            fontFamily: T.display, lineHeight: 1, whiteSpace: "nowrap",
+            textDecoration: eliminated ? "line-through" : "none",
+          }}>
+            {statusLabel}
+          </div>
+          <div style={{ fontSize: 13, color: T.inkSoft, marginTop: 2 }}>
+            {clinched || eliminated ? "" : "top 4 chance"}
+          </div>
+        </div>
+        {!fullySettled && (
+          <div aria-hidden="true" style={{
+            fontSize: 11, color: T.inkSoft,
+            transform: expanded ? "rotate(180deg)" : "rotate(0deg)",
+            transition: "transform 0.2s",
+          }}>{"▼"}</div>
+        )}
+      </div>
+
+      {expanded && !fullySettled && (
+        <div style={{ padding: "0 12px 16px", borderTop: `1px solid ${T.ruleFaint}` }}>
+          {!clinched && (
+          <div style={{ marginTop: 14 }}>
+            <ClinchPathSection title="One result that clinches" icon={"✓"} color={PATH_INK}
+              items={singleClinchers} isCombo={false} />
+            <ClinchPathSection title="One result that eliminates" icon={"✕"} color={PATH_ELIM}
+              items={singleElim} isCombo={false} />
+            {singleClinchers.length === 0 && (
+              <ClinchPathSection title="Two results that clinch together" icon={"✓"} color={PATH_INK}
+                items={twoClinchers} isCombo={true} />
+            )}
+            {singleElim.length === 0 && (
+              <ClinchPathSection title="Two results that eliminate together" icon={"✕"} color={PATH_ELIM}
+                items={twoElim} isCombo={true} />
+            )}
+            {singleClinchers.length === 0 && singleElim.length === 0 &&
+             twoClinchers.length === 0 && twoElim.length === 0 && !clinched && (
+              <div style={{ fontSize: 14, color: T.inkSoft, fontStyle: "italic", padding: "4px 0" }}>
+                No single or two-team outcome guarantees clinch or elimination.
+              </div>
+            )}
+          </div>
+          )}
+
+          {/* #1 Seed Paths */}
+          {rank1Pct > 0 && (
+            <div style={{
+              marginTop: 14, paddingTop: 12,
+              borderTop: `1px solid ${T.rule}`,
+            }}>
+              <div style={{
+                marginBottom: 8,
+                display: "flex", alignItems: "baseline", gap: 8, flexWrap: "wrap",
+              }}>
+                <span style={{ fontFamily: T.display, fontWeight: 800, fontSize: 22, color: T.alt, lineHeight: 1 }}>
+                  #1 seed
+                </span>
+                <span style={{ fontSize: 14, color: T.inkSoft }}>in {rank1Pct}% of scenarios</span>
+                {rank1Clinched && <span style={{ color: T.ink, fontSize: 14, fontWeight: 600 }}>{"✓"} Locked in</span>}
+              </div>
+
+              {!rank1Clinched && !rank1Impossible && (
+                <React.Fragment>
+                  <ClinchPathSection title="One result that locks #1" icon={"✓"} color={PATH_R1}
+                    items={singleR1Clinch} isCombo={false} label="locks #1" />
+                  <ClinchPathSection title="One result that ends the #1 chance" icon={"✕"} color={PATH_R1_GONE}
+                    items={singleR1Elim} isCombo={false} label="ends #1 chance" />
+                  {singleR1Clinch.length === 0 && (
+                    <ClinchPathSection title="Two results that lock #1 together" icon={"✓"} color={PATH_R1}
+                      items={twoR1Clinch} isCombo={true} label="locks #1" />
+                  )}
+                  {singleR1Clinch.length === 0 && singleR1Elim.length === 0 &&
+                   twoR1Clinch.length === 0 && (
+                    <div style={{ fontSize: 14, color: T.inkSoft, fontStyle: "italic", padding: "4px 0" }}>
+                      No single or two-team outcome guarantees or eliminates #1.
+                    </div>
+                  )}
+                </React.Fragment>
+              )}
+            </div>
+          )}
+
+          {!clinched && (
+          <div style={{ marginTop: 14, paddingTop: 12, borderTop: `1px solid ${T.rule}` }}>
+            <div style={{ display: "flex", alignItems: "baseline", gap: "4px 14px", marginBottom: 6, flexWrap: "wrap" }}>
+              <div style={{ fontSize: 14, fontWeight: 600, color: T.ink }}>
+                Top 4 odds by team outcome
+              </div>
+              <div style={{ display: "flex", gap: 12, fontSize: 13, color: T.inkSoft, flexWrap: "wrap" }}>
+                <span><span style={{ color: T.over }}>{"■"}</span> if Over</span>
+                <span><span style={{ color: T.under }}>{"■"}</span> if Under</span>
+                <span>Swing: Over minus Under</span>
+              </div>
+            </div>
+            {teamSwings.map(ts => <SwingBar key={ts.team} {...ts} />)}
+          </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ClinchAnalyzerTab({ teamOutcomes, toggleTeam, getTeamStatus, resetAll }) {
+  const results = useMemo(() => analyzePlayoffScenarios(teamOutcomes), [teamOutcomes]);
+  const [expandedPlayer, setExpandedPlayer] = useState(null);
+
+  const sortedPlayers = useMemo(() => {
+    return [...PLAYERS].sort((a, b) => {
+      const diff = results.playerAnalysis[b].top4Pct - results.playerAnalysis[a].top4Pct;
+      if (diff !== 0) return diff;
+      return results.playerAnalysis[b].rank1Pct - results.playerAnalysis[a].rank1Pct;
+    });
+  }, [results]);
+
+  const clinchCount = sortedPlayers.filter(p => results.playerAnalysis[p].clinched).length;
+  const elimCount = sortedPlayers.filter(p => results.playerAnalysis[p].eliminated).length;
+  const contestedCount = N_PLAYERS - clinchCount - elimCount;
+
+  return (
+    <div style={{ display: "flex", gap: "32px 40px", flexWrap: "wrap" }}>
+      <div style={{ flex: "0 0 310px", minWidth: 280, maxWidth: "100%" }}>
+        <TeamSidebar toggleTeam={toggleTeam} getTeamStatus={getTeamStatus} resetAll={resetAll} />
+        <div style={{
+          marginTop: 18, paddingTop: 10, borderTop: `2px solid ${T.ink}`,
+          fontSize: 14, color: T.inkSoft, lineHeight: 1.5,
+        }}>
+          <strong style={{ color: T.ink, fontWeight: 600 }}>How it works:</strong> Lock in team outcomes
+          here, then open each player to see which remaining
+          outcomes clinch or eliminate their top 4 finish. The swing bars show
+          how each team's result shifts a player's playoff odds.
+        </div>
+      </div>
+
+      <div style={{ flex: 1, minWidth: 300 }}>
+        {/* Summary bar */}
+        <div style={{ display: "flex", marginBottom: 22, flexWrap: "wrap", borderTop: `2px solid ${T.ink}`, borderBottom: `1px solid ${T.rule}` }}>
+          {[
+            { count: clinchCount, color: T.ink, label: "✓ Clinched top 4" },
+            { count: contestedCount, color: T.warn, label: "Still contested" },
+            { count: elimCount, color: T.inkSoft, label: "Eliminated" },
+          ].map((s, si) => (
+            <div key={s.label} style={{
+              padding: "10px 14px 10px", flex: "1 1 90px", minWidth: 90,
+              borderLeft: si > 0 ? `1px solid ${T.rule}` : "none",
+            }}>
+              <div style={{ fontSize: 44, fontWeight: 800, color: s.color, fontFamily: T.display, lineHeight: 1 }}>
+                {s.count}
+              </div>
+              <div style={{ fontSize: 14, color: T.inkSoft, marginTop: 2 }}>
+                {s.label}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <h2 className="ou-h2" style={{ marginBottom: 2 }}>
+          Playoff status by player
+        </h2>
+        <p style={{ fontSize: 14, color: T.inkSoft, marginBottom: 10 }}>
+          Sorted by top 4 odds. Open a player for the results that decide their spot.
+        </p>
+
+        <div style={{ display: "flex", flexDirection: "column", borderBottom: `1px solid ${T.rule}` }}>
+          {sortedPlayers.map(player => (
+            <PlayerCard
+              key={player}
+              player={player}
+              analysis={results.playerAnalysis[player]}
+              expanded={expandedPlayer === player}
+              onToggle={() => setExpandedPlayer(expandedPlayer === player ? null : player)}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ===================================================================
+   ROOT APP: tab management + shared state
+   =================================================================== */
+
+function App() {
+  const [activeTab, setActiveTab] = useState("scenarios");
+  const [likelyOverrides, setLikelyOverrides] = useState(() => ({ ...LIKELY }));
+  const [toggles, setToggles] = useState(() => {
+    const init = {};
+    UNDECIDED.forEach(t => { init[t] = null; });
+    return init;
+  });
+
+  const teamOutcomes = useMemo(() => {
+    const out = {};
+    Object.entries(likelyOverrides).forEach(([t, v]) => { out[t] = v; });
+    Object.entries(toggles).forEach(([t, v]) => { if (v) out[t] = v; });
+    return out;
+  }, [likelyOverrides, toggles]);
+
+  const numUndecidedLeft = useMemo(() => {
+    let c = 0;
+    TEAMS.forEach(team => {
+      if (!CLINCHED[team.t] && !teamOutcomes[team.t]) c++;
+    });
+    return c;
+  }, [teamOutcomes]);
+
+  const numScenarios = 1 << numUndecidedLeft;
+
+  const toggleTeam = useCallback((team, value) => {
+    if (UNDECIDED.includes(team)) {
+      setToggles(prev => ({ ...prev, [team]: prev[team] === value ? null : value }));
+    } else if (LIKELY[team] !== undefined) {
+      setLikelyOverrides(prev => {
+        const cur = prev[team];
+        if (cur === value) {
+          const next = { ...prev };
+          delete next[team];
+          return next;
+        }
+        return { ...prev, [team]: value };
+      });
+    }
+  }, []);
+
+  const resetAll = useCallback(() => {
+    setToggles(() => {
+      const init = {};
+      UNDECIDED.forEach(t => { init[t] = null; });
+      return init;
+    });
+    setLikelyOverrides({ ...LIKELY });
+  }, []);
+
+  const getTeamStatus = useCallback((teamName) => {
+    if (CLINCHED[teamName]) return { status: CLINCHED[teamName], type: "clinched" };
+    if (teamOutcomes[teamName]) return { status: teamOutcomes[teamName], type: "toggled" };
+    return { status: null, type: "undecided" };
+  }, [teamOutcomes]);
+
+  const tabs = [
+    { id: "scenarios", label: "Scenario explorer" },
+    { id: "clinch", label: "Playoff clinch analyzer" },
+  ];
+
+  return (
+    <div className="ou-app">
+      <div className="ou-sheet">
+        {/* Header */}
+        <div>
+          <h1 className="ou-title">
+            NBA Over/Under Scenario Explorer
+          </h1>
+          <div className="ou-meta">
+            <span>
+              2020-21 season: <b>{numScenarios.toLocaleString()}</b> scenario{numScenarios !== 1 ? "s" : ""}
+              {numUndecidedLeft > 0
+                ? ` (${numUndecidedLeft} undecided team${numUndecidedLeft !== 1 ? "s" : ""})`
+                : " (every team set)"}
+            </span>
+            {SNAPSHOTS.length > 1 && (
+              <label className="ou-date">
+                As of the games through{" "}
+                <select className="ou-select" value={SNAP.date} onChange={e => chooseDate(e.target.value)}>
+                  {SNAPSHOTS.map(s => (
+                    <option key={s.date} value={s.date}>
+                      {s.through} ({s.n_open} open)
+                    </option>
+                  ))}
+                </select>
+              </label>
+            )}
+          </div>
+        </div>
+
+        {/* Tabs */}
+        <div className="ou-tabs">
+          {tabs.map(tab => (
+            <button
+              key={tab.id}
+              className={"ou-tab" + (activeTab === tab.id ? " is-active" : "")}
+              onClick={() => setActiveTab(tab.id)}
+              style={{ transition: "color 0.15s, border-color 0.15s, background-color 0.15s" }}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Tab content */}
+        {activeTab === "scenarios" && (
+          <ScenarioExplorerTab
+            teamOutcomes={teamOutcomes}
+            toggleTeam={toggleTeam}
+            getTeamStatus={getTeamStatus}
+            resetAll={resetAll}
+          />
+        )}
+        {activeTab === "clinch" && (
+          <ClinchAnalyzerTab
+            teamOutcomes={teamOutcomes}
+            toggleTeam={toggleTeam}
+            getTeamStatus={getTeamStatus}
+            resetAll={resetAll}
+          />
+        )}
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

@@ -1,0 +1,399 @@
+#!/usr/bin/env python3
+"""Apply the scorer's-book theme and the season strip to the over/under pages.
+
+Run from the repo root:
+
+  python3 nba-over-under-META/site-style/restyle_season_pages.py past
+      Restyle 2021-2026-nba-over-under.html (root and docs/ copies) in place.
+      The rendered charts and data are left exactly as they were.
+
+  python3 nba-over-under-META/site-style/restyle_season_pages.py preview PATH
+      Turn the preseason preview built by 08-preseason-pool-analysis.R into
+      2027-nba-over-under-preview.html, and also 2027-nba-over-under.html
+      until the in-season page exists (root and docs/).
+
+  python3 nba-over-under-META/site-style/restyle_season_pages.py season 2027
+      Restyle the in-season page that make_plot_html.R rendered to
+      docs/2027-nba-over-under.html, then copy it to the repo root. The daily
+      GitHub Actions build runs this right after the render.
+
+Every injected block sits between OU-THEME markers, so rerunning replaces it.
+"""
+import csv
+import html
+import json
+import re
+import shutil
+import sys
+from collections import defaultdict
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+ROOT = HERE.parent.parent
+THEME = (HERE / "ou-theme.css").read_text()
+SEASON_CSS = (HERE / "ou-season-pages.css").read_text()
+PICKS = HERE.parent / "all_picks_6seasons.csv"
+
+CURRENT_YEAR = 2027
+PAST_YEARS = range(2021, CURRENT_YEAR)
+DISPLAY = {"Mike": "Mike J"}  # how the group has always named him
+
+# The top 4 also play a playoff version (a draft of NBA playoff teams after
+# the regular season). Champions by season-ending year, confirmed by Chester.
+# Add each new champion here.
+PLAYOFF_WINNERS = {2021: "Jake", 2022: "Chester", 2023: "Phil",
+                   2024: "Chester", 2025: "Mike J", 2026: "Phil"}
+
+FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
+         '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
+         '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?'
+         'family=Big+Shoulders+Display:wght@700;800&family=Source+Sans+3:'
+         'wght@400;600&display=swap">')
+
+# The season pages drew Over in forestgreen and Under in deeppink. Swap those
+# for the theme's blue and red pencil, and the chart text to the page's face.
+# Only colors and fonts change; the data in each chart is untouched.
+PLOTLY_FONT = """<script>
+window.addEventListener('load', function () {
+  if (!window.Plotly) return;
+  var swap = [
+    [/^(forestgreen|#228b22|rgba?\\(34, ?139, ?34)/i, '#2457a6'],
+    [/^(deeppink|#ff1493|rgba?\\(255, ?20, ?147)/i, '#b8322f'],
+    [/^(blue$|#0000ff|rgba?\\(0, ?0, ?255)/i, '#1c2a44']
+  ];
+  function recolor(v) {
+    if (typeof v !== 'string') return v;
+    for (var i = 0; i < swap.length; i++) {
+      var m = v.match(swap[i][0]);
+      if (m) {
+        var a = v.match(/rgba\\([^)]*,\\s*([\\d.]+)\\)/i);
+        if (!a) return swap[i][1];
+        var h = swap[i][1], r = parseInt(h.slice(1, 3), 16), g = parseInt(h.slice(3, 5), 16), b = parseInt(h.slice(5, 7), 16);
+        return 'rgba(' + r + ',' + g + ',' + b + ',' + a[1] + ')';
+      }
+    }
+    return v;
+  }
+  function walk(o) {
+    if (Array.isArray(o)) { for (var i = 0; i < o.length; i++) { o[i] = typeof o[i] === 'object' && o[i] ? (walk(o[i]), o[i]) : recolor(o[i]); } return; }
+    for (var k in o) { if (o[k] && typeof o[k] === 'object') walk(o[k]); else o[k] = recolor(o[k]); }
+  }
+  document.querySelectorAll('.js-plotly-plot').forEach(function (el) {
+    try {
+      (el.data || []).forEach(walk);
+      el.layout.font = el.layout.font || {};
+      el.layout.font.family = '"Source Sans 3", "Helvetica Neue", Arial, sans-serif';
+      Plotly.redraw(el);
+    } catch (e) {}
+  });
+});
+</script>"""
+
+# The embedded scenario explorer posts its height; size its frame to fit
+EXPLORER_FRAME = """<script>
+// The season page renders a placeholder (a literal iframe would be inlined
+// by pandoc); make the frame here
+document.querySelectorAll('.ou-explorer-slot').forEach(function (slot) {
+  var f = document.createElement('iframe');
+  f.className = 'ou-explorer';
+  f.src = slot.getAttribute('data-src');
+  f.title = 'Scenario explorer';
+  f.loading = 'lazy';
+  slot.replaceWith(f);
+});
+// A link to a tab (#scenarios, for one) opens that tab
+window.addEventListener('load', function () {
+  if (!location.hash || !window.jQuery) return;
+  var tab = jQuery('.nav-tabs a[href="' + location.hash.replace(/"/g, '') + '"]');
+  if (tab.length) { tab.tab('show'); tab[0].scrollIntoView(); }
+});
+window.addEventListener('message', function (e) {
+  if (!e.data || !e.data.ouExplorerHeight) return;
+  document.querySelectorAll('iframe.ou-explorer').forEach(function (f) {
+    if (f.contentWindow === e.source) f.style.height = Math.ceil(e.data.ouExplorerHeight) + 'px';
+  });
+});
+</script>"""
+
+START, END = "<!-- OU-THEME:start -->", "<!-- OU-THEME:end -->"
+MARK_RE = re.compile(re.escape(START) + r".*?" + re.escape(END), re.S)
+
+
+def season_label(year):
+    return f"{year - 1}-{str(year)[2:]}"
+
+
+def winners():
+    totals = defaultdict(lambda: defaultdict(int))
+    with open(PICKS, newline="") as f:
+        for row in csv.DictReader(f):
+            totals[row["season"]][row["player"]] += int(row["points"])
+    out = {}
+    for season, players in totals.items():
+        name, pts = max(players.items(), key=lambda kv: kv[1])
+        out[int(season[:4]) + 1] = (DISPLAY.get(name, name), pts)
+    return out
+
+
+def masthead(current, current_note):
+    won = winners()
+    items = []
+    for year in range(2021, CURRENT_YEAR + 1):
+        if year in won:
+            name, pts = won[year]
+            who = (f'<span class="who">Season: <b>{html.escape(name)}</b> {pts:+d}</span>')
+            if year in PLAYOFF_WINNERS:
+                who += (f'<span class="who">Playoffs: '
+                        f'<b>{html.escape(PLAYOFF_WINNERS[year])}</b></span>')
+        else:
+            who = f'<span class="who">{html.escape(current_note)}</span>'
+        here = ' aria-current="page"' if year == current else ""
+        items.append(
+            f'<li><a href="{year}-nba-over-under.html"{here}>'
+            f'<span class="yr">{season_label(year)}</span>{who}</a></li>')
+    return (
+        '<header class="ou-masthead"><div class="ou-masthead-inner">'
+        '<p class="ou-kicker">NBA over/under pool. '
+        '<a href="index.html">Chester Ismay</a> has tracked it here since '
+        '2020-21 and run it since 2025-26.</p>'
+        '<nav aria-label="Seasons"><ol class="ou-seasons">'
+        + "".join(items) + "</ol></nav></div></header>")
+
+
+def strip_old(text):
+    return MARK_RE.sub("", text)
+
+
+def head_block(css):
+    return f"{START}{FONTS}<style>{THEME}\n{css}</style>{END}"
+
+
+def restyle_rmd(text, year, note):
+    text = strip_old(text)
+    text = text.replace("</head>", head_block(SEASON_CSS) + "</head>", 1)
+    text = re.sub(r"<body([^>]*)>", lambda m: _body_open(m.group(1)), text, count=1)
+    body_at = re.search(r"<body[^>]*>", text).end()
+    text = (text[:body_at] + START + masthead(year, note) + END + text[body_at:])
+    text = text.replace("</body>", START + PLOTLY_FONT + EXPLORER_FRAME + END + "</body>", 1)
+    return text
+
+
+def _body_open(attrs):
+    if "ou-page" in attrs:
+        return f"<body{attrs}>"
+    if 'class="' in attrs:
+        return "<body" + attrs.replace('class="', 'class="ou-page ', 1) + ">"
+    return f'<body class="ou-page"{attrs}>'
+
+
+def write_both(name, text):
+    for path in (ROOT / name, ROOT / "docs" / name):
+        path.write_text(text)
+        print(f"wrote {path.relative_to(ROOT)} ({len(text):,} chars)")
+
+
+CHANCE_NOTE = (
+    "How likely each player was to finish first, or in the top 4, as of each "
+    "date of the season. Rebuilt in October 2026 with the method the 2026-27 "
+    "page uses: each day, the rest of the season was simulated 100,000 times "
+    "from each team's record, pulled toward its Vegas line (the line counts "
+    "as 20 games of evidence), with how good each team really is drawn at "
+    "random in every simulation. Every simulated season is scored with the "
+    "pool's rules and tiebreakers. The dotted line is an even share.")
+
+# Draw each chart the first time its tab is visible, so plotly sizes it to
+# the tab rather than to a hidden zero-width box.
+CHANCE_JS = """<script>
+(function () {
+  var figs = __FIGS__;
+  function draw() {
+    if (!window.Plotly) return;
+    Object.keys(figs).forEach(function (k) {
+      var el = document.getElementById('ou-chance-' + k);
+      if (!el || el.getAttribute('data-drawn') || el.offsetWidth === 0) return;
+      var f = figs[k];
+      f.layout.height = f.layout.height || 520;
+      Plotly.newPlot(el, f.data, f.layout, {displayModeBar: false, responsive: true});
+      el.setAttribute('data-drawn', '1');
+    });
+  }
+  window.addEventListener('load', draw);
+  if (window.jQuery) jQuery(document).on('shown.bs.tab', draw);
+})();
+</script>"""
+
+
+def add_chances(text, year):
+    """Add the Chance to win tab (built by past_chances.R) as the first tab."""
+    path = HERE / "past-chances" / f"{year}.json"
+    if not path.exists():
+        print(f"no {path.name}; {year} page left without the chance tab")
+        return text
+    data = json.loads(path.read_text())
+    figs = json.dumps({"first": {"data": data["first"]["data"], "layout": data["first"]["layout"]},
+                       "top4": {"data": data["top4"]["data"], "layout": data["top4"]["layout"]}},
+                      separators=(",", ":")).replace("</", "<\\/")
+    # The new tab opens first, so the old default tab gives up "active"
+    text = text.replace('<div id="projected-points-for-each-player" class="section level2 tabset active">\n'
+                        '<h2 class="tabset active">',
+                        '<div id="projected-points-for-each-player" class="section level2 tabset">\n'
+                        '<h2 class="tabset">', 1)
+    section = (
+        '<div id="chance-to-win" class="section level2 tabset active">\n'
+        '<h2 class="tabset active">Chance to win</h2>\n'
+        f'<p>{html.escape(CHANCE_NOTE)}</p>\n'
+        '<div id="chance-to-finish-first" class="section level3">\n'
+        '<h3>Chance to finish first</h3>\n'
+        '<div id="ou-chance-first" class="ou-chance"></div>\n</div>\n'
+        '<div id="chance-to-make-the-top-4" class="section level3">\n'
+        '<h3>Chance to make the top 4</h3>\n'
+        '<div id="ou-chance-top4" class="ou-chance"></div>\n</div>\n</div>\n')
+    anchor = '<h1 class="tabset"></h1>\n'
+    at = text.index(anchor, text.index('<div id="section" class="section level1 tabset">')) + len(anchor)
+    text = text[:at] + START + section + END + text[at:]
+    return text.replace("</body>", START + CHANCE_JS.replace("__FIGS__", figs) + END + "</body>", 1)
+
+
+EXPLORER_NOTE = (
+    "Every way the last open teams could have finished, and where each "
+    "player would have ended up. It opens on the first date with 20 or fewer "
+    "teams still undecided; pick a later date to follow the finish. Teams far "
+    "from their line start on their likely side, and clicking any team changes it.")
+
+
+def add_explorer(text, year):
+    """Add the Scenarios tab (built by past_explorers.R) after Chance to win."""
+    name = f"{year}-nba-scenario-explorer.html"
+    if not (ROOT / name).exists():
+        print(f"no {name}; {year} page left without the Scenarios tab")
+        return text
+    section = (
+        '<div id="scenarios" class="section level2">\n'
+        '<h2>Scenarios</h2>\n'
+        f'<p>{html.escape(EXPLORER_NOTE)}</p>\n'
+        f'<iframe class="ou-explorer" src="{name}" title="Scenario explorer" loading="lazy"></iframe>\n'
+        '</div>\n')
+    anchor = '<div id="by-team" class="section level2 tabset">'
+    at = text.index(anchor)
+    return text[:at] + START + section + END + text[at:]
+
+
+def note_page():
+    """The old single explorer URL now points to each season's Scenarios tab."""
+    links = "".join(
+        f'<li><a href="{y}-nba-over-under.html#scenarios">{season_label(y)}</a></li>'
+        for y in range(CURRENT_YEAR, 2020, -1))
+    title = "NBA Over/Under scenario explorer"
+    desc = ("The scenario explorer now sits on each season's page, in the "
+            "Scenarios tab.")
+    return (
+        '<!doctype html><html lang="en"><head><meta charset="utf-8">'
+        '<meta name="viewport" content="width=device-width, initial-scale=1">'
+        f'<title>{title}</title><meta name="description" content="{html.escape(desc)}">'
+        + head_meta("nba-scenario-explorer.html", title, desc)
+        + head_block(NOTE_CSS) + '</head><body class="ou-page">'
+        + START + masthead(None, "Current season") + END
+        + '<main class="ou-note"><h1>Scenario explorer</h1>'
+        '<p>The scenario explorer has moved to each season&#8217;s page, in the '
+        'Scenarios tab. For 2026-27 it opens once 20 or fewer teams are still '
+        'undecided, usually in mid-March. Until then, the earlier seasons show how '
+        'their finishes played out.</p>'
+        f'<ul class="ou-note-links">{links}</ul></main></body></html>')
+
+
+NOTE_CSS = """
+body.ou-page { margin: 0; background: var(--paper); color: var(--ink);
+  font-family: "Source Sans 3", "Helvetica Neue", Arial, sans-serif; }
+.ou-note { max-width: 40rem; margin: 2.5rem auto; padding: 1.5rem 1.25rem 2rem;
+  background: var(--sheet); border: 1px solid var(--rule); }
+.ou-note h1 { font-family: "Big Shoulders Display", sans-serif; font-weight: 800;
+  font-size: 2.6rem; line-height: 1; margin: 0 0 1rem; }
+.ou-note p { font-size: 1.1rem; line-height: 1.55; margin: 0 0 1.25rem; }
+.ou-note-links { list-style: none; padding: 0; margin: 0; display: flex;
+  flex-wrap: wrap; gap: 0.5rem 1.25rem; }
+.ou-note-links a { font-family: "Big Shoulders Display", sans-serif;
+  font-weight: 700; font-size: 1.35rem; color: var(--ink); }
+@media (max-width: 600px) { .ou-note { margin: 1rem 16px; } }
+"""
+
+
+def do_past():
+    for year in PAST_YEARS:
+        name = f"{year}-nba-over-under.html"
+        src = ROOT / name
+        text = restyle_rmd(src.read_text(), year, "Current season")
+        # Each page was last built after its season ended, so "today" is
+        # stale on a finished season
+        text = text.replace("<hr />\n<p>No NBA games are scheduled for today.</p>\n", "", 1)
+        text = add_chances(text, year)
+        text = add_explorer(text, year)
+        write_both(name, text)
+    write_both("nba-scenario-explorer.html", note_page())
+
+
+SITE = "https://ismayc.github.io"
+ASSETS = f"{SITE}/nba-over-under-assets"
+
+
+def head_meta(name, title, description):
+    """Icons and link preview (assets rendered from nba-over-under-assets/)."""
+    return (
+        f'<link rel="icon" href="nba-over-under-assets/favicon.svg" type="image/svg+xml">'
+        f'<link rel="icon" href="nba-over-under-assets/favicon-32.png" sizes="32x32" type="image/png">'
+        f'<link rel="apple-touch-icon" href="nba-over-under-assets/apple-touch-icon.png">'
+        f'<meta property="og:type" content="website">'
+        f'<meta property="og:title" content="{html.escape(title)}">'
+        f'<meta property="og:description" content="{html.escape(description)}">'
+        f'<meta property="og:url" content="{SITE}/{name}">'
+        f'<meta property="og:image" content="{ASSETS}/og.png">'
+        f'<meta property="og:image:width" content="1200">'
+        f'<meta property="og:image:height" content="630">'
+        f'<meta name="twitter:card" content="summary_large_image">')
+
+
+def do_preview(path):
+    template = Path(path).read_text()
+    template = template.replace("/*OU-THEME*/", THEME)
+    template = template.replace("<!--OU-MASTHEAD-->",
+                                masthead(CURRENT_YEAR, "Preseason preview"))
+    desc = re.search(r'<meta name="description" content="([^"]*)"', template)
+    desc = html.unescape(desc.group(1)) if desc else ""
+    title = f"NBA Over/Under {season_label(CURRENT_YEAR)} preseason preview"
+
+    def page(name):
+        return template.replace("<!--OU-META-->", head_meta(name, title, desc))
+
+    write_both(f"{CURRENT_YEAR}-nba-over-under-preview.html",
+               page(f"{CURRENT_YEAR}-nba-over-under-preview.html"))
+    season_page = ROOT / "docs" / f"{CURRENT_YEAR}-nba-over-under.html"
+    # Until make_plot_html.R renders the in-season page, the season URL shows
+    # the preview. Once it exists, leave it alone.
+    if not season_page.exists() or 'class="ou-page ou-preview"' in season_page.read_text():
+        write_both(f"{CURRENT_YEAR}-nba-over-under.html",
+                   page(f"{CURRENT_YEAR}-nba-over-under.html"))
+    else:
+        print("in-season page exists; left 2027-nba-over-under.html alone")
+
+
+def do_season(year):
+    name = f"{year}-nba-over-under.html"
+    text = (ROOT / "docs" / name).read_text()
+    text = restyle_rmd(text, year, "In progress")
+    # Keep the preseason preview one click away during the season
+    text = text.replace(
+        '<p class="ou-kicker">',
+        f'<p class="ou-kicker"><a href="{year}-nba-over-under-preview.html">'
+        'Preseason preview</a>. ', 1)
+    write_both(name, text)
+
+
+if __name__ == "__main__":
+    mode = sys.argv[1] if len(sys.argv) > 1 else ""
+    if mode == "past":
+        do_past()
+    elif mode == "preview" and len(sys.argv) == 3:
+        do_preview(sys.argv[2])
+    elif mode == "season" and len(sys.argv) == 3:
+        do_season(int(sys.argv[2]))
+    else:
+        sys.exit(__doc__)

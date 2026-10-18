@@ -1,0 +1,241 @@
+key,player,team,root_for,win_chance_swing,pick,wager,against_own_pick
+Adonis | Washington Wizards,Adonis,Washington Wizards,Over,0.17283554006866259,Over,15,FALSE
+Adonis | New York Knicks,Adonis,New York Knicks,Over,0.13178923818853788,Over,14,FALSE
+Adonis | Portland Trail Blazers,Adonis,Portland Trail Blazers,Over,0.12589342723664018,Over,13,FALSE
+Adonis | Philadelphia 76ers,Adonis,Philadelphia 76ers,Over,0.109577051240682,Over,11,FALSE
+Adonis | Boston Celtics,Adonis,Boston Celtics,Under,0.10354752414753438,Under,12,FALSE
+Adonis | Toronto Raptors,Adonis,Toronto Raptors,Over,0.10324177636857565,Over,9,FALSE
+Adonis | Los Angeles Lakers,Adonis,Los Angeles Lakers,Under,0.09766200940207487,Under,15,FALSE
+Adonis | Denver Nuggets,Adonis,Denver Nuggets,Under,0.09448969427284154,Under,11,FALSE
+Adonis | Dallas Mavericks,Adonis,Dallas Mavericks,Under,0.09419258112719707,Under,12,FALSE
+Adonis | Golden State Warriors,Adonis,Golden State Warriors,Over,0.09319828608436809,Over,13,FALSE
+Adonis | Charlotte Hornets,Adonis,Charlotte Hornets,Under,0.0908334088572593,Under,10,FALSE
+Adonis | Oklahoma City Thunder,Adonis,Oklahoma City Thunder,Under,0.08247570296890744,Under,15,FALSE
+Adonis | San Antonio Spurs,Adonis,San Antonio Spurs,Under,0.07197194833445464,Under,9,FALSE
+Adonis | Miami Heat,Adonis,Miami Heat,Over,0.06993780625781643,Over,14,FALSE
+Adonis | Houston Rockets,Adonis,Houston Rockets,Over,0.06945547150957895,Over,14,FALSE
+Adonis | Indiana Pacers,Adonis,Indiana Pacers,Under,0.06894164266482967,Under,6,FALSE
+Adonis | Memphis Grizzlies,Adonis,Memphis Grizzlies,Under,0.06802951365812361,Under,13,FALSE
+Adonis | Chicago Bulls,Adonis,Chicago Bulls,Under,0.06528377166129655,Under,10,FALSE
+Adonis | Atlanta Hawks,Adonis,Atlanta Hawks,Under,0.05190024550298758,Under,6,FALSE
+Adonis | Orlando Magic,Adonis,Orlando Magic,Under,0.048732444994641785,Under,8,FALSE
+Adonis | Minnesota Timberwolves,Adonis,Minnesota Timberwolves,Under,0.044658701446913904,Under,9,FALSE
+Adonis | New Orleans Pelicans,Adonis,New Orleans Pelicans,Under,0.04415474982115737,Under,7,FALSE
+Adonis | Brooklyn Nets,Adonis,Brooklyn Nets,Under,0.03074551263841921,Under,8,FALSE
+Adonis | Los Angeles Clippers,Adonis,Los Angeles Clippers,Under,0.027602231864359533,Under,8,FALSE
+Adonis | Milwaukee Bucks,Adonis,Milwaukee Bucks,Under,0.02256929384421344,Under,6,FALSE
+Adonis | Cleveland Cavaliers,Adonis,Cleveland Cavaliers,Over,0.021984649050610733,Over,10,FALSE
+Adonis | Sacramento Kings,Adonis,Sacramento Kings,Over,0.020342199358701296,Over,7,FALSE
+Adonis | Detroit Pistons,Adonis,Detroit Pistons,Over,0.008122705578821693,Over,12,FALSE
+Adonis | Utah Jazz,Adonis,Utah Jazz,Under,0.0018368930853009668,Under,11,FALSE
+Adonis | Phoenix Suns,Adonis,Phoenix Suns,Over,2.2353910723202364e-4,Under,7,TRUE
+Andy | San Antonio Spurs,Andy,San Antonio Spurs,Over,0.12484977811119886,Over,15,FALSE
+Andy | Cleveland Cavaliers,Andy,Cleveland Cavaliers,Under,0.12266091273098745,Under,9,FALSE
+Andy | Milwaukee Bucks,Andy,Milwaukee Bucks,Over,0.12107498826927268,Over,15,FALSE
+Andy | Minnesota Timberwolves,Andy,Minnesota Timberwolves,Over,0.11377031128074262,Over,13,FALSE
+Andy | Houston Rockets,Andy,Houston Rockets,Under,0.1132218295962921,Under,10,FALSE
+Andy | Denver Nuggets,Andy,Denver Nuggets,Under,0.11115758804427413,Under,12,FALSE
+Andy | Golden State Warriors,Andy,Golden State Warriors,Over,0.08900262034357694,Over,14,FALSE
+Andy | Philadelphia 76ers,Andy,Philadelphia 76ers,Under,0.08570367554373677,Under,14,FALSE
+Andy | Brooklyn Nets,Andy,Brooklyn Nets,Over,0.07801551782493538,Over,7,FALSE
+Andy | Chicago Bulls,Andy,Chicago Bulls,Over,0.07714402967296705,Over,8,FALSE
+Andy | Los Angeles Lakers,Andy,Los Angeles Lakers,Over,0.07596053403222783,Over,10,FALSE
+Andy | New York Knicks,Andy,New York Knicks,Under,0.07338630290249765,Under,14,FALSE
+Andy | Oklahoma City Thunder,Andy,Oklahoma City Thunder,Under,0.07313964024240761,Under,15,FALSE
+Andy | New Orleans Pelicans,Andy,New Orleans Pelicans,Over,0.06960689627896452,Over,9,FALSE
+Andy | Charlotte Hornets,Andy,Charlotte Hornets,Under,0.06867995412530961,Under,7,FALSE
+Andy | Orlando Magic,Andy,Orlando Magic,Under,0.06720948128830259,Under,8,FALSE
+Andy | Indiana Pacers,Andy,Indiana Pacers,Over,0.06559292865260331,Over,12,FALSE
+Andy | Dallas Mavericks,Andy,Dallas Mavericks,Under,0.059381446705405,Under,6,FALSE
+Andy | Atlanta Hawks,Andy,Atlanta Hawks,Under,0.058950822274291284,Under,8,FALSE
+Andy | Boston Celtics,Andy,Boston Celtics,Over,0.05346974710606034,Over,11,FALSE
+Andy | Phoenix Suns,Andy,Phoenix Suns,Under,0.05227504626168182,Under,13,FALSE
+Andy | Miami Heat,Andy,Miami Heat,Over,0.050550444138839315,Over,13,FALSE
+Andy | Portland Trail Blazers,Andy,Portland Trail Blazers,Under,0.04472234406420575,Under,7,FALSE
+Andy | Los Angeles Clippers,Andy,Los Angeles Clippers,Under,0.042817258813693845,Under,10,FALSE
+Andy | Sacramento Kings,Andy,Sacramento Kings,Over,0.04137579785477505,Over,11,FALSE
+Andy | Toronto Raptors,Andy,Toronto Raptors,Under,0.04044412134758696,Under,9,FALSE
+Andy | Memphis Grizzlies,Andy,Memphis Grizzlies,Under,0.01844600633152993,Under,6,FALSE
+Andy | Utah Jazz,Andy,Utah Jazz,Under,0.013610573858809871,Under,11,FALSE
+Andy | Washington Wizards,Andy,Washington Wizards,Over,0.009269340708098428,Under,6,TRUE
+Andy | Detroit Pistons,Andy,Detroit Pistons,Over,0.005193877891409626,Over,12,FALSE
+Chester | Boston Celtics,Chester,Boston Celtics,Under,0.12252448959270337,Under,14,FALSE
+Chester | Los Angeles Clippers,Chester,Los Angeles Clippers,Over,0.1186070640060187,Over,13,FALSE
+Chester | Golden State Warriors,Chester,Golden State Warriors,Under,0.11165607195923308,Under,15,FALSE
+Chester | San Antonio Spurs,Chester,San Antonio Spurs,Under,0.10354644295976592,Under,15,FALSE
+Chester | Atlanta Hawks,Chester,Atlanta Hawks,Over,0.0927354425967548,Over,12,FALSE
+Chester | Memphis Grizzlies,Chester,Memphis Grizzlies,Over,0.08130068952509101,Over,8,FALSE
+Chester | Oklahoma City Thunder,Chester,Oklahoma City Thunder,Under,0.07508697008858217,Under,15,FALSE
+Chester | Philadelphia 76ers,Chester,Philadelphia 76ers,Under,0.07506036269194413,Under,14,FALSE
+Chester | Brooklyn Nets,Chester,Brooklyn Nets,Under,0.06966181752092941,Under,13,FALSE
+Chester | Milwaukee Bucks,Chester,Milwaukee Bucks,Under,0.06836784247709425,Under,12,FALSE
+Chester | Portland Trail Blazers,Chester,Portland Trail Blazers,Over,0.06713094860968667,Over,8,FALSE
+Chester | Denver Nuggets,Chester,Denver Nuggets,Over,0.06640473232188766,Over,12,FALSE
+Chester | Dallas Mavericks,Chester,Dallas Mavericks,Over,0.06597850134416879,Over,11,FALSE
+Chester | Minnesota Timberwolves,Chester,Minnesota Timberwolves,Over,0.06408946921192601,Over,6,FALSE
+Chester | Chicago Bulls,Chester,Chicago Bulls,Over,0.063358213157237,Over,7,FALSE
+Chester | Charlotte Hornets,Chester,Charlotte Hornets,Under,0.06161167037556724,Under,7,FALSE
+Chester | New Orleans Pelicans,Chester,New Orleans Pelicans,Under,0.058284298943861626,Under,9,FALSE
+Chester | Toronto Raptors,Chester,Toronto Raptors,Under,0.05583155230123493,Under,11,FALSE
+Chester | New York Knicks,Chester,New York Knicks,Under,0.05096908629210192,Under,11,FALSE
+Chester | Los Angeles Lakers,Chester,Los Angeles Lakers,Over,0.03966879808230708,Over,6,FALSE
+Chester | Sacramento Kings,Chester,Sacramento Kings,Over,0.038459417399762316,Over,10,FALSE
+Chester | Orlando Magic,Chester,Orlando Magic,Over,0.036260146259311274,Over,6,FALSE
+Chester | Indiana Pacers,Chester,Indiana Pacers,Over,0.036068352259985906,Over,7,FALSE
+Chester | Phoenix Suns,Chester,Phoenix Suns,Under,0.03238312011015844,Under,10,FALSE
+Chester | Utah Jazz,Chester,Utah Jazz,Under,0.030554410721634978,Under,13,FALSE
+Chester | Miami Heat,Chester,Miami Heat,Over,0.027016012407182086,Over,9,FALSE
+Chester | Houston Rockets,Chester,Houston Rockets,Over,0.01691295537758314,Over,9,FALSE
+Chester | Detroit Pistons,Chester,Detroit Pistons,Over,0.01668352073314941,Over,14,FALSE
+Chester | Cleveland Cavaliers,Chester,Cleveland Cavaliers,Over,0.011350085536392635,Over,10,FALSE
+Chester | Washington Wizards,Chester,Washington Wizards,Under,0.006319998201298596,Under,8,FALSE
+Jake | Houston Rockets,Jake,Houston Rockets,Under,0.11966618113103325,Under,13,FALSE
+Jake | Milwaukee Bucks,Jake,Milwaukee Bucks,Over,0.10739415582855914,Over,15,FALSE
+Jake | Chicago Bulls,Jake,Chicago Bulls,Under,0.09250483360728472,Under,14,FALSE
+Jake | San Antonio Spurs,Jake,San Antonio Spurs,Under,0.08710617167716905,Under,12,FALSE
+Jake | Denver Nuggets,Jake,Denver Nuggets,Over,0.08289718551977239,Over,13,FALSE
+Jake | Philadelphia 76ers,Jake,Philadelphia 76ers,Over,0.07667302793538168,Over,7,FALSE
+Jake | Los Angeles Clippers,Jake,Los Angeles Clippers,Under,0.07606160394167853,Under,15,FALSE
+Jake | Los Angeles Lakers,Jake,Los Angeles Lakers,Under,0.06774002773977025,Under,9,FALSE
+Jake | Charlotte Hornets,Jake,Charlotte Hornets,Over,0.06737390756244425,Over,11,FALSE
+Jake | Sacramento Kings,Jake,Sacramento Kings,Over,0.06626197064909355,Over,15,FALSE
+Jake | New Orleans Pelicans,Jake,New Orleans Pelicans,Over,0.06333403263749286,Over,10,FALSE
+Jake | Brooklyn Nets,Jake,Brooklyn Nets,Under,0.05986112324641893,Under,11,FALSE
+Jake | Boston Celtics,Jake,Boston Celtics,Over,0.05798155958558181,Over,12,FALSE
+Jake | Miami Heat,Jake,Miami Heat,Over,0.05726131126250754,Over,14,FALSE
+Jake | Oklahoma City Thunder,Jake,Oklahoma City Thunder,Under,0.056145040470648805,Under,14,FALSE
+Jake | Portland Trail Blazers,Jake,Portland Trail Blazers,Under,0.05449283529943355,Under,8,FALSE
+Jake | Dallas Mavericks,Jake,Dallas Mavericks,Over,0.0536455878084503,Over,9,FALSE
+Jake | Memphis Grizzlies,Jake,Memphis Grizzlies,Under,0.053261940603379174,Under,11,FALSE
+Jake | Indiana Pacers,Jake,Indiana Pacers,Over,0.0516072665838858,Over,10,FALSE
+Jake | Orlando Magic,Jake,Orlando Magic,Over,0.04377982059773425,Over,6,FALSE
+Jake | Atlanta Hawks,Jake,Atlanta Hawks,Over,0.04238914501136659,Over,6,FALSE
+Jake | New York Knicks,Jake,New York Knicks,Under,0.03821766442161688,Under,9,FALSE
+Jake | Minnesota Timberwolves,Jake,Minnesota Timberwolves,Under,0.032994151666157615,Under,6,FALSE
+Jake | Cleveland Cavaliers,Jake,Cleveland Cavaliers,Over,0.031342234145277745,Over,12,FALSE
+Jake | Golden State Warriors,Jake,Golden State Warriors,Over,0.03011080671897992,Over,7,FALSE
+Jake | Washington Wizards,Jake,Washington Wizards,Under,0.026233938638090606,Under,10,FALSE
+Jake | Detroit Pistons,Jake,Detroit Pistons,Under,0.0257703618863281,Over,8,TRUE
+Jake | Toronto Raptors,Jake,Toronto Raptors,Under,0.025599404981898,Under,7,FALSE
+Jake | Utah Jazz,Jake,Utah Jazz,Under,0.02517576561738062,Under,13,FALSE
+Jake | Phoenix Suns,Jake,Phoenix Suns,Under,0.01916912023966949,Under,8,FALSE
+Mary | Oklahoma City Thunder,Mary,Oklahoma City Thunder,Over,0.11959099735561404,Over,15,FALSE
+Mary | Philadelphia 76ers,Mary,Philadelphia 76ers,Over,0.1018998105062337,Over,15,FALSE
+Mary | Brooklyn Nets,Mary,Brooklyn Nets,Over,0.09280683209423296,Over,12,FALSE
+Mary | Chicago Bulls,Mary,Chicago Bulls,Over,0.09167334741875714,Over,14,FALSE
+Mary | Los Angeles Clippers,Mary,Los Angeles Clippers,Over,0.09022421385097053,Over,11,FALSE
+Mary | New York Knicks,Mary,New York Knicks,Over,0.08765850003853204,Over,14,FALSE
+Mary | Boston Celtics,Mary,Boston Celtics,Under,0.07952572268251894,Under,7,FALSE
+Mary | New Orleans Pelicans,Mary,New Orleans Pelicans,Under,0.07798980731528142,Under,10,FALSE
+Mary | San Antonio Spurs,Mary,San Antonio Spurs,Over,0.07201599442305778,Over,13,FALSE
+Mary | Portland Trail Blazers,Mary,Portland Trail Blazers,Under,0.07112397795045522,Under,9,FALSE
+Mary | Memphis Grizzlies,Mary,Memphis Grizzlies,Under,0.06717973033053082,Under,10,FALSE
+Mary | Charlotte Hornets,Mary,Charlotte Hornets,Over,0.06455079985535477,Over,13,FALSE
+Mary | Dallas Mavericks,Mary,Dallas Mavericks,Under,0.06396801218920718,Under,6,FALSE
+Mary | Toronto Raptors,Mary,Toronto Raptors,Under,0.0614715782576785,Under,8,FALSE
+Mary | Phoenix Suns,Mary,Phoenix Suns,Under,0.05957271214958737,Under,12,FALSE
+Mary | Denver Nuggets,Mary,Denver Nuggets,Over,0.05807389881339775,Over,11,FALSE
+Mary | Indiana Pacers,Mary,Indiana Pacers,Over,0.05597380444690629,Over,13,FALSE
+Mary | Orlando Magic,Mary,Orlando Magic,Under,0.0542154392107201,Under,7,FALSE
+Mary | Milwaukee Bucks,Mary,Milwaukee Bucks,Under,0.04926395204265149,Under,8,FALSE
+Mary | Los Angeles Lakers,Mary,Los Angeles Lakers,Under,0.04862821430683001,Under,6,FALSE
+Mary | Minnesota Timberwolves,Mary,Minnesota Timberwolves,Under,0.0412035959843,Under,6,FALSE
+Mary | Washington Wizards,Mary,Washington Wizards,Under,0.04035574983081283,Under,9,FALSE
+Mary | Utah Jazz,Mary,Utah Jazz,Under,0.03188774059983622,Under,12,FALSE
+Mary | Houston Rockets,Mary,Houston Rockets,Over,0.03028630407264213,Over,14,FALSE
+Mary | Golden State Warriors,Mary,Golden State Warriors,Over,0.027214680941607894,Over,8,FALSE
+Mary | Atlanta Hawks,Mary,Atlanta Hawks,Over,0.025839084057588155,Over,7,FALSE
+Mary | Sacramento Kings,Mary,Sacramento Kings,Over,0.02109022639483485,Over,10,FALSE
+Mary | Miami Heat,Mary,Miami Heat,Over,0.00651592469498391,Over,9,FALSE
+Mary | Detroit Pistons,Mary,Detroit Pistons,Over,0.005380293703496519,Over,15,FALSE
+Mary | Cleveland Cavaliers,Mary,Cleveland Cavaliers,Over,0.0011649779164284862,Over,11,FALSE
+Mike J | Oklahoma City Thunder,Mike J,Oklahoma City Thunder,Over,0.10679678979708522,Over,13,FALSE
+Mike J | Utah Jazz,Mike J,Utah Jazz,Over,0.10072708986078861,Over,7,FALSE
+Mike J | Orlando Magic,Mike J,Orlando Magic,Over,0.09166730631423942,Over,14,FALSE
+Mike J | Golden State Warriors,Mike J,Golden State Warriors,Under,0.08969302294009497,Under,12,FALSE
+Mike J | Charlotte Hornets,Mike J,Charlotte Hornets,Under,0.08850154707393636,Under,9,FALSE
+Mike J | New Orleans Pelicans,Mike J,New Orleans Pelicans,Under,0.08639091802687608,Under,11,FALSE
+Mike J | Atlanta Hawks,Mike J,Atlanta Hawks,Under,0.08349969197303363,Under,7,FALSE
+Mike J | Milwaukee Bucks,Mike J,Milwaukee Bucks,Under,0.0760556146256632,Under,13,FALSE
+Mike J | Los Angeles Lakers,Mike J,Los Angeles Lakers,Over,0.07593690109236832,Over,12,FALSE
+Mike J | Toronto Raptors,Mike J,Toronto Raptors,Over,0.07373304752333897,Over,10,FALSE
+Mike J | Chicago Bulls,Mike J,Chicago Bulls,Under,0.07254554620775254,Under,10,FALSE
+Mike J | New York Knicks,Mike J,New York Knicks,Under,0.07182382200360839,Under,11,FALSE
+Mike J | San Antonio Spurs,Mike J,San Antonio Spurs,Over,0.07131700488530034,Over,13,FALSE
+Mike J | Boston Celtics,Mike J,Boston Celtics,Over,0.07121143906101136,Over,15,FALSE
+Mike J | Indiana Pacers,Mike J,Indiana Pacers,Over,0.06996014306531152,Over,15,FALSE
+Mike J | Memphis Grizzlies,Mike J,Memphis Grizzlies,Over,0.06777654898449179,Over,11,FALSE
+Mike J | Los Angeles Clippers,Mike J,Los Angeles Clippers,Under,0.06400580251087945,Under,12,FALSE
+Mike J | Miami Heat,Mike J,Miami Heat,Over,0.055143501385456484,Over,14,FALSE
+Mike J | Portland Trail Blazers,Mike J,Portland Trail Blazers,Under,0.053471059368331686,Under,9,FALSE
+Mike J | Minnesota Timberwolves,Mike J,Minnesota Timberwolves,Over,0.05277444386131046,Over,8,FALSE
+Mike J | Houston Rockets,Mike J,Houston Rockets,Over,0.04996940622506685,Over,15,FALSE
+Mike J | Brooklyn Nets,Mike J,Brooklyn Nets,Under,0.0477381344044535,Under,10,FALSE
+Mike J | Phoenix Suns,Mike J,Phoenix Suns,Under,0.032571200278290136,Under,8,FALSE
+Mike J | Detroit Pistons,Mike J,Detroit Pistons,Under,0.0309332982561924,Over,9,TRUE
+Mike J | Cleveland Cavaliers,Mike J,Cleveland Cavaliers,Over,0.03015061202731975,Over,14,FALSE
+Mike J | Denver Nuggets,Mike J,Denver Nuggets,Over,0.028186561819658063,Over,6,FALSE
+Mike J | Philadelphia 76ers,Mike J,Philadelphia 76ers,Under,0.023803610693522076,Under,6,FALSE
+Mike J | Dallas Mavericks,Mike J,Dallas Mavericks,Over,0.018579445847968945,Over,7,FALSE
+Mike J | Washington Wizards,Mike J,Washington Wizards,Under,0.016038681191961335,Under,8,FALSE
+Mike J | Sacramento Kings,Mike J,Sacramento Kings,Over,0.0014468472078934813,Over,6,FALSE
+Phil | Miami Heat,Phil,Miami Heat,Under,0.13730735470700095,Under,13,FALSE
+Phil | Oklahoma City Thunder,Phil,Oklahoma City Thunder,Over,0.11989035055830867,Over,14,FALSE
+Phil | Atlanta Hawks,Phil,Atlanta Hawks,Over,0.10863955023053075,Over,15,FALSE
+Phil | Sacramento Kings,Phil,Sacramento Kings,Under,0.10170913937898092,Under,9,FALSE
+Phil | Charlotte Hornets,Phil,Charlotte Hornets,Over,0.09646725203854295,Over,15,FALSE
+Phil | Phoenix Suns,Phil,Phoenix Suns,Over,0.09612254749920046,Over,8,FALSE
+Phil | New York Knicks,Phil,New York Knicks,Over,0.09574098314737337,Over,10,FALSE
+Phil | Memphis Grizzlies,Phil,Memphis Grizzlies,Over,0.09539735437251369,Over,11,FALSE
+Phil | Toronto Raptors,Phil,Toronto Raptors,Over,0.09270487769076195,Over,11,FALSE
+Phil | Denver Nuggets,Phil,Denver Nuggets,Under,0.08576019377846768,Under,8,FALSE
+Phil | San Antonio Spurs,Phil,San Antonio Spurs,Over,0.0792000265102002,Over,12,FALSE
+Phil | Portland Trail Blazers,Phil,Portland Trail Blazers,Under,0.0790065313162743,Under,12,FALSE
+Phil | Golden State Warriors,Phil,Golden State Warriors,Under,0.078646499773663,Under,9,FALSE
+Phil | Milwaukee Bucks,Phil,Milwaukee Bucks,Under,0.07858455517629236,Under,14,FALSE
+Phil | Indiana Pacers,Phil,Indiana Pacers,Under,0.07487140519802839,Under,6,FALSE
+Phil | Boston Celtics,Phil,Boston Celtics,Over,0.06934544745684752,Over,14,FALSE
+Phil | Los Angeles Clippers,Phil,Los Angeles Clippers,Under,0.06854848695758362,Under,13,FALSE
+Phil | Orlando Magic,Phil,Orlando Magic,Under,0.06553174373125598,Under,7,FALSE
+Phil | Chicago Bulls,Phil,Chicago Bulls,Under,0.0643411057606275,Under,10,FALSE
+Phil | New Orleans Pelicans,Phil,New Orleans Pelicans,Over,0.06427513089186031,Over,7,FALSE
+Phil | Los Angeles Lakers,Phil,Los Angeles Lakers,Under,0.0612153887896589,Under,7,FALSE
+Phil | Brooklyn Nets,Phil,Brooklyn Nets,Under,0.05518228157839389,Under,10,FALSE
+Phil | Dallas Mavericks,Phil,Dallas Mavericks,Over,0.05134091763092477,Over,9,FALSE
+Phil | Philadelphia 76ers,Phil,Philadelphia 76ers,Under,0.03334625433199086,Under,6,FALSE
+Phil | Houston Rockets,Phil,Houston Rockets,Over,0.032641043194705635,Over,13,FALSE
+Phil | Washington Wizards,Phil,Washington Wizards,Under,0.031303410434429926,Under,11,FALSE
+Phil | Minnesota Timberwolves,Phil,Minnesota Timberwolves,Under,0.029625073677960412,Under,6,FALSE
+Phil | Detroit Pistons,Phil,Detroit Pistons,Over,0.020243816659709257,Over,15,FALSE
+Phil | Cleveland Cavaliers,Phil,Cleveland Cavaliers,Over,0.015309061976740451,Over,12,FALSE
+Phil | Utah Jazz,Phil,Utah Jazz,Under,0.006564636682446057,Under,8,FALSE
+Ryan | Indiana Pacers,Ryan,Indiana Pacers,Under,0.135389447145843,Under,15,FALSE
+Ryan | Miami Heat,Ryan,Miami Heat,Under,0.12911764543977122,Under,12,FALSE
+Ryan | Portland Trail Blazers,Ryan,Portland Trail Blazers,Over,0.10979237215237622,Over,14,FALSE
+Ryan | Phoenix Suns,Ryan,Phoenix Suns,Over,0.09962511243293903,Over,9,FALSE
+Ryan | Brooklyn Nets,Ryan,Brooklyn Nets,Over,0.09236651946944438,Over,9,FALSE
+Ryan | Sacramento Kings,Ryan,Sacramento Kings,Under,0.08726731948607867,Under,6,FALSE
+Ryan | Toronto Raptors,Ryan,Toronto Raptors,Under,0.0863330446942785,Under,15,FALSE
+Ryan | San Antonio Spurs,Ryan,San Antonio Spurs,Under,0.08475824095837661,Under,11,FALSE
+Ryan | Los Angeles Lakers,Ryan,Los Angeles Lakers,Over,0.08367940703143546,Over,12,FALSE
+Ryan | Minnesota Timberwolves,Ryan,Minnesota Timberwolves,Under,0.08215270157864334,Under,12,FALSE
+Ryan | Charlotte Hornets,Ryan,Charlotte Hornets,Over,0.08123462097572343,Over,14,FALSE
+Ryan | New York Knicks,Ryan,New York Knicks,Under,0.08079184575461922,Under,14,FALSE
+Ryan | Atlanta Hawks,Ryan,Atlanta Hawks,Under,0.0752524621459183,Under,7,FALSE
+Ryan | Philadelphia 76ers,Ryan,Philadelphia 76ers,Under,0.0702359864211073,Under,13,FALSE
+Ryan | Los Angeles Clippers,Ryan,Los Angeles Clippers,Over,0.07020410623119624,Over,6,FALSE
+Ryan | New Orleans Pelicans,Ryan,New Orleans Pelicans,Over,0.06960371429885655,Over,11,FALSE
+Ryan | Milwaukee Bucks,Ryan,Milwaukee Bucks,Over,0.06637211406806752,Over,8,FALSE
+Ryan | Orlando Magic,Ryan,Orlando Magic,Over,0.06398183605362957,Over,9,FALSE
+Ryan | Chicago Bulls,Ryan,Chicago Bulls,Over,0.06249966698800369,Over,8,FALSE
+Ryan | Washington Wizards,Ryan,Washington Wizards,Under,0.061853102480172936,Under,15,FALSE
+Ryan | Oklahoma City Thunder,Ryan,Oklahoma City Thunder,Under,0.05943078394046038,Under,13,FALSE
+Ryan | Denver Nuggets,Ryan,Denver Nuggets,Over,0.05584509762084891,Over,10,FALSE
+Ryan | Boston Celtics,Ryan,Boston Celtics,Over,0.05358954321325467,Over,11,FALSE
+Ryan | Golden State Warriors,Ryan,Golden State Warriors,Over,0.040469200584470774,Over,7,FALSE
+Ryan | Memphis Grizzlies,Ryan,Memphis Grizzlies,Under,0.037557401958544456,Under,6,FALSE
+Ryan | Houston Rockets,Ryan,Houston Rockets,Over,0.03362283034774578,Over,10,FALSE
+Ryan | Dallas Mavericks,Ryan,Dallas Mavericks,Over,0.027997587390286308,Over,7,FALSE
+Ryan | Cleveland Cavaliers,Ryan,Cleveland Cavaliers,Over,0.01135929207822664,Over,10,FALSE
+Ryan | Utah Jazz,Ryan,Utah Jazz,Over,0.008902930704614648,Under,8,TRUE
+Ryan | Detroit Pistons,Ryan,Detroit Pistons,Over,0.001079445575944471,Over,13,FALSE

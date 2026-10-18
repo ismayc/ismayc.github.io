@@ -1,0 +1,31 @@
+team,conference,line,sway,overs,unders,over_wager,under_wager,biggest_gainer_if_over,biggest_gainer_if_under,Adonis,Andy,Chester,Jake,Mary,Mike J,Phil,Ryan
+San Antonio Spurs,West,60.5,0.34738280392975696,4,4,53,47,Andy,Chester,-9,15,-15,-12,13,13,12,-11
+Oklahoma City Thunder,West,62.5,0.3462781377110076,3,5,42,72,Phil,Adonis,-15,-15,-15,-14,15,13,14,-13
+New York Knicks,East,52.5,0.31518872137444476,3,5,38,59,Adonis,Ryan,14,-14,-11,-9,14,-11,10,-14
+Charlotte Hornets,East,38.5,0.30962658043206803,4,4,53,33,Phil,Adonis,-10,-7,-7,11,13,-9,15,14
+Boston Celtics,East,51.5,0.30559773642276145,5,3,63,33,Mike J,Chester,-12,11,-14,12,-7,15,14,11
+Portland Trail Blazers,West,41.5,0.3028167479987049,3,5,35,45,Adonis,Phil,13,-7,8,-8,-9,-9,-12,14
+Milwaukee Bucks,East,25.5,0.29484125816589163,3,5,38,53,Andy,Phil,-6,15,-12,15,-8,-13,-14,8
+Chicago Bulls,East,29.5,0.2946752572369623,4,4,37,44,Mary,Jake,-10,8,7,-14,14,-10,-10,8
+Denver Nuggets,West,48.5,0.2914074760955783,5,3,52,31,Jake,Andy,-11,-12,12,13,11,6,-8,10
+Philadelphia 76ers,East,50.5,0.2881498896822979,3,5,33,53,Adonis,Andy,11,-14,-14,7,15,-6,-6,-13
+Golden State Warriors,West,37.5,0.27999559467299245,5,3,49,36,Adonis,Chester,13,14,-15,7,8,-12,-9,7
+Indiana Pacers,East,43.5,0.2792024950086923,5,3,57,27,Mike J,Ryan,-6,12,7,10,13,15,-6,-15
+Los Angeles Clippers,West,28.5,0.27903538408818696,3,5,30,58,Chester,Jake,-8,-10,13,-15,11,-12,-13,6
+Los Angeles Lakers,West,45.5,0.2752456402383425,4,4,40,37,Ryan,Adonis,-15,10,6,-9,-6,12,-7,12
+Toronto Raptors,East,46.5,0.2696797015826802,3,5,30,50,Adonis,Ryan,9,-9,-11,-7,-8,10,11,-15
+Atlanta Hawks,East,43.5,0.26960322189623653,4,4,40,28,Phil,Mike J,-6,-8,12,6,7,-7,15,-7
+New Orleans Pelicans,West,28.5,0.26681977410717955,4,4,37,37,Andy,Mike J,-7,9,-9,10,-10,-11,7,11
+Miami Heat,East,46.5,0.2664250001467783,6,2,73,25,Adonis,Phil,14,13,9,14,9,14,-13,-12
+Brooklyn Nets,East,24.5,0.26318886938861713,3,5,28,52,Mary,Chester,-8,7,-13,-11,12,-10,-10,9
+Memphis Grizzlies,West,29.5,0.24447459288210707,3,5,30,46,Phil,Adonis,-13,-6,8,-11,-10,11,11,-6
+Orlando Magic,East,43.5,0.23568910922491842,4,4,35,30,Mike J,Andy,-8,-8,6,6,-7,14,-7,9
+Houston Rockets,West,48.5,0.2328880107273268,6,2,75,23,Adonis,Jake,14,-10,9,-13,14,15,13,10
+Minnesota Timberwolves,West,48.5,0.2306342243539841,3,5,27,39,Andy,Ryan,-9,13,6,-6,-6,8,-6,-12
+Dallas Mavericks,West,33.5,0.21754204002180805,5,3,43,24,Chester,Adonis,-12,-6,11,9,-6,7,9,7
+Phoenix Suns,West,39.5,0.1959711990393804,2,6,17,58,Ryan,Mary,-7,-13,-10,-8,-12,-8,8,9
+Sacramento Kings,West,20.5,0.18897645886505393,6,2,59,15,Jake,Phil,7,11,10,15,10,6,-9,-6
+Washington Wizards,East,34.5,0.18210488077676185,1,7,15,67,Adonis,Ryan,15,-6,-8,-10,-9,-8,-11,-15
+Cleveland Cavaliers,East,48.5,0.12266091273098977,7,1,79,9,Jake,Andy,10,-9,10,12,11,14,12,10
+Utah Jazz,West,37.5,0.10963002056540726,1,7,7,76,Mike J,Mary,-11,-11,-13,-13,-12,7,-8,-8
+Detroit Pistons,East,48.5,0.0567036601425186,8,0,98,0,Phil,Mike J,12,12,14,8,15,9,15,13

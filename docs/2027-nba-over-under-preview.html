@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-27 Over/Under Preview</title>
+<meta name="description" content="Preseason preview of the 2026-27 NBA over/under pool: win chances, the teams with the most sway, a rooting guide for every entry, and how similar the picks are.">
+<link rel="icon" href="nba-over-under-assets/favicon.svg" type="image/svg+xml"><link rel="icon" href="nba-over-under-assets/favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="nba-over-under-assets/apple-touch-icon.png"><meta property="og:type" content="website"><meta property="og:title" content="NBA Over/Under 2026-27 preseason preview"><meta property="og:description" content="Preseason preview of the 2026-27 NBA over/under pool: win chances, the teams with the most sway, a rooting guide for every entry, and how similar the picks are."><meta property="og:url" content="https://ismayc.github.io/2027-nba-over-under-preview.html"><meta property="og:image" content="https://ismayc.github.io/nba-over-under-assets/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Source+Sans+3:wght@400;600&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<style>
+/* NBA over/under site theme: a scorer's book.
+   Pale ruled scorebook paper, navy ink, blue pencil for Over, red pencil for
+   Under. One deliberate light theme: the season pages embed plotly charts
+   with white backgrounds baked in, so every page stays on paper.
+   Source of truth for the 2027 page and the restyled 2021-2026 pages;
+   restyle_season_pages.py inlines it. */
+:root {
+  --paper: #edf1e8;
+  --sheet: #fafbf7;
+  --rule: #cdd6c6;
+  --rule-faint: #dfe5d9;
+  --ink: #1c2a44;
+  --ink-soft: #56627a;
+  --over: #2457a6;
+  --under: #b8322f;
+  --alt: #6b5a9e;
+  --warn: #8a5a00;
+  --font-display: "Big Shoulders Display", "Arial Narrow", "Helvetica Neue", sans-serif;
+  --font-body: "Source Sans 3", "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+  color-scheme: light;
+}
+
+/* Season strip: the history masthead on every page */
+.ou-masthead {
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--rule-faint) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rule-faint) 1px, transparent 1px);
+  background-size: 24px 24px;
+  border-bottom: 2px solid var(--ink);
+  padding: 18px max(16px, env(safe-area-inset-right, 0px)) 0 max(16px, env(safe-area-inset-left, 0px));
+  font-family: var(--font-body);
+  color: var(--ink);
+}
+.ou-masthead-inner { max-width: 72rem; margin: 0 auto; }
+.ou-kicker { margin: 0 0 10px; font-size: 0.9rem; color: var(--ink-soft); }
+.ou-kicker a { color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
+.ou-seasons {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(9rem, 1fr);
+  overflow-x: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-left: 1px solid var(--rule);
+}
+.ou-seasons li { border-right: 1px solid var(--rule); }
+.ou-seasons a {
+  display: grid;
+  gap: 2px;
+  padding: 8px 12px 12px;
+  color: var(--ink);
+  text-decoration: none;
+  border-top: 4px solid transparent;
+}
+.ou-seasons a:hover { background: rgba(28, 42, 68, 0.05); text-decoration: none; }
+.ou-seasons a:focus-visible { outline: 2px solid var(--over); outline-offset: -2px; }
+.ou-seasons .yr {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.6rem;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.ou-seasons .who { font-size: 0.82rem; color: var(--ink-soft); white-space: nowrap; }
+.ou-seasons .who b { color: var(--ink); font-weight: 600; }
+.ou-seasons [aria-current="page"] { background: var(--ink); color: var(--sheet); border-top-color: var(--under); }
+.ou-seasons [aria-current="page"] .who,
+.ou-seasons [aria-current="page"] .who b { color: var(--sheet); }
+
+/* Shared page base */
+.ou-page { background: var(--paper); color: var(--ink); font-family: var(--font-body); }
+.ou-page h1, .ou-page h2, .ou-page h3 { color: var(--ink); text-wrap: balance; }
+.ou-page a { color: var(--over); }
+
+  /* Page tokens map onto the shared scorer's-book theme (ou-theme.css). */
+  :root {
+    --bg: var(--paper); --panel: var(--sheet); --fg: var(--ink); --muted: var(--ink-soft);
+    --line: var(--rule); --grid: var(--rule-faint); --ref: var(--ink-soft); --accent: var(--ink);
+  }
+  body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 16px; line-height: 1.5; }
+  .wrap { max-width: 72rem; margin-inline: auto; padding: 2rem max(16px, env(safe-area-inset-right, 0px)) 4rem max(16px, env(safe-area-inset-left, 0px)); display: grid; gap: 2.75rem; }
+  h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(2.6rem, 7vw, 4.5rem); line-height: 0.92; margin: 0; text-wrap: balance; }
+  h1 .sub { display: block; font-size: 0.42em; font-weight: 700; color: var(--ink-soft); margin-top: 0.35em; line-height: 1.1; }
+  h2 { font-family: var(--font-display); font-weight: 800; font-size: 2rem; line-height: 1.05; margin: 0; padding-top: 10px; border-top: 2px solid var(--ink); text-wrap: balance; }
+  h3 { font-size: 1.05rem; font-weight: 600; margin: 0; }
+  .lede { margin: 1rem 0 0; max-width: 62ch; font-size: 1.15rem; line-height: 1.5; }
+  .lede b { font-weight: 600; }
+  .note { margin: 0; color: var(--muted); font-size: 0.9rem; max-width: 75ch; }
+  .pending { margin: 0.9rem 0 0; color: var(--warn); font-size: 0.92rem; padding-left: 10px; border-left: 3px solid var(--warn); }
+  .stamp { margin: 0.4rem 0 0; color: var(--muted); font-size: 0.85rem; }
+  section { display: grid; gap: 1rem; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 2px; padding: 1.25rem; display: grid; gap: 0.7rem; min-width: 0; align-content: start; }
+  .grid2 { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); }
+  .chart { position: relative; }
+  .tip { position: absolute; pointer-events: none; background: #fff; border: 1px solid var(--ink); border-radius: 2px; padding: 0.35rem 0.6rem; font-size: 0.85rem; white-space: nowrap; z-index: 3; }
+  .tip .k { color: var(--muted); }
+  .scroll { overflow: auto; max-height: 34rem; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.88rem; font-variant-numeric: tabular-nums; }
+  th { text-align: left; font-weight: 600; color: var(--muted); padding: 0.35rem 0.55rem; position: sticky; top: 0; background: var(--panel); border-bottom: 2px solid var(--ink); white-space: nowrap; z-index: 1; }
+  td { padding: 0.35rem 0.55rem; border-bottom: 1px solid var(--rule-faint); white-space: nowrap; }
+  .num { text-align: right; }
+  td.pk { text-align: center; font-weight: 600; min-width: 2.75rem; }
+  .bar { display: inline-block; height: 0.5rem; border-radius: 4px; vertical-align: middle; margin-left: 0.4rem; }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .chips { gap: 0; border-bottom: 1px solid var(--line); }
+  .chips button { font: inherit; font-weight: 600; font-size: 0.95rem; padding: 0.45rem 0.9rem 0.5rem; border: 0; border-bottom: 3px solid transparent; background: transparent; color: var(--muted); cursor: pointer; }
+  .chips button:hover { color: var(--fg); background: rgba(28, 42, 68, 0.05); }
+  .chips button[aria-pressed="true"] { color: var(--fg); border-bottom-color: var(--ink); }
+  .chips button:focus-visible { outline: 2px solid var(--over); outline-offset: 2px; }
+  .flag { color: var(--warn); font-weight: 600; }
+  .legend { display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.8rem; color: var(--muted); }
+  .legend i { display: inline-block; width: 0.7rem; height: 0.7rem; border-radius: 2px; margin-right: 0.3rem; vertical-align: -1px; }
+  code { font-size: 0.85em; }
+  .wide { grid-column: 1 / -1; }
+  .scroll.full { max-height: none; }
+  .grid2.stack { grid-template-columns: minmax(0, 1fr); }
+  #win-chart { max-width: 52rem; }
+  .grid3 { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr)); }
+  .drow { display: grid; grid-template-columns: minmax(0, 8.5rem) 3rem 1fr; gap: 0.5rem; align-items: center; font-size: 0.8rem; font-variant-numeric: tabular-nums; }
+  .drow .tm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .drow .pk2 { text-align: center; border-radius: 4px; font-weight: 600; padding: 0.05rem 0; }
+  .dtrack { position: relative; height: 0.8rem; }
+  .dtrack::before { content: ""; position: absolute; left: 50%; top: -2px; bottom: -2px; border-left: 1px solid var(--ref); }
+  .dtrack span { position: absolute; top: 0; height: 100%; border-radius: 3px; }
+</style>
+</head>
+<body class="ou-page ou-preview">
+<header class="ou-masthead"><div class="ou-masthead-inner"><p class="ou-kicker">NBA over/under pool. <a href="index.html">Chester Ismay</a> has tracked it here since 2020-21 and run it since 2025-26.</p><nav aria-label="Seasons"><ol class="ou-seasons"><li><a href="2021-nba-over-under.html"><span class="yr">2020-21</span><span class="who">Season: <b>Ryan</b> +125</span><span class="who">Playoffs: <b>Jake</b></span></a></li><li><a href="2022-nba-over-under.html"><span class="yr">2021-22</span><span class="who">Season: <b>Chester</b> +125</span><span class="who">Playoffs: <b>Chester</b></span></a></li><li><a href="2023-nba-over-under.html"><span class="yr">2022-23</span><span class="who">Season: <b>Jake</b> +61</span><span class="who">Playoffs: <b>Phil</b></span></a></li><li><a href="2024-nba-over-under.html"><span class="yr">2023-24</span><span class="who">Season: <b>Chester</b> +83</span><span class="who">Playoffs: <b>Chester</b></span></a></li><li><a href="2025-nba-over-under.html"><span class="yr">2024-25</span><span class="who">Season: <b>Chester</b> +35</span><span class="who">Playoffs: <b>Mike J</b></span></a></li><li><a href="2026-nba-over-under.html"><span class="yr">2025-26</span><span class="who">Season: <b>Phil</b> -23</span><span class="who">Playoffs: <b>Phil</b></span></a></li><li><a href="2027-nba-over-under.html" aria-current="page"><span class="yr">2026-27</span><span class="who">Preseason preview</span></a></li></ol></nav></div></header>
+<div class="wrap">
+  <header>
+    <h1>Over/Under 2026-27 <span class="sub">Preseason preview, before opening night on October 20</span></h1>
+    <p class="lede" id="takeaway"></p>
+    <p class="pending" id="pending"></p>
+    <p class="stamp" id="stamp"></p>
+  </header>
+
+  <section id="standings">
+    <h2>Who is most likely to win</h2>
+    <div class="grid2 stack">
+      <div class="card">
+        <h3>Chance to finish first</h3>
+        <p class="note">Bar: the base case, each team centered on its Vegas line. Dots: what happens if the whole league runs two wins under or two wins over its lines. Dashed line: an equal share.</p>
+        <div class="legend"><span><i style="background:var(--ink);opacity:.3"></i>Base case</span><span><i style="background:var(--under)"></i>League runs 2 under</span><span><i style="background:var(--over)"></i>League runs 2 over</span></div>
+        <div class="chart" id="win-chart"></div>
+      </div>
+      <div class="card">
+        <h3>Entry profiles</h3>
+        <p class="note">Overs is the pick count; the wager columns add up the points bet on each side (every entry bets 315). Points range is the middle 80% of simulated final points (10th to 90th percentile).</p>
+        <div class="scroll">
+          <table id="player-table">
+            <thead><tr><th>Player</th><th class="num">Win</th><th class="num">Last</th><th class="num">Avg finish</th><th class="num">Overs</th><th class="num">Over pts</th><th class="num">Under pts</th><th class="num">Points range</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="swing">
+    <h2>Teams with the biggest sway</h2>
+    <div class="card">
+      <p class="note">Sway is how far the chances of who wins move between that team going Over and going Under (0 means nobody's chances change). Teams where everyone picked the same side barely matter, even with big wagers. Cells show each pick and its wager.</p>
+      <div class="legend"><span><i style="background:var(--over)"></i>Over (darker = bigger wager)</span><span><i style="background:var(--under)"></i>Under</span></div>
+      <div class="scroll full">
+        <table id="team-table"><thead><tr id="team-head"></tr></thead><tbody></tbody></table>
+      </div>
+    </div>
+  </section>
+
+  <section id="rooting">
+    <h2>Rooting guide</h2>
+    <div class="card">
+      <p class="note">For each team, the side that raises this player's chance of winning the pool, and by how many percentage points. Usually that is the player's own pick, but not always: when rivals bet more on the same side, the team hitting helps them more.</p>
+      <div class="chips" id="player-chips" role="group" aria-label="Choose a player"></div>
+      <div class="scroll">
+        <table id="root-table">
+          <thead><tr><th>Team</th><th>Root for</th><th>Win chance swing</th><th>Own pick</th><th class="num">Wager</th><th>Note</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Rooting against your own pick</h3>
+      <p class="note">Every case where a player gains more from their own pick missing than hitting.</p>
+      <div class="scroll">
+        <table id="against-table">
+          <thead><tr><th>Player</th><th>Team</th><th>Picked</th><th class="num">Wager</th><th>Root for</th><th>Swing</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="similarity">
+    <h2>How similar the picks are</h2>
+    <div class="grid2">
+      <div class="card">
+        <h3>Pick similarity</h3>
+        <p class="note">Correlation of signed wagers (Over positive, Under negative), with the count of teams picked the same way. Similar entries rise and fall together, so they mostly compete with each other for the same outcomes.</p>
+        <div class="chart" id="sim-chart"></div>
+      </div>
+      <div class="card">
+        <h3>Closeness map</h3>
+        <p class="note">Players placed so that distance reflects how differently they bet (cosine similarity of signed wagers). Close together means similar picks and wagers; the axes themselves have no units.</p>
+        <div class="chart" id="map-chart"></div>
+      </div>
+      <div class="card wide">
+        <h3>Most and least alike</h3>
+        <p class="note">Contested points: wager points on the teams where the two disagree. Each of those results moves one up and the other down.</p>
+        <div class="scroll">
+          <table id="pair-table">
+            <thead><tr><th>Pair</th><th class="num">Same side</th><th class="num">Correlation</th><th class="num">Contested pts</th><th class="num">First beats second</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="group-map">
+    <h2>Picks side by side</h2>
+    <div>
+      <div class="card">
+        <h3>Participant heatmap</h3>
+        <p class="note">Every pick, with teams sorted from the group's strongest Over lean to its strongest Under lean (consensus is the average signed wager). Players are ordered so similar entries sit next to each other.</p>
+        <div class="legend"><span><i style="background:var(--over)"></i>Over (darker = bigger wager)</span><span><i style="background:var(--under)"></i>Under</span></div>
+        <div class="scroll full">
+          <table id="heat-table"><thead><tr id="heat-head"></tr></thead><tbody></tbody></table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="different">
+    <h2>Where each player broke from the group</h2>
+    <p class="note">Each player's 10 teams furthest from everyone else: their signed wager minus the average of the other entries' signed wagers. A bar to the right means more Over than the group; to the left, more Under. The label shows the player's own pick.</p>
+    <div class="grid3" id="diff-grid"></div>
+  </section>
+
+  <section id="method">
+    <h2>How this was worked out</h2>
+    <p class="note" id="method-text"></p>
+  </section>
+</div>
+
+<script>
+const DATA = {"meta":{"generated":"October 18, 2026 at 3:21 PM MST","n_sims":1000000,"noise_sd":8.810699,"line_mae":7.03,"line_sum":1238,"lines_as_of":"October 13","missing":[],"deadline":"11:59 PM Central, Sunday, October 18"},"players":[{"player":"Adonis","entry_name":"Adonis Fuller","win_prob":0.146726,"under_drift_win_prob":0.19478,"over_drift_win_prob":0.102959,"mean_points":1.110274,"p10":-77,"p50":1,"p90":79,"mean_rank":4.436316,"last_prob":0.134408,"overs":11,"unders":19,"over_wager":132,"under_wager":183,"submitted_at":"2026-10-16 01:21:31.789"},{"player":"Phil","entry_name":"Phil Welsh","win_prob":0.138468,"under_drift_win_prob":0.139262,"over_drift_win_prob":0.132412,"mean_points":-0.371682,"p10":-77,"p50":-1,"p90":77,"mean_rank":4.495965,"last_prob":0.136982,"overs":14,"unders":16,"over_wager":166,"under_wager":149,"submitted_at":"2026-10-18 22:19:26.617"},{"player":"Andy","entry_name":"Andy Sweetman","win_prob":0.135584,"under_drift_win_prob":0.151495,"over_drift_win_prob":0.115678,"mean_points":0.341396,"p10":-77,"p50":1,"p90":77,"mean_rank":4.464182,"last_prob":0.129869,"overs":13,"unders":17,"over_wager":150,"under_wager":165,"submitted_at":"2026-10-16 19:34:37.732"},{"player":"Ryan","entry_name":"Ryan Sandberg","win_prob":0.133566,"under_drift_win_prob":0.121411,"over_drift_win_prob":0.141554,"mean_points":-0.536794,"p10":-79,"p50":-1,"p90":77,"mean_rank":4.503142,"last_prob":0.135701,"overs":17,"unders":13,"over_wager":168,"under_wager":147,"submitted_at":"2026-10-16 15:13:47.222"},{"player":"Chester","entry_name":"Chester Ismay","win_prob":0.115874,"under_drift_win_prob":0.135356,"over_drift_win_prob":0.093548,"mean_points":0.430906,"p10":-77,"p50":1,"p90":77,"mean_rank":4.468208,"last_prob":0.110627,"overs":16,"unders":14,"over_wager":148,"under_wager":167,"submitted_at":"2026-10-13 16:12:19.028"},{"player":"Mike J","entry_name":"Mike Jensen","win_prob":0.114511,"under_drift_win_prob":0.082786,"over_drift_win_prob":0.14736,"mean_points":-1.50264,"p10":-79,"p50":-1,"p90":75,"mean_rank":4.538661,"last_prob":0.121743,"overs":17,"unders":13,"over_wager":189,"under_wager":126,"submitted_at":"2026-10-18 17:15:42.904"},{"player":"Mary","entry_name":"Mary Ubuntu","win_prob":0.109984,"under_drift_win_prob":0.065239,"over_drift_win_prob":0.169919,"mean_points":-2.381968,"p10":-77,"p50":-3,"p90":73,"mean_rank":4.573861,"last_prob":0.124022,"overs":17,"unders":13,"over_wager":205,"under_wager":110,"submitted_at":"2026-10-17 13:02:51.395"},{"player":"Jake","entry_name":"Jake Berce","win_prob":0.105286,"under_drift_win_prob":0.10967,"over_drift_win_prob":0.09657,"mean_points":0.11868,"p10":-77,"p50":1,"p90":77,"mean_rank":4.475389,"last_prob":0.102785,"overs":15,"unders":15,"over_wager":155,"under_wager":160,"submitted_at":"2026-10-14 21:08:57.049"}],"teams":[{"team":"San Antonio Spurs","conference":"West","line":60.5,"sway":0.347383,"overs":4,"unders":4,"over_wager":53,"under_wager":47,"biggest_gainer_if_over":"Andy","biggest_gainer_if_under":"Chester","Adonis":-9,"Andy":15,"Chester":-15,"Jake":-12,"Mary":13,"Mike J":13,"Phil":12,"Ryan":-11,"consensus":0.75},{"team":"Oklahoma City Thunder","conference":"West","line":62.5,"sway":0.346278,"overs":3,"unders":5,"over_wager":42,"under_wager":72,"biggest_gainer_if_over":"Phil","biggest_gainer_if_under":"Adonis","Adonis":-15,"Andy":-15,"Chester":-15,"Jake":-14,"Mary":15,"Mike J":13,"Phil":14,"Ryan":-13,"consensus":-3.75},{"team":"New York Knicks","conference":"East","line":52.5,"sway":0.315189,"overs":3,"unders":5,"over_wager":38,"under_wager":59,"biggest_gainer_if_over":"Adonis","biggest_gainer_if_under":"Ryan","Adonis":14,"Andy":-14,"Chester":-11,"Jake":-9,"Mary":14,"Mike J":-11,"Phil":10,"Ryan":-14,"consensus":-2.625},{"team":"Charlotte Hornets","conference":"East","line":38.5,"sway":0.309627,"overs":4,"unders":4,"over_wager":53,"under_wager":33,"biggest_gainer_if_over":"Phil","biggest_gainer_if_under":"Adonis","Adonis":-10,"Andy":-7,"Chester":-7,"Jake":11,"Mary":13,"Mike J":-9,"Phil":15,"Ryan":14,"consensus":2.5},{"team":"Boston Celtics","conference":"East","line":51.5,"sway":0.305598,"overs":5,"unders":3,"over_wager":63,"under_wager":33,"biggest_gainer_if_over":"Mike J","biggest_gainer_if_under":"Chester","Adonis":-12,"Andy":11,"Chester":-14,"Jake":12,"Mary":-7,"Mike J":15,"Phil":14,"Ryan":11,"consensus":3.75},{"team":"Portland Trail Blazers","conference":"West","line":41.5,"sway":0.302817,"overs":3,"unders":5,"over_wager":35,"under_wager":45,"biggest_gainer_if_over":"Adonis","biggest_gainer_if_under":"Phil","Adonis":13,"Andy":-7,"Chester":8,"Jake":-8,"Mary":-9,"Mike J":-9,"Phil":-12,"Ryan":14,"consensus":-1.25},{"team":"Milwaukee Bucks","conference":"East","line":25.5,"sway":0.294841,"overs":3,"unders":5,"over_wager":38,"under_wager":53,"biggest_gainer_if_over":"Andy","biggest_gainer_if_under":"Phil","Adonis":-6,"Andy":15,"Chester":-12,"Jake":15,"Mary":-8,"Mike J":-13,"Phil":-14,"Ryan":8,"consensus":-1.875},{"team":"Chicago Bulls","conference":"East","line":29.5,"sway":0.294675,"overs":4,"unders":4,"over_wager":37,"under_wager":44,"biggest_gainer_if_over":"Mary","biggest_gainer_if_under":"Jake","Adonis":-10,"Andy":8,"Chester":7,"Jake":-14,"Mary":14,"Mike J":-10,"Phil":-10,"Ryan":8,"consensus":-0.875},{"team":"Denver Nuggets","conference":"West","line":48.5,"sway":0.291407,"overs":5,"unders":3,"over_wager":52,"under_wager":31,"biggest_gainer_if_over":"Jake","biggest_gainer_if_under":"Andy","Adonis":-11,"Andy":-12,"Chester":12,"Jake":13,"Mary":11,"Mike J":6,"Phil":-8,"Ryan":10,"consensus":2.625},{"team":"Philadelphia 76ers","conference":"East","line":50.5,"sway":0.28815,"overs":3,"unders":5,"over_wager":33,"under_wager":53,"biggest_gainer_if_over":"Adonis","biggest_gainer_if_under":"Andy","Adonis":11,"Andy":-14,"Chester":-14,"Jake":7,"Mary":15,"Mike J":-6,"Phil":-6,"Ryan":-13,"consensus":-2.5},{"team":"Golden State Warriors","conference":"West","line":37.5,"sway":0.279996,"overs":5,"unders":3,"over_wager":49,"under_wager":36,"biggest_gainer_if_over":"Adonis","biggest_gainer_if_under":"Chester","Adonis":13,"Andy":14,"Chester":-15,"Jake":7,"Mary":8,"Mike J":-12,"Phil":-9,"Ryan":7,"consensus":1.625},{"team":"Indiana Pacers","conference":"East","line":43.5,"sway":0.279202,"overs":5,"unders":3,"over_wager":57,"under_wager":27,"biggest_gainer_if_over":"Mike J","biggest_gainer_if_under":"Ryan","Adonis":-6,"Andy":12,"Chester":7,"Jake":10,"Mary":13,"Mike J":15,"Phil":-6,"Ryan":-15,"consensus":3.75},{"team":"Los Angeles Clippers","conference":"West","line":28.5,"sway":0.279035,"overs":3,"unders":5,"over_wager":30,"under_wager":58,"biggest_gainer_if_over":"Chester","biggest_gainer_if_under":"Jake","Adonis":-8,"Andy":-10,"Chester":13,"Jake":-15,"Mary":11,"Mike J":-12,"Phil":-13,"Ryan":6,"consensus":-3.5},{"team":"Los Angeles Lakers","conference":"West","line":45.5,"sway":0.275246,"overs":4,"unders":4,"over_wager":40,"under_wager":37,"biggest_gainer_if_over":"Ryan","biggest_gainer_if_under":"Adonis","Adonis":-15,"Andy":10,"Chester":6,"Jake":-9,"Mary":-6,"Mike J":12,"Phil":-7,"Ryan":12,"consensus":0.375},{"team":"Toronto Raptors","conference":"East","line":46.5,"sway":0.26968,"overs":3,"unders":5,"over_wager":30,"under_wager":50,"biggest_gainer_if_over":"Adonis","biggest_gainer_if_under":"Ryan","Adonis":9,"Andy":-9,"Chester":-11,"Jake":-7,"Mary":-8,"Mike J":10,"Phil":11,"Ryan":-15,"consensus":-2.5},{"team":"Atlanta Hawks","conference":"East","line":43.5,"sway":0.269603,"overs":4,"unders":4,"over_wager":40,"under_wager":28,"biggest_gainer_if_over":"Phil","biggest_gainer_if_under":"Mike J","Adonis":-6,"Andy":-8,"Chester":12,"Jake":6,"Mary":7,"Mike J":-7,"Phil":15,"Ryan":-7,"consensus":1.5},{"team":"New Orleans Pelicans","conference":"West","line":28.5,"sway":0.26682,"overs":4,"unders":4,"over_wager":37,"under_wager":37,"biggest_gainer_if_over":"Andy","biggest_gainer_if_under":"Mike J","Adonis":-7,"Andy":9,"Chester":-9,"Jake":10,"Mary":-10,"Mike J":-11,"Phil":7,"Ryan":11,"consensus":0},{"team":"Miami Heat","conference":"East","line":46.5,"sway":0.266425,"overs":6,"unders":2,"over_wager":73,"under_wager":25,"biggest_gainer_if_over":"Adonis","biggest_gainer_if_under":"Phil","Adonis":14,"Andy":13,"Chester":9,"Jake":14,"Mary":9,"Mike J":14,"Phil":-13,"Ryan":-12,"consensus":6},{"team":"Brooklyn Nets","conference":"East","line":24.5,"sway":0.263189,"overs":3,"unders":5,"over_wager":28,"under_wager":52,"biggest_gainer_if_over":"Mary","biggest_gainer_if_under":"Chester","Adonis":-8,"Andy":7,"Chester":-13,"Jake":-11,"Mary":12,"Mike J":-10,"Phil":-10,"Ryan":9,"consensus":-3},{"team":"Memphis Grizzlies","conference":"West","line":29.5,"sway":0.244475,"overs":3,"unders":5,"over_wager":30,"under_wager":46,"biggest_gainer_if_over":"Phil","biggest_gainer_if_under":"Adonis","Adonis":-13,"Andy":-6,"Chester":8,"Jake":-11,"Mary":-10,"Mike J":11,"Phil":11,"Ryan":-6,"consensus":-2},{"team":"Orlando Magic","conference":"East","line":43.5,"sway":0.235689,"overs":4,"unders":4,"over_wager":35,"under_wager":30,"biggest_gainer_if_over":"Mike J","biggest_gainer_if_under":"Andy","Adonis":-8,"Andy":-8,"Chester":6,"Jake":6,"Mary":-7,"Mike J":14,"Phil":-7,"Ryan":9,"consensus":0.625},{"team":"Houston Rockets","conference":"West","line":48.5,"sway":0.232888,"overs":6,"unders":2,"over_wager":75,"under_wager":23,"biggest_gainer_if_over":"Adonis","biggest_gainer_if_under":"Jake","Adonis":14,"Andy":-10,"Chester":9,"Jake":-13,"Mary":14,"Mike J":15,"Phil":13,"Ryan":10,"consensus":6.5},{"team":"Minnesota Timberwolves","conference":"West","line":48.5,"sway":0.230634,"overs":3,"unders":5,"over_wager":27,"under_wager":39,"biggest_gainer_if_over":"Andy","biggest_gainer_if_under":"Ryan","Adonis":-9,"Andy":13,"Chester":6,"Jake":-6,"Mary":-6,"Mike J":8,"Phil":-6,"Ryan":-12,"consensus":-1.5},{"team":"Dallas Mavericks","conference":"West","line":33.5,"sway":0.217542,"overs":5,"unders":3,"over_wager":43,"under_wager":24,"biggest_gainer_if_over":"Chester","biggest_gainer_if_under":"Adonis","Adonis":-12,"Andy":-6,"Chester":11,"Jake":9,"Mary":-6,"Mike J":7,"Phil":9,"Ryan":7,"consensus":2.375},{"team":"Phoenix Suns","conference":"West","line":39.5,"sway":0.195971,"overs":2,"unders":6,"over_wager":17,"under_wager":58,"biggest_gainer_if_over":"Ryan","biggest_gainer_if_under":"Mary","Adonis":-7,"Andy":-13,"Chester":-10,"Jake":-8,"Mary":-12,"Mike J":-8,"Phil":8,"Ryan":9,"consensus":-5.125},{"team":"Sacramento Kings","conference":"West","line":20.5,"sway":0.188976,"overs":6,"unders":2,"over_wager":59,"under_wager":15,"biggest_gainer_if_over":"Jake","biggest_gainer_if_under":"Phil","Adonis":7,"Andy":11,"Chester":10,"Jake":15,"Mary":10,"Mike J":6,"Phil":-9,"Ryan":-6,"consensus":5.5},{"team":"Washington Wizards","conference":"East","line":34.5,"sway":0.182105,"overs":1,"unders":7,"over_wager":15,"under_wager":67,"biggest_gainer_if_over":"Adonis","biggest_gainer_if_under":"Ryan","Adonis":15,"Andy":-6,"Chester":-8,"Jake":-10,"Mary":-9,"Mike J":-8,"Phil":-11,"Ryan":-15,"consensus":-6.5},{"team":"Cleveland Cavaliers","conference":"East","line":48.5,"sway":0.122661,"overs":7,"unders":1,"over_wager":79,"under_wager":9,"biggest_gainer_if_over":"Jake","biggest_gainer_if_under":"Andy","Adonis":10,"Andy":-9,"Chester":10,"Jake":12,"Mary":11,"Mike J":14,"Phil":12,"Ryan":10,"consensus":8.75},{"team":"Utah Jazz","conference":"West","line":37.5,"sway":0.10963,"overs":1,"unders":7,"over_wager":7,"under_wager":76,"biggest_gainer_if_over":"Mike J","biggest_gainer_if_under":"Mary","Adonis":-11,"Andy":-11,"Chester":-13,"Jake":-13,"Mary":-12,"Mike J":7,"Phil":-8,"Ryan":-8,"consensus":-8.625},{"team":"Detroit Pistons","conference":"East","line":48.5,"sway":0.056704,"overs":8,"unders":0,"over_wager":98,"under_wager":0,"biggest_gainer_if_over":"Phil","biggest_gainer_if_under":"Mike J","Adonis":12,"Andy":12,"Chester":14,"Jake":8,"Mary":15,"Mike J":9,"Phil":15,"Ryan":13,"consensus":12.25}],"rooting":[{"key":"Adonis | Washington Wizards","player":"Adonis","team":"Washington Wizards","root_for":"Over","win_chance_swing":0.172836,"pick":"Over","wager":15,"against_own_pick":false},{"key":"Adonis | New York Knicks","player":"Adonis","team":"New York Knicks","root_for":"Over","win_chance_swing":0.131789,"pick":"Over","wager":14,"against_own_pick":false},{"key":"Adonis | Portland Trail Blazers","player":"Adonis","team":"Portland Trail Blazers","root_for":"Over","win_chance_swing":0.125893,"pick":"Over","wager":13,"against_own_pick":false},{"key":"Adonis | Philadelphia 76ers","player":"Adonis","team":"Philadelphia 76ers","root_for":"Over","win_chance_swing":0.109577,"pick":"Over","wager":11,"against_own_pick":false},{"key":"Adonis | Boston Celtics","player":"Adonis","team":"Boston Celtics","root_for":"Under","win_chance_swing":0.103548,"pick":"Under","wager":12,"against_own_pick":false},{"key":"Adonis | Toronto Raptors","player":"Adonis","team":"Toronto Raptors","root_for":"Over","win_chance_swing":0.103242,"pick":"Over","wager":9,"against_own_pick":false},{"key":"Adonis | Los Angeles Lakers","player":"Adonis","team":"Los Angeles Lakers","root_for":"Under","win_chance_swing":0.097662,"pick":"Under","wager":15,"against_own_pick":false},{"key":"Adonis | Denver Nuggets","player":"Adonis","team":"Denver Nuggets","root_for":"Under","win_chance_swing":0.09449,"pick":"Under","wager":11,"against_own_pick":false},{"key":"Adonis | Dallas Mavericks","player":"Adonis","team":"Dallas Mavericks","root_for":"Under","win_chance_swing":0.094193,"pick":"Under","wager":12,"against_own_pick":false},{"key":"Adonis | Golden State Warriors","player":"Adonis","team":"Golden State Warriors","root_for":"Over","win_chance_swing":0.093198,"pick":"Over","wager":13,"against_own_pick":false},{"key":"Adonis | Charlotte Hornets","player":"Adonis","team":"Charlotte Hornets","root_for":"Under","win_chance_swing":0.090833,"pick":"Under","wager":10,"against_own_pick":false},{"key":"Adonis | Oklahoma City Thunder","player":"Adonis","team":"Oklahoma City Thunder","root_for":"Under","win_chance_swing":0.082476,"pick":"Under","wager":15,"against_own_pick":false},{"key":"Adonis | San Antonio Spurs","player":"Adonis","team":"San Antonio Spurs","root_for":"Under","win_chance_swing":0.071972,"pick":"Under","wager":9,"against_own_pick":false},{"key":"Adonis | Miami Heat","player":"Adonis","team":"Miami Heat","root_for":"Over","win_chance_swing":0.069938,"pick":"Over","wager":14,"against_own_pick":false},{"key":"Adonis | Houston Rockets","player":"Adonis","team":"Houston Rockets","root_for":"Over","win_chance_swing":0.069455,"pick":"Over","wager":14,"against_own_pick":false},{"key":"Adonis | Indiana Pacers","player":"Adonis","team":"Indiana Pacers","root_for":"Under","win_chance_swing":0.068942,"pick":"Under","wager":6,"against_own_pick":false},{"key":"Adonis | Memphis Grizzlies","player":"Adonis","team":"Memphis Grizzlies","root_for":"Under","win_chance_swing":0.06803,"pick":"Under","wager":13,"against_own_pick":false},{"key":"Adonis | Chicago Bulls","player":"Adonis","team":"Chicago Bulls","root_for":"Under","win_chance_swing":0.065284,"pick":"Under","wager":10,"against_own_pick":false},{"key":"Adonis | Atlanta Hawks","player":"Adonis","team":"Atlanta Hawks","root_for":"Under","win_chance_swing":0.0519,"pick":"Under","wager":6,"against_own_pick":false},{"key":"Adonis | Orlando Magic","player":"Adonis","team":"Orlando Magic","root_for":"Under","win_chance_swing":0.048732,"pick":"Under","wager":8,"against_own_pick":false},{"key":"Adonis | Minnesota Timberwolves","player":"Adonis","team":"Minnesota Timberwolves","root_for":"Under","win_chance_swing":0.044659,"pick":"Under","wager":9,"against_own_pick":false},{"key":"Adonis | New Orleans Pelicans","player":"Adonis","team":"New Orleans Pelicans","root_for":"Under","win_chance_swing":0.044155,"pick":"Under","wager":7,"against_own_pick":false},{"key":"Adonis | Brooklyn Nets","player":"Adonis","team":"Brooklyn Nets","root_for":"Under","win_chance_swing":0.030746,"pick":"Under","wager":8,"against_own_pick":false},{"key":"Adonis | Los Angeles Clippers","player":"Adonis","team":"Los Angeles Clippers","root_for":"Under","win_chance_swing":0.027602,"pick":"Under","wager":8,"against_own_pick":false},{"key":"Adonis | Milwaukee Bucks","player":"Adonis","team":"Milwaukee Bucks","root_for":"Under","win_chance_swing":0.022569,"pick":"Under","wager":6,"against_own_pick":false},{"key":"Adonis | Cleveland Cavaliers","player":"Adonis","team":"Cleveland Cavaliers","root_for":"Over","win_chance_swing":0.021985,"pick":"Over","wager":10,"against_own_pick":false},{"key":"Adonis | Sacramento Kings","player":"Adonis","team":"Sacramento Kings","root_for":"Over","win_chance_swing":0.020342,"pick":"Over","wager":7,"against_own_pick":false},{"key":"Adonis | Detroit Pistons","player":"Adonis","team":"Detroit Pistons","root_for":"Over","win_chance_swing":0.008123,"pick":"Over","wager":12,"against_own_pick":false},{"key":"Adonis | Utah Jazz","player":"Adonis","team":"Utah Jazz","root_for":"Under","win_chance_swing":0.001837,"pick":"Under","wager":11,"against_own_pick":false},{"key":"Adonis | Phoenix Suns","player":"Adonis","team":"Phoenix Suns","root_for":"Over","win_chance_swing":0.000224,"pick":"Under","wager":7,"against_own_pick":true},{"key":"Andy | San Antonio Spurs","player":"Andy","team":"San Antonio Spurs","root_for":"Over","win_chance_swing":0.12485,"pick":"Over","wager":15,"against_own_pick":false},{"key":"Andy | Cleveland Cavaliers","player":"Andy","team":"Cleveland Cavaliers","root_for":"Under","win_chance_swing":0.122661,"pick":"Under","wager":9,"against_own_pick":false},{"key":"Andy | Milwaukee Bucks","player":"Andy","team":"Milwaukee Bucks","root_for":"Over","win_chance_swing":0.121075,"pick":"Over","wager":15,"against_own_pick":false},{"key":"Andy | Minnesota Timberwolves","player":"Andy","team":"Minnesota Timberwolves","root_for":"Over","win_chance_swing":0.11377,"pick":"Over","wager":13,"against_own_pick":false},{"key":"Andy | Houston Rockets","player":"Andy","team":"Houston Rockets","root_for":"Under","win_chance_swing":0.113222,"pick":"Under","wager":10,"against_own_pick":false},{"key":"Andy | Denver Nuggets","player":"Andy","team":"Denver Nuggets","root_for":"Under","win_chance_swing":0.111158,"pick":"Under","wager":12,"against_own_pick":false},{"key":"Andy | Golden State Warriors","player":"Andy","team":"Golden State Warriors","root_for":"Over","win_chance_swing":0.089003,"pick":"Over","wager":14,"against_own_pick":false},{"key":"Andy | Philadelphia 76ers","player":"Andy","team":"Philadelphia 76ers","root_for":"Under","win_chance_swing":0.085704,"pick":"Under","wager":14,"against_own_pick":false},{"key":"Andy | Brooklyn Nets","player":"Andy","team":"Brooklyn Nets","root_for":"Over","win_chance_swing":0.078016,"pick":"Over","wager":7,"against_own_pick":false},{"key":"Andy | Chicago Bulls","player":"Andy","team":"Chicago Bulls","root_for":"Over","win_chance_swing":0.077144,"pick":"Over","wager":8,"against_own_pick":false},{"key":"Andy | Los Angeles Lakers","player":"Andy","team":"Los Angeles Lakers","root_for":"Over","win_chance_swing":0.075961,"pick":"Over","wager":10,"against_own_pick":false},{"key":"Andy | New York Knicks","player":"Andy","team":"New York Knicks","root_for":"Under","win_chance_swing":0.073386,"pick":"Under","wager":14,"against_own_pick":false},{"key":"Andy | Oklahoma City Thunder","player":"Andy","team":"Oklahoma City Thunder","root_for":"Under","win_chance_swing":0.07314,"pick":"Under","wager":15,"against_own_pick":false},{"key":"Andy | New Orleans Pelicans","player":"Andy","team":"New Orleans Pelicans","root_for":"Over","win_chance_swing":0.069607,"pick":"Over","wager":9,"against_own_pick":false},{"key":"Andy | Charlotte Hornets","player":"Andy","team":"Charlotte Hornets","root_for":"Under","win_chance_swing":0.06868,"pick":"Under","wager":7,"against_own_pick":false},{"key":"Andy | Orlando Magic","player":"Andy","team":"Orlando Magic","root_for":"Under","win_chance_swing":0.067209,"pick":"Under","wager":8,"against_own_pick":false},{"key":"Andy | Indiana Pacers","player":"Andy","team":"Indiana Pacers","root_for":"Over","win_chance_swing":0.065593,"pick":"Over","wager":12,"against_own_pick":false},{"key":"Andy | Dallas Mavericks","player":"Andy","team":"Dallas Mavericks","root_for":"Under","win_chance_swing":0.059381,"pick":"Under","wager":6,"against_own_pick":false},{"key":"Andy | Atlanta Hawks","player":"Andy","team":"Atlanta Hawks","root_for":"Under","win_chance_swing":0.058951,"pick":"Under","wager":8,"against_own_pick":false},{"key":"Andy | Boston Celtics","player":"Andy","team":"Boston Celtics","root_for":"Over","win_chance_swing":0.05347,"pick":"Over","wager":11,"against_own_pick":false},{"key":"Andy | Phoenix Suns","player":"Andy","team":"Phoenix Suns","root_for":"Under","win_chance_swing":0.052275,"pick":"Under","wager":13,"against_own_pick":false},{"key":"Andy | Miami Heat","player":"Andy","team":"Miami Heat","root_for":"Over","win_chance_swing":0.05055,"pick":"Over","wager":13,"against_own_pick":false},{"key":"Andy | Portland Trail Blazers","player":"Andy","team":"Portland Trail Blazers","root_for":"Under","win_chance_swing":0.044722,"pick":"Under","wager":7,"against_own_pick":false},{"key":"Andy | Los Angeles Clippers","player":"Andy","team":"Los Angeles Clippers","root_for":"Under","win_chance_swing":0.042817,"pick":"Under","wager":10,"against_own_pick":false},{"key":"Andy | Sacramento Kings","player":"Andy","team":"Sacramento Kings","root_for":"Over","win_chance_swing":0.041376,"pick":"Over","wager":11,"against_own_pick":false},{"key":"Andy | Toronto Raptors","player":"Andy","team":"Toronto Raptors","root_for":"Under","win_chance_swing":0.040444,"pick":"Under","wager":9,"against_own_pick":false},{"key":"Andy | Memphis Grizzlies","player":"Andy","team":"Memphis Grizzlies","root_for":"Under","win_chance_swing":0.018446,"pick":"Under","wager":6,"against_own_pick":false},{"key":"Andy | Utah Jazz","player":"Andy","team":"Utah Jazz","root_for":"Under","win_chance_swing":0.013611,"pick":"Under","wager":11,"against_own_pick":false},{"key":"Andy | Washington Wizards","player":"Andy","team":"Washington Wizards","root_for":"Over","win_chance_swing":0.009269,"pick":"Under","wager":6,"against_own_pick":true},{"key":"Andy | Detroit Pistons","player":"Andy","team":"Detroit Pistons","root_for":"Over","win_chance_swing":0.005194,"pick":"Over","wager":12,"against_own_pick":false},{"key":"Chester | Boston Celtics","player":"Chester","team":"Boston Celtics","root_for":"Under","win_chance_swing":0.122524,"pick":"Under","wager":14,"against_own_pick":false},{"key":"Chester | Los Angeles Clippers","player":"Chester","team":"Los Angeles Clippers","root_for":"Over","win_chance_swing":0.118607,"pick":"Over","wager":13,"against_own_pick":false},{"key":"Chester | Golden State Warriors","player":"Chester","team":"Golden State Warriors","root_for":"Under","win_chance_swing":0.111656,"pick":"Under","wager":15,"against_own_pick":false},{"key":"Chester | San Antonio Spurs","player":"Chester","team":"San Antonio Spurs","root_for":"Under","win_chance_swing":0.103546,"pick":"Under","wager":15,"against_own_pick":false},{"key":"Chester | Atlanta Hawks","player":"Chester","team":"Atlanta Hawks","root_for":"Over","win_chance_swing":0.092735,"pick":"Over","wager":12,"against_own_pick":false},{"key":"Chester | Memphis Grizzlies","player":"Chester","team":"Memphis Grizzlies","root_for":"Over","win_chance_swing":0.081301,"pick":"Over","wager":8,"against_own_pick":false},{"key":"Chester | Oklahoma City Thunder","player":"Chester","team":"Oklahoma City Thunder","root_for":"Under","win_chance_swing":0.075087,"pick":"Under","wager":15,"against_own_pick":false},{"key":"Chester | Philadelphia 76ers","player":"Chester","team":"Philadelphia 76ers","root_for":"Under","win_chance_swing":0.07506,"pick":"Under","wager":14,"against_own_pick":false},{"key":"Chester | Brooklyn Nets","player":"Chester","team":"Brooklyn Nets","root_for":"Under","win_chance_swing":0.069662,"pick":"Under","wager":13,"against_own_pick":false},{"key":"Chester | Milwaukee Bucks","player":"Chester","team":"Milwaukee Bucks","root_for":"Under","win_chance_swing":0.068368,"pick":"Under","wager":12,"against_own_pick":false},{"key":"Chester | Portland Trail Blazers","player":"Chester","team":"Portland Trail Blazers","root_for":"Over","win_chance_swing":0.067131,"pick":"Over","wager":8,"against_own_pick":false},{"key":"Chester | Denver Nuggets","player":"Chester","team":"Denver Nuggets","root_for":"Over","win_chance_swing":0.066405,"pick":"Over","wager":12,"against_own_pick":false},{"key":"Chester | Dallas Mavericks","player":"Chester","team":"Dallas Mavericks","root_for":"Over","win_chance_swing":0.065979,"pick":"Over","wager":11,"against_own_pick":false},{"key":"Chester | Minnesota Timberwolves","player":"Chester","team":"Minnesota Timberwolves","root_for":"Over","win_chance_swing":0.064089,"pick":"Over","wager":6,"against_own_pick":false},{"key":"Chester | Chicago Bulls","player":"Chester","team":"Chicago Bulls","root_for":"Over","win_chance_swing":0.063358,"pick":"Over","wager":7,"against_own_pick":false},{"key":"Chester | Charlotte Hornets","player":"Chester","team":"Charlotte Hornets","root_for":"Under","win_chance_swing":0.061612,"pick":"Under","wager":7,"against_own_pick":false},{"key":"Chester | New Orleans Pelicans","player":"Chester","team":"New Orleans Pelicans","root_for":"Under","win_chance_swing":0.058284,"pick":"Under","wager":9,"against_own_pick":false},{"key":"Chester | Toronto Raptors","player":"Chester","team":"Toronto Raptors","root_for":"Under","win_chance_swing":0.055832,"pick":"Under","wager":11,"against_own_pick":false},{"key":"Chester | New York Knicks","player":"Chester","team":"New York Knicks","root_for":"Under","win_chance_swing":0.050969,"pick":"Under","wager":11,"against_own_pick":false},{"key":"Chester | Los Angeles Lakers","player":"Chester","team":"Los Angeles Lakers","root_for":"Over","win_chance_swing":0.039669,"pick":"Over","wager":6,"against_own_pick":false},{"key":"Chester | Sacramento Kings","player":"Chester","team":"Sacramento Kings","root_for":"Over","win_chance_swing":0.038459,"pick":"Over","wager":10,"against_own_pick":false},{"key":"Chester | Orlando Magic","player":"Chester","team":"Orlando Magic","root_for":"Over","win_chance_swing":0.03626,"pick":"Over","wager":6,"against_own_pick":false},{"key":"Chester | Indiana Pacers","player":"Chester","team":"Indiana Pacers","root_for":"Over","win_chance_swing":0.036068,"pick":"Over","wager":7,"against_own_pick":false},{"key":"Chester | Phoenix Suns","player":"Chester","team":"Phoenix Suns","root_for":"Under","win_chance_swing":0.032383,"pick":"Under","wager":10,"against_own_pick":false},{"key":"Chester | Utah Jazz","player":"Chester","team":"Utah Jazz","root_for":"Under","win_chance_swing":0.030554,"pick":"Under","wager":13,"against_own_pick":false},{"key":"Chester | Miami Heat","player":"Chester","team":"Miami Heat","root_for":"Over","win_chance_swing":0.027016,"pick":"Over","wager":9,"against_own_pick":false},{"key":"Chester | Houston Rockets","player":"Chester","team":"Houston Rockets","root_for":"Over","win_chance_swing":0.016913,"pick":"Over","wager":9,"against_own_pick":false},{"key":"Chester | Detroit Pistons","player":"Chester","team":"Detroit Pistons","root_for":"Over","win_chance_swing":0.016684,"pick":"Over","wager":14,"against_own_pick":false},{"key":"Chester | Cleveland Cavaliers","player":"Chester","team":"Cleveland Cavaliers","root_for":"Over","win_chance_swing":0.01135,"pick":"Over","wager":10,"against_own_pick":false},{"key":"Chester | Washington Wizards","player":"Chester","team":"Washington Wizards","root_for":"Under","win_chance_swing":0.00632,"pick":"Under","wager":8,"against_own_pick":false},{"key":"Jake | Houston Rockets","player":"Jake","team":"Houston Rockets","root_for":"Under","win_chance_swing":0.119666,"pick":"Under","wager":13,"against_own_pick":false},{"key":"Jake | Milwaukee Bucks","player":"Jake","team":"Milwaukee Bucks","root_for":"Over","win_chance_swing":0.107394,"pick":"Over","wager":15,"against_own_pick":false},{"key":"Jake | Chicago Bulls","player":"Jake","team":"Chicago Bulls","root_for":"Under","win_chance_swing":0.092505,"pick":"Under","wager":14,"against_own_pick":false},{"key":"Jake | San Antonio Spurs","player":"Jake","team":"San Antonio Spurs","root_for":"Under","win_chance_swing":0.087106,"pick":"Under","wager":12,"against_own_pick":false},{"key":"Jake | Denver Nuggets","player":"Jake","team":"Denver Nuggets","root_for":"Over","win_chance_swing":0.082897,"pick":"Over","wager":13,"against_own_pick":false},{"key":"Jake | Philadelphia 76ers","player":"Jake","team":"Philadelphia 76ers","root_for":"Over","win_chance_swing":0.076673,"pick":"Over","wager":7,"against_own_pick":false},{"key":"Jake | Los Angeles Clippers","player":"Jake","team":"Los Angeles Clippers","root_for":"Under","win_chance_swing":0.076062,"pick":"Under","wager":15,"against_own_pick":false},{"key":"Jake | Los Angeles Lakers","player":"Jake","team":"Los Angeles Lakers","root_for":"Under","win_chance_swing":0.06774,"pick":"Under","wager":9,"against_own_pick":false},{"key":"Jake | Charlotte Hornets","player":"Jake","team":"Charlotte Hornets","root_for":"Over","win_chance_swing":0.067374,"pick":"Over","wager":11,"against_own_pick":false},{"key":"Jake | Sacramento Kings","player":"Jake","team":"Sacramento Kings","root_for":"Over","win_chance_swing":0.066262,"pick":"Over","wager":15,"against_own_pick":false},{"key":"Jake | New Orleans Pelicans","player":"Jake","team":"New Orleans Pelicans","root_for":"Over","win_chance_swing":0.063334,"pick":"Over","wager":10,"against_own_pick":false},{"key":"Jake | Brooklyn Nets","player":"Jake","team":"Brooklyn Nets","root_for":"Under","win_chance_swing":0.059861,"pick":"Under","wager":11,"against_own_pick":false},{"key":"Jake | Boston Celtics","player":"Jake","team":"Boston Celtics","root_for":"Over","win_chance_swing":0.057982,"pick":"Over","wager":12,"against_own_pick":false},{"key":"Jake | Miami Heat","player":"Jake","team":"Miami Heat","root_for":"Over","win_chance_swing":0.057261,"pick":"Over","wager":14,"against_own_pick":false},{"key":"Jake | Oklahoma City Thunder","player":"Jake","team":"Oklahoma City Thunder","root_for":"Under","win_chance_swing":0.056145,"pick":"Under","wager":14,"against_own_pick":false},{"key":"Jake | Portland Trail Blazers","player":"Jake","team":"Portland Trail Blazers","root_for":"Under","win_chance_swing":0.054493,"pick":"Under","wager":8,"against_own_pick":false},{"key":"Jake | Dallas Mavericks","player":"Jake","team":"Dallas Mavericks","root_for":"Over","win_chance_swing":0.053646,"pick":"Over","wager":9,"against_own_pick":false},{"key":"Jake | Memphis Grizzlies","player":"Jake","team":"Memphis Grizzlies","root_for":"Under","win_chance_swing":0.053262,"pick":"Under","wager":11,"against_own_pick":false},{"key":"Jake | Indiana Pacers","player":"Jake","team":"Indiana Pacers","root_for":"Over","win_chance_swing":0.051607,"pick":"Over","wager":10,"against_own_pick":false},{"key":"Jake | Orlando Magic","player":"Jake","team":"Orlando Magic","root_for":"Over","win_chance_swing":0.04378,"pick":"Over","wager":6,"against_own_pick":false},{"key":"Jake | Atlanta Hawks","player":"Jake","team":"Atlanta Hawks","root_for":"Over","win_chance_swing":0.042389,"pick":"Over","wager":6,"against_own_pick":false},{"key":"Jake | New York Knicks","player":"Jake","team":"New York Knicks","root_for":"Under","win_chance_swing":0.038218,"pick":"Under","wager":9,"against_own_pick":false},{"key":"Jake | Minnesota Timberwolves","player":"Jake","team":"Minnesota Timberwolves","root_for":"Under","win_chance_swing":0.032994,"pick":"Under","wager":6,"against_own_pick":false},{"key":"Jake | Cleveland Cavaliers","player":"Jake","team":"Cleveland Cavaliers","root_for":"Over","win_chance_swing":0.031342,"pick":"Over","wager":12,"against_own_pick":false},{"key":"Jake | Golden State Warriors","player":"Jake","team":"Golden State Warriors","root_for":"Over","win_chance_swing":0.030111,"pick":"Over","wager":7,"against_own_pick":false},{"key":"Jake | Washington Wizards","player":"Jake","team":"Washington Wizards","root_for":"Under","win_chance_swing":0.026234,"pick":"Under","wager":10,"against_own_pick":false},{"key":"Jake | Detroit Pistons","player":"Jake","team":"Detroit Pistons","root_for":"Under","win_chance_swing":0.02577,"pick":"Over","wager":8,"against_own_pick":true},{"key":"Jake | Toronto Raptors","player":"Jake","team":"Toronto Raptors","root_for":"Under","win_chance_swing":0.025599,"pick":"Under","wager":7,"against_own_pick":false},{"key":"Jake | Utah Jazz","player":"Jake","team":"Utah Jazz","root_for":"Under","win_chance_swing":0.025176,"pick":"Under","wager":13,"against_own_pick":false},{"key":"Jake | Phoenix Suns","player":"Jake","team":"Phoenix Suns","root_for":"Under","win_chance_swing":0.019169,"pick":"Under","wager":8,"against_own_pick":false},{"key":"Mary | Oklahoma City Thunder","player":"Mary","team":"Oklahoma City Thunder","root_for":"Over","win_chance_swing":0.119591,"pick":"Over","wager":15,"against_own_pick":false},{"key":"Mary | Philadelphia 76ers","player":"Mary","team":"Philadelphia 76ers","root_for":"Over","win_chance_swing":0.1019,"pick":"Over","wager":15,"against_own_pick":false},{"key":"Mary | Brooklyn Nets","player":"Mary","team":"Brooklyn Nets","root_for":"Over","win_chance_swing":0.092807,"pick":"Over","wager":12,"against_own_pick":false},{"key":"Mary | Chicago Bulls","player":"Mary","team":"Chicago Bulls","root_for":"Over","win_chance_swing":0.091673,"pick":"Over","wager":14,"against_own_pick":false},{"key":"Mary | Los Angeles Clippers","player":"Mary","team":"Los Angeles Clippers","root_for":"Over","win_chance_swing":0.090224,"pick":"Over","wager":11,"against_own_pick":false},{"key":"Mary | New York Knicks","player":"Mary","team":"New York Knicks","root_for":"Over","win_chance_swing":0.087659,"pick":"Over","wager":14,"against_own_pick":false},{"key":"Mary | Boston Celtics","player":"Mary","team":"Boston Celtics","root_for":"Under","win_chance_swing":0.079526,"pick":"Under","wager":7,"against_own_pick":false},{"key":"Mary | New Orleans Pelicans","player":"Mary","team":"New Orleans Pelicans","root_for":"Under","win_chance_swing":0.07799,"pick":"Under","wager":10,"against_own_pick":false},{"key":"Mary | San Antonio Spurs","player":"Mary","team":"San Antonio Spurs","root_for":"Over","win_chance_swing":0.072016,"pick":"Over","wager":13,"against_own_pick":false},{"key":"Mary | Portland Trail Blazers","player":"Mary","team":"Portland Trail Blazers","root_for":"Under","win_chance_swing":0.071124,"pick":"Under","wager":9,"against_own_pick":false},{"key":"Mary | Memphis Grizzlies","player":"Mary","team":"Memphis Grizzlies","root_for":"Under","win_chance_swing":0.06718,"pick":"Under","wager":10,"against_own_pick":false},{"key":"Mary | Charlotte Hornets","player":"Mary","team":"Charlotte Hornets","root_for":"Over","win_chance_swing":0.064551,"pick":"Over","wager":13,"against_own_pick":false},{"key":"Mary | Dallas Mavericks","player":"Mary","team":"Dallas Mavericks","root_for":"Under","win_chance_swing":0.063968,"pick":"Under","wager":6,"against_own_pick":false},{"key":"Mary | Toronto Raptors","player":"Mary","team":"Toronto Raptors","root_for":"Under","win_chance_swing":0.061472,"pick":"Under","wager":8,"against_own_pick":false},{"key":"Mary | Phoenix Suns","player":"Mary","team":"Phoenix Suns","root_for":"Under","win_chance_swing":0.059573,"pick":"Under","wager":12,"against_own_pick":false},{"key":"Mary | Denver Nuggets","player":"Mary","team":"Denver Nuggets","root_for":"Over","win_chance_swing":0.058074,"pick":"Over","wager":11,"against_own_pick":false},{"key":"Mary | Indiana Pacers","player":"Mary","team":"Indiana Pacers","root_for":"Over","win_chance_swing":0.055974,"pick":"Over","wager":13,"against_own_pick":false},{"key":"Mary | Orlando Magic","player":"Mary","team":"Orlando Magic","root_for":"Under","win_chance_swing":0.054215,"pick":"Under","wager":7,"against_own_pick":false},{"key":"Mary | Milwaukee Bucks","player":"Mary","team":"Milwaukee Bucks","root_for":"Under","win_chance_swing":0.049264,"pick":"Under","wager":8,"against_own_pick":false},{"key":"Mary | Los Angeles Lakers","player":"Mary","team":"Los Angeles Lakers","root_for":"Under","win_chance_swing":0.048628,"pick":"Under","wager":6,"against_own_pick":false},{"key":"Mary | Minnesota Timberwolves","player":"Mary","team":"Minnesota Timberwolves","root_for":"Under","win_chance_swing":0.041204,"pick":"Under","wager":6,"against_own_pick":false},{"key":"Mary | Washington Wizards","player":"Mary","team":"Washington Wizards","root_for":"Under","win_chance_swing":0.040356,"pick":"Under","wager":9,"against_own_pick":false},{"key":"Mary | Utah Jazz","player":"Mary","team":"Utah Jazz","root_for":"Under","win_chance_swing":0.031888,"pick":"Under","wager":12,"against_own_pick":false},{"key":"Mary | Houston Rockets","player":"Mary","team":"Houston Rockets","root_for":"Over","win_chance_swing":0.030286,"pick":"Over","wager":14,"against_own_pick":false},{"key":"Mary | Golden State Warriors","player":"Mary","team":"Golden State Warriors","root_for":"Over","win_chance_swing":0.027215,"pick":"Over","wager":8,"against_own_pick":false},{"key":"Mary | Atlanta Hawks","player":"Mary","team":"Atlanta Hawks","root_for":"Over","win_chance_swing":0.025839,"pick":"Over","wager":7,"against_own_pick":false},{"key":"Mary | Sacramento Kings","player":"Mary","team":"Sacramento Kings","root_for":"Over","win_chance_swing":0.02109,"pick":"Over","wager":10,"against_own_pick":false},{"key":"Mary | Miami Heat","player":"Mary","team":"Miami Heat","root_for":"Over","win_chance_swing":0.006516,"pick":"Over","wager":9,"against_own_pick":false},{"key":"Mary | Detroit Pistons","player":"Mary","team":"Detroit Pistons","root_for":"Over","win_chance_swing":0.00538,"pick":"Over","wager":15,"against_own_pick":false},{"key":"Mary | Cleveland Cavaliers","player":"Mary","team":"Cleveland Cavaliers","root_for":"Over","win_chance_swing":0.001165,"pick":"Over","wager":11,"against_own_pick":false},{"key":"Mike J | Oklahoma City Thunder","player":"Mike J","team":"Oklahoma City Thunder","root_for":"Over","win_chance_swing":0.106797,"pick":"Over","wager":13,"against_own_pick":false},{"key":"Mike J | Utah Jazz","player":"Mike J","team":"Utah Jazz","root_for":"Over","win_chance_swing":0.100727,"pick":"Over","wager":7,"against_own_pick":false},{"key":"Mike J | Orlando Magic","player":"Mike J","team":"Orlando Magic","root_for":"Over","win_chance_swing":0.091667,"pick":"Over","wager":14,"against_own_pick":false},{"key":"Mike J | Golden State Warriors","player":"Mike J","team":"Golden State Warriors","root_for":"Under","win_chance_swing":0.089693,"pick":"Under","wager":12,"against_own_pick":false},{"key":"Mike J | Charlotte Hornets","player":"Mike J","team":"Charlotte Hornets","root_for":"Under","win_chance_swing":0.088502,"pick":"Under","wager":9,"against_own_pick":false},{"key":"Mike J | New Orleans Pelicans","player":"Mike J","team":"New Orleans Pelicans","root_for":"Under","win_chance_swing":0.086391,"pick":"Under","wager":11,"against_own_pick":false},{"key":"Mike J | Atlanta Hawks","player":"Mike J","team":"Atlanta Hawks","root_for":"Under","win_chance_swing":0.0835,"pick":"Under","wager":7,"against_own_pick":false},{"key":"Mike J | Milwaukee Bucks","player":"Mike J","team":"Milwaukee Bucks","root_for":"Under","win_chance_swing":0.076056,"pick":"Under","wager":13,"against_own_pick":false},{"key":"Mike J | Los Angeles Lakers","player":"Mike J","team":"Los Angeles Lakers","root_for":"Over","win_chance_swing":0.075937,"pick":"Over","wager":12,"against_own_pick":false},{"key":"Mike J | Toronto Raptors","player":"Mike J","team":"Toronto Raptors","root_for":"Over","win_chance_swing":0.073733,"pick":"Over","wager":10,"against_own_pick":false},{"key":"Mike J | Chicago Bulls","player":"Mike J","team":"Chicago Bulls","root_for":"Under","win_chance_swing":0.072546,"pick":"Under","wager":10,"against_own_pick":false},{"key":"Mike J | New York Knicks","player":"Mike J","team":"New York Knicks","root_for":"Under","win_chance_swing":0.071824,"pick":"Under","wager":11,"against_own_pick":false},{"key":"Mike J | San Antonio Spurs","player":"Mike J","team":"San Antonio Spurs","root_for":"Over","win_chance_swing":0.071317,"pick":"Over","wager":13,"against_own_pick":false},{"key":"Mike J | Boston Celtics","player":"Mike J","team":"Boston Celtics","root_for":"Over","win_chance_swing":0.071211,"pick":"Over","wager":15,"against_own_pick":false},{"key":"Mike J | Indiana Pacers","player":"Mike J","team":"Indiana Pacers","root_for":"Over","win_chance_swing":0.06996,"pick":"Over","wager":15,"against_own_pick":false},{"key":"Mike J | Memphis Grizzlies","player":"Mike J","team":"Memphis Grizzlies","root_for":"Over","win_chance_swing":0.067777,"pick":"Over","wager":11,"against_own_pick":false},{"key":"Mike J | Los Angeles Clippers","player":"Mike J","team":"Los Angeles Clippers","root_for":"Under","win_chance_swing":0.064006,"pick":"Under","wager":12,"against_own_pick":false},{"key":"Mike J | Miami Heat","player":"Mike J","team":"Miami Heat","root_for":"Over","win_chance_swing":0.055144,"pick":"Over","wager":14,"against_own_pick":false},{"key":"Mike J | Portland Trail Blazers","player":"Mike J","team":"Portland Trail Blazers","root_for":"Under","win_chance_swing":0.053471,"pick":"Under","wager":9,"against_own_pick":false},{"key":"Mike J | Minnesota Timberwolves","player":"Mike J","team":"Minnesota Timberwolves","root_for":"Over","win_chance_swing":0.052774,"pick":"Over","wager":8,"against_own_pick":false},{"key":"Mike J | Houston Rockets","player":"Mike J","team":"Houston Rockets","root_for":"Over","win_chance_swing":0.049969,"pick":"Over","wager":15,"against_own_pick":false},{"key":"Mike J | Brooklyn Nets","player":"Mike J","team":"Brooklyn Nets","root_for":"Under","win_chance_swing":0.047738,"pick":"Under","wager":10,"against_own_pick":false},{"key":"Mike J | Phoenix Suns","player":"Mike J","team":"Phoenix Suns","root_for":"Under","win_chance_swing":0.032571,"pick":"Under","wager":8,"against_own_pick":false},{"key":"Mike J | Detroit Pistons","player":"Mike J","team":"Detroit Pistons","root_for":"Under","win_chance_swing":0.030933,"pick":"Over","wager":9,"against_own_pick":true},{"key":"Mike J | Cleveland Cavaliers","player":"Mike J","team":"Cleveland Cavaliers","root_for":"Over","win_chance_swing":0.030151,"pick":"Over","wager":14,"against_own_pick":false},{"key":"Mike J | Denver Nuggets","player":"Mike J","team":"Denver Nuggets","root_for":"Over","win_chance_swing":0.028187,"pick":"Over","wager":6,"against_own_pick":false},{"key":"Mike J | Philadelphia 76ers","player":"Mike J","team":"Philadelphia 76ers","root_for":"Under","win_chance_swing":0.023804,"pick":"Under","wager":6,"against_own_pick":false},{"key":"Mike J | Dallas Mavericks","player":"Mike J","team":"Dallas Mavericks","root_for":"Over","win_chance_swing":0.018579,"pick":"Over","wager":7,"against_own_pick":false},{"key":"Mike J | Washington Wizards","player":"Mike J","team":"Washington Wizards","root_for":"Under","win_chance_swing":0.016039,"pick":"Under","wager":8,"against_own_pick":false},{"key":"Mike J | Sacramento Kings","player":"Mike J","team":"Sacramento Kings","root_for":"Over","win_chance_swing":0.001447,"pick":"Over","wager":6,"against_own_pick":false},{"key":"Phil | Miami Heat","player":"Phil","team":"Miami Heat","root_for":"Under","win_chance_swing":0.137307,"pick":"Under","wager":13,"against_own_pick":false},{"key":"Phil | Oklahoma City Thunder","player":"Phil","team":"Oklahoma City Thunder","root_for":"Over","win_chance_swing":0.11989,"pick":"Over","wager":14,"against_own_pick":false},{"key":"Phil | Atlanta Hawks","player":"Phil","team":"Atlanta Hawks","root_for":"Over","win_chance_swing":0.10864,"pick":"Over","wager":15,"against_own_pick":false},{"key":"Phil | Sacramento Kings","player":"Phil","team":"Sacramento Kings","root_for":"Under","win_chance_swing":0.101709,"pick":"Under","wager":9,"against_own_pick":false},{"key":"Phil | Charlotte Hornets","player":"Phil","team":"Charlotte Hornets","root_for":"Over","win_chance_swing":0.096467,"pick":"Over","wager":15,"against_own_pick":false},{"key":"Phil | Phoenix Suns","player":"Phil","team":"Phoenix Suns","root_for":"Over","win_chance_swing":0.096123,"pick":"Over","wager":8,"against_own_pick":false},{"key":"Phil | New York Knicks","player":"Phil","team":"New York Knicks","root_for":"Over","win_chance_swing":0.095741,"pick":"Over","wager":10,"against_own_pick":false},{"key":"Phil | Memphis Grizzlies","player":"Phil","team":"Memphis Grizzlies","root_for":"Over","win_chance_swing":0.095397,"pick":"Over","wager":11,"against_own_pick":false},{"key":"Phil | Toronto Raptors","player":"Phil","team":"Toronto Raptors","root_for":"Over","win_chance_swing":0.092705,"pick":"Over","wager":11,"against_own_pick":false},{"key":"Phil | Denver Nuggets","player":"Phil","team":"Denver Nuggets","root_for":"Under","win_chance_swing":0.08576,"pick":"Under","wager":8,"against_own_pick":false},{"key":"Phil | San Antonio Spurs","player":"Phil","team":"San Antonio Spurs","root_for":"Over","win_chance_swing":0.0792,"pick":"Over","wager":12,"against_own_pick":false},{"key":"Phil | Portland Trail Blazers","player":"Phil","team":"Portland Trail Blazers","root_for":"Under","win_chance_swing":0.079007,"pick":"Under","wager":12,"against_own_pick":false},{"key":"Phil | Golden State Warriors","player":"Phil","team":"Golden State Warriors","root_for":"Under","win_chance_swing":0.078646,"pick":"Under","wager":9,"against_own_pick":false},{"key":"Phil | Milwaukee Bucks","player":"Phil","team":"Milwaukee Bucks","root_for":"Under","win_chance_swing":0.078585,"pick":"Under","wager":14,"against_own_pick":false},{"key":"Phil | Indiana Pacers","player":"Phil","team":"Indiana Pacers","root_for":"Under","win_chance_swing":0.074871,"pick":"Under","wager":6,"against_own_pick":false},{"key":"Phil | Boston Celtics","player":"Phil","team":"Boston Celtics","root_for":"Over","win_chance_swing":0.069345,"pick":"Over","wager":14,"against_own_pick":false},{"key":"Phil | Los Angeles Clippers","player":"Phil","team":"Los Angeles Clippers","root_for":"Under","win_chance_swing":0.068548,"pick":"Under","wager":13,"against_own_pick":false},{"key":"Phil | Orlando Magic","player":"Phil","team":"Orlando Magic","root_for":"Under","win_chance_swing":0.065532,"pick":"Under","wager":7,"against_own_pick":false},{"key":"Phil | Chicago Bulls","player":"Phil","team":"Chicago Bulls","root_for":"Under","win_chance_swing":0.064341,"pick":"Under","wager":10,"against_own_pick":false},{"key":"Phil | New Orleans Pelicans","player":"Phil","team":"New Orleans Pelicans","root_for":"Over","win_chance_swing":0.064275,"pick":"Over","wager":7,"against_own_pick":false},{"key":"Phil | Los Angeles Lakers","player":"Phil","team":"Los Angeles Lakers","root_for":"Under","win_chance_swing":0.061215,"pick":"Under","wager":7,"against_own_pick":false},{"key":"Phil | Brooklyn Nets","player":"Phil","team":"Brooklyn Nets","root_for":"Under","win_chance_swing":0.055182,"pick":"Under","wager":10,"against_own_pick":false},{"key":"Phil | Dallas Mavericks","player":"Phil","team":"Dallas Mavericks","root_for":"Over","win_chance_swing":0.051341,"pick":"Over","wager":9,"against_own_pick":false},{"key":"Phil | Philadelphia 76ers","player":"Phil","team":"Philadelphia 76ers","root_for":"Under","win_chance_swing":0.033346,"pick":"Under","wager":6,"against_own_pick":false},{"key":"Phil | Houston Rockets","player":"Phil","team":"Houston Rockets","root_for":"Over","win_chance_swing":0.032641,"pick":"Over","wager":13,"against_own_pick":false},{"key":"Phil | Washington Wizards","player":"Phil","team":"Washington Wizards","root_for":"Under","win_chance_swing":0.031303,"pick":"Under","wager":11,"against_own_pick":false},{"key":"Phil | Minnesota Timberwolves","player":"Phil","team":"Minnesota Timberwolves","root_for":"Under","win_chance_swing":0.029625,"pick":"Under","wager":6,"against_own_pick":false},{"key":"Phil | Detroit Pistons","player":"Phil","team":"Detroit Pistons","root_for":"Over","win_chance_swing":0.020244,"pick":"Over","wager":15,"against_own_pick":false},{"key":"Phil | Cleveland Cavaliers","player":"Phil","team":"Cleveland Cavaliers","root_for":"Over","win_chance_swing":0.015309,"pick":"Over","wager":12,"against_own_pick":false},{"key":"Phil | Utah Jazz","player":"Phil","team":"Utah Jazz","root_for":"Under","win_chance_swing":0.006565,"pick":"Under","wager":8,"against_own_pick":false},{"key":"Ryan | Indiana Pacers","player":"Ryan","team":"Indiana Pacers","root_for":"Under","win_chance_swing":0.135389,"pick":"Under","wager":15,"against_own_pick":false},{"key":"Ryan | Miami Heat","player":"Ryan","team":"Miami Heat","root_for":"Under","win_chance_swing":0.129118,"pick":"Under","wager":12,"against_own_pick":false},{"key":"Ryan | Portland Trail Blazers","player":"Ryan","team":"Portland Trail Blazers","root_for":"Over","win_chance_swing":0.109792,"pick":"Over","wager":14,"against_own_pick":false},{"key":"Ryan | Phoenix Suns","player":"Ryan","team":"Phoenix Suns","root_for":"Over","win_chance_swing":0.099625,"pick":"Over","wager":9,"against_own_pick":false},{"key":"Ryan | Brooklyn Nets","player":"Ryan","team":"Brooklyn Nets","root_for":"Over","win_chance_swing":0.092367,"pick":"Over","wager":9,"against_own_pick":false},{"key":"Ryan | Sacramento Kings","player":"Ryan","team":"Sacramento Kings","root_for":"Under","win_chance_swing":0.087267,"pick":"Under","wager":6,"against_own_pick":false},{"key":"Ryan | Toronto Raptors","player":"Ryan","team":"Toronto Raptors","root_for":"Under","win_chance_swing":0.086333,"pick":"Under","wager":15,"against_own_pick":false},{"key":"Ryan | San Antonio Spurs","player":"Ryan","team":"San Antonio Spurs","root_for":"Under","win_chance_swing":0.084758,"pick":"Under","wager":11,"against_own_pick":false},{"key":"Ryan | Los Angeles Lakers","player":"Ryan","team":"Los Angeles Lakers","root_for":"Over","win_chance_swing":0.083679,"pick":"Over","wager":12,"against_own_pick":false},{"key":"Ryan | Minnesota Timberwolves","player":"Ryan","team":"Minnesota Timberwolves","root_for":"Under","win_chance_swing":0.082153,"pick":"Under","wager":12,"against_own_pick":false},{"key":"Ryan | Charlotte Hornets","player":"Ryan","team":"Charlotte Hornets","root_for":"Over","win_chance_swing":0.081235,"pick":"Over","wager":14,"against_own_pick":false},{"key":"Ryan | New York Knicks","player":"Ryan","team":"New York Knicks","root_for":"Under","win_chance_swing":0.080792,"pick":"Under","wager":14,"against_own_pick":false},{"key":"Ryan | Atlanta Hawks","player":"Ryan","team":"Atlanta Hawks","root_for":"Under","win_chance_swing":0.075252,"pick":"Under","wager":7,"against_own_pick":false},{"key":"Ryan | Philadelphia 76ers","player":"Ryan","team":"Philadelphia 76ers","root_for":"Under","win_chance_swing":0.070236,"pick":"Under","wager":13,"against_own_pick":false},{"key":"Ryan | Los Angeles Clippers","player":"Ryan","team":"Los Angeles Clippers","root_for":"Over","win_chance_swing":0.070204,"pick":"Over","wager":6,"against_own_pick":false},{"key":"Ryan | New Orleans Pelicans","player":"Ryan","team":"New Orleans Pelicans","root_for":"Over","win_chance_swing":0.069604,"pick":"Over","wager":11,"against_own_pick":false},{"key":"Ryan | Milwaukee Bucks","player":"Ryan","team":"Milwaukee Bucks","root_for":"Over","win_chance_swing":0.066372,"pick":"Over","wager":8,"against_own_pick":false},{"key":"Ryan | Orlando Magic","player":"Ryan","team":"Orlando Magic","root_for":"Over","win_chance_swing":0.063982,"pick":"Over","wager":9,"against_own_pick":false},{"key":"Ryan | Chicago Bulls","player":"Ryan","team":"Chicago Bulls","root_for":"Over","win_chance_swing":0.0625,"pick":"Over","wager":8,"against_own_pick":false},{"key":"Ryan | Washington Wizards","player":"Ryan","team":"Washington Wizards","root_for":"Under","win_chance_swing":0.061853,"pick":"Under","wager":15,"against_own_pick":false},{"key":"Ryan | Oklahoma City Thunder","player":"Ryan","team":"Oklahoma City Thunder","root_for":"Under","win_chance_swing":0.059431,"pick":"Under","wager":13,"against_own_pick":false},{"key":"Ryan | Denver Nuggets","player":"Ryan","team":"Denver Nuggets","root_for":"Over","win_chance_swing":0.055845,"pick":"Over","wager":10,"against_own_pick":false},{"key":"Ryan | Boston Celtics","player":"Ryan","team":"Boston Celtics","root_for":"Over","win_chance_swing":0.05359,"pick":"Over","wager":11,"against_own_pick":false},{"key":"Ryan | Golden State Warriors","player":"Ryan","team":"Golden State Warriors","root_for":"Over","win_chance_swing":0.040469,"pick":"Over","wager":7,"against_own_pick":false},{"key":"Ryan | Memphis Grizzlies","player":"Ryan","team":"Memphis Grizzlies","root_for":"Under","win_chance_swing":0.037557,"pick":"Under","wager":6,"against_own_pick":false},{"key":"Ryan | Houston Rockets","player":"Ryan","team":"Houston Rockets","root_for":"Over","win_chance_swing":0.033623,"pick":"Over","wager":10,"against_own_pick":false},{"key":"Ryan | Dallas Mavericks","player":"Ryan","team":"Dallas Mavericks","root_for":"Over","win_chance_swing":0.027998,"pick":"Over","wager":7,"against_own_pick":false},{"key":"Ryan | Cleveland Cavaliers","player":"Ryan","team":"Cleveland Cavaliers","root_for":"Over","win_chance_swing":0.011359,"pick":"Over","wager":10,"against_own_pick":false},{"key":"Ryan | Utah Jazz","player":"Ryan","team":"Utah Jazz","root_for":"Over","win_chance_swing":0.008903,"pick":"Under","wager":8,"against_own_pick":true},{"key":"Ryan | Detroit Pistons","player":"Ryan","team":"Detroit Pistons","root_for":"Over","win_chance_swing":0.001079,"pick":"Over","wager":13,"against_own_pick":false}],"pairs":[{"key":"Adonis | Andy","a":"Adonis","b":"Andy","same_side":14,"contested_wager":337,"wager_corr":-0.05602,"score_corr":-0.052204,"a_beats_b":0.501424},{"key":"Adonis | Chester","a":"Adonis","b":"Chester","same_side":15,"contested_wager":307,"wager_corr":0.040423,"score_corr":0.044964,"a_beats_b":0.504334},{"key":"Adonis | Jake","a":"Adonis","b":"Jake","same_side":16,"contested_wager":282,"wager_corr":0.125179,"score_corr":0.126455,"a_beats_b":0.504041},{"key":"Adonis | Mary","a":"Adonis","b":"Mary","same_side":18,"contested_wager":255,"wager_corr":0.228455,"score_corr":0.206622,"a_beats_b":0.517817},{"key":"Adonis | Mike J","a":"Adonis","b":"Mike J","same_side":14,"contested_wager":354,"wager_corr":-0.121001,"score_corr":-0.131544,"a_beats_b":0.509726},{"key":"Adonis | Phil","a":"Adonis","b":"Phil","same_side":15,"contested_wager":329,"wager_corr":-0.081589,"score_corr":-0.085369,"a_beats_b":0.506181},{"key":"Adonis | Ryan","a":"Adonis","b":"Ryan","same_side":12,"contested_wager":373,"wager_corr":-0.174167,"score_corr":-0.176907,"a_beats_b":0.506219},{"key":"Andy | Chester","a":"Andy","b":"Chester","same_side":15,"contested_wager":314,"wager_corr":-0.000423,"score_corr":-0.000948,"a_beats_b":0.49993},{"key":"Andy | Jake","a":"Andy","b":"Jake","same_side":18,"contested_wager":233,"wager_corr":0.306266,"score_corr":0.307414,"a_beats_b":0.499592},{"key":"Andy | Mary","a":"Andy","b":"Mary","same_side":16,"contested_wager":305,"wager_corr":0.017218,"score_corr":0.012419,"a_beats_b":0.512304},{"key":"Andy | Mike J","a":"Andy","b":"Mike J","same_side":16,"contested_wager":292,"wager_corr":0.086525,"score_corr":0.082356,"a_beats_b":0.507748},{"key":"Andy | Phil","a":"Andy","b":"Phil","same_side":11,"contested_wager":402,"wager_corr":-0.259557,"score_corr":-0.260071,"a_beats_b":0.503206},{"key":"Andy | Ryan","a":"Andy","b":"Ryan","same_side":16,"contested_wager":291,"wager_corr":0.087333,"score_corr":0.086991,"a_beats_b":0.502381},{"key":"Chester | Jake","a":"Chester","b":"Jake","same_side":17,"contested_wager":266,"wager_corr":0.170726,"score_corr":0.17045,"a_beats_b":0.501721},{"key":"Chester | Mary","a":"Chester","b":"Mary","same_side":17,"contested_wager":269,"wager_corr":0.139057,"score_corr":0.131266,"a_beats_b":0.513867},{"key":"Chester | Mike J","a":"Chester","b":"Mike J","same_side":21,"contested_wager":204,"wager_corr":0.27766,"score_corr":0.272733,"a_beats_b":0.510503},{"key":"Chester | Phil","a":"Chester","b":"Phil","same_side":12,"contested_wager":358,"wager_corr":-0.093459,"score_corr":-0.094334,"a_beats_b":0.502589},{"key":"Chester | Ryan","a":"Chester","b":"Ryan","same_side":17,"contested_wager":259,"wager_corr":0.226816,"score_corr":0.224509,"a_beats_b":0.50516},{"key":"Jake | Mary","a":"Jake","b":"Mary","same_side":18,"contested_wager":271,"wager_corr":0.078166,"score_corr":0.074313,"a_beats_b":0.510245},{"key":"Jake | Mike J","a":"Jake","b":"Mike J","same_side":16,"contested_wager":288,"wager_corr":0.08415,"score_corr":0.081781,"a_beats_b":0.506783},{"key":"Jake | Phil","a":"Jake","b":"Phil","same_side":15,"contested_wager":312,"wager_corr":-0.001174,"score_corr":-0.002088,"a_beats_b":0.50193},{"key":"Jake | Ryan","a":"Jake","b":"Ryan","same_side":18,"contested_wager":251,"wager_corr":0.200861,"score_corr":0.199229,"a_beats_b":0.50221},{"key":"Mary | Mike J","a":"Mary","b":"Mike J","same_side":14,"contested_wager":317,"wager_corr":0.010937,"score_corr":0.030894,"a_beats_b":0.494212},{"key":"Mary | Phil","a":"Mary","b":"Phil","same_side":15,"contested_wager":300,"wager_corr":0.11163,"score_corr":0.113871,"a_beats_b":0.490047},{"key":"Mary | Ryan","a":"Mary","b":"Ryan","same_side":14,"contested_wager":333,"wager_corr":-0.090595,"score_corr":-0.082347,"a_beats_b":0.490829},{"key":"Mike J | Phil","a":"Mike J","b":"Phil","same_side":17,"contested_wager":247,"wager_corr":0.296053,"score_corr":0.297494,"a_beats_b":0.493672},{"key":"Mike J | Ryan","a":"Mike J","b":"Ryan","same_side":12,"contested_wager":375,"wager_corr":-0.194226,"score_corr":-0.189174,"a_beats_b":0.494683},{"key":"Phil | Ryan","a":"Phil","b":"Ryan","same_side":15,"contested_wager":312,"wager_corr":0.022609,"score_corr":0.023283,"a_beats_b":0.50166}],"most_different":[{"player":"Adonis","team":"Washington Wizards","signed":15,"others_avg":-9.571429,"dev":24.571429},{"player":"Adonis","team":"New York Knicks","signed":14,"others_avg":-5,"dev":19},{"player":"Adonis","team":"Boston Celtics","signed":-12,"others_avg":6,"dev":-18},{"player":"Adonis","team":"Los Angeles Lakers","signed":-15,"others_avg":2.571429,"dev":-17.571429},{"player":"Adonis","team":"Dallas Mavericks","signed":-12,"others_avg":4.428571,"dev":-16.428571},{"player":"Adonis","team":"Portland Trail Blazers","signed":13,"others_avg":-3.285714,"dev":16.285714},{"player":"Adonis","team":"Denver Nuggets","signed":-11,"others_avg":4.571429,"dev":-15.571429},{"player":"Adonis","team":"Philadelphia 76ers","signed":11,"others_avg":-4.428571,"dev":15.428571},{"player":"Adonis","team":"Charlotte Hornets","signed":-10,"others_avg":4.285714,"dev":-14.285714},{"player":"Adonis","team":"Toronto Raptors","signed":9,"others_avg":-4.142857,"dev":13.142857},{"player":"Andy","team":"Cleveland Cavaliers","signed":-9,"others_avg":11.285714,"dev":-20.285714},{"player":"Andy","team":"Milwaukee Bucks","signed":15,"others_avg":-4.285714,"dev":19.285714},{"player":"Andy","team":"Houston Rockets","signed":-10,"others_avg":8.857143,"dev":-18.857143},{"player":"Andy","team":"Denver Nuggets","signed":-12,"others_avg":4.714286,"dev":-16.714286},{"player":"Andy","team":"Minnesota Timberwolves","signed":13,"others_avg":-3.571429,"dev":16.571429},{"player":"Andy","team":"San Antonio Spurs","signed":15,"others_avg":-1.285714,"dev":16.285714},{"player":"Andy","team":"Golden State Warriors","signed":14,"others_avg":-0.142857,"dev":14.142857},{"player":"Andy","team":"Philadelphia 76ers","signed":-14,"others_avg":-0.857143,"dev":-13.142857},{"player":"Andy","team":"New York Knicks","signed":-14,"others_avg":-1,"dev":-13},{"player":"Andy","team":"Oklahoma City Thunder","signed":-15,"others_avg":-2.142857,"dev":-12.857143},{"player":"Chester","team":"Boston Celtics","signed":-14,"others_avg":6.285714,"dev":-20.285714},{"player":"Chester","team":"Golden State Warriors","signed":-15,"others_avg":4,"dev":-19},{"player":"Chester","team":"Los Angeles Clippers","signed":13,"others_avg":-5.857143,"dev":18.857143},{"player":"Chester","team":"San Antonio Spurs","signed":-15,"others_avg":3,"dev":-18},{"player":"Chester","team":"Philadelphia 76ers","signed":-14,"others_avg":-0.857143,"dev":-13.142857},{"player":"Chester","team":"Oklahoma City Thunder","signed":-15,"others_avg":-2.142857,"dev":-12.857143},{"player":"Chester","team":"Atlanta Hawks","signed":12,"others_avg":0,"dev":12},{"player":"Chester","team":"Milwaukee Bucks","signed":-12,"others_avg":-0.428571,"dev":-11.571429},{"player":"Chester","team":"Brooklyn Nets","signed":-13,"others_avg":-1.571429,"dev":-11.428571},{"player":"Chester","team":"Memphis Grizzlies","signed":8,"others_avg":-3.428571,"dev":11.428571},{"player":"Jake","team":"Houston Rockets","signed":-13,"others_avg":9.285714,"dev":-22.285714},{"player":"Jake","team":"Milwaukee Bucks","signed":15,"others_avg":-4.285714,"dev":19.285714},{"player":"Jake","team":"Chicago Bulls","signed":-14,"others_avg":1,"dev":-15},{"player":"Jake","team":"San Antonio Spurs","signed":-12,"others_avg":2.571429,"dev":-14.571429},{"player":"Jake","team":"Los Angeles Clippers","signed":-15,"others_avg":-1.857143,"dev":-13.142857},{"player":"Jake","team":"Denver Nuggets","signed":13,"others_avg":1.142857,"dev":11.857143},{"player":"Jake","team":"Oklahoma City Thunder","signed":-14,"others_avg":-2.285714,"dev":-11.714286},{"player":"Jake","team":"New Orleans Pelicans","signed":10,"others_avg":-1.428571,"dev":11.428571},{"player":"Jake","team":"Philadelphia 76ers","signed":7,"others_avg":-3.857143,"dev":10.857143},{"player":"Jake","team":"Sacramento Kings","signed":15,"others_avg":4.142857,"dev":10.857143},{"player":"Mary","team":"Oklahoma City Thunder","signed":15,"others_avg":-6.428571,"dev":21.428571},{"player":"Mary","team":"Philadelphia 76ers","signed":15,"others_avg":-5,"dev":20},{"player":"Mary","team":"New York Knicks","signed":14,"others_avg":-5,"dev":19},{"player":"Mary","team":"Brooklyn Nets","signed":12,"others_avg":-5.142857,"dev":17.142857},{"player":"Mary","team":"Chicago Bulls","signed":14,"others_avg":-3,"dev":17},{"player":"Mary","team":"Los Angeles Clippers","signed":11,"others_avg":-5.571429,"dev":16.571429},{"player":"Mary","team":"San Antonio Spurs","signed":13,"others_avg":-1,"dev":14},{"player":"Mary","team":"Boston Celtics","signed":-7,"others_avg":5.285714,"dev":-12.285714},{"player":"Mary","team":"Charlotte Hornets","signed":13,"others_avg":1,"dev":12},{"player":"Mary","team":"New Orleans Pelicans","signed":-10,"others_avg":1.428571,"dev":-11.428571},{"player":"Mike J","team":"Oklahoma City Thunder","signed":13,"others_avg":-6.142857,"dev":19.142857},{"player":"Mike J","team":"Utah Jazz","signed":7,"others_avg":-10.857143,"dev":17.857143},{"player":"Mike J","team":"Golden State Warriors","signed":-12,"others_avg":3.571429,"dev":-15.571429},{"player":"Mike J","team":"Orlando Magic","signed":14,"others_avg":-1.285714,"dev":15.285714},{"player":"Mike J","team":"Memphis Grizzlies","signed":11,"others_avg":-3.857143,"dev":14.857143},{"player":"Mike J","team":"Toronto Raptors","signed":10,"others_avg":-4.285714,"dev":14.285714},{"player":"Mike J","team":"San Antonio Spurs","signed":13,"others_avg":-1,"dev":14},{"player":"Mike J","team":"Los Angeles Lakers","signed":12,"others_avg":-1.285714,"dev":13.285714},{"player":"Mike J","team":"Charlotte Hornets","signed":-9,"others_avg":4.142857,"dev":-13.142857},{"player":"Mike J","team":"Boston Celtics","signed":15,"others_avg":2.142857,"dev":12.857143},{"player":"Phil","team":"Miami Heat","signed":-13,"others_avg":8.714286,"dev":-21.714286},{"player":"Phil","team":"Oklahoma City Thunder","signed":14,"others_avg":-6.285714,"dev":20.285714},{"player":"Phil","team":"Sacramento Kings","signed":-9,"others_avg":7.571429,"dev":-16.571429},{"player":"Phil","team":"Atlanta Hawks","signed":15,"others_avg":-0.428571,"dev":15.428571},{"player":"Phil","team":"Toronto Raptors","signed":11,"others_avg":-4.428571,"dev":15.428571},{"player":"Phil","team":"Phoenix Suns","signed":8,"others_avg":-7,"dev":15},{"player":"Phil","team":"Memphis Grizzlies","signed":11,"others_avg":-3.857143,"dev":14.857143},{"player":"Phil","team":"New York Knicks","signed":10,"others_avg":-4.428571,"dev":14.428571},{"player":"Phil","team":"Charlotte Hornets","signed":15,"others_avg":0.714286,"dev":14.285714},{"player":"Phil","team":"Milwaukee Bucks","signed":-14,"others_avg":-0.142857,"dev":-13.857143},{"player":"Ryan","team":"Indiana Pacers","signed":-15,"others_avg":6.428571,"dev":-21.428571},{"player":"Ryan","team":"Miami Heat","signed":-12,"others_avg":8.571429,"dev":-20.571429},{"player":"Ryan","team":"Portland Trail Blazers","signed":14,"others_avg":-3.428571,"dev":17.428571},{"player":"Ryan","team":"Phoenix Suns","signed":9,"others_avg":-7.142857,"dev":16.142857},{"player":"Ryan","team":"Toronto Raptors","signed":-15,"others_avg":-0.714286,"dev":-14.285714},{"player":"Ryan","team":"Brooklyn Nets","signed":9,"others_avg":-4.714286,"dev":13.714286},{"player":"Ryan","team":"San Antonio Spurs","signed":-11,"others_avg":2.428571,"dev":-13.428571},{"player":"Ryan","team":"Los Angeles Lakers","signed":12,"others_avg":-1.285714,"dev":13.285714},{"player":"Ryan","team":"Charlotte Hornets","signed":14,"others_avg":0.857143,"dev":13.142857},{"player":"Ryan","team":"Sacramento Kings","signed":-6,"others_avg":7.142857,"dev":-13.142857}],"closeness":[{"player":"Adonis","x":0.020915,"y":0.653067},{"player":"Andy","x":0.479404,"y":-0.02303},{"player":"Chester","x":0.086903,"y":-0.106907},{"player":"Jake","x":0.284487,"y":-0.000967},{"player":"Mary","x":-0.217583,"y":0.317156},{"player":"Mike J","x":-0.375483,"y":-0.22732},{"player":"Phil","x":-0.602716,"y":-0.203857},{"player":"Ryan","x":0.324072,"y":-0.408142}]};
+
+(() => {
+  const pct = d3.format('.1%');
+  const pts = (v) => (v * 100).toFixed(1) + ' pts';
+  const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const shade = (v, w) => `color-mix(in srgb, var(${v}) ${Math.round(18 + (w - 6) / 9 * 62)}%, transparent)`;
+  const P = DATA.players, T = DATA.teams, R = DATA.rooting, Q = DATA.pairs, M = DATA.meta;
+  const names = P.map((d) => d.player);
+
+  // Header text
+  const lead = P[0], tail = P[P.length - 1];
+  const tk = document.getElementById('takeaway');
+  const b = (t) => { const e = document.createElement('b'); e.textContent = t; return e; };
+  tk.append(b(lead.player), ` has the best chance to win the pool at ${pct(lead.win_prob)}, and the longest shot, `,
+    b(tail.player), `, sits at ${pct(tail.win_prob)}. With ${P.length} entries an equal share is ${pct(1 / P.length)}, so the season will be decided by the handful of teams where the group split with big wagers.`);
+  document.getElementById('pending').textContent = M.missing.length
+    ? `Not in yet: ${M.missing.join(', ')} (deadline ${M.deadline}). These numbers cover the ${P.length} entries submitted so far.`
+    : `All ${P.length} entries are in.`;
+  document.getElementById('stamp').textContent = `Generated ${M.generated} from the submissions Sheet.`;
+  document.getElementById('method-text').textContent =
+    `${d3.format(',')(M.n_sims)} simulated seasons. Each team's wins are its ${M.lines_as_of} Vegas consensus line plus random error with a standard deviation of ${M.noise_sd.toFixed(1)} wins (the lines missed by ${M.line_mae} wins on average over 2021-26, and no published projection beat them). Each simulated season is rebalanced so the league totals 1,230 wins; the lines add to ${d3.format(',')(M.line_sum)}, which tilts the board slightly toward Under. Scoring follows the pool: plus the wager when right, minus it when wrong; ties go to more picks correct, then more 15s correct. The "League runs 2 under/over" scenarios move every team's wins by two. Built by 08-preseason-pool-analysis.R in the season folder.`;
+
+  function tipOn(box, tip, ev, lines) {
+    const [mx, my] = d3.pointer(ev, box);
+    tip.style('display', null).html('');
+    tip.append('div').attr('class', 'k').text(lines[0]);
+    lines.slice(1).forEach((l) => tip.append('div').text(l));
+    const tw = tip.node().offsetWidth;
+    tip.style('left', Math.max(0, Math.min(mx + 12, box.clientWidth - tw - 4)) + 'px').style('top', (my + 12) + 'px');
+  }
+
+  function textWidth(svg, labels, size) {
+    const probe = svg.append('text').attr('font-size', size);
+    const w = d3.max(labels, (l) => { probe.text(l); return probe.node().getComputedTextLength(); });
+    probe.remove();
+    return Math.ceil(w);
+  }
+
+  function drawWin() {
+    const box = document.getElementById('win-chart');
+    box.textContent = '';
+    const W = Math.max(280, box.clientWidth), rowH = 34, H = P.length * rowH + 30;
+    const svg = d3.select(box).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('font-family', 'inherit');
+    const left = textWidth(svg, names, 13) + 12;
+    const xmax = d3.max(P, (r) => Math.max(r.win_prob, r.under_drift_win_prob, r.over_drift_win_prob)) * 1.12;
+    const x = d3.scaleLinear([0, xmax], [left, W - 48]);
+    const y = d3.scaleBand(names, [4, H - 26]).padding(0.35);
+    const ticks = x.ticks(5);
+    svg.append('g').selectAll('line').data(ticks).join('line')
+      .attr('x1', x).attr('x2', x).attr('y1', 4).attr('y2', H - 26).attr('stroke', css('--grid'));
+    svg.append('g').selectAll('text').data(ticks).join('text')
+      .attr('x', x).attr('y', H - 8).attr('text-anchor', 'middle').attr('font-size', 11)
+      .attr('fill', css('--muted')).text(d3.format('.0%'));
+    svg.append('line').attr('x1', x(1 / P.length)).attr('x2', x(1 / P.length)).attr('y1', 4).attr('y2', H - 26)
+      .attr('stroke', css('--ref')).attr('stroke-dasharray', '4 3');
+    const cy = (r) => y(r.player) + y.bandwidth() / 2;
+    const g = svg.append('g').selectAll('g').data(P).join('g');
+    g.append('text').attr('x', left - 8).attr('y', cy).attr('dy', '0.35em').attr('text-anchor', 'end')
+      .attr('font-size', 13).attr('fill', css('--fg')).text((r) => r.player);
+    g.append('rect').attr('x', x(0)).attr('y', (r) => y(r.player)).attr('height', y.bandwidth())
+      .attr('width', (r) => x(r.win_prob) - x(0)).attr('rx', 2).attr('fill', css('--ink')).attr('fill-opacity', 0.16);
+    [['under_drift_win_prob', '--under'], ['over_drift_win_prob', '--over']].forEach(([f, c]) => {
+      g.append('circle').attr('cx', (r) => x(r[f])).attr('cy', cy).attr('r', 5)
+        .attr('fill', css(c)).attr('stroke', css('--panel')).attr('stroke-width', 1.5);
+    });
+    g.append('text').attr('x', (r) => x(0) + 8)
+      .attr('y', cy).attr('dy', '0.35em').attr('font-size', 11).attr('font-weight', 600).attr('fill', css('--fg')).text((r) => pct(r.win_prob));
+    const tip = d3.select(box).append('div').attr('class', 'tip').style('display', 'none');
+    g.append('rect').attr('x', 0).attr('width', W).attr('y', (r) => y(r.player) - 5).attr('height', y.bandwidth() + 10)
+      .attr('fill', 'transparent')
+      .on('mousemove', (ev, r) => tipOn(box, tip, ev, [r.player, `Base case ${pct(r.win_prob)}`,
+        `League 2 under ${pct(r.under_drift_win_prob)}`, `League 2 over ${pct(r.over_drift_win_prob)}`]))
+      .on('mouseleave', () => tip.style('display', 'none'));
+  }
+
+  function fillTable(sel, rows, cellsFor) {
+    const tb = document.querySelector(sel + ' tbody');
+    tb.textContent = '';
+    rows.forEach((d) => {
+      const tr = tb.insertRow();
+      cellsFor(d).forEach(([v, cls, extra]) => {
+        const td = tr.insertCell();
+        if (cls) td.className = cls;
+        if (v instanceof Node) td.appendChild(v); else td.textContent = v;
+        if (extra) extra(td);
+      });
+    });
+  }
+
+  const sign = d3.format('+d');
+  fillTable('#player-table', P, (d) => [[d.player], [pct(d.win_prob), 'num'], [pct(d.last_prob), 'num'],
+    [d.mean_rank.toFixed(2), 'num'], [d.overs, 'num'], [d.over_wager, 'num'], [d.under_wager, 'num'],
+    [`${sign(Math.round(d.p10))} to ${sign(Math.round(d.p90))}`, 'num']]);
+
+  // Teams table
+  const head = document.getElementById('team-head');
+  [['Team'], ['Line', 'num'], ['Sway'], ['O–U', 'num'], ['Over helps most'], ['Under helps most']]
+    .concat(names.map((n) => [n])).forEach(([l, c]) => {
+      const th = document.createElement('th'); th.textContent = l; if (c) th.className = c; head.appendChild(th);
+    });
+  const maxSway = d3.max(T, (d) => d.sway);
+  const bar = (frac, color, rem) => {
+    const s = document.createElement('span'); s.className = 'bar';
+    s.style.width = (frac * rem).toFixed(2) + 'rem'; s.style.background = color; return s;
+  };
+  fillTable('#team-table', T, (d) => [[d.team], [d.line.toFixed(1), 'num'],
+    [d.sway.toFixed(2), '', (td) => td.appendChild(bar(d.sway / maxSway, 'var(--accent)', 4))],
+    [`${d.overs}–${d.unders}`, 'num'], [d.biggest_gainer_if_over], [d.biggest_gainer_if_under]]
+    .concat(names.map((n) => {
+      const v = d[n];
+      return [(v > 0 ? 'O' : 'U') + Math.abs(v), 'pk', (td) => { td.style.background = shade(v > 0 ? '--over' : '--under', Math.abs(v)); }];
+    })));
+
+  // Rooting
+  const maxSwing = d3.max(R, (d) => d.win_chance_swing);
+  const swingCell = (d) => ['+' + pts(d.win_chance_swing), '',
+    (td) => td.appendChild(bar(d.win_chance_swing / maxSwing, d.root_for === 'Over' ? 'var(--over)' : 'var(--under)', 6))];
+  let selected = names.includes('Chester') ? 'Chester' : names[0];
+  const chips = document.getElementById('player-chips');
+  function drawRoot() {
+    chips.textContent = '';
+    names.forEach((n) => {
+      const bt = document.createElement('button'); bt.type = 'button'; bt.textContent = n;
+      bt.setAttribute('aria-pressed', String(n === selected));
+      bt.addEventListener('click', () => { selected = n; drawRoot(); });
+      chips.appendChild(bt);
+    });
+    fillTable('#root-table', R.filter((d) => d.player === selected).sort((a, b) => b.win_chance_swing - a.win_chance_swing),
+      (d) => [[d.team], [d.root_for], swingCell(d), [d.pick], [d.wager, 'num'],
+        [d.against_own_pick ? 'Against own pick' : '', d.against_own_pick ? 'flag' : '']]);
+  }
+  drawRoot();
+  fillTable('#against-table', R.filter((d) => d.against_own_pick).sort((a, b) => b.win_chance_swing - a.win_chance_swing),
+    (d) => [[d.player], [d.team], [d.pick], [d.wager, 'num'], [d.root_for], swingCell(d)]);
+
+  // Similarity heatmap
+  function drawSim() {
+    const box = document.getElementById('sim-chart');
+    box.textContent = '';
+    const look = new Map();
+    Q.forEach((d) => { look.set(d.a + '|' + d.b, d); look.set(d.b + '|' + d.a, d); });
+    const W = Math.max(280, box.clientWidth);
+    const svg = d3.select(box).append('svg').attr('width', '100%').attr('font-family', 'inherit');
+    const lab = textWidth(svg, names, 12) + 12;
+    const cell = Math.min(64, (W - lab) / names.length);
+    const top = Math.ceil(lab * 0.75);
+    const H = top + cell * names.length + 4;
+    svg.attr('viewBox', `0 0 ${W} ${H}`);
+    const tip = d3.select(box).append('div').attr('class', 'tip').style('display', 'none');
+    names.forEach((n, i) => {
+      svg.append('text').attr('x', lab - 6).attr('y', top + i * cell + cell / 2).attr('dy', '0.35em')
+        .attr('text-anchor', 'end').attr('font-size', 12).attr('fill', css('--fg')).text(n);
+      svg.append('text').attr('transform', `translate(${lab + i * cell + cell / 2 - 4},${top - 6}) rotate(-45)`)
+        .attr('font-size', 12).attr('fill', css('--fg')).text(n);
+    });
+    names.forEach((a, i) => names.forEach((bn, j) => {
+      const x0 = lab + j * cell, y0 = top + i * cell;
+      if (a === bn) {
+        svg.append('rect').attr('x', x0 + 1).attr('y', y0 + 1).attr('width', cell - 2).attr('height', cell - 2).attr('rx', 3).attr('fill', css('--grid'));
+        return;
+      }
+      const d = look.get(a + '|' + bn), r = d.wager_corr;
+      svg.append('rect').attr('x', x0 + 1).attr('y', y0 + 1).attr('width', cell - 2).attr('height', cell - 2).attr('rx', 3)
+        .style('fill', `color-mix(in srgb, var(${r >= 0 ? '--over' : '--under'}) ${Math.round(Math.min(1, Math.abs(r) / 0.35) * 80)}%, transparent)`);
+      if (cell >= 36) {
+        svg.append('text').attr('x', x0 + cell / 2).attr('y', y0 + cell / 2 - 5).attr('text-anchor', 'middle')
+          .attr('font-size', 11).attr('fill', css('--fg')).text(d3.format('+.2f')(r));
+        svg.append('text').attr('x', x0 + cell / 2).attr('y', y0 + cell / 2 + 10).attr('text-anchor', 'middle')
+          .attr('font-size', 10).attr('fill', css('--muted')).text(`${d.same_side}/30`);
+      }
+      svg.append('rect').attr('x', x0).attr('y', y0).attr('width', cell).attr('height', cell).attr('fill', 'transparent')
+        .on('mousemove', (ev) => tipOn(box, tip, ev, [`${a} and ${bn}`, `Correlation ${d3.format('+.2f')(r)}`,
+          `Same side on ${d.same_side} of 30 teams`, `Contested points ${d.contested_wager}`]))
+        .on('mouseleave', () => tip.style('display', 'none'));
+    }));
+  }
+
+  fillTable('#pair-table', Q.slice().sort((a, b) => b.wager_corr - a.wager_corr), (d) => [[`${d.a} & ${d.b}`],
+    [d.same_side, 'num'], [d3.format('+.2f')(d.wager_corr), 'num'], [d.contested_wager, 'num'], [pct(d.a_beats_b), 'num']]);
+
+  // Participant heatmap: teams by consensus, players in closeness-map order
+  const C = DATA.closeness, D = DATA.most_different;
+  const mapOrder = C.slice().sort((a, b) => a.x - b.x).map((d) => d.player);
+  const hh = document.getElementById('heat-head');
+  [['Team'], ['Consensus', 'num']].concat(mapOrder.map((n) => [n])).forEach(([l, c]) => {
+    const th = document.createElement('th'); th.textContent = l; if (c) th.className = c; hh.appendChild(th);
+  });
+  fillTable('#heat-table', T.slice().sort((a, b) => b.consensus - a.consensus), (d) => [[d.team],
+    [d3.format('+.1f')(d.consensus), 'num']].concat(mapOrder.map((n) => {
+      const v = d[n];
+      return [(v > 0 ? 'O' : 'U') + Math.abs(v), 'pk', (td) => { td.style.background = shade(v > 0 ? '--over' : '--under', Math.abs(v)); }];
+    })));
+
+  function drawMap() {
+    const box = document.getElementById('map-chart');
+    box.textContent = '';
+    const W = Math.max(280, box.clientWidth), H = Math.min(360, Math.round(W * 0.8));
+    const svg = d3.select(box).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('font-family', 'inherit');
+    const pad = textWidth(svg, names, 12) / 2 + 14;
+    const ext = Math.max(d3.max(C, (d) => Math.abs(d.x)), d3.max(C, (d) => Math.abs(d.y))) * 1.1;
+    const span = Math.min(W, H) / 2 - pad;
+    const x = (v) => W / 2 + (v / ext) * (W / 2 - pad), y = (v) => H / 2 - (v / ext) * span;
+    svg.append('line').attr('x1', pad).attr('x2', W - pad).attr('y1', H / 2).attr('y2', H / 2).attr('stroke', css('--grid'));
+    svg.append('line').attr('x1', W / 2).attr('x2', W / 2).attr('y1', 8).attr('y2', H - 8).attr('stroke', css('--grid'));
+    const tip = d3.select(box).append('div').attr('class', 'tip').style('display', 'none');
+    const g = svg.append('g').selectAll('g').data(C).join('g');
+    g.append('circle').attr('cx', (d) => x(d.x)).attr('cy', (d) => y(d.y)).attr('r', 6).attr('fill', css('--accent'));
+    g.append('text').attr('x', (d) => x(d.x)).attr('y', (d) => y(d.y) - 11).attr('text-anchor', 'middle')
+      .attr('font-size', 12).attr('fill', css('--fg')).text((d) => d.player);
+    const near = (p) => Q.filter((q) => q.a === p || q.b === p).sort((a, b) => b.wager_corr - a.wager_corr)[0];
+    g.append('circle').attr('cx', (d) => x(d.x)).attr('cy', (d) => y(d.y)).attr('r', 16).attr('fill', 'transparent')
+      .on('mousemove', (ev, d) => { const n = near(d.player); const o = n.a === d.player ? n.b : n.a;
+        tipOn(box, tip, ev, [d.player, `Most similar: ${o} (${d3.format('+.2f')(n.wager_corr)})`]); })
+      .on('mouseleave', () => tip.style('display', 'none'));
+  }
+
+  // Most different from the group, one card per player
+  const grid = document.getElementById('diff-grid');
+  const dmax = d3.max(D, (d) => Math.abs(d.dev));
+  names.forEach((n) => {
+    const card = document.createElement('div'); card.className = 'card';
+    const h = document.createElement('h3'); h.textContent = n; card.appendChild(h);
+    D.filter((d) => d.player === n).sort((a, b) => Math.abs(b.dev) - Math.abs(a.dev)).forEach((d) => {
+      const row = document.createElement('div'); row.className = 'drow';
+      row.title = `${d.team}: ${n} ${d.signed > 0 ? 'Over' : 'Under'} ${Math.abs(d.signed)}, others average ${d3.format('+.1f')(d.others_avg)}`;
+      const tm = document.createElement('span'); tm.className = 'tm'; tm.textContent = d.team;
+      const pk = document.createElement('span'); pk.className = 'pk2';
+      pk.textContent = (d.signed > 0 ? 'O' : 'U') + Math.abs(d.signed);
+      pk.style.background = shade(d.signed > 0 ? '--over' : '--under', Math.abs(d.signed));
+      const tr = document.createElement('span'); tr.className = 'dtrack';
+      const b2 = document.createElement('span');
+      const w = Math.abs(d.dev) / dmax * 50;
+      b2.style.width = w + '%'; b2.style.left = (d.dev >= 0 ? 50 : 50 - w) + '%';
+      b2.style.background = d.dev >= 0 ? 'var(--over)' : 'var(--under)';
+      tr.appendChild(b2);
+      row.append(tm, pk, tr);
+      card.appendChild(row);
+    });
+    grid.appendChild(card);
+  });
+
+  const draw = () => { drawWin(); drawSim(); drawMap(); };
+  draw();
+  let t; window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(draw, 150); });
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', draw);
+})();
+</script>
+</body>
+</html>

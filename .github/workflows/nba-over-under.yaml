@@ -25,8 +25,14 @@ jobs:
         run: |
           CURRENT_DATE=$(date -u +%Y-%m-%d)
           CUTOFF_DATE="2027-04-12"
+          # The preseason preview holds the season URL until a game is played
+          # (opening night is 2026-10-20, so the first build is the 21st).
+          FIRST_BUILD_DATE="2026-10-21"
           if [[ ! -f nba-over-under-2026-2027/rds/gs_picks_raw.rds ]]; then
             echo "No 2026-27 picks yet; skipping the build."
+            echo "should_run=false" >> $GITHUB_OUTPUT
+          elif [[ "$CURRENT_DATE" < "$FIRST_BUILD_DATE" ]]; then
+            echo "No games played yet; the preview stays up until $FIRST_BUILD_DATE."
             echo "should_run=false" >> $GITHUB_OUTPUT
           elif [[ "$CURRENT_DATE" < "$CUTOFF_DATE" || "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             echo "should_run=true" >> $GITHUB_OUTPUT
@@ -103,7 +109,13 @@ jobs:
       - name: Build webpage
         run: |
           Rscript nba-over-under-2026-2027/make_plot_html.R
-      
+
+      # Apply the site theme and season strip to the fresh render, and copy
+      # it to the repo root (the published copy) alongside docs/.
+      - name: Restyle season page
+        run: |
+          python3 nba-over-under-META/site-style/restyle_season_pages.py season 2027
+
       - name: Push changes
         id: push
         run: |

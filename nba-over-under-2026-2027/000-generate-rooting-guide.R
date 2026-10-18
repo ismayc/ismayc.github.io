@@ -344,95 +344,38 @@ cat("Rooting guide complete!\n")
 # =============================================================================
 # SCENARIO EXPLORER
 # =============================================================================
+# Every Over/Under combination of the open teams is listed in the browser, so
+# the explorer covers only the dates with explorer_max_open or fewer teams
+# open. It is embedded as the Scenarios tab of the season page. Each
+# determined_outcomes file holds the games through the day before its date.
 
 cat("\nGenerating scenario explorer...\n")
+source("nba-over-under-2026-2027/10-scenario-explorer.R")
 
-# -- Classify teams into CLINCHED, LIKELY, UNDECIDED ---------------------------
-# Clinched: outcome already determined
-# Likely: win% needed is 20+ percentage points away from the team's current pace
-#   e.g. a 60% team needing 25% = likely OVER (35pt gap, coasting)
-#        a 30% team needing 25% = undecided (only 5pt gap, that IS their pace)
-# Undecided: everything else
+outcome_files <- sort(list.files("nba-over-under-2026-2027/determined_outcomes",
+                                 pattern = "^determined_outcomes_.*\\.rds$",
+                                 full.names = TRUE))
+snapshots <- map(outcome_files, function(f) {
+  through <- as.Date(str_extract(f, "\\d{4}-\\d{2}-\\d{2}")) - 1
+  d <- read_rds(f)
+  # A few files from failed builds have "NA-NA" records; skip those days
+  if (!all(str_detect(d$`Current Record`, "^\\d+-\\d+$"))) return(NULL)
+  d %>%
+    separate_wider_delim(`Current Record`, "-", names = c("w", "l")) %>%
+    transmute(team = Team, w = as.integer(w), l = as.integer(l),
+              line = `Win Projection`, n_games = w + l + `Remaining Games`) %>%
+    explorer_snapshot(date = through)
+}) %>%
+  compact() %>%
+  keep(\(x) x$n_open > 0 && x$n_open <= explorer_max_open)
 
-likely_gap_threshold <- 25  # percentage points between current pace and what's needed
-
-clinched_list <- list()
-likely_list <- list()
-undecided_vec <- c()
-
-for (i in seq_len(nrow(out_table))) {
-  row <- out_table[i, ]
-  team <- row[["Team"]]
-  det <- row[["Outcome Determined"]]
-  
-  if (det == "OVER") {
-    clinched_list[[team]] <- "O"
-  } else if (det == "UNDER") {
-    clinched_list[[team]] <- "U"
-  } else {
-    rec <- str_split(row[["Current Record"]], "-")[[1]]
-    wins <- as.integer(rec[1])
-    losses <- as.integer(rec[2])
-    rem <- row[["Remaining Games"]]
-    wtg <- row[["Wins To Go Over Vegas"]]
-    current_wpct <- wins / (wins + losses) * 100
-    
-    if (!is.na(wtg) && rem > 0) {
-      wpn <- wtg / rem * 100
-    } else {
-      wpn <- 50
-    }
-    
-    gap <- wpn - current_wpct  # positive = needs to play better than pace
-    
-    cat(sprintf("    %-28s  pace=%4.1f%%  needed=%4.1f%%  gap=%+5.1f\n",
-                team, current_wpct, wpn, gap))
-    
-    if (gap <= -likely_gap_threshold) {
-      # Needs far less than current pace -> likely OVER
-      likely_list[[team]] <- "O"
-    } else if (gap >= likely_gap_threshold) {
-      # Needs far more than current pace -> likely UNDER
-      likely_list[[team]] <- "U"
-    } else {
-      undecided_vec <- c(undecided_vec, team)
-    }
-  }
-}
-
-cat("  Clinched:", length(clinched_list), "teams\n")
-cat("  Likely:", length(likely_list), "teams\n")
-cat("  Undecided:", length(undecided_vec), "teams\n")
-
-clinched_json <- toJSON(clinched_list, auto_unbox = TRUE)
-likely_json <- toJSON(likely_list, auto_unbox = TRUE)
-# as.list() forces jsonlite to always emit an array, even for 0 or 1 elements
-undecided_json <- toJSON(as.list(undecided_vec), auto_unbox = TRUE)
-
-# -- Read template and inject data ---------------------------------------------
-template_file <- "nba-over-under-2026-2027/scenario-explorer-template.html"
-stopifnot(file.exists(template_file))
-template <- paste(readLines(template_file, warn = FALSE), collapse = "\n")
-
-# Use str_replace with fixed() for truly literal replacement
-# (gsub can misinterpret backslash sequences in the replacement string)
-scenario_html <- template
-scenario_html <- str_replace(scenario_html, fixed("__CLINCHED_JSON__"), clinched_json)
-scenario_html <- str_replace(scenario_html, fixed("__LIKELY_JSON__"), likely_json)
-scenario_html <- str_replace(scenario_html, fixed("__UNDECIDED_JSON__"), undecided_json)
-
-# Verify all placeholders were replaced
-remaining <- sum(str_detect(scenario_html, fixed("__CLINCHED_JSON__")),
-                 str_detect(scenario_html, fixed("__LIKELY_JSON__")),
-                 str_detect(scenario_html, fixed("__UNDECIDED_JSON__")))
-if (remaining > 0) {
-  warning("  Template still has ", remaining, " unreplaced placeholder(s)!")
+explorer_name <- paste0(ending_season_year, "-nba-scenario-explorer.html")
+if (length(snapshots) == 0) {
+  cat("  No date yet with ", explorer_max_open, " or fewer teams open\n", sep = "")
 } else {
-  cat("  All placeholders replaced successfully\n")
+  write_scenario_explorer(snapshots, picks_raw, season_label,
+                          file.path(out_dir, explorer_name),
+                          "nba-over-under-2026-2027/scenario-explorer-template.html")
+  file.copy(file.path(out_dir, explorer_name), explorer_name, overwrite = TRUE)
+  cat("  Wrote:", explorer_name, "with", length(snapshots), "dates\n")
 }
-
-scenario_path <- file.path(out_dir, "nba-scenario-explorer.html")
-writeLines(scenario_html, scenario_path)
-cat("  Wrote:", scenario_path, "\n")
-
-cat("Scenario explorer complete!\n")

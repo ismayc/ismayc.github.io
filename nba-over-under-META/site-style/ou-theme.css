@@ -1,0 +1,75 @@
+/* NBA over/under site theme: a scorer's book.
+   Pale ruled scorebook paper, navy ink, blue pencil for Over, red pencil for
+   Under. One deliberate light theme: the season pages embed plotly charts
+   with white backgrounds baked in, so every page stays on paper.
+   Source of truth for the 2027 page and the restyled 2021-2026 pages;
+   restyle_season_pages.py inlines it. */
+:root {
+  --paper: #edf1e8;
+  --sheet: #fafbf7;
+  --rule: #cdd6c6;
+  --rule-faint: #dfe5d9;
+  --ink: #1c2a44;
+  --ink-soft: #56627a;
+  --over: #2457a6;
+  --under: #b8322f;
+  --alt: #6b5a9e;
+  --warn: #8a5a00;
+  --font-display: "Big Shoulders Display", "Arial Narrow", "Helvetica Neue", sans-serif;
+  --font-body: "Source Sans 3", "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+  color-scheme: light;
+}
+
+/* Season strip: the history masthead on every page */
+.ou-masthead {
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--rule-faint) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rule-faint) 1px, transparent 1px);
+  background-size: 24px 24px;
+  border-bottom: 2px solid var(--ink);
+  padding: 18px max(16px, env(safe-area-inset-right, 0px)) 0 max(16px, env(safe-area-inset-left, 0px));
+  font-family: var(--font-body);
+  color: var(--ink);
+}
+.ou-masthead-inner { max-width: 72rem; margin: 0 auto; }
+.ou-kicker { margin: 0 0 10px; font-size: 0.9rem; color: var(--ink-soft); }
+.ou-kicker a { color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
+.ou-seasons {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(9rem, 1fr);
+  overflow-x: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-left: 1px solid var(--rule);
+}
+.ou-seasons li { border-right: 1px solid var(--rule); }
+.ou-seasons a {
+  display: grid;
+  gap: 2px;
+  padding: 8px 12px 12px;
+  color: var(--ink);
+  text-decoration: none;
+  border-top: 4px solid transparent;
+}
+.ou-seasons a:hover { background: rgba(28, 42, 68, 0.05); text-decoration: none; }
+.ou-seasons a:focus-visible { outline: 2px solid var(--over); outline-offset: -2px; }
+.ou-seasons .yr {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.6rem;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.ou-seasons .who { font-size: 0.82rem; color: var(--ink-soft); white-space: nowrap; }
+.ou-seasons .who b { color: var(--ink); font-weight: 600; }
+.ou-seasons [aria-current="page"] { background: var(--ink); color: var(--sheet); border-top-color: var(--under); }
+.ou-seasons [aria-current="page"] .who,
+.ou-seasons [aria-current="page"] .who b { color: var(--sheet); }
+
+/* Shared page base */
+.ou-page { background: var(--paper); color: var(--ink); font-family: var(--font-body); }
+.ou-page h1, .ou-page h2, .ou-page h3 { color: var(--ink); text-wrap: balance; }
+.ou-page a { color: var(--over); }

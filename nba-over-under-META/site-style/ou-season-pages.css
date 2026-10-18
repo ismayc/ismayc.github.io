@@ -1,0 +1,163 @@
+/* Overrides for the R Markdown (Bootstrap 3) season pages, 2021 onward.
+   Loaded after ou-theme.css by restyle_season_pages.py. Scoped under
+   body.ou-page so nothing leaks into the injected masthead. */
+/* Bootstrap 3 sets the root to 10px; the theme is sized in rem */
+html { font-size: 16px !important; }
+body.ou-page {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0;
+}
+body.ou-page .main-container {
+  max-width: 72rem !important;
+  padding: 28px max(16px, env(safe-area-inset-right, 0px)) 64px max(16px, env(safe-area-inset-left, 0px));
+}
+body.ou-page #header { margin-bottom: 8px; }
+body.ou-page h1.title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  line-height: 0.95;
+  margin: 0 0 6px;
+  letter-spacing: 0.005em;
+}
+body.ou-page h4.author {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--ink-soft);
+  margin: 0 0 18px;
+}
+body.ou-page h2 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 2rem;
+  line-height: 1.05;
+  margin: 40px 0 12px;
+  padding-top: 10px;
+  border-top: 2px solid var(--ink);
+}
+body.ou-page h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.45rem;
+  margin: 24px 0 10px;
+}
+body.ou-page h4, body.ou-page h5 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--ink);
+  margin: 18px 0 8px;
+}
+body.ou-page p, body.ou-page li { max-width: 75ch; }
+body.ou-page a { color: var(--over); }
+
+/* Tabs read as scorebook tabs: ink underline on the active one */
+body.ou-page .nav-tabs, body.ou-page .nav-pills {
+  border-bottom: 1px solid var(--rule);
+  margin: 8px 0 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+body.ou-page .nav-tabs > li, body.ou-page .nav-pills > li { float: none; margin: 0; }
+body.ou-page .nav-tabs > li > a, body.ou-page .nav-pills > li > a {
+  border: 0;
+  border-radius: 0;
+  margin: 0;
+  padding: 8px 14px 9px;
+  color: var(--ink-soft);
+  background: transparent;
+  font-weight: 600;
+  border-bottom: 3px solid transparent;
+}
+body.ou-page .nav-tabs > li > a:hover, body.ou-page .nav-pills > li > a:hover {
+  background: rgba(28, 42, 68, 0.05);
+  color: var(--ink);
+}
+body.ou-page .nav-tabs > li.active > a, body.ou-page .nav-tabs > li.active > a:hover,
+body.ou-page .nav-tabs > li.active > a:focus,
+body.ou-page .nav-pills > li.active > a, body.ou-page .nav-pills > li.active > a:hover,
+body.ou-page .nav-pills > li.active > a:focus {
+  border: 0;
+  border-bottom: 3px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+}
+body.ou-page .nav-tabs > li > a:focus, body.ou-page .nav-pills > li > a:focus { outline: none; }
+body.ou-page .nav-tabs > li > a:focus-visible,
+body.ou-page .nav-pills > li > a:focus-visible { outline: 2px solid var(--over); outline-offset: 2px; }
+
+/* Charts and tables sit on sheets of paper */
+body.ou-page .plotly.html-widget,
+body.ou-page .datatables.html-widget,
+body.ou-page .tab-content > .tab-pane > img,
+body.ou-page p > img {
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  box-sizing: border-box;
+  max-width: 100%;
+}
+body.ou-page .datatables.html-widget { padding: 10px 12px; }
+body.ou-page table { font-variant-numeric: tabular-nums; font-size: 0.9rem; }
+body.ou-page table.dataTable thead th, body.ou-page .table > thead > tr > th {
+  color: var(--ink-soft);
+  font-weight: 600;
+  border-bottom: 2px solid var(--ink) !important;
+  background: var(--sheet);
+}
+body.ou-page table.dataTable tbody td, body.ou-page .table > tbody > tr > td {
+  border-top: 1px solid var(--rule-faint) !important;
+}
+body.ou-page table.dataTable.stripe tbody tr.odd,
+body.ou-page table.dataTable.display tbody tr.odd,
+body.ou-page .table-striped > tbody > tr:nth-of-type(odd) { background-color: rgba(205, 214, 198, 0.22); }
+body.ou-page table.dataTable.display tbody tr.odd > .sorting_1,
+body.ou-page table.dataTable.display tbody tr.even > .sorting_1 { background-color: transparent; }
+body.ou-page .dataTables_wrapper .dataTables_filter input,
+body.ou-page .dataTables_wrapper .dataTables_length select {
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  background: #fff;
+  padding: 2px 6px;
+}
+body.ou-page .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+  background: var(--ink) !important;
+  color: var(--sheet) !important;
+  border: 1px solid var(--ink) !important;
+  border-radius: 2px;
+}
+body.ou-page .table-striped { background: var(--sheet); border: 1px solid var(--rule); }
+/* Pool playoff cutoff: a rule under 4th place in the standings table
+   ("Games through ..."). 2025 and 2026 drew it with #proj_score; earlier
+   seasons never had it. */
+body.ou-page div[id^="games-through"] table.dataTable tbody tr:nth-child(4) td,
+body.ou-page #proj_score table.dataTable tbody tr:nth-child(4) td {
+  border-bottom: 3px solid var(--ink) !important;
+}
+
+/* Pick tables: right and wrong were lightgreen and hotpink (set at runtime by
+   DT::formatStyle); Over and Under text was forestgreen and deeppink. */
+body.ou-page td[style*="lightgreen"] { background-color: #d5e6cf !important; }
+body.ou-page td[style*="hotpink"] { background-color: #f1d2cf !important; }
+body.ou-page [style*="forestgreen"] { color: var(--over) !important; }
+body.ou-page [style*="deeppink"] { color: var(--under) !important; }
+@media (max-width: 600px) {
+  body.ou-page h2 { font-size: 1.6rem; }
+}
+
+/* Scenario explorer, embedded in the Scenarios tab. The frame reports its
+   height (EXPLORER_FRAME in restyle_season_pages.py), so it never scrolls
+   inside the page. */
+body.ou-page iframe.ou-explorer {
+  display: block;
+  width: 100%;
+  min-height: 640px;
+  border: 1px solid var(--rule);
+  background: var(--sheet);
+  margin: 0.75rem 0 1.5rem;
+}

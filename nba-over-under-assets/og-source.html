@@ -1,0 +1,39 @@
+<!doctype html>
+<!-- Link-preview source for the NBA over/under pages. Re-render from the repo root:
+     python3 -I ~/.claude/skills/web-page-meta/render_meta.py --dir nba-over-under-assets --bg "#edf1e8" -->
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+  html, body { width: 1200px; height: 630px; overflow: hidden; margin: 0; }
+  body {
+    background-color: #edf1e8;
+    background-image: linear-gradient(#dfe5d9 1px, transparent 1px), linear-gradient(90deg, #dfe5d9 1px, transparent 1px);
+    background-size: 30px 30px;
+    color: #1c2a44;
+    font-family: "Source Sans 3", Arial, sans-serif;
+    position: relative;
+  }
+  .top { position: absolute; left: 72px; top: 64px; right: 72px; }
+  h1 { font-family: "Big Shoulders Display", "Arial Narrow", sans-serif; font-weight: 800; font-size: 150px; line-height: 0.88; margin: 0; }
+  p { font-size: 34px; margin: 26px 0 0; color: #56627a; max-width: 900px; line-height: 1.25; }
+  .marks { position: absolute; right: 72px; top: 76px; display: flex; gap: 18px; }
+  .up { width: 0; height: 0; border-left: 46px solid transparent; border-right: 46px solid transparent; border-bottom: 92px solid #2457a6; }
+  .down { width: 0; height: 0; border-left: 46px solid transparent; border-right: 46px solid transparent; border-top: 92px solid #b8322f; margin-top: 20px; }
+  .strip { position: absolute; left: 0; right: 0; bottom: 0; height: 120px; border-top: 4px solid #1c2a44; display: grid; grid-template-columns: repeat(7, 1fr); background: rgba(237, 241, 232, 0.9); }
+  .strip div { border-right: 2px solid #cdd6c6; padding: 18px 0 0 20px; font-family: "Big Shoulders Display", sans-serif; font-weight: 800; font-size: 40px; color: #2457a6; }
+  .strip div.on { background: #1c2a44; color: #fafbf7; border-top: 8px solid #b8322f; margin-top: -4px; }
+</style>
+</head>
+<body>
+  <div class="marks"><div class="up"></div><div class="down"></div></div>
+  <div class="top">
+    <h1>Over/Under<br>2026-27</h1>
+    <p>Win chances, a rooting guide, and the teams that will decide the pool</p>
+  </div>
+  <div class="strip">
+    <div>2020-21</div><div>2021-22</div><div>2022-23</div><div>2023-24</div><div>2024-25</div><div>2025-26</div><div class="on">2026-27</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2026-27 Over/Under Preview</title>
+<meta name="description" content="Preseason preview of the 2026-27 NBA over/under pool: win chances, the teams with the most sway, a rooting guide for every entry, and how similar the picks are.">
+<!--OU-META-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Source+Sans+3:wght@400;600&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<style>
+/*OU-THEME*/
+  /* Page tokens map onto the shared scorer's-book theme (ou-theme.css). */
+  :root {
+    --bg: var(--paper); --panel: var(--sheet); --fg: var(--ink); --muted: var(--ink-soft);
+    --line: var(--rule); --grid: var(--rule-faint); --ref: var(--ink-soft); --accent: var(--ink);
+  }
+  body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 16px; line-height: 1.5; }
+  .wrap { max-width: 72rem; margin-inline: auto; padding: 2rem max(16px, env(safe-area-inset-right, 0px)) 4rem max(16px, env(safe-area-inset-left, 0px)); display: grid; gap: 2.75rem; }
+  h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(2.6rem, 7vw, 4.5rem); line-height: 0.92; margin: 0; text-wrap: balance; }
+  h1 .sub { display: block; font-size: 0.42em; font-weight: 700; color: var(--ink-soft); margin-top: 0.35em; line-height: 1.1; }
+  h2 { font-family: var(--font-display); font-weight: 800; font-size: 2rem; line-height: 1.05; margin: 0; padding-top: 10px; border-top: 2px solid var(--ink); text-wrap: balance; }
+  h3 { font-size: 1.05rem; font-weight: 600; margin: 0; }
+  .lede { margin: 1rem 0 0; max-width: 62ch; font-size: 1.15rem; line-height: 1.5; }
+  .lede b { font-weight: 600; }
+  .note { margin: 0; color: var(--muted); font-size: 0.9rem; max-width: 75ch; }
+  .pending { margin: 0.9rem 0 0; color: var(--warn); font-size: 0.92rem; padding-left: 10px; border-left: 3px solid var(--warn); }
+  .stamp { margin: 0.4rem 0 0; color: var(--muted); font-size: 0.85rem; }
+  section { display: grid; gap: 1rem; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 2px; padding: 1.25rem; display: grid; gap: 0.7rem; min-width: 0; align-content: start; }
+  .grid2 { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); }
+  .chart { position: relative; }
+  .tip { position: absolute; pointer-events: none; background: #fff; border: 1px solid var(--ink); border-radius: 2px; padding: 0.35rem 0.6rem; font-size: 0.85rem; white-space: nowrap; z-index: 3; }
+  .tip .k { color: var(--muted); }
+  .scroll { overflow: auto; max-height: 34rem; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.88rem; font-variant-numeric: tabular-nums; }
+  th { text-align: left; font-weight: 600; color: var(--muted); padding: 0.35rem 0.55rem; position: sticky; top: 0; background: var(--panel); border-bottom: 2px solid var(--ink); white-space: nowrap; z-index: 1; }
+  td { padding: 0.35rem 0.55rem; border-bottom: 1px solid var(--rule-faint); white-space: nowrap; }
+  .num { text-align: right; }
+  td.pk { text-align: center; font-weight: 600; min-width: 2.75rem; }
+  .bar { display: inline-block; height: 0.5rem; border-radius: 4px; vertical-align: middle; margin-left: 0.4rem; }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .chips { gap: 0; border-bottom: 1px solid var(--line); }
+  .chips button { font: inherit; font-weight: 600; font-size: 0.95rem; padding: 0.45rem 0.9rem 0.5rem; border: 0; border-bottom: 3px solid transparent; background: transparent; color: var(--muted); cursor: pointer; }
+  .chips button:hover { color: var(--fg); background: rgba(28, 42, 68, 0.05); }
+  .chips button[aria-pressed="true"] { color: var(--fg); border-bottom-color: var(--ink); }
+  .chips button:focus-visible { outline: 2px solid var(--over); outline-offset: 2px; }
+  .flag { color: var(--warn); font-weight: 600; }
+  .legend { display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.8rem; color: var(--muted); }
+  .legend i { display: inline-block; width: 0.7rem; height: 0.7rem; border-radius: 2px; margin-right: 0.3rem; vertical-align: -1px; }
+  code { font-size: 0.85em; }
+  .wide { grid-column: 1 / -1; }
+  .scroll.full { max-height: none; }
+  .grid2.stack { grid-template-columns: minmax(0, 1fr); }
+  #win-chart { max-width: 52rem; }
+  .grid3 { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr)); }
+  .drow { display: grid; grid-template-columns: minmax(0, 8.5rem) 3rem 1fr; gap: 0.5rem; align-items: center; font-size: 0.8rem; font-variant-numeric: tabular-nums; }
+  .drow .tm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .drow .pk2 { text-align: center; border-radius: 4px; font-weight: 600; padding: 0.05rem 0; }
+  .dtrack { position: relative; height: 0.8rem; }
+  .dtrack::before { content: ""; position: absolute; left: 50%; top: -2px; bottom: -2px; border-left: 1px solid var(--ref); }
+  .dtrack span { position: absolute; top: 0; height: 100%; border-radius: 3px; }
+</style>
+</head>
+<body class="ou-page ou-preview">
+<!--OU-MASTHEAD-->
+<div class="wrap">
+  <header>
+    <h1>Over/Under 2026-27 <span class="sub">Preseason preview, before opening night on October 20</span></h1>
+    <p class="lede" id="takeaway"></p>
+    <p class="pending" id="pending"></p>
+    <p class="stamp" id="stamp"></p>
+  </header>
+
+  <section id="standings">
+    <h2>Who is most likely to win</h2>
+    <div class="grid2 stack">
+      <div class="card">
+        <h3>Chance to finish first</h3>
+        <p class="note">Bar: the base case, each team centered on its Vegas line. Dots: what happens if the whole league runs two wins under or two wins over its lines. Dashed line: an equal share.</p>
+        <div class="legend"><span><i style="background:var(--ink);opacity:.3"></i>Base case</span><span><i style="background:var(--under)"></i>League runs 2 under</span><span><i style="background:var(--over)"></i>League runs 2 over</span></div>
+        <div class="chart" id="win-chart"></div>
+      </div>
+      <div class="card">
+        <h3>Entry profiles</h3>
+        <p class="note">Overs is the pick count; the wager columns add up the points bet on each side (every entry bets 315). Points range is the middle 80% of simulated final points (10th to 90th percentile).</p>
+        <div class="scroll">
+          <table id="player-table">
+            <thead><tr><th>Player</th><th class="num">Win</th><th class="num">Last</th><th class="num">Avg finish</th><th class="num">Overs</th><th class="num">Over pts</th><th class="num">Under pts</th><th class="num">Points range</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="swing">
+    <h2>Teams with the biggest sway</h2>
+    <div class="card">
+      <p class="note">Sway is how far the chances of who wins move between that team going Over and going Under (0 means nobody's chances change). Teams where everyone picked the same side barely matter, even with big wagers. Cells show each pick and its wager.</p>
+      <div class="legend"><span><i style="background:var(--over)"></i>Over (darker = bigger wager)</span><span><i style="background:var(--under)"></i>Under</span></div>
+      <div class="scroll full">
+        <table id="team-table"><thead><tr id="team-head"></tr></thead><tbody></tbody></table>
+      </div>
+    </div>
+  </section>
+
+  <section id="rooting">
+    <h2>Rooting guide</h2>
+    <div class="card">
+      <p class="note">For each team, the side that raises this player's chance of winning the pool, and by how many percentage points. Usually that is the player's own pick, but not always: when rivals bet more on the same side, the team hitting helps them more.</p>
+      <div class="chips" id="player-chips" role="group" aria-label="Choose a player"></div>
+      <div class="scroll">
+        <table id="root-table">
+          <thead><tr><th>Team</th><th>Root for</th><th>Win chance swing</th><th>Own pick</th><th class="num">Wager</th><th>Note</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Rooting against your own pick</h3>
+      <p class="note">Every case where a player gains more from their own pick missing than hitting.</p>
+      <div class="scroll">
+        <table id="against-table">
+          <thead><tr><th>Player</th><th>Team</th><th>Picked</th><th class="num">Wager</th><th>Root for</th><th>Swing</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="similarity">
+    <h2>How similar the picks are</h2>
+    <div class="grid2">
+      <div class="card">
+        <h3>Pick similarity</h3>
+        <p class="note">Correlation of signed wagers (Over positive, Under negative), with the count of teams picked the same way. Similar entries rise and fall together, so they mostly compete with each other for the same outcomes.</p>
+        <div class="chart" id="sim-chart"></div>
+      </div>
+      <div class="card">
+        <h3>Closeness map</h3>
+        <p class="note">Players placed so that distance reflects how differently they bet (cosine similarity of signed wagers). Close together means similar picks and wagers; the axes themselves have no units.</p>
+        <div class="chart" id="map-chart"></div>
+      </div>
+      <div class="card wide">
+        <h3>Most and least alike</h3>
+        <p class="note">Contested points: wager points on the teams where the two disagree. Each of those results moves one up and the other down.</p>
+        <div class="scroll">
+          <table id="pair-table">
+            <thead><tr><th>Pair</th><th class="num">Same side</th><th class="num">Correlation</th><th class="num">Contested pts</th><th class="num">First beats second</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="group-map">
+    <h2>Picks side by side</h2>
+    <div>
+      <div class="card">
+        <h3>Participant heatmap</h3>
+        <p class="note">Every pick, with teams sorted from the group's strongest Over lean to its strongest Under lean (consensus is the average signed wager). Players are ordered so similar entries sit next to each other.</p>
+        <div class="legend"><span><i style="background:var(--over)"></i>Over (darker = bigger wager)</span><span><i style="background:var(--under)"></i>Under</span></div>
+        <div class="scroll full">
+          <table id="heat-table"><thead><tr id="heat-head"></tr></thead><tbody></tbody></table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="different">
+    <h2>Where each player broke from the group</h2>
+    <p class="note">Each player's 10 teams furthest from everyone else: their signed wager minus the average of the other entries' signed wagers. A bar to the right means more Over than the group; to the left, more Under. The label shows the player's own pick.</p>
+    <div class="grid3" id="diff-grid"></div>
+  </section>
+
+  <section id="method">
+    <h2>How this was worked out</h2>
+    <p class="note" id="method-text"></p>
+  </section>
+</div>
+
+<script>
+const DATA = __DATA__;
+
+(() => {
+  const pct = d3.format('.1%');
+  const pts = (v) => (v * 100).toFixed(1) + ' pts';
+  const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const shade = (v, w) => `color-mix(in srgb, var(${v}) ${Math.round(18 + (w - 6) / 9 * 62)}%, transparent)`;
+  const P = DATA.players, T = DATA.teams, R = DATA.rooting, Q = DATA.pairs, M = DATA.meta;
+  const names = P.map((d) => d.player);
+
+  // Header text
+  const lead = P[0], tail = P[P.length - 1];
+  const tk = document.getElementById('takeaway');
+  const b = (t) => { const e = document.createElement('b'); e.textContent = t; return e; };
+  tk.append(b(lead.player), ` has the best chance to win the pool at ${pct(lead.win_prob)}, and the longest shot, `,
+    b(tail.player), `, sits at ${pct(tail.win_prob)}. With ${P.length} entries an equal share is ${pct(1 / P.length)}, so the season will be decided by the handful of teams where the group split with big wagers.`);
+  document.getElementById('pending').textContent = M.missing.length
+    ? `Not in yet: ${M.missing.join(', ')} (deadline ${M.deadline}). These numbers cover the ${P.length} entries submitted so far.`
+    : `All ${P.length} entries are in.`;
+  document.getElementById('stamp').textContent = `Generated ${M.generated} from the submissions Sheet.`;
+  document.getElementById('method-text').textContent =
+    `${d3.format(',')(M.n_sims)} simulated seasons. Each team's wins are its ${M.lines_as_of} Vegas consensus line plus random error with a standard deviation of ${M.noise_sd.toFixed(1)} wins (the lines missed by ${M.line_mae} wins on average over 2021-26, and no published projection beat them). Each simulated season is rebalanced so the league totals 1,230 wins; the lines add to ${d3.format(',')(M.line_sum)}, which tilts the board slightly toward Under. Scoring follows the pool: plus the wager when right, minus it when wrong; ties go to more picks correct, then more 15s correct. The "League runs 2 under/over" scenarios move every team's wins by two. Built by 08-preseason-pool-analysis.R in the season folder.`;
+
+  function tipOn(box, tip, ev, lines) {
+    const [mx, my] = d3.pointer(ev, box);
+    tip.style('display', null).html('');
+    tip.append('div').attr('class', 'k').text(lines[0]);
+    lines.slice(1).forEach((l) => tip.append('div').text(l));
+    const tw = tip.node().offsetWidth;
+    tip.style('left', Math.max(0, Math.min(mx + 12, box.clientWidth - tw - 4)) + 'px').style('top', (my + 12) + 'px');
+  }
+
+  function textWidth(svg, labels, size) {
+    const probe = svg.append('text').attr('font-size', size);
+    const w = d3.max(labels, (l) => { probe.text(l); return probe.node().getComputedTextLength(); });
+    probe.remove();
+    return Math.ceil(w);
+  }
+
+  function drawWin() {
+    const box = document.getElementById('win-chart');
+    box.textContent = '';
+    const W = Math.max(280, box.clientWidth), rowH = 34, H = P.length * rowH + 30;
+    const svg = d3.select(box).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('font-family', 'inherit');
+    const left = textWidth(svg, names, 13) + 12;
+    const xmax = d3.max(P, (r) => Math.max(r.win_prob, r.under_drift_win_prob, r.over_drift_win_prob)) * 1.12;
+    const x = d3.scaleLinear([0, xmax], [left, W - 48]);
+    const y = d3.scaleBand(names, [4, H - 26]).padding(0.35);
+    const ticks = x.ticks(5);
+    svg.append('g').selectAll('line').data(ticks).join('line')
+      .attr('x1', x).attr('x2', x).attr('y1', 4).attr('y2', H - 26).attr('stroke', css('--grid'));
+    svg.append('g').selectAll('text').data(ticks).join('text')
+      .attr('x', x).attr('y', H - 8).attr('text-anchor', 'middle').attr('font-size', 11)
+      .attr('fill', css('--muted')).text(d3.format('.0%'));
+    svg.append('line').attr('x1', x(1 / P.length)).attr('x2', x(1 / P.length)).attr('y1', 4).attr('y2', H - 26)
+      .attr('stroke', css('--ref')).attr('stroke-dasharray', '4 3');
+    const cy = (r) => y(r.player) + y.bandwidth() / 2;
+    const g = svg.append('g').selectAll('g').data(P).join('g');
+    g.append('text').attr('x', left - 8).attr('y', cy).attr('dy', '0.35em').attr('text-anchor', 'end')
+      .attr('font-size', 13).attr('fill', css('--fg')).text((r) => r.player);
+    g.append('rect').attr('x', x(0)).attr('y', (r) => y(r.player)).attr('height', y.bandwidth())
+      .attr('width', (r) => x(r.win_prob) - x(0)).attr('rx', 2).attr('fill', css('--ink')).attr('fill-opacity', 0.16);
+    [['under_drift_win_prob', '--under'], ['over_drift_win_prob', '--over']].forEach(([f, c]) => {
+      g.append('circle').attr('cx', (r) => x(r[f])).attr('cy', cy).attr('r', 5)
+        .attr('fill', css(c)).attr('stroke', css('--panel')).attr('stroke-width', 1.5);
+    });
+    g.append('text').attr('x', (r) => x(0) + 8)
+      .attr('y', cy).attr('dy', '0.35em').attr('font-size', 11).attr('font-weight', 600).attr('fill', css('--fg')).text((r) => pct(r.win_prob));
+    const tip = d3.select(box).append('div').attr('class', 'tip').style('display', 'none');
+    g.append('rect').attr('x', 0).attr('width', W).attr('y', (r) => y(r.player) - 5).attr('height', y.bandwidth() + 10)
+      .attr('fill', 'transparent')
+      .on('mousemove', (ev, r) => tipOn(box, tip, ev, [r.player, `Base case ${pct(r.win_prob)}`,
+        `League 2 under ${pct(r.under_drift_win_prob)}`, `League 2 over ${pct(r.over_drift_win_prob)}`]))
+      .on('mouseleave', () => tip.style('display', 'none'));
+  }
+
+  function fillTable(sel, rows, cellsFor) {
+    const tb = document.querySelector(sel + ' tbody');
+    tb.textContent = '';
+    rows.forEach((d) => {
+      const tr = tb.insertRow();
+      cellsFor(d).forEach(([v, cls, extra]) => {
+        const td = tr.insertCell();
+        if (cls) td.className = cls;
+        if (v instanceof Node) td.appendChild(v); else td.textContent = v;
+        if (extra) extra(td);
+      });
+    });
+  }
+
+  const sign = d3.format('+d');
+  fillTable('#player-table', P, (d) => [[d.player], [pct(d.win_prob), 'num'], [pct(d.last_prob), 'num'],
+    [d.mean_rank.toFixed(2), 'num'], [d.overs, 'num'], [d.over_wager, 'num'], [d.under_wager, 'num'],
+    [`${sign(Math.round(d.p10))} to ${sign(Math.round(d.p90))}`, 'num']]);
+
+  // Teams table
+  const head = document.getElementById('team-head');
+  [['Team'], ['Line', 'num'], ['Sway'], ['O–U', 'num'], ['Over helps most'], ['Under helps most']]
+    .concat(names.map((n) => [n])).forEach(([l, c]) => {
+      const th = document.createElement('th'); th.textContent = l; if (c) th.className = c; head.appendChild(th);
+    });
+  const maxSway = d3.max(T, (d) => d.sway);
+  const bar = (frac, color, rem) => {
+    const s = document.createElement('span'); s.className = 'bar';
+    s.style.width = (frac * rem).toFixed(2) + 'rem'; s.style.background = color; return s;
+  };
+  fillTable('#team-table', T, (d) => [[d.team], [d.line.toFixed(1), 'num'],
+    [d.sway.toFixed(2), '', (td) => td.appendChild(bar(d.sway / maxSway, 'var(--accent)', 4))],
+    [`${d.overs}–${d.unders}`, 'num'], [d.biggest_gainer_if_over], [d.biggest_gainer_if_under]]
+    .concat(names.map((n) => {
+      const v = d[n];
+      return [(v > 0 ? 'O' : 'U') + Math.abs(v), 'pk', (td) => { td.style.background = shade(v > 0 ? '--over' : '--under', Math.abs(v)); }];
+    })));
+
+  // Rooting
+  const maxSwing = d3.max(R, (d) => d.win_chance_swing);
+  const swingCell = (d) => ['+' + pts(d.win_chance_swing), '',
+    (td) => td.appendChild(bar(d.win_chance_swing / maxSwing, d.root_for === 'Over' ? 'var(--over)' : 'var(--under)', 6))];
+  let selected = names.includes('Chester') ? 'Chester' : names[0];
+  const chips = document.getElementById('player-chips');
+  function drawRoot() {
+    chips.textContent = '';
+    names.forEach((n) => {
+      const bt = document.createElement('button'); bt.type = 'button'; bt.textContent = n;
+      bt.setAttribute('aria-pressed', String(n === selected));
+      bt.addEventListener('click', () => { selected = n; drawRoot(); });
+      chips.appendChild(bt);
+    });
+    fillTable('#root-table', R.filter((d) => d.player === selected).sort((a, b) => b.win_chance_swing - a.win_chance_swing),
+      (d) => [[d.team], [d.root_for], swingCell(d), [d.pick], [d.wager, 'num'],
+        [d.against_own_pick ? 'Against own pick' : '', d.against_own_pick ? 'flag' : '']]);
+  }
+  drawRoot();
+  fillTable('#against-table', R.filter((d) => d.against_own_pick).sort((a, b) => b.win_chance_swing - a.win_chance_swing),
+    (d) => [[d.player], [d.team], [d.pick], [d.wager, 'num'], [d.root_for], swingCell(d)]);
+
+  // Similarity heatmap
+  function drawSim() {
+    const box = document.getElementById('sim-chart');
+    box.textContent = '';
+    const look = new Map();
+    Q.forEach((d) => { look.set(d.a + '|' + d.b, d); look.set(d.b + '|' + d.a, d); });
+    const W = Math.max(280, box.clientWidth);
+    const svg = d3.select(box).append('svg').attr('width', '100%').attr('font-family', 'inherit');
+    const lab = textWidth(svg, names, 12) + 12;
+    const cell = Math.min(64, (W - lab) / names.length);
+    const top = Math.ceil(lab * 0.75);
+    const H = top + cell * names.length + 4;
+    svg.attr('viewBox', `0 0 ${W} ${H}`);
+    const tip = d3.select(box).append('div').attr('class', 'tip').style('display', 'none');
+    names.forEach((n, i) => {
+      svg.append('text').attr('x', lab - 6).attr('y', top + i * cell + cell / 2).attr('dy', '0.35em')
+        .attr('text-anchor', 'end').attr('font-size', 12).attr('fill', css('--fg')).text(n);
+      svg.append('text').attr('transform', `translate(${lab + i * cell + cell / 2 - 4},${top - 6}) rotate(-45)`)
+        .attr('font-size', 12).attr('fill', css('--fg')).text(n);
+    });
+    names.forEach((a, i) => names.forEach((bn, j) => {
+      const x0 = lab + j * cell, y0 = top + i * cell;
+      if (a === bn) {
+        svg.append('rect').attr('x', x0 + 1).attr('y', y0 + 1).attr('width', cell - 2).attr('height', cell - 2).attr('rx', 3).attr('fill', css('--grid'));
+        return;
+      }
+      const d = look.get(a + '|' + bn), r = d.wager_corr;
+      svg.append('rect').attr('x', x0 + 1).attr('y', y0 + 1).attr('width', cell - 2).attr('height', cell - 2).attr('rx', 3)
+        .style('fill', `color-mix(in srgb, var(${r >= 0 ? '--over' : '--under'}) ${Math.round(Math.min(1, Math.abs(r) / 0.35) * 80)}%, transparent)`);
+      if (cell >= 36) {
+        svg.append('text').attr('x', x0 + cell / 2).attr('y', y0 + cell / 2 - 5).attr('text-anchor', 'middle')
+          .attr('font-size', 11).attr('fill', css('--fg')).text(d3.format('+.2f')(r));
+        svg.append('text').attr('x', x0 + cell / 2).attr('y', y0 + cell / 2 + 10).attr('text-anchor', 'middle')
+          .attr('font-size', 10).attr('fill', css('--muted')).text(`${d.same_side}/30`);
+      }
+      svg.append('rect').attr('x', x0).attr('y', y0).attr('width', cell).attr('height', cell).attr('fill', 'transparent')
+        .on('mousemove', (ev) => tipOn(box, tip, ev, [`${a} and ${bn}`, `Correlation ${d3.format('+.2f')(r)}`,
+          `Same side on ${d.same_side} of 30 teams`, `Contested points ${d.contested_wager}`]))
+        .on('mouseleave', () => tip.style('display', 'none'));
+    }));
+  }
+
+  fillTable('#pair-table', Q.slice().sort((a, b) => b.wager_corr - a.wager_corr), (d) => [[`${d.a} & ${d.b}`],
+    [d.same_side, 'num'], [d3.format('+.2f')(d.wager_corr), 'num'], [d.contested_wager, 'num'], [pct(d.a_beats_b), 'num']]);
+
+  // Participant heatmap: teams by consensus, players in closeness-map order
+  const C = DATA.closeness, D = DATA.most_different;
+  const mapOrder = C.slice().sort((a, b) => a.x - b.x).map((d) => d.player);
+  const hh = document.getElementById('heat-head');
+  [['Team'], ['Consensus', 'num']].concat(mapOrder.map((n) => [n])).forEach(([l, c]) => {
+    const th = document.createElement('th'); th.textContent = l; if (c) th.className = c; hh.appendChild(th);
+  });
+  fillTable('#heat-table', T.slice().sort((a, b) => b.consensus - a.consensus), (d) => [[d.team],
+    [d3.format('+.1f')(d.consensus), 'num']].concat(mapOrder.map((n) => {
+      const v = d[n];
+      return [(v > 0 ? 'O' : 'U') + Math.abs(v), 'pk', (td) => { td.style.background = shade(v > 0 ? '--over' : '--under', Math.abs(v)); }];
+    })));
+
+  function drawMap() {
+    const box = document.getElementById('map-chart');
+    box.textContent = '';
+    const W = Math.max(280, box.clientWidth), H = Math.min(360, Math.round(W * 0.8));
+    const svg = d3.select(box).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('font-family', 'inherit');
+    const pad = textWidth(svg, names, 12) / 2 + 14;
+    const ext = Math.max(d3.max(C, (d) => Math.abs(d.x)), d3.max(C, (d) => Math.abs(d.y))) * 1.1;
+    const span = Math.min(W, H) / 2 - pad;
+    const x = (v) => W / 2 + (v / ext) * (W / 2 - pad), y = (v) => H / 2 - (v / ext) * span;
+    svg.append('line').attr('x1', pad).attr('x2', W - pad).attr('y1', H / 2).attr('y2', H / 2).attr('stroke', css('--grid'));
+    svg.append('line').attr('x1', W / 2).attr('x2', W / 2).attr('y1', 8).attr('y2', H - 8).attr('stroke', css('--grid'));
+    const tip = d3.select(box).append('div').attr('class', 'tip').style('display', 'none');
+    const g = svg.append('g').selectAll('g').data(C).join('g');
+    g.append('circle').attr('cx', (d) => x(d.x)).attr('cy', (d) => y(d.y)).attr('r', 6).attr('fill', css('--accent'));
+    g.append('text').attr('x', (d) => x(d.x)).attr('y', (d) => y(d.y) - 11).attr('text-anchor', 'middle')
+      .attr('font-size', 12).attr('fill', css('--fg')).text((d) => d.player);
+    const near = (p) => Q.filter((q) => q.a === p || q.b === p).sort((a, b) => b.wager_corr - a.wager_corr)[0];
+    g.append('circle').attr('cx', (d) => x(d.x)).attr('cy', (d) => y(d.y)).attr('r', 16).attr('fill', 'transparent')
+      .on('mousemove', (ev, d) => { const n = near(d.player); const o = n.a === d.player ? n.b : n.a;
+        tipOn(box, tip, ev, [d.player, `Most similar: ${o} (${d3.format('+.2f')(n.wager_corr)})`]); })
+      .on('mouseleave', () => tip.style('display', 'none'));
+  }
+
+  // Most different from the group, one card per player
+  const grid = document.getElementById('diff-grid');
+  const dmax = d3.max(D, (d) => Math.abs(d.dev));
+  names.forEach((n) => {
+    const card = document.createElement('div'); card.className = 'card';
+    const h = document.createElement('h3'); h.textContent = n; card.appendChild(h);
+    D.filter((d) => d.player === n).sort((a, b) => Math.abs(b.dev) - Math.abs(a.dev)).forEach((d) => {
+      const row = document.createElement('div'); row.className = 'drow';
+      row.title = `${d.team}: ${n} ${d.signed > 0 ? 'Over' : 'Under'} ${Math.abs(d.signed)}, others average ${d3.format('+.1f')(d.others_avg)}`;
+      const tm = document.createElement('span'); tm.className = 'tm'; tm.textContent = d.team;
+      const pk = document.createElement('span'); pk.className = 'pk2';
+      pk.textContent = (d.signed > 0 ? 'O' : 'U') + Math.abs(d.signed);
+      pk.style.background = shade(d.signed > 0 ? '--over' : '--under', Math.abs(d.signed));
+      const tr = document.createElement('span'); tr.className = 'dtrack';
+      const b2 = document.createElement('span');
+      const w = Math.abs(d.dev) / dmax * 50;
+      b2.style.width = w + '%'; b2.style.left = (d.dev >= 0 ? 50 : 50 - w) + '%';
+      b2.style.background = d.dev >= 0 ? 'var(--over)' : 'var(--under)';
+      tr.appendChild(b2);
+      row.append(tm, pk, tr);
+      card.appendChild(row);
+    });
+    grid.appendChild(card);
+  });
+
+  const draw = () => { drawWin(); drawSim(); drawMap(); };
+  draw();
+  let t; window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(draw, 150); });
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', draw);
+})();
+</script>
+</body>
+</html>

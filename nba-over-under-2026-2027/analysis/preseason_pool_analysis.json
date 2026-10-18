@@ -1,0 +1,1417 @@
+{
+  "generated": "2026-10-18 15:21 MST",
+  "season": "2026-27",
+  "n_sims": 1000000,
+  "noise_sd": 8.810699,
+  "line_sum": 1238,
+  "players": [
+    {
+      "player": "Adonis",
+      "win_prob": 0.146726,
+      "mean_points": 1.110274,
+      "sd_points": 59.798323,
+      "mean_rank": 4.436316,
+      "last_prob": 0.134408,
+      "overs": 11,
+      "over_wager": 132,
+      "under_wager": 183,
+      "user": "Adonis Fuller"
+    },
+    {
+      "player": "Andy",
+      "win_prob": 0.135584,
+      "mean_points": 0.341396,
+      "sd_points": 60.271986,
+      "mean_rank": 4.464182,
+      "last_prob": 0.129869,
+      "overs": 13,
+      "over_wager": 150,
+      "under_wager": 165,
+      "user": "Andy Sweetman"
+    },
+    {
+      "player": "Chester",
+      "win_prob": 0.115874,
+      "mean_points": 0.430906,
+      "sd_points": 60.219525,
+      "mean_rank": 4.468208,
+      "last_prob": 0.110627,
+      "overs": 16,
+      "over_wager": 148,
+      "under_wager": 167,
+      "user": "Chester Ismay"
+    },
+    {
+      "player": "Jake",
+      "win_prob": 0.105286,
+      "mean_points": 0.11868,
+      "sd_points": 60.296884,
+      "mean_rank": 4.475389,
+      "last_prob": 0.102785,
+      "overs": 15,
+      "over_wager": 155,
+      "under_wager": 160,
+      "user": "Jake Berce"
+    },
+    {
+      "player": "Mary",
+      "win_prob": 0.109984,
+      "mean_points": -2.381968,
+      "sd_points": 58.557492,
+      "mean_rank": 4.573861,
+      "last_prob": 0.124022,
+      "overs": 17,
+      "over_wager": 205,
+      "under_wager": 110,
+      "user": "Mary Ubuntu"
+    },
+    {
+      "player": "Mike J",
+      "win_prob": 0.114511,
+      "mean_points": -1.50264,
+      "sd_points": 59.579727,
+      "mean_rank": 4.538661,
+      "last_prob": 0.121743,
+      "overs": 17,
+      "over_wager": 189,
+      "under_wager": 126,
+      "user": "Mike Jensen"
+    },
+    {
+      "player": "Phil",
+      "win_prob": 0.138468,
+      "mean_points": -0.371682,
+      "sd_points": 60.185924,
+      "mean_rank": 4.495965,
+      "last_prob": 0.136982,
+      "overs": 14,
+      "over_wager": 166,
+      "under_wager": 149,
+      "user": "Phil Welsh"
+    },
+    {
+      "player": "Ryan",
+      "win_prob": 0.133566,
+      "mean_points": -0.536794,
+      "sd_points": 60.222095,
+      "mean_rank": 4.503142,
+      "last_prob": 0.135701,
+      "overs": 17,
+      "over_wager": 168,
+      "under_wager": 147,
+      "user": "Ryan Sandberg"
+    }
+  ],
+  "bands": {
+    "Adonis": {
+      "p10": -77,
+      "p25": -39,
+      "p50": 1,
+      "p75": 41,
+      "p90": 79
+    },
+    "Andy": {
+      "p10": -77,
+      "p25": -41,
+      "p50": 1,
+      "p75": 41,
+      "p90": 77
+    },
+    "Chester": {
+      "p10": -77,
+      "p25": -41,
+      "p50": 1,
+      "p75": 41,
+      "p90": 77
+    },
+    "Jake": {
+      "p10": -77,
+      "p25": -41,
+      "p50": 1,
+      "p75": 41,
+      "p90": 77
+    },
+    "Mary": {
+      "p10": -77,
+      "p25": -43,
+      "p50": -3,
+      "p75": 37,
+      "p90": 73
+    },
+    "Mike J": {
+      "p10": -79,
+      "p25": -43,
+      "p50": -1,
+      "p75": 39,
+      "p90": 75
+    },
+    "Phil": {
+      "p10": -77,
+      "p25": -41,
+      "p50": -1,
+      "p75": 41,
+      "p90": 77
+    },
+    "Ryan": {
+      "p10": -79,
+      "p25": -41,
+      "p50": -1,
+      "p75": 41,
+      "p90": 77
+    }
+  },
+  "submitted": [
+    {
+      "player": "Chester",
+      "user": "Chester Ismay",
+      "submitted_at": "2026-10-13T16:12:19.028Z"
+    },
+    {
+      "player": "Jake",
+      "user": "Jake Berce",
+      "submitted_at": "2026-10-14T21:08:57.049Z"
+    },
+    {
+      "player": "Adonis",
+      "user": "Adonis Fuller",
+      "submitted_at": "2026-10-16T01:21:31.789Z"
+    },
+    {
+      "player": "Ryan",
+      "user": "Ryan Sandberg",
+      "submitted_at": "2026-10-16T15:13:47.222Z"
+    },
+    {
+      "player": "Andy",
+      "user": "Andy Sweetman",
+      "submitted_at": "2026-10-16T19:34:37.732Z"
+    },
+    {
+      "player": "Mary",
+      "user": "Mary Ubuntu",
+      "submitted_at": "2026-10-17T13:02:51.395Z"
+    },
+    {
+      "player": "Mike J",
+      "user": "Mike Jensen",
+      "submitted_at": "2026-10-18T17:15:42.904Z"
+    },
+    {
+      "player": "Phil",
+      "user": "Phil Welsh",
+      "submitted_at": "2026-10-18T22:19:26.617Z"
+    }
+  ],
+  "teams": [
+    {
+      "team": "Atlanta Hawks",
+      "conference": "East",
+      "line": 43.5,
+      "sway": 0.269603,
+      "overs": 4,
+      "over_wager": 40,
+      "under_wager": 28
+    },
+    {
+      "team": "Boston Celtics",
+      "conference": "East",
+      "line": 51.5,
+      "sway": 0.305598,
+      "overs": 5,
+      "over_wager": 63,
+      "under_wager": 33
+    },
+    {
+      "team": "Brooklyn Nets",
+      "conference": "East",
+      "line": 24.5,
+      "sway": 0.263189,
+      "overs": 3,
+      "over_wager": 28,
+      "under_wager": 52
+    },
+    {
+      "team": "Charlotte Hornets",
+      "conference": "East",
+      "line": 38.5,
+      "sway": 0.309627,
+      "overs": 4,
+      "over_wager": 53,
+      "under_wager": 33
+    },
+    {
+      "team": "Chicago Bulls",
+      "conference": "East",
+      "line": 29.5,
+      "sway": 0.294675,
+      "overs": 4,
+      "over_wager": 37,
+      "under_wager": 44
+    },
+    {
+      "team": "Cleveland Cavaliers",
+      "conference": "East",
+      "line": 48.5,
+      "sway": 0.122661,
+      "overs": 7,
+      "over_wager": 79,
+      "under_wager": 9
+    },
+    {
+      "team": "Dallas Mavericks",
+      "conference": "West",
+      "line": 33.5,
+      "sway": 0.217542,
+      "overs": 5,
+      "over_wager": 43,
+      "under_wager": 24
+    },
+    {
+      "team": "Denver Nuggets",
+      "conference": "West",
+      "line": 48.5,
+      "sway": 0.291407,
+      "overs": 5,
+      "over_wager": 52,
+      "under_wager": 31
+    },
+    {
+      "team": "Detroit Pistons",
+      "conference": "East",
+      "line": 48.5,
+      "sway": 0.056704,
+      "overs": 8,
+      "over_wager": 98,
+      "under_wager": 0
+    },
+    {
+      "team": "Golden State Warriors",
+      "conference": "West",
+      "line": 37.5,
+      "sway": 0.279996,
+      "overs": 5,
+      "over_wager": 49,
+      "under_wager": 36
+    },
+    {
+      "team": "Houston Rockets",
+      "conference": "West",
+      "line": 48.5,
+      "sway": 0.232888,
+      "overs": 6,
+      "over_wager": 75,
+      "under_wager": 23
+    },
+    {
+      "team": "Indiana Pacers",
+      "conference": "East",
+      "line": 43.5,
+      "sway": 0.279202,
+      "overs": 5,
+      "over_wager": 57,
+      "under_wager": 27
+    },
+    {
+      "team": "Los Angeles Clippers",
+      "conference": "West",
+      "line": 28.5,
+      "sway": 0.279035,
+      "overs": 3,
+      "over_wager": 30,
+      "under_wager": 58
+    },
+    {
+      "team": "Los Angeles Lakers",
+      "conference": "West",
+      "line": 45.5,
+      "sway": 0.275246,
+      "overs": 4,
+      "over_wager": 40,
+      "under_wager": 37
+    },
+    {
+      "team": "Memphis Grizzlies",
+      "conference": "West",
+      "line": 29.5,
+      "sway": 0.244475,
+      "overs": 3,
+      "over_wager": 30,
+      "under_wager": 46
+    },
+    {
+      "team": "Miami Heat",
+      "conference": "East",
+      "line": 46.5,
+      "sway": 0.266425,
+      "overs": 6,
+      "over_wager": 73,
+      "under_wager": 25
+    },
+    {
+      "team": "Milwaukee Bucks",
+      "conference": "East",
+      "line": 25.5,
+      "sway": 0.294841,
+      "overs": 3,
+      "over_wager": 38,
+      "under_wager": 53
+    },
+    {
+      "team": "Minnesota Timberwolves",
+      "conference": "West",
+      "line": 48.5,
+      "sway": 0.230634,
+      "overs": 3,
+      "over_wager": 27,
+      "under_wager": 39
+    },
+    {
+      "team": "New Orleans Pelicans",
+      "conference": "West",
+      "line": 28.5,
+      "sway": 0.26682,
+      "overs": 4,
+      "over_wager": 37,
+      "under_wager": 37
+    },
+    {
+      "team": "New York Knicks",
+      "conference": "East",
+      "line": 52.5,
+      "sway": 0.315189,
+      "overs": 3,
+      "over_wager": 38,
+      "under_wager": 59
+    },
+    {
+      "team": "Oklahoma City Thunder",
+      "conference": "West",
+      "line": 62.5,
+      "sway": 0.346278,
+      "overs": 3,
+      "over_wager": 42,
+      "under_wager": 72
+    },
+    {
+      "team": "Orlando Magic",
+      "conference": "East",
+      "line": 43.5,
+      "sway": 0.235689,
+      "overs": 4,
+      "over_wager": 35,
+      "under_wager": 30
+    },
+    {
+      "team": "Philadelphia 76ers",
+      "conference": "East",
+      "line": 50.5,
+      "sway": 0.28815,
+      "overs": 3,
+      "over_wager": 33,
+      "under_wager": 53
+    },
+    {
+      "team": "Phoenix Suns",
+      "conference": "West",
+      "line": 39.5,
+      "sway": 0.195971,
+      "overs": 2,
+      "over_wager": 17,
+      "under_wager": 58
+    },
+    {
+      "team": "Portland Trail Blazers",
+      "conference": "West",
+      "line": 41.5,
+      "sway": 0.302817,
+      "overs": 3,
+      "over_wager": 35,
+      "under_wager": 45
+    },
+    {
+      "team": "Sacramento Kings",
+      "conference": "West",
+      "line": 20.5,
+      "sway": 0.188976,
+      "overs": 6,
+      "over_wager": 59,
+      "under_wager": 15
+    },
+    {
+      "team": "San Antonio Spurs",
+      "conference": "West",
+      "line": 60.5,
+      "sway": 0.347383,
+      "overs": 4,
+      "over_wager": 53,
+      "under_wager": 47
+    },
+    {
+      "team": "Toronto Raptors",
+      "conference": "East",
+      "line": 46.5,
+      "sway": 0.26968,
+      "overs": 3,
+      "over_wager": 30,
+      "under_wager": 50
+    },
+    {
+      "team": "Utah Jazz",
+      "conference": "West",
+      "line": 37.5,
+      "sway": 0.10963,
+      "overs": 1,
+      "over_wager": 7,
+      "under_wager": 76
+    },
+    {
+      "team": "Washington Wizards",
+      "conference": "East",
+      "line": 34.5,
+      "sway": 0.182105,
+      "overs": 1,
+      "over_wager": 15,
+      "under_wager": 67
+    }
+  ],
+  "signed": [
+    {
+      "team": "Atlanta Hawks",
+      "Adonis": -6,
+      "Andy": -8,
+      "Chester": 12,
+      "Jake": 6,
+      "Mary": 7,
+      "Mike J": -7,
+      "Phil": 15,
+      "Ryan": -7
+    },
+    {
+      "team": "Boston Celtics",
+      "Adonis": -12,
+      "Andy": 11,
+      "Chester": -14,
+      "Jake": 12,
+      "Mary": -7,
+      "Mike J": 15,
+      "Phil": 14,
+      "Ryan": 11
+    },
+    {
+      "team": "Brooklyn Nets",
+      "Adonis": -8,
+      "Andy": 7,
+      "Chester": -13,
+      "Jake": -11,
+      "Mary": 12,
+      "Mike J": -10,
+      "Phil": -10,
+      "Ryan": 9
+    },
+    {
+      "team": "Charlotte Hornets",
+      "Adonis": -10,
+      "Andy": -7,
+      "Chester": -7,
+      "Jake": 11,
+      "Mary": 13,
+      "Mike J": -9,
+      "Phil": 15,
+      "Ryan": 14
+    },
+    {
+      "team": "Chicago Bulls",
+      "Adonis": -10,
+      "Andy": 8,
+      "Chester": 7,
+      "Jake": -14,
+      "Mary": 14,
+      "Mike J": -10,
+      "Phil": -10,
+      "Ryan": 8
+    },
+    {
+      "team": "Cleveland Cavaliers",
+      "Adonis": 10,
+      "Andy": -9,
+      "Chester": 10,
+      "Jake": 12,
+      "Mary": 11,
+      "Mike J": 14,
+      "Phil": 12,
+      "Ryan": 10
+    },
+    {
+      "team": "Dallas Mavericks",
+      "Adonis": -12,
+      "Andy": -6,
+      "Chester": 11,
+      "Jake": 9,
+      "Mary": -6,
+      "Mike J": 7,
+      "Phil": 9,
+      "Ryan": 7
+    },
+    {
+      "team": "Denver Nuggets",
+      "Adonis": -11,
+      "Andy": -12,
+      "Chester": 12,
+      "Jake": 13,
+      "Mary": 11,
+      "Mike J": 6,
+      "Phil": -8,
+      "Ryan": 10
+    },
+    {
+      "team": "Detroit Pistons",
+      "Adonis": 12,
+      "Andy": 12,
+      "Chester": 14,
+      "Jake": 8,
+      "Mary": 15,
+      "Mike J": 9,
+      "Phil": 15,
+      "Ryan": 13
+    },
+    {
+      "team": "Golden State Warriors",
+      "Adonis": 13,
+      "Andy": 14,
+      "Chester": -15,
+      "Jake": 7,
+      "Mary": 8,
+      "Mike J": -12,
+      "Phil": -9,
+      "Ryan": 7
+    },
+    {
+      "team": "Houston Rockets",
+      "Adonis": 14,
+      "Andy": -10,
+      "Chester": 9,
+      "Jake": -13,
+      "Mary": 14,
+      "Mike J": 15,
+      "Phil": 13,
+      "Ryan": 10
+    },
+    {
+      "team": "Indiana Pacers",
+      "Adonis": -6,
+      "Andy": 12,
+      "Chester": 7,
+      "Jake": 10,
+      "Mary": 13,
+      "Mike J": 15,
+      "Phil": -6,
+      "Ryan": -15
+    },
+    {
+      "team": "Los Angeles Clippers",
+      "Adonis": -8,
+      "Andy": -10,
+      "Chester": 13,
+      "Jake": -15,
+      "Mary": 11,
+      "Mike J": -12,
+      "Phil": -13,
+      "Ryan": 6
+    },
+    {
+      "team": "Los Angeles Lakers",
+      "Adonis": -15,
+      "Andy": 10,
+      "Chester": 6,
+      "Jake": -9,
+      "Mary": -6,
+      "Mike J": 12,
+      "Phil": -7,
+      "Ryan": 12
+    },
+    {
+      "team": "Memphis Grizzlies",
+      "Adonis": -13,
+      "Andy": -6,
+      "Chester": 8,
+      "Jake": -11,
+      "Mary": -10,
+      "Mike J": 11,
+      "Phil": 11,
+      "Ryan": -6
+    },
+    {
+      "team": "Miami Heat",
+      "Adonis": 14,
+      "Andy": 13,
+      "Chester": 9,
+      "Jake": 14,
+      "Mary": 9,
+      "Mike J": 14,
+      "Phil": -13,
+      "Ryan": -12
+    },
+    {
+      "team": "Milwaukee Bucks",
+      "Adonis": -6,
+      "Andy": 15,
+      "Chester": -12,
+      "Jake": 15,
+      "Mary": -8,
+      "Mike J": -13,
+      "Phil": -14,
+      "Ryan": 8
+    },
+    {
+      "team": "Minnesota Timberwolves",
+      "Adonis": -9,
+      "Andy": 13,
+      "Chester": 6,
+      "Jake": -6,
+      "Mary": -6,
+      "Mike J": 8,
+      "Phil": -6,
+      "Ryan": -12
+    },
+    {
+      "team": "New Orleans Pelicans",
+      "Adonis": -7,
+      "Andy": 9,
+      "Chester": -9,
+      "Jake": 10,
+      "Mary": -10,
+      "Mike J": -11,
+      "Phil": 7,
+      "Ryan": 11
+    },
+    {
+      "team": "New York Knicks",
+      "Adonis": 14,
+      "Andy": -14,
+      "Chester": -11,
+      "Jake": -9,
+      "Mary": 14,
+      "Mike J": -11,
+      "Phil": 10,
+      "Ryan": -14
+    },
+    {
+      "team": "Oklahoma City Thunder",
+      "Adonis": -15,
+      "Andy": -15,
+      "Chester": -15,
+      "Jake": -14,
+      "Mary": 15,
+      "Mike J": 13,
+      "Phil": 14,
+      "Ryan": -13
+    },
+    {
+      "team": "Orlando Magic",
+      "Adonis": -8,
+      "Andy": -8,
+      "Chester": 6,
+      "Jake": 6,
+      "Mary": -7,
+      "Mike J": 14,
+      "Phil": -7,
+      "Ryan": 9
+    },
+    {
+      "team": "Philadelphia 76ers",
+      "Adonis": 11,
+      "Andy": -14,
+      "Chester": -14,
+      "Jake": 7,
+      "Mary": 15,
+      "Mike J": -6,
+      "Phil": -6,
+      "Ryan": -13
+    },
+    {
+      "team": "Phoenix Suns",
+      "Adonis": -7,
+      "Andy": -13,
+      "Chester": -10,
+      "Jake": -8,
+      "Mary": -12,
+      "Mike J": -8,
+      "Phil": 8,
+      "Ryan": 9
+    },
+    {
+      "team": "Portland Trail Blazers",
+      "Adonis": 13,
+      "Andy": -7,
+      "Chester": 8,
+      "Jake": -8,
+      "Mary": -9,
+      "Mike J": -9,
+      "Phil": -12,
+      "Ryan": 14
+    },
+    {
+      "team": "Sacramento Kings",
+      "Adonis": 7,
+      "Andy": 11,
+      "Chester": 10,
+      "Jake": 15,
+      "Mary": 10,
+      "Mike J": 6,
+      "Phil": -9,
+      "Ryan": -6
+    },
+    {
+      "team": "San Antonio Spurs",
+      "Adonis": -9,
+      "Andy": 15,
+      "Chester": -15,
+      "Jake": -12,
+      "Mary": 13,
+      "Mike J": 13,
+      "Phil": 12,
+      "Ryan": -11
+    },
+    {
+      "team": "Toronto Raptors",
+      "Adonis": 9,
+      "Andy": -9,
+      "Chester": -11,
+      "Jake": -7,
+      "Mary": -8,
+      "Mike J": 10,
+      "Phil": 11,
+      "Ryan": -15
+    },
+    {
+      "team": "Utah Jazz",
+      "Adonis": -11,
+      "Andy": -11,
+      "Chester": -13,
+      "Jake": -13,
+      "Mary": -12,
+      "Mike J": 7,
+      "Phil": -8,
+      "Ryan": -8
+    },
+    {
+      "team": "Washington Wizards",
+      "Adonis": 15,
+      "Andy": -6,
+      "Chester": -8,
+      "Jake": -10,
+      "Mary": -9,
+      "Mike J": -8,
+      "Phil": -11,
+      "Ryan": -15
+    }
+  ],
+  "root": [
+    {
+      "team": "Atlanta Hawks",
+      "Adonis": -0.0519,
+      "Andy": -0.058951,
+      "Chester": 0.092735,
+      "Jake": 0.042389,
+      "Mary": 0.025839,
+      "Mike J": -0.0835,
+      "Phil": 0.10864,
+      "Ryan": -0.075252
+    },
+    {
+      "team": "Boston Celtics",
+      "Adonis": -0.103548,
+      "Andy": 0.05347,
+      "Chester": -0.122524,
+      "Jake": 0.057982,
+      "Mary": -0.079526,
+      "Mike J": 0.071211,
+      "Phil": 0.069345,
+      "Ryan": 0.05359
+    },
+    {
+      "team": "Brooklyn Nets",
+      "Adonis": -0.030746,
+      "Andy": 0.078016,
+      "Chester": -0.069662,
+      "Jake": -0.059861,
+      "Mary": 0.092807,
+      "Mike J": -0.047738,
+      "Phil": -0.055182,
+      "Ryan": 0.092367
+    },
+    {
+      "team": "Charlotte Hornets",
+      "Adonis": -0.090833,
+      "Andy": -0.06868,
+      "Chester": -0.061612,
+      "Jake": 0.067374,
+      "Mary": 0.064551,
+      "Mike J": -0.088502,
+      "Phil": 0.096467,
+      "Ryan": 0.081235
+    },
+    {
+      "team": "Chicago Bulls",
+      "Adonis": -0.065284,
+      "Andy": 0.077144,
+      "Chester": 0.063358,
+      "Jake": -0.092505,
+      "Mary": 0.091673,
+      "Mike J": -0.072546,
+      "Phil": -0.064341,
+      "Ryan": 0.0625
+    },
+    {
+      "team": "Cleveland Cavaliers",
+      "Adonis": 0.021985,
+      "Andy": -0.122661,
+      "Chester": 0.01135,
+      "Jake": 0.031342,
+      "Mary": 0.001165,
+      "Mike J": 0.030151,
+      "Phil": 0.015309,
+      "Ryan": 0.011359
+    },
+    {
+      "team": "Dallas Mavericks",
+      "Adonis": -0.094193,
+      "Andy": -0.059381,
+      "Chester": 0.065979,
+      "Jake": 0.053646,
+      "Mary": -0.063968,
+      "Mike J": 0.018579,
+      "Phil": 0.051341,
+      "Ryan": 0.027998
+    },
+    {
+      "team": "Denver Nuggets",
+      "Adonis": -0.09449,
+      "Andy": -0.111158,
+      "Chester": 0.066405,
+      "Jake": 0.082897,
+      "Mary": 0.058074,
+      "Mike J": 0.028187,
+      "Phil": -0.08576,
+      "Ryan": 0.055845
+    },
+    {
+      "team": "Detroit Pistons",
+      "Adonis": 0.008123,
+      "Andy": 0.005194,
+      "Chester": 0.016684,
+      "Jake": -0.02577,
+      "Mary": 0.00538,
+      "Mike J": -0.030933,
+      "Phil": 0.020244,
+      "Ryan": 0.001079
+    },
+    {
+      "team": "Golden State Warriors",
+      "Adonis": 0.093198,
+      "Andy": 0.089003,
+      "Chester": -0.111656,
+      "Jake": 0.030111,
+      "Mary": 0.027215,
+      "Mike J": -0.089693,
+      "Phil": -0.078646,
+      "Ryan": 0.040469
+    },
+    {
+      "team": "Houston Rockets",
+      "Adonis": 0.069455,
+      "Andy": -0.113222,
+      "Chester": 0.016913,
+      "Jake": -0.119666,
+      "Mary": 0.030286,
+      "Mike J": 0.049969,
+      "Phil": 0.032641,
+      "Ryan": 0.033623
+    },
+    {
+      "team": "Indiana Pacers",
+      "Adonis": -0.068942,
+      "Andy": 0.065593,
+      "Chester": 0.036068,
+      "Jake": 0.051607,
+      "Mary": 0.055974,
+      "Mike J": 0.06996,
+      "Phil": -0.074871,
+      "Ryan": -0.135389
+    },
+    {
+      "team": "Los Angeles Clippers",
+      "Adonis": -0.027602,
+      "Andy": -0.042817,
+      "Chester": 0.118607,
+      "Jake": -0.076062,
+      "Mary": 0.090224,
+      "Mike J": -0.064006,
+      "Phil": -0.068548,
+      "Ryan": 0.070204
+    },
+    {
+      "team": "Los Angeles Lakers",
+      "Adonis": -0.097662,
+      "Andy": 0.075961,
+      "Chester": 0.039669,
+      "Jake": -0.06774,
+      "Mary": -0.048628,
+      "Mike J": 0.075937,
+      "Phil": -0.061215,
+      "Ryan": 0.083679
+    },
+    {
+      "team": "Memphis Grizzlies",
+      "Adonis": -0.06803,
+      "Andy": -0.018446,
+      "Chester": 0.081301,
+      "Jake": -0.053262,
+      "Mary": -0.06718,
+      "Mike J": 0.067777,
+      "Phil": 0.095397,
+      "Ryan": -0.037557
+    },
+    {
+      "team": "Miami Heat",
+      "Adonis": 0.069938,
+      "Andy": 0.05055,
+      "Chester": 0.027016,
+      "Jake": 0.057261,
+      "Mary": 0.006516,
+      "Mike J": 0.055144,
+      "Phil": -0.137307,
+      "Ryan": -0.129118
+    },
+    {
+      "team": "Milwaukee Bucks",
+      "Adonis": -0.022569,
+      "Andy": 0.121075,
+      "Chester": -0.068368,
+      "Jake": 0.107394,
+      "Mary": -0.049264,
+      "Mike J": -0.076056,
+      "Phil": -0.078585,
+      "Ryan": 0.066372
+    },
+    {
+      "team": "Minnesota Timberwolves",
+      "Adonis": -0.044659,
+      "Andy": 0.11377,
+      "Chester": 0.064089,
+      "Jake": -0.032994,
+      "Mary": -0.041204,
+      "Mike J": 0.052774,
+      "Phil": -0.029625,
+      "Ryan": -0.082153
+    },
+    {
+      "team": "New Orleans Pelicans",
+      "Adonis": -0.044155,
+      "Andy": 0.069607,
+      "Chester": -0.058284,
+      "Jake": 0.063334,
+      "Mary": -0.07799,
+      "Mike J": -0.086391,
+      "Phil": 0.064275,
+      "Ryan": 0.069604
+    },
+    {
+      "team": "New York Knicks",
+      "Adonis": 0.131789,
+      "Andy": -0.073386,
+      "Chester": -0.050969,
+      "Jake": -0.038218,
+      "Mary": 0.087659,
+      "Mike J": -0.071824,
+      "Phil": 0.095741,
+      "Ryan": -0.080792
+    },
+    {
+      "team": "Oklahoma City Thunder",
+      "Adonis": -0.082476,
+      "Andy": -0.07314,
+      "Chester": -0.075087,
+      "Jake": -0.056145,
+      "Mary": 0.119591,
+      "Mike J": 0.106797,
+      "Phil": 0.11989,
+      "Ryan": -0.059431
+    },
+    {
+      "team": "Orlando Magic",
+      "Adonis": -0.048732,
+      "Andy": -0.067209,
+      "Chester": 0.03626,
+      "Jake": 0.04378,
+      "Mary": -0.054215,
+      "Mike J": 0.091667,
+      "Phil": -0.065532,
+      "Ryan": 0.063982
+    },
+    {
+      "team": "Philadelphia 76ers",
+      "Adonis": 0.109577,
+      "Andy": -0.085704,
+      "Chester": -0.07506,
+      "Jake": 0.076673,
+      "Mary": 0.1019,
+      "Mike J": -0.023804,
+      "Phil": -0.033346,
+      "Ryan": -0.070236
+    },
+    {
+      "team": "Phoenix Suns",
+      "Adonis": 0.000224,
+      "Andy": -0.052275,
+      "Chester": -0.032383,
+      "Jake": -0.019169,
+      "Mary": -0.059573,
+      "Mike J": -0.032571,
+      "Phil": 0.096123,
+      "Ryan": 0.099625
+    },
+    {
+      "team": "Portland Trail Blazers",
+      "Adonis": 0.125893,
+      "Andy": -0.044722,
+      "Chester": 0.067131,
+      "Jake": -0.054493,
+      "Mary": -0.071124,
+      "Mike J": -0.053471,
+      "Phil": -0.079007,
+      "Ryan": 0.109792
+    },
+    {
+      "team": "Sacramento Kings",
+      "Adonis": 0.020342,
+      "Andy": 0.041376,
+      "Chester": 0.038459,
+      "Jake": 0.066262,
+      "Mary": 0.02109,
+      "Mike J": 0.001447,
+      "Phil": -0.101709,
+      "Ryan": -0.087267
+    },
+    {
+      "team": "San Antonio Spurs",
+      "Adonis": -0.071972,
+      "Andy": 0.12485,
+      "Chester": -0.103546,
+      "Jake": -0.087106,
+      "Mary": 0.072016,
+      "Mike J": 0.071317,
+      "Phil": 0.0792,
+      "Ryan": -0.084758
+    },
+    {
+      "team": "Toronto Raptors",
+      "Adonis": 0.103242,
+      "Andy": -0.040444,
+      "Chester": -0.055832,
+      "Jake": -0.025599,
+      "Mary": -0.061472,
+      "Mike J": 0.073733,
+      "Phil": 0.092705,
+      "Ryan": -0.086333
+    },
+    {
+      "team": "Utah Jazz",
+      "Adonis": -0.001837,
+      "Andy": -0.013611,
+      "Chester": -0.030554,
+      "Jake": -0.025176,
+      "Mary": -0.031888,
+      "Mike J": 0.100727,
+      "Phil": -0.006565,
+      "Ryan": 0.008903
+    },
+    {
+      "team": "Washington Wizards",
+      "Adonis": 0.172836,
+      "Andy": 0.009269,
+      "Chester": -0.00632,
+      "Jake": -0.026234,
+      "Mary": -0.040356,
+      "Mike J": -0.016039,
+      "Phil": -0.031303,
+      "Ryan": -0.061853
+    }
+  ],
+  "pairs": [
+    {
+      "a": "Adonis",
+      "b": "Andy",
+      "same_side": 14,
+      "contested_wager": 337,
+      "wager_corr": -0.05602,
+      "score_corr": -0.052204,
+      "a_beats_b": 0.501424
+    },
+    {
+      "a": "Adonis",
+      "b": "Chester",
+      "same_side": 15,
+      "contested_wager": 307,
+      "wager_corr": 0.040423,
+      "score_corr": 0.044964,
+      "a_beats_b": 0.504334
+    },
+    {
+      "a": "Adonis",
+      "b": "Jake",
+      "same_side": 16,
+      "contested_wager": 282,
+      "wager_corr": 0.125179,
+      "score_corr": 0.126455,
+      "a_beats_b": 0.504041
+    },
+    {
+      "a": "Adonis",
+      "b": "Mary",
+      "same_side": 18,
+      "contested_wager": 255,
+      "wager_corr": 0.228455,
+      "score_corr": 0.206622,
+      "a_beats_b": 0.517817
+    },
+    {
+      "a": "Adonis",
+      "b": "Mike J",
+      "same_side": 14,
+      "contested_wager": 354,
+      "wager_corr": -0.121001,
+      "score_corr": -0.131544,
+      "a_beats_b": 0.509726
+    },
+    {
+      "a": "Adonis",
+      "b": "Phil",
+      "same_side": 15,
+      "contested_wager": 329,
+      "wager_corr": -0.081589,
+      "score_corr": -0.085369,
+      "a_beats_b": 0.506181
+    },
+    {
+      "a": "Adonis",
+      "b": "Ryan",
+      "same_side": 12,
+      "contested_wager": 373,
+      "wager_corr": -0.174167,
+      "score_corr": -0.176907,
+      "a_beats_b": 0.506219
+    },
+    {
+      "a": "Andy",
+      "b": "Chester",
+      "same_side": 15,
+      "contested_wager": 314,
+      "wager_corr": -0.000423,
+      "score_corr": -0.000948,
+      "a_beats_b": 0.49993
+    },
+    {
+      "a": "Andy",
+      "b": "Jake",
+      "same_side": 18,
+      "contested_wager": 233,
+      "wager_corr": 0.306266,
+      "score_corr": 0.307414,
+      "a_beats_b": 0.499592
+    },
+    {
+      "a": "Andy",
+      "b": "Mary",
+      "same_side": 16,
+      "contested_wager": 305,
+      "wager_corr": 0.017218,
+      "score_corr": 0.012419,
+      "a_beats_b": 0.512304
+    },
+    {
+      "a": "Andy",
+      "b": "Mike J",
+      "same_side": 16,
+      "contested_wager": 292,
+      "wager_corr": 0.086525,
+      "score_corr": 0.082356,
+      "a_beats_b": 0.507748
+    },
+    {
+      "a": "Andy",
+      "b": "Phil",
+      "same_side": 11,
+      "contested_wager": 402,
+      "wager_corr": -0.259557,
+      "score_corr": -0.260071,
+      "a_beats_b": 0.503206
+    },
+    {
+      "a": "Andy",
+      "b": "Ryan",
+      "same_side": 16,
+      "contested_wager": 291,
+      "wager_corr": 0.087333,
+      "score_corr": 0.086991,
+      "a_beats_b": 0.502381
+    },
+    {
+      "a": "Chester",
+      "b": "Jake",
+      "same_side": 17,
+      "contested_wager": 266,
+      "wager_corr": 0.170726,
+      "score_corr": 0.17045,
+      "a_beats_b": 0.501721
+    },
+    {
+      "a": "Chester",
+      "b": "Mary",
+      "same_side": 17,
+      "contested_wager": 269,
+      "wager_corr": 0.139057,
+      "score_corr": 0.131266,
+      "a_beats_b": 0.513867
+    },
+    {
+      "a": "Chester",
+      "b": "Mike J",
+      "same_side": 21,
+      "contested_wager": 204,
+      "wager_corr": 0.27766,
+      "score_corr": 0.272733,
+      "a_beats_b": 0.510503
+    },
+    {
+      "a": "Chester",
+      "b": "Phil",
+      "same_side": 12,
+      "contested_wager": 358,
+      "wager_corr": -0.093459,
+      "score_corr": -0.094334,
+      "a_beats_b": 0.502589
+    },
+    {
+      "a": "Chester",
+      "b": "Ryan",
+      "same_side": 17,
+      "contested_wager": 259,
+      "wager_corr": 0.226816,
+      "score_corr": 0.224509,
+      "a_beats_b": 0.50516
+    },
+    {
+      "a": "Jake",
+      "b": "Mary",
+      "same_side": 18,
+      "contested_wager": 271,
+      "wager_corr": 0.078166,
+      "score_corr": 0.074313,
+      "a_beats_b": 0.510245
+    },
+    {
+      "a": "Jake",
+      "b": "Mike J",
+      "same_side": 16,
+      "contested_wager": 288,
+      "wager_corr": 0.08415,
+      "score_corr": 0.081781,
+      "a_beats_b": 0.506783
+    },
+    {
+      "a": "Jake",
+      "b": "Phil",
+      "same_side": 15,
+      "contested_wager": 312,
+      "wager_corr": -0.001174,
+      "score_corr": -0.002088,
+      "a_beats_b": 0.50193
+    },
+    {
+      "a": "Jake",
+      "b": "Ryan",
+      "same_side": 18,
+      "contested_wager": 251,
+      "wager_corr": 0.200861,
+      "score_corr": 0.199229,
+      "a_beats_b": 0.50221
+    },
+    {
+      "a": "Mary",
+      "b": "Mike J",
+      "same_side": 14,
+      "contested_wager": 317,
+      "wager_corr": 0.010937,
+      "score_corr": 0.030894,
+      "a_beats_b": 0.494212
+    },
+    {
+      "a": "Mary",
+      "b": "Phil",
+      "same_side": 15,
+      "contested_wager": 300,
+      "wager_corr": 0.11163,
+      "score_corr": 0.113871,
+      "a_beats_b": 0.490047
+    },
+    {
+      "a": "Mary",
+      "b": "Ryan",
+      "same_side": 14,
+      "contested_wager": 333,
+      "wager_corr": -0.090595,
+      "score_corr": -0.082347,
+      "a_beats_b": 0.490829
+    },
+    {
+      "a": "Mike J",
+      "b": "Phil",
+      "same_side": 17,
+      "contested_wager": 247,
+      "wager_corr": 0.296053,
+      "score_corr": 0.297494,
+      "a_beats_b": 0.493672
+    },
+    {
+      "a": "Mike J",
+      "b": "Ryan",
+      "same_side": 12,
+      "contested_wager": 375,
+      "wager_corr": -0.194226,
+      "score_corr": -0.189174,
+      "a_beats_b": 0.494683
+    },
+    {
+      "a": "Phil",
+      "b": "Ryan",
+      "same_side": 15,
+      "contested_wager": 312,
+      "wager_corr": 0.022609,
+      "score_corr": 0.023283,
+      "a_beats_b": 0.50166
+    }
+  ],
+  "scenario": {
+    "under_drift_2": {
+      "Adonis": 0.194781,
+      "Andy": 0.151495,
+      "Chester": 0.135356,
+      "Jake": 0.10967,
+      "Mary": 0.065239,
+      "Mike J": 0.082786,
+      "Phil": 0.139262,
+      "Ryan": 0.121411
+    },
+    "over_drift_2": {
+      "Adonis": 0.102959,
+      "Andy": 0.115678,
+      "Chester": 0.093548,
+      "Jake": 0.09657,
+      "Mary": 0.169919,
+      "Mike J": 0.14736,
+      "Phil": 0.132412,
+      "Ryan": 0.141554
+    }
+  }
+}

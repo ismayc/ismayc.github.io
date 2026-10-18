@@ -20,6 +20,11 @@ nba_cup_champ_date    <- "2026-12-11"
 # basketball-reference only lists 80 games per team until the Cup knockout
 # field is set; the last two games per team get added after Group Play.
 schedule_initial_file   <- paste0("schedule-", season_label, "_initial.csv")
+
+# The scenario explorer lists every Over/Under combination of the teams still
+# undecided (2^n), so it is published only once n is this small (2^20 is
+# about a million, a second or two in the browser).
+explorer_max_open <- 20
 schedule_after_cup_file <- paste0("schedule-", season_label, "-after-ist.csv")
 
 # Resolve a file inside the season folder whether the working directory is

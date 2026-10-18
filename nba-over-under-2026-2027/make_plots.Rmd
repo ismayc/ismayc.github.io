@@ -55,6 +55,13 @@ source("05-playoff-seeding.R")
 source("06b-validate-seeding.R")
 seeded_standings <- compute_playoff_seeding(standings, scores_tidy, meta)
 
+# Site-theme charts, and each player's chance to win as of every date
+source("09-season-graphics.R")
+# Earlier dates come from the cache (committed with each build), so a day
+# only simulates the dates whose records changed
+chances <- chance_by_date(standings_grid, projections, picks,
+                          cache = "rds/chance_cache.rds")
+
 knitr::opts_chunk$set(echo = FALSE)
 library(lubridate)
 library(DT)
@@ -64,6 +71,62 @@ num_players <- 8
 Last updated at `r format(Sys.time() - lubridate::hours(8), "%Y-%m-%d %H:%M")` US Pacific time
 
 # {.tabset}
+
+## Chance to win {.tabset .active}
+
+Each day, the rest of the season is simulated 100,000 times. A team's remaining
+games are drawn from its record so far, pulled toward its Vegas line (the
+line counts as 20 games of evidence). Each simulation also draws how good
+the team really is, since a record is an uncertain guide; tested on
+2021-22 to 2025-26, leaving that out made the chances too confident. Every
+simulated season is scored with the pool's rules and tiebreakers. The dotted
+line is an even share.
+
+### Chance to finish first
+
+```{r results="asis"}
+if (nrow(chances) == 0) cat("The chart starts after the first games are played.")
+```
+
+```{r fig.width=10, fig.height=5.5}
+if (nrow(chances)) chance_chart(chances, "p_first")
+```
+
+### Chance to make the top 4
+
+The top 4 qualify for the Over/Under playoffs.
+
+```{r fig.width=10, fig.height=5.5}
+if (nrow(chances)) chance_chart(chances, "p_top4")
+```
+
+## Scenarios
+
+```{r results="asis"}
+# 000-generate-rooting-guide.R writes the explorer after this page renders,
+# for every date with explorer_max_open or fewer teams open
+n_open <- sum(!out_table$`Outcome Determined` %in% c("OVER", "UNDER"))
+if (n_open <= explorer_max_open) {
+  cat(if (n_open == 0) {
+    "Every team's Over or Under is settled. Pick a date to see how the last open teams could have finished."
+  } else {
+    sprintf(paste0("%s still open, with %s ways to finish. This shows where each ",
+                   "player ends up in every one. Teams far from their line start on ",
+                   "their likely side; click any team to change it, or pick an earlier date."),
+            if (n_open == 1) "1 team is" else paste(n_open, "teams are"),
+            format(2^n_open, big.mark = ","))
+  })
+  # A placeholder the page script turns into the frame: a literal iframe
+  # would be inlined by pandoc's self-contained step and go stale
+  cat(sprintf('\n\n<div class="ou-explorer-slot" data-src="%s-nba-scenario-explorer.html"></div>\n',
+              ending_season_year))
+} else {
+  cat(sprintf(paste0("The scenario explorer opens once %d or fewer teams are still ",
+                     "undecided, usually in mid-March. It lists every way those teams ",
+                     "can finish and where each player ends up. %d teams are open now."),
+              explorer_max_open, n_open))
+}
+```
 
 ## By team {.tabset}
 
@@ -84,122 +147,43 @@ first_monday <- first_monday_after_first_week_start(nba_season_start_date)
 first_monday
 ```
 
-This plot is updated early each week with the previous week's results (starting on Monday, `r format(first_monday, "%B %d, %Y")
-`).
+Each team's wins above (or below) the pace it needs to beat its Vegas line,
+as of each Sunday. Zero is exactly on pace; teams are ordered from furthest
+above pace to furthest below, with the line in parentheses. This plot is
+updated early each week with the previous week's results (starting on Monday,
+`r format(first_monday, "%B %d, %Y")`).
 
 ```{r fig.height=10, fig.width=10, message=FALSE, warning=FALSE, eval=(Sys.Date() >= first_monday_after_first_week_start(nba_season_start_date))}
-weekly_standings <- standings_grid %>% 
-  mutate(day_of_week = wday(date, label = TRUE)) %>% 
-  filter(day_of_week == "Sun") %>% 
-  select(-day_of_week) %>% 
-  rename(Date = date, `Team Name` = team)
-
-weekly_team_track <- ggplot(
-  weekly_standings,
-  aes(x = Date, y = `Current Win %`, label = `Current Record`)
-) +
-  geom_point() +
-  geom_line() +
-  geom_segment(aes(x = min(Date), xend = max(Date), 
-                   y = `Vegas Win Projection %`, 
-                   yend = `Vegas Win Projection %`),
-               color = "blue") +
-  facet_wrap(~ `Team Name`, nrow = 6) +
-  xlab("") +
-  ylab("") +
-  theme_bw() +
-  theme(
-    axis.text.x = element_text(angle = 60),
-    panel.spacing = unit(0.5, "lines"),
-    panel.spacing.y = unit(1.5, "lines"),  # Increase vertical spacing between panels
-    strip.text = element_text(size = 8)     # Optionally reduce strip text size
-  )
-
-ggplotly(weekly_team_track, tooltip = c("Vegas Win Projection %", 
-                                        "Current Win %", 
-                                        "Current Record",
-                                        "Date")) %>%
-  #  plotly::layout(margin = list(l = 30, r = 20, b = 5, t = 10))
-  layout(
-    margin = list(t = 120),
-    title = list(
-      text = paste("Team win percentage across season dates<br>",
-                   "versus Vegas projection"),
-      font = list(size = 20)
-    ),
-    yaxis = list(
-      title = paste(
-        c("Current Win Percentage", rep("&nbsp;", 90), "<br>"), collapse = "")
-    ),
-    xaxis = list(
-      title = paste(
-        c(rep("&nbsp;", 100), "Date", "<br>"), collapse = "")
-    ))
+tagList(
+  state_legend(),
+  pace_chart(join_with_projections, by = "week",
+             standings_grid = standings_grid, projections = projections)
+)
 ```
 
 
 ### By game number
 
-```{r fig.height=10, fig.width=10}
-team_track <- join_with_projections %>% 
-  rename(`Over/Under \n Vegas \n Insider` = over_under) %>% 
-  ggplot(aes(x = `Game Number`, y = `Current Win %`, 
-             label = `Current Record`,
-             text = `Game Result`, 
-             color = `Over/Under \n Vegas \n Insider`)
-  ) +
-  geom_point() +
-  geom_line() +
-  geom_segment(aes(x = 1, xend = max(`Game Number`), 
-                   y = `Vegas Win Projection %`, 
-                   yend = `Vegas Win Projection %`),
-               color = "blue") +
-  facet_wrap(~ `Team Name`, nrow = 6) +
-  xlab("") + #Game Number") +
-  ylab("") + #<br><br>Current Win Percentage")
-  theme_bw() +
-  theme(
-    axis.text.x = element_text(angle = 60),
-    panel.spacing = unit(0.5, "lines"),
-    panel.spacing.y = unit(1.5, "lines"),  # Increase vertical spacing between panels
-    strip.text = element_text(size = 8)     # Optionally reduce strip text size
-  ) +
-  scale_color_manual(values = c("forestgreen", "black", "deeppink"))
+Each team's wins above (or below) the pace it needs to beat its Vegas line,
+after every game. A team on pace for exactly its line sits at zero; the line
+is in parentheses, and teams are ordered from furthest above pace to
+furthest below. Pale points can still change; solid points are clinched.
 
-ggplotly(team_track, tooltip = c("Vegas Win Projection %", 
-                                 "Current Win %", 
-                                 "Current Record",
-                                 "Game Result")) %>%
-  #  plotly::layout(margin = list(l = 30, r = 20, b = 5, t = 10))
-  layout(
-    margin = list(t = 120),
-    title = list(
-      text = paste("Team win percentage across games played <br>",
-                   "versus Vegas projection"),
-      font = list(size = 20)
-    ),
-    yaxis = list(
-      title = paste(
-        c("Current Win Percentage", rep("&nbsp;", 100), "<br>"), collapse = "")
-    ),
-    xaxis = list(
-      title = paste(
-        c(rep("&nbsp;", 95), "Game Number", "<br>"), collapse = "")
-    ))
+```{r}
+tagList(state_legend(), pace_chart(join_with_projections))
 ```
 
 ### Approaching win projection {#win-proj}
 
-- If a team exceeds the win projection during the season, 
-**Wins Outcome Determined** will be shown as 
-<span style="color:forestgreen;">OVER.</span>
-- If a team is not able to win enough games to exceed the projection in the 
-number of games remaining, **Wins Outcome Determined** will change to 
-<span style="color:deeppink;">UNDER.</span>
-- If either of these outcomes are still possible, **Wins Outcome Determined** 
-will remain as Not Yet.
+- Once a team passes its line, it has clinched
+<span style="color:#2457a6;font-weight:600;">OVER</span> (solid blue).
+- Once a team can no longer reach its line in the games left, it has clinched
+<span style="color:#b8322f;font-weight:600;">UNDER</span> (solid red).
+- Until then, pale blue or pale red shows which side it is on pace for.
 
-The purple square corresponds to the projected number of wins based on the current team winning percentage. The dotted purple line shows what this projection would look like from current outcomes.
+The violet square is the number of wins the team would finish with at its
+current winning percentage, and the dotted violet line is that path from
+today. The horizontal line is the Vegas line, also shown in parentheses.
 
 ```{r fig.height=10, fig.width=10}
 options(scipen = 99)
@@ -241,69 +225,47 @@ current_team_wins_df <- team_wins_df %>%
 #         projected_slope,
 #         projected_intercept)
 
-current_team_wins_to_proj <- current_team_wins_df %>% 
-  arrange(desc(spread)) %>% 
-  pull(`Team Name`)
+# Same team order and facet labels as the pace charts
+wins_order <- team_order(join_with_projections, num_games)
 
-team_wins_track <- team_wins_df %>% 
-  left_join(current_team_wins_df, 
-            by = c("Game Date", "Team Name", "Current Win Total")) %>% 
-  mutate(`Team Name` = factor(
-    `Team Name`, 
-    levels = current_team_wins_to_proj)
-  ) %>% 
-  ggplot(aes(label = `Current Record`,
-             text = `Game Result`,
-             color = `Wins \n Outcome \n Determined`)
-  ) +
+team_wins_track <- team_wins_df %>%
+  left_join(current_team_wins_df,
+            by = c("Game Date", "Team Name", "Current Win Total")) %>%
+  ungroup() %>%
+  mutate(
+    State = factor(ou_state(`Current Win Total`, `Game Number`, win_projection,
+                            num_games),
+                   levels = names(ou_state_colors))
+  ) %>%
+  left_join(wins_order %>% select(`Team Name`, label), by = "Team Name") %>%
+  mutate(label = factor(label, levels = wins_order$label)) %>%
+  ggplot(aes(label = `Current Record`, text = `Game Result`)) +
+  geom_segment(aes(x = 1, xend = num_games,
+                   y = win_projection, yend = win_projection),
+               color = ou_col$ink, linewidth = 0.4) +
   geom_segment(aes(x = `Game Number`, xend = num_games,
                    y = `Current Win Total`,
-                   yend = `Expected Wins At Current Pace`
-  ),
-  linetype = "dashed",
-  color = "purple") +
-  scale_x_continuous(limits = c(1, num_games)) + 
-  geom_point(mapping = aes(x = `Game Number`, y = `Current Win Total`)) +
-  geom_point(mapping = aes(x = num_games, y = `Expected Wins At Current Pace`), 
-             color = "purple", shape = 15) +
-  #  annotate("text", x = 4, y = 25, aes(label = `Wins Needed`)) +
-  geom_segment(aes(x = 1, xend = num_games,
-                   y = `Vegas Win Projection`,
-                   yend = `Vegas Win Projection`),
-               color = "blue") +
-  facet_wrap(~ `Team Name`, nrow = 6) +
-  xlab("") + #Game Number") +
-  ylab("") + #<br><br>Current Win Percentage")
-  theme_bw() +
-  theme(
-    axis.text.x = element_text(angle = 60),
-    panel.spacing = unit(0.5, "lines"),
-    panel.spacing.y = unit(1.5, "lines"),  # Increase vertical spacing between panels
-    strip.text = element_text(size = 8)     # Optionally reduce strip text size
-  ) + 
-  scale_color_manual(values = c("black", "forestgreen", "deeppink"))
+                   yend = `Expected Wins At Current Pace`),
+               linetype = "dotted", color = ou_col$alt) +
+  scale_x_continuous(limits = c(1, num_games)) +
+  geom_point(aes(x = `Game Number`, y = `Current Win Total`, color = State),
+             size = 1.1) +
+  geom_point(aes(x = num_games, y = `Expected Wins At Current Pace`),
+             color = ou_col$alt, shape = 15, size = 2) +
+  scale_color_manual(values = ou_state_colors, drop = FALSE) +
+  facet_wrap(~ label, ncol = 5) +
+  labs(x = NULL, y = NULL) +
+  theme_ou() +
+  theme(legend.position = "none")
 
-ggplotly(team_wins_track, tooltip = c("Vegas Win Projection %", 
-                                      "Expected Wins At Current Pace",
-                                      "Current Win Total", 
-                                      "Current Record",
-                                      "Game Result")) %>%
-  #  plotly::layout(margin = list(l = 30, r = 20, b = 5, t = 10))
-  layout(
-    margin = list(t = 120),
-    title = list(
-      text = paste("Team cumulative wins across games played <br>",
-                   "versus Vegas wins projection"),
-      font = list(size = 20)
-    ),
-    yaxis = list(
-      title = paste(
-        c("Current Win Total", rep("&nbsp;", 60), "<br>"), collapse = "")
-    ),
-    xaxis = list(
-      title = paste(
-        c(rep("&nbsp;", 115), "Game Number", "<br>"), collapse = "")
-    ))
+tagList(
+  state_legend(),
+  ggplotly(team_wins_track, height = 1050,
+           tooltip = c("Expected Wins At Current Pace", "Current Win Total",
+                       "Current Record", "Game Result")) |>
+    layout(margin = list(t = 30, l = 40, r = 10)) |>
+    ou_plotly()
+)
 ```
 
 ***
@@ -330,36 +292,18 @@ out_table |>
 
 
 
-## Projected points for each player {.tabset .active}
+## Projected points for each player {.tabset}
 
 
 
 #### Games through `r Sys.Date() - 1`
 
-```{r}
-# Custom CSS
-custom_css <- tags$style(HTML("
-  #proj_score table.dataTable tbody tr:nth-child(4) td {
-    border-bottom: 3px solid black !important;
-  }
-"))
+The line under fourth place is the cutoff for the Over/Under playoffs. Ties
+are broken by picks correct, then 15s correct, then 14s, 13s, and 12s. Each
+day's earlier standings are in the Chance to win charts.
 
-projected_score %>% 
-  arrange(desc(Date), desc(`Projected Total Points`), 
-          desc(`Number Correct`),
-          desc(`Number (Wage 15) Correct`),
-          desc(`Number (Wage 14) Correct`),
-          desc(`Number (Wage 13) Correct`),
-          desc(`Number (Wage 12) Correct`)) %>% 
-  DT::datatable(
-    options = list(
-      pageLength = num_players,
-      columnDefs = list(
-        list(width = '80px', targets = 1)  # Increase the width of column index 1 (second column)
-      )),
-    elementId = "proj_score"
-  ) %>%
-  tagList(custom_css, .)
+```{r}
+standings_table(projected_score)
 ```
 
 ***
@@ -558,55 +502,55 @@ picks_wide %>%
     "Chester", "chester_correct",
     target = 'cell',
     backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
-                                 c("lightgreen", "hotpink", "white"))
+                                 c(ou_col$right, ou_col$wrong, "white"))
   ) %>% 
   formatStyle(
     "Jake", "jake_correct",
     target = 'cell',
     backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
-                                 c("lightgreen", "hotpink", "white"))
+                                 c(ou_col$right, ou_col$wrong, "white"))
   ) %>% 
   # formatStyle(
   #   "Jenelle", "jenelle_correct",
   #   target = 'cell',
   #   backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
-  #                                c("lightgreen", "hotpink", "white"))
+  #                                c(ou_col$right, ou_col$wrong, "white"))
   # ) %>% 
   formatStyle(
     "Adonis", "adonis_correct",
     target = 'cell',
     backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
-                                 c("lightgreen", "hotpink", "white"))
+                                 c(ou_col$right, ou_col$wrong, "white"))
   ) %>% 
   formatStyle(
     "Mike", "mike_correct",
     target = 'cell',
     backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
-                                 c("lightgreen", "hotpink", "white"))
+                                 c(ou_col$right, ou_col$wrong, "white"))
   ) %>% 
   formatStyle(
     "Mary", "mary_correct",
     target = 'cell',
     backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
-                                 c("lightgreen", "hotpink", "white"))
+                                 c(ou_col$right, ou_col$wrong, "white"))
   ) %>% 
   formatStyle(
     "Ryan", "ryan_correct",
     target = 'cell',
     backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
-                                 c("lightgreen", "hotpink", "white"))
+                                 c(ou_col$right, ou_col$wrong, "white"))
   ) %>% 
   formatStyle(
     "Phil", "phil_correct",
     target = 'cell',
     backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
-                                 c("lightgreen", "hotpink", "white"))
+                                 c(ou_col$right, ou_col$wrong, "white"))
   ) %>% 
   formatStyle(
     "Andy", "andy_correct",
     target = 'cell',
     backgroundColor = styleEqual(c(TRUE, FALSE, NA), 
-                                 c("lightgreen", "hotpink", "white"))
+                                 c(ou_col$right, ou_col$wrong, "white"))
   ) %>% 
   formatStyle(
     "Team", target = 'cell', backgroundColor = "white"
@@ -736,31 +680,21 @@ projected_score_plot <- projected_score_highlight %>%
   ggplot(aes(
     x = Date, y = `Projected Total Points`, color = Player)
   ) +
-  geom_point() +
-  geom_line() +
-  xlab("") + 
-  ylab("") + 
-  scale_color_brewer(palette = "RdYlBu") +
-  theme_bw()
+  geom_hline(yintercept = 0, color = ou_col$ink, linewidth = 0.3) +
+  geom_line(linewidth = 0.6) +
+  labs(x = NULL, y = NULL) +
+  # Each player keeps one color on every chart and every season
+  scale_color_manual(values = player_colors(current_rankings)) +
+  theme_ou()
 
-gg <- ggplotly(projected_score_plot, 
-               tooltip = c("Date", "Projected Total Points", "Player")) %>% 
+gg <- ggplotly(projected_score_plot,
+               tooltip = c("Date", "Projected Total Points", "Player")) %>%
   layout(
-    margin = list(t = 80),
-    title = list(
-      text = "Projected points over time",
-      font = list(size = 20)
-    ),
-    yaxis = list(
-      title = paste(
-        c(rep("&nbsp;", 15), "Projected Total Points",  
-          "<br>"), collapse = "")
-    ),
-    xaxis = list(
-      title = paste(
-        c(rep("&nbsp;", 9), "Date", "<br>"), collapse = "")
-    ))
-highlight(gg, color = c("lightgreen"), 
+    margin = list(t = 50),
+    title = list(text = "Projected points over time", font = list(size = 18),
+                 x = 0, xanchor = "left")) %>%
+  ou_plotly()
+highlight(gg, color = ou_col$ink,
           off = "plotly_doubleclick",
           #          on = "plotly_hover", off = "plotly_deselect", 
           dynamic = FALSE)
@@ -772,30 +706,22 @@ highlight(gg, color = c("lightgreen"),
 projected_score_facetted <- projected_score %>% 
   mutate(Player = factor(x = Player, levels = current_rankings)) %>% 
   ggplot(aes(
-    x = Date, y = `Projected Total Points`)
+    x = Date, y = `Projected Total Points`, color = Player)
   ) +
-  geom_point() +
-  geom_line() +
-  xlab("") + 
-  ylab("") + 
-  theme_bw() +
+  geom_hline(yintercept = 0, color = ou_col$ink, linewidth = 0.3) +
+  geom_line(linewidth = 0.6) +
+  labs(x = NULL, y = NULL) +
+  scale_color_manual(values = player_colors(current_rankings)) +
+  theme_ou() +
+  theme(legend.position = "none") +
   facet_wrap(~ Player, nrow = 2)
 
-ggplotly(projected_score_facetted) %>% 
+ggplotly(projected_score_facetted) %>%
   layout(
-    margin = list(t = 80),
-    title = list(
-      text = "Projected points (sorted from current best to worst) over time",
-      font = list(size = 20)
-    ),
-    yaxis = list(
-      title = paste(
-        c("Projected Total Points", rep("&nbsp;", 30), "<br>"), collapse = "")
-    ),
-    xaxis = list(
-      title = paste(
-        c(rep("&nbsp;", 105), "Date", "<br>"), collapse = "")
-    ))
+    margin = list(t = 50),
+    title = list(text = "Projected points over time, current leader first",
+                 font = list(size = 18), x = 0, xanchor = "left")) %>%
+  ou_plotly()
 ```
 
 
@@ -810,10 +736,10 @@ if (nrow(rows_today) == 0) {
 ```
 
 ```{r}
+# Each player's net change from yesterday's games (hover a bar for the
+# teams behind it), then the same changes team by team
 if (nrow(rows_today)) {
-  changes_in_player_projections %>% 
-    arrange(desc(Date), Team, Player) %>% 
-    DT::datatable(options = list(pageLength = nrow(rows_today)))
+  tagList(swing_chart(rows_today), swing_table(rows_today))
 }
 ```
 
@@ -844,12 +770,12 @@ if (nrow(clinched_yesterday) > 0) {
     if (outcome == "OVER") {
       cat(paste0(
         "- The **", team, 
-        "** clinched <span style='color:forestgreen;font-weight:bold;'>OVER</span> yesterday.\n"
+        "** clinched <span style='color:#2457a6;font-weight:bold;'>OVER</span> yesterday.\n"
       ))
     } else {
       cat(paste0(
         "- The **", team, 
-        "** clinched <span style='color:deeppink;font-weight:bold;'>UNDER</span> yesterday.\n"
+        "** clinched <span style='color:#b8322f;font-weight:bold;'>UNDER</span> yesterday.\n"
       ))
     }
   }
@@ -908,7 +834,8 @@ todays_games <- schedule %>%
 ```{r results="asis"}
 if (nrow(todays_games)) {
   cat("Today's games")
-} else {
+} else if (Sys.Date() <= as.Date(nba_season_end_date)) {
+  # After the regular season the page is a record, so "today" says nothing
   cat("No NBA games are scheduled for today.")
 }
 ```
