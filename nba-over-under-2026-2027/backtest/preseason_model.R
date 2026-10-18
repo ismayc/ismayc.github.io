@@ -60,8 +60,20 @@ mae_loso <- map_dbl(names(seasons), \(s)
 # Pool ranking key, matching 08
 rank_key <- function(points, correct, correct15) points * 1e4 + correct * 1e2 + correct15
 
-run_season <- function(s, noise_sd) {
-  ln <- filter(lines, season == s) |> arrange(team)
+# DARKO preseason team wins (nba-over-under-META/preseason_projections.csv)
+darko <- read_csv(file.path(repo, "nba-over-under-META/preseason_projections.csv"),
+                  show_col_types = FALSE) |>
+  filter(source == "darko") |>
+  select(season, team, darko = proj_wins)
+team_seasons <- left_join(team_seasons, darko, by = c("season", "team"))
+stopifnot(!anyNA(team_seasons$darko))
+lines <- left_join(lines, darko, by = c("season", "team"))
+
+# `center`: the simulated mean wins as a weight on DARKO's gap from the line
+# (0 = the line, as in 08; 1 = DARKO; 0.5 = halfway).
+run_season <- function(s, noise_sd, center = 0) {
+  ln <- filter(lines, season == s) |> arrange(team) |>
+    mutate(mu = line + center * (darko - line))
   pk <- filter(all_picks, season == s) |>
     mutate(signed = if_else(choice == "OVER", 1, -1) * wage)
   S <- pk |> select(team, player, signed) |>
@@ -72,7 +84,7 @@ run_season <- function(s, noise_sd) {
   n_teams <- nrow(S)
 
   noise <- matrix(rnorm(n_sims * n_teams, 0, noise_sd), n_sims, n_teams)
-  wins <- sweep(noise, 2, ln$line, "+")
+  wins <- sweep(noise, 2, ln$mu, "+")
   wins <- wins - (rowSums(wins) - league_wins) / n_teams
   wins <- pmin(pmax(wins, 0), 82)
   dir <- ifelse(sweep(wins, 2, ln$line, ">"), 1, -1)
@@ -91,7 +103,7 @@ run_season <- function(s, noise_sd) {
   act <- act[match(players, act$player), ]
   act_key <- rank_key(act$points, act$correct, act$correct15)
 
-  tibble(
+  out <- tibble(
     season = s, player = players, n_players = length(players),
     win_prob = colMeans(share),
     mean_points = colMeans(points),
@@ -102,6 +114,17 @@ run_season <- function(s, noise_sd) {
     actual_rank = rank(-act_key, ties.method = "min"),
     won = actual_rank == 1
   )
+  # Each team's simulated chance of going Over, for scoring the team calls
+  attr(out, "teams") <- tibble(season = s, team = ln$team, p_over = colMeans(dir > 0))
+  out
+}
+
+# Team-level score: Brier of P(over) against what happened
+team_brier <- function(res_list) {
+  map_dfr(res_list, \(r) attr(r, "teams")) |>
+    left_join(team_seasons, by = c("season", "team")) |>
+    summarise(brier = mean((p_over - (final > line))^2),
+              right_side = mean((p_over > .5) == (final > line)))
 }
 
 summarise_runs <- function(res, label) {
@@ -156,3 +179,34 @@ res_fixed |> arrange(season, actual_rank) |>
             actual_rank) |>
   as.data.frame() |> print()
 write_csv(res_fixed, "preseason_model_backtest.csv")
+
+# DARKO-centered versions -------------------------------------------------
+# Same model with the mean moved toward DARKO. The noise SD is the
+# held-out MAE of that center (other four seasons) times 1.2533.
+center_mae_loso <- function(center) {
+  map_dbl(names(seasons), \(s)
+    with(filter(team_seasons, season != s),
+         mean(abs(final - (line + center * (darko - line)))))) |>
+    set_names(names(seasons))
+}
+cat(sprintf("\nDARKO MAE, 150 team-seasons: %.2f (line %.2f)\n",
+            mean(abs(team_seasons$final - team_seasons$darko)), mae_all))
+
+line_runs <- map(names(seasons), \(s) run_season(s, mae_loso[[s]] * 1.2533))
+cat("\nLine-centered team calls: "); print(as.data.frame(team_brier(line_runs)), digits = 3)
+darko_res <- list()
+for (center in c(1, 0.5)) {
+  sds <- center_mae_loso(center) * 1.2533
+  runs <- map(names(seasons), \(s) run_season(s, sds[[s]], center))
+  res <- list_rbind(runs)
+  label <- if (center == 1) "DARKO-centered" else "Halfway between line and DARKO"
+  summarise_runs(res, label)
+  cat("\nTeam calls: "); print(as.data.frame(team_brier(runs)), digits = 3)
+  darko_res[[label]] <- mutate(res, version = label)
+}
+cat("\nPer player, DARKO-centered:\n")
+darko_res[["DARKO-centered"]] |> arrange(season, actual_rank) |>
+  transmute(season, player, win_prob = round(win_prob, 3), mean_points = round(mean_points),
+            actual_points, mean_rank = round(mean_rank, 1), actual_rank) |>
+  as.data.frame() |> print()
+write_csv(list_rbind(darko_res), "preseason_model_backtest_darko.csv")
