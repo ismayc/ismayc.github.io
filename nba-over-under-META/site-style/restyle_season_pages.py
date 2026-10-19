@@ -22,6 +22,11 @@ Run from the repo root:
       nba-over-under-2025-2026/playoffs/playoffs.json. Run it before `past`
       (or `season`) so the season page links to it.
 
+  python3 nba-over-under-META/site-style/restyle_season_pages.py explorer 2021 2022 ...
+      Add the season strip and a link back to the season page to each
+      <year>-nba-scenario-explorer.html (hidden when shown inside the season
+      page). Run it after every regeneration of an explorer.
+
   python3 nba-over-under-META/site-style/restyle_season_pages.py guide 2027
       Put 2027-nba-rooting-guide.html (from 000-generate-rooting-guide.R) in
       the site theme. Run it after every regeneration of the guide.
@@ -558,6 +563,42 @@ def do_guide(year):
     write_both(name, text)
 
 
+EXPLORER_CSS = """
+/* Standalone scenario explorer: season strip on top, the site's ink tab underline */
+body { margin: 0; }
+.ou-app { padding-top: 24px; }
+.ou-tab.is-active { border-bottom-color: var(--ink); }
+.embedded .ou-masthead { display: none; }
+"""
+
+
+def do_explorer(year):
+    """Give a season's scenario explorer the season strip, a link back to the
+    season page, and the site icons. Inside the season page's Scenarios tab
+    (an iframe) the strip stays hidden. Safe to rerun."""
+    name = f"{year}-nba-scenario-explorer.html"
+    path = ROOT / name
+    if not path.exists():
+        print(f"no {name}")
+        return
+    text = strip_old(path.read_text())
+    title = f"NBA Over/Under {season_label(year)} scenario explorer"
+    desc = (f"Every way the last open teams could finish in the {season_label(year)} "
+            "NBA over/under pool, and where each player would end up.")
+    # Mark the page as embedded before it draws, so the strip never flashes in the frame
+    early = ("<script>if (window.parent !== window) "
+             "document.documentElement.classList.add('embedded');</script>")
+    text = text.replace("</head>", START + head_meta(name, title, desc) + early
+                        + f"<style>{THEME}\n{EXPLORER_CSS}</style>" + END + "</head>", 1)
+    strip = masthead(year, "Current season" if year < CURRENT_YEAR else "In progress").replace(
+        '<p class="ou-kicker">',
+        f'<p class="ou-kicker"><a href="{year}-nba-over-under.html#scenarios">'
+        f'&larr; {season_label(year)} season page</a>. ', 1)
+    body_at = re.search(r"<body[^>]*>", text).end()
+    text = text[:body_at] + START + strip + END + text[body_at:]
+    write_both(name, text)
+
+
 def do_season(year):
     name = f"{year}-nba-over-under.html"
     text = (ROOT / "docs" / name).read_text()
@@ -583,5 +624,8 @@ if __name__ == "__main__":
         do_playoffs(int(sys.argv[2]))
     elif mode == "guide" and len(sys.argv) == 3:
         do_guide(int(sys.argv[2]))
+    elif mode == "explorer" and len(sys.argv) >= 3:
+        for y in sys.argv[2:]:
+            do_explorer(int(y))
     else:
         sys.exit(__doc__)

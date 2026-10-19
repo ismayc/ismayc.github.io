@@ -112,11 +112,14 @@ jobs:
 
       # Apply the site theme and season strip to the fresh render, and copy
       # it to the repo root (the published copy) alongside docs/. The rooting
-      # guide goes first so the season page links to it.
+      # guide and scenario explorer go first so the season page links the guide.
       - name: Restyle season page
         run: |
           if [ -f 2027-nba-rooting-guide.html ]; then
             python3 nba-over-under-META/site-style/restyle_season_pages.py guide 2027
+          fi
+          if [ -f 2027-nba-scenario-explorer.html ]; then
+            python3 nba-over-under-META/site-style/restyle_season_pages.py explorer 2027
           fi
           python3 nba-over-under-META/site-style/restyle_season_pages.py season 2027
 

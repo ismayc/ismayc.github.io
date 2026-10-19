@@ -113,8 +113,114 @@
     *, *::before, *::after { transition: none !important; animation: none !important; }
   }
 </style>
-</head>
-<body>
+<!-- OU-THEME:start --><link rel="icon" href="nba-over-under-assets/favicon.svg" type="image/svg+xml"><link rel="icon" href="nba-over-under-assets/favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="nba-over-under-assets/apple-touch-icon.png"><meta property="og:type" content="website"><meta property="og:title" content="NBA Over/Under 2020-21 scenario explorer"><meta property="og:description" content="Every way the last open teams could finish in the 2020-21 NBA over/under pool, and where each player would end up."><meta property="og:url" content="https://ismayc.github.io/2021-nba-scenario-explorer.html"><meta property="og:image" content="https://ismayc.github.io/nba-over-under-assets/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><script>if (window.parent !== window) document.documentElement.classList.add('embedded');</script><style>/* NBA over/under site theme: a scorer's book.
+   Pale ruled scorebook paper, navy ink, blue pencil for Over, red pencil for
+   Under. One deliberate light theme: the season pages embed plotly charts
+   with white backgrounds baked in, so every page stays on paper.
+   Source of truth for the 2027 page and the restyled 2021-2026 pages;
+   restyle_season_pages.py inlines it. */
+:root {
+  --paper: #edf1e8;
+  --sheet: #fafbf7;
+  --rule: #cdd6c6;
+  --rule-faint: #dfe5d9;
+  --ink: #1c2a44;
+  --ink-soft: #56627a;
+  --over: #2457a6;
+  --under: #b8322f;
+  --alt: #6b5a9e;
+  --warn: #8a5a00;
+  --font-display: "Big Shoulders Display", "Arial Narrow", "Helvetica Neue", sans-serif;
+  --font-body: "Source Sans 3", "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+  color-scheme: light;
+}
+
+/* Season strip: the history masthead on every page */
+.ou-masthead {
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--rule-faint) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rule-faint) 1px, transparent 1px);
+  background-size: 24px 24px;
+  border-bottom: 2px solid var(--ink);
+  padding: 18px max(16px, env(safe-area-inset-right, 0px)) 0 max(16px, env(safe-area-inset-left, 0px));
+  font-family: var(--font-body);
+  color: var(--ink);
+}
+.ou-masthead-inner { max-width: 72rem; margin: 0 auto; }
+.ou-kicker { margin: 0 0 10px; font-size: 0.9rem; color: var(--ink-soft); }
+.ou-kicker a { color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
+.ou-seasons {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(9rem, 1fr);
+  overflow-x: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-left: 1px solid var(--rule);
+}
+.ou-seasons li { border-right: 1px solid var(--rule); }
+.ou-seasons a {
+  display: grid;
+  gap: 2px;
+  padding: 8px 12px 12px;
+  color: var(--ink);
+  text-decoration: none;
+  border-top: 4px solid transparent;
+}
+.ou-seasons a:hover { background: rgba(28, 42, 68, 0.05); text-decoration: none; }
+.ou-seasons a:focus-visible { outline: 2px solid var(--over); outline-offset: -2px; }
+.ou-seasons .yr {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.6rem;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.ou-seasons .who { font-size: 0.82rem; color: var(--ink-soft); white-space: nowrap; }
+.ou-seasons .who b { color: var(--ink); font-weight: 600; }
+.ou-seasons [aria-current="page"] { background: var(--ink); color: var(--sheet); border-top-color: var(--under); }
+.ou-seasons [aria-current="page"] .who,
+.ou-seasons [aria-current="page"] .who b { color: var(--sheet); }
+
+/* Shared page base */
+.ou-page { background: var(--paper); color: var(--ink); font-family: var(--font-body); }
+.ou-page h1, .ou-page h2, .ou-page h3 { color: var(--ink); text-wrap: balance; }
+.ou-page a { color: var(--over); }
+
+/* Wide tables on narrow screens (ou-scroll-hint.js adds these) */
+.ou-scroll-box { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.ou-scroll-frame { position: relative; min-width: 0; }
+.ou-scroll-hint { display: none; }
+.ou-scroll-frame.is-over > .ou-scroll-hint {
+  display: flex; align-items: center; gap: 0.35rem;
+  margin: 0 0 0.4rem; font-family: var(--font-body); font-size: 0.82rem;
+  font-weight: 600; color: var(--ink-soft);
+}
+.ou-scroll-frame.is-over > .ou-scroll-hint::after {
+  content: "\2192"; font-size: 1rem; color: var(--ink);
+  animation: ou-nudge 1.2s ease-in-out 3;
+}
+@keyframes ou-nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
+.ou-scroll-frame.is-over::after {
+  content: ""; position: absolute; top: 1.6rem; right: 0; bottom: 0; width: 18px;
+  pointer-events: none; transition: opacity 0.2s;
+  background: linear-gradient(to right, rgba(28, 42, 68, 0), rgba(28, 42, 68, 0.22));
+}
+.ou-scroll-frame.is-over.at-end::after { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .ou-scroll-frame.is-over > .ou-scroll-hint::after { animation: none; }
+}
+
+
+/* Standalone scenario explorer: season strip on top, the site's ink tab underline */
+body { margin: 0; }
+.ou-app { padding-top: 24px; }
+.ou-tab.is-active { border-bottom-color: var(--ink); }
+.embedded .ou-masthead { display: none; }
+</style><!-- OU-THEME:end --></head>
+<body><!-- OU-THEME:start --><header class="ou-masthead"><div class="ou-masthead-inner"><p class="ou-kicker"><a href="2021-nba-over-under.html#scenarios">&larr; 2020-21 season page</a>. NBA over/under pool. <a href="index.html">Chester Ismay</a> has tracked it here since 2020-21 and run it since 2025-26.</p><nav aria-label="Seasons"><ol class="ou-seasons"><li><a href="2021-nba-over-under.html" aria-current="page"><span class="yr">2020-21</span><span class="who">Season: <b>Ryan</b> +125</span><span class="who">Playoffs: <b>Jake</b></span></a></li><li><a href="2022-nba-over-under.html"><span class="yr">2021-22</span><span class="who">Season: <b>Chester</b> +125</span><span class="who">Playoffs: <b>Chester</b></span></a></li><li><a href="2023-nba-over-under.html"><span class="yr">2022-23</span><span class="who">Season: <b>Jake</b> +61</span><span class="who">Playoffs: <b>Phil</b></span></a></li><li><a href="2024-nba-over-under.html"><span class="yr">2023-24</span><span class="who">Season: <b>Chester</b> +83</span><span class="who">Playoffs: <b>Chester</b></span></a></li><li><a href="2025-nba-over-under.html"><span class="yr">2024-25</span><span class="who">Season: <b>Chester</b> +35</span><span class="who">Playoffs: <b>Mike J</b></span></a></li><li><a href="2026-nba-over-under.html"><span class="yr">2025-26</span><span class="who">Season: <b>Phil</b> -23</span><span class="who">Playoffs: <b>Phil</b></span></a></li><li><a href="2027-nba-over-under.html"><span class="yr">2026-27</span><span class="who">Current season</span></a></li></ol></nav></div></header><!-- OU-THEME:end -->
 <div id="root"></div>
 <script>
 // Injected by R at build time (10-scenario-explorer.R): one snapshot per date
