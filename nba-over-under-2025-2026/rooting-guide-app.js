@@ -576,7 +576,7 @@ var tabDefs=[
   {id:'sched',label:'Schedule Strength',needsPlayer:false,render:renderTab5},
   {id:'field',label:'Player vs Field',needsPlayer:true,render:renderTab4}
 ];
-var activeTab='rooting',activePlayer=P[0]||'Chester';
+var activeTab='rooting',activePlayer=P.indexOf('Chester')>=0?'Chester':P[0];
 function renderAll(){
   var top=document.getElementById('progression');
   if(!top&&hasProg()){top=document.createElement('div');top.id='progression';top.style.marginBottom='8px';var tabsEl=document.getElementById('tabs');tabsEl.parentNode.insertBefore(top,tabsEl)}
