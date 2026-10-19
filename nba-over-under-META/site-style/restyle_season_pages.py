@@ -272,7 +272,12 @@ def tidy_facets(text):
 def restyle_rmd(text, year, note):
     text = strip_old(text)
     text = tidy_facets(text)
-    text = text.replace("</head>", head_block(SEASON_CSS) + "</head>", 1)
+    title = f"NBA Over/Under {season_label(year)} season"
+    desc = (f"The {season_label(year)} NBA over/under pool: standings, each player's "
+            "chance to finish first, team-by-team results, and scenarios.")
+    text = text.replace("</head>", head_block(SEASON_CSS)
+                        + START + head_meta(f"{year}-nba-over-under.html", title, desc) + END
+                        + "</head>", 1)
     text = re.sub(r"<body([^>]*)>", lambda m: _body_open(m.group(1)), text, count=1)
     body_at = re.search(r"<body[^>]*>", text).end()
     text = (text[:body_at] + START + masthead(year, note) + END + text[body_at:])
