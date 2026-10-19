@@ -281,7 +281,8 @@ chance_chart <- function(chances, measure = c("p_first", "p_top4")) {
       yaxis = list(title = "", tickformat = ".0%",
                    range = c(0, max(1, max(last$label_y) + if (is_final) 0.08 else 0.03)),
                    gridcolor = "#e6eae2", zeroline = FALSE),
-      xaxis = list(title = "", gridcolor = "#e6eae2",
+      # Month names only, so the dates don't collide on a phone
+      xaxis = list(title = "", gridcolor = "#e6eae2", tickformat = "%b", nticks = 6,
                    range = c(min(chances$date), max(chances$date) + 1)),
       shapes = list(list(type = "line", xref = "paper", x0 = 0, x1 = 1,
                          y0 = ref, y1 = ref,

@@ -174,8 +174,95 @@ def head_block(css):
     return f"{START}{FONTS}<style>{THEME}\n{css}</style>{END}"
 
 
+WIDGET_RE = re.compile(r'(<script type="application/json" data-for="[^"]+">)(.*?)(</script>)', re.S)
+
+
+def nickname(team):
+    return "Trail Blazers" if team.endswith("Trail Blazers") else team.split()[-1]
+
+
+def wrap_title(title):
+    """Break a long one-line chart title near its middle."""
+    if "<br" in title or len(title) <= 40:
+        return title
+    mid = len(title) // 2
+    spaces = [i for i, c in enumerate(title) if c == " "]
+    if not spaces:
+        return title
+    i = min(spaces, key=lambda s: abs(s - mid))
+    return title[:i] + "<br>" + title[i + 1:]
+
+
+def tidy_facets(text):
+    """Small-multiple charts (ggplotly facets): label team panels by nickname,
+    thin the axis ticks, wrap long titles, and move a side legend below, so
+    they read on a phone held upright. Every step is safe to rerun."""
+    heights = dict(re.findall(r'id="(htmlwidget-[^"]+)" style="width:\d+px;height:(\d+)px;"', text))
+
+    def fix(m):
+        body = m.group(2)
+        if '"annotations"' not in body or '"layout"' not in body:
+            return m.group(0)
+        data = json.loads(body)
+        height = int(heights.get(re.search(r'data-for="([^"]+)"', m.group(1)).group(1), 960))
+        layout = data.get("x", {}).get("layout", {})
+        strips = [a for a in layout.get("annotations", [])
+                  if a.get("yanchor") == "bottom" and a.get("xref") == "paper"
+                  and a.get("xanchor") == "center" and isinstance(a.get("text"), str)]
+        if len(strips) < 4:
+            return m.group(0)
+        many = len(strips) >= 20
+        # Room for the rotated y-axis title, which ggplotly sets just past the edge
+        margin = layout.setdefault("margin", {})
+        margin["l"] = max(margin.get("l", 0), 44)
+        if many:
+            for a in strips:
+                a["text"] = nickname(a["text"])
+                a.setdefault("font", {})["size"] = 9
+        for key, ax in layout.items():
+            if not re.fullmatch(r"[xy]axis\d*", key) or not ax.get("tickvals"):
+                continue
+            ax["tickangle"] = 0
+            vals, labels = ax["tickvals"], ax["ticktext"]
+            months = not str(labels[0]).lstrip("-").replace(".", "").isdigit()
+            if key.startswith("x") and months and len(vals) > 2:
+                pick = slice(1, None, 3)        # Nov..Apr becomes Dec, Mar
+            elif key.startswith("x") and many and len(vals) > 2:
+                pick = slice(1, None, 2)        # 0..80 becomes 20, 60, clear of the panel edges
+            elif key.startswith("x") and len(vals) > 3:
+                pick = slice(None, None, 2)
+            elif key.startswith("y") and len(vals) == 5:
+                pick = slice(None, None, 2)     # 0, 50, 100
+            else:
+                continue
+            ax["tickvals"], ax["ticktext"] = vals[pick], labels[pick]
+        title = layout.get("title")
+        if isinstance(title, dict) and isinstance(title.get("text"), str):
+            title["text"] = wrap_title(title["text"])
+            title.setdefault("font", {})["size"] = 15
+            if "<br" in title["text"]:
+                layout.setdefault("margin", {})["t"] = max(layout["margin"].get("t", 0), 110)
+        legend = layout.get("legend") or {}
+        if layout.get("showlegend") and legend.get("orientation") != "h":
+            # Above the panels, under the chart title (below them it would
+            # collide with the x-axis title), with its title on its own line
+            margin = layout.setdefault("margin", {})
+            margin["t"] = margin.get("t", 0) + 100
+            plot_h = height - margin["t"] - margin.get("b", 0)
+            legend.update(orientation="h", x=0, xanchor="left", y=1 + 32 / plot_h, yanchor="bottom")
+            if isinstance(legend.get("title"), dict):
+                legend["title"]["text"] = re.sub(r"\s*<br\s*/?>\s*", " ", legend["title"]["text"])
+                legend["title"].setdefault("font", {})["size"] = 12
+                legend["title"]["side"] = "top"
+            layout["legend"] = legend
+        out = json.dumps(data, separators=(",", ":"), ensure_ascii=False).replace("</", "<\\/")
+        return m.group(1) + out + m.group(3)
+    return WIDGET_RE.sub(fix, text)
+
+
 def restyle_rmd(text, year, note):
     text = strip_old(text)
+    text = tidy_facets(text)
     text = text.replace("</head>", head_block(SEASON_CSS) + "</head>", 1)
     text = re.sub(r"<body([^>]*)>", lambda m: _body_open(m.group(1)), text, count=1)
     body_at = re.search(r"<body[^>]*>", text).end()
@@ -236,6 +323,9 @@ def add_chances(text, year):
         print(f"no {path.name}; {year} page left without the chance tab")
         return text
     data = json.loads(path.read_text())
+    # Month names only, so the dates don't collide on a phone
+    for k in ("first", "top4"):
+        data[k]["layout"]["xaxis"].update(tickformat="%b", nticks=6)
     figs = json.dumps({"first": {"data": data["first"]["data"], "layout": data["first"]["layout"]},
                        "top4": {"data": data["top4"]["data"], "layout": data["top4"]["layout"]}},
                       separators=(",", ":")).replace("</", "<\\/")
