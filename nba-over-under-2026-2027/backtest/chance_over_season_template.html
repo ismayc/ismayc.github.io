@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Chance to Win, Week by Week</title>
+<title>Chance to Finish First</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap">
 <style>
   :root {
@@ -42,26 +42,26 @@
 </head>
 <body>
 <main>
-  <h1>Chance to win, week by week</h1>
-  <p class="sub">Each player's chance to win the pool through the last five seasons, from the in-season model on the daily page, run once a week on the real results.</p>
+  <h1>Chance to finish first, week by week</h1>
+  <p class="sub">Each player's chance to finish first in the pool, and take the top seed for the playoffs, through the last five seasons, from the in-season model on the daily page, run once a week on the real results.</p>
   <ul class="notes">
-    <li><b>The early weeks say little.</b> Every season starts between 7% and 15% for everyone, and the favorite about 10 games in won 2 of 5 seasons (Jake in 2022-23, Chester in 2023-24).</li>
+    <li><b>The early weeks say little.</b> Every season starts between 7% and 15% for everyone, and the favorite about 10 games in finished first (the playoffs' top seed) in 2 of 5 seasons (Jake in 2022-23, Chester in 2023-24).</li>
     <li><b>Leaders get caught.</b> Mike J led most of 2021-22 (77% in mid-January) and finished 2nd. Jake led 2025-26 at 90% on March 9 and finished 4th.</li>
-    <li><b>Phil won 2025-26 from 0.3%.</b> He was under 1% from late February through March 23 and passed everyone in the last two weeks.</li>
+    <li><b>Phil finished first in 2025-26 from 0.3%.</b> He was under 1% from late February through March 23 and passed everyone in the last two weeks.</li>
     <li><b>Chester's 2023-24 was the steady one:</b> the favorite every week from mid-November on.</li>
   </ul>
   <div id="charts"></div>
   <footer>
     <h2>How the simulations work</h2>
-    <p>This is the model behind the daily page's chance-to-win chart, run on each past season's real records once a week. Each reading comes from 100,000 simulated finishes to the season. In each one:</p>
+    <p>This is the model behind the daily page's chance-to-finish-first chart, run on each past season's real records once a week. Each reading comes from 100,000 simulated finishes to the season. In each one:</p>
     <ol>
       <li><b>Estimate how good each team is.</b> Its record so far is blended with its Vegas line, with the line counted as 20 games played at the line's pace (a 49.5-win line is a .604 pace, so it adds about 12 wins and 8 losses). Early on the line dominates; by spring the record does.</li>
       <li><b>Allow for doubt about that estimate.</b> Each simulation draws the team's true win rate from a beta distribution centered on that blend, with the evidence counted at half weight. Without this step, teams given 88% chances to finish Over did so only 69% of the time over these five seasons.</li>
       <li><b>Play out the remaining games</b> at that drawn rate. Opponents, home court, and rest are not modeled.</li>
       <li><b>Grade every pick and rank the entries.</b> A team is Over if its final wins beat the line. Entries gain their wager on a right pick and lose it on a wrong one, then rank by points, number right, and 15s right. Entries still tied share the place.</li>
     </ol>
-    <p>A player's chance is the share of the 100,000 finishes they win. Every week reuses the same random draws, so changes come from games played, not simulation noise. Readings are weekly from the day before opening night; each line stops at the last one, six days before the season ended, and the labels give each player's final place.</p>
-    <p>A caution from this run: leads at 70 to 90% held only 3 of 13 weekly readings, and players under 1% went on to win 4% of the time, so the model has been too sure at both ends. Weekly readings within a season are not independent, so this rests mostly on Mike J in 2021-22, Jake in 2025-26, and Phil in 2025-26.</p>
+    <p>A player's chance is the share of the 100,000 finishes where they end up first. Every week reuses the same random draws, so changes come from games played, not simulation noise. Readings are weekly from the day before opening night; each line stops at the last one, six days before the season ended, and the labels give each player's final place.</p>
+    <p>A caution from this run: leads at 70 to 90% held only 3 of 13 weekly readings, and players under 1% went on to finish first 4% of the time, so the model has been too sure at both ends. Weekly readings within a season are not independent, so this rests mostly on Mike J in 2021-22, Jake in 2025-26, and Phil in 2025-26.</p>
   </footer>
 </main>
 <div class="tip" id="tip"></div>
@@ -85,12 +85,12 @@ for (const [season, s] of Object.entries(DATA.seasons)) {
   const winners = players.filter(p => s.players[p].final === 1);
   const finals = players.map(p => s.players[p].final);
   const sec = document.createElement("section");
-  sec.innerHTML = `<h2>${season}</h2><p class="won">Won by ${winners.join(" and ")}</p>`;
+  sec.innerHTML = `<h2>${season}</h2><p class="won">Finished first: ${winners.join(" and ")}</p>`;
   const leg = document.createElement("div"); leg.className = "legend";
   for (const p of players) leg.innerHTML += `<span><i style="background:${DATA.colors[p]}"></i>${p}</span>`;
   sec.appendChild(leg);
   const svg = el("svg", {viewBox: `0 0 ${W} ${H}`, role: "img",
-    "aria-label": `${season}: each player's chance to win the pool by week`});
+    "aria-label": `${season}: each player's chance to finish first by week`});
   const ax = el("g", {class: "axis"}, svg);
   for (const v of [0, .25, .5, .75, 1]) {
     el("line", {x1: M.l, x2: W - M.r, y1: y(v), y2: y(v), stroke: v ? "#e6ebe1" : "#cdd6c6", "stroke-width": 1}, ax);

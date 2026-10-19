@@ -92,7 +92,7 @@ line is an even share.
 <li><b>Grade every pick and rank the entries.</b> A team is Over if its final wins beat the line. Entries gain their wager on a right pick and lose it on a wrong one, then rank by points, number right, and 15s right. Entries still tied share the place.</li>
 </ol>
 <p>A player's chance to finish first (or top 4) is the share of the 100,000 finishes where they do. Every date reuses the same random draws, so day-to-day changes come from games played, not from simulation noise.</p>
-<p><b>How it has done:</b> run weekly on 2021-22 to 2025-26, readings of 70% to 90% won only 3 of 13 times, and players under 1% won about 4% of the time (Phil won 2025-26 from 0.3%). Read big leads as less safe than they look.</p>
+<p><b>How it has done:</b> run weekly on 2021-22 to 2025-26, readings of 70% to 90% ended in first place (the playoffs' top seed) only 3 of 13 times, and players under 1% finished first about 4% of the time (Phil finished first in 2025-26 from 0.3%). Read big leads as less safe than they look.</p>
 </details>
 
 ### Chance to finish first

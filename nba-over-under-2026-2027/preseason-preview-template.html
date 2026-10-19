@@ -220,8 +220,8 @@ const DATA = __DATA__;
       <li><b>Grade every pick.</b> A team is Over if its simulated wins beat the line. Each entry gains its wager on a right pick and loses it on a wrong one.</li>
       <li><b>Rank the entries with the pool's tiebreakers:</b> points, then number of picks right, then number of 15s right. Entries still tied share first place equally.</li>
     </ol>
-    <p>A player's chance to win is the share of simulated seasons they finish first. The rooting guide compares each player's chance in the seasons where a team went Over with the seasons where it went Under, and a team's sway is how much the whole field's chances shift between those two groups. The "League runs 2 under/over" scenarios move every team two wins after step 3.</p>
-    <p><b>What it cannot see:</b> because every team is centered on its line, every entry is expected to score about 0, and the chances differ only by how each entry overlaps the rest of the field. Run on 2021-22 to 2025-26, the favorite won 2 of 5 seasons and the winners averaged 13.4% going in, close to even.</p>`;
+    <p>A player's chance to finish first, and so take the top seed for the playoffs, is the share of simulated seasons they finish first in. The rooting guide compares each player's chance in the seasons where a team went Over with the seasons where it went Under, and a team's sway is how much the whole field's chances shift between those two groups. The "League runs 2 under/over" scenarios move every team two wins after step 3.</p>
+    <p><b>What it cannot see:</b> because every team is centered on its line, every entry is expected to score about 0, and the chances differ only by how each entry overlaps the rest of the field. Run on 2021-22 to 2025-26, the favorite finished first (the playoffs' top seed) in 2 of 5 seasons, and the players who finished first averaged 13.4% going in, close to even.</p>`;
 
   function tipOn(box, tip, ev, lines) {
     const [mx, my] = d3.pointer(ev, box);
