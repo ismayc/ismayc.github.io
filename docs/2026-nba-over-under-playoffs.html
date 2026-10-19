@@ -86,6 +86,30 @@
 .ou-page h1, .ou-page h2, .ou-page h3 { color: var(--ink); text-wrap: balance; }
 .ou-page a { color: var(--over); }
 
+/* Wide tables on narrow screens (ou-scroll-hint.js adds these) */
+.ou-scroll-box { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.ou-scroll-frame { position: relative; min-width: 0; }
+.ou-scroll-hint { display: none; }
+.ou-scroll-frame.is-over > .ou-scroll-hint {
+  display: flex; align-items: center; gap: 0.35rem;
+  margin: 0 0 0.4rem; font-family: var(--font-body); font-size: 0.82rem;
+  font-weight: 600; color: var(--ink-soft);
+}
+.ou-scroll-frame.is-over > .ou-scroll-hint::after {
+  content: "\2192"; font-size: 1rem; color: var(--ink);
+  animation: ou-nudge 1.2s ease-in-out 3;
+}
+@keyframes ou-nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
+.ou-scroll-frame.is-over::after {
+  content: ""; position: absolute; top: 1.6rem; right: 0; bottom: 0; width: 18px;
+  pointer-events: none; transition: opacity 0.2s;
+  background: linear-gradient(to right, rgba(28, 42, 68, 0), rgba(28, 42, 68, 0.22));
+}
+.ou-scroll-frame.is-over.at-end::after { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .ou-scroll-frame.is-over > .ou-scroll-hint::after { animation: none; }
+}
+
   :root { --win: #2f7a4f; --win-bg: #dcebdc; --cf-bg: #e3eaf6; --out-bg: #f3f4ef; }
   body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.5; }
   .wrap { max-width: 72rem; margin-inline: auto; padding: 2rem max(16px, env(safe-area-inset-right, 0px)) 4rem max(16px, env(safe-area-inset-left, 0px)); display: grid; gap: 2.75rem; }
@@ -256,5 +280,57 @@ const DATA = {"season":"2025-26","year":2026,"draft_date":"April 17, 2026","sour
   }).join('');
 })();
 </script>
-</body>
+<script>// Tables wider than the screen: give each its own sideways scroll box, a
+// "Swipe sideways" note above it, and a shadow on the right edge until the
+// reader reaches the last column. Styles are in ou-theme.css (.ou-scroll-*).
+// restyle_season_pages.py inlines this into every over/under page.
+(function () {
+  function scroller(t) {
+    for (var q = t.parentElement; q && q !== document.body; q = q.parentElement) {
+      var ox = getComputedStyle(q).overflowX;
+      if (ox === 'auto' || ox === 'scroll') return q;
+    }
+    return null;
+  }
+  function state(frame, box) {
+    var over = box.scrollWidth > box.clientWidth + 4;
+    frame.classList.toggle('is-over', over);
+    frame.classList.toggle('at-end', box.scrollLeft + box.clientWidth >= box.scrollWidth - 4);
+  }
+  function framed(box) {
+    if (box.parentElement.classList.contains('ou-scroll-frame')) return box.parentElement;
+    var frame = document.createElement('div');
+    frame.className = 'ou-scroll-frame';
+    var hint = document.createElement('div');
+    hint.className = 'ou-scroll-hint';
+    hint.textContent = 'Swipe sideways to see the whole table';
+    box.parentNode.insertBefore(frame, box);
+    frame.appendChild(hint);
+    frame.appendChild(box);
+    box.addEventListener('scroll', function () { state(frame, box); }, { passive: true });
+    return frame;
+  }
+  function run() {
+    document.querySelectorAll('table').forEach(function (t) {
+      if (!t.offsetWidth || t.closest('.ou-masthead, .dataTables_scrollHead')) return;
+      var box = scroller(t);
+      if (!box) {
+        if (t.offsetWidth <= t.parentElement.clientWidth + 2) return;
+        box = document.createElement('div');
+        box.className = 'ou-scroll-box';
+        t.parentNode.insertBefore(box, t);
+        box.appendChild(t);
+      }
+      state(framed(box), box);
+    });
+  }
+  var timer;
+  function soon(ms) { clearTimeout(timer); timer = setTimeout(run, ms || 250); }
+  window.addEventListener('load', function () { run(); setTimeout(run, 1500); });
+  window.addEventListener('resize', function () { soon(200); });
+  // A tab that opens shows tables that measured zero wide while hidden
+  document.addEventListener('click', function () { soon(350); });
+  if (window.jQuery) jQuery(document).on('shown.bs.tab draw.dt', function () { soon(50); });
+})();
+</script></body>
 </html>

@@ -74,6 +74,30 @@
 .ou-page h1, .ou-page h2, .ou-page h3 { color: var(--ink); text-wrap: balance; }
 .ou-page a { color: var(--over); }
 
+/* Wide tables on narrow screens (ou-scroll-hint.js adds these) */
+.ou-scroll-box { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.ou-scroll-frame { position: relative; min-width: 0; }
+.ou-scroll-hint { display: none; }
+.ou-scroll-frame.is-over > .ou-scroll-hint {
+  display: flex; align-items: center; gap: 0.35rem;
+  margin: 0 0 0.4rem; font-family: var(--font-body); font-size: 0.82rem;
+  font-weight: 600; color: var(--ink-soft);
+}
+.ou-scroll-frame.is-over > .ou-scroll-hint::after {
+  content: "\2192"; font-size: 1rem; color: var(--ink);
+  animation: ou-nudge 1.2s ease-in-out 3;
+}
+@keyframes ou-nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
+.ou-scroll-frame.is-over::after {
+  content: ""; position: absolute; top: 1.6rem; right: 0; bottom: 0; width: 18px;
+  pointer-events: none; transition: opacity 0.2s;
+  background: linear-gradient(to right, rgba(28, 42, 68, 0), rgba(28, 42, 68, 0.22));
+}
+.ou-scroll-frame.is-over.at-end::after { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .ou-scroll-frame.is-over > .ou-scroll-hint::after { animation: none; }
+}
+
 
 body.ou-page { margin: 0; background: var(--paper); color: var(--ink);
   font-family: "Source Sans 3", "Helvetica Neue", Arial, sans-serif; }

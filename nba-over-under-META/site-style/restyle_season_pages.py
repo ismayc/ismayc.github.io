@@ -37,6 +37,7 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent.parent
 THEME = (HERE / "ou-theme.css").read_text()
 SEASON_CSS = (HERE / "ou-season-pages.css").read_text()
+SCROLL_JS = "<script>" + (HERE / "ou-scroll-hint.js").read_text() + "</script>"
 PICKS = HERE.parent / "all_picks_6seasons.csv"
 
 CURRENT_YEAR = 2027
@@ -179,7 +180,7 @@ def restyle_rmd(text, year, note):
     text = re.sub(r"<body([^>]*)>", lambda m: _body_open(m.group(1)), text, count=1)
     body_at = re.search(r"<body[^>]*>", text).end()
     text = (text[:body_at] + START + masthead(year, note) + END + text[body_at:])
-    text = text.replace("</body>", START + PLOTLY_FONT + EXPLORER_FRAME + END + "</body>", 1)
+    text = text.replace("</body>", START + PLOTLY_FONT + EXPLORER_FRAME + SCROLL_JS + END + "</body>", 1)
     return text
 
 
@@ -360,6 +361,7 @@ def head_meta(name, title, description):
 def do_preview(path):
     template = Path(path).read_text()
     template = template.replace("/*OU-THEME*/", THEME)
+    template = template.replace("</body>", SCROLL_JS + "</body>", 1)
     template = template.replace("<!--OU-MASTHEAD-->",
                                 masthead(CURRENT_YEAR, "Preseason preview"))
     desc = re.search(r'<meta name="description" content="([^"]*)"', template)
@@ -415,6 +417,7 @@ def do_playoffs(year):
     name = playoffs_name(year)
     text = (HERE / "playoffs-template.html").read_text()
     text = text.replace("/*OU-THEME*/", THEME)
+    text = text.replace("</body>", SCROLL_JS + "</body>", 1)
     text = text.replace("<!--OU-MASTHEAD-->", masthead(year, "Current season"))
     text = text.replace("<!--OU-META-->", head_meta(name, title, desc))
     text = text.replace("__TITLE__", html.escape(title)).replace("__DESCRIPTION__", html.escape(desc))
