@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>2026-27 Over/Under Preview</title>
-<meta name="description" content="Preseason preview of the 2026-27 NBA over/under pool: win chances, the teams with the most sway, a rooting guide for every entry, and how similar the picks are.">
+<meta name="description" content="Preseason preview of the 2026-27 NBA over/under pool: each entry's chance to finish first, the teams with the most sway, a rooting guide for every entry, and how similar the picks are.">
 <!--OU-META-->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -79,7 +79,7 @@
   </header>
 
   <section id="standings">
-    <h2>Who is most likely to win</h2>
+    <h2>Who is most likely to finish first</h2>
     <div class="grid2 stack">
       <div class="card">
         <h3>Chance to finish first</h3>
@@ -92,7 +92,7 @@
         <p class="note">Overs is the pick count; the wager columns add up the points bet on each side (every entry bets 315). Points range is the middle 80% of simulated final points (10th to 90th percentile).</p>
         <div class="scroll">
           <table id="player-table">
-            <thead><tr><th>Player</th><th class="num">Win</th><th class="num">Last</th><th class="num">Avg finish</th><th class="num">Overs</th><th class="num">Over pts</th><th class="num">Under pts</th><th class="num">Points range</th></tr></thead>
+            <thead><tr><th>Player</th><th class="num">First</th><th class="num">Last</th><th class="num">Avg finish</th><th class="num">Overs</th><th class="num">Over pts</th><th class="num">Under pts</th><th class="num">Points range</th></tr></thead>
             <tbody></tbody>
           </table>
         </div>
@@ -108,7 +108,7 @@
   <section id="swing">
     <h2>Teams with the biggest sway</h2>
     <div class="card">
-      <p class="note">Sway is how far the chances of who wins move between that team going Over and going Under (0 means nobody's chances change). Teams where everyone picked the same side barely matter, even with big wagers. Cells show each pick and its wager.</p>
+      <p class="note">Sway is how far the chances of who finishes first move between that team going Over and going Under (0 means nobody's chances change). Teams where everyone picked the same side barely matter, even with big wagers. Cells show each pick and its wager.</p>
       <div class="legend"><span><i style="background:var(--over)"></i>Over (darker = bigger wager)</span><span><i style="background:var(--under)"></i>Under</span></div>
       <div class="scroll full">
         <table id="team-table"><thead><tr id="team-head"></tr></thead><tbody></tbody></table>
@@ -123,7 +123,7 @@
       <div class="chips" id="player-chips" role="group" aria-label="Choose a player"></div>
       <div class="scroll">
         <table id="root-table">
-          <thead><tr><th>Team</th><th>Root for</th><th>Win chance swing</th><th>Own pick</th><th class="num">Wager</th><th>Note</th></tr></thead>
+          <thead><tr><th>Team</th><th>Root for</th><th>First-place chance swing</th><th>Own pick</th><th class="num">Wager</th><th>Note</th></tr></thead>
           <tbody></tbody>
         </table>
       </div>
@@ -203,7 +203,7 @@ const DATA = __DATA__;
   const lead = P[0], tail = P[P.length - 1];
   const tk = document.getElementById('takeaway');
   const b = (t) => { const e = document.createElement('b'); e.textContent = t; return e; };
-  tk.append(b(lead.player), ` has the best chance to win the pool at ${pct(lead.win_prob)}, and the longest shot, `,
+  tk.append(b(lead.player), ` has the best chance to finish first (the playoffs' top seed) at ${pct(lead.win_prob)}, and the longest shot, `,
     b(tail.player), `, sits at ${pct(tail.win_prob)}. With ${P.length} entries an equal share is ${pct(1 / P.length)}, so the season will be decided by the handful of teams where the group split with big wagers.`);
   document.getElementById('pending').textContent = M.missing.length
     ? `Not in yet: ${M.missing.join(', ')} (deadline ${M.deadline}). These numbers cover the ${P.length} entries submitted so far.`
