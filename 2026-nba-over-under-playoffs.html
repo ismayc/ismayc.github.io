@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NBA Over/Under 2025-26 playoffs</title>
+<meta name="description" content="How the 2025-26 NBA over/under playoffs went: the draft of NBA playoff teams, the O/U Finals, and how Phil won with the Knicks.">
+<link rel="icon" href="nba-over-under-assets/favicon.svg" type="image/svg+xml"><link rel="icon" href="nba-over-under-assets/favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="nba-over-under-assets/apple-touch-icon.png"><meta property="og:type" content="website"><meta property="og:title" content="NBA Over/Under 2025-26 playoffs"><meta property="og:description" content="How the 2025-26 NBA over/under playoffs went: the draft of NBA playoff teams, the O/U Finals, and how Phil won with the Knicks."><meta property="og:url" content="https://ismayc.github.io/2026-nba-over-under-playoffs.html"><meta property="og:image" content="https://ismayc.github.io/nba-over-under-assets/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+/* NBA over/under site theme: a scorer's book.
+   Pale ruled scorebook paper, navy ink, blue pencil for Over, red pencil for
+   Under. One deliberate light theme: the season pages embed plotly charts
+   with white backgrounds baked in, so every page stays on paper.
+   Source of truth for the 2027 page and the restyled 2021-2026 pages;
+   restyle_season_pages.py inlines it. */
+:root {
+  --paper: #edf1e8;
+  --sheet: #fafbf7;
+  --rule: #cdd6c6;
+  --rule-faint: #dfe5d9;
+  --ink: #1c2a44;
+  --ink-soft: #56627a;
+  --over: #2457a6;
+  --under: #b8322f;
+  --alt: #6b5a9e;
+  --warn: #8a5a00;
+  --font-display: "Big Shoulders Display", "Arial Narrow", "Helvetica Neue", sans-serif;
+  --font-body: "Source Sans 3", "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+  color-scheme: light;
+}
+
+/* Season strip: the history masthead on every page */
+.ou-masthead {
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--rule-faint) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rule-faint) 1px, transparent 1px);
+  background-size: 24px 24px;
+  border-bottom: 2px solid var(--ink);
+  padding: 18px max(16px, env(safe-area-inset-right, 0px)) 0 max(16px, env(safe-area-inset-left, 0px));
+  font-family: var(--font-body);
+  color: var(--ink);
+}
+.ou-masthead-inner { max-width: 72rem; margin: 0 auto; }
+.ou-kicker { margin: 0 0 10px; font-size: 0.9rem; color: var(--ink-soft); }
+.ou-kicker a { color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
+.ou-seasons {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(9rem, 1fr);
+  overflow-x: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-left: 1px solid var(--rule);
+}
+.ou-seasons li { border-right: 1px solid var(--rule); }
+.ou-seasons a {
+  display: grid;
+  gap: 2px;
+  padding: 8px 12px 12px;
+  color: var(--ink);
+  text-decoration: none;
+  border-top: 4px solid transparent;
+}
+.ou-seasons a:hover { background: rgba(28, 42, 68, 0.05); text-decoration: none; }
+.ou-seasons a:focus-visible { outline: 2px solid var(--over); outline-offset: -2px; }
+.ou-seasons .yr {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.6rem;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.ou-seasons .who { font-size: 0.82rem; color: var(--ink-soft); white-space: nowrap; }
+.ou-seasons .who b { color: var(--ink); font-weight: 600; }
+.ou-seasons [aria-current="page"] { background: var(--ink); color: var(--sheet); border-top-color: var(--under); }
+.ou-seasons [aria-current="page"] .who,
+.ou-seasons [aria-current="page"] .who b { color: var(--sheet); }
+
+/* Shared page base */
+.ou-page { background: var(--paper); color: var(--ink); font-family: var(--font-body); }
+.ou-page h1, .ou-page h2, .ou-page h3 { color: var(--ink); text-wrap: balance; }
+.ou-page a { color: var(--over); }
+
+  :root { --win: #2f7a4f; --win-bg: #dcebdc; --cf-bg: #e3eaf6; --out-bg: #f3f4ef; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.5; }
+  .wrap { max-width: 72rem; margin-inline: auto; padding: 2rem max(16px, env(safe-area-inset-right, 0px)) 4rem max(16px, env(safe-area-inset-left, 0px)); display: grid; gap: 2.75rem; }
+  h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(2.6rem, 7vw, 4.5rem); line-height: 0.92; margin: 0; text-wrap: balance; }
+  h1 .sub { display: block; font-size: 0.42em; font-weight: 700; color: var(--ink-soft); margin-top: 0.35em; line-height: 1.1; }
+  h2 { font-family: var(--font-display); font-weight: 800; font-size: 2rem; line-height: 1.05; margin: 0; padding-top: 10px; border-top: 2px solid var(--ink); text-wrap: balance; }
+  h3 { font-size: 1.05rem; font-weight: 600; margin: 0; }
+  .lede { margin: 1rem 0 0; max-width: 62ch; font-size: 1.15rem; line-height: 1.5; }
+  .note { margin: 0; color: var(--ink-soft); font-size: 0.9rem; max-width: 75ch; }
+  .back { margin: 0.9rem 0 0; font-size: 0.95rem; }
+  .back a { color: var(--ink); }
+  section { display: grid; gap: 1rem; }
+  .card { background: var(--sheet); border: 1px solid var(--rule); border-radius: 2px; padding: 1.25rem; display: grid; gap: 0.7rem; min-width: 0; align-content: start; }
+  .grid2 { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); }
+  .grid4 { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+  th { text-align: left; font-weight: 600; color: var(--ink-soft); padding: 0.4rem 0.6rem; border-bottom: 2px solid var(--ink); white-space: nowrap; }
+  td { padding: 0.45rem 0.6rem; border-bottom: 1px solid var(--rule-faint); vertical-align: top; }
+  .num { text-align: right; }
+  #board-table { min-width: 46rem; }
+  #semis-table { min-width: 30rem; }
+  .seedtag { color: var(--ink-soft); font-size: 0.8rem; font-weight: 600; }
+  .tm { font-weight: 600; }
+  .out { display: block; font-size: 0.78rem; color: var(--ink-soft); }
+  td.champ { background: var(--win-bg); }
+  td.cf { background: var(--cf-bg); }
+  td.champ .out, td.cf .out { color: var(--ink); }
+  .badge { display: inline-block; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.02em; padding: 0 0.4rem; border-radius: 2px; border: 1px solid currentColor; margin-left: 0.3rem; vertical-align: 1px; }
+  .badge.win { color: var(--win); }
+  .legend { display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.8rem; color: var(--ink-soft); }
+  .legend i { display: inline-block; width: 0.8rem; height: 0.8rem; border-radius: 2px; margin-right: 0.3rem; vertical-align: -1px; border: 1px solid var(--rule); }
+  .finalist { font-family: var(--font-display); font-weight: 800; font-size: 1.6rem; line-height: 1; }
+  .finalist .seedtag { font-family: var(--font-body); font-size: 0.85rem; margin-left: 0.4rem; }
+  ul.teams { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem; }
+  ul.teams li { display: flex; justify-content: space-between; gap: 0.75rem; padding: 0.35rem 0.6rem; background: var(--out-bg); border-radius: 2px; }
+  ul.teams li.champ { background: var(--win-bg); }
+  ul.teams .pk { color: var(--ink-soft); font-size: 0.85rem; white-space: nowrap; }
+  .rules ol { margin: 0; padding-left: 22px; display: grid; gap: 0.45rem; max-width: 75ch; }
+  .rules b { font-weight: 600; }
+  .took { font-weight: 600; }
+  .passed { color: var(--ink-soft); font-size: 0.82rem; }
+  @media (max-width: 600px) { .wrap { gap: 2.25rem; } h2 { font-size: 1.7rem; } }
+</style>
+</head>
+<body class="ou-page ou-playoffs">
+<header class="ou-masthead"><div class="ou-masthead-inner"><p class="ou-kicker"><a href="2026-nba-over-under.html">2025-26 regular season</a>. NBA over/under pool. <a href="index.html">Chester Ismay</a> has tracked it here since 2020-21 and run it since 2025-26.</p><nav aria-label="Seasons"><ol class="ou-seasons"><li><a href="2021-nba-over-under.html"><span class="yr">2020-21</span><span class="who">Season: <b>Ryan</b> +125</span><span class="who">Playoffs: <b>Jake</b></span></a></li><li><a href="2022-nba-over-under.html"><span class="yr">2021-22</span><span class="who">Season: <b>Chester</b> +125</span><span class="who">Playoffs: <b>Chester</b></span></a></li><li><a href="2023-nba-over-under.html"><span class="yr">2022-23</span><span class="who">Season: <b>Jake</b> +61</span><span class="who">Playoffs: <b>Phil</b></span></a></li><li><a href="2024-nba-over-under.html"><span class="yr">2023-24</span><span class="who">Season: <b>Chester</b> +83</span><span class="who">Playoffs: <b>Chester</b></span></a></li><li><a href="2025-nba-over-under.html"><span class="yr">2024-25</span><span class="who">Season: <b>Chester</b> +35</span><span class="who">Playoffs: <b>Mike J</b></span></a></li><li><a href="2026-nba-over-under.html" aria-current="page"><span class="yr">2025-26</span><span class="who">Season: <b>Phil</b> -23</span><span class="who">Playoffs: <b>Phil</b></span></a></li><li><a href="2027-nba-over-under.html"><span class="yr">2026-27</span><span class="who">Current season</span></a></li></ol></nav></div></header>
+<div class="wrap">
+  <header>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+    <p class="back" id="back"></p>
+  </header>
+
+  <section id="finals">
+    <h2>The O/U Finals</h2>
+    <p class="note" id="finals-note"></p>
+    <div class="grid2" id="finals-cards"></div>
+  </section>
+
+  <section id="semis">
+    <h2>Who reached the O/U Finals</h2>
+    <p class="note">The two players with the most drafted teams in the conference finals advance. A tie goes to the higher regular-season seed.</p>
+    <div class="card scroll"><table id="semis-table"></table></div>
+  </section>
+
+  <section id="board">
+    <h2>The draft board</h2>
+    <p class="note" id="board-note"></p>
+    <div class="legend"><span><i style="background:var(--win-bg)"></i>Won the NBA title</span><span><i style="background:var(--cf-bg)"></i>Reached the conference finals</span></div>
+    <div class="card scroll"><table id="board-table"></table></div>
+  </section>
+
+  <section id="rounds">
+    <h2>Round by round</h2>
+    <p class="note">The first player in each round's order chooses the group. Anyone can pass except the last player in that round's order. A player who takes a pick slot early can't use that slot again in a later round.</p>
+    <div class="grid4" id="round-cards"></div>
+  </section>
+
+  <section id="rules" class="rules">
+    <h2>How the playoffs work</h2>
+    <div class="card">
+      <ol>
+        <li><b>Who plays:</b> the top four from the regular-season standings, seeded in that order.</li>
+        <li><b>The groups:</b> each conference's bracket is split in half, so each group of four NBA teams sends exactly one team to the conference finals. Play-in slots are drafted before the play-in finishes; whoever wins the slot belongs to the player who drafted it.</li>
+        <li><b>The draft:</b> four rounds, one per group. The order rotates each round, and the first player in the order picks which group the round drafts from. Every player ends with one team from each group.</li>
+        <li><b>Passing:</b> at each pick slot, the player up can take a team or pass to the next player in that round's order. The last player in the order can't pass. Each player uses each pick slot (1st, 2nd, 3rd, 4th) only once across the four rounds, so a slot spent early is gone later.</li>
+        <li><b>The O/U semifinal:</b> the two players with the most teams in the conference finals advance. A tie goes to the higher seed.</li>
+        <li><b>The O/U Finals:</b> the two finalists draft the four conference finalists between them. The higher seed can pick first or pass. Whoever ends up with the NBA champion wins.</li>
+      </ol>
+    </div>
+  </section>
+</div>
+
+<script>
+const DATA = {"season":"2025-26","year":2026,"draft_date":"April 17, 2026","sources":{"draft":"The live draft board's saved picks (read October 19, 2026)","finals_draft":"The commissioner's group text, May 18, 2026","results":"NBA playoff results"},"players":[{"name":"Phil","seed":1},{"name":"Andy","seed":2},{"name":"Ryan","seed":3},{"name":"Jake","seed":4}],"groups":[{"name":"A","conference":"West","teams":[{"team":"Thunder","seed":1},{"team":"Suns","seed":8,"slot":"Suns/Warriors"},{"team":"Lakers","seed":4},{"team":"Rockets","seed":5}]},{"name":"B","conference":"East","teams":[{"team":"Pistons","seed":1},{"team":"Magic","seed":8,"slot":"Magic/Hornets"},{"team":"Cavaliers","seed":4},{"team":"Raptors","seed":5}]},{"name":"C","conference":"West","teams":[{"team":"Spurs","seed":2},{"team":"Trail Blazers","seed":7},{"team":"Nuggets","seed":3},{"team":"Timberwolves","seed":6}]},{"name":"D","conference":"East","teams":[{"team":"Celtics","seed":2},{"team":"76ers","seed":7},{"team":"Knicks","seed":3},{"team":"Hawks","seed":6}]}],"rounds":[{"round":1,"group":"A","order":["Phil","Andy","Ryan","Jake"],"picks":[{"slot":1,"player":"Phil","team":"Thunder"},{"slot":2,"player":"Jake","team":"Rockets"},{"slot":3,"player":"Ryan","team":"Lakers"},{"slot":4,"player":"Andy","team":"Suns"}]},{"round":2,"group":"C","order":["Andy","Ryan","Jake","Phil"],"picks":[{"slot":1,"player":"Andy","team":"Spurs"},{"slot":2,"player":"Phil","team":"Nuggets"},{"slot":3,"player":"Jake","team":"Timberwolves"},{"slot":4,"player":"Ryan","team":"Trail Blazers"}]},{"round":3,"group":"D","order":["Ryan","Jake","Phil","Andy"],"picks":[{"slot":1,"player":"Ryan","team":"Celtics"},{"slot":2,"player":"Andy","team":"Knicks"},{"slot":3,"player":"Phil","team":"Hawks"},{"slot":4,"player":"Jake","team":"76ers"}]},{"round":4,"group":"B","order":["Jake","Phil","Andy","Ryan"],"picks":[{"slot":1,"player":"Jake","team":"Cavaliers"},{"slot":2,"player":"Ryan","team":"Pistons"},{"slot":3,"player":"Andy","team":"Raptors"},{"slot":4,"player":"Phil","team":"Magic"}]}],"team_results":{"Thunder":{"out":"Conference finals","note":"Swept the Suns and Lakers, then lost to the Spurs in 7"},"Suns":{"out":"First round","note":"Won the play-in, then swept by the Thunder"},"Lakers":{"out":"Second round","note":"Beat the Rockets in 6, swept by the Thunder"},"Rockets":{"out":"First round","note":"Lost to the Lakers in 6"},"Pistons":{"out":"Second round","note":"Beat the Magic in 7, lost to the Cavaliers in 7"},"Magic":{"out":"First round","note":"Won the play-in, then lost to the Pistons in 7"},"Cavaliers":{"out":"Conference finals","note":"Beat the Raptors and Pistons in 7, swept by the Knicks"},"Raptors":{"out":"First round","note":"Lost to the Cavaliers in 7"},"Spurs":{"out":"NBA Finals","note":"Beat the Blazers, Timberwolves, and Thunder (in 7), lost the Finals 4-1"},"Trail Blazers":{"out":"First round","note":"Lost to the Spurs in 5"},"Nuggets":{"out":"First round","note":"Lost to the Timberwolves in 6"},"Timberwolves":{"out":"Second round","note":"Beat the Nuggets in 6, lost to the Spurs in 6"},"Celtics":{"out":"First round","note":"Lost to the 76ers in 7"},"76ers":{"out":"Second round","note":"Beat the Celtics in 7, swept by the Knicks"},"Knicks":{"out":"Champion","note":"Beat the Hawks in 6, then swept the 76ers and Cavaliers, and beat the Spurs 4-1"},"Hawks":{"out":"First round","note":"Lost to the Knicks in 6"}},"finals":{"players":["Phil","Andy"],"date":"May 18, 2026","story":"Phil, the top seed, could pick first or pass. He passed the first pick to Andy, who took the Spurs. Phil then took the Thunder and the Knicks, and Andy got the Cavaliers.","picks":[{"slot":1,"player":"Andy","team":"Spurs"},{"slot":2,"player":"Phil","team":"Thunder"},{"slot":3,"player":"Phil","team":"Knicks"},{"slot":4,"player":"Andy","team":"Cavaliers"}],"champion":"Phil","nba_champion":"Knicks"}};
+(() => {
+  const D = DATA;
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+  const seedOf = Object.fromEntries(D.players.map((p) => [p.name, p.seed]));
+  const teamInfo = {};
+  D.groups.forEach((g) => g.teams.forEach((t) => { teamInfo[t.team] = {...t, group: g.name, conference: g.conference}; }));
+  const res = (t) => D.team_results[t] || {};
+  const reachedCF = (t) => ['Conference finals', 'NBA Finals', 'Champion'].includes(res(t).out);
+  const teamLabel = (t) => {
+    const i = teamInfo[t];
+    const slot = i && i.slot ? ` <span class="seedtag">(drafted as ${esc(i.slot)})</span>` : '';
+    return `<span class="tm">${esc(t)}</span> <span class="seedtag">${i ? esc(i.conference) + ' ' + i.seed : ''}</span>${slot}`;
+  };
+  const outText = (t) => res(t).out === 'Champion' ? 'Won the title' : (res(t).out ? 'Out in the ' + res(t).out.toLowerCase().replace('nba finals', 'NBA Finals') : '');
+  const cls = (t) => res(t).out === 'Champion' ? 'champ' : (reachedCF(t) ? 'cf' : '');
+
+  // Header
+  const F = D.finals;
+  document.getElementById('title').innerHTML = `Over/Under ${esc(D.season)} Playoffs <span class="sub">${esc(F.champion)} wins the O/U Finals with the ${esc(F.nba_champion)}</span>`;
+  const owned = {};
+  D.rounds.forEach((r) => r.picks.forEach((p) => { (owned[p.player] = owned[p.player] || []).push(p.team); }));
+  const cfCount = Object.fromEntries(D.players.map((p) => [p.name, (owned[p.name] || []).filter(reachedCF).length]));
+  const lead = D.players.slice().sort((a, b) => cfCount[b.name] - cfCount[a.name] || a.seed - b.seed)[0];
+  document.getElementById('lede').innerHTML =
+    `The regular season's top four drafted NBA playoff teams on ${esc(D.draft_date)}. ` +
+    `<b>${esc(lead.name)}</b> put the most teams in the conference finals (${cfCount[lead.name]}), ` +
+    `but <b>${esc(F.champion)}</b> took the ${esc(F.nba_champion)} in the O/U Finals draft, and the ${esc(F.nba_champion)} won the title.`;
+  document.getElementById('back').innerHTML = `<a href="${D.year}-nba-over-under.html">Back to the ${esc(D.season)} regular season</a>`;
+
+  // Finals
+  document.getElementById('finals-note').textContent = `${F.date}. ${F.story}`;
+  document.getElementById('finals-cards').innerHTML = F.players.map((pl) => {
+    const picks = F.picks.filter((p) => p.player === pl);
+    const won = pl === F.champion;
+    return `<div class="card"><div class="finalist">${esc(pl)}<span class="seedtag">#${seedOf[pl]} seed</span>${won ? '<span class="badge win">Champion</span>' : ''}</div>
+      <ul class="teams">${picks.map((p) => `<li class="${res(p.team).out === 'Champion' ? 'champ' : ''}"><span>${teamLabel(p.team)}<span class="out">${esc(res(p.team).note || '')}</span></span><span class="pk">Pick ${p.slot}</span></li>`).join('')}</ul></div>`;
+  }).join('');
+
+  // Semifinal table
+  const finalists = new Set(F.players);
+  const semis = D.players.slice().sort((a, b) => cfCount[b.name] - cfCount[a.name] || a.seed - b.seed);
+  document.getElementById('semis-table').innerHTML =
+    '<thead><tr><th>Player</th><th class="num">Seed</th><th class="num">In conf. finals</th><th>Which</th><th>Result</th></tr></thead><tbody>' +
+    semis.map((p) => `<tr><td class="tm">${esc(p.name)}</td><td class="num">${p.seed}</td><td class="num">${cfCount[p.name]}</td>
+      <td>${(owned[p.name] || []).filter(reachedCF).map(esc).join(', ') || 'None'}</td>
+      <td>${finalists.has(p.name) ? (p.name === F.champion ? 'Won the O/U Finals' : 'Lost the O/U Finals') : 'Out'}</td></tr>`).join('') + '</tbody>';
+
+  // Draft board: groups by player
+  document.getElementById('board-note').textContent =
+    `Each player's team from each group, the pick slot and round it came in, and how far it went.`;
+  const pickOf = {};
+  D.rounds.forEach((r) => r.picks.forEach((p) => { pickOf[r.group + '|' + p.player] = {...p, round: r.round}; }));
+  const groupsByRound = D.rounds.map((r) => D.groups.find((g) => g.name === r.group));
+  document.getElementById('board-table').innerHTML =
+    '<thead><tr><th>Group</th>' + D.players.map((p) => `<th>${esc(p.name)} <span class="seedtag">#${p.seed}</span></th>`).join('') + '</tr></thead><tbody>' +
+    groupsByRound.map((g) => `<tr><td><span class="tm">${esc(g.name)}</span><span class="out">${esc(g.conference)}, ${g.teams.map((t) => t.seed).sort((a, b) => a - b).join('/')} seeds</span></td>` +
+      D.players.map((p) => { const k = pickOf[g.name + '|' + p.name];
+        return `<td class="${cls(k.team)}">${teamLabel(k.team)}<span class="out">Round ${k.round}, pick ${k.slot}. ${esc(outText(k.team))}</span></td>`; }).join('') + '</tr>').join('') + '</tbody>';
+
+  // Round cards
+  document.getElementById('round-cards').innerHTML = D.rounds.map((r) => {
+    const g = D.groups.find((x) => x.name === r.group);
+    const rows = r.picks.map((p) => {
+      const at = r.order.indexOf(p.player) + 1;
+      const moved = at < p.slot ? '<span class="passed"> (passed)</span>'
+        : at > p.slot ? '<span class="passed"> (up early after passes)</span>' : '';
+      return `<tr><td class="num">${p.slot}</td><td>${esc(p.player)}${moved}</td><td class="${cls(p.team)}">${teamLabel(p.team)}</td></tr>`;
+    }).join('');
+    return `<div class="card"><h3>Round ${r.round}: Group ${esc(r.group)} <span class="seedtag">${esc(g.conference)}</span></h3>
+      <p class="note">Order: ${r.order.map(esc).join(', ')}. ${esc(r.order[0])} chose Group ${esc(r.group)}.</p>
+      <table><thead><tr><th class="num">Pick</th><th>Player</th><th>Team</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  }).join('');
+})();
+</script>
+</body>
+</html>

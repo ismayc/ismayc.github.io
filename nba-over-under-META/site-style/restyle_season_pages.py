@@ -17,6 +17,11 @@ Run from the repo root:
       docs/2027-nba-over-under.html, then copy it to the repo root. The daily
       GitHub Actions build runs this right after the render.
 
+  python3 nba-over-under-META/site-style/restyle_season_pages.py playoffs 2026
+      Build 2026-nba-over-under-playoffs.html from playoffs-template.html and
+      nba-over-under-2025-2026/playoffs/playoffs.json. Run it before `past`
+      (or `season`) so the season page links to it.
+
 Every injected block sits between OU-THEME markers, so rerunning replaces it.
 """
 import csv
@@ -322,6 +327,7 @@ def do_past():
         name = f"{year}-nba-over-under.html"
         src = ROOT / name
         text = restyle_rmd(src.read_text(), year, "Current season")
+        text = link_playoffs(text, year)
         # Each page was last built after its season ended, so "today" is
         # stale on a finished season
         text = text.replace("<hr />\n<p>No NBA games are scheduled for today.</p>\n", "", 1)
@@ -375,10 +381,47 @@ def do_preview(path):
         print("in-season page exists; left 2027-nba-over-under.html alone")
 
 
+def playoffs_name(year):
+    return f"{year}-nba-over-under-playoffs.html"
+
+
+def link_playoffs(text, year):
+    """Point a season page's kicker at its playoffs page, when there is one."""
+    if not (ROOT / playoffs_name(year)).exists():
+        return text
+    return text.replace(
+        '<p class="ou-kicker">',
+        f'<p class="ou-kicker"><a href="{playoffs_name(year)}">'
+        f'{season_label(year)} playoffs</a>. ', 1)
+
+
+def do_playoffs(year):
+    """Build a season's playoffs page from nba-over-under-<season>/playoffs/playoffs.json."""
+    data_path = ROOT / f"nba-over-under-{year - 1}-{year}" / "playoffs" / "playoffs.json"
+    data = json.loads(data_path.read_text())
+    champ, team = data["finals"]["champion"], data["finals"]["nba_champion"]
+    title = f"NBA Over/Under {season_label(year)} playoffs"
+    desc = (f"How the {season_label(year)} NBA over/under playoffs went: the draft "
+            f"of NBA playoff teams, the O/U Finals, and how {champ} won with the {team}.")
+    name = playoffs_name(year)
+    text = (HERE / "playoffs-template.html").read_text()
+    text = text.replace("/*OU-THEME*/", THEME)
+    text = text.replace("<!--OU-MASTHEAD-->", masthead(year, "Current season"))
+    text = text.replace("<!--OU-META-->", head_meta(name, title, desc))
+    text = text.replace("__TITLE__", html.escape(title)).replace("__DESCRIPTION__", html.escape(desc))
+    text = text.replace("__DATA__", json.dumps(data, separators=(",", ":")).replace("</", "<\\/"))
+    text = text.replace(
+        '<p class="ou-kicker">',
+        f'<p class="ou-kicker"><a href="{year}-nba-over-under.html">'
+        f'{season_label(year)} regular season</a>. ', 1)
+    write_both(name, text)
+
+
 def do_season(year):
     name = f"{year}-nba-over-under.html"
     text = (ROOT / "docs" / name).read_text()
     text = restyle_rmd(text, year, "In progress")
+    text = link_playoffs(text, year)
     # Keep the preseason preview one click away during the season
     text = text.replace(
         '<p class="ou-kicker">',
@@ -395,5 +438,7 @@ if __name__ == "__main__":
         do_preview(sys.argv[2])
     elif mode == "season" and len(sys.argv) == 3:
         do_season(int(sys.argv[2]))
+    elif mode == "playoffs" and len(sys.argv) == 3:
+        do_playoffs(int(sys.argv[2]))
     else:
         sys.exit(__doc__)

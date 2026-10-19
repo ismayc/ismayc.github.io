@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__TITLE__</title>
+<meta name="description" content="__DESCRIPTION__">
+<!--OU-META-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+/*OU-THEME*/
+  :root { --win: #2f7a4f; --win-bg: #dcebdc; --cf-bg: #e3eaf6; --out-bg: #f3f4ef; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.5; }
+  .wrap { max-width: 72rem; margin-inline: auto; padding: 2rem max(16px, env(safe-area-inset-right, 0px)) 4rem max(16px, env(safe-area-inset-left, 0px)); display: grid; gap: 2.75rem; }
+  h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(2.6rem, 7vw, 4.5rem); line-height: 0.92; margin: 0; text-wrap: balance; }
+  h1 .sub { display: block; font-size: 0.42em; font-weight: 700; color: var(--ink-soft); margin-top: 0.35em; line-height: 1.1; }
+  h2 { font-family: var(--font-display); font-weight: 800; font-size: 2rem; line-height: 1.05; margin: 0; padding-top: 10px; border-top: 2px solid var(--ink); text-wrap: balance; }
+  h3 { font-size: 1.05rem; font-weight: 600; margin: 0; }
+  .lede { margin: 1rem 0 0; max-width: 62ch; font-size: 1.15rem; line-height: 1.5; }
+  .note { margin: 0; color: var(--ink-soft); font-size: 0.9rem; max-width: 75ch; }
+  .back { margin: 0.9rem 0 0; font-size: 0.95rem; }
+  .back a { color: var(--ink); }
+  section { display: grid; gap: 1rem; }
+  .card { background: var(--sheet); border: 1px solid var(--rule); border-radius: 2px; padding: 1.25rem; display: grid; gap: 0.7rem; min-width: 0; align-content: start; }
+  .grid2 { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); }
+  .grid4 { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+  th { text-align: left; font-weight: 600; color: var(--ink-soft); padding: 0.4rem 0.6rem; border-bottom: 2px solid var(--ink); white-space: nowrap; }
+  td { padding: 0.45rem 0.6rem; border-bottom: 1px solid var(--rule-faint); vertical-align: top; }
+  .num { text-align: right; }
+  #board-table { min-width: 46rem; }
+  #semis-table { min-width: 30rem; }
+  .seedtag { color: var(--ink-soft); font-size: 0.8rem; font-weight: 600; }
+  .tm { font-weight: 600; }
+  .out { display: block; font-size: 0.78rem; color: var(--ink-soft); }
+  td.champ { background: var(--win-bg); }
+  td.cf { background: var(--cf-bg); }
+  td.champ .out, td.cf .out { color: var(--ink); }
+  .badge { display: inline-block; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.02em; padding: 0 0.4rem; border-radius: 2px; border: 1px solid currentColor; margin-left: 0.3rem; vertical-align: 1px; }
+  .badge.win { color: var(--win); }
+  .legend { display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.8rem; color: var(--ink-soft); }
+  .legend i { display: inline-block; width: 0.8rem; height: 0.8rem; border-radius: 2px; margin-right: 0.3rem; vertical-align: -1px; border: 1px solid var(--rule); }
+  .finalist { font-family: var(--font-display); font-weight: 800; font-size: 1.6rem; line-height: 1; }
+  .finalist .seedtag { font-family: var(--font-body); font-size: 0.85rem; margin-left: 0.4rem; }
+  ul.teams { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem; }
+  ul.teams li { display: flex; justify-content: space-between; gap: 0.75rem; padding: 0.35rem 0.6rem; background: var(--out-bg); border-radius: 2px; }
+  ul.teams li.champ { background: var(--win-bg); }
+  ul.teams .pk { color: var(--ink-soft); font-size: 0.85rem; white-space: nowrap; }
+  .rules ol { margin: 0; padding-left: 22px; display: grid; gap: 0.45rem; max-width: 75ch; }
+  .rules b { font-weight: 600; }
+  .took { font-weight: 600; }
+  .passed { color: var(--ink-soft); font-size: 0.82rem; }
+  @media (max-width: 600px) { .wrap { gap: 2.25rem; } h2 { font-size: 1.7rem; } }
+</style>
+</head>
+<body class="ou-page ou-playoffs">
+<!--OU-MASTHEAD-->
+<div class="wrap">
+  <header>
+    <h1 id="title"></h1>
+    <p class="lede" id="lede"></p>
+    <p class="back" id="back"></p>
+  </header>
+
+  <section id="finals">
+    <h2>The O/U Finals</h2>
+    <p class="note" id="finals-note"></p>
+    <div class="grid2" id="finals-cards"></div>
+  </section>
+
+  <section id="semis">
+    <h2>Who reached the O/U Finals</h2>
+    <p class="note">The two players with the most drafted teams in the conference finals advance. A tie goes to the higher regular-season seed.</p>
+    <div class="card scroll"><table id="semis-table"></table></div>
+  </section>
+
+  <section id="board">
+    <h2>The draft board</h2>
+    <p class="note" id="board-note"></p>
+    <div class="legend"><span><i style="background:var(--win-bg)"></i>Won the NBA title</span><span><i style="background:var(--cf-bg)"></i>Reached the conference finals</span></div>
+    <div class="card scroll"><table id="board-table"></table></div>
+  </section>
+
+  <section id="rounds">
+    <h2>Round by round</h2>
+    <p class="note">The first player in each round's order chooses the group. Anyone can pass except the last player in that round's order. A player who takes a pick slot early can't use that slot again in a later round.</p>
+    <div class="grid4" id="round-cards"></div>
+  </section>
+
+  <section id="rules" class="rules">
+    <h2>How the playoffs work</h2>
+    <div class="card">
+      <ol>
+        <li><b>Who plays:</b> the top four from the regular-season standings, seeded in that order.</li>
+        <li><b>The groups:</b> each conference's bracket is split in half, so each group of four NBA teams sends exactly one team to the conference finals. Play-in slots are drafted before the play-in finishes; whoever wins the slot belongs to the player who drafted it.</li>
+        <li><b>The draft:</b> four rounds, one per group. The order rotates each round, and the first player in the order picks which group the round drafts from. Every player ends with one team from each group.</li>
+        <li><b>Passing:</b> at each pick slot, the player up can take a team or pass to the next player in that round's order. The last player in the order can't pass. Each player uses each pick slot (1st, 2nd, 3rd, 4th) only once across the four rounds, so a slot spent early is gone later.</li>
+        <li><b>The O/U semifinal:</b> the two players with the most teams in the conference finals advance. A tie goes to the higher seed.</li>
+        <li><b>The O/U Finals:</b> the two finalists draft the four conference finalists between them. The higher seed can pick first or pass. Whoever ends up with the NBA champion wins.</li>
+      </ol>
+    </div>
+  </section>
+</div>
+
+<script>
+const DATA = __DATA__;
+(() => {
+  const D = DATA;
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+  const seedOf = Object.fromEntries(D.players.map((p) => [p.name, p.seed]));
+  const teamInfo = {};
+  D.groups.forEach((g) => g.teams.forEach((t) => { teamInfo[t.team] = {...t, group: g.name, conference: g.conference}; }));
+  const res = (t) => D.team_results[t] || {};
+  const reachedCF = (t) => ['Conference finals', 'NBA Finals', 'Champion'].includes(res(t).out);
+  const teamLabel = (t) => {
+    const i = teamInfo[t];
+    const slot = i && i.slot ? ` <span class="seedtag">(drafted as ${esc(i.slot)})</span>` : '';
+    return `<span class="tm">${esc(t)}</span> <span class="seedtag">${i ? esc(i.conference) + ' ' + i.seed : ''}</span>${slot}`;
+  };
+  const outText = (t) => res(t).out === 'Champion' ? 'Won the title' : (res(t).out ? 'Out in the ' + res(t).out.toLowerCase().replace('nba finals', 'NBA Finals') : '');
+  const cls = (t) => res(t).out === 'Champion' ? 'champ' : (reachedCF(t) ? 'cf' : '');
+
+  // Header
+  const F = D.finals;
+  document.getElementById('title').innerHTML = `Over/Under ${esc(D.season)} Playoffs <span class="sub">${esc(F.champion)} wins the O/U Finals with the ${esc(F.nba_champion)}</span>`;
+  const owned = {};
+  D.rounds.forEach((r) => r.picks.forEach((p) => { (owned[p.player] = owned[p.player] || []).push(p.team); }));
+  const cfCount = Object.fromEntries(D.players.map((p) => [p.name, (owned[p.name] || []).filter(reachedCF).length]));
+  const lead = D.players.slice().sort((a, b) => cfCount[b.name] - cfCount[a.name] || a.seed - b.seed)[0];
+  document.getElementById('lede').innerHTML =
+    `The regular season's top four drafted NBA playoff teams on ${esc(D.draft_date)}. ` +
+    `<b>${esc(lead.name)}</b> put the most teams in the conference finals (${cfCount[lead.name]}), ` +
+    `but <b>${esc(F.champion)}</b> took the ${esc(F.nba_champion)} in the O/U Finals draft, and the ${esc(F.nba_champion)} won the title.`;
+  document.getElementById('back').innerHTML = `<a href="${D.year}-nba-over-under.html">Back to the ${esc(D.season)} regular season</a>`;
+
+  // Finals
+  document.getElementById('finals-note').textContent = `${F.date}. ${F.story}`;
+  document.getElementById('finals-cards').innerHTML = F.players.map((pl) => {
+    const picks = F.picks.filter((p) => p.player === pl);
+    const won = pl === F.champion;
+    return `<div class="card"><div class="finalist">${esc(pl)}<span class="seedtag">#${seedOf[pl]} seed</span>${won ? '<span class="badge win">Champion</span>' : ''}</div>
+      <ul class="teams">${picks.map((p) => `<li class="${res(p.team).out === 'Champion' ? 'champ' : ''}"><span>${teamLabel(p.team)}<span class="out">${esc(res(p.team).note || '')}</span></span><span class="pk">Pick ${p.slot}</span></li>`).join('')}</ul></div>`;
+  }).join('');
+
+  // Semifinal table
+  const finalists = new Set(F.players);
+  const semis = D.players.slice().sort((a, b) => cfCount[b.name] - cfCount[a.name] || a.seed - b.seed);
+  document.getElementById('semis-table').innerHTML =
+    '<thead><tr><th>Player</th><th class="num">Seed</th><th class="num">In conf. finals</th><th>Which</th><th>Result</th></tr></thead><tbody>' +
+    semis.map((p) => `<tr><td class="tm">${esc(p.name)}</td><td class="num">${p.seed}</td><td class="num">${cfCount[p.name]}</td>
+      <td>${(owned[p.name] || []).filter(reachedCF).map(esc).join(', ') || 'None'}</td>
+      <td>${finalists.has(p.name) ? (p.name === F.champion ? 'Won the O/U Finals' : 'Lost the O/U Finals') : 'Out'}</td></tr>`).join('') + '</tbody>';
+
+  // Draft board: groups by player
+  document.getElementById('board-note').textContent =
+    `Each player's team from each group, the pick slot and round it came in, and how far it went.`;
+  const pickOf = {};
+  D.rounds.forEach((r) => r.picks.forEach((p) => { pickOf[r.group + '|' + p.player] = {...p, round: r.round}; }));
+  const groupsByRound = D.rounds.map((r) => D.groups.find((g) => g.name === r.group));
+  document.getElementById('board-table').innerHTML =
+    '<thead><tr><th>Group</th>' + D.players.map((p) => `<th>${esc(p.name)} <span class="seedtag">#${p.seed}</span></th>`).join('') + '</tr></thead><tbody>' +
+    groupsByRound.map((g) => `<tr><td><span class="tm">${esc(g.name)}</span><span class="out">${esc(g.conference)}, ${g.teams.map((t) => t.seed).sort((a, b) => a - b).join('/')} seeds</span></td>` +
+      D.players.map((p) => { const k = pickOf[g.name + '|' + p.name];
+        return `<td class="${cls(k.team)}">${teamLabel(k.team)}<span class="out">Round ${k.round}, pick ${k.slot}. ${esc(outText(k.team))}</span></td>`; }).join('') + '</tr>').join('') + '</tbody>';
+
+  // Round cards
+  document.getElementById('round-cards').innerHTML = D.rounds.map((r) => {
+    const g = D.groups.find((x) => x.name === r.group);
+    const rows = r.picks.map((p) => {
+      const at = r.order.indexOf(p.player) + 1;
+      const moved = at < p.slot ? '<span class="passed"> (passed)</span>'
+        : at > p.slot ? '<span class="passed"> (up early after passes)</span>' : '';
+      return `<tr><td class="num">${p.slot}</td><td>${esc(p.player)}${moved}</td><td class="${cls(p.team)}">${teamLabel(p.team)}</td></tr>`;
+    }).join('');
+    return `<div class="card"><h3>Round ${r.round}: Group ${esc(r.group)} <span class="seedtag">${esc(g.conference)}</span></h3>
+      <p class="note">Order: ${r.order.map(esc).join(', ')}. ${esc(r.order[0])} chose Group ${esc(r.group)}.</p>
+      <table><thead><tr><th class="num">Pick</th><th>Player</th><th>Team</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  }).join('');
+})();
+</script>
+</body>
+</html>

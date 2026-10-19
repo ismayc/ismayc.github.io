@@ -16,6 +16,7 @@ project:
     - "wash-or_black.csv"
     - "202*-nba-over-under.html"
     - "202*-nba-over-under-preview.html"
+    - "202*-nba-over-under-playoffs.html"
     - "nba-over-under-assets/**"
     - "critical_thinking_framework.pdf"
     - "nba-scenario-explorer.html"

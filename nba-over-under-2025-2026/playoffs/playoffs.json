@@ -1,0 +1,82 @@
+{
+  "season": "2025-26",
+  "year": 2026,
+  "draft_date": "April 17, 2026",
+  "sources": {
+    "draft": "The live draft board's saved picks (read October 19, 2026)",
+    "finals_draft": "The commissioner's group text, May 18, 2026",
+    "results": "NBA playoff results"
+  },
+  "players": [
+    {"name": "Phil", "seed": 1},
+    {"name": "Andy", "seed": 2},
+    {"name": "Ryan", "seed": 3},
+    {"name": "Jake", "seed": 4}
+  ],
+  "groups": [
+    {"name": "A", "conference": "West", "teams": [
+      {"team": "Thunder", "seed": 1}, {"team": "Suns", "seed": 8, "slot": "Suns/Warriors"},
+      {"team": "Lakers", "seed": 4}, {"team": "Rockets", "seed": 5}]},
+    {"name": "B", "conference": "East", "teams": [
+      {"team": "Pistons", "seed": 1}, {"team": "Magic", "seed": 8, "slot": "Magic/Hornets"},
+      {"team": "Cavaliers", "seed": 4}, {"team": "Raptors", "seed": 5}]},
+    {"name": "C", "conference": "West", "teams": [
+      {"team": "Spurs", "seed": 2}, {"team": "Trail Blazers", "seed": 7},
+      {"team": "Nuggets", "seed": 3}, {"team": "Timberwolves", "seed": 6}]},
+    {"name": "D", "conference": "East", "teams": [
+      {"team": "Celtics", "seed": 2}, {"team": "76ers", "seed": 7},
+      {"team": "Knicks", "seed": 3}, {"team": "Hawks", "seed": 6}]}
+  ],
+  "rounds": [
+    {"round": 1, "group": "A", "order": ["Phil", "Andy", "Ryan", "Jake"], "picks": [
+      {"slot": 1, "player": "Phil", "team": "Thunder"},
+      {"slot": 2, "player": "Jake", "team": "Rockets"},
+      {"slot": 3, "player": "Ryan", "team": "Lakers"},
+      {"slot": 4, "player": "Andy", "team": "Suns"}]},
+    {"round": 2, "group": "C", "order": ["Andy", "Ryan", "Jake", "Phil"], "picks": [
+      {"slot": 1, "player": "Andy", "team": "Spurs"},
+      {"slot": 2, "player": "Phil", "team": "Nuggets"},
+      {"slot": 3, "player": "Jake", "team": "Timberwolves"},
+      {"slot": 4, "player": "Ryan", "team": "Trail Blazers"}]},
+    {"round": 3, "group": "D", "order": ["Ryan", "Jake", "Phil", "Andy"], "picks": [
+      {"slot": 1, "player": "Ryan", "team": "Celtics"},
+      {"slot": 2, "player": "Andy", "team": "Knicks"},
+      {"slot": 3, "player": "Phil", "team": "Hawks"},
+      {"slot": 4, "player": "Jake", "team": "76ers"}]},
+    {"round": 4, "group": "B", "order": ["Jake", "Phil", "Andy", "Ryan"], "picks": [
+      {"slot": 1, "player": "Jake", "team": "Cavaliers"},
+      {"slot": 2, "player": "Ryan", "team": "Pistons"},
+      {"slot": 3, "player": "Andy", "team": "Raptors"},
+      {"slot": 4, "player": "Phil", "team": "Magic"}]}
+  ],
+  "team_results": {
+    "Thunder": {"out": "Conference finals", "note": "Swept the Suns and Lakers, then lost to the Spurs in 7"},
+    "Suns": {"out": "First round", "note": "Won the play-in, then swept by the Thunder"},
+    "Lakers": {"out": "Second round", "note": "Beat the Rockets in 6, swept by the Thunder"},
+    "Rockets": {"out": "First round", "note": "Lost to the Lakers in 6"},
+    "Pistons": {"out": "Second round", "note": "Beat the Magic in 7, lost to the Cavaliers in 7"},
+    "Magic": {"out": "First round", "note": "Won the play-in, then lost to the Pistons in 7"},
+    "Cavaliers": {"out": "Conference finals", "note": "Beat the Raptors and Pistons in 7, swept by the Knicks"},
+    "Raptors": {"out": "First round", "note": "Lost to the Cavaliers in 7"},
+    "Spurs": {"out": "NBA Finals", "note": "Beat the Blazers, Timberwolves, and Thunder (in 7), lost the Finals 4-1"},
+    "Trail Blazers": {"out": "First round", "note": "Lost to the Spurs in 5"},
+    "Nuggets": {"out": "First round", "note": "Lost to the Timberwolves in 6"},
+    "Timberwolves": {"out": "Second round", "note": "Beat the Nuggets in 6, lost to the Spurs in 6"},
+    "Celtics": {"out": "First round", "note": "Lost to the 76ers in 7"},
+    "76ers": {"out": "Second round", "note": "Beat the Celtics in 7, swept by the Knicks"},
+    "Knicks": {"out": "Champion", "note": "Beat the Hawks in 6, then swept the 76ers and Cavaliers, and beat the Spurs 4-1"},
+    "Hawks": {"out": "First round", "note": "Lost to the Knicks in 6"}
+  },
+  "finals": {
+    "players": ["Phil", "Andy"],
+    "date": "May 18, 2026",
+    "story": "Phil, the top seed, could pick first or pass. He passed the first pick to Andy, who took the Spurs. Phil then took the Thunder and the Knicks, and Andy got the Cavaliers.",
+    "picks": [
+      {"slot": 1, "player": "Andy", "team": "Spurs"},
+      {"slot": 2, "player": "Phil", "team": "Thunder"},
+      {"slot": 3, "player": "Phil", "team": "Knicks"},
+      {"slot": 4, "player": "Andy", "team": "Cavaliers"}],
+    "champion": "Phil",
+    "nba_champion": "Knicks"
+  }
+}
