@@ -49,20 +49,16 @@ for (i in seq_len(nrow(past_seasons))) {
   cat(d$label, "\n")
 
   # Home and away for each game from the matchup text ("NYK @ BOS" and
-  # "BOS vs. NYK" both make Boston home), one row per game. The opponent
-  # column is not used: 2024-25 lists the Suns as PHO there, and the Paris
-  # game's Spurs row names the Spurs as their own opponent.
+  # "BOS vs. NYK" both make Boston home), one row per game
   games <- readRDS(file.path(paste0("nba-over-under-", s$folder), "rds", s$games_file)) |>
     filter(slugSeason == d$label) |>
     mutate(team = if_else(nameTeam == "LA Clippers", "Los Angeles Clippers", nameTeam),
-           date = as.Date(dateGame),
-           slugTeam = if_else(slugTeam == "PHO", "PHX", slugTeam))
+           date = as.Date(dateGame))
   slug_name <- distinct(games, slugTeam, team)
   schedule <- games |>
     mutate(at = str_detect(slugMatchup, " @ "),
            a = str_extract(slugMatchup, "^[A-Z]+"), b = str_extract(slugMatchup, "[A-Z]+$"),
-           home = if_else(at, b, a), away = if_else(at, a, b),
-           across(c(home, away), \(x) if_else(x == "PHO", "PHX", x))) |>
+           home = if_else(at, b, a), away = if_else(at, a, b)) |>
     distinct(date, home, away) |>
     left_join(rename(slug_name, home = slugTeam, home_team = team), by = "home") |>
     left_join(rename(slug_name, away = slugTeam, away_team = team), by = "away") |>

@@ -1,7 +1,7 @@
-# Rooting guide building blocks, shared by the 2025-26 generator and
-# nba-over-under-META/site-style/past_rooting_guides.R so every season's guide
-# is built the same way (000-generate-rooting-guide.R for 2026-27 still holds
-# its own copy of guide_teams, guide_picks, and the page).
+# Rooting guide building blocks, shared by the 2026-27 and 2025-26 generators
+# (000-generate-rooting-guide.R) and
+# nba-over-under-META/site-style/past_rooting_guides.R, so every season's guide
+# is built the same way.
 #
 # A day's `out_table` has the determined_outcomes columns: Team, Outcome
 # Determined, Current Record, Win Projection, Remaining Games, Wins To Go Over

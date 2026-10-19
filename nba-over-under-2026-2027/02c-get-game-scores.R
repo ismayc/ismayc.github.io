@@ -35,9 +35,13 @@ scores_temp1 <- read_csv("current_year.csv") %>%
   filter(GAME_DATE >= nba_season_start_date) %>% 
   select(TEAM_NAME, TEAM_ABBREVIATION, WL, PTS, GAME_ID,
          GAME_DATE, MATCHUP) %>% 
-  # Filter out Mercury and convert Suns to PHO
-  filter(TEAM_ABBREVIATION != "PHO") |> 
-  mutate(TEAM_ABBREVIATION = str_replace_all(TEAM_ABBREVIATION, "PHX", "PHO")) |> 
+  # Filter out Mercury and convert Suns to PHO, in the matchup text too: the
+  # opponent and home/away slugs come from MATCHUP, and 05-playoff-seeding.R
+  # matches them to meta's PHO (with PHX there it found none of the Suns'
+  # games, 2024-25 and 2025-26)
+  filter(TEAM_ABBREVIATION != "PHO") |>
+  mutate(TEAM_ABBREVIATION = str_replace_all(TEAM_ABBREVIATION, "PHX", "PHO"),
+         MATCHUP = str_replace_all(MATCHUP, "\\bPHX\\b", "PHO")) |>
   arrange(GAME_ID) |> 
   # Dedup: a team plays at most one game per day. Different sources
 
