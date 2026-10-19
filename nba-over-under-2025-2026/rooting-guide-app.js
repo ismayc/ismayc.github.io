@@ -24,20 +24,24 @@ function teamTracking(t,teams){const td=(teams||D.teams)[t];return td.winPct>td.
 // teams defaults to today's D.teams; the Progression tab passes a past snapshot
 function getScore(p,teams){
   teams=teams||D.teams;
-  let locked=0,pending=0,correct=0,wrong=0,undecided=[];
+  // lockedW / projW: wagers of the picks correct (decided, and decided plus on pace), for tiebreaks
+  let locked=0,pending=0,correct=0,wrong=0,undecided=[],lockedW=[],projW=[];
   for(const[t,td]of Object.entries(teams)){
     if(!D.picks[t]||!D.picks[t][p]){continue}
     const[wage,choice]=D.picks[t][p];
-    if(td.det==='OVER'){choice==='OVER'?(locked+=wage,correct++):(locked-=wage,wrong++)}
-    else if(td.det==='UNDER'){choice==='UNDER'?(locked+=wage,correct++):(locked-=wage,wrong++)}
+    if(td.det==='OVER'||td.det==='UNDER'){
+      if(td.det===choice){locked+=wage;correct++;lockedW.push(wage);projW.push(wage)}
+      else{locked-=wage;wrong++}
+    }
     else{
       const tracking=teamTracking(t,teams);
       const pts=tracking===choice?wage:-wage;
       pending+=pts;
+      if(pts>0)projW.push(wage);
       undecided.push({team:t,wage,choice,tracking,pts,wtg:td.wtg,ltg:td.ltg,rem:td.rem,w:td.w,l:td.l,wp:td.wp,pWins:td.pWins});
     }
   }
-  return{locked,pending,total:locked+pending,correct,wrong,undecided};
+  return{locked,pending,total:locked+pending,correct,wrong,undecided,lockedW,projW};
 }
 
 // ── Schedule strength helpers ──────────────────────────────────────────────
@@ -433,15 +437,69 @@ function progSeries(){
     var scores={};P.forEach(function(p){scores[p]=getScore(p,teams)});
     var newly=[];
     if(i>0){var prev=H.snaps[i-1];H.teams.forEach(function(t,j){if(s.r[j][2]&&!prev.r[j][2])newly.push({team:t,out:s.r[j][2]==='O'?'OVER':'UNDER'})})}
-    return{d:s.d,n:s.n,scores:scores,newly:newly};
+    return{d:s.d,n:s.n,scores:scores,newly:newly,stand:{total:progStandings(scores,'total'),locked:progStandings(scores,'locked')}};
   });
 }
 
-// Rank by projected total; players level on points share the rank
-function progRank(s,p){
-  var v=s.scores[p].total,above=0,tie=false;
-  P.forEach(function(q){if(q===p)return;var u=s.scores[q].total;if(u>v)above++;else if(u===v)tie=true});
-  return(tie?'T-':'')+(above+1);
+// Pool standings, in the season page's order: points, then picks correct,
+// then correct 15s, 14s, 13s, and 12s. For projected standings an open team
+// on the side its pace points to counts as correct. The top PLAYOFF_SPOTS
+// make the playoffs.
+var PLAYOFF_SPOTS=4;
+var TB_NAMES=['points','picks correct','correct 15s','correct 14s','correct 13s','correct 12s'];
+function tbKey(sc,metric){
+  var w=metric==='total'?sc.projW:sc.lockedW;
+  var cnt=function(x){return w.filter(function(v){return v===x}).length};
+  return[sc[metric],w.length,cnt(15),cnt(14),cnt(13),cnt(12)];
+}
+function cmpKey(a,b){for(var i=0;i<a.length;i++)if(a[i]!==b[i])return b[i]-a[i];return 0}
+function firstDiff(a,b){for(var i=0;i<a.length;i++)if(a[i]!==b[i])return i;return -1}
+function progStandings(scores,metric){
+  var rows=P.map(function(p){return{p:p,key:tbKey(scores[p],metric)}}).sort(function(a,b){return cmpKey(a.key,b.key)});
+  rows.forEach(function(r,i){
+    var j=i;while(j>0&&cmpKey(rows[j-1].key,r.key)===0)j--;
+    r.rank=j+1;r.tied=rows.some(function(q){return q!==r&&cmpKey(q.key,r.key)===0});
+  });
+  return rows;
+}
+function standRow(s,p,metric){return s.stand[metric||'total'].filter(function(r){return r.p===p})[0]}
+function progRank(s,p){var r=standRow(s,p);return(r.tied?'T-':'')+r.rank}
+function ordinal(n){var x=['th','st','nd','rd'],v=n%100;return n+(x[(v-20)%10]||x[v]||x[0])}
+function joinAnd(a){return a.length<3?a.join(' and '):a.slice(0,-1).join(', ')+', and '+a[a.length-1]}
+
+// Where a player stands against the playoff cutoff, with the tiebreak that decides it
+function playoffStatus(s,p){
+  var st=s.stand.total,me=standRow(s,p),k=PLAYOFF_SPOTS;
+  if(st.length<=k)return'in the playoffs';
+  var inside=me.rank<=k,edge=inside?st[k]:st[k-1];
+  if(edge.p===p)edge=inside?st[k-1]:st[k];
+  var diff=me.key[0]-edge.key[0],i=firstDiff(me.key,edge.key),pl=function(n){return n===1?'':'s'};
+  if(inside){
+    if(diff>0)return 'in the playoffs, '+diff+' point'+pl(diff)+' ahead of '+edge.p+' in '+ordinal(k+1);
+    return i<0?'tied with '+edge.p+' for the last playoff spot on every tiebreaker':'in the playoffs, level with '+edge.p+' on points and ahead on '+TB_NAMES[i];
+  }
+  if(diff<0)return 'out of the playoffs, '+(-diff)+' point'+pl(-diff)+' behind '+edge.p+' in '+ordinal(k);
+  return i<0?'tied with '+edge.p+' for the last playoff spot on every tiebreaker':'out of the playoffs, level with '+edge.p+' on points but behind on '+TB_NAMES[i];
+}
+
+// Groups level on points, and which tiebreakers put them in order
+function tieNotes(st){
+  var notes=[],i=0;
+  while(i<st.length){
+    var j=i;while(j+1<st.length&&st[j+1].key[0]===st[i].key[0])j++;
+    if(j>i){
+      var g=st.slice(i,j+1),used=[],still=[];
+      for(var a=0;a<g.length-1;a++){var d=firstDiff(g[a].key,g[a+1].key);if(d<0)still.push(g[a].p+' and '+g[a+1].p);else if(used.indexOf(d)<0)used.push(d)}
+      used.sort();
+      var n=joinAnd(g.map(function(r){return r.p}))+' are level at '+fmtPts(g[0].key[0])+' points';
+      if(used.length)n+='; '+joinAnd(used.map(function(d){return TB_NAMES[d]}))+' put'+(used.length===1?'s':'')+' them in order';
+      if(still.length)n+='; '+joinAnd(still)+' stay tied on every tiebreaker';
+      if(i<PLAYOFF_SPOTS&&j>=PLAYOFF_SPOTS)n+='. This decides the last playoff spot';
+      notes.push(n+'.');
+    }
+    i=j+1;
+  }
+  return notes;
 }
 
 function progChart(series,player,metric,width,sel){
@@ -466,6 +524,11 @@ function progChart(series,player,metric,width,sel){
   // The date every tab is showing
   var sx=xs(series[sel].d);
   h+='<line x1="'+sx+'" x2="'+sx+'" y1="'+m.t+'" y2="'+(HT-m.b)+'" style="stroke:var(--accent);stroke-width:1.5;stroke-opacity:.5"/>';
+  // Playoff cutoff: the last playoff spot's points on each date
+  if(P.length>PLAYOFF_SPOTS){
+    var cut=series.map(function(s){return xs(s.d).toFixed(1)+','+ys(s.stand[metric][PLAYOFF_SPOTS-1].key[0]).toFixed(1)}).join(' ');
+    h+='<polyline points="'+cut+'" style="fill:none;stroke:var(--gold);stroke-width:2;stroke-dasharray:6 4;stroke-linejoin:round"/>';
+  }
   var order=P.filter(function(p){return p!==player}).concat([player]);
   order.forEach(function(p){
     var me=p===player;
@@ -502,9 +565,12 @@ function progHover(evt){
   if(!evt){cross.style.visibility='hidden';tip.style.display='none';return}
   var n=progNearest(evt),rect=n.rect,s=progState.series[n.i],px=progState.xs[n.i];
   cross.setAttribute('x1',px);cross.setAttribute('x2',px);cross.style.visibility='visible';
-  var rows=P.slice().sort(function(a,b){return s.scores[b][progState.metric]-s.scores[a][progState.metric]});
   var t='<div style="font-weight:700;margin-bottom:4px">Games through '+fmtDay(s.d)+' &middot; '+s.n+' open</div>';
-  rows.forEach(function(p){var me=p===progState.player;t+='<div style="display:flex;justify-content:space-between;gap:12px;'+(me?'font-weight:700;color:var(--t1)':'color:var(--t2)')+'"><span>'+p+'</span><span class="mono">'+fmtPts(s.scores[p][progState.metric])+'</span></div>'});
+  s.stand[progState.metric].forEach(function(r,i){
+    var me=r.p===progState.player;
+    if(i===PLAYOFF_SPOTS)t+='<div style="border-top:2px dashed var(--gold);margin:3px 0"></div>';
+    t+='<div style="display:flex;justify-content:space-between;gap:12px;'+(me?'font-weight:700;color:var(--t1)':'color:var(--t2)')+'"><span>'+(r.tied?'T-':'')+r.rank+'. '+r.p+'</span><span class="mono">'+fmtPts(r.key[0])+'</span></div>';
+  });
   t+='<div style="margin-top:4px;font-size:11px;color:var(--t3)">Click to show this date</div>';
   tip.innerHTML=t;tip.style.display='block';
   var left=px*rect.width/progState.W+12;
@@ -532,7 +598,8 @@ function renderProgression(el){
   h+='</select>';
   h+='<button class="pp" onclick="setDay('+(sel+1)+')"'+(last?' disabled style="opacity:.4;cursor:default"':'')+' aria-label="Next date">&rarr;</button>';
   if(!last)h+='<button class="pp" onclick="setDay('+lastDay()+')">Latest</button>';
-  h+='<span style="font-size:13px;color:var(--t2)">'+player+': rank '+progRank(s,player)+', projected '+fmtPts(s.scores[player].total)+', locked '+fmtPts(s.scores[player].locked)+'</span>';
+  var meRow=standRow(s,player);
+  h+='<span style="font-size:13px;color:var(--t2)"><strong style="color:var(--t1)">'+player+': '+(meRow.tied?'T-':'')+ordinal(meRow.rank)+'</strong>, '+playoffStatus(s,player)+'. Projected '+fmtPts(s.scores[player].total)+', locked '+fmtPts(s.scores[player].locked)+'.</span>';
   h+='</div>';
   h+='<div style="display:flex;flex-wrap:wrap;gap:3px;align-items:center;margin-bottom:12px;font-size:12px;color:var(--t3)">';
   if(sel===0)h+='<span>Decided by this date: the first day in the window.</span>';
@@ -541,8 +608,25 @@ function renderProgression(el){
   h+='</div>';
   h+='<div class="player-row" style="margin-bottom:6px"><span class="label">Chart</span>';
   [['total','Projected total'],['locked','Locked points']].forEach(function(o){h+='<button class="pp '+(progMetric===o[0]?'active':'')+'" onclick="setProgMetric(\''+o[0]+'\')">'+o[1]+'</button>'});
+  if(P.length>PLAYOFF_SPOTS)h+='<span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--t2);margin-left:6px"><svg width="26" height="6" aria-hidden="true"><line x1="0" x2="26" y1="3" y2="3" style="stroke:var(--gold);stroke-width:2;stroke-dasharray:6 4"/></svg>Playoff cutoff ('+ordinal(PLAYOFF_SPOTS)+' place'+(progMetric==='locked'?', locked points':'')+')</span>';
   h+='</div>';
   h+='<div style="position:relative;overflow-x:auto"><div id="prog-chart"></div><div id="prog-tip" style="display:none;position:absolute;top:8px;min-width:150px;background:var(--card);border:1px solid var(--border);border-radius:6px;padding:8px 10px;font-size:12px;pointer-events:none;box-shadow:0 2px 8px rgba(0,0,0,.15)"></div></div>';
+
+  var st=s.stand.total,scols='55px minmax(80px,1fr) 80px 65px 65px 130px';
+  h+='<div style="font-size:14px;font-weight:700;color:var(--t1);margin:14px 0 6px">Standings after games through '+fmtDay(s.d)+'</div>';
+  h+='<div style="overflow-x:auto"><div style="min-width:520px">';
+  h+='<div style="display:grid;grid-template-columns:'+scols+';gap:8px;padding:4px 10px;font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.5px"><span>Rank</span><span>Player</span><span>Projected</span><span>Locked</span><span>Correct</span><span>15s / 14s / 13s / 12s</span></div>';
+  st.forEach(function(r,i){
+    var me=r.p===player,cut=i===PLAYOFF_SPOTS-1&&st.length>PLAYOFF_SPOTS;
+    h+='<div class="trow" onclick="switchPlayer(\''+r.p+'\')" style="grid-template-columns:'+scols+';cursor:pointer'+(me?';font-weight:700':'')+(cut?';border-bottom:3px dashed var(--gold)':'')+'">';
+    h+='<span class="mono">'+(r.tied?'T-':'')+r.rank+'</span><span>'+r.p+'</span>';
+    h+='<span class="mono" style="color:'+(r.key[0]>=0?'var(--over)':'var(--under)')+'">'+fmtPts(r.key[0])+'</span>';
+    h+='<span class="mono" style="color:var(--t2)">'+fmtPts(s.scores[r.p].locked)+'</span>';
+    h+='<span class="mono">'+r.key[1]+'</span><span class="mono">'+r.key.slice(2).join(' / ')+'</span></div>';
+    if(cut)h+='<div style="font-size:11px;color:var(--t3);padding:2px 10px 4px">Playoff cutoff: the top '+PLAYOFF_SPOTS+' make the playoffs</div>';
+  });
+  h+='</div></div>';
+  h+='<p style="font-size:12px;color:var(--t3);margin:6px 0 4px">Ties on points go to more picks correct, then more correct 15s, 14s, 13s, and 12s. Correct counts open teams on the side their pace points to. '+tieNotes(st).join(' ')+'</p>';
 
   h+='<details id="prog-table"'+(progTableOpen?' open':'')+' ontoggle="progTableOpen=this.open" style="margin:6px 0 4px">';
   h+='<summary style="cursor:pointer;font-size:13px;font-weight:600;color:var(--t2);padding:4px 0">Day by day for '+player+'</summary>';
@@ -560,7 +644,8 @@ function renderProgression(el){
     h+='</div>';
     h+='<span class="mono" style="color:'+(sc.locked>=0?'var(--over)':'var(--under)')+'">'+fmtPts(sc.locked)+'</span>';
     h+='<span class="mono" style="color:'+(sc.total>=0?'var(--over)':'var(--under)')+'">'+fmtPts(sc.total)+'</span>';
-    h+='<span class="mono">'+progRank(x,player)+'</span></div>';
+    var xr=standRow(x,player);
+    h+='<span class="mono" style="'+(xr.rank<=PLAYOFF_SPOTS?'font-weight:700;color:var(--t1)':'color:var(--t3)')+'">'+progRank(x,player)+'</span></div>';
   });
   h+='</div></details>';
   el.innerHTML=h;
