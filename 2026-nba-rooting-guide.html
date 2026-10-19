@@ -188,12 +188,14 @@ const H={"teams":["Atlanta Hawks","Boston Celtics","Brooklyn Nets","Charlotte Ho
 
 const SN={"Atlanta Hawks":"Hawks","Boston Celtics":"Celtics","Brooklyn Nets":"Nets","Charlotte Hornets":"Hornets","Chicago Bulls":"Bulls","Cleveland Cavaliers":"Cavs","Detroit Pistons":"Pistons","Indiana Pacers":"Pacers","Miami Heat":"Heat","Milwaukee Bucks":"Bucks","New York Knicks":"Knicks","Orlando Magic":"Magic","Philadelphia 76ers":"76ers","Toronto Raptors":"Raptors","Washington Wizards":"Wizards","Dallas Mavericks":"Mavs","Denver Nuggets":"Nuggets","Golden State Warriors":"Warriors","Houston Rockets":"Rockets","Los Angeles Clippers":"Clippers","Los Angeles Lakers":"Lakers","Memphis Grizzlies":"Grizzlies","Minnesota Timberwolves":"Wolves","New Orleans Pelicans":"Pelicans","Oklahoma City Thunder":"Thunder","Phoenix Suns":"Suns","Portland Trail Blazers":"Blazers","Sacramento Kings":"Kings","San Antonio Spurs":"Spurs","Utah Jazz":"Jazz"};
 const sn=t=>SN[t]||t;
+// Games per team: 82, or the shortened season's count (72 in 2020-21)
+const NG=D.nGames||82;
 // The season page's rule: win % against the line's win %, each rounded to two
 // decimals of a percent; equal (or no games yet) is a push worth 0 points
 function teamTracking(t,teams){
   const td=(teams||D.teams)[t];
   if(td.w+td.l===0)return'PUSH';
-  const cur=+(td.w/(td.w+td.l)*100).toFixed(2),line=+(td.wp/82*100).toFixed(2);
+  const cur=+(td.w/(td.w+td.l)*100).toFixed(2),line=+(td.wp/NG*100).toFixed(2);
   return cur>line?'OVER':cur<line?'UNDER':'PUSH';
 }
 // teams defaults to today's D.teams; the Progression tab passes a past snapshot
@@ -581,8 +583,8 @@ function dayData(i){
   H.teams.forEach(function(t,j){
     var r=s.r[j],w=r[0],l=r[1],det=r[2]==='O'?'OVER':r[2]==='U'?'UNDER':'not yet',wp=D0.teams[t].wp;
     var winPct=w+l>0?Math.round(w/(w+l)*1000)/1000:0;
-    var ltg=null;if(det==='not yet'){var v=(82-Math.ceil(wp))-l+1;if(v>0)ltg=v}
-    teams[t]={w:w,l:l,wp:wp,rem:r[3],det:det,wtg:r[4],ltg:ltg,pWins:+(winPct*82).toFixed(1),winPct:winPct,restCandidate:!!rest[j],sched:[]};
+    var ltg=null;if(det==='not yet'){var v=(NG-Math.ceil(wp))-l+1;if(v>0)ltg=v}
+    teams[t]={w:w,l:l,wp:wp,rem:r[3],det:det,wtg:r[4],ltg:ltg,pWins:+(winPct*NG).toFixed(1),winPct:winPct,restCandidate:!!rest[j],sched:[]};
   });
   var gameDay=nextDay(s.d),todays=[];
   (H.games||[]).forEach(function(g){
@@ -714,7 +716,7 @@ function progChart(series,player,metric,width,sel){
   // Direct labels at each line's end, nudged apart so they never overlap
   var cur=series[series.length-1];
   var labs=P.map(function(p){return{p:p,v:cur.scores[p][metric],y:ys(cur.scores[p][metric])}}).sort(function(a,b){return a.y-b.y});
-  for(var i=1;i<labs.length;i++)if(labs[i].y-labs[i-1].y<13)labs[i].y=labs[i-1].y+13;
+  for(var i=1;i<labs.length;i++)if(labs[i].y-labs[i-1].y<15)labs[i].y=labs[i-1].y+15;
   var over=labs.length?labs[labs.length-1].y-(HT-m.b):0;
   if(over>0)labs.forEach(function(l){l.y-=over});
   labs.forEach(function(l){
