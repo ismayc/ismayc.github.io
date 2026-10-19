@@ -478,21 +478,28 @@ def playoffs_name(year):
 
 
 def link_playoffs(text, year):
-    """Point a season page's kicker at its playoffs page, when there is one."""
-    if not (ROOT / playoffs_name(year)).exists():
+    """Link a season page to its playoffs page and rooting guide, when they
+    exist: in the kicker line and as buttons under the page title."""
+    links = []
+    if (ROOT / playoffs_name(year)).exists():
+        champ = PLAYOFF_WINNERS.get(year)
+        label = f"{season_label(year)} playoffs" + (f": {champ} won" if champ else "")
+        links.append((playoffs_name(year), f"{season_label(year)} playoffs", label, ""))
+    guide = f"{year}-nba-rooting-guide.html"
+    if (ROOT / guide).exists():
+        links.append((guide, "Rooting guide", "Rooting guide", ' class="ou-link-secondary"'))
+    if not links:
         return text
     text = text.replace(
         '<p class="ou-kicker">',
-        f'<p class="ou-kicker"><a href="{playoffs_name(year)}">'
-        f'{season_label(year)} playoffs</a>. ', 1)
-    # And a button under the page title
-    champ = PLAYOFF_WINNERS.get(year)
-    label = f"{season_label(year)} playoffs" + (f": {champ} won" if champ else "")
-    button = (f'<p class="ou-playoffs-link"><a href="{playoffs_name(year)}">'
-              f'{html.escape(label)} &rarr;</a></p>')
+        '<p class="ou-kicker">' + "".join(f'<a href="{href}">{html.escape(short)}</a>. '
+                                          for href, short, _, _ in links), 1)
+    buttons = ('<p class="ou-playoffs-link">'
+               + "".join(f'<a href="{href}"{cls}>{html.escape(label)} &rarr;</a>'
+                         for href, _, label, cls in links) + '</p>')
     author = re.search(r'<h4 class="author">.*?</h4>', text)
     if author:
-        text = text[:author.end()] + START + button + END + text[author.end():]
+        text = text[:author.end()] + START + buttons + END + text[author.end():]
     return text
 
 

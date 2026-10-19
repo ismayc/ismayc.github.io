@@ -280,6 +280,7 @@ css_block <- '
 body{font-family:"Outfit",sans-serif;background:var(--bg);color:var(--t1);min-height:100vh}
 .shell{max-width:1080px;margin:0 auto;padding:20px 16px 60px}
 h1{font-size:28px;font-weight:800;letter-spacing:-.5px;margin-bottom:2px}
+.back{display:inline-block;margin-bottom:10px;font-size:13px;color:var(--t2);text-decoration:none}.back:hover{color:var(--t1)}
 .date-line{font-size:12px;color:var(--t3);margin-bottom:24px;font-family:"JetBrains Mono",monospace}
 .tabs{display:flex;gap:4px;margin-bottom:20px;border-bottom:1px solid var(--border);padding-bottom:0;overflow-x:auto}
 .tab{padding:10px 16px;font-size:13px;font-weight:600;color:var(--t3);cursor:pointer;border-bottom:2px solid transparent;transition:.15s;white-space:nowrap}
@@ -322,6 +323,7 @@ html_output <- paste0(
   '<style>', css_block, '</style>\n',
   '</head>\n<body>\n',
   '<div class="shell">\n',
+  '<a class="back" href="2027-nba-over-under.html">&larr; ', season_label, ' season page</a>\n',
   '<h1>NBA Over/Under Rooting Guide</h1>\n',
   '<div class="date-line">Season ', season_label, ' &middot; Data through ', data_date,
   ' &middot; ', rem_range$lo, '-', rem_range$hi, ' games remaining per team</div>\n',
