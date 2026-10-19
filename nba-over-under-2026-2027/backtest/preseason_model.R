@@ -96,10 +96,11 @@ run_season <- function(s, noise_sd, center = 0) {
   share <- is_top / rowSums(is_top)
   ranks <- t(apply(-key, 1, rank, ties.method = "min"))
 
-  # What happened
+  # What happened (correct15 first: summarise would otherwise see the
+  # summed `correct`)
   act <- pk |> group_by(player) |>
-    summarise(points = sum(points), correct = sum(correct),
-              correct15 = sum(correct & wage == 15), .groups = "drop")
+    summarise(correct15 = sum(correct & wage == 15), points = sum(points),
+              correct = sum(correct), .groups = "drop")
   act <- act[match(players, act$player), ]
   act_key <- rank_key(act$points, act$correct, act$correct15)
 

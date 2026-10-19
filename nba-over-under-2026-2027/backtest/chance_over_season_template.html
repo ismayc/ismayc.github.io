@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chance to Win, Week by Week</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+  :root {
+    --sheet: #fafbf7; --ink: #1c2a44; --ink-soft: #56627a; --rule: #cdd6c6;
+    --grid: #e6ebe1; --card: #ffffff;
+  }
+  body { margin: 0; background: var(--sheet); color: var(--ink);
+         font-family: "Source Sans 3", "Helvetica Neue", Arial, sans-serif; }
+  main { max-width: 960px; margin: 0 auto; padding: 24px 16px 48px; }
+  h1 { font-size: 1.8rem; margin: 0 0 4px; }
+  .sub { color: var(--ink-soft); margin: 0 0 20px; }
+  ul.notes { padding-left: 20px; line-height: 1.45; }
+  section { background: var(--card); border: 1px solid var(--rule); border-radius: 8px;
+            padding: 14px 14px 8px; margin: 18px 0; }
+  h2 { font-size: 1.2rem; margin: 0 0 2px; }
+  .won { color: var(--ink-soft); margin: 0 0 6px; font-size: .95rem; }
+  .legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: .9rem; margin: 4px 0 6px; }
+  .legend span { display: inline-flex; align-items: center; gap: 5px; cursor: default; }
+  .legend i { width: 14px; height: 3px; border-radius: 2px; display: inline-block; }
+  .scroll { overflow-x: auto; }
+  svg { width: 100%; min-width: 640px; height: auto; display: block; }
+  .axis text { fill: var(--ink-soft); font-size: 11px; }
+  .tip { position: fixed; pointer-events: none; background: var(--card); border: 1px solid var(--rule);
+         border-radius: 6px; padding: 6px 8px; font-size: 13px; box-shadow: 0 2px 8px rgba(0,0,0,.08);
+         display: none; z-index: 10; min-width: 140px; }
+  .tip b { display: block; margin-bottom: 3px; }
+  .tip div { display: flex; justify-content: space-between; gap: 12px; }
+  .tip div span:first-child { display: inline-flex; align-items: center; gap: 5px; }
+  .tip i { width: 10px; height: 3px; border-radius: 2px; display: inline-block; }
+  footer { color: var(--ink-soft); font-size: .9rem; line-height: 1.45; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Chance to win, week by week</h1>
+  <p class="sub">Each player's chance to win the pool through the last five seasons, from the in-season model on the daily page, run once a week on the real results.</p>
+  <ul class="notes">
+    <li><b>The early weeks say little.</b> Every season starts between 7% and 15% for everyone, and the favorite about 10 games in won 2 of 5 seasons (Jake in 2022-23, Chester in 2023-24).</li>
+    <li><b>Leaders get caught.</b> Mike J led most of 2021-22 (77% in mid-January) and finished 2nd. Jake led 2025-26 at 90% on March 9 and finished 4th.</li>
+    <li><b>Phil won 2025-26 from 0.3%.</b> He was under 1% from late February through March 23 and passed everyone in the last two weeks.</li>
+    <li><b>Chester's 2023-24 was the steady one:</b> the favorite every week from mid-November on.</li>
+  </ul>
+  <div id="charts"></div>
+  <footer>
+    <p>Model: each team's remaining games are simulated 100,000 times from its record, pulled toward its Vegas line (the line counts as 20 games), with the team's true win rate drawn from a beta distribution at half weight (<code>chance_by_date</code> in 09-season-graphics.R). Readings are weekly from the day before opening night; each line stops at the last one, six days before the season ended, and the labels give each player's final place.</p>
+    <p>A caution from this run: leads at 70 to 90% held only 3 of 13 weekly readings, and players under 1% went on to win 4% of the time, so the model has been too sure at both ends. Weekly readings within a season are not independent, so this rests mostly on Mike J in 2021-22, Jake in 2025-26, and Phil in 2025-26.</p>
+  </footer>
+</main>
+<div class="tip" id="tip"></div>
+<script>
+const DATA = __DATA__;
+const W = 900, H = 300, M = {l: 44, r: 128, t: 10, b: 28};
+const tip = document.getElementById("tip");
+const ord = n => n + (n % 100 >= 11 && n % 100 <= 13 ? "th" : ["th","st","nd","rd"][n % 10] || "th");
+const fmtDate = d => new Date(d + "T12:00:00").toLocaleDateString("en-US", {month: "short", day: "numeric"});
+const ns = "http://www.w3.org/2000/svg";
+const el = (tag, attrs, parent) => { const e = document.createElementNS(ns, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; };
+
+for (const [season, s] of Object.entries(DATA.seasons)) {
+  const players = Object.keys(s.players).sort();
+  // The last date is the final day (every chance 0 or 100%); lines stop at
+  // the last weekly reading and the end labels give the final places
+  const n = s.dates.length - 1;
+  const x = i => M.l + i * (W - M.l - M.r) / (n - 1);
+  const y = v => M.t + (1 - v) * (H - M.t - M.b);
+  const winners = players.filter(p => s.players[p].final === 1);
+  const finals = players.map(p => s.players[p].final);
+  const sec = document.createElement("section");
+  sec.innerHTML = `<h2>${season}</h2><p class="won">Won by ${winners.join(" and ")}</p>`;
+  const leg = document.createElement("div"); leg.className = "legend";
+  for (const p of players) leg.innerHTML += `<span><i style="background:${DATA.colors[p]}"></i>${p}</span>`;
+  sec.appendChild(leg);
+  const svg = el("svg", {viewBox: `0 0 ${W} ${H}`, role: "img",
+    "aria-label": `${season}: each player's chance to win the pool by week`});
+  const ax = el("g", {class: "axis"}, svg);
+  for (const v of [0, .25, .5, .75, 1]) {
+    el("line", {x1: M.l, x2: W - M.r, y1: y(v), y2: y(v), stroke: v ? "#e6ebe1" : "#cdd6c6", "stroke-width": 1}, ax);
+    el("text", {x: M.l - 6, y: y(v) + 4, "text-anchor": "end"}, ax).textContent = (v * 100) + "%";
+  }
+  // Month ticks
+  let lastMonth = "";
+  s.dates.slice(0, n).forEach((d, i) => { const m = d.slice(0, 7);
+    if (m !== lastMonth) { lastMonth = m;
+      el("text", {x: x(i), y: H - 8, "text-anchor": "middle"}, ax).textContent =
+        new Date(d + "T12:00:00").toLocaleDateString("en-US", {month: "short"}); } });
+  // Lines: winners drawn last so they sit on top
+  const order = players.slice().sort((a, b) => (winners.includes(a) - winners.includes(b)));
+  for (const p of order) {
+    const pts = s.players[p].p.slice(0, n).map((v, i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(" ");
+    el("polyline", {points: pts, fill: "none", stroke: "#ffffff", "stroke-width": 4,
+      "stroke-linejoin": "round"}, svg);
+    el("polyline", {points: pts, fill: "none", stroke: DATA.colors[p], "stroke-width": 2,
+      "stroke-linejoin": "round", "stroke-linecap": "round"}, svg);
+  }
+  // End labels: final place, spread so they never overlap
+  const ends = players.map(p => ({p, f: s.players[p].final})).sort((a, b) => a.f - b.f || a.p.localeCompare(b.p));
+  const gap = 15; let yy = ends.map((e, i) => M.t + 6 + i * gap);
+  ends.forEach((e, i) => {
+    const tied = finals.filter(f => f === e.f).length > 1;
+    el("rect", {x: W - M.r + 10, y: yy[i] - 5, width: 10, height: 3, rx: 1.5,
+      fill: DATA.colors[e.p]}, svg);
+    const t = el("text", {x: W - M.r + 24, y: yy[i], "font-size": 12, fill: "#1c2a44"}, svg);
+    t.textContent = `${e.p}, ${tied ? "T-" : ""}${ord(e.f)}`;
+  });
+  // Hover: crosshair and tooltip at the nearest week
+  const cross = el("line", {y1: M.t, y2: H - M.b, stroke: "#56627a", "stroke-width": 1,
+    "stroke-dasharray": "3 3", visibility: "hidden"}, svg);
+  const hit = el("rect", {x: M.l, y: M.t, width: W - M.l - M.r, height: H - M.t - M.b,
+    fill: "transparent"}, svg);
+  const move = ev => {
+    const r = svg.getBoundingClientRect();
+    const px = (ev.clientX - r.left) * W / r.width;
+    const i = Math.max(0, Math.min(n - 1, Math.round((px - M.l) / ((W - M.l - M.r) / (n - 1)))));
+    cross.setAttribute("x1", x(i)); cross.setAttribute("x2", x(i)); cross.setAttribute("visibility", "visible");
+    const list = players.map(p => [p, s.players[p].p[i]]).sort((a, b) => b[1] - a[1]);
+    tip.innerHTML = `<b>${fmtDate(s.dates[i])} · ${s.games[i]} games in</b>` +
+      list.map(([p, v]) => `<div><span><i style="background:${DATA.colors[p]}"></i>${p}</span><span>${(v * 100).toFixed(v < .1 && v > 0 ? 1 : 0)}%</span></div>`).join("");
+    tip.style.display = "block";
+    const tx = ev.clientX + 16 + 180 > innerWidth ? ev.clientX - 196 : ev.clientX + 16;
+    tip.style.left = tx + "px"; tip.style.top = Math.max(8, ev.clientY - 60) + "px";
+  };
+  hit.addEventListener("pointermove", move);
+  hit.addEventListener("pointerleave", () => { tip.style.display = "none"; cross.setAttribute("visibility", "hidden"); });
+  const wrap = document.createElement("div"); wrap.className = "scroll";
+  wrap.appendChild(svg); sec.appendChild(wrap);
+  document.getElementById("charts").appendChild(sec);
+}
+</script>
+</body>
+</html>
