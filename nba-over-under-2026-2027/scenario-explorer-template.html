@@ -624,17 +624,19 @@ function TeamSidebar({ toggleTeam, getTeamStatus, resetAll }) {
 function BarChart({ rankCounts, numScenarios, sortedPlayers }) {
   const barH = 38;
   const gap = 6;
-  const leftPad = 72;
-  const rightPad = 60;
+  // A narrower drawing on a phone, so it scales down less and nothing is cut off
+  const narrow = window.innerWidth < 600;
+  const leftPad = narrow ? 64 : 72;
+  const rightPad = narrow ? 48 : 60;
   const topPad = 32;
-  const chartW = 580;
+  const chartW = narrow ? 420 : 580;
   const barArea = chartW - leftPad - rightPad;
   const totalH = topPad + sortedPlayers.length * (barH + gap) + 22;
   // Legend steps narrow so nine or more places still fit the width
   const step = Math.min(62, (chartW - leftPad - 8 - 44) / Math.max(RANK_LABELS.length - 1, 1));
 
   return (
-    <svg width="100%" viewBox={`0 0 ${chartW} ${totalH}`} style={{ display: "block", minWidth: 480 }}>
+    <svg width="100%" viewBox={`0 0 ${chartW} ${totalH}`} style={{ display: "block" }}>
       {RANK_LABELS.map((label, i) => (
         <g key={i} transform={`translate(${leftPad + i * step + (i >= 4 ? 8 : 0)}, 6)`}>
           <rect width={14} height={14} fill={RANK_COLORS[i]}

@@ -1,6 +1,8 @@
 // Phone-width audit of the over/under pages (and any other page): opens every
 // tab pane at 390px and reports sideways page scroll, overlapping chart labels,
-// labels past a chart's edge, text under 9px, and wide elements cut off;
+// labels past a chart's edge, text under 9px, wide elements cut off, and
+// charts or tables clipped by a container that hides overflow, and charts
+// that only fit by scrolling sideways;
 // screenshots each flagged pane into OUTDIR.
 // Known false positives: rotated column labels (preview similarity grid), a
 // chart's "Final" label drawn twice, and plotly x-axis titles reported as
@@ -22,10 +24,16 @@ const fs = require('fs');
       // leaf tab panes, with their chain of tab hrefs
       const chain = (el) => { const c = []; for (let q = el; q; q = q.parentElement) if (q.classList && q.classList.contains('tab-pane') && q.id) c.unshift('#' + q.id); return c; };
       const leaves = [...document.querySelectorAll('.tab-pane[id]')].filter(t => !t.querySelector('.tab-pane'));
-      return leaves.length ? leaves.map(chain) : [[]];
+      if (leaves.length) return leaves.map(chain);
+      // Pages with their own tab buttons (scenario explorer, rooting guide): click each
+      const own = document.querySelectorAll('.ou-tab, #tabs .tab');
+      return own.length ? [...own].map((_, i) => ['click:' + i]) : [[]];
     });
     for (const ch of panes) {
-      for (const h of ch) await p.evaluate(h => { const a = document.querySelector(`.nav-tabs a[href="${h}"]`); if (a && window.jQuery) jQuery(a).tab('show'); }, h);
+      for (const h of ch) await p.evaluate(h => {
+        if (h.startsWith('click:')) { document.querySelectorAll('.ou-tab, #tabs .tab')[+h.slice(6)].click(); return; }
+        const a = document.querySelector(`.nav-tabs a[href="${h}"]`); if (a && window.jQuery) jQuery(a).tab('show');
+      }, h);
       if (ch.length) await p.waitForTimeout(1300);
       const r = await p.evaluate((scope) => {
         const root = scope ? document.querySelector(scope) : document.body;
@@ -55,11 +63,31 @@ const fs = require('fs');
         // elements wider than viewport not in a scroll box
         const wide = [...root.querySelectorAll('img, canvas, iframe, .html-widget, .plotly, pre')].filter(e => vis(e) && e.getBoundingClientRect().right > innerWidth + 2).filter(e => { for (let q = e.parentElement; q && q !== document.body; q = q.parentElement) { const ox = getComputedStyle(q).overflowX; if (ox === 'auto' || ox === 'scroll') return false; } return true; });
         if (wide.length) issues.push(`${wide.length} wide elements cut off (${wide.slice(0, 2).map(e => e.tagName + '.' + e.className.toString().slice(0, 20)).join(', ')})`);
+        // charts, images, and tables cut off by a container that hides overflow
+        const clipped = [...root.querySelectorAll('svg, img, canvas, table')].filter(e => vis(e) && !e.closest('.ou-masthead')).filter(e => {
+          const r = e.getBoundingClientRect();
+          for (let q = e.parentElement; q; q = q.parentElement) {
+            const ox = getComputedStyle(q).overflowX;
+            if (q !== document.documentElement && q !== document.body && (ox === 'auto' || ox === 'scroll')) return false;
+            if (ox === 'hidden' || ox === 'clip') return r.right > Math.min(q.getBoundingClientRect().right, innerWidth) + 2;
+          }
+          return false;
+        });
+        if (clipped.length) issues.push(`${clipped.length} charts or tables cut off by their container (${clipped.slice(0, 2).map(e => e.tagName + ' ' + Math.round(e.getBoundingClientRect().width) + 'px').join(', ')})`);
+        // charts that only fit by scrolling their box sideways (tables get a swipe note; charts don't)
+        const scrolled = [...root.querySelectorAll('svg, canvas')].filter(e => vis(e) && e.getBoundingClientRect().width > 120 && !e.closest('.ou-masthead')).filter(e => {
+          for (let q = e.parentElement; q && q !== document.body; q = q.parentElement) {
+            const ox = getComputedStyle(q).overflowX;
+            if (ox === 'auto' || ox === 'scroll') return q.scrollWidth > q.clientWidth + 4 && e.getBoundingClientRect().right > q.getBoundingClientRect().right + 2;
+          }
+          return false;
+        });
+        if (scrolled.length) issues.push(`${scrolled.length} charts wider than the screen, in a sideways scroll box (${scrolled.slice(0, 2).map(e => e.tagName + ' ' + Math.round(e.getBoundingClientRect().width) + 'px').join(', ')})`);
         return issues;
-      }, ch[ch.length - 1] || null);
-      const name = f.split('/').pop().replace('.html', '') + (ch.length ? '__' + ch[ch.length - 1].slice(1) : '');
+      }, (ch.length && !ch[ch.length - 1].startsWith('click:')) ? ch[ch.length - 1] : null);
+      const name = f.split('/').pop().replace('.html', '') + (ch.length ? '__' + ch[ch.length - 1].replace(/^#|:/g, '') : '');
       if (r.length) {
-        const el = ch.length ? await p.$(ch[ch.length - 1]) : null;
+        const el = ch.length && !ch[ch.length - 1].startsWith('click:') ? await p.$(ch[ch.length - 1]) : null;
         try { if (el) await el.screenshot({ path: `${out}/${name}.png`, timeout: 15000 }); else await p.screenshot({ path: `${out}/${name}.png`, fullPage: true }); } catch (e) {}
       }
       report.push({ page: name, issues: r });
