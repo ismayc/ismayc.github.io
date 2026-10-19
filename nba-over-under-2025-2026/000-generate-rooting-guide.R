@@ -265,10 +265,9 @@ cat("  JSON data size:", nchar(data_json), "bytes\n")
 # -- 4d. Progression tab history -----------------------------------------------
 source("nba-over-under-2026-2027/11-rooting-guide-history.R")
 history_json <- toJSON(
-  rooting_guide_history("nba-over-under-2025-2026/determined_outcomes",
-                        names(teams_list), 20,
+  rooting_guide_history("nba-over-under-2025-2026", names(teams_list), 20, schedule,
                         as.Date(str_extract(outcomes_file, "\\d{4}-\\d{2}-\\d{2}"))),
-  auto_unbox = TRUE, pretty = FALSE
+  auto_unbox = TRUE, na = "null", pretty = FALSE
 )
 
 # -- 5. Read JS template -------------------------------------------------------

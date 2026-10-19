@@ -148,8 +148,9 @@ function renderTab1(el,player){
 
 function renderTab2(el){
   var hasGames=D.todaysGames&&D.todaysGames.length>0;
-  if(!hasGames){el.innerHTML='<p style="color:var(--t3)">No games scheduled today.</p>';return}
-  var h='<div class="section-title">Today\'s Games</div><p style="font-size:12px;color:var(--t3);margin-bottom:16px">Showing stakes for each player in undecided teams playing today.</p>';
+  var past=viewingPast(),gameDay=past?fmtDay(nextDay(H.snaps[progDay].d)):'';
+  if(!hasGames){el.innerHTML='<p style="color:var(--t3)">'+(past?'No games on '+gameDay+'.':'No games scheduled today.')+'</p>';return}
+  var h='<div class="section-title">'+(past?'Games on '+gameDay:'Today\'s Games')+'</div><p style="font-size:12px;color:var(--t3);margin-bottom:16px">Showing stakes for each player in undecided teams playing '+(past?'that day':'today')+'.</p>';
   D.todaysGames.forEach(function(g){
     var away=g[0],home=g[1];
     var hT=D.teams[home],aT=D.teams[away];
@@ -377,24 +378,58 @@ function renderTab5(el){
   el.innerHTML=h;
 }
 
-// ── Tab 6: Progression ─────────────────────────────────────────────────────
+// ── Progression (above the tabs) ───────────────────────────────────────────
 // H (injected by R) holds one snapshot per date from the first day with
-// H.maxOpen or fewer teams open. Each is scored with getScore, so a date's
-// numbers match what the Rooting Guide tab showed after those games.
-var progMetric='total',progState=null;
-function setProgMetric(m){progMetric=m;renderAll()}
+// H.maxOpen or fewer teams open, plus the schedule from then on. Picking a
+// date swaps D.teams and D.todaysGames for that date's, so every tab shows
+// the pool as it stood after that day's games. The latest date keeps the
+// R-built D.
+var D0={teams:D.teams,todaysGames:D.todaysGames};
+var progMetric='total',progState=null,progDay=null,progTableOpen=false;
+function hasProg(){return typeof H!=='undefined'&&H&&H.snaps&&H.snaps.length>0}
 function fmtPts(v){return(v>0?'+':'')+v}
-function fmtDay(d){var p=d.split('-');return['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+p[1]-1]+' '+(+p[2])}
+var MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function fmtDay(d){var p=d.split('-');return MON[+p[1]-1]+' '+(+p[2])}
+function nextDay(d){var t=new Date(d+'T12:00:00Z');t.setUTCDate(t.getUTCDate()+1);return t.toISOString().slice(0,10)}
 function niceStep(r){if(r<=0)return 1;var e=Math.pow(10,Math.floor(Math.log10(r))),f=r/e;return(f<=1?1:f<=2?2:f<=5?5:10)*e}
 
+// One snapshot as the D shape the tabs read (same fields and rules as the R generator)
+var dayCache={};
+function dayData(i){
+  if(dayCache[i])return dayCache[i];
+  var s=H.snaps[i],teams={},rest={};
+  (s.rest||[]).forEach(function(j){rest[j]=true});
+  H.teams.forEach(function(t,j){
+    var r=s.r[j],w=r[0],l=r[1],det=r[2]==='O'?'OVER':r[2]==='U'?'UNDER':'not yet',wp=D0.teams[t].wp;
+    var winPct=w+l>0?Math.round(w/(w+l)*1000)/1000:0;
+    var ltg=null;if(det==='not yet'){var v=(82-Math.ceil(wp))-l+1;if(v>0)ltg=v}
+    teams[t]={w:w,l:l,wp:wp,rem:r[3],det:det,wtg:r[4],ltg:ltg,pWins:+(winPct*82).toFixed(1),winPct:winPct,restCandidate:!!rest[j],sched:[]};
+  });
+  var gameDay=nextDay(s.d),todays=[];
+  (H.games||[]).forEach(function(g){
+    if(g[0]<=s.d)return;
+    var away=H.teams[g[1]],home=H.teams[g[2]];
+    if(teams[home])teams[home].sched.push({d:g[0],opp:away,home:true});
+    if(teams[away])teams[away].sched.push({d:g[0],opp:home,home:false});
+    if(g[0]===gameDay)todays.push([away,home]);
+  });
+  return(dayCache[i]={teams:teams,todaysGames:todays});
+}
+function lastDay(){return H.snaps.length-1}
+function setDay(i){
+  if(!hasProg())return;
+  progDay=Math.max(0,Math.min(lastDay(),i));
+  var dd=progDay===lastDay()?D0:dayData(progDay);
+  D.teams=dd.teams;D.todaysGames=dd.todaysGames;
+  try{var u=new URL(window.location.href);if(progDay===lastDay())u.searchParams.delete('date');else u.searchParams.set('date',H.snaps[progDay].d);history.replaceState(null,'',u.toString())}catch(e){}
+  renderAll();
+}
+function viewingPast(){return hasProg()&&progDay!==null&&progDay!==lastDay()}
+
 function progSeries(){
-  if(typeof H==='undefined'||!H||!H.snaps)return[];
+  if(!hasProg())return[];
   return H.snaps.map(function(s,i){
-    var teams={};
-    H.teams.forEach(function(t,j){
-      var r=s.r[j],w=r[0],l=r[1];
-      teams[t]={w:w,l:l,det:r[2]==='O'?'OVER':r[2]==='U'?'UNDER':'not yet',wp:D.teams[t].wp,winPct:w+l>0?w/(w+l):0,wtg:null,ltg:null,rem:0,pWins:0};
-    });
+    var teams=i===lastDay()?D0.teams:dayData(i).teams;
     var scores={};P.forEach(function(p){scores[p]=getScore(p,teams)});
     var newly=[];
     if(i>0){var prev=H.snaps[i-1];H.teams.forEach(function(t,j){if(s.r[j][2]&&!prev.r[j][2])newly.push({team:t,out:s.r[j][2]==='O'?'OVER':'UNDER'})})}
@@ -409,15 +444,15 @@ function progRank(s,p){
   return(tie?'T-':'')+(above+1);
 }
 
-function progChart(series,player,metric,width){
-  var W=Math.max(320,Math.round(width)),HT=290,m={l:40,r:92,t:14,b:30};
+function progChart(series,player,metric,width,sel){
+  var W=Math.max(320,Math.round(width)),HT=250,m={l:40,r:92,t:14,b:30};
   var x0=Date.parse(series[0].d),span=Math.max(1,Date.parse(series[series.length-1].d)-x0);
   var xs=function(d){return series.length===1?(m.l+W-m.r)/2:m.l+(Date.parse(d)-x0)/span*(W-m.l-m.r)};
   var vals=[];series.forEach(function(s){P.forEach(function(p){vals.push(s.scores[p][metric])})});
   var lo=Math.min(0,Math.min.apply(null,vals)),hi=Math.max(0,Math.max.apply(null,vals));
   var step=niceStep((hi-lo)/5);lo=Math.floor(lo/step)*step;hi=Math.ceil(hi/step)*step;if(hi===lo)hi=lo+step;
   var ys=function(v){return m.t+(hi-v)/(hi-lo)*(HT-m.t-m.b)};
-  var h='<svg viewBox="0 0 '+W+' '+HT+'" width="'+W+'" height="'+HT+'" style="display:block;touch-action:pan-y" onpointermove="progHover(event)" onpointerleave="progHover(null)" role="img" aria-label="'+(metric==='total'?'Projected total':'Locked points')+' for each player by date">';
+  var h='<svg viewBox="0 0 '+W+' '+HT+'" width="'+W+'" height="'+HT+'" style="display:block;touch-action:pan-y;cursor:pointer" onpointermove="progHover(event)" onpointerleave="progHover(null)" onclick="progClick(event)" role="img" aria-label="'+(metric==='total'?'Projected total':'Locked points')+' for each player by date">';
   for(var v=lo;v<=hi+1e-9;v+=step){
     h+='<line x1="'+m.l+'" x2="'+(W-m.r)+'" y1="'+ys(v)+'" y2="'+ys(v)+'" style="stroke:'+(v===0?'var(--t3)':'var(--border)')+';stroke-width:1"/>';
     h+='<text x="'+(m.l-6)+'" y="'+(ys(v)+4)+'" text-anchor="end" style="fill:var(--t3);font-size:11px">'+fmtPts(v)+'</text>';
@@ -428,104 +463,114 @@ function progChart(series,player,metric,width){
   var lastIx=series.length-1;
   if(tickIdx[tickIdx.length-1]!==lastIx){if(tickIdx.length>1&&xs(series[lastIx].d)-xs(series[tickIdx[tickIdx.length-1]].d)<56)tickIdx.pop();tickIdx.push(lastIx)}
   tickIdx.forEach(function(ix){h+='<text x="'+xs(series[ix].d)+'" y="'+(HT-10)+'" text-anchor="middle" style="fill:var(--t3);font-size:11px">'+fmtDay(series[ix].d)+'</text>'});
+  // The date every tab is showing
+  var sx=xs(series[sel].d);
+  h+='<line x1="'+sx+'" x2="'+sx+'" y1="'+m.t+'" y2="'+(HT-m.b)+'" style="stroke:var(--accent);stroke-width:1.5;stroke-opacity:.5"/>';
   var order=P.filter(function(p){return p!==player}).concat([player]);
   order.forEach(function(p){
-    var sel=p===player;
+    var me=p===player;
     var pts=series.map(function(s){return xs(s.d).toFixed(1)+','+ys(s.scores[p][metric]).toFixed(1)}).join(' ');
-    h+='<polyline points="'+pts+'" style="fill:none;stroke:'+(sel?'var(--accent)':'var(--t3)')+';stroke-width:'+(sel?2.5:1.5)+';stroke-opacity:'+(sel?1:.45)+';stroke-linejoin:round"/>';
-    if(sel)series.forEach(function(s){h+='<circle cx="'+xs(s.d)+'" cy="'+ys(s.scores[p][metric])+'" r="4" style="fill:var(--accent);stroke:var(--card);stroke-width:2"/>'});
+    h+='<polyline points="'+pts+'" style="fill:none;stroke:'+(me?'var(--accent)':'var(--t3)')+';stroke-width:'+(me?2.5:1.5)+';stroke-opacity:'+(me?1:.45)+';stroke-linejoin:round"/>';
+    if(me)series.forEach(function(s,i){h+='<circle cx="'+xs(s.d)+'" cy="'+ys(s.scores[p][metric])+'" r="'+(i===sel?6:4)+'" style="fill:'+(i===sel?'var(--card)':'var(--accent)')+';stroke:'+(i===sel?'var(--accent)':'var(--card)')+';stroke-width:2"/>'});
   });
   // Direct labels at each line's end, nudged apart so they never overlap
-  var last=series[series.length-1];
-  var labs=P.map(function(p){return{p:p,v:last.scores[p][metric],y:ys(last.scores[p][metric])}}).sort(function(a,b){return a.y-b.y});
+  var cur=series[series.length-1];
+  var labs=P.map(function(p){return{p:p,v:cur.scores[p][metric],y:ys(cur.scores[p][metric])}}).sort(function(a,b){return a.y-b.y});
   for(var i=1;i<labs.length;i++)if(labs[i].y-labs[i-1].y<13)labs[i].y=labs[i-1].y+13;
   var over=labs.length?labs[labs.length-1].y-(HT-m.b):0;
   if(over>0)labs.forEach(function(l){l.y-=over});
   labs.forEach(function(l){
-    var sel=l.p===player;
-    h+='<text x="'+(W-m.r+8)+'" y="'+(l.y+4)+'" style="fill:'+(sel?'var(--t1)':'var(--t2)')+';font-size:12px;font-weight:'+(sel?700:400)+'">'+l.p+' '+fmtPts(l.v)+'</text>';
+    var me=l.p===player;
+    h+='<text x="'+(W-m.r+8)+'" y="'+(l.y+4)+'" style="fill:'+(me?'var(--t1)':'var(--t2)')+';font-size:12px;font-weight:'+(me?700:400)+'">'+l.p+' '+fmtPts(l.v)+'</text>';
   });
   h+='<line id="prog-cross" x1="0" x2="0" y1="'+m.t+'" y2="'+(HT-m.b)+'" style="stroke:var(--t2);stroke-width:1;stroke-dasharray:3 3;visibility:hidden"/>';
   h+='</svg>';
-  progState={series:series,player:player,metric:metric,W:W,xs:series.map(function(s){return xs(s.d)}),m:m};
+  progState={series:series,player:player,metric:metric,W:W,xs:series.map(function(s){return xs(s.d)})};
   return h;
 }
 
+function progNearest(evt){
+  var rect=evt.currentTarget.getBoundingClientRect();
+  var x=(evt.clientX-rect.left)*progState.W/rect.width,best=0;
+  progState.xs.forEach(function(px,i){if(Math.abs(px-x)<Math.abs(progState.xs[best]-x))best=i});
+  return{i:best,rect:rect};
+}
+function progClick(evt){if(progState)setDay(progNearest(evt).i)}
 function progHover(evt){
   var cross=document.getElementById('prog-cross'),tip=document.getElementById('prog-tip');
   if(!cross||!tip||!progState)return;
   if(!evt){cross.style.visibility='hidden';tip.style.display='none';return}
-  var svg=evt.currentTarget,rect=svg.getBoundingClientRect();
-  var x=(evt.clientX-rect.left)*progState.W/rect.width;
-  var best=0;progState.xs.forEach(function(px,i){if(Math.abs(px-x)<Math.abs(progState.xs[best]-x))best=i});
-  var s=progState.series[best],px=progState.xs[best];
+  var n=progNearest(evt),rect=n.rect,s=progState.series[n.i],px=progState.xs[n.i];
   cross.setAttribute('x1',px);cross.setAttribute('x2',px);cross.style.visibility='visible';
   var rows=P.slice().sort(function(a,b){return s.scores[b][progState.metric]-s.scores[a][progState.metric]});
   var t='<div style="font-weight:700;margin-bottom:4px">Games through '+fmtDay(s.d)+' &middot; '+s.n+' open</div>';
-  rows.forEach(function(p){var sel=p===progState.player;t+='<div style="display:flex;justify-content:space-between;gap:12px;'+(sel?'font-weight:700;color:var(--t1)':'color:var(--t2)')+'"><span>'+p+'</span><span class="mono">'+fmtPts(s.scores[p][progState.metric])+'</span></div>'});
+  rows.forEach(function(p){var me=p===progState.player;t+='<div style="display:flex;justify-content:space-between;gap:12px;'+(me?'font-weight:700;color:var(--t1)':'color:var(--t2)')+'"><span>'+p+'</span><span class="mono">'+fmtPts(s.scores[p][progState.metric])+'</span></div>'});
+  t+='<div style="margin-top:4px;font-size:11px;color:var(--t3)">Click to show this date</div>';
   tip.innerHTML=t;tip.style.display='block';
   var left=px*rect.width/progState.W+12;
   if(left+tip.offsetWidth>rect.width)left=px*rect.width/progState.W-tip.offsetWidth-12;
   tip.style.left=Math.max(0,left)+'px';
 }
+function setProgMetric(m){progMetric=m;renderAll()}
 
-function renderTab6(el,player){
-  var series=progSeries();
-  var maxOpen=(typeof H!=='undefined'&&H&&H.maxOpen)||20;
-  if(!series.length){
-    var openNow=Object.values(D.teams).filter(function(t){return t.det==='not yet'}).length;
-    el.innerHTML='<p style="color:var(--t3)">The progression starts once '+maxOpen+' or fewer teams are still open. '+openNow+' teams are open now.</p>';
-    return;
-  }
-  var first=series[0],last=series[series.length-1];
-  var a=first.scores[player],b=last.scores[player];
-  var card=function(label,big,color,sub){return '<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 20px"><div style="font-size:11px;color:var(--t3)">'+label+'</div><div style="font-size:24px;font-weight:800;font-family:JetBrains Mono;color:'+color+'">'+big+'</div><div style="font-size:11px;color:var(--t3)">'+sub+'</div></div>'};
-  var col=function(v){return v>=0?'var(--over)':'var(--under)'};
-  var h='<div style="display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap">';
-  h+=card('Rank, games through '+fmtDay(first.d),progRank(first,player),'var(--t1)','Projected '+fmtPts(a.total)+' with '+first.n+' teams open');
-  h+=card((last.n?'Rank now, ':'Final rank, ')+'through '+fmtDay(last.d),progRank(last,player),'var(--t1)','Projected '+fmtPts(b.total)+(last.n?' with '+last.n+' teams open':', all teams decided'));
-  h+=card('Locked points since '+fmtDay(first.d),fmtPts(b.locked-a.locked),col(b.locked-a.locked),fmtPts(a.locked)+' to '+fmtPts(b.locked));
+function decidedChips(n,player){
+  var pk=D.picks[n.team]&&D.picks[n.team][player];
+  var right=pk&&pk[1]===n.out;
+  return '<span class="chip chip-'+(n.out==='OVER'?'o':'u')+' '+(right?'bright':'faded')+'">'+sn(n.team)+' '+n.out+(pk?' '+(right?'+':'-')+pk[0]:'')+'</span>';
+}
+
+function renderProgression(el){
+  if(!hasProg()){el.innerHTML='';return}
+  var player=activePlayer,series=progSeries(),sel=progDay===null?lastDay():progDay,s=series[sel];
+  var last=sel===lastDay();
+  var h='<div class="section-title" style="margin-top:0">Progression</div>';
+  h+='<p style="font-size:12px;color:var(--t3);margin-bottom:10px">Pick a date to see every tab below as it stood after that day\'s games, from the first day with '+H.maxOpen+' or fewer teams still open. Click the chart or step through the dates.</p>';
+  h+='<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px">';
+  h+='<button class="pp" onclick="setDay('+(sel-1)+')"'+(sel===0?' disabled style="opacity:.4;cursor:default"':'')+' aria-label="Previous date">&larr;</button>';
+  h+='<select onchange="setDay(+this.value)" aria-label="Games through" style="font:inherit;font-size:14px;font-weight:600;padding:5px 8px;border:1px solid var(--border);border-radius:4px;background:var(--card);color:var(--t1)">';
+  series.forEach(function(x,i){h+='<option value="'+i+'"'+(i===sel?' selected':'')+'>Games through '+fmtDay(x.d)+' ('+x.n+' open'+(i===lastDay()?(x.n?', latest':', final'):'')+')</option>'});
+  h+='</select>';
+  h+='<button class="pp" onclick="setDay('+(sel+1)+')"'+(last?' disabled style="opacity:.4;cursor:default"':'')+' aria-label="Next date">&rarr;</button>';
+  if(!last)h+='<button class="pp" onclick="setDay('+lastDay()+')">Latest</button>';
+  h+='<span style="font-size:13px;color:var(--t2)">'+player+': rank '+progRank(s,player)+', projected '+fmtPts(s.scores[player].total)+', locked '+fmtPts(s.scores[player].locked)+'</span>';
   h+='</div>';
-
-  h+='<div class="section-title">How the points moved</div>';
-  h+='<p style="font-size:12px;color:var(--t3);margin-bottom:10px">From the first day with '+maxOpen+' or fewer teams still open. Projected counts every open team on the side its pace points to, as the Rooting Guide tab does; locked counts only teams already decided.</p>';
-  h+='<div class="player-row"><span class="label">Show</span>';
+  h+='<div style="display:flex;flex-wrap:wrap;gap:3px;align-items:center;margin-bottom:12px;font-size:12px;color:var(--t3)">';
+  if(sel===0)h+='<span>Decided by this date: the first day in the window.</span>';
+  else if(!s.newly.length)h+='<span>No teams decided since '+fmtDay(series[sel-1].d)+'.</span>';
+  else{h+='<span style="margin-right:4px">Decided since '+fmtDay(series[sel-1].d)+' (for '+player+'):</span>';s.newly.forEach(function(n){h+=decidedChips(n,player)})}
+  h+='</div>';
+  h+='<div class="player-row" style="margin-bottom:6px"><span class="label">Chart</span>';
   [['total','Projected total'],['locked','Locked points']].forEach(function(o){h+='<button class="pp '+(progMetric===o[0]?'active':'')+'" onclick="setProgMetric(\''+o[0]+'\')">'+o[1]+'</button>'});
   h+='</div>';
-  h+='<div style="position:relative;margin-bottom:8px"><div id="prog-chart"></div><div id="prog-tip" style="display:none;position:absolute;top:8px;min-width:150px;background:var(--card);border:1px solid var(--border);border-radius:6px;padding:8px 10px;font-size:12px;pointer-events:none;box-shadow:0 2px 8px rgba(0,0,0,.15)"></div></div>';
+  h+='<div style="position:relative;overflow-x:auto"><div id="prog-chart"></div><div id="prog-tip" style="display:none;position:absolute;top:8px;min-width:150px;background:var(--card);border:1px solid var(--border);border-radius:6px;padding:8px 10px;font-size:12px;pointer-events:none;box-shadow:0 2px 8px rgba(0,0,0,.15)"></div></div>';
 
-  h+='<div class="section-title">Day by day</div>';
-  h+='<p style="font-size:12px;color:var(--t3);margin-bottom:10px">Teams decided since the previous date, with what each did to '+player+'\'s points. Faded chips went against '+player+'.</p>';
+  h+='<details id="prog-table"'+(progTableOpen?' open':'')+' ontoggle="progTableOpen=this.open" style="margin:6px 0 4px">';
+  h+='<summary style="cursor:pointer;font-size:13px;font-weight:600;color:var(--t2);padding:4px 0">Day by day for '+player+'</summary>';
+  h+='<div style="overflow-x:auto">';
   var cols='95px 45px 1fr 60px 75px 50px';
-  h+='<div style="display:grid;grid-template-columns:'+cols+';gap:8px;padding:4px 10px;font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.5px"><span>Games through</span><span>Open</span><span>Decided</span><span>Locked</span><span>Projected</span><span>Rank</span></div>';
-  series.forEach(function(s,i){
-    var sc=s.scores[player];
-    h+='<div class="trow" style="grid-template-columns:'+cols+'">';
-    h+='<span class="mono">'+fmtDay(s.d)+'</span>';
-    h+='<span class="mono">'+s.n+'</span>';
+  h+='<div style="display:grid;grid-template-columns:'+cols+';gap:8px;padding:4px 10px;font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;min-width:600px"><span>Games through</span><span>Open</span><span>Decided</span><span>Locked</span><span>Projected</span><span>Rank</span></div>';
+  series.forEach(function(x,i){
+    var sc=x.scores[player];
+    h+='<div class="trow" onclick="setDay('+i+')" style="grid-template-columns:'+cols+';cursor:pointer;min-width:600px'+(i===sel?';outline:2px solid var(--accent);outline-offset:-2px':'')+'">';
+    h+='<span class="mono">'+fmtDay(x.d)+'</span><span class="mono">'+x.n+'</span>';
     h+='<div style="display:flex;flex-wrap:wrap;gap:3px">';
     if(i===0)h+='<span style="font-size:12px;color:var(--t3)">Start of the window</span>';
-    else if(!s.newly.length)h+='<span style="font-size:12px;color:var(--t3)">None</span>';
-    s.newly.forEach(function(n){
-      var pk=D.picks[n.team]&&D.picks[n.team][player];
-      var right=pk&&pk[1]===n.out;
-      h+='<span class="chip chip-'+(n.out==='OVER'?'o':'u')+' '+(right?'bright':'faded')+'">'+sn(n.team)+' '+n.out+(pk?' '+(right?'+':'-')+pk[0]:'')+'</span>';
-    });
+    else if(!x.newly.length)h+='<span style="font-size:12px;color:var(--t3)">None</span>';
+    x.newly.forEach(function(n){h+=decidedChips(n,player)});
     h+='</div>';
-    h+='<span class="mono" style="color:'+col(sc.locked)+'">'+fmtPts(sc.locked)+'</span>';
-    h+='<span class="mono" style="color:'+col(sc.total)+'">'+fmtPts(sc.total)+'</span>';
-    h+='<span class="mono">'+progRank(s,player)+'</span>';
-    h+='</div>';
+    h+='<span class="mono" style="color:'+(sc.locked>=0?'var(--over)':'var(--under)')+'">'+fmtPts(sc.locked)+'</span>';
+    h+='<span class="mono" style="color:'+(sc.total>=0?'var(--over)':'var(--under)')+'">'+fmtPts(sc.total)+'</span>';
+    h+='<span class="mono">'+progRank(x,player)+'</span></div>';
   });
+  h+='</div></details>';
   el.innerHTML=h;
-  document.getElementById('prog-chart').innerHTML=progChart(series,player,progMetric,el.clientWidth);
+  document.getElementById('prog-chart').innerHTML=progChart(series,player,progMetric,el.clientWidth,sel);
 }
 
 var razorAdaptive=true;
 function toggleRazor(){razorAdaptive=!razorAdaptive;renderAll()}
 var tabDefs=[
   {id:'rooting',label:'Rooting Guide',needsPlayer:true,render:renderTab1},
-  {id:'progress',label:'Progression',needsPlayer:true,render:renderTab6},
   {id:'tonight',label:"Tonight's Games",needsPlayer:false,render:renderTab2},
   {id:'pace',label:'Pace & Projections',needsPlayer:false,render:renderTab3},
   {id:'sched',label:'Schedule Strength',needsPlayer:false,render:renderTab5},
@@ -533,6 +578,12 @@ var tabDefs=[
 ];
 var activeTab='rooting',activePlayer=P[0]||'Chester';
 function renderAll(){
+  var top=document.getElementById('progression');
+  if(!top&&hasProg()){top=document.createElement('div');top.id='progression';top.style.marginBottom='8px';var tabsEl=document.getElementById('tabs');tabsEl.parentNode.insertBefore(top,tabsEl)}
+  // The header's date line says which date the tabs are showing
+  var dl=document.querySelector('.date-line');
+  if(dl){if(dl.dataset.base===undefined)dl.dataset.base=dl.innerHTML;dl.innerHTML=dl.dataset.base+(viewingPast()?' &middot; <strong>Showing games through '+fmtDay(H.snaps[progDay].d)+'</strong>':'')}
+  if(top){try{renderProgression(top)}catch(e){top.innerHTML='<div class="error-box">Render error in progression:\n'+e.message+'</div>';console.error(e)}}
   document.getElementById('tabs').innerHTML=tabDefs.map(function(t){return '<div class="tab '+(t.id===activeTab?'active':'')+'" onclick="switchTab(\''+t.id+'\')">'+t.label+'</div>'}).join('');
   var panel=document.getElementById('panels');var def=tabDefs.filter(function(t){return t.id===activeTab})[0];
   var h='';
@@ -552,6 +603,13 @@ function renderAll(){
 }
 function switchTab(id){activeTab=id;renderAll()}
 function switchPlayer(p){activePlayer=p;renderAll()}
+// A ?date=YYYY-MM-DD link opens on that date
+if(hasProg()){
+  var qd=null;try{qd=new URL(window.location.href).searchParams.get('date')}catch(e){}
+  var qi=qd?H.snaps.map(function(x){return x.d}).indexOf(qd):-1;
+  progDay=qi>=0?qi:lastDay();
+  if(progDay!==lastDay()){var qdd=dayData(progDay);D.teams=qdd.teams;D.todaysGames=qdd.todaysGames}
+}
 try{renderAll()}catch(e){
   document.getElementById('tabs').innerHTML='<div class="tab active">Error</div>';
   document.getElementById('panels').innerHTML='<div class="error-box">Fatal render error:\n'+e.message+'\n\nStack: '+(e.stack||'')
