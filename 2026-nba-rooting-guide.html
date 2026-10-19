@@ -188,7 +188,14 @@ const H={"teams":["Atlanta Hawks","Boston Celtics","Brooklyn Nets","Charlotte Ho
 
 const SN={"Atlanta Hawks":"Hawks","Boston Celtics":"Celtics","Brooklyn Nets":"Nets","Charlotte Hornets":"Hornets","Chicago Bulls":"Bulls","Cleveland Cavaliers":"Cavs","Detroit Pistons":"Pistons","Indiana Pacers":"Pacers","Miami Heat":"Heat","Milwaukee Bucks":"Bucks","New York Knicks":"Knicks","Orlando Magic":"Magic","Philadelphia 76ers":"76ers","Toronto Raptors":"Raptors","Washington Wizards":"Wizards","Dallas Mavericks":"Mavs","Denver Nuggets":"Nuggets","Golden State Warriors":"Warriors","Houston Rockets":"Rockets","Los Angeles Clippers":"Clippers","Los Angeles Lakers":"Lakers","Memphis Grizzlies":"Grizzlies","Minnesota Timberwolves":"Wolves","New Orleans Pelicans":"Pelicans","Oklahoma City Thunder":"Thunder","Phoenix Suns":"Suns","Portland Trail Blazers":"Blazers","Sacramento Kings":"Kings","San Antonio Spurs":"Spurs","Utah Jazz":"Jazz"};
 const sn=t=>SN[t]||t;
-function teamTracking(t,teams){const td=(teams||D.teams)[t];return td.winPct>td.wp/82?'OVER':'UNDER'}
+// The season page's rule: win % against the line's win %, each rounded to two
+// decimals of a percent; equal (or no games yet) is a push worth 0 points
+function teamTracking(t,teams){
+  const td=(teams||D.teams)[t];
+  if(td.w+td.l===0)return'PUSH';
+  const cur=+(td.w/(td.w+td.l)*100).toFixed(2),line=+(td.wp/82*100).toFixed(2);
+  return cur>line?'OVER':cur<line?'UNDER':'PUSH';
+}
 // teams defaults to today's D.teams; the Progression tab passes a past snapshot
 function getScore(p,teams){
   teams=teams||D.teams;
@@ -203,7 +210,7 @@ function getScore(p,teams){
     }
     else{
       const tracking=teamTracking(t,teams);
-      const pts=tracking===choice?wage:-wage;
+      const pts=tracking==='PUSH'?0:tracking===choice?wage:-wage;
       pending+=pts;
       if(pts>0)projW.push(wage);
       undecided.push({team:t,wage,choice,tracking,pts,wtg:td.wtg,ltg:td.ltg,rem:td.rem,w:td.w,l:td.l,wp:td.wp,pWins:td.pWins});
@@ -302,15 +309,15 @@ function renderTab1(el,player){
   h+='<div class="section-title">Team-by-team breakdown</div>';
   h+='<div style="display:grid;grid-template-columns:120px 60px 50px 50px 1fr 60px 60px;gap:8px;padding:4px 10px;font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.5px"><span>Team</span><span>Pick</span><span>Record</span><span>Target</span><span>Progress</span><span>To Over</span><span>To Under</span></div>';
   teams.forEach(function(t){
-    var onTrack=t.pts>0;
+    var onTrack=t.pts>0,push=t.pts===0;
     var pct=t.rem>0?(t.choice==='OVER'?(t.wtg!==null?Math.max(0,1-t.wtg/t.rem):1):(t.ltg!==null?Math.max(0,1-t.ltg/t.rem):1)):0;
-    var barCol=onTrack?'var(--over)':'var(--under)';
+    var barCol=push?'var(--gold)':onTrack?'var(--over)':'var(--under)';
     h+='<div class="trow" style="grid-template-columns:120px 60px 50px 50px 1fr 60px 60px">';
     h+='<span class="team-name">'+sn(t.team)+'</span>';
     h+='<span><span class="pill-sm pill-'+t.choice.toLowerCase()+'">'+t.wage+' '+t.choice[0]+'</span></span>';
     h+='<span class="mono">'+t.w+'-'+t.l+'</span>';
     h+='<span class="mono" style="color:var(--t3)">'+t.wp+'</span>';
-    h+='<div style="display:flex;align-items:center;gap:6px"><div class="prog-wrap"><div class="prog-fill" style="width:'+pct*100+'%;background:'+barCol+'"></div></div><span class="mono" style="font-size:10px;color:'+(onTrack?'var(--over)':'var(--under)')+'">'+(onTrack?'On track':'Behind')+'</span></div>';
+    h+='<div style="display:flex;align-items:center;gap:6px"><div class="prog-wrap"><div class="prog-fill" style="width:'+pct*100+'%;background:'+barCol+'"></div></div><span class="mono" style="font-size:10px;color:'+barCol+'">'+(push?'On pace (push)':onTrack?'On track':'Behind')+'</span></div>';
     h+='<span class="mono" style="text-align:center;color:var(--t2)">'+(t.wtg!==null?t.wtg:'-')+'</span>';
     h+='<span class="mono" style="text-align:center;color:var(--t2)">'+(t.ltg!==null?t.ltg:'-')+'</span>';
     h+='</div>';
@@ -442,7 +449,7 @@ function renderTab4(el,player){
     h+='<span class="team-name">'+sn(r.team)+'</span>';
     h+='<span><span class="pill-sm pill-'+r.choice.toLowerCase()+'">'+r.wage+r.choice[0]+'</span></span>';
     h+='<span class="mono">'+r.w+'-'+r.l+'</span>';
-    h+='<span class="pill-sm pill-'+r.tracking.toLowerCase()+'" style="font-size:9px">'+r.tracking+'</span>';
+    h+=r.tracking==='PUSH'?'<span class="pill-sm" style="font-size:9px;color:var(--gold);border:1px solid var(--gold)">PUSH</span>':'<span class="pill-sm pill-'+r.tracking.toLowerCase()+'" style="font-size:9px">'+r.tracking+'</span>';
     h+='<span style="font-size:12px;color:'+(r.sameDir>=4?'var(--over)':r.sameDir<=2?'var(--under)':'var(--gold)')+'">'+r.sameDir+'/'+(P.length-1)+'</span>';
     h+='<div style="display:flex;flex-wrap:wrap;gap:3px">';
     r.othersData.forEach(function(o){
@@ -794,7 +801,7 @@ function renderProgression(el){
     if(cut)h+='<div style="font-size:11px;color:var(--t3);padding:2px 10px 4px">Playoff cutoff: the top '+PLAYOFF_SPOTS+' make the playoffs</div>';
   });
   h+='</div></div>';
-  h+='<p style="font-size:12px;color:var(--t3);margin:6px 0 4px">Ties on points go to more picks correct, then more correct 15s, 14s, 13s, and 12s. Correct counts open teams on the side their pace points to. '+tieNotes(st).join(' ')+'</p>';
+  h+='<p style="font-size:12px;color:var(--t3);margin:6px 0 4px">Ties on points go to more picks correct, then more correct 15s, 14s, 13s, and 12s. Projected points and picks correct count each open team on the side its pace points to; a team exactly on pace is a push, worth 0. '+tieNotes(st).join(' ')+'</p>';
 
   h+='<details id="prog-table"'+(progTableOpen?' open':'')+' ontoggle="progTableOpen=this.open" style="margin:6px 0 4px">';
   h+='<summary style="cursor:pointer;font-size:13px;font-weight:600;color:var(--t2);padding:4px 0">Day by day for '+player+'</summary>';
