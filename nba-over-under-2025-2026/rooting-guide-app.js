@@ -20,16 +20,18 @@
 
 const SN={"Atlanta Hawks":"Hawks","Boston Celtics":"Celtics","Brooklyn Nets":"Nets","Charlotte Hornets":"Hornets","Chicago Bulls":"Bulls","Cleveland Cavaliers":"Cavs","Detroit Pistons":"Pistons","Indiana Pacers":"Pacers","Miami Heat":"Heat","Milwaukee Bucks":"Bucks","New York Knicks":"Knicks","Orlando Magic":"Magic","Philadelphia 76ers":"76ers","Toronto Raptors":"Raptors","Washington Wizards":"Wizards","Dallas Mavericks":"Mavs","Denver Nuggets":"Nuggets","Golden State Warriors":"Warriors","Houston Rockets":"Rockets","Los Angeles Clippers":"Clippers","Los Angeles Lakers":"Lakers","Memphis Grizzlies":"Grizzlies","Minnesota Timberwolves":"Wolves","New Orleans Pelicans":"Pelicans","Oklahoma City Thunder":"Thunder","Phoenix Suns":"Suns","Portland Trail Blazers":"Blazers","Sacramento Kings":"Kings","San Antonio Spurs":"Spurs","Utah Jazz":"Jazz"};
 const sn=t=>SN[t]||t;
-function teamTracking(t){const td=D.teams[t];return td.winPct>td.wp/82?'OVER':'UNDER'}
-function getScore(p){
+function teamTracking(t,teams){const td=(teams||D.teams)[t];return td.winPct>td.wp/82?'OVER':'UNDER'}
+// teams defaults to today's D.teams; the Progression tab passes a past snapshot
+function getScore(p,teams){
+  teams=teams||D.teams;
   let locked=0,pending=0,correct=0,wrong=0,undecided=[];
-  for(const[t,td]of Object.entries(D.teams)){
+  for(const[t,td]of Object.entries(teams)){
     if(!D.picks[t]||!D.picks[t][p]){continue}
     const[wage,choice]=D.picks[t][p];
     if(td.det==='OVER'){choice==='OVER'?(locked+=wage,correct++):(locked-=wage,wrong++)}
     else if(td.det==='UNDER'){choice==='UNDER'?(locked+=wage,correct++):(locked-=wage,wrong++)}
     else{
-      const tracking=teamTracking(t);
+      const tracking=teamTracking(t,teams);
       const pts=tracking===choice?wage:-wage;
       pending+=pts;
       undecided.push({team:t,wage,choice,tracking,pts,wtg:td.wtg,ltg:td.ltg,rem:td.rem,w:td.w,l:td.l,wp:td.wp,pWins:td.pWins});
@@ -375,10 +377,155 @@ function renderTab5(el){
   el.innerHTML=h;
 }
 
+// ── Tab 6: Progression ─────────────────────────────────────────────────────
+// H (injected by R) holds one snapshot per date from the first day with
+// H.maxOpen or fewer teams open. Each is scored with getScore, so a date's
+// numbers match what the Rooting Guide tab showed after those games.
+var progMetric='total',progState=null;
+function setProgMetric(m){progMetric=m;renderAll()}
+function fmtPts(v){return(v>0?'+':'')+v}
+function fmtDay(d){var p=d.split('-');return['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+p[1]-1]+' '+(+p[2])}
+function niceStep(r){if(r<=0)return 1;var e=Math.pow(10,Math.floor(Math.log10(r))),f=r/e;return(f<=1?1:f<=2?2:f<=5?5:10)*e}
+
+function progSeries(){
+  if(typeof H==='undefined'||!H||!H.snaps)return[];
+  return H.snaps.map(function(s,i){
+    var teams={};
+    H.teams.forEach(function(t,j){
+      var r=s.r[j],w=r[0],l=r[1];
+      teams[t]={w:w,l:l,det:r[2]==='O'?'OVER':r[2]==='U'?'UNDER':'not yet',wp:D.teams[t].wp,winPct:w+l>0?w/(w+l):0,wtg:null,ltg:null,rem:0,pWins:0};
+    });
+    var scores={};P.forEach(function(p){scores[p]=getScore(p,teams)});
+    var newly=[];
+    if(i>0){var prev=H.snaps[i-1];H.teams.forEach(function(t,j){if(s.r[j][2]&&!prev.r[j][2])newly.push({team:t,out:s.r[j][2]==='O'?'OVER':'UNDER'})})}
+    return{d:s.d,n:s.n,scores:scores,newly:newly};
+  });
+}
+
+// Rank by projected total; players level on points share the rank
+function progRank(s,p){
+  var v=s.scores[p].total,above=0,tie=false;
+  P.forEach(function(q){if(q===p)return;var u=s.scores[q].total;if(u>v)above++;else if(u===v)tie=true});
+  return(tie?'T-':'')+(above+1);
+}
+
+function progChart(series,player,metric,width){
+  var W=Math.max(320,Math.round(width)),HT=290,m={l:40,r:92,t:14,b:30};
+  var x0=Date.parse(series[0].d),span=Math.max(1,Date.parse(series[series.length-1].d)-x0);
+  var xs=function(d){return series.length===1?(m.l+W-m.r)/2:m.l+(Date.parse(d)-x0)/span*(W-m.l-m.r)};
+  var vals=[];series.forEach(function(s){P.forEach(function(p){vals.push(s.scores[p][metric])})});
+  var lo=Math.min(0,Math.min.apply(null,vals)),hi=Math.max(0,Math.max.apply(null,vals));
+  var step=niceStep((hi-lo)/5);lo=Math.floor(lo/step)*step;hi=Math.ceil(hi/step)*step;if(hi===lo)hi=lo+step;
+  var ys=function(v){return m.t+(hi-v)/(hi-lo)*(HT-m.t-m.b)};
+  var h='<svg viewBox="0 0 '+W+' '+HT+'" width="'+W+'" height="'+HT+'" style="display:block;touch-action:pan-y" onpointermove="progHover(event)" onpointerleave="progHover(null)" role="img" aria-label="'+(metric==='total'?'Projected total':'Locked points')+' for each player by date">';
+  for(var v=lo;v<=hi+1e-9;v+=step){
+    h+='<line x1="'+m.l+'" x2="'+(W-m.r)+'" y1="'+ys(v)+'" y2="'+ys(v)+'" style="stroke:'+(v===0?'var(--t3)':'var(--border)')+';stroke-width:1"/>';
+    h+='<text x="'+(m.l-6)+'" y="'+(ys(v)+4)+'" text-anchor="end" style="fill:var(--t3);font-size:11px">'+fmtPts(v)+'</text>';
+  }
+  // Date labels at least 56px apart, always keeping the first and last date
+  var tickIdx=[0];
+  series.forEach(function(s,i){if(i>0&&xs(s.d)-xs(series[tickIdx[tickIdx.length-1]].d)>=56)tickIdx.push(i)});
+  var lastIx=series.length-1;
+  if(tickIdx[tickIdx.length-1]!==lastIx){if(tickIdx.length>1&&xs(series[lastIx].d)-xs(series[tickIdx[tickIdx.length-1]].d)<56)tickIdx.pop();tickIdx.push(lastIx)}
+  tickIdx.forEach(function(ix){h+='<text x="'+xs(series[ix].d)+'" y="'+(HT-10)+'" text-anchor="middle" style="fill:var(--t3);font-size:11px">'+fmtDay(series[ix].d)+'</text>'});
+  var order=P.filter(function(p){return p!==player}).concat([player]);
+  order.forEach(function(p){
+    var sel=p===player;
+    var pts=series.map(function(s){return xs(s.d).toFixed(1)+','+ys(s.scores[p][metric]).toFixed(1)}).join(' ');
+    h+='<polyline points="'+pts+'" style="fill:none;stroke:'+(sel?'var(--accent)':'var(--t3)')+';stroke-width:'+(sel?2.5:1.5)+';stroke-opacity:'+(sel?1:.45)+';stroke-linejoin:round"/>';
+    if(sel)series.forEach(function(s){h+='<circle cx="'+xs(s.d)+'" cy="'+ys(s.scores[p][metric])+'" r="4" style="fill:var(--accent);stroke:var(--card);stroke-width:2"/>'});
+  });
+  // Direct labels at each line's end, nudged apart so they never overlap
+  var last=series[series.length-1];
+  var labs=P.map(function(p){return{p:p,v:last.scores[p][metric],y:ys(last.scores[p][metric])}}).sort(function(a,b){return a.y-b.y});
+  for(var i=1;i<labs.length;i++)if(labs[i].y-labs[i-1].y<13)labs[i].y=labs[i-1].y+13;
+  var over=labs.length?labs[labs.length-1].y-(HT-m.b):0;
+  if(over>0)labs.forEach(function(l){l.y-=over});
+  labs.forEach(function(l){
+    var sel=l.p===player;
+    h+='<text x="'+(W-m.r+8)+'" y="'+(l.y+4)+'" style="fill:'+(sel?'var(--t1)':'var(--t2)')+';font-size:12px;font-weight:'+(sel?700:400)+'">'+l.p+' '+fmtPts(l.v)+'</text>';
+  });
+  h+='<line id="prog-cross" x1="0" x2="0" y1="'+m.t+'" y2="'+(HT-m.b)+'" style="stroke:var(--t2);stroke-width:1;stroke-dasharray:3 3;visibility:hidden"/>';
+  h+='</svg>';
+  progState={series:series,player:player,metric:metric,W:W,xs:series.map(function(s){return xs(s.d)}),m:m};
+  return h;
+}
+
+function progHover(evt){
+  var cross=document.getElementById('prog-cross'),tip=document.getElementById('prog-tip');
+  if(!cross||!tip||!progState)return;
+  if(!evt){cross.style.visibility='hidden';tip.style.display='none';return}
+  var svg=evt.currentTarget,rect=svg.getBoundingClientRect();
+  var x=(evt.clientX-rect.left)*progState.W/rect.width;
+  var best=0;progState.xs.forEach(function(px,i){if(Math.abs(px-x)<Math.abs(progState.xs[best]-x))best=i});
+  var s=progState.series[best],px=progState.xs[best];
+  cross.setAttribute('x1',px);cross.setAttribute('x2',px);cross.style.visibility='visible';
+  var rows=P.slice().sort(function(a,b){return s.scores[b][progState.metric]-s.scores[a][progState.metric]});
+  var t='<div style="font-weight:700;margin-bottom:4px">Games through '+fmtDay(s.d)+' &middot; '+s.n+' open</div>';
+  rows.forEach(function(p){var sel=p===progState.player;t+='<div style="display:flex;justify-content:space-between;gap:12px;'+(sel?'font-weight:700;color:var(--t1)':'color:var(--t2)')+'"><span>'+p+'</span><span class="mono">'+fmtPts(s.scores[p][progState.metric])+'</span></div>'});
+  tip.innerHTML=t;tip.style.display='block';
+  var left=px*rect.width/progState.W+12;
+  if(left+tip.offsetWidth>rect.width)left=px*rect.width/progState.W-tip.offsetWidth-12;
+  tip.style.left=Math.max(0,left)+'px';
+}
+
+function renderTab6(el,player){
+  var series=progSeries();
+  var maxOpen=(typeof H!=='undefined'&&H&&H.maxOpen)||20;
+  if(!series.length){
+    var openNow=Object.values(D.teams).filter(function(t){return t.det==='not yet'}).length;
+    el.innerHTML='<p style="color:var(--t3)">The progression starts once '+maxOpen+' or fewer teams are still open. '+openNow+' teams are open now.</p>';
+    return;
+  }
+  var first=series[0],last=series[series.length-1];
+  var a=first.scores[player],b=last.scores[player];
+  var card=function(label,big,color,sub){return '<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 20px"><div style="font-size:11px;color:var(--t3)">'+label+'</div><div style="font-size:24px;font-weight:800;font-family:JetBrains Mono;color:'+color+'">'+big+'</div><div style="font-size:11px;color:var(--t3)">'+sub+'</div></div>'};
+  var col=function(v){return v>=0?'var(--over)':'var(--under)'};
+  var h='<div style="display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap">';
+  h+=card('Rank, games through '+fmtDay(first.d),progRank(first,player),'var(--t1)','Projected '+fmtPts(a.total)+' with '+first.n+' teams open');
+  h+=card((last.n?'Rank now, ':'Final rank, ')+'through '+fmtDay(last.d),progRank(last,player),'var(--t1)','Projected '+fmtPts(b.total)+(last.n?' with '+last.n+' teams open':', all teams decided'));
+  h+=card('Locked points since '+fmtDay(first.d),fmtPts(b.locked-a.locked),col(b.locked-a.locked),fmtPts(a.locked)+' to '+fmtPts(b.locked));
+  h+='</div>';
+
+  h+='<div class="section-title">How the points moved</div>';
+  h+='<p style="font-size:12px;color:var(--t3);margin-bottom:10px">From the first day with '+maxOpen+' or fewer teams still open. Projected counts every open team on the side its pace points to, as the Rooting Guide tab does; locked counts only teams already decided.</p>';
+  h+='<div class="player-row"><span class="label">Show</span>';
+  [['total','Projected total'],['locked','Locked points']].forEach(function(o){h+='<button class="pp '+(progMetric===o[0]?'active':'')+'" onclick="setProgMetric(\''+o[0]+'\')">'+o[1]+'</button>'});
+  h+='</div>';
+  h+='<div style="position:relative;margin-bottom:8px"><div id="prog-chart"></div><div id="prog-tip" style="display:none;position:absolute;top:8px;min-width:150px;background:var(--card);border:1px solid var(--border);border-radius:6px;padding:8px 10px;font-size:12px;pointer-events:none;box-shadow:0 2px 8px rgba(0,0,0,.15)"></div></div>';
+
+  h+='<div class="section-title">Day by day</div>';
+  h+='<p style="font-size:12px;color:var(--t3);margin-bottom:10px">Teams decided since the previous date, with what each did to '+player+'\'s points. Faded chips went against '+player+'.</p>';
+  var cols='95px 45px 1fr 60px 75px 50px';
+  h+='<div style="display:grid;grid-template-columns:'+cols+';gap:8px;padding:4px 10px;font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.5px"><span>Games through</span><span>Open</span><span>Decided</span><span>Locked</span><span>Projected</span><span>Rank</span></div>';
+  series.forEach(function(s,i){
+    var sc=s.scores[player];
+    h+='<div class="trow" style="grid-template-columns:'+cols+'">';
+    h+='<span class="mono">'+fmtDay(s.d)+'</span>';
+    h+='<span class="mono">'+s.n+'</span>';
+    h+='<div style="display:flex;flex-wrap:wrap;gap:3px">';
+    if(i===0)h+='<span style="font-size:12px;color:var(--t3)">Start of the window</span>';
+    else if(!s.newly.length)h+='<span style="font-size:12px;color:var(--t3)">None</span>';
+    s.newly.forEach(function(n){
+      var pk=D.picks[n.team]&&D.picks[n.team][player];
+      var right=pk&&pk[1]===n.out;
+      h+='<span class="chip chip-'+(n.out==='OVER'?'o':'u')+' '+(right?'bright':'faded')+'">'+sn(n.team)+' '+n.out+(pk?' '+(right?'+':'-')+pk[0]:'')+'</span>';
+    });
+    h+='</div>';
+    h+='<span class="mono" style="color:'+col(sc.locked)+'">'+fmtPts(sc.locked)+'</span>';
+    h+='<span class="mono" style="color:'+col(sc.total)+'">'+fmtPts(sc.total)+'</span>';
+    h+='<span class="mono">'+progRank(s,player)+'</span>';
+    h+='</div>';
+  });
+  el.innerHTML=h;
+  document.getElementById('prog-chart').innerHTML=progChart(series,player,progMetric,el.clientWidth);
+}
+
 var razorAdaptive=true;
 function toggleRazor(){razorAdaptive=!razorAdaptive;renderAll()}
 var tabDefs=[
   {id:'rooting',label:'Rooting Guide',needsPlayer:true,render:renderTab1},
+  {id:'progress',label:'Progression',needsPlayer:true,render:renderTab6},
   {id:'tonight',label:"Tonight's Games",needsPlayer:false,render:renderTab2},
   {id:'pace',label:'Pace & Projections',needsPlayer:false,render:renderTab3},
   {id:'sched',label:'Schedule Strength',needsPlayer:false,render:renderTab5},

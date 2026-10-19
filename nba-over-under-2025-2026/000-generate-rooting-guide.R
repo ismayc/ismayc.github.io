@@ -19,13 +19,17 @@ library(glue)
 
 cat("Generating rooting guide...\n")
 
+# The season is over, so rebuild it as of a past date: GUIDE_DATE=2026-04-13
+# reproduces the final page (games through April 12, 2026)
+guide_date <- as.Date(Sys.getenv("GUIDE_DATE", as.character(Sys.Date())))
+
 # -- 1. Read determined outcomes -----------------------------------------------
 outcomes_file <- paste0(
-  "nba-over-under-2025-2026/determined_outcomes/determined_outcomes_", Sys.Date(), ".rds"
+  "nba-over-under-2025-2026/determined_outcomes/determined_outcomes_", guide_date, ".rds"
 )
 if (!file.exists(outcomes_file)) {
   outcomes_file <- paste0(
-    "nba-over-under-2025-2026/determined_outcomes/determined_outcomes_", Sys.Date() - 1, ".rds"
+    "nba-over-under-2025-2026/determined_outcomes/determined_outcomes_", guide_date - 1, ".rds"
   )
 }
 stopifnot(file.exists(outcomes_file))
@@ -57,17 +61,17 @@ cat("  Picks columns:", paste(names(picks_wide_clean), collapse = ", "), "\n")
 schedule <- read_csv("nba-over-under-2025-2026/schedule-2025-26-after-ist.csv",
                      show_col_types = FALSE)
 todays_games <- schedule %>%
-  filter(game_date == Sys.Date()) %>%
+  filter(game_date == guide_date) %>%
   select(away_team, home_team)
 cat("  Today's games:", nrow(todays_games), "\n")
 
 # -- 3b. Read standings (for rest-candidate computation) -----------------------
 standings_file <- paste0(
-  "nba-over-under-2025-2026/rds/standings_through_", Sys.Date() - 1, ".rds"
+  "nba-over-under-2025-2026/rds/standings_through_", guide_date - 1, ".rds"
 )
 if (!file.exists(standings_file)) {
   standings_file <- paste0(
-    "nba-over-under-2025-2026/rds/standings_through_", Sys.Date() - 2, ".rds"
+    "nba-over-under-2025-2026/rds/standings_through_", guide_date - 2, ".rds"
   )
 }
 if (file.exists(standings_file)) {
@@ -183,7 +187,7 @@ if (!is.null(standings) && "conference" %in% names(standings)) {
 
 # -- 4c. Attach remaining schedule + restCandidate to each team ----------------
 remaining_games <- schedule %>%
-  filter(game_date >= Sys.Date())
+  filter(game_date >= guide_date)
 
 cat("  Remaining games in schedule:", nrow(remaining_games), "\n")
 
@@ -258,6 +262,15 @@ data_json <- toJSON(
 )
 cat("  JSON data size:", nchar(data_json), "bytes\n")
 
+# -- 4d. Progression tab history -----------------------------------------------
+source("nba-over-under-2026-2027/11-rooting-guide-history.R")
+history_json <- toJSON(
+  rooting_guide_history("nba-over-under-2025-2026/determined_outcomes",
+                        names(teams_list), 20,
+                        as.Date(str_extract(outcomes_file, "\\d{4}-\\d{2}-\\d{2}"))),
+  auto_unbox = TRUE, pretty = FALSE
+)
+
 # -- 5. Read JS template -------------------------------------------------------
 js_file <- "nba-over-under-2025-2026/rooting-guide-app.js"
 stopifnot(file.exists(js_file))
@@ -265,7 +278,7 @@ js_code <- paste(readLines(js_file, warn = FALSE), collapse = "\n")
 cat("  Read JS from:", js_file, "\n")
 
 # -- 6. Assemble HTML ----------------------------------------------------------
-data_date <- format(Sys.Date() - 1, "%B %d, %Y")
+data_date <- format(guide_date - 1, "%B %d, %Y")
 rem_range <- out_table %>%
   summarize(lo = min(`Remaining Games`), hi = max(`Remaining Games`))
 
@@ -317,6 +330,7 @@ html_output <- paste0(
   '<style>', css_block, '</style>\n',
   '</head>\n<body>\n',
   '<div class="shell">\n',
+  '<a class="back" href="2026-nba-over-under.html">&larr; 2025-26 season page</a>\n',
   '<h1>NBA Over/Under Rooting Guide</h1>\n',
   '<div class="date-line">Season 2025-26 &middot; Data through ', data_date,
   ' &middot; ', rem_range$lo, '-', rem_range$hi, ' games remaining per team</div>\n',
@@ -325,6 +339,7 @@ html_output <- paste0(
   '</div>\n',
   '<script>\nconst D=', data_json, ';\n',
   'const P=', players_json, ';\n',
+  'const H=', history_json, ';\n',
   js_code, '\n</script>\n',
   '</body>\n</html>'
 )
@@ -333,8 +348,8 @@ html_output <- paste0(
 out_dir <- "docs"
 if (!dir.exists(out_dir)) dir.create(out_dir, recursive = TRUE)
 out_path <- file.path(out_dir, "2026-nba-rooting-guide.html")
-file.copy(from = out_path, to = "2026-nba-rooting-guide.html", overwrite = TRUE)
 writeLines(html_output, out_path)
+file.copy(from = out_path, to = "2026-nba-rooting-guide.html", overwrite = TRUE)
 cat("  Wrote:", out_path, "\n")
 
 cat("Rooting guide complete!\n")
