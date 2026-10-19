@@ -100,6 +100,11 @@
     </div>
   </section>
 
+  <section id="method">
+    <h2>How this was worked out</h2>
+    <div class="note method" id="method-text"></div>
+  </section>
+
   <section id="swing">
     <h2>Teams with the biggest sway</h2>
     <div class="card">
@@ -181,10 +186,6 @@
     <div class="grid3" id="diff-grid"></div>
   </section>
 
-  <section id="method">
-    <h2>How this was worked out</h2>
-    <div class="note method" id="method-text"></div>
-  </section>
 </div>
 
 <script>
@@ -220,7 +221,7 @@ const DATA = __DATA__;
       <li><b>Rank the entries with the pool's tiebreakers:</b> points, then number of picks right, then number of 15s right. Entries still tied share first place equally.</li>
     </ol>
     <p>A player's chance to win is the share of simulated seasons they finish first. The rooting guide compares each player's chance in the seasons where a team went Over with the seasons where it went Under, and a team's sway is how much the whole field's chances shift between those two groups. The "League runs 2 under/over" scenarios move every team two wins after step 3.</p>
-    <p><b>What it cannot see:</b> because every team is centered on its line, every entry is expected to score about 0, and the chances differ only by how each entry overlaps the rest of the field. Run on 2021-22 to 2025-26, the favorite won 2 of 5 seasons and the winners averaged 13.4% going in, close to even. Built by 08-preseason-pool-analysis.R in the season folder.</p>`;
+    <p><b>What it cannot see:</b> because every team is centered on its line, every entry is expected to score about 0, and the chances differ only by how each entry overlaps the rest of the field. Run on 2021-22 to 2025-26, the favorite won 2 of 5 seasons and the winners averaged 13.4% going in, close to even.</p>`;
 
   function tipOn(box, tip, ev, lines) {
     const [mx, my] = d3.pointer(ev, box);
