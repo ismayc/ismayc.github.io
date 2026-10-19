@@ -33,7 +33,11 @@
   .tip div { display: flex; justify-content: space-between; gap: 12px; }
   .tip div span:first-child { display: inline-flex; align-items: center; gap: 5px; }
   .tip i { width: 10px; height: 3px; border-radius: 2px; display: inline-block; }
-  footer { color: var(--ink-soft); font-size: .9rem; line-height: 1.45; }
+  footer { color: var(--ink-soft); font-size: .95rem; line-height: 1.45; }
+  footer h2 { color: var(--ink); margin-top: 28px; }
+  footer ol { padding-left: 22px; }
+  footer li { margin-bottom: 5px; }
+  footer b { color: var(--ink); }
 </style>
 </head>
 <body>
@@ -48,7 +52,15 @@
   </ul>
   <div id="charts"></div>
   <footer>
-    <p>Model: each team's remaining games are simulated 100,000 times from its record, pulled toward its Vegas line (the line counts as 20 games), with the team's true win rate drawn from a beta distribution at half weight (<code>chance_by_date</code> in 09-season-graphics.R). Readings are weekly from the day before opening night; each line stops at the last one, six days before the season ended, and the labels give each player's final place.</p>
+    <h2>How the simulations work</h2>
+    <p>This is the model behind the daily page's chance-to-win chart (<code>chance_by_date</code> in 09-season-graphics.R), run on each past season's real records once a week. Each reading comes from 100,000 simulated finishes to the season. In each one:</p>
+    <ol>
+      <li><b>Estimate how good each team is.</b> Its record so far is blended with its Vegas line, with the line counted as 20 games played at the line's pace (a 49.5-win line is a .604 pace, so it adds about 12 wins and 8 losses). Early on the line dominates; by spring the record does.</li>
+      <li><b>Allow for doubt about that estimate.</b> Each simulation draws the team's true win rate from a beta distribution centered on that blend, with the evidence counted at half weight. Without this step, teams given 88% chances to finish Over did so only 69% of the time over these five seasons.</li>
+      <li><b>Play out the remaining games</b> at that drawn rate. Opponents, home court, and rest are not modeled.</li>
+      <li><b>Grade every pick and rank the entries.</b> A team is Over if its final wins beat the line. Entries gain their wager on a right pick and lose it on a wrong one, then rank by points, number right, and 15s right. Entries still tied share the place.</li>
+    </ol>
+    <p>A player's chance is the share of the 100,000 finishes they win. Every week reuses the same random draws, so changes come from games played, not simulation noise. Readings are weekly from the day before opening night; each line stops at the last one, six days before the season ended, and the labels give each player's final place.</p>
     <p>A caution from this run: leads at 70 to 90% held only 3 of 13 weekly readings, and players under 1% went on to win 4% of the time, so the model has been too sure at both ends. Weekly readings within a season are not independent, so this rests mostly on Mike J in 2021-22, Jake in 2025-26, and Phil in 2025-26.</p>
   </footer>
 </main>

@@ -26,6 +26,10 @@
   .lede { margin: 1rem 0 0; max-width: 62ch; font-size: 1.15rem; line-height: 1.5; }
   .lede b { font-weight: 600; }
   .note { margin: 0; color: var(--muted); font-size: 0.9rem; max-width: 75ch; }
+  .method p { margin: 0 0 8px; }
+  .method ol { margin: 0 0 10px; padding-left: 22px; }
+  .method li { margin-bottom: 5px; }
+  .method b { color: var(--fg); }
   .pending { margin: 0.9rem 0 0; color: var(--warn); font-size: 0.92rem; padding-left: 10px; border-left: 3px solid var(--warn); }
   .stamp { margin: 0.4rem 0 0; color: var(--muted); font-size: 0.85rem; }
   section { display: grid; gap: 1rem; }
@@ -179,7 +183,7 @@
 
   <section id="method">
     <h2>How this was worked out</h2>
-    <p class="note" id="method-text"></p>
+    <div class="note method" id="method-text"></div>
   </section>
 </div>
 
@@ -204,8 +208,19 @@ const DATA = __DATA__;
     ? `Not in yet: ${M.missing.join(', ')} (deadline ${M.deadline}). These numbers cover the ${P.length} entries submitted so far.`
     : `All ${P.length} entries are in.`;
   document.getElementById('stamp').textContent = `Generated ${M.generated} from the submissions Sheet.`;
-  document.getElementById('method-text').textContent =
-    `${d3.format(',')(M.n_sims)} simulated seasons. Each team's wins are its ${M.lines_as_of} Vegas consensus line plus random error with a standard deviation of ${M.noise_sd.toFixed(1)} wins (the lines missed by ${M.line_mae} wins on average over 2021-26, and no published projection beat them). Each simulated season is rebalanced so the league totals 1,230 wins; the lines add to ${d3.format(',')(M.line_sum)}, which tilts the board slightly toward Under. Scoring follows the pool: plus the wager when right, minus it when wrong; ties go to more picks correct, then more 15s correct. The "League runs 2 under/over" scenarios move every team's wins by two. Built by 08-preseason-pool-analysis.R in the season folder.`;
+  // Every value here is a number or fixed text from 08, so innerHTML is safe
+  const shave = (M.line_sum - 1230) / 30;
+  document.getElementById('method-text').innerHTML =
+    `<p>The page plays out the 2026-27 season ${d3.format(',')(M.n_sims)} times. Each simulated season goes like this:</p>
+    <ol>
+      <li><b>Start each team at its line.</b> The center is the ${M.lines_as_of} Vegas consensus line (the average across the sportsbooks that list the team). No published projection had a smaller average miss than the lines over 2021-26, so nothing is added on top of them.</li>
+      <li><b>Add a random miss.</b> Each team gets its own random error from a bell curve with a standard deviation of ${M.noise_sd.toFixed(1)} wins. That size matches history: the lines missed final records by ${M.line_mae} wins on average, and a bell curve whose average miss is ${M.line_mae} has a standard deviation of ${M.line_mae} &times; 1.25.</li>
+      <li><b>Make the league add up.</b> Real seasons have exactly 1,230 wins, so every team in the simulated season moves by the same amount until the 30 totals sum to 1,230. The lines add to ${d3.format(',')(M.line_sum)}, so on average this takes ${shave.toFixed(2)} wins off each team, a slight lean to Under. Totals are then kept between 0 and 82.</li>
+      <li><b>Grade every pick.</b> A team is Over if its simulated wins beat the line. Each entry gains its wager on a right pick and loses it on a wrong one.</li>
+      <li><b>Rank the entries with the pool's tiebreakers:</b> points, then number of picks right, then number of 15s right. Entries still tied share first place equally.</li>
+    </ol>
+    <p>A player's chance to win is the share of simulated seasons they finish first. The rooting guide compares each player's chance in the seasons where a team went Over with the seasons where it went Under, and a team's sway is how much the whole field's chances shift between those two groups. The "League runs 2 under/over" scenarios move every team two wins after step 3.</p>
+    <p><b>What it cannot see:</b> because every team is centered on its line, every entry is expected to score about 0, and the chances differ only by how each entry overlaps the rest of the field. Run on 2021-22 to 2025-26, the favorite won 2 of 5 seasons and the winners averaged 13.4% going in, close to even. Built by 08-preseason-pool-analysis.R in the season folder.</p>`;
 
   function tipOn(box, tip, ev, lines) {
     const [mx, my] = d3.pointer(ev, box);
