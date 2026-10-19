@@ -111,9 +111,13 @@ jobs:
           Rscript nba-over-under-2026-2027/make_plot_html.R
 
       # Apply the site theme and season strip to the fresh render, and copy
-      # it to the repo root (the published copy) alongside docs/.
+      # it to the repo root (the published copy) alongside docs/. The rooting
+      # guide goes first so the season page links to it.
       - name: Restyle season page
         run: |
+          if [ -f 2027-nba-rooting-guide.html ]; then
+            python3 nba-over-under-META/site-style/restyle_season_pages.py guide 2027
+          fi
           python3 nba-over-under-META/site-style/restyle_season_pages.py season 2027
 
       - name: Push changes

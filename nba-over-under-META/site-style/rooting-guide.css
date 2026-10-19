@@ -1,0 +1,49 @@
+/* The rooting guide (000-generate-rooting-guide.R + rooting-guide-app.js) in
+   the scorer's-book theme. The app colors its markup with these variables,
+   so they map onto the theme's tokens; restyle_season_pages.py replaces the
+   guide's original dark stylesheet with ou-theme.css plus this file. */
+:root {
+  --bg: var(--paper); --card: var(--sheet); --card2: #f3f5ef; --border: var(--rule);
+  --t1: var(--ink); --t2: var(--ink-soft); --t3: #6b7588;
+  --over-bg: rgba(36, 87, 166, 0.09); --under-bg: rgba(184, 50, 47, 0.09);
+  --over-border: rgba(36, 87, 166, 0.35); --under-border: rgba(184, 50, 47, 0.35);
+  --accent: var(--ink); --gold: var(--warn); --purple: var(--alt);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body { font-family: var(--font-body); background: var(--paper); color: var(--ink); min-height: 100vh; font-size: 16px; line-height: 1.45; }
+.shell { max-width: 72rem; margin: 0 auto; padding: 2rem max(16px, env(safe-area-inset-right, 0px)) 4rem max(16px, env(safe-area-inset-left, 0px)); }
+h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(2.4rem, 7vw, 4rem); line-height: 0.95; margin: 0 0 0.35rem; }
+.back { display: inline-block; margin-bottom: 0.6rem; font-size: 0.95rem; color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
+.date-line { font-size: 0.92rem; color: var(--ink-soft); margin-bottom: 1.5rem; }
+.tabs { display: flex; gap: 0; margin-bottom: 1.25rem; border-bottom: 1px solid var(--rule); overflow-x: auto; }
+.tab { padding: 0.45rem 0.9rem 0.5rem; font-size: 0.95rem; font-weight: 600; color: var(--ink-soft); cursor: pointer; border-bottom: 3px solid transparent; white-space: nowrap; }
+.tab:hover { color: var(--ink); background: rgba(28, 42, 68, 0.05); }
+.tab.active { color: var(--ink); border-color: var(--ink); }
+.panel { display: none; } .panel.active { display: block; }
+/* Fixed-width table rows scroll inside the tab on a phone instead of widening the page */
+#tab-content { overflow-x: auto; }
+#tab-content div[style*="grid-template-columns"]:not([style*="1fr 1fr"]) { min-width: 600px; }
+.player-row { display: flex; gap: 6px; margin-bottom: 1rem; flex-wrap: wrap; align-items: center; }
+.player-row .label { font-size: 0.75rem; font-weight: 600; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.06em; margin-right: 4px; }
+.pp { padding: 0.3rem 0.8rem; border-radius: 2px; font-size: 0.9rem; font-weight: 600; cursor: pointer; border: 1px solid var(--rule); background: var(--sheet); color: var(--ink); font-family: inherit; }
+.pp:hover { border-color: var(--ink-soft); }
+.pp.active { background: var(--ink); border-color: var(--ink); color: var(--sheet); }
+.section-title { font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; line-height: 1.05; color: var(--ink); margin: 1.6rem 0 0.75rem; padding-top: 8px; border-top: 2px solid var(--ink); display: flex; align-items: center; gap: 8px; }
+.trow { display: grid; align-items: center; padding: 0.4rem 0.6rem; font-size: 0.92rem; gap: 8px; border-bottom: 1px solid var(--rule-faint); }
+.trow:nth-child(odd) { background: rgba(28, 42, 68, 0.025); } .trow:nth-child(even) { background: transparent; }
+.team-name { font-weight: 600; color: var(--ink); font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mono { font-family: var(--font-body); font-variant-numeric: tabular-nums; font-size: 0.9rem; }
+.pill-sm { display: inline-block; padding: 1px 7px; border-radius: 2px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.02em; }
+.pill-over { background: var(--over-bg); color: var(--over); border: 1px solid var(--over-border); }
+.pill-under { background: var(--under-bg); color: var(--under); border: 1px solid var(--under-border); }
+.prog-wrap { height: 6px; background: var(--rule-faint); border-radius: 3px; overflow: hidden; flex: 1; }
+.prog-fill { height: 100%; border-radius: 3px; }
+.game-card { background: var(--sheet); border: 1px solid var(--rule); border-radius: 2px; padding: 1rem 1.1rem; margin-bottom: 0.75rem; }
+.game-matchup { font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; margin-bottom: 0.6rem; display: flex; align-items: center; gap: 8px; }
+.game-at { color: var(--ink-soft); font-family: var(--font-body); font-weight: 400; font-size: 0.85rem; }
+.chip { display: inline-block; padding: 2px 8px; border-radius: 2px; font-size: 0.8rem; font-weight: 600; margin: 2px; }
+.chip-o { background: var(--over-bg); color: var(--over); border: 1px solid var(--over-border); }
+.chip-u { background: var(--under-bg); color: var(--under); border: 1px solid var(--under-border); }
+.faded { opacity: 0.45; } .bright { opacity: 1; }
+.error-box { background: #fbeceb; border: 1px solid var(--under); border-radius: 2px; padding: 14px; margin: 12px 0; color: var(--under); font-size: 0.9rem; white-space: pre-wrap; }
+@media (max-width: 640px) { .tab { padding: 0.45rem 0.65rem 0.5rem; font-size: 0.9rem; } }

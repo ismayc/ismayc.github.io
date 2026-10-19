@@ -22,6 +22,10 @@ Run from the repo root:
       nba-over-under-2025-2026/playoffs/playoffs.json. Run it before `past`
       (or `season`) so the season page links to it.
 
+  python3 nba-over-under-META/site-style/restyle_season_pages.py guide 2027
+      Put 2027-nba-rooting-guide.html (from 000-generate-rooting-guide.R) in
+      the site theme. Run it after every regeneration of the guide.
+
 Every injected block sits between OU-THEME markers, so rerunning replaces it.
 """
 import csv
@@ -526,6 +530,34 @@ def do_playoffs(year):
     write_both(name, text)
 
 
+GUIDE_CSS = (HERE / "rooting-guide.css").read_text()
+
+
+def do_guide(year):
+    """Put a season's rooting guide (000-generate-rooting-guide.R) in the site
+    theme, with the season strip. Safe to rerun on an already themed guide."""
+    name = f"{year}-nba-rooting-guide.html"
+    text = strip_old((ROOT / name).read_text())
+    # The generator's own dark stylesheet and fonts
+    text = re.sub(r'<link href="https://fonts.googleapis.com/css2\?family=Outfit[^>]*>\n?', "", text)
+    text = re.sub(r"<style>.*?</style>\n?", "", text, count=1, flags=re.S)
+    # Agree/disagree tints the app writes inline: green and pink to Over blue and Under red
+    text = (text.replace("rgba(16,185,129,.08)", "rgba(36,87,166,.08)")
+                .replace("rgba(244,63,94,.08)", "rgba(184,50,47,.08)")
+            # The app's inline monospace: big numbers in the display face, the rest in the body face
+                .replace("font-weight:800;font-family:JetBrains Mono", "font-weight:800;font-family:var(--font-display)")
+                .replace("font-family:JetBrains Mono", "font-family:var(--font-body)"))
+    title = f"NBA Over/Under {season_label(year)} rooting guide"
+    desc = f"Who each player in the {season_label(year)} NBA over/under pool should root for, team by team and game by game."
+    text = text.replace("</head>", START + head_meta(name, title, desc) + FONTS
+                        + f"<style>{THEME}\n{GUIDE_CSS}</style>" + END + "</head>", 1)
+    text = re.sub(r"<body([^>]*)>", lambda m: _body_open(m.group(1)), text, count=1)
+    body_at = re.search(r"<body[^>]*>", text).end()
+    strip = masthead(year, "Current season" if year < CURRENT_YEAR else "In progress")
+    text = text[:body_at] + START + strip + END + text[body_at:]
+    write_both(name, text)
+
+
 def do_season(year):
     name = f"{year}-nba-over-under.html"
     text = (ROOT / "docs" / name).read_text()
@@ -549,5 +581,7 @@ if __name__ == "__main__":
         do_season(int(sys.argv[2]))
     elif mode == "playoffs" and len(sys.argv) == 3:
         do_playoffs(int(sys.argv[2]))
+    elif mode == "guide" and len(sys.argv) == 3:
+        do_guide(int(sys.argv[2]))
     else:
         sys.exit(__doc__)

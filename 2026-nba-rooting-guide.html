@@ -4,48 +4,157 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NBA Over/Under Rooting Guide</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
+<!-- OU-THEME:start --><link rel="icon" href="nba-over-under-assets/favicon.svg" type="image/svg+xml"><link rel="icon" href="nba-over-under-assets/favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="nba-over-under-assets/apple-touch-icon.png"><meta property="og:type" content="website"><meta property="og:title" content="NBA Over/Under 2025-26 rooting guide"><meta property="og:description" content="Who each player in the 2025-26 NBA over/under pool should root for, team by team and game by game."><meta property="og:url" content="https://ismayc.github.io/2026-nba-rooting-guide.html"><meta property="og:image" content="https://ismayc.github.io/nba-over-under-assets/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Source+Sans+3:wght@400;600&display=swap"><style>/* NBA over/under site theme: a scorer's book.
+   Pale ruled scorebook paper, navy ink, blue pencil for Over, red pencil for
+   Under. One deliberate light theme: the season pages embed plotly charts
+   with white backgrounds baked in, so every page stays on paper.
+   Source of truth for the 2027 page and the restyled 2021-2026 pages;
+   restyle_season_pages.py inlines it. */
+:root {
+  --paper: #edf1e8;
+  --sheet: #fafbf7;
+  --rule: #cdd6c6;
+  --rule-faint: #dfe5d9;
+  --ink: #1c2a44;
+  --ink-soft: #56627a;
+  --over: #2457a6;
+  --under: #b8322f;
+  --alt: #6b5a9e;
+  --warn: #8a5a00;
+  --font-display: "Big Shoulders Display", "Arial Narrow", "Helvetica Neue", sans-serif;
+  --font-body: "Source Sans 3", "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+  color-scheme: light;
+}
+
+/* Season strip: the history masthead on every page */
+.ou-masthead {
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--rule-faint) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rule-faint) 1px, transparent 1px);
+  background-size: 24px 24px;
+  border-bottom: 2px solid var(--ink);
+  padding: 18px max(16px, env(safe-area-inset-right, 0px)) 0 max(16px, env(safe-area-inset-left, 0px));
+  font-family: var(--font-body);
+  color: var(--ink);
+}
+.ou-masthead-inner { max-width: 72rem; margin: 0 auto; }
+.ou-kicker { margin: 0 0 10px; font-size: 0.9rem; color: var(--ink-soft); }
+.ou-kicker a { color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
+.ou-seasons {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(9rem, 1fr);
+  overflow-x: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-left: 1px solid var(--rule);
+}
+.ou-seasons li { border-right: 1px solid var(--rule); }
+.ou-seasons a {
+  display: grid;
+  gap: 2px;
+  padding: 8px 12px 12px;
+  color: var(--ink);
+  text-decoration: none;
+  border-top: 4px solid transparent;
+}
+.ou-seasons a:hover { background: rgba(28, 42, 68, 0.05); text-decoration: none; }
+.ou-seasons a:focus-visible { outline: 2px solid var(--over); outline-offset: -2px; }
+.ou-seasons .yr {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.6rem;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.ou-seasons .who { font-size: 0.82rem; color: var(--ink-soft); white-space: nowrap; }
+.ou-seasons .who b { color: var(--ink); font-weight: 600; }
+.ou-seasons [aria-current="page"] { background: var(--ink); color: var(--sheet); border-top-color: var(--under); }
+.ou-seasons [aria-current="page"] .who,
+.ou-seasons [aria-current="page"] .who b { color: var(--sheet); }
+
+/* Shared page base */
+.ou-page { background: var(--paper); color: var(--ink); font-family: var(--font-body); }
+.ou-page h1, .ou-page h2, .ou-page h3 { color: var(--ink); text-wrap: balance; }
+.ou-page a { color: var(--over); }
+
+/* Wide tables on narrow screens (ou-scroll-hint.js adds these) */
+.ou-scroll-box { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.ou-scroll-frame { position: relative; min-width: 0; }
+.ou-scroll-hint { display: none; }
+.ou-scroll-frame.is-over > .ou-scroll-hint {
+  display: flex; align-items: center; gap: 0.35rem;
+  margin: 0 0 0.4rem; font-family: var(--font-body); font-size: 0.82rem;
+  font-weight: 600; color: var(--ink-soft);
+}
+.ou-scroll-frame.is-over > .ou-scroll-hint::after {
+  content: "\2192"; font-size: 1rem; color: var(--ink);
+  animation: ou-nudge 1.2s ease-in-out 3;
+}
+@keyframes ou-nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
+.ou-scroll-frame.is-over::after {
+  content: ""; position: absolute; top: 1.6rem; right: 0; bottom: 0; width: 18px;
+  pointer-events: none; transition: opacity 0.2s;
+  background: linear-gradient(to right, rgba(28, 42, 68, 0), rgba(28, 42, 68, 0.22));
+}
+.ou-scroll-frame.is-over.at-end::after { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .ou-scroll-frame.is-over > .ou-scroll-hint::after { animation: none; }
+}
+
+/* The rooting guide (000-generate-rooting-guide.R + rooting-guide-app.js) in
+   the scorer's-book theme. The app colors its markup with these variables,
+   so they map onto the theme's tokens; restyle_season_pages.py replaces the
+   guide's original dark stylesheet with ou-theme.css plus this file. */
+:root {
+  --bg: var(--paper); --card: var(--sheet); --card2: #f3f5ef; --border: var(--rule);
+  --t1: var(--ink); --t2: var(--ink-soft); --t3: #6b7588;
+  --over-bg: rgba(36, 87, 166, 0.09); --under-bg: rgba(184, 50, 47, 0.09);
+  --over-border: rgba(36, 87, 166, 0.35); --under-border: rgba(184, 50, 47, 0.35);
+  --accent: var(--ink); --gold: var(--warn); --purple: var(--alt);
+}
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#0b0f19;--card:#111827;--card2:#1a2236;--border:#1e293b;--t1:#f1f5f9;--t2:#94a3b8;--t3:#475569;--over:#10b981;--under:#f43f5e;--over-bg:rgba(16,185,129,.1);--under-bg:rgba(244,63,94,.1);--over-border:rgba(16,185,129,.25);--under-border:rgba(244,63,94,.25);--accent:#3b82f6;--gold:#f59e0b;--purple:#a78bfa}
-body{font-family:"Outfit",sans-serif;background:var(--bg);color:var(--t1);min-height:100vh}
-.shell{max-width:1080px;margin:0 auto;padding:20px 16px 60px}
-h1{font-size:28px;font-weight:800;letter-spacing:-.5px;margin-bottom:2px}
-.back{display:inline-block;margin-bottom:10px;font-size:13px;color:var(--t2);text-decoration:none}.back:hover{color:var(--t1)}
-.date-line{font-size:12px;color:var(--t3);margin-bottom:24px;font-family:"JetBrains Mono",monospace}
-.tabs{display:flex;gap:4px;margin-bottom:20px;border-bottom:1px solid var(--border);padding-bottom:0;overflow-x:auto}
-.tab{padding:10px 16px;font-size:13px;font-weight:600;color:var(--t3);cursor:pointer;border-bottom:2px solid transparent;transition:.15s;white-space:nowrap}
-.tab:hover{color:var(--t2)}.tab.active{color:var(--accent);border-color:var(--accent)}
-.panel{display:none}.panel.active{display:block}
+body { font-family: var(--font-body); background: var(--paper); color: var(--ink); min-height: 100vh; font-size: 16px; line-height: 1.45; }
+.shell { max-width: 72rem; margin: 0 auto; padding: 2rem max(16px, env(safe-area-inset-right, 0px)) 4rem max(16px, env(safe-area-inset-left, 0px)); }
+h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(2.4rem, 7vw, 4rem); line-height: 0.95; margin: 0 0 0.35rem; }
+.back { display: inline-block; margin-bottom: 0.6rem; font-size: 0.95rem; color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
+.date-line { font-size: 0.92rem; color: var(--ink-soft); margin-bottom: 1.5rem; }
+.tabs { display: flex; gap: 0; margin-bottom: 1.25rem; border-bottom: 1px solid var(--rule); overflow-x: auto; }
+.tab { padding: 0.45rem 0.9rem 0.5rem; font-size: 0.95rem; font-weight: 600; color: var(--ink-soft); cursor: pointer; border-bottom: 3px solid transparent; white-space: nowrap; }
+.tab:hover { color: var(--ink); background: rgba(28, 42, 68, 0.05); }
+.tab.active { color: var(--ink); border-color: var(--ink); }
+.panel { display: none; } .panel.active { display: block; }
 /* Fixed-width table rows scroll inside the tab on a phone instead of widening the page */
-#tab-content{overflow-x:auto}
-#tab-content div[style*="grid-template-columns"]:not([style*="1fr 1fr"]){min-width:600px}
-.player-row{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
-.player-row .label{font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-right:4px}
-.pp{padding:5px 13px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--t2);font-family:inherit;transition:.12s}
-.pp:hover{border-color:var(--t3);color:var(--t1)}.pp.active{background:var(--accent);border-color:var(--accent);color:#fff}
-.section-title{font-size:16px;font-weight:700;color:var(--t1);margin:20px 0 12px;display:flex;align-items:center;gap:8px}
-.trow{display:grid;align-items:center;padding:7px 10px;border-radius:6px;font-size:13px;gap:8px}
-.trow:nth-child(odd){background:rgba(255,255,255,.02)}.trow:nth-child(even){background:transparent}
-.team-name{font-weight:600;color:var(--t1);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.mono{font-family:"JetBrains Mono",monospace;font-size:12px}
-.pill-sm{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;letter-spacing:.5px}
-.pill-over{background:var(--over-bg);color:var(--over);border:1px solid var(--over-border)}
-.pill-under{background:var(--under-bg);color:var(--under);border:1px solid var(--under-border)}
-.prog-wrap{height:6px;background:var(--border);border-radius:3px;overflow:hidden;flex:1}
-.prog-fill{height:100%;border-radius:3px;transition:width .3s}
-.game-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:10px}
-.game-matchup{font-size:15px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.game-at{color:var(--t3);font-weight:400;font-size:12px}
-.chip{display:inline-block;padding:3px 8px;border-radius:10px;font-size:11px;font-weight:600;margin:2px}
-.chip-o{background:var(--over-bg);color:var(--over);border:1px solid var(--over-border)}
-.chip-u{background:var(--under-bg);color:var(--under);border:1px solid var(--under-border)}
-.faded{opacity:.4}.bright{opacity:1}
-.error-box{background:#2d1215;border:1px solid #7f1d1d;border-radius:8px;padding:14px;margin:12px 0;color:#fca5a5;font-size:13px;font-family:"JetBrains Mono",monospace;white-space:pre-wrap}
-@media(max-width:640px){.tabs{gap:0}.tab{padding:8px 10px;font-size:12px}h1{font-size:22px}}
-</style>
-</head>
-<body>
+#tab-content { overflow-x: auto; }
+#tab-content div[style*="grid-template-columns"]:not([style*="1fr 1fr"]) { min-width: 600px; }
+.player-row { display: flex; gap: 6px; margin-bottom: 1rem; flex-wrap: wrap; align-items: center; }
+.player-row .label { font-size: 0.75rem; font-weight: 600; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.06em; margin-right: 4px; }
+.pp { padding: 0.3rem 0.8rem; border-radius: 2px; font-size: 0.9rem; font-weight: 600; cursor: pointer; border: 1px solid var(--rule); background: var(--sheet); color: var(--ink); font-family: inherit; }
+.pp:hover { border-color: var(--ink-soft); }
+.pp.active { background: var(--ink); border-color: var(--ink); color: var(--sheet); }
+.section-title { font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; line-height: 1.05; color: var(--ink); margin: 1.6rem 0 0.75rem; padding-top: 8px; border-top: 2px solid var(--ink); display: flex; align-items: center; gap: 8px; }
+.trow { display: grid; align-items: center; padding: 0.4rem 0.6rem; font-size: 0.92rem; gap: 8px; border-bottom: 1px solid var(--rule-faint); }
+.trow:nth-child(odd) { background: rgba(28, 42, 68, 0.025); } .trow:nth-child(even) { background: transparent; }
+.team-name { font-weight: 600; color: var(--ink); font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mono { font-family: var(--font-body); font-variant-numeric: tabular-nums; font-size: 0.9rem; }
+.pill-sm { display: inline-block; padding: 1px 7px; border-radius: 2px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.02em; }
+.pill-over { background: var(--over-bg); color: var(--over); border: 1px solid var(--over-border); }
+.pill-under { background: var(--under-bg); color: var(--under); border: 1px solid var(--under-border); }
+.prog-wrap { height: 6px; background: var(--rule-faint); border-radius: 3px; overflow: hidden; flex: 1; }
+.prog-fill { height: 100%; border-radius: 3px; }
+.game-card { background: var(--sheet); border: 1px solid var(--rule); border-radius: 2px; padding: 1rem 1.1rem; margin-bottom: 0.75rem; }
+.game-matchup { font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; margin-bottom: 0.6rem; display: flex; align-items: center; gap: 8px; }
+.game-at { color: var(--ink-soft); font-family: var(--font-body); font-weight: 400; font-size: 0.85rem; }
+.chip { display: inline-block; padding: 2px 8px; border-radius: 2px; font-size: 0.8rem; font-weight: 600; margin: 2px; }
+.chip-o { background: var(--over-bg); color: var(--over); border: 1px solid var(--over-border); }
+.chip-u { background: var(--under-bg); color: var(--under); border: 1px solid var(--under-border); }
+.faded { opacity: 0.45; } .bright { opacity: 1; }
+.error-box { background: #fbeceb; border: 1px solid var(--under); border-radius: 2px; padding: 14px; margin: 12px 0; color: var(--under); font-size: 0.9rem; white-space: pre-wrap; }
+@media (max-width: 640px) { .tab { padding: 0.45rem 0.65rem 0.5rem; font-size: 0.9rem; } }
+</style><!-- OU-THEME:end --></head>
+<body class="ou-page"><!-- OU-THEME:start --><header class="ou-masthead"><div class="ou-masthead-inner"><p class="ou-kicker">NBA over/under pool. <a href="index.html">Chester Ismay</a> has tracked it here since 2020-21 and run it since 2025-26.</p><nav aria-label="Seasons"><ol class="ou-seasons"><li><a href="2021-nba-over-under.html"><span class="yr">2020-21</span><span class="who">Season: <b>Ryan</b> +125</span><span class="who">Playoffs: <b>Jake</b></span></a></li><li><a href="2022-nba-over-under.html"><span class="yr">2021-22</span><span class="who">Season: <b>Chester</b> +125</span><span class="who">Playoffs: <b>Chester</b></span></a></li><li><a href="2023-nba-over-under.html"><span class="yr">2022-23</span><span class="who">Season: <b>Jake</b> +61</span><span class="who">Playoffs: <b>Phil</b></span></a></li><li><a href="2024-nba-over-under.html"><span class="yr">2023-24</span><span class="who">Season: <b>Chester</b> +83</span><span class="who">Playoffs: <b>Chester</b></span></a></li><li><a href="2025-nba-over-under.html"><span class="yr">2024-25</span><span class="who">Season: <b>Chester</b> +35</span><span class="who">Playoffs: <b>Mike J</b></span></a></li><li><a href="2026-nba-over-under.html" aria-current="page"><span class="yr">2025-26</span><span class="who">Season: <b>Phil</b> -23</span><span class="who">Playoffs: <b>Phil</b></span></a></li><li><a href="2027-nba-over-under.html"><span class="yr">2026-27</span><span class="who">Current season</span></a></li></ol></nav></div></header><!-- OU-THEME:end -->
 <div class="shell">
 <a class="back" href="2026-nba-over-under.html">&larr; 2025-26 season page</a>
 <h1>NBA Over/Under Rooting Guide</h1>
@@ -167,11 +276,11 @@ function renderTab1(el,player){
   let h='<div style="display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap">';
   h+='<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 20px">';
   h+='<div style="font-size:11px;color:var(--t3)">Locked Points</div>';
-  h+='<div style="font-size:24px;font-weight:800;font-family:JetBrains Mono;color:'+(sc.locked>=0?'var(--over)':'var(--under)')+'">'+(sc.locked>=0?'+':'')+sc.locked+'</div>';
+  h+='<div style="font-size:24px;font-weight:800;font-family:var(--font-display);color:'+(sc.locked>=0?'var(--over)':'var(--under)')+'">'+(sc.locked>=0?'+':'')+sc.locked+'</div>';
   h+='<div style="font-size:11px;color:var(--t3)">'+sc.correct+'W / '+sc.wrong+'L of '+decided+' decided</div></div>';
   h+='<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 20px">';
   h+='<div style="font-size:11px;color:var(--t3)">Projected Total</div>';
-  h+='<div style="font-size:24px;font-weight:800;font-family:JetBrains Mono;color:'+(sc.total>=0?'var(--over)':'var(--under)')+'">'+(sc.total>=0?'+':'')+sc.total+'</div>';
+  h+='<div style="font-size:24px;font-weight:800;font-family:var(--font-display);color:'+(sc.total>=0?'var(--over)':'var(--under)')+'">'+(sc.total>=0?'+':'')+sc.total+'</div>';
   h+='<div style="font-size:11px;color:var(--t3)">'+undecidedCount+' teams still undecided</div></div></div>';
 
   h+='<div class="section-title">Root for these outcomes</div>';
@@ -316,7 +425,7 @@ function renderTab4(el,player){
   rows.sort(function(a,b){return b.oppositeDir-a.oppositeDir||b.wage-a.wage});
   var sc=getScore(player);
   var h='<div style="display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap">';
-  h+='<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 20px"><div style="font-size:11px;color:var(--t3)">Unique Picks</div><div style="font-size:24px;font-weight:800;font-family:JetBrains Mono;color:var(--purple)">'+rows.filter(function(r){return r.oppositeDir>=5}).length+'</div><div style="font-size:11px;color:var(--t3)">where 5+ others disagree</div></div>';
+  h+='<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 20px"><div style="font-size:11px;color:var(--t3)">Unique Picks</div><div style="font-size:24px;font-weight:800;font-family:var(--font-display);color:var(--purple)">'+rows.filter(function(r){return r.oppositeDir>=5}).length+'</div><div style="font-size:11px;color:var(--t3)">where 5+ others disagree</div></div>';
   h+='<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 20px"><div style="font-size:11px;color:var(--t3)">Biggest Outlier</div><div style="font-size:16px;font-weight:700;color:var(--t1)">'+(rows.length?sn(rows[0].team):'-')+'</div><div style="font-size:11px;color:var(--t3)">'+(rows.length?rows[0].oppositeDir+'/'+(P.length-1)+' others disagree':'')+'</div></div></div>';
   h+='<div class="section-title">Undecided teams where '+player+' diverges from the group</div>';
   h+='<div style="display:grid;grid-template-columns:120px 55px 50px 55px 60px 1fr;gap:8px;padding:4px 10px;font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.5px"><span>Team</span><span>'+player+'</span><span>Record</span><span>Tracking</span><span>Agree</span><span>Others\' Picks</span></div>';
@@ -330,7 +439,7 @@ function renderTab4(el,player){
     h+='<div style="display:flex;flex-wrap:wrap;gap:3px">';
     r.othersData.forEach(function(o){
       var agree=o.choice===r.choice;
-      h+='<span style="font-size:10px;padding:1px 5px;border-radius:6px;background:'+(agree?'rgba(16,185,129,.08)':'rgba(244,63,94,.08)')+';color:'+(agree?'var(--over)':'var(--under)')+'">'+o.player[0]+o.wage+o.choice[0]+'</span>';
+      h+='<span style="font-size:10px;padding:1px 5px;border-radius:6px;background:'+(agree?'rgba(36,87,166,.08)':'rgba(184,50,47,.08)')+';color:'+(agree?'var(--over)':'var(--under)')+'">'+o.player[0]+o.wage+o.choice[0]+'</span>';
     });
     h+='</div></div>';
   });
@@ -449,7 +558,7 @@ function renderAll(){
   var h='';
   if(def.needsPlayer){
     h+='<div class="player-row"><span class="label">Player</span>';
-    P.forEach(function(p){var sc=getScore(p);h+='<button class="pp '+(p===activePlayer?'active':'')+'" onclick="switchPlayer(\''+p+'\')">'+p+' <span style="opacity:.6;font-family:JetBrains Mono;font-size:10px">('+(sc.total>=0?'+':'')+sc.total+')</span></button>'});
+    P.forEach(function(p){var sc=getScore(p);h+='<button class="pp '+(p===activePlayer?'active':'')+'" onclick="switchPlayer(\''+p+'\')">'+p+' <span style="opacity:.6;font-family:var(--font-body);font-size:10px">('+(sc.total>=0?'+':'')+sc.total+')</span></button>'});
     h+='</div>';
   }
   h+='<div id="tab-content"></div>';panel.innerHTML=h;
