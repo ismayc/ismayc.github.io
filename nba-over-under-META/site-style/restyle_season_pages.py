@@ -389,10 +389,19 @@ def link_playoffs(text, year):
     """Point a season page's kicker at its playoffs page, when there is one."""
     if not (ROOT / playoffs_name(year)).exists():
         return text
-    return text.replace(
+    text = text.replace(
         '<p class="ou-kicker">',
         f'<p class="ou-kicker"><a href="{playoffs_name(year)}">'
         f'{season_label(year)} playoffs</a>. ', 1)
+    # And a button under the page title
+    champ = PLAYOFF_WINNERS.get(year)
+    label = f"{season_label(year)} playoffs" + (f": {champ} won" if champ else "")
+    button = (f'<p class="ou-playoffs-link"><a href="{playoffs_name(year)}">'
+              f'{html.escape(label)} &rarr;</a></p>')
+    author = re.search(r'<h4 class="author">.*?</h4>', text)
+    if author:
+        text = text[:author.end()] + START + button + END + text[author.end():]
+    return text
 
 
 def do_playoffs(year):

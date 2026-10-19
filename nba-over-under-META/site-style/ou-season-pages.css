@@ -161,3 +161,20 @@ body.ou-page iframe.ou-explorer {
   background: var(--sheet);
   margin: 0.75rem 0 1.5rem;
 }
+
+/* Button to the season's playoffs page, under the title */
+body.ou-page .ou-playoffs-link { margin: 12px 0 4px; }
+body.ou-page .ou-playoffs-link a {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: 0.01em;
+  color: var(--sheet);
+  background: var(--ink);
+  padding: 6px 14px 7px;
+  border-radius: 2px;
+  text-decoration: none;
+}
+body.ou-page .ou-playoffs-link a:hover { background: #2a3d60; }
+body.ou-page .ou-playoffs-link a:focus-visible { outline: 2px solid var(--over); outline-offset: 2px; }
