@@ -22,6 +22,7 @@ An eight-episode O'Reilly live series I host, every other Monday starting Octobe
 → [Series page](https://learning.oreilly.com/live-events/the-monday-morning-agent/0642572456054/)
 → [Episode pages, data, and code](https://ismayc.github.io/monday-morning-agent/)
 → [Trailer](https://www.youtube.com/watch?v=CfWT4FaiMls)
+→ [Episode 1 recap and video](https://www.oreilly.com/radar/building-an-ai-analyst-one-football-argument-at-a-time/) (also on [Substack](https://oreillyradar.substack.com/p/building-an-ai-analyst-one-football))
 :::
 
 ::: {.card}
