@@ -423,6 +423,53 @@ body.ou-page { margin: 0; background: var(--paper); color: var(--ink);
 """
 
 
+TIE_NAMES = {"Number (Wage 15) Correct": "15s", "Number (Wage 14) Correct": "14s",
+             "Number (Wage 13) Correct": "13s", "Number (Wage 12) Correct": "12s"}
+STANDINGS_RE = re.compile(r'(<script type="application/json" data-for="[^"]+"[^>]*>)(.*?)(</script>)', re.S)
+
+
+def latest_standings(text):
+    """Cut the Projected points table to the last date, in the 2026-27 layout.
+
+    The old table listed every date; the new one lists the final standings, one
+    column per tiebreaker that season used. Rows keep the page's own order. A
+    table already converted (it has a Rank column) is left alone.
+    """
+    for m in STANDINGS_RE.finditer(text):
+        try:
+            widget = json.loads(m.group(2))
+            x = widget["x"]
+            hdr = re.findall(r"<th>(.*?)<", x["container"].replace("<\\/", "<"))
+        except (KeyError, ValueError):
+            continue
+        if hdr[:3] == ["Rank", "Player", "Projected points"]:
+            return text
+        if hdr[1:5] != ["Date", "Player", "Projected Total Points", "Number Correct"]:
+            continue
+        rows = list(zip(*x["data"]))
+        last = max(r[1] for r in rows)
+        rows = [r for r in rows if r[1] == last]
+        tie = [TIE_NAMES[h] for h in hdr[5:]]
+        names = ["Rank", "Player", "Projected points", "Picks correct"] + tie
+        cols = [[str(i + 1) for i in range(len(rows))]] + [list(c) for c in zip(*[r[2:] for r in rows])]
+        container = ("<table class=\"display\">\n  <thead>\n    <tr>\n"
+                     + "".join(f"      <th>{n}</th>\n" for n in names) + "    </tr>\n  </thead>\n</table>")
+        x.pop("selection", None)
+        x.update(data=cols, container=container)
+        x["options"] = {"dom": "t", "pageLength": len(rows), "ordering": False, "autoWidth": False,
+                        "columnDefs": [{"className": "dt-right", "targets": [0] + list(range(2, len(names)))}]
+                                      + [{"name": n, "targets": i} for i, n in enumerate(names)],
+                        "order": [], "orderClasses": False, "lengthMenu": [len(rows), 10, 25, 50, 100]}
+        blob = json.dumps(widget, separators=(",", ":"), ensure_ascii=False).replace("</", "<\\/")
+        text = text[:m.start()] + m.group(1) + blob + m.group(3) + text[m.end():]
+        order = "picks correct" + "".join(f", then {t} correct" for t in tie)
+        note = (f"<p>The line under fourth place is the cutoff for the Over/Under playoffs. "
+                f"Ties are broken by {order}.</p>\n")
+        h4 = re.search(r'<h4>Games through [^<]*</h4>\n', text)
+        return text[:h4.end()] + note + text[h4.end():]
+    return text
+
+
 def do_past():
     for year in PAST_YEARS:
         name = f"{year}-nba-over-under.html"
@@ -432,6 +479,7 @@ def do_past():
         # Each page was last built after its season ended, so "today" is
         # stale on a finished season
         text = text.replace("<hr />\n<p>No NBA games are scheduled for today.</p>\n", "", 1)
+        text = latest_standings(text)
         text = add_chances(text, year)
         text = add_explorer(text, year)
         write_both(name, text)
