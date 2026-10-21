@@ -303,7 +303,7 @@ chance_chart <- function(chances, measure = c("p_first", "p_top4")) {
     ou_plotly()
 }
 
-# Recommendation 4: latest standings only, tiebreakers folded into one column
+# Recommendation 4: latest standings only, one column per tiebreaker
 standings_table <- function(projected_score) {
   latest <- projected_score |>
     filter(Date == max(Date)) |>
@@ -313,10 +313,10 @@ standings_table <- function(projected_score) {
     transmute(Rank = row_number(), Player,
               `Projected points` = `Projected Total Points`,
               `Picks correct` = `Number Correct`,
-              `15s / 14s / 13s / 12s correct` = paste(
-                `Number (Wage 15) Correct`, `Number (Wage 14) Correct`,
-                `Number (Wage 13) Correct`, `Number (Wage 12) Correct`,
-                sep = " / "))
+              `15s correct` = `Number (Wage 15) Correct`,
+              `14s correct` = `Number (Wage 14) Correct`,
+              `13s correct` = `Number (Wage 13) Correct`,
+              `12s correct` = `Number (Wage 12) Correct`)
   css <- tags$style(HTML(sprintf(
     "#proj_score table.dataTable tbody tr:nth-child(4) td { border-bottom: 3px solid %s !important; }",
     ou_col$ink)))
