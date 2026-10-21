@@ -428,7 +428,7 @@ TIE_NAMES = {"Number (Wage 15) Correct": "15s", "Number (Wage 14) Correct": "14s
 STANDINGS_RE = re.compile(r'(<script type="application/json" data-for="[^"]+"[^>]*>)(.*?)(</script>)', re.S)
 
 
-def latest_standings(text):
+def latest_standings(text, year):
     """Cut the Projected points table to the last date, in the 2026-27 layout.
 
     The old table listed every date; the new one lists the final standings, one
@@ -450,6 +450,19 @@ def latest_standings(text):
         last = max(r[1] for r in rows)
         rows = [r for r in rows if r[1] == last]
         tie = [TIE_NAMES[h] for h in hdr[5:]]
+        pool_tie = list(tie)
+        extra = HERE / "past-tiebreaks" / f"{year}.json"
+        counted = False
+        if tie == ["15s"] and extra.exists():
+            # The page only carried 15s; past_tiebreaks.R counted the rest from
+            # the picks. Check its totals against the page before adding them.
+            known = json.loads(extra.read_text())["players"]
+            for r in rows:
+                k = known[r[2]]
+                assert (r[3], r[4], r[5]) == (k["points"], k["correct"], k["w15"]), (year, r)
+            rows = [tuple(r) + tuple(known[r[2]][c] for c in ("w14", "w13", "w12")) for r in rows]
+            tie += ["14s", "13s", "12s"]
+            counted = True
         names = ["Rank", "Player", "Projected points", "Picks correct"] + tie
         cols = [[str(i + 1) for i in range(len(rows))]] + [list(c) for c in zip(*[r[2:] for r in rows])]
         container = ("<table class=\"display\">\n  <thead>\n    <tr>\n"
@@ -462,9 +475,12 @@ def latest_standings(text):
                         "order": [], "orderClasses": False, "lengthMenu": [len(rows), 10, 25, 50, 100]}
         blob = json.dumps(widget, separators=(",", ":"), ensure_ascii=False).replace("</", "<\\/")
         text = text[:m.start()] + m.group(1) + blob + m.group(3) + text[m.end():]
-        order = "picks correct" + "".join(f", then {t} correct" for t in tie)
+        order = "picks correct" + "".join(f", then {t} correct" for t in pool_tie)
         note = (f"<p>The line under fourth place is the cutoff for the Over/Under playoffs. "
                 f"Ties are broken by {order}.</p>\n")
+        if counted:
+            note = (note[:-5] + " The pool counted only 15s that season; the 14s, 13s, and 12s "
+                    "are counted from the picks for comparison.</p>\n")
         h4 = re.search(r'<h4>Games through [^<]*</h4>\n', text)
         return text[:h4.end()] + note + text[h4.end():]
     return text
@@ -479,7 +495,7 @@ def do_past():
         # Each page was last built after its season ended, so "today" is
         # stale on a finished season
         text = text.replace("<hr />\n<p>No NBA games are scheduled for today.</p>\n", "", 1)
-        text = latest_standings(text)
+        text = latest_standings(text, year)
         text = add_chances(text, year)
         text = add_explorer(text, year)
         write_both(name, text)
