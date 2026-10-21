@@ -363,7 +363,12 @@ function renderTab2(el){
   });
   // Every game is between decided teams, or (in the first days of a season,
   // when the data lists only teams that have played) between unlisted teams
-  if(!shown)h+='<p style="color:var(--t3)">'+D.todaysGames.length+(D.todaysGames.length===1?' game':' games')+(past?' that day':' tonight')+', none involving an undecided team in the data.</p>';
+  if(!shown){
+    var nListed=Object.keys(D.teams).length;
+    h+='<p style="color:var(--t3)">'+D.todaysGames.length+(D.todaysGames.length===1?' game':' games')+(past?' that day':' tonight')+', none involving an undecided team in the data.</p>';
+    if(nListed<30)h+='<p style="font-size:12px;color:var(--t3)">Early in the season: only '+nListed+' of 30 teams are in the data so far, because a team is added after its first game. Stakes for each player appear here once a team in a game has played.</p>';
+    else h+='<p style="font-size:12px;color:var(--t3)">Every team in these games has already clinched its over or under, so no pick is still at stake.</p>';
+  }
   el.innerHTML=h;
 }
 
@@ -478,7 +483,15 @@ function renderTab5(el){
     return;
   }
 
+  var maxGP=0,minGP=999,nT=0;
+  for(var k in D.teams){var gp=D.teams[k].w+D.teams[k].l;nT++;maxGP=Math.max(maxGP,gp);minGP=Math.min(minGP,gp)}
+  if(nT<30)minGP=0;
   var h='<div class="section-title">Remaining Schedule Strength</div>';
+  if(minGP<20){
+    h+='<p style="font-size:12px;color:var(--t3)">Rankings are hidden until the data firms up. Opponent strength uses current win%, which rests on at most '+maxGP+' games per team so far'+(nT<30?', and '+(30-nT)+' teams have not played yet':'')+'. They appear once every team has played 20 games.</p>';
+    el.innerHTML=h;
+    return;
+  }
   h+='<p style="font-size:12px;color:var(--t3);margin-bottom:6px">Opponent strength based on current win%. Click a team to expand its remaining games.</p>';
   h+='<p style="font-size:11px;color:var(--t3);margin-bottom:16px">';
   h+='&#x1F4A4; = Opponent has mathematically clinched their conference seed (top 6) and may rest starters. "Eff. Str." discounts these opponents by 15%.';
