@@ -313,10 +313,10 @@ standings_table <- function(projected_score) {
     transmute(Rank = row_number(), Player,
               `Projected points` = `Projected Total Points`,
               `Picks correct` = `Number Correct`,
-              `15s` = `Number (Wage 15) Correct`,
-              `14s` = `Number (Wage 14) Correct`,
-              `13s` = `Number (Wage 13) Correct`,
-              `12s` = `Number (Wage 12) Correct`)
+              `15s correct` = `Number (Wage 15) Correct`,
+              `14s correct` = `Number (Wage 14) Correct`,
+              `13s correct` = `Number (Wage 13) Correct`,
+              `12s correct` = `Number (Wage 12) Correct`)
   css <- tags$style(HTML(sprintf(
     "#proj_score table.dataTable tbody tr:nth-child(4) td { border-bottom: 3px solid %s !important; }",
     ou_col$ink)))
