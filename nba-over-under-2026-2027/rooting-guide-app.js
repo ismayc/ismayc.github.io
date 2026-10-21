@@ -320,7 +320,7 @@ function renderTab5(el){
   if(nT<30)minGP=0;
   var h='<div class="section-title">Remaining Schedule Strength</div>';
   if(minGP<20){
-    h+='<p style="font-size:12px;color:var(--t3)">Rankings are hidden until the data firms up. Opponent strength uses current win%, which rests on at most '+maxGP+' games per team so far'+(nT<30?', and '+(30-nT)+' teams have not played yet':'')+'. They appear once every team has played 20 games.</p>';
+    h+='<p style="font-size:12px;color:var(--t3)">Rankings are hidden until the data firms up. Opponent strength uses current win%, which rests on at most '+maxGP+(maxGP===1?' game':' games')+' per team so far'+(nT<30?', and '+(30-nT)+' teams have not played yet':'')+'. They appear once every team has played 20 games.</p>';
     el.innerHTML=h;
     return;
   }
