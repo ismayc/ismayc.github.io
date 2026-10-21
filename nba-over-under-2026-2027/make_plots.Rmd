@@ -325,7 +325,7 @@ out_table |>
 
 
 
-#### Games through `r Sys.Date() - 1`
+#### Games through `r Sys.Date() - 1` {#games-through}
 
 The line under fourth place is the cutoff for the Over/Under playoffs. Ties
 are broken by picks correct, then 15s correct, then 14s, 13s, and 12s. Each
@@ -595,7 +595,7 @@ picks_wide %>%
 
 ***
 
-#### Point explanations by team for `r Sys.Date() - 1` {.tabset}
+#### Point explanations by team for `r Sys.Date() - 1` {#point-explanations .tabset}
 
 ```{r message=FALSE}
 library(DT)
