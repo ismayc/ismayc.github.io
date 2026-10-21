@@ -143,6 +143,8 @@ snapshots <- map(outcome_files, function(f) {
   d <- read_rds(f)
   # A few files from failed builds have "NA-NA" records; skip those days
   if (!all(str_detect(d$`Current Record`, "^\\d+-\\d+$"))) return(NULL)
+  # Early in the season some teams have no row yet (see nba_teams)
+  if (nrow(d) < nba_teams) return(NULL)
   d %>%
     separate_wider_delim(`Current Record`, "-", names = c("w", "l")) %>%
     transmute(team = Team, w = as.integer(w), l = as.integer(l),

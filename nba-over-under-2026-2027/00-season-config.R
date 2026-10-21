@@ -25,6 +25,10 @@ schedule_initial_file   <- paste0("schedule-", season_label, "_initial.csv")
 # undecided (2^n), so it is published only once n is this small (2^20 is
 # about a million, a second or two in the browser).
 explorer_max_open <- 20
+# out_table has a row only for teams that have played, so count open teams
+# against the whole league: on opening night 6 rows passed as "6 open" and the
+# explorer tried 2^29 scenarios (October 21, 2026).
+nba_teams <- 30
 schedule_after_cup_file <- paste0("schedule-", season_label, "-after-ist.csv")
 
 # Resolve a file inside the season folder whether the working directory is

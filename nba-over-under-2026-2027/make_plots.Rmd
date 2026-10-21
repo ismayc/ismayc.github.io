@@ -118,7 +118,7 @@ if (nrow(chances)) chance_chart(chances, "p_top4")
 ```{r results="asis"}
 # 000-generate-rooting-guide.R writes the explorer after this page renders,
 # for every date with explorer_max_open or fewer teams open
-n_open <- sum(!out_table$`Outcome Determined` %in% c("OVER", "UNDER"))
+n_open <- nba_teams - sum(out_table$`Outcome Determined` %in% c("OVER", "UNDER"))
 if (n_open <= explorer_max_open) {
   cat(if (n_open == 0) {
     "Every team's Over or Under is settled. Pick a date to see how the last open teams could have finished."
