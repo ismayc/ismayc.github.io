@@ -163,12 +163,14 @@ function renderTab2(el){
   var hasGames=D.todaysGames&&D.todaysGames.length>0;
   var past=viewingPast(),gameDay=past?fmtDay(nextDay(H.snaps[progDay].d)):'';
   if(!hasGames){el.innerHTML='<p style="color:var(--t3)">'+(past?'No games on '+gameDay+'.':'No games scheduled today.')+'</p>';return}
-  var h='<div class="section-title">'+(past?'Games on '+gameDay:'Today\'s Games')+'</div><p style="font-size:12px;color:var(--t3);margin-bottom:16px">Showing stakes for each player in undecided teams playing '+(past?'that day':'today')+'.</p>';
+  var h='<div class="section-title">'+(past?'Games on '+gameDay:'Tonight\'s Games')+'</div><p style="font-size:12px;color:var(--t3);margin-bottom:16px">Showing stakes for each player in undecided teams playing '+(past?'that day':'tonight')+'.</p>';
+  var shown=0;
   D.todaysGames.forEach(function(g){
     var away=g[0],home=g[1];
     var hT=D.teams[home],aT=D.teams[away];
     var hU=hT&&hT.det==='not yet',aU=aT&&aT.det==='not yet';
     if(!hU&&!aU)return;
+    shown++;
     h+='<div class="game-card"><div class="game-matchup">'+sn(away)+' <span class="game-at">@</span> '+sn(home)+'</div>';
     h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">';
     if(hU){
@@ -191,6 +193,9 @@ function renderTab2(el){
     }
     h+='</div></div>';
   });
+  // Every game is between decided teams, or (in the first days of a season,
+  // when the data lists only teams that have played) between unlisted teams
+  if(!shown)h+='<p style="color:var(--t3)">'+D.todaysGames.length+(D.todaysGames.length===1?' game':' games')+(past?' that day':' tonight')+', none involving an undecided team in the data.</p>';
   el.innerHTML=h;
 }
 
