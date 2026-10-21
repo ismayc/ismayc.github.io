@@ -68,7 +68,7 @@ library(DT)
 num_players <- 8
 ```
 
-Last updated at `r format(Sys.time() - lubridate::hours(8), "%Y-%m-%d %H:%M")` US Pacific time
+Last updated at `r format(Sys.time(), "%Y-%m-%d %H:%M", tz = "America/Los_Angeles")` US Pacific time
 
 # {.tabset}
 
