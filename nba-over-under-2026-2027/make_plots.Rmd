@@ -183,6 +183,17 @@ is in parentheses, and teams are ordered from furthest above pace to
 furthest below. Pale points can still change; solid points are clinched.
 
 ```{r}
+# With only some teams in, ggplotly puts the facets on the wrong axes (top
+# row empty, points in other teams' panels; October 21, 2026)
+all_teams_played <- n_distinct(join_with_projections$`Team Name`) >= nba_teams
+```
+
+```{r results="asis", eval=!all_teams_played}
+cat(sprintf("This chart appears once all %d teams have played (%d so far).",
+            nba_teams, n_distinct(join_with_projections$`Team Name`)))
+```
+
+```{r eval=all_teams_played}
 tagList(state_legend(), pace_chart(join_with_projections))
 ```
 
@@ -198,7 +209,12 @@ The violet square is the number of wins the team would finish with at its
 current winning percentage, and the dotted violet line is that path from
 today. The horizontal line is the Vegas line, also shown in parentheses.
 
-```{r fig.height=10, fig.width=10}
+```{r results="asis", eval=!all_teams_played}
+cat(sprintf("This chart appears once all %d teams have played (%d so far).",
+            nba_teams, n_distinct(join_with_projections$`Team Name`)))
+```
+
+```{r fig.height=10, fig.width=10, eval=all_teams_played}
 options(scipen = 99)
 team_wins_df <- join_with_projections %>% 
   mutate(
@@ -686,7 +702,8 @@ player_table(9)
 ### All together
 
 ```{r fig.height=6, fig.width=10}
-projected_score_highlight <- projected_score %>% 
+few_dates <- n_distinct(projected_score$Date) < 5
+projected_score_highlight <- projected_score %>%
   mutate(Player = factor(x = Player, levels = current_rankings)) %>%
   highlight_key(~Player)
 projected_score_plot <- projected_score_highlight %>% 
@@ -695,17 +712,22 @@ projected_score_plot <- projected_score_highlight %>%
   ) +
   geom_hline(yintercept = 0, color = ou_col$ink, linewidth = 0.3) +
   geom_line(linewidth = 0.6) +
+  # A line needs two dates, so the first few days also get points
+  (if (few_dates) geom_point(size = 2)) +
   labs(x = NULL, y = NULL) +
   # Each player keeps one color on every chart and every season
   scale_color_manual(values = player_colors(current_rankings)) +
   theme_ou()
 
+# Legend under the chart: at the top it sat on the title
 gg <- ggplotly(projected_score_plot,
                tooltip = c("Date", "Projected Total Points", "Player")) %>%
   layout(
     margin = list(t = 50),
     title = list(text = "Projected points over time", font = list(size = 18),
-                 x = 0, xanchor = "left")) %>%
+                 x = 0, xanchor = "left"),
+    legend = list(orientation = "h", x = 0, xanchor = "left", y = -0.08,
+                  yanchor = "top", title = list(text = ""))) %>%
   ou_plotly()
 highlight(gg, color = ou_col$ink,
           off = "plotly_doubleclick",
@@ -723,6 +745,7 @@ projected_score_facetted <- projected_score %>%
   ) +
   geom_hline(yintercept = 0, color = ou_col$ink, linewidth = 0.3) +
   geom_line(linewidth = 0.6) +
+  (if (few_dates) geom_point(size = 2)) +
   labs(x = NULL, y = NULL) +
   scale_color_manual(values = player_colors(current_rankings)) +
   theme_ou() +

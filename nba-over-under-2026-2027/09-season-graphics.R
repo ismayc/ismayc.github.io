@@ -255,6 +255,10 @@ chance_chart <- function(chances, measure = c("p_first", "p_top4")) {
     sprintf("%s %.0f%%", last$player, last$v * 100)
   # With only a few days so far, a line has too few points to show
   mode <- if (n_distinct(chances$date) < 5) "lines+markers" else "lines"
+  span <- as.numeric(max(chances$date) - min(chances$date))
+  short <- span < 45
+  # Whole days apart (milliseconds), about four ticks
+  day_step <- 86400000 * max(1, ceiling((span + 1) / 4))
   plt <- plot_ly()
   for (pl in last$player) {
     d <- chances |> filter(player == pl)
@@ -281,8 +285,12 @@ chance_chart <- function(chances, measure = c("p_first", "p_top4")) {
       yaxis = list(title = "", tickformat = ".0%",
                    range = c(0, max(1, max(last$label_y) + if (is_final) 0.08 else 0.03)),
                    gridcolor = "#e6eae2", zeroline = FALSE),
-      # Month names only, so the dates don't collide on a phone
-      xaxis = list(title = "", gridcolor = "#e6eae2", tickformat = "%b", nticks = 6,
+      # Month names only, so the dates don't collide on a phone; in the
+      # first weeks that repeated "Oct", so short spans show days
+      xaxis = list(title = "", gridcolor = "#e6eae2",
+                   nticks = if (short) NULL else 6,
+                   dtick = if (short) day_step else NULL,
+                   tickformat = if (short) "%b %-d" else "%b",
                    range = c(min(chances$date), max(chances$date) + 1)),
       shapes = list(list(type = "line", xref = "paper", x0 = 0, x1 = 1,
                          y0 = ref, y1 = ref,
