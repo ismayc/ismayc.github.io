@@ -133,7 +133,7 @@ jobs:
       # The tables R just computed, for the cross-check job. Never fails the
       # build: a missing export shows up as a failed cross-check instead.
       - name: Save the tables for the Python cross-check
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         continue-on-error: true
         with:
           name: check-export
@@ -200,7 +200,7 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: '3.13'
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: check-export
           path: check-export
