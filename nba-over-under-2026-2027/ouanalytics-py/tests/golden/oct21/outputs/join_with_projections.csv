@@ -1,0 +1,141 @@
+"slugSeason","Game Date","game_id","Game Number","Team Name","slugMatchup","slugTeam","slugOpponent","slugTeamLoser","win","loss","current_wins","current_losses","current_win_perc","score","opponent_score","final_score","Current Record","Game Result","win_projection","percentage_projection","Current Win %","Vegas Win Projection %","over_under","flipped","flipped_today"
+"2026-27",2026-10-21,,1,"Atlanta Hawks","ATL @ ORL","ATL","ORL","ORL",1,0,1,0,100,,,"NA-NA","1-0","
+Game Number: 1
+Game Date: 2026-10-21
+Game Matchup: ATL @ ORL
+Final Score: NA-NA",43.5,53.0487804878049,100,53.05,"OVER",,TRUE
+"2026-27",2026-10-20,,1,"Boston Celtics","BOS @ DET","BOS","DET","BOS",0,1,0,1,0,,,"NA-NA","0-1","
+Game Number: 1
+Game Date: 2026-10-20
+Game Matchup: BOS @ DET
+Final Score: NA-NA",51.5,62.8048780487805,0,62.8,"UNDER",,
+"2026-27",2026-10-21,,1,"Brooklyn Nets","BKN vs. CHA","BKN","CHA","BKN",0,1,0,1,0,,,"NA-NA","0-1","
+Game Number: 1
+Game Date: 2026-10-21
+Game Matchup: BKN vs. CHA
+Final Score: NA-NA",24.5,29.8780487804878,0,29.88,"UNDER",,TRUE
+"2026-27",2026-10-21,,1,"Charlotte Hornets","CHA @ BKN","CHA","BKN","BKN",1,0,1,0,100,,,"NA-NA","1-0","
+Game Number: 1
+Game Date: 2026-10-21
+Game Matchup: CHA @ BKN
+Final Score: NA-NA",38.5,46.9512195121951,100,46.95,"OVER",,TRUE
+"2026-27",2026-10-21,,1,"Chicago Bulls","CHI @ TOR","CHI","TOR","CHI",0,1,0,1,0,,,"NA-NA","0-1","
+Game Number: 1
+Game Date: 2026-10-21
+Game Matchup: CHI @ TOR
+Final Score: NA-NA",29.5,35.9756097560976,0,35.98,"UNDER",,TRUE
+"2026-27",2026-10-21,,1,"Dallas Mavericks","DAL @ HOU","DAL","HOU","DAL",0,1,0,1,0,,,"NA-NA","0-1","
+Game Number: 1
+Game Date: 2026-10-21
+Game Matchup: DAL @ HOU
+Final Score: NA-NA",33.5,40.8536585365854,0,40.85,"UNDER",,TRUE
+"2026-27",2026-10-20,,1,"Detroit Pistons","DET vs. BOS","DET","BOS","BOS",1,0,1,0,100,,,"NA-NA","1-0","
+Game Number: 1
+Game Date: 2026-10-20
+Game Matchup: DET vs. BOS
+Final Score: NA-NA",48.5,59.1463414634146,100,59.15,"OVER",,
+"2026-27",2026-10-21,,1,"Golden State Warriors","GSW @ LAL","GSW","LAL","GSW",0,1,0,1,0,,,"NA-NA","0-1","
+Game Number: 1
+Game Date: 2026-10-21
+Game Matchup: GSW @ LAL
+Final Score: NA-NA",37.5,45.7317073170732,0,45.73,"UNDER",,TRUE
+"2026-27",2026-10-21,,1,"Houston Rockets","HOU vs. DAL","HOU","DAL","DAL",1,0,1,0,100,,,"NA-NA","1-0","
+Game Number: 1
+Game Date: 2026-10-21
+Game Matchup: HOU vs. DAL
+Final Score: NA-NA",48.5,59.1463414634146,100,59.15,"OVER",,TRUE
+"2026-27",2026-10-21,,1,"Indiana Pacers","IND @ NOP","IND","NOP","NOP",1,0,1,0,100,,,"NA-NA","1-0","
+Game Number: 1
+Game Date: 2026-10-21
+Game Matchup: IND @ NOP
+Final Score: NA-NA",43.5,53.0487804878049,100,53.05,"OVER",,TRUE
+"2026-27",2026-10-21,,1,"Los Angeles Clippers","LAC vs. SAC","LAC","SAC","SAC",1,0,1,0,100,,,"NA-NA","1-0","
+Game Number: 1
+Game Date: 2026-10-21
+Game Matchup: LAC vs. SAC
+Final Score: NA-NA",28.5,34.7560975609756,100,34.76,"OVER",,TRUE
+"2026-27",2026-10-21,,1,"Los Angeles Lakers","LAL vs. GSW","LAL","GSW","GSW",1,0,1,0,100,,,"NA-NA","1-0","
+Game Number: 1
+Game Date: 2026-10-21
+Game Matchup: LAL vs. GSW
+Final Score: NA-NA",45.5,55.4878048780488,100,55.49,"OVER",,TRUE
+"2026-27",2026-10-21,,1,"Memphis Grizzlies","MEM vs. UTA","MEM","UTA","UTA",1,0,1,0,100,,,"NA-NA","1-0","
+Game Number: 1
+Game Date: 2026-10-21
+Game Matchup: MEM vs. UTA
+Final Score: NA-NA",29.5,35.9756097560976,100,35.98,"OVER",,TRUE
+"2026-27",2026-10-21,,1,"Miami Heat","MIA vs. MIN","MIA","MIN","MIA",0,1,0,1,0,,,"NA-NA","0-1","
+Game Number: 1
+Game Date: 2026-10-21
+Game Matchup: MIA vs. MIN
+Final Score: NA-NA",46.5,56.7073170731707,0,56.71,"UNDER",,TRUE
+"2026-27",2026-10-21,,1,"Milwaukee Bucks","MIL @ WAS","MIL","WAS","MIL",0,1,0,1,0,,,"NA-NA","0-1","
+Game Number: 1
+Game Date: 2026-10-21
+Game Matchup: MIL @ WAS
+Final Score: NA-NA",25.5,31.0975609756098,0,31.1,"UNDER",,TRUE
+"2026-27",2026-10-21,,1,"Minnesota Timberwolves","MIN @ MIA","MIN","MIA","MIA",1,0,1,0,100,,,"NA-NA","1-0","
+Game Number: 1
+Game Date: 2026-10-21
+Game Matchup: MIN @ MIA
+Final Score: NA-NA",48.5,59.1463414634146,100,59.15,"OVER",,TRUE
+"2026-27",2026-10-21,,1,"New Orleans Pelicans","NOP vs. IND","NOP","IND","NOP",0,1,0,1,0,,,"NA-NA","0-1","
+Game Number: 1
+Game Date: 2026-10-21
+Game Matchup: NOP vs. IND
+Final Score: NA-NA",28.5,34.7560975609756,0,34.76,"UNDER",,TRUE
+"2026-27",2026-10-20,,1,"New York Knicks","NYK vs. PHI","NYK","PHI","NYK",0,1,0,1,0,,,"NA-NA","0-1","
+Game Number: 1
+Game Date: 2026-10-20
+Game Matchup: NYK vs. PHI
+Final Score: NA-NA",52.5,64.0243902439024,0,64.02,"UNDER",,
+"2026-27",2026-10-20,,1,"Oklahoma City Thunder","OKC @ SAS","OKC","SAS","SAS",1,0,1,0,100,,,"NA-NA","1-0","
+Game Number: 1
+Game Date: 2026-10-20
+Game Matchup: OKC @ SAS
+Final Score: NA-NA",62.5,76.219512195122,100,76.22,"OVER",,
+"2026-27",2026-10-21,,1,"Orlando Magic","ORL vs. ATL","ORL","ATL","ORL",0,1,0,1,0,,,"NA-NA","0-1","
+Game Number: 1
+Game Date: 2026-10-21
+Game Matchup: ORL vs. ATL
+Final Score: NA-NA",43.5,53.0487804878049,0,53.05,"UNDER",,TRUE
+"2026-27",2026-10-20,,1,"Philadelphia 76ers","PHI @ NYK","PHI","NYK","NYK",1,0,1,0,100,,,"NA-NA","1-0","
+Game Number: 1
+Game Date: 2026-10-20
+Game Matchup: PHI @ NYK
+Final Score: NA-NA",50.5,61.5853658536585,100,61.59,"OVER",,
+"2026-27",2026-10-21,,1,"Phoenix Suns","PHO @ POR","PHO","POR","PHO",0,1,0,1,0,,,"NA-NA","0-1","
+Game Number: 1
+Game Date: 2026-10-21
+Game Matchup: PHO @ POR
+Final Score: NA-NA",39.5,48.1707317073171,0,48.17,"UNDER",,TRUE
+"2026-27",2026-10-21,,1,"Portland Trail Blazers","POR vs. PHO","POR","PHO","PHO",1,0,1,0,100,,,"NA-NA","1-0","
+Game Number: 1
+Game Date: 2026-10-21
+Game Matchup: POR vs. PHO
+Final Score: NA-NA",41.5,50.609756097561,100,50.61,"OVER",,TRUE
+"2026-27",2026-10-21,,1,"Sacramento Kings","SAC @ LAC","SAC","LAC","SAC",0,1,0,1,0,,,"NA-NA","0-1","
+Game Number: 1
+Game Date: 2026-10-21
+Game Matchup: SAC @ LAC
+Final Score: NA-NA",20.5,25,0,25,"UNDER",,TRUE
+"2026-27",2026-10-20,,1,"San Antonio Spurs","SAS vs. OKC","SAS","OKC","SAS",0,1,0,1,0,,,"NA-NA","0-1","
+Game Number: 1
+Game Date: 2026-10-20
+Game Matchup: SAS vs. OKC
+Final Score: NA-NA",60.5,73.780487804878,0,73.78,"UNDER",,
+"2026-27",2026-10-21,,1,"Toronto Raptors","TOR vs. CHI","TOR","CHI","CHI",1,0,1,0,100,,,"NA-NA","1-0","
+Game Number: 1
+Game Date: 2026-10-21
+Game Matchup: TOR vs. CHI
+Final Score: NA-NA",46.5,56.7073170731707,100,56.71,"OVER",,TRUE
+"2026-27",2026-10-21,,1,"Utah Jazz","UTA @ MEM","UTA","MEM","UTA",0,1,0,1,0,,,"NA-NA","0-1","
+Game Number: 1
+Game Date: 2026-10-21
+Game Matchup: UTA @ MEM
+Final Score: NA-NA",37.5,45.7317073170732,0,45.73,"UNDER",,TRUE
+"2026-27",2026-10-21,,1,"Washington Wizards","WAS vs. MIL","WAS","MIL","MIL",1,0,1,0,100,,,"NA-NA","1-0","
+Game Number: 1
+Game Date: 2026-10-21
+Game Matchup: WAS vs. MIL
+Final Score: NA-NA",34.5,42.0731707317073,100,42.07,"OVER",,TRUE

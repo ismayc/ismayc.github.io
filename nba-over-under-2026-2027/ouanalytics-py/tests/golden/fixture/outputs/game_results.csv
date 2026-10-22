@@ -1,0 +1,5 @@
+"slugSeason","Game Date","Game Number","Team Name","slugMatchup","slugTeam","slugOpponent","slugTeamLoser","win","loss","current_wins","current_losses","current_win_perc"
+"2026-27",2026-10-20,1,"Alpha","ALP vs. BRA","ALP","BRA","BRA",1,0,1,0,100
+"2026-27",2026-10-21,2,"Alpha","ALP @ CLI","ALP","CLI","ALP",0,1,1,1,50
+"2026-27",2026-10-20,1,"Bravo","BRA @ ALP","BRA","ALP","BRA",0,1,0,1,0
+"2026-27",2026-10-21,1,"Los Angeles Clippers","CLI vs. ALP","CLI","ALP","ALP",1,0,1,0,100

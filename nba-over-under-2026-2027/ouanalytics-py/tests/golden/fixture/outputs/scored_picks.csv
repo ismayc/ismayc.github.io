@@ -1,0 +1,9 @@
+"Date","Player","Team","current_wins","current_losses","Current Record","Current Win %","Vegas Win Projection %","Current Over/Under","Over/Under Pick","Win % - Vegas","current_projected_points"
+2026-10-20,"P1","Alpha",1,0,"1-0",100,50,"OVER","OVER",50,15
+2026-10-20,"P2","Alpha",1,0,"1-0",100,50,"OVER","UNDER",50,-15
+2026-10-21,"P1","Alpha",1,1,"1-1",50,50,"PUSH","OVER",0,0
+2026-10-21,"P2","Alpha",1,1,"1-1",50,50,"PUSH","UNDER",0,0
+2026-10-20,"P1","Bravo",0,1,"0-1",0,50,"UNDER","UNDER",-50,14
+2026-10-21,"P1","Bravo",0,1,"0-1",0,50,"UNDER","UNDER",-50,14
+2026-10-20,"P2","Los Angeles Clippers",0,0,"0-0",,50,,"OVER",,
+2026-10-21,"P2","Los Angeles Clippers",1,0,"1-0",100,50,"OVER","OVER",50,13

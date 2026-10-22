@@ -3,7 +3,8 @@
 # Compare our tiebreaker-computed seedings against the official source
 # (NBA.com or ESPN standings with seeds applied).
 #
-# Run AFTER 05-playoff-seeding.R has produced `seeded_standings`.
+# Run AFTER compute_playoff_seeding() (ouanalytics package) has produced
+# `seeded_standings`.
 # Also requires: `standings`, `scores_tidy`, `meta` from earlier pipeline.
 #
 # Steps:
@@ -62,13 +63,13 @@ official <- read_csv("official_standings.csv", show_col_types = FALSE) %>%
 # --------------------------------------------------------------------------
 
 cat("\n================================================================\n")
-cat("STEP 2: Preparing computed standings from 05-playoff-seeding.R\n")
+cat("STEP 2: Preparing computed standings from ouanalytics\n")
 cat("================================================================\n\n")
 
 # `seeded_standings` should already exist from compute_playoff_seeding()
 if (!exists("seeded_standings")) {
-  cat("seeded_standings not found. Sourcing pipeline...\n")
-  source("05-playoff-seeding.R")
+  cat("seeded_standings not found. Computing it with ouanalytics...\n")
+  library(ouanalytics)
   seeded_standings <- compute_playoff_seeding(standings, scores_tidy, meta)
 }
 

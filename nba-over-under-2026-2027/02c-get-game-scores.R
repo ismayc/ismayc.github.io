@@ -36,7 +36,7 @@ scores_temp1 <- read_csv("current_year.csv") %>%
   select(TEAM_NAME, TEAM_ABBREVIATION, WL, PTS, GAME_ID,
          GAME_DATE, MATCHUP) %>% 
   # Filter out Mercury and convert Suns to PHO, in the matchup text too: the
-  # opponent and home/away slugs come from MATCHUP, and 05-playoff-seeding.R
+  # opponent and home/away slugs come from MATCHUP, and the ouanalytics seeding
   # matches them to meta's PHO (with PHX there it found none of the Suns'
   # games, 2024-25 and 2025-26)
   filter(TEAM_ABBREVIATION != "PHO") |>

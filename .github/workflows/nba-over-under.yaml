@@ -61,7 +61,7 @@ jobs:
             any::tibble
             any::stringr
       - name: Run tests and check coverage
-        run: Rscript nba-over-under-2026-2027/tests/run-tests.R
+        run: Rscript nba-over-under-2026-2027/ouanalytics/tools/check.R
   build-nba-webpage:
     runs-on: ubuntu-latest
     needs: [check-date, test]
@@ -112,6 +112,10 @@ jobs:
             any::sessioninfo
             any::reticulate
           
+      # The page build calls the tested calculations in this package
+      - name: Install the ouanalytics package
+        run: R CMD INSTALL nba-over-under-2026-2027/ouanalytics
+
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
@@ -132,6 +136,16 @@ jobs:
       - name: Build webpage
         run: |
           Rscript nba-over-under-2026-2027/make_plot_html.R
+
+      # The tables R just computed, for the cross-check job. Never fails the
+      # build: a missing export shows up as a failed cross-check instead.
+      - name: Save the tables for the Python cross-check
+        uses: actions/upload-artifact@v4
+        continue-on-error: true
+        with:
+          name: check-export
+          path: nba-over-under-2026-2027/check-export
+          if-no-files-found: warn
 
       # Apply the site theme and season strip to the fresh render, and copy
       # it to the repo root (the published copy) alongside docs/. The rooting
@@ -173,3 +187,28 @@ jobs:
       - name: Session info
         run: |
           Rscript -e "sessioninfo::session_info()"
+  # Recompute the day's tables in Python (polars) and compare them with the
+  # ones R built. Nothing waits on this job, so a difference fails the run
+  # (GitHub then sends its failure email) without holding back the page.
+  cross-check:
+    runs-on: ubuntu-latest
+    needs: build-nba-webpage
+    if: ${{ needs.build-nba-webpage.result == 'success' }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+      - uses: actions/download-artifact@v4
+        with:
+          name: check-export
+          path: nba-over-under-2026-2027/check-export
+      - name: Install the Python package
+        run: pip install ./nba-over-under-2026-2027/ouanalytics-py pytest pytest-cov
+      - name: Test the Python package against the golden cases
+        working-directory: nba-over-under-2026-2027/ouanalytics-py
+        run: pytest
+      - name: Compare today's R tables with the Python recomputation
+        if: ${{ !cancelled() }}
+        working-directory: nba-over-under-2026-2027
+        run: ouanalytics-check check-export/pool check-export/seeding

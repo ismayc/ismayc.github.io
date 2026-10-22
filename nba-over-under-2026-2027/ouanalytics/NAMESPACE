@@ -1,0 +1,7 @@
+# Written by hand: every function without a leading dot or underscore is
+# exported, because the page build calls them directly.
+exportPattern("^[a-z]")
+import(dplyr)
+import(tidyr)
+import(tibble)
+import(stringr)
