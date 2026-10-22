@@ -3,9 +3,10 @@ library(plotly)
 library(here)
 library(glue)
 
-# The calculations live in the ouanalytics package (ouanalytics/), tested at
-# 100% coverage. Install it once, and again after a change to its code:
-#   R CMD INSTALL ouanalytics
+# The calculations live in the ouanalytics package (github.com/ismayc/ouanalytics),
+# tested at 100% coverage there. Install a release (tools/mini-build.sh and the
+# workflow pin the same tag):
+#   remotes::install_github("ismayc/ouanalytics@v0.1.0", subdir = "r")
 # This script reads the saved data, calls them, and writes the results.
 library(ouanalytics)
 

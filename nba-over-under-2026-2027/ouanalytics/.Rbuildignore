@@ -1,7 +1,0 @@
-^data-raw$
-^pkgdown$
-^tools$
-^_pkgdown\.yml$
-^vignettes/articles$
-^README\.md$
-^index\.md$

@@ -9,6 +9,11 @@ on:
     paths:
       - 'nba-over-under-2026-2027/**'
 
+# The ouanalytics release both languages use. It is tested in ismayc/ouanalytics
+# before the tag is cut; change it here and in tools/mini-build.sh to upgrade.
+env:
+  OUANALYTICS_REF: v0.1.0
+
 jobs:
   check-date:
     runs-on: ubuntu-latest
@@ -48,32 +53,9 @@ jobs:
           else
             echo "should_run=false" >> $GITHUB_OUTPUT
           fi
-  # A failing test, or coverage under 100% of the ouanalytics package,
-  # stops the build, so the last good page stays up.
-  test:
-    runs-on: ubuntu-latest
-    needs: check-date
-    if: ${{ needs.check-date.outputs.should_run == 'true' }}
-    steps:
-      - uses: actions/checkout@v6
-      - uses: r-lib/actions/setup-r@v2
-        with:
-          r-version: 'release'
-      - uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          cache-version: 1
-          extra-packages: |
-            any::testthat
-            any::covr
-            any::dplyr
-            any::tidyr
-            any::tibble
-            any::stringr
-      - name: Run tests and check coverage
-        run: Rscript nba-over-under-2026-2027/ouanalytics/tools/check.R
   build-nba-webpage:
     runs-on: ubuntu-latest
-    needs: [check-date, test]
+    needs: check-date
     if: ${{ needs.check-date.outputs.should_run == 'true' }}
     permissions:
       contents: write   # push the rebuilt page
@@ -122,8 +104,10 @@ jobs:
             any::reticulate
           
       # The page build calls the tested calculations in this package
-      - name: Install the ouanalytics package
-        run: R CMD INSTALL nba-over-under-2026-2027/ouanalytics
+      - name: Install the ouanalytics package (pinned release)
+        run: |
+          Rscript -e 'remotes::install_github(paste0("ismayc/ouanalytics@", Sys.getenv("OUANALYTICS_REF")), subdir = "r", upgrade = "never")'
+          Rscript -e 'cat("ouanalytics", as.character(packageVersion("ouanalytics")), "\n")'
 
       - name: Set up Python
         uses: actions/setup-python@v6
@@ -213,20 +197,14 @@ jobs:
     needs: build-nba-webpage
     if: ${{ needs.build-nba-webpage.result == 'success' }}
     steps:
-      - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
         with:
           python-version: '3.13'
       - uses: actions/download-artifact@v4
         with:
           name: check-export
-          path: nba-over-under-2026-2027/check-export
-      - name: Install the Python package
-        run: pip install ./nba-over-under-2026-2027/ouanalytics-py pytest pytest-cov
-      - name: Test the Python package against the golden cases
-        working-directory: nba-over-under-2026-2027/ouanalytics-py
-        run: pytest
+          path: check-export
+      - name: Install the Python package (pinned release)
+        run: pip install "git+https://github.com/ismayc/ouanalytics@${OUANALYTICS_REF}#subdirectory=python"
       - name: Compare today's R tables with the Python recomputation
-        if: ${{ !cancelled() }}
-        working-directory: nba-over-under-2026-2027
         run: ouanalytics-check check-export/pool check-export/seeding

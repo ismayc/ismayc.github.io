@@ -1,7 +1,8 @@
 #!/bin/zsh
 # Daily over/under page build on the Mac mini, with GitHub Actions as the
 # backup. Does the same steps as .github/workflows/nba-over-under.yaml:
-# R tests, page build, restyle, push, deploy dispatch, Python cross-check.
+# page build, restyle, push, deploy dispatch, Python cross-check. The R and Python
+# calculations are a pinned release of github.com/ismayc/ouanalytics, tested there.
 #
 # If any step before the push fails, it dispatches the GitHub workflow, so
 # the page still updates (and a real fault shows up as a red GitHub run).
@@ -27,6 +28,10 @@ SLUG="ismayc/ismayc.github.io"
 REPO_DIR="${NBA_BUILD_DIR:-$HOME/repos/ismayc.github.io}"
 PROJECT="nba-over-under-2026-2027"
 DRY_RUN="${BUILD_DRY_RUN:-0}"
+# The ouanalytics release (change here and in the workflow to upgrade)
+OUANALYTICS_REF="${OUANALYTICS_REF:-v0.1.0}"
+# Branch to build from; only a test of a change to this script sets it
+BRANCH="${NBA_BUILD_BRANCH:-master}"
 # Same dates as check-date in the workflow
 FIRST_BUILD_DATE="2026-10-21"
 CUTOFF_DATE="2027-04-12"
@@ -68,8 +73,8 @@ fi
 cd "$REPO_DIR" || fallback_to_github "no clone at $REPO_DIR"
 log "start; repo $REPO_DIR"
 
-git fetch -q origin master || fallback_to_github "git fetch failed"
-git reset -q --hard origin/master && git clean -fdq || fallback_to_github "git reset failed"
+git fetch -q origin "$BRANCH" || fallback_to_github "git fetch failed"
+git reset -q --hard "origin/$BRANCH" && git clean -fdq || fallback_to_github "git reset failed"
 START_SHA="$(git rev-parse HEAD)"
 log "at $START_SHA"
 
@@ -77,13 +82,12 @@ if [[ ! -f "$PROJECT/rds/gs_picks_raw.rds" ]]; then
   log "no picks saved yet; nothing to do"; exit 0
 fi
 
-log "installing the ouanalytics package"
-R --vanilla CMD INSTALL "$PROJECT/ouanalytics" >/dev/null 2>&1 \
-  || fallback_to_github "R CMD INSTALL ouanalytics failed"
-
-log "running the R tests (100% coverage gate)"
-Rscript --vanilla "$PROJECT/ouanalytics/tools/check.R" 2>&1 | tail -5
-[[ ${pipestatus[1]} -eq 0 ]] || fallback_to_github "R tests or coverage failed"
+log "installing ouanalytics $OUANALYTICS_REF from GitHub"
+export OUANALYTICS_REF
+Rscript --vanilla -e 'remotes::install_github(paste0("ismayc/ouanalytics@", Sys.getenv("OUANALYTICS_REF")), subdir = "r", upgrade = "never", force = TRUE)' >/dev/null 2>&1 \
+  || fallback_to_github "installing ouanalytics $OUANALYTICS_REF failed"
+Rscript --vanilla -e 'cat("ouanalytics", as.character(packageVersion("ouanalytics")), "\n")' \
+  || fallback_to_github "ouanalytics is not installed"
 
 log "building the page"
 Rscript "$PROJECT/make_plot_html.R" || fallback_to_github "page build failed"
@@ -128,9 +132,9 @@ fi
 log "Python cross-check"
 CHECK_LOG="$(mktemp -t nba-crosscheck)"
 (
-  cd "$PROJECT/ouanalytics-py" \
-    && uv run --quiet pytest -q \
-    && uv run --quiet ouanalytics-check "../check-export/pool" "../check-export/seeding"
+  cd "$PROJECT" \
+    && uvx --quiet --from "git+https://github.com/ismayc/ouanalytics@${OUANALYTICS_REF}#subdirectory=python" \
+         ouanalytics-check "check-export/pool" "check-export/seeding"
 ) >"$CHECK_LOG" 2>&1
 CHECK_STATUS=$?
 tail -15 "$CHECK_LOG"
