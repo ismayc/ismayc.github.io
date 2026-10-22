@@ -1,4 +1,4 @@
-# ouanalytics
+# ouanalytics <a href="https://ismayc.github.io/ouanalytics/"><img src="man/figures/logo.png" align="right" height="139" alt="ouanalytics hex sticker: a basketball on a see-saw" /></a>
 
 The calculations behind the NBA over/under pool page: each team's status
 against its win total, each player's points, the change since yesterday,
@@ -9,6 +9,8 @@ Every function is pure: nothing reads a file, calls the network, or looks at
 `Sys.Date()`. Every date and constant comes in as an argument. The page build
 (`03-data-wrangling.R`, `make_plots.Rmd`) reads the saved data and calls
 `compute_pool()` and `compute_playoff_seeding()`.
+
+Documentation: <https://ismayc.github.io/ouanalytics/>
 
 ## Install
 
@@ -47,3 +49,13 @@ two is wrong.
 | `tests/testthat/` | Tests (fixtures in `helper-*.R`) |
 | `tools/check.R` | Tests plus the 100% coverage gate |
 | `tools/make-golden.R` | Writes the golden cases for Python |
+| `data-raw/make-datasets.R` | Builds `pool_example` and `seeding_example` |
+| `_pkgdown.yml`, `pkgdown/`, `vignettes/articles/` | The documentation site (see below) |
+
+## Documentation site
+
+The site is built with pkgdown and served at <https://ismayc.github.io/ouanalytics/> from the repo's top-level `ouanalytics/` folder (listed under `resources:` in `_quarto.yml`). Rebuild it after any change to the help pages, articles, or logo:
+
+    uv run --with fonttools --with pillow python branding/make_branding.py    # only if the logo changed
+    Rscript -e 'roxygen2::roxygenise("ouanalytics")'
+    Rscript -e 'pkgdown::build_site("ouanalytics")'

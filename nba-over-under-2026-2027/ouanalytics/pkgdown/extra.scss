@@ -1,0 +1,17 @@
+/*-- scss:rules --*/
+// Felt-green navbar with cream text (the See-saw logo's table)
+.navbar { background-color: #1f5a3d !important; }
+.navbar .navbar-brand,
+.navbar .nav-link,
+.navbar .dropdown-toggle,
+.navbar .navbar-text {
+  color: #f4efe0 !important;
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-weight: 600;
+}
+.navbar .nav-link:hover, .navbar .dropdown-toggle:hover { color: #ffffff !important; }
+.navbar .nav-item.active > .nav-link,
+.navbar .nav-link.active { background: rgba(244, 239, 224, 0.16); border-radius: 6px; }
+.navbar .navbar-brand .version { color: #cfd8c5 !important; }
+.navbar .form-control { background: #fafbf7; }
+.navbar .nav-text, .navbar .text-muted { color: #cfd8c5 !important; }

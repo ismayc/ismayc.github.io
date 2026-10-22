@@ -8,6 +8,8 @@
 # Missing values are written as empty fields, dates as YYYY-MM-DD, factors
 # as text.
 
+#' Write one table as CSV (internal)
+#' @noRd
 write_table <- function(x, path) {
   x <- as.data.frame(x, stringsAsFactors = FALSE)
   x[] <- lapply(x, function(col) if (is.factor(col)) as.character(col) else col)
@@ -15,19 +17,47 @@ write_table <- function(x, path) {
   invisible(path)
 }
 
+#' Create the inputs and outputs folders (internal)
+#' @noRd
 make_case_dirs <- function(dir) {
   dir.create(file.path(dir, "inputs"), recursive = TRUE, showWarnings = FALSE)
   dir.create(file.path(dir, "outputs"), recursive = TRUE, showWarnings = FALSE)
 }
 
 # Tables compute_pool() returns that the Python package recomputes
+#' Names of the tables a pool case exports (internal)
+#' @noRd
 pool_output_names <- c(
   "game_results", "join_with_projections", "standings_grid", "scored_picks",
   "changes_in_player_projections", "rows_today", "projected_score",
   "player_projections_by_team", "standings_with_projected", "wins_needed"
 )
 
-#' Export a pool case: the inputs given to compute_pool() and its tables.
+#' Export a case as CSV files
+#'
+#' Writes the inputs and the computed tables as CSV files in a fixed layout
+#' (`inputs/` and `outputs/`), so the Python package can recompute every table and
+#' compare. Missing values are empty fields, dates are `YYYY-MM-DD`, and factors are
+#' text.
+#'
+#' @param dir The folder to write into; created if needed.
+#' @param game_results_raw,scores,projections,picks,standings The inputs given to
+#'   [compute_pool()].
+#' @param params A named list: `yesterday`, `today`, `season_start`, `num_games`.
+#' @param pool The result of [compute_pool()].
+#' @param meta,scores_tidy The inputs given to [compute_playoff_seeding()]. In
+#'   `export_seeding_case()`, `standings` is the standings given to it too.
+#' @param seeded The result of [compute_playoff_seeding()].
+#' @return `dir`, invisibly.
+#' @examples
+#' dir <- tempfile()
+#' pool <- with(pool_example, compute_pool(game_results_raw, scores, projections,
+#'   picks, standings, params$yesterday, params$today, params$season_start,
+#'   params$num_games))
+#' with(pool_example, export_pool_case(dir, game_results_raw, scores, projections,
+#'   picks, standings, params, pool))
+#' list.files(dir, recursive = TRUE)
+#' @export
 export_pool_case <- function(dir, game_results_raw, scores, projections, picks,
                              standings, params, pool) {
   make_case_dirs(dir)
@@ -50,8 +80,8 @@ export_pool_case <- function(dir, game_results_raw, scores, projections, picks,
   invisible(dir)
 }
 
-#' Export a seeding case: the inputs given to compute_playoff_seeding() and
-#' the seeded standings.
+#' @rdname export_pool_case
+#' @export
 export_seeding_case <- function(dir, meta, standings, scores_tidy, seeded) {
   make_case_dirs(dir)
   write_table(meta, file.path(dir, "inputs", "meta.csv"))

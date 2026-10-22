@@ -1,0 +1,19 @@
+{
+  "name": "ouanalytics-py",
+  "short_name": "ouanalytics-py",
+  "icons": [
+    {
+      "src": "favicon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#16324f",
+  "background_color": "#fafbf7",
+  "display": "standalone"
+}

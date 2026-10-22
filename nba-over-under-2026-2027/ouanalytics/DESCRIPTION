@@ -9,6 +9,9 @@ Description: The calculations that score the NBA over/under pool (each
     folder. Not for CRAN.
 License: file LICENSE
 Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+URL: https://ismayc.github.io/ouanalytics/
 Depends: R (>= 4.1.0)
 Imports:
     dplyr,
@@ -17,6 +20,10 @@ Imports:
     tidyr
 Suggests:
     covr,
+    knitr,
+    pkgdown,
+    rmarkdown,
     testthat (>= 3.0.0),
     withr
 Config/testthat/edition: 3
+Config/roxygen2/version: 8.0.0

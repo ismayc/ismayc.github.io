@@ -4,6 +4,28 @@
 # every date and constant comes in as an argument.
 
 # One row per team game, with running wins, losses, and win percentage
+#' Game results and scores
+#'
+#' Turn the saved game list into one row per team game with a running record,
+#' and the scores table into one row per team per game.
+#'
+#' @param game_results_raw One row per team game: `dateGame`, `numberGameTeamSeason`,
+#'   `nameTeam`, `slugMatchup`, `slugTeam`, `slugTeamLoser`.
+#' @param scores One row per game: `game_id`, `game_date`, `away_team`, `home_team`,
+#'   `slug_away_team`, `slug_home_team`, `away_score`, `home_score`.
+#' @param game_results The result of `compute_game_results()`.
+#' @param scores_tidy The result of `tidy_scores()`.
+#' @return `compute_game_results()` returns a grouped tibble with `current_wins`,
+#'   `current_losses`, and `current_win_perc` (a percentage from 0 to 100) per team,
+#'   "LA " spelled out as "Los Angeles ", sorted by team.
+#'   `tidy_scores()` returns one row per team per game with `team_slug`, `opponent_slug`,
+#'   `score`, and `opponent_score`. `add_game_scores()` adds each game's score, record,
+#'   and a readable result text to `game_results`.
+#' @examples
+#' gr <- compute_game_results(pool_example$game_results_raw)
+#' st <- tidy_scores(pool_example$scores)
+#' add_game_scores(gr, st)
+#' @export
 compute_game_results <- function(game_results_raw) {
   game_results_raw %>%
     mutate(win = if_else(slugTeam != slugTeamLoser, 1, 0),
@@ -23,6 +45,8 @@ compute_game_results <- function(game_results_raw) {
 
 # One row per team per game from the one-row-per-game scores table. Rows
 # alternate away, home, so the opponent's score is the neighboring row.
+#' @rdname compute_game_results
+#' @export
 tidy_scores <- function(scores) {
   scores %>%
     pivot_longer(cols = away_score:home_score,
@@ -46,6 +70,8 @@ tidy_scores <- function(scores) {
 }
 
 # Attach each game's final score and a readable result string
+#' @rdname compute_game_results
+#' @export
 add_game_scores <- function(game_results, scores_tidy) {
   game_results %>%
     left_join(
@@ -64,6 +90,32 @@ add_game_scores <- function(game_results, scores_tidy) {
 
 # OVER when a team's winning percentage is above the line, UNDER below it,
 # PUSH when level (or when either side is missing)
+#' Over, under, or push against the win total
+#'
+#' A team is OVER when its winning percentage is above its line, UNDER when it is
+#' below, and PUSH when the two are equal or either is missing.
+#'
+#' @param current_win_pct,vegas_pct Winning percentages (0 to 100).
+#' @param updated_schedule The result of `add_game_scores()`.
+#' @param projections Win totals: `team`, `win_projection`, and `percentage_projection`
+#'   (the win total as a percentage of the season).
+#' @param yesterday The last day with results (a `Date`).
+#' @param join_with_projections The result of `add_over_under()`.
+#' @param season_start The first day of the season (a `Date`).
+#' @return `classify_over_under()` returns "OVER", "UNDER", or "PUSH".
+#'   `add_over_under()` returns one row per team game with `over_under`, `flipped`
+#'   (the status changed from the game before), and `flipped_today`.
+#'   `build_standings_grid()` returns one row per team per day from `season_start`
+#'   to `yesterday`. A team keeps its last status on days it does not play, and has
+#'   no status (and a record of 0-0) before its first game.
+#' @examples
+#' classify_over_under(c(60, 50, 40), 50)
+#'
+#' gr <- compute_game_results(pool_example$game_results_raw)
+#' sched <- add_game_scores(gr, tidy_scores(pool_example$scores))
+#' ou <- add_over_under(sched, pool_example$projections, as.Date("2026-10-21"))
+#' build_standings_grid(ou, as.Date("2026-10-20"), as.Date("2026-10-21"))
+#' @export
 classify_over_under <- function(current_win_pct, vegas_pct) {
   case_when(
     current_win_pct > vegas_pct ~ "OVER",
@@ -74,6 +126,8 @@ classify_over_under <- function(current_win_pct, vegas_pct) {
 
 # Each game row with the team's status against its line, and whether the
 # status flipped from the game before
+#' @rdname classify_over_under
+#' @export
 add_over_under <- function(updated_schedule, projections, yesterday) {
   updated_schedule %>%
     inner_join(projections, by = c("Team Name" = "team")) %>%
@@ -90,6 +144,8 @@ add_over_under <- function(updated_schedule, projections, yesterday) {
 
 # One row per team per day of the season so far. A team keeps its last
 # status on days it does not play, and has no status before its first game.
+#' @rdname classify_over_under
+#' @export
 build_standings_grid <- function(join_with_projections, season_start,
                                  yesterday) {
   days_in_season_to_today <- seq(from = as.Date(season_start),
@@ -117,6 +173,39 @@ build_standings_grid <- function(join_with_projections, season_start,
 }
 
 # Each player's points for each team they picked, every day
+#' Score the picks
+#'
+#' Each player's points for each team they picked, every day: the wage when the
+#' pick matches the team's status, minus the wage when it does not, 0 for a push,
+#' and missing before the team's first game.
+#'
+#' @param standings_grid The result of `build_standings_grid()`.
+#' @param picks One row per pick: `team`, `player`, `wage`, and `choice` ("OVER" or
+#'   "UNDER").
+#' @param player_projections_by_team The result of `score_picks()`.
+#' @param changes The result of `add_changes()`.
+#' @param day A `Date`.
+#' @param projected_score The result of `projected_score_by_player()`.
+#' @param today The day the page is built (a `Date`).
+#' @return `score_picks()` returns one row per player, team, and day.
+#'   `add_changes()` returns the rows where a pick's points moved from the day before.
+#'   A team's points are missing until its first game, so a missing value counts as 0:
+#'   otherwise every team's first game would drop out of the changes.
+#'   `rows_for_day()` keeps one day of those. `projected_score_by_player()` returns each
+#'   player's total points and counts of correct picks by day (missing points count
+#'   as 0 and as not correct). `rank_players()` returns the players, best first, by
+#'   points, then correct picks, then correct 15-point picks, on the date closest to
+#'   `today`.
+#' @examples
+#' pool <- with(pool_example, compute_pool(game_results_raw, scores, projections,
+#'   picks, standings, params$yesterday, params$today, params$season_start,
+#'   params$num_games))
+#' scored <- pool$scored_picks
+#' ch <- add_changes(scored)
+#' rows_for_day(ch, as.Date("2026-10-21"))
+#' ps <- projected_score_by_player(scored)
+#' rank_players(ps, today = as.Date("2026-10-22"))
+#' @export
 score_picks <- function(standings_grid, picks) {
   standings_grid %>%
     inner_join(picks, by = "team") %>%
@@ -139,6 +228,8 @@ score_picks <- function(standings_grid, picks) {
 # Rows where a pick's points moved from the day before. A team's points are
 # NA until its first game, so NA counts as 0: otherwise every team's first
 # game drops out and the page says nothing changed.
+#' @rdname score_picks
+#' @export
 add_changes <- function(player_projections_by_team) {
   player_projections_by_team %>%
     group_by(Player, Team) %>%
@@ -154,12 +245,16 @@ add_changes <- function(player_projections_by_team) {
            `Vegas Win Projection %`, `Change in Points Since Yesterday`)
 }
 
+#' @rdname score_picks
+#' @export
 rows_for_day <- function(changes, day) {
   changes %>%
     filter(Date == day)
 }
 
 # Each player's total and counts of correct picks, every day
+#' @rdname score_picks
+#' @export
 projected_score_by_player <- function(player_projections_by_team) {
   player_projections_by_team %>%
     group_by(Date, Player) %>%
@@ -185,6 +280,30 @@ projected_score_by_player <- function(player_projections_by_team) {
 }
 
 # Wins and losses each team still needs, and whether the outcome is settled
+#' Wins and losses still needed
+#'
+#' How many more wins a team needs to finish OVER, how many more losses would make
+#' it finish UNDER, and whether the outcome is already settled.
+#'
+#' @param player_projections_by_team For `add_outcome_columns()`, the result of
+#'   `score_picks()`. For `build_wins_needed()`, the result of `add_outcome_columns()`.
+#' @param num_games Games in a season (82).
+#' @param standings Official standings: `team_name`, `wins`, `losses`.
+#' @param projections Win totals, as for `add_over_under()`.
+#' @param yesterday The last day with results (a `Date`).
+#' @return `add_outcome_columns()` adds `Wins To Go Over Vegas`,
+#'   `Losses To Go Under Vegas`, `Winning % In Remaining Games Needed`, and
+#'   `Outcome Determined` ("not yet", "OVER", or "UNDER"); the "to go" columns are
+#'   missing once the outcome is settled. `add_projected_to_standings()` adds the wins
+#'   needed for an OVER to the official standings (no percentage when no games are
+#'   left). `build_wins_needed()` returns one row per team for `yesterday`.
+#' @examples
+#' pool <- with(pool_example, compute_pool(game_results_raw, scores, projections,
+#'   picks, standings, params$yesterday, params$today, params$season_start,
+#'   params$num_games))
+#' add_outcome_columns(pool$scored_picks, num_games = 82)
+#' build_wins_needed(pool$player_projections_by_team, as.Date("2026-10-21"), 82)
+#' @export
 add_outcome_columns <- function(player_projections_by_team, num_games) {
   player_projections_by_team %>%
     rename(
@@ -237,6 +356,8 @@ add_outcome_columns <- function(player_projections_by_team, num_games) {
 }
 
 # The players' scores on the most recent date, best first
+#' @rdname score_picks
+#' @export
 rank_players <- function(projected_score, today) {
   most_recent_results <- projected_score %>%
     mutate(days_from_today = as.numeric(difftime(today,
@@ -252,6 +373,8 @@ rank_players <- function(projected_score, today) {
 }
 
 # Official standings with the wins each team needs for its OVER
+#' @rdname add_outcome_columns
+#' @export
 add_projected_to_standings <- function(standings, projections, yesterday,
                                        num_games) {
   standings %>%
@@ -275,6 +398,8 @@ add_projected_to_standings <- function(standings, projections, yesterday,
 }
 
 # One row per team for yesterday: record, wins to go, games left
+#' @rdname add_outcome_columns
+#' @export
 build_wins_needed <- function(player_projections_by_team, yesterday,
                               num_games) {
   player_projections_by_team %>%

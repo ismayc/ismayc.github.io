@@ -13,7 +13,39 @@
 # Helper functions
 # ---------------------------------------------------------------------------
 
-#' Compute W-L record for one team against a set of opponents
+#' Tie-break building blocks
+#'
+#' The pieces of the official NBA tie-break procedure. Teams are identified by their
+#' abbreviations. `scores_tidy` has one row per team per game: `team_slug`,
+#' `opponent_slug`, `score`, and `opponent_score`.
+#'
+#' @param team_abbr,t1,t2 Team abbreviations.
+#' @param team_abbrs Abbreviations of three or more tied teams.
+#' @param opponent_abbrs Abbreviations of the opponents to count games against.
+#' @param scores_tidy One row per team per game.
+#' @param conf_standings Standings for one conference: `abbreviation`, `division`,
+#'   `Winning Pct`.
+#' @param meta Team details: `abbreviation`, `conference`, `division`.
+#' @param standings_df Not used; kept so the call signature matches the seeding code.
+#' @param division_leaders Abbreviations of the division leaders.
+#' @param playoff_eligible_own,playoff_eligible_other Abbreviations of the teams in
+#'   playoff position in the team's own and the other conference. `NULL` skips the
+#'   criterion.
+#' @return `record_vs()` returns a one-row tibble with `wins`, `losses`, and `pct`
+#'   (missing when no games were played). `point_differential()` returns the net points
+#'   over all of a team's games. `get_division_leaders()` returns one abbreviation per
+#'   division. `break_two_team_tie()` returns `c(winner, loser)`.
+#'   `break_multi_team_tie()` returns the teams in order. Criteria are applied in the
+#'   official order; if nothing separates the teams they are ordered alphabetically,
+#'   standing in for the random draw.
+#' @examples
+#' with(seeding_example, {
+#'   record_vs("W2", c("W1", "W3"), scores_tidy)
+#'   point_differential("W2", scores_tidy)
+#'   break_two_team_tie("W1", "W2", NULL, scores_tidy, meta)
+#'   break_multi_team_tie(c("A1", "A2", "A3"), NULL, scores_tidy, meta)
+#' })
+#' @export
 record_vs <- function(team_abbr, opponent_abbrs, scores_tidy) {
   games <- scores_tidy %>%
     filter(team_slug == team_abbr, opponent_slug %in% opponent_abbrs)
@@ -24,16 +56,15 @@ record_vs <- function(team_abbr, opponent_abbrs, scores_tidy) {
   tibble(abbreviation = team_abbr, wins = wins, losses = losses, pct = pct)
 }
 
-#' Compute net point differential for one team (all games)
+#' @rdname record_vs
+#' @export
 point_differential <- function(team_abbr, scores_tidy) {
   games <- scores_tidy %>% filter(team_slug == team_abbr)
   sum(games$score - games$opponent_score, na.rm = TRUE)
 }
 
-#' Identify the best team in each division (by Winning Pct) within a conference
-#' Returns a character vector of abbreviations that lead their division.
-#' If two teams tie for a division lead, the 2-team tiebreaker is applied
-#' *only* to determine the division winner (per rule 1a/1b).
+#' @rdname record_vs
+#' @export
 get_division_leaders <- function(conf_standings, scores_tidy, meta) {
   leaders <- character(0)
   
@@ -72,6 +103,8 @@ get_division_leaders <- function(conf_standings, scores_tidy, meta) {
 # ---------------------------------------------------------------------------
 # Two-team tiebreaker (returns c(winner_abbr, loser_abbr))
 # ---------------------------------------------------------------------------
+#' @rdname record_vs
+#' @export
 break_two_team_tie <- function(t1, t2, standings_df, scores_tidy, meta,
                                division_leaders = character(0),
                                playoff_eligible_own = NULL,
@@ -149,6 +182,8 @@ break_two_team_tie <- function(t1, t2, standings_df, scores_tidy, meta,
 # ---------------------------------------------------------------------------
 # Multi-team (3+) tiebreaker (returns ordered vector of abbreviations)
 # ---------------------------------------------------------------------------
+#' @rdname record_vs
+#' @export
 break_multi_team_tie <- function(team_abbrs, standings_df, scores_tidy, meta,
                                  division_leaders = character(0),
                                  playoff_eligible_own = NULL,
@@ -332,16 +367,26 @@ break_multi_team_tie <- function(team_abbrs, standings_df, scores_tidy, meta,
 # Main entry point: seed one conference
 # ---------------------------------------------------------------------------
 
-#' Produce playoff seeding for a single conference.
+#' Playoff seeding
 #'
-#' @param conf       "East" or "West"
-#' @param standings  Full standings dataframe (all 30 teams)
-#' @param scores_tidy  Tidy game results (one row per team per game)
-#' @param meta       Team metadata with conference, division, abbreviation
+#' Seeds one conference, or both, with the official NBA tie-break procedure. Teams
+#' tied on winning percentage are ordered by head-to-head, division leader, division
+#' record, conference record, record against playoff-position teams, and point
+#' differential.
 #'
-#' @return A tibble with columns: seed, team_name, conference, division,
-#'         wins, losses, `Winning Pct`, abbreviation, plus a `seed_note`
-#'         column indicating playoff status.
+#' @param conf "East" or "West".
+#' @param standings All 30 teams: `team_name`, `conference`, `division`, `wins`,
+#'   `losses`, `Winning Pct`, `Games Back`, `abbreviation`.
+#' @param scores_tidy One row per team per game: `team_slug`, `opponent_slug`, `score`,
+#'   `opponent_score`.
+#' @param meta Team details: `abbreviation`, `conference`, `division`.
+#' @return A tibble with `seed`, the standings columns, and `seed_note`: "Playoff"
+#'   for seeds 1 to 6, "Play-In" for 7 to 10, and empty after that.
+#'   `compute_playoff_seeding()` returns both conferences.
+#' @examples
+#' with(seeding_example, seed_conference("West", standings, scores_tidy, meta))
+#' with(seeding_example, compute_playoff_seeding(standings, scores_tidy, meta))
+#' @export
 seed_conference <- function(conf, standings, scores_tidy, meta) {
   
   conf_standings <- standings %>%
@@ -420,10 +465,8 @@ seed_conference <- function(conf, standings, scores_tidy, meta) {
 # Top-level function: seed both conferences
 # ---------------------------------------------------------------------------
 
-#' Produce full NBA playoff seeding for both conferences.
-#'
-#' @inheritParams seed_conference
-#' @return A tibble with all 30 teams, seeded 1-15 within each conference.
+#' @rdname seed_conference
+#' @export
 compute_playoff_seeding <- function(standings, scores_tidy, meta) {
   east <- seed_conference("East", standings, scores_tidy, meta)
   west <- seed_conference("West", standings, scores_tidy, meta)

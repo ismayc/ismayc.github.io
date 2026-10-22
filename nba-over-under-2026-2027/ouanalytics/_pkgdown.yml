@@ -1,0 +1,79 @@
+url: https://ismayc.github.io/ouanalytics/
+destination: ../../ouanalytics   # the repo's top-level ouanalytics/ folder, served by _quarto.yml resources
+
+template:
+  bootstrap: 5
+  bslib:
+    # The over/under pages' scorer's-book palette: pale paper, navy ink, blue for Over
+    bg: "#fafbf7"
+    fg: "#1c2a44"
+    primary: "#2457a6"
+    secondary: "#56627a"
+    success: "#1f5a3d"
+    danger: "#b8322f"
+    base_font: {google: {family: "Source Sans 3", wght: [400, 600, 700]}}
+    heading_font: {google: {family: "Big Shoulders Display", wght: 900}}
+    code_font: {google: "JetBrains Mono"}
+  includes:
+    in_header: |
+      <link rel="icon" href="https://ismayc.github.io/ouanalytics/favicon.svg" type="image/svg+xml">
+      <link rel="icon" href="https://ismayc.github.io/ouanalytics/favicon-32.png" sizes="32x32" type="image/png">
+      <link rel="apple-touch-icon" href="https://ismayc.github.io/ouanalytics/apple-touch-icon.png">
+      <meta property="og:type" content="website">
+      <meta property="og:title" content="ouanalytics: the calculations behind the NBA over/under pool">
+      <meta property="og:description" content="Over/under status, points, changes since yesterday, and the official NBA playoff tie-breakers, in R, with a polars cross-check in Python.">
+      <meta property="og:url" content="https://ismayc.github.io/ouanalytics/">
+      <meta property="og:image" content="https://ismayc.github.io/ouanalytics/og.png">
+      <meta property="og:image:width" content="1200">
+      <meta property="og:image:height" content="630">
+      <meta name="twitter:card" content="summary_large_image">
+
+home:
+  title: ouanalytics, the calculations behind the NBA over/under pool
+  description: >
+    Over/under status, points, changes since yesterday, wins still needed, and
+    the official NBA playoff tie-breakers, with an independent Python (polars)
+    cross-check.
+
+navbar:
+  structure:
+    left: [intro, reference, articles]
+    right: [search, github]
+  components:
+    articles:
+      text: Articles
+      href: articles/index.html
+
+reference:
+  - title: Run the whole pool
+    contents:
+      - compute_pool
+  - title: Game results and status
+    desc: From saved games to each team's status against its win total.
+    contents:
+      - compute_game_results
+      - classify_over_under
+  - title: Scoring the picks
+    desc: Points, changes since yesterday, and wins still needed.
+    contents:
+      - score_picks
+      - add_outcome_columns
+  - title: Playoff seeding
+    desc: The official NBA tie-break procedure.
+    contents:
+      - seed_conference
+      - record_vs
+  - title: Cross-check with Python
+    contents:
+      - export_pool_case
+  - title: Example data
+    contents:
+      - pool_example
+      - seeding_example
+
+articles:
+  - title: Guides
+    contents:
+      - starts_with("articles/how-the-pool")
+      - starts_with("articles/playoff-seeding")
+      - starts_with("articles/python-cross")

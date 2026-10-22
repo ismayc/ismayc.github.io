@@ -1,18 +1,30 @@
 # The whole pool calculation in one call, so the page build and the tests
 # run the same code path in the same order.
 
-#' Run the pool calculation from saved game data to every table the page uses.
+#' Run the whole pool calculation
 #'
-#' @param game_results_raw One row per team game (02c).
-#' @param scores One row per game with away and home scores (02c).
-#' @param projections Win totals: `team`, `win_projection`, `percentage_projection`.
-#' @param picks `team`, `player`, `wage`, `choice`.
-#' @param standings Official standings with `team_name`, `wins`, `losses`.
-#' @param yesterday Last day with results.
-#' @param today The day the page is built.
-#' @param season_start First day of the season.
-#' @param num_games Games in a season.
-#' @return A named list of tables.
+#' Runs every step from the saved game data to the tables the page uses, in order.
+#' The page build and the tests both use this function.
+#'
+#' @param game_results_raw,scores See [compute_game_results()].
+#' @param projections Win totals, as for [add_over_under()].
+#' @param picks One row per pick, as for [score_picks()].
+#' @param standings Official standings, as for [add_projected_to_standings()].
+#' @param yesterday The last day with results (a `Date`).
+#' @param today The day the page is built (a `Date`).
+#' @param season_start The first day of the season (a `Date`).
+#' @param num_games Games in a season (82).
+#' @return A named list: `game_results`, `scores_tidy`, `join_with_projections`,
+#'   `standings_grid`, `scored_picks`, `changes_in_player_projections`, `rows_today`,
+#'   `projected_score`, `player_projections_by_team`, `current_rankings`,
+#'   `standings_with_projected`, and `wins_needed`.
+#' @examples
+#' pool <- with(pool_example, compute_pool(game_results_raw, scores, projections,
+#'   picks, standings, params$yesterday, params$today, params$season_start,
+#'   params$num_games))
+#' pool$rows_today
+#' pool$current_rankings
+#' @export
 compute_pool <- function(game_results_raw, scores, projections, picks,
                          standings, yesterday, today, season_start,
                          num_games) {

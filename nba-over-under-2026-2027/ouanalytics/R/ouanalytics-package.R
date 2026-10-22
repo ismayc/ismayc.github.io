@@ -4,6 +4,10 @@
 #' `Sys.Date()`. Every date and constant comes in as an argument.
 #'
 #' @keywords internal
+#' @import dplyr
+#' @import tidyr
+#' @import tibble
+#' @import stringr
 "_PACKAGE"
 
 # Column names used through dplyr's non-standard evaluation

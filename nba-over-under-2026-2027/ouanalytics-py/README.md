@@ -1,5 +1,7 @@
 # ouanalytics-py
 
+<img src="branding/logo.png" align="right" height="139" alt="ouanalytics-py hex sticker: a basketball on a see-saw">
+
 A second, independent implementation of the R package `ouanalytics`
 (`../ouanalytics/`), written in Python with polars. It recomputes every table
 that R writes for a golden case and reports any difference, so the two
