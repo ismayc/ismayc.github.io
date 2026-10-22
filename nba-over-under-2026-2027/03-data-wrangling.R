@@ -127,7 +127,11 @@ player_projections_by_team <- with_picks %>%
 changes_in_player_projections <- player_projections_by_team %>% 
   group_by(Player, Team) %>% 
   mutate(
-    `Change in Points Since Yesterday` = current_projected_points - lag(current_projected_points)
+    # A team's score is NA until its first game, so count NA as 0 points;
+    # otherwise every team's first game drops out of the changes
+    `Change in Points Since Yesterday` =
+      coalesce(current_projected_points, 0) -
+      coalesce(lag(current_projected_points), 0)
   ) %>% 
   ungroup() %>% 
   arrange(Date, Team, Player) %>% 
