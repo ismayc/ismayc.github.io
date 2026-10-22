@@ -22,8 +22,14 @@ jobs:
           sparse-checkout: nba-over-under-2026-2027/rds
           sparse-checkout-cone-mode: false
       - id: date_check
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           CURRENT_DATE=$(date -u +%Y-%m-%d)
+          # The Mac mini builds first (2 AM Phoenix, tools/mini-build.sh) and
+          # dispatches this workflow itself when it fails. The scheduled run is
+          # only the backup, so it skips when a page build already landed today.
+          BUILT_TODAY=$(gh api "repos/${{ github.repository }}/commits?path=2027-nba-over-under.html&since=${CURRENT_DATE}T00:00:00Z" --jq length 2>/dev/null || echo 0)
           CUTOFF_DATE="2027-04-12"
           # The preseason preview holds the season URL until a game is played
           # (opening night is 2026-10-20, so the first build is the 21st).
@@ -34,12 +40,15 @@ jobs:
           elif [[ "$CURRENT_DATE" < "$FIRST_BUILD_DATE" ]]; then
             echo "No games played yet; the preview stays up until $FIRST_BUILD_DATE."
             echo "should_run=false" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.event_name }}" == "schedule" && "$BUILT_TODAY" != "0" ]]; then
+            echo "A page build already landed today (the mini); the scheduled backup skips."
+            echo "should_run=false" >> $GITHUB_OUTPUT
           elif [[ "$CURRENT_DATE" < "$CUTOFF_DATE" || "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             echo "should_run=true" >> $GITHUB_OUTPUT
           else
             echo "should_run=false" >> $GITHUB_OUTPUT
           fi
-  # A failing test, or coverage under 100% of nba-over-under-2026-2027/R,
+  # A failing test, or coverage under 100% of the ouanalytics package,
   # stops the build, so the last good page stays up.
   test:
     runs-on: ubuntu-latest
