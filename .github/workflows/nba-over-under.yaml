@@ -39,9 +39,32 @@ jobs:
           else
             echo "should_run=false" >> $GITHUB_OUTPUT
           fi
-  build-nba-webpage:
+  # A failing test, or coverage under 100% of nba-over-under-2026-2027/R,
+  # stops the build, so the last good page stays up.
+  test:
     runs-on: ubuntu-latest
     needs: check-date
+    if: ${{ needs.check-date.outputs.should_run == 'true' }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: 'release'
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          cache-version: 1
+          extra-packages: |
+            any::testthat
+            any::covr
+            any::dplyr
+            any::tidyr
+            any::tibble
+            any::stringr
+      - name: Run tests and check coverage
+        run: Rscript nba-over-under-2026-2027/tests/run-tests.R
+  build-nba-webpage:
+    runs-on: ubuntu-latest
+    needs: [check-date, test]
     if: ${{ needs.check-date.outputs.should_run == 'true' }}
     permissions:
       contents: write   # push the rebuilt page
