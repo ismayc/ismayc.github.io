@@ -174,8 +174,17 @@ jobs:
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
+          # Put only the files this build changed or created on top of the
+          # latest master. (reset --soft + add -A turned the whole stale
+          # checkout into a commit, so a push made while the build ran, such
+          # as a workflow edit, was reverted. October 22, 2026.)
+          BUILD_FILES=$(mktemp)
+          git ls-files --modified --others --exclude-standard -z > "$BUILD_FILES"
+          BUILD_TAR=$(mktemp)
+          [ -s "$BUILD_FILES" ] && tar --null -T "$BUILD_FILES" -cf "$BUILD_TAR"
           git fetch origin master
-          git reset --soft origin/master
+          git reset -q --hard origin/master
+          [ -s "$BUILD_FILES" ] && tar -xf "$BUILD_TAR"
           git add -A
           if git diff --cached --quiet; then
             echo "No changes to commit"; exit 0
