@@ -69,6 +69,11 @@ jobs:
       NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
       NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
     steps:
+      # The checkout supplies netlify.toml and netlify/edge-functions/, which
+      # the CLI reads from the working directory, not from --dir.
+      - name: Check out repo
+        uses: actions/checkout@v6
+
       - name: Download rendered site
         uses: actions/download-artifact@v8
         with:

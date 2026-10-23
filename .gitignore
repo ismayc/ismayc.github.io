@@ -40,3 +40,6 @@ docs/nba-player-finder/
 # Python bytecode
 __pycache__/
 *.pyc
+
+# Netlify CLI state (draft deploys from the terminal)
+.netlify/
