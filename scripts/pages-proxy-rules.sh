@@ -20,15 +20,12 @@ rules="$(
     --jq '.[] | select(.has_pages and (.archived | not)) | .name' |
   grep -vx 'ismayc.github.io' | sort -f |
   while read -r name; do
-    # The bare path redirects to the slash form, as GitHub Pages does. Serving
-    # the page there would break its relative links (sheet.css would resolve
-    # at the site root). A repo named like one of this site's own pages (talks,
-    # workshops) keeps the site's page at the bare path instead.
-    if [ -e "$repo_root/$name.qmd" ]; then
-      printf '# /%s is this site'"'"'s own page\n' "$name"
-    else
-      printf '/%s    /%s/        301\n' "$name" "$name"
-    fi
+    # One splat rule per repo. Netlify ignores the trailing slash when it
+    # matches a rule, so this also matches the bare /<repo>, and a separate
+    # bare rule that redirects to /<repo>/ loops (seen October 23, 2026). The
+    # bare path must still redirect to the slash form, as GitHub Pages does, or
+    # the page's relative links (sheet.css) resolve at the site root; the
+    # edge function netlify/edge-functions/pages-slash.ts does that.
     printf '/%s/*  https://ismayc.github.io/%s/:splat  200\n' "$name" "$name"
   done
 )"
