@@ -41,12 +41,11 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-de60624a5cb141114e0ea2b9bc293073.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-5303320993cc695d20e5c1e724777380.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -107,8 +106,8 @@ cookieconsent.run({
   "@type": "Person",
   "name": "Chester Ismay",
   "honorificPrefix": "Dr.",
-  "url": "https://ismayc.github.io",
-  "image": "https://ismayc.github.io/images/pro_photo_2026-06.jpeg",
+  "url": "https://chesterismay.com",
+  "image": "https://chesterismay.com/images/pro_photo_2026-06.jpeg",
   "jobTitle": "AI & Data Science Consultant, Educator, and Speaker",
   "email": "mailto:chester.ismay@gmail.com",
   "alumniOf": [
@@ -132,21 +131,34 @@ cookieconsent.run({
   ]
 }
 </script>
+<script>
+  // The site moved to chesterismay.com on October 23, 2026. Netlify answers the
+  // old hostnames with a 301 (see _redirects); GitHub Pages cannot, and it must
+  // keep serving ismayc.github.io because other repos read data files from it.
+  // So a browser that lands on an HTML page there is sent to the same path here.
+  (function () {
+    var old = ["ismayc.github.io", "chester.rbind.io", "chester.netlify.app"];
+    if (old.indexOf(location.hostname) !== -1) {
+      location.replace("https://chesterismay.com" + location.pathname + location.search + location.hash);
+    }
+  })();
+</script>
 
 
 <link rel="stylesheet" href="styles.css">
 <meta property="og:title" content="AI &amp; Data Science Speaker – Talks &amp; Keynotes">
 <meta property="og:description" content="Energetic, example-driven talks on the future of data science education and the practical use of AI in analysis and learning.">
-<meta property="og:image" content="https://ismayc.github.io/images/social-card.png">
+<meta property="og:image" content="https://chesterismay.com/images/social-card.png">
 <meta property="og:site_name" content="Chester Ismay">
 <meta property="og:image:height" content="630">
 <meta property="og:image:width" content="1200">
 <meta name="twitter:title" content="AI &amp; Data Science Speaker – Talks &amp; Keynotes">
 <meta name="twitter:description" content="Energetic, example-driven talks on the future of data science education and the practical use of AI in analysis and learning.">
-<meta name="twitter:image" content="https://ismayc.github.io/images/social-card.png">
+<meta name="twitter:image" content="https://chesterismay.com/images/social-card.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image-height" content="630">
 <meta name="twitter:image-width" content="1200">
+<link rel="canonical" href="https://chesterismay.com/talks.html">
 </head>
 
 <body class="nav-fixed fullcontent quarto-light">
@@ -249,63 +261,67 @@ cookieconsent.run({
 
 <p>Here are a few examples of presentations I’ve given. I’m always eager to speak with others about the ways AI, statistics, and effective data communication intersect and how they can better support our day-to-day lives and our work processes. If you have an event or conference in mind, please <a href="mailto:chester.ismay@gmail.com">get in touch</a>.</p>
 <div class="talk-grid">
-<div class="card">
-<p><strong>The Monday Morning Agent</strong><br>
-An eight-episode O’Reilly live series I host, every other Monday starting October 2026. Each episode uses real NFL play-by-play data to settle an enduring football debate while gradually building an AI data analyst that can do that work on its own.</p>
-<p>→ <a href="https://learning.oreilly.com/live-events/the-monday-morning-agent/0642572456054/">Series page</a></p>
-</div>
-<div class="card">
-<p><strong>Never Miss a Game: Build a Sports Concierge Agent in 25 Minutes</strong><br>
-A live 30-minute demo and Q&amp;A in O’Reilly’s <a href="https://learning.oreilly.com/live-events/zero-to-agent-in-30-minutes/0642572392338/">Zero to Agent in 30 Minutes</a> series (September 16, 2026). What are agents good for when they aren’t writing code? I build a sports concierge agent that reads the schedules for every sport I follow, picks the events worth my time, and sends one message to my phone each week, then hand over the repeatable pattern: prompt file, tool permissions, schedule, and notification.</p>
+<section id="the-monday-morning-agent" class="level2 talk-title card">
+<h2 class="talk-title" data-anchor-id="the-monday-morning-agent">The Monday Morning Agent</h2>
+<p>An eight-episode O’Reilly live series I host, every other Monday starting October 2026. Each episode uses real NFL play-by-play data to settle an enduring football debate while gradually building an AI data analyst that can do that work on its own.</p>
+<p>→ <a href="https://learning.oreilly.com/live-events/the-monday-morning-agent/0642572456054/">Series page</a><br>
+→ <a href="https://ismayc.github.io/monday-morning-agent/">Episode pages, data, and code</a><br>
+→ <a href="https://www.youtube.com/watch?v=CfWT4FaiMls">Trailer</a><br>
+→ <a href="https://www.oreilly.com/radar/building-an-ai-analyst-one-football-argument-at-a-time/">Episode 1 recap and video</a><br>
+→ <a href="https://oreillyradar.substack.com/p/building-an-ai-analyst-one-football">Episode 1 on Substack</a></p>
+</section>
+<section id="never-miss-a-game-build-a-sports-concierge-agent-in-25-minutes" class="level2 talk-title card">
+<h2 class="talk-title" data-anchor-id="never-miss-a-game-build-a-sports-concierge-agent-in-25-minutes">Never Miss a Game: Build a Sports Concierge Agent in 25 Minutes</h2>
+<p>A live 30-minute demo and Q&amp;A in O’Reilly’s <a href="https://learning.oreilly.com/live-events/zero-to-agent-in-30-minutes/0642572392338/">Zero to Agent in 30 Minutes</a> series (September 16, 2026). What are agents good for when they aren’t writing code? I build a sports concierge agent that reads the schedules for every sport I follow, picks the events worth my time, and sends one message to my phone each week, then hand over the repeatable pattern: prompt file, tool permissions, schedule, and notification.</p>
 <p>→ <a href="https://www.oreilly.com/radar/zero-to-agent-in-30-minutes-build-a-sports-concierge-agent-with-chester-ismay/">Recap and video</a><br>
 → <a href="https://ismayc.github.io/never-miss-a-game/">Walkthrough</a></p>
-</div>
-<div class="card">
-<p><strong>Data Science in the Age of AI: AI is the Engine, You are the Engineer</strong><br>
-How generative AI supports faster, clearer, and more responsible data science work while strengthening foundational skills and human insight.</p>
+</section>
+<section id="data-science-in-the-age-of-ai-ai-is-the-engine-you-are-the-engineer" class="level2 talk-title card">
+<h2 class="talk-title" data-anchor-id="data-science-in-the-age-of-ai-ai-is-the-engine-you-are-the-engineer">Data Science in the Age of AI: AI is the Engine, You are the Engineer</h2>
+<p>How generative AI supports faster, clearer, and more responsible data science work while strengthening foundational skills and human insight.</p>
 <p>→ <a href="https://gamma.app/docs/Data-Science-in-the-Age-of-AI-b1b6dj7dav03n8r?follow_on_start=true&amp;following_id=f67f1376ykr0npc&amp;mode=doc">HTML slides</a><br>
 → <a href="https://datascience.scholar.bucknell.edu/2025/11/10/data-science-in-the-age-of-ai-ai-is-the-engine-you-are-the-engineer-2/">Summary</a></p>
-</div>
-<div class="card">
-<p><strong>Vignette-Driven Development: The Power of Unit Testing</strong><br>
-How starting with a narrative, shaping APIs around real workflows, and using tests as guardrails leads to clearer, more intentional tools strengthened by AI-supported variation.</p>
+</section>
+<section id="vignette-driven-development-the-power-of-unit-testing" class="level2 talk-title card">
+<h2 class="talk-title" data-anchor-id="vignette-driven-development-the-power-of-unit-testing">Vignette-Driven Development: The Power of Unit Testing</h2>
+<p>How starting with a narrative, shaping APIs around real workflows, and using tests as guardrails leads to clearer, more intentional tools strengthened by AI-supported variation.</p>
 <p>→ <a href="https://gamma.app/docs/Vignette-Driven-Development-ckyfqaa2oncheem?follow_on_start=true&amp;following_id=f67f1376ykr0npc&amp;mode=doc">HTML slides</a><br>
 → <a href="https://datascience.scholar.bucknell.edu/communities-of-practice/">Announcement</a></p>
-</div>
-<div class="card">
-<p><strong>Tidyverse Tools in R for Data Science and Statistical Inference (with Dr.&nbsp;Jessica Minnier)</strong><br>
-A tidyverse-driven introduction to crafting clean, reproducible data workflows and modern inference in R.</p>
+</section>
+<section id="tidyverse-tools-in-r-for-data-science-and-statistical-inference-with-dr.-jessica-minnier" class="level2 talk-title card">
+<h2 class="talk-title" data-anchor-id="tidyverse-tools-in-r-for-data-science-and-statistical-inference-with-dr.-jessica-minnier">Tidyverse Tools in R for Data Science and Statistical Inference (with Dr.&nbsp;Jessica Minnier)</h2>
+<p>A tidyverse-driven introduction to crafting clean, reproducible data workflows and modern inference in R.</p>
 <p>→ <a href="https://ismayc.github.io/talks/csp-2021/slide_deck.html">HTML slides</a></p>
-</div>
-<div class="card">
-<p><strong>Building Data Fluency Through Analogies</strong><br>
-Using real-world and movie examples to make data science approachable.</p>
+</section>
+<section id="building-data-fluency-through-analogies" class="level2 talk-title card">
+<h2 class="talk-title" data-anchor-id="building-data-fluency-through-analogies">Building Data Fluency Through Analogies</h2>
+<p>Using real-world and movie examples to make data science approachable.</p>
 <p>→ <a href="https://ismayc.github.io/talks/Building%20Data%20Fluency%20through%20Analogies%20from%20the%20Real%20World%20and%20Movies.pdf">PDF slides</a></p>
-</div>
-<div class="card">
-<p><strong>Statistical Inference: A Tidy Approach</strong><br>
-A modern, tidyverse-based take on inference in R.</p>
+</section>
+<section id="statistical-inference-a-tidy-approach" class="level2 talk-title card">
+<h2 class="talk-title" data-anchor-id="statistical-inference-a-tidy-approach">Statistical Inference: A Tidy Approach</h2>
+<p>A modern, tidyverse-based take on inference in R.</p>
 <p>→ <a href="https://ismayc.github.io/talks/infer-useR/slide_deck.html">HTML slides</a><br>
 → <a href="https://www.youtube.com/watch?v=BCMjVc9ncFo&amp;ab_channel=RConsortium">Video recording</a></p>
-</div>
-<div class="card">
-<p><strong>Teaching Introductory Statistics Using the Tidyverse via bookdown</strong><br>
-A bookdown-enhanced framework for teaching introductory statistics and data science in R.</p>
+</section>
+<section id="teaching-introductory-statistics-using-the-tidyverse-via-bookdown" class="level2 talk-title card">
+<h2 class="talk-title" data-anchor-id="teaching-introductory-statistics-using-the-tidyverse-via-bookdown">Teaching Introductory Statistics Using the Tidyverse via bookdown</h2>
+<p>A bookdown-enhanced framework for teaching introductory statistics and data science in R.</p>
 <p>→ <a href="https://ismayc.github.io/rstudioconf/slides.html">HTML slides</a><br>
 → <a href="https://posit.co/resources/videos/teaching-introductory-statistics-using-the-tidyverse-via-bookdown/">Video recording</a></p>
-</div>
-<div class="card">
-<p><strong>Creating the <code>fivethirtyeight</code> R package</strong><br>
-Behind-the-scenes of developing an R data package for reproducible journalism.</p>
+</section>
+<section id="creating-the-fivethirtyeight-r-package" class="level2 talk-title card">
+<h2 class="talk-title" data-anchor-id="creating-the-fivethirtyeight-r-package">Creating the <code>fivethirtyeight</code> R package</h2>
+<p>Behind-the-scenes of developing an R data package for reproducible journalism.</p>
 <p>→ <a href="https://ismayc.github.io/talks/pdx538/slide_deck.html">HTML slides</a><br>
 → <a href="https://www.youtube.com/watch?v=UUc5u0NOvhg&amp;t=1s&amp;ab_channel=pdxrlang">Video recording</a></p>
-</div>
-<div class="card">
-<p><strong>Something old, something new, something borrowed, something blue: Ways to teach data science (and learn it too!)</strong><br>
-A gentle approach to launching students into data science with new tools, familiar stories, and tidy principles.</p>
+</section>
+<section id="something-old-something-new-something-borrowed-something-blue-ways-to-teach-data-science-and-learn-it-too" class="level2 talk-title card">
+<h2 class="talk-title" data-anchor-id="something-old-something-new-something-borrowed-something-blue-ways-to-teach-data-science-and-learn-it-too">Something old, something new, something borrowed, something blue: Ways to teach data science (and learn it too!)</h2>
+<p>A gentle approach to launching students into data science with new tools, familiar stories, and tidy principles.</p>
 <p>→ <a href="https://ismayc.github.io/talks/asa-oregon-fall17/slide_deck.html">HTML slides</a><br>
 → <a href="https://www.youtube.com/watch?v=O-CxbsURRv4&amp;ab_channel=ASAOregonChapter">Video recording</a></p>
-</div>
+</section>
 </div>
 
 
@@ -313,13 +329,6 @@ A gentle approach to launching students into data science with new tools, famili
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
-    const icon = "";
-    const anchorJS = new window.AnchorJS();
-    anchorJS.options = {
-      placement: 'right',
-      icon: icon
-    };
-    anchorJS.add('.anchored');
     const isCodeAnnotation = (el) => {
       for (const clz of el.classList) {
         if (clz.startsWith('code-annotation-')) {                     
@@ -384,7 +393,7 @@ A gentle approach to launching students into data science with new tools, famili
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/ismayc\.github\.io");
+        var filterRegex = new RegExp("https:\/\/chesterismay\.com");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

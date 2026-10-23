@@ -1,2 +1,9 @@
 # The ouanalytics package site moved to its own repository
 /ouanalytics/*  https://ismayc.github.io/ouanalytics/:splat  301
+
+# The site moved to chesterismay.com on October 23, 2026. Netlify redirects www
+# on its own; the other hostnames assigned to the site need these rules.
+https://chester.rbind.io/*     https://chesterismay.com/:splat  301!
+http://chester.rbind.io/*      https://chesterismay.com/:splat  301!
+https://chester.netlify.app/*  https://chesterismay.com/:splat  301!
+http://chester.netlify.app/*   https://chesterismay.com/:splat  301!

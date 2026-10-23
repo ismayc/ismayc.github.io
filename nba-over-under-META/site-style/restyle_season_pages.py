@@ -502,7 +502,7 @@ def do_past():
     write_both("nba-scenario-explorer.html", note_page())
 
 
-SITE = "https://ismayc.github.io"
+SITE = "https://chesterismay.com"  # the site moved here on October 23, 2026
 ASSETS = f"{SITE}/nba-over-under-assets"
 
 

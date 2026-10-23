@@ -1,0 +1,12 @@
+<script>
+  // The site moved to chesterismay.com on October 23, 2026. Netlify answers the
+  // old hostnames with a 301 (see _redirects); GitHub Pages cannot, and it must
+  // keep serving ismayc.github.io because other repos read data files from it.
+  // So a browser that lands on an HTML page there is sent to the same path here.
+  (function () {
+    var old = ["ismayc.github.io", "chester.rbind.io", "chester.netlify.app"];
+    if (old.indexOf(location.hostname) !== -1) {
+      location.replace("https://chesterismay.com" + location.pathname + location.search + location.hash);
+    }
+  })();
+</script>

@@ -41,12 +41,11 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-de60624a5cb141114e0ea2b9bc293073.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-5303320993cc695d20e5c1e724777380.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -107,8 +106,8 @@ cookieconsent.run({
   "@type": "Person",
   "name": "Chester Ismay",
   "honorificPrefix": "Dr.",
-  "url": "https://ismayc.github.io",
-  "image": "https://ismayc.github.io/images/pro_photo_2026-06.jpeg",
+  "url": "https://chesterismay.com",
+  "image": "https://chesterismay.com/images/pro_photo_2026-06.jpeg",
   "jobTitle": "AI & Data Science Consultant, Educator, and Speaker",
   "email": "mailto:chester.ismay@gmail.com",
   "alumniOf": [
@@ -132,21 +131,34 @@ cookieconsent.run({
   ]
 }
 </script>
+<script>
+  // The site moved to chesterismay.com on October 23, 2026. Netlify answers the
+  // old hostnames with a 301 (see _redirects); GitHub Pages cannot, and it must
+  // keep serving ismayc.github.io because other repos read data files from it.
+  // So a browser that lands on an HTML page there is sent to the same path here.
+  (function () {
+    var old = ["ismayc.github.io", "chester.rbind.io", "chester.netlify.app"];
+    if (old.indexOf(location.hostname) !== -1) {
+      location.replace("https://chesterismay.com" + location.pathname + location.search + location.hash);
+    }
+  })();
+</script>
 
 
 <link rel="stylesheet" href="styles.css">
 <meta property="og:title" content="AI &amp; Data Science Consultant, Educator &amp; Speaker">
 <meta property="og:description" content="Dr.&nbsp;Chester Ismay helps individuals and teams use AI and data science with confidence through consulting, education, speaking, and open-source tools.">
-<meta property="og:image" content="https://ismayc.github.io/images/social-card.png">
+<meta property="og:image" content="https://chesterismay.com/images/social-card.png">
 <meta property="og:site_name" content="Chester Ismay">
 <meta property="og:image:height" content="630">
 <meta property="og:image:width" content="1200">
 <meta name="twitter:title" content="AI &amp; Data Science Consultant, Educator &amp; Speaker">
 <meta name="twitter:description" content="Dr.&nbsp;Chester Ismay helps individuals and teams use AI and data science with confidence through consulting, education, speaking, and open-source tools.">
-<meta name="twitter:image" content="https://ismayc.github.io/images/social-card.png">
+<meta name="twitter:image" content="https://chesterismay.com/images/social-card.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image-height" content="630">
 <meta name="twitter:image-width" content="1200">
+<link rel="canonical" href="https://chesterismay.com/">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -241,10 +253,32 @@ Dr.&nbsp;Chester Ismay
 <p><a href="mailto:chester.ismay@gmail.com" class="btn-cta">Get in touch</a></p>
 </div>
 <div class="home-roles">
-<p><a class="role-card" href="consulting.html"> <span class="role-title">Consultant</span> <span class="role-desc">I partner with universities, nonprofits, agencies, and companies to design data workflows powered by AI, automation, and reproducible practices — helping teams cut through complexity and focus on what works.</span> <span class="role-more">Learn more →</span> </a></p>
-<p><a class="role-card" href="workshops.html"> <span class="role-title">Educator</span> <span class="role-desc">I create and teach hands-on learning experiences in R, Python, SQL, and AI — from short workshops to full-semester courses — empowering learners at all levels to use data with confidence.</span> <span class="role-more">Learn more →</span> </a></p>
-<p><a class="role-card" href="talks.html"> <span class="role-title">Speaker</span> <span class="role-desc">I give energetic, example-driven talks on the future of data science education and the practical use of AI — bridging the gap between what’s possible and what’s useful.</span> <span class="role-more">Learn more →</span> </a></p>
-<p><a class="role-card" href="portfolio.html"> <span class="role-title">Author</span> <span class="role-desc">I’m co-author of ModernDive and other open educational tools that make statistics and data science more accessible, modern, and fun — always with the learner in mind.</span> <span class="role-more">Learn more →</span> </a></p>
+<!-- A raw HTML block, so Quarto does not wrap each card link in a <p>. A <p>
+     cannot hold the <h2> titles, and the browser would split the card. Raw
+     HTML also skips smart quotes, hence the &rsquo; entities. -->
+<a class="role-card" href="consulting.html">
+<h2 class="role-title">Consultant</h2>
+<span class="role-desc">I partner with universities, nonprofits, agencies, and companies to design data workflows powered by AI, automation, and reproducible practices — helping teams cut through complexity and focus on what works.</span>
+<span class="role-more">Learn more →</span>
+</a>
+
+<a class="role-card" href="workshops.html">
+<h2 class="role-title">Educator</h2>
+<span class="role-desc">I create and teach hands-on learning experiences in R, Python, SQL, and AI — from short workshops to full-semester courses — empowering learners at all levels to use data with confidence.</span>
+<span class="role-more">Learn more →</span>
+</a>
+
+<a class="role-card" href="talks.html">
+<h2 class="role-title">Speaker</h2>
+<span class="role-desc">I give energetic, example-driven talks on the future of data science education and the practical use of AI — bridging the gap between what’s possible and what’s useful.</span>
+<span class="role-more">Learn more →</span>
+</a>
+
+<a class="role-card" href="portfolio.html">
+<h2 class="role-title">Author</h2>
+<span class="role-desc">I’m co-author of ModernDive and other open educational tools that make statistics and data science more accessible, modern, and fun — always with the learner in mind.</span>
+<span class="role-more">Learn more →</span>
+</a>
 </div>
 </div>
 
@@ -253,13 +287,6 @@ Dr.&nbsp;Chester Ismay
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
-    const icon = "";
-    const anchorJS = new window.AnchorJS();
-    anchorJS.options = {
-      placement: 'right',
-      icon: icon
-    };
-    anchorJS.add('.anchored');
     const isCodeAnnotation = (el) => {
       for (const clz of el.classList) {
         if (clz.startsWith('code-annotation-')) {                     
@@ -324,7 +351,7 @@ Dr.&nbsp;Chester Ismay
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/ismayc\.github\.io");
+        var filterRegex = new RegExp("https:\/\/chesterismay\.com");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

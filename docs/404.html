@@ -46,7 +46,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="/site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="/site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="/site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="/site_libs/bootstrap/bootstrap-de60624a5cb141114e0ea2b9bc293073.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="/site_libs/bootstrap/bootstrap-5303320993cc695d20e5c1e724777380.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -107,8 +107,8 @@ cookieconsent.run({
   "@type": "Person",
   "name": "Chester Ismay",
   "honorificPrefix": "Dr.",
-  "url": "https://ismayc.github.io",
-  "image": "https://ismayc.github.io/images/pro_photo_2026-06.jpeg",
+  "url": "https://chesterismay.com",
+  "image": "https://chesterismay.com/images/pro_photo_2026-06.jpeg",
   "jobTitle": "AI & Data Science Consultant, Educator, and Speaker",
   "email": "mailto:chester.ismay@gmail.com",
   "alumniOf": [
@@ -132,21 +132,34 @@ cookieconsent.run({
   ]
 }
 </script>
+<script>
+  // The site moved to chesterismay.com on October 23, 2026. Netlify answers the
+  // old hostnames with a 301 (see _redirects); GitHub Pages cannot, and it must
+  // keep serving ismayc.github.io because other repos read data files from it.
+  // So a browser that lands on an HTML page there is sent to the same path here.
+  (function () {
+    var old = ["ismayc.github.io", "chester.rbind.io", "chester.netlify.app"];
+    if (old.indexOf(location.hostname) !== -1) {
+      location.replace("https://chesterismay.com" + location.pathname + location.search + location.hash);
+    }
+  })();
+</script>
 
 
 <link rel="stylesheet" href="/styles.css">
 <meta property="og:title" content="Page Not Found – Chester Ismay">
 <meta property="og:description" content="Sorry — that page doesn’t exist or has moved.">
-<meta property="og:image" content="https://ismayc.github.io/images/social-card.png">
+<meta property="og:image" content="https://chesterismay.com/images/social-card.png">
 <meta property="og:site_name" content="Chester Ismay">
 <meta property="og:image:height" content="630">
 <meta property="og:image:width" content="1200">
 <meta name="twitter:title" content="Page Not Found – Chester Ismay">
 <meta name="twitter:description" content="Sorry — that page doesn’t exist or has moved.">
-<meta name="twitter:image" content="https://ismayc.github.io/images/social-card.png">
+<meta name="twitter:image" content="https://chesterismay.com/images/social-card.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image-height" content="630">
 <meta name="twitter:image-width" content="1200">
+<link rel="canonical" href="https://chesterismay.com/404.html">
 </head>
 
 <body class="nav-fixed fullcontent quarto-light">
@@ -333,7 +346,7 @@ cookieconsent.run({
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/ismayc\.github\.io");
+        var filterRegex = new RegExp("https:\/\/chesterismay\.com");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
