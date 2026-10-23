@@ -20,12 +20,14 @@ rules="$(
     --jq '.[] | select(.has_pages and (.archived | not)) | .name' |
   grep -vx 'ismayc.github.io' | sort -f |
   while read -r name; do
-    # A repo named like one of this site's own pages (talks, workshops) keeps
-    # the site's page at the bare path; only the paths below it are proxied.
+    # The bare path redirects to the slash form, as GitHub Pages does. Serving
+    # the page there would break its relative links (sheet.css would resolve
+    # at the site root). A repo named like one of this site's own pages (talks,
+    # workshops) keeps the site's page at the bare path instead.
     if [ -e "$repo_root/$name.qmd" ]; then
       printf '# /%s is this site'"'"'s own page\n' "$name"
     else
-      printf '/%s    https://ismayc.github.io/%s/        200\n' "$name" "$name"
+      printf '/%s    /%s/        301\n' "$name" "$name"
     fi
     printf '/%s/*  https://ismayc.github.io/%s/:splat  200\n' "$name" "$name"
   done
