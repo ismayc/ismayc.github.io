@@ -1,0 +1,64 @@
+name: pages-proxy-rules
+
+# Keeps chesterismay.com/<repo>/ serving every ismayc GitHub Pages site.
+# Regenerates the proxy rules (_redirects) and the bare-path edge function
+# (netlify/edge-functions/pages-slash.ts) from the GitHub API, commits when
+# they changed, and dispatches the site deploy.
+
+on:
+  schedule:
+    # Weekly, Mondays 14:00 UTC
+    - cron: "0 14 * * 1"
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - 'scripts/pages-proxy-rules.sh'
+      - '.github/workflows/pages-proxy-rules.yaml'
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # push the regenerated rules
+      actions: write    # dispatch the site deploy
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Regenerate the rules and the edge function
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bash scripts/pages-proxy-rules.sh
+
+      - name: Push changes
+        id: push
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          # Retry against a moving master (other workflows also commit here).
+          for attempt in 1 2 3 4 5; do
+            git fetch origin master
+            git reset --soft origin/master
+            git add _redirects netlify/edge-functions/pages-slash.ts
+            if git diff --cached --quiet; then
+              echo "No changes to commit"; exit 0
+            fi
+            git commit -m "GitHub Actions: update the GitHub Pages proxy rules"
+            if git push origin master; then
+              echo "pushed=true" >> "$GITHUB_OUTPUT"
+              echo "Pushed on attempt $attempt"; exit 0
+            fi
+            echo "Push rejected (attempt $attempt); re-syncing and retrying..."
+            sleep $((RANDOM % 5 + 2))
+          done
+          echo "Failed to push after retries"; exit 1
+
+      # A push made with GITHUB_TOKEN does not trigger other workflows, so the
+      # site deploy would otherwise wait for the next human push. A
+      # workflow_dispatch from GITHUB_TOKEN is the documented exception.
+      - name: Deploy the site
+        if: steps.push.outputs.pushed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run quarto-netlify.yaml --ref master
