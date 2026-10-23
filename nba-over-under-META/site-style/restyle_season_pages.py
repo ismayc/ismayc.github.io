@@ -183,6 +183,10 @@ WIDGET_RE = re.compile(r'(<script type="application/json" data-for="[^"]+">)(.*?
 
 
 def nickname(team):
+    # Facet labels may end in the line, "Hawks (46.5)": keep it, shorten the name
+    m = re.fullmatch(r"(.*?)(\s*\(\d+(?:\.\d+)?\))", team)
+    if m:
+        return nickname(m.group(1)) + m.group(2)
     return "Trail Blazers" if team.endswith("Trail Blazers") else team.split()[-1]
 
 
