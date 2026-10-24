@@ -64,6 +64,8 @@ format:
 
 New analyses:
 
+- [**The Elam Ending**](https://ismayc.github.io/elam-ending-study/){target="_blank"} ⏳, a replay of three NBA and WNBA seasons under the Elam Ending's target-score, clock-off finish. The winner changes in just 3–4.8% of games, while a close game's final two minutes stretch from under 5 real minutes to over 10.
+- [**Does Game 1 shoot cold from three?**](https://ismayc.github.io/playoff-series-study/){target="_blank"} 🧊, a pre-registered look at every NBA and WNBA postseason since the 1980s/1990s. Neither league shows a Game 1 three-point accuracy dip, though NBA teams take meaningfully fewer threes early in a series, climbing back up through Game 7.
 - [**The Mebound**](https://ismayc.github.io/mebounds/){target="_blank"} 🏀, a WNBA-and-NBA play-by-play study of Angel Reese's signature stat. Across two million events and 4,434 games, she recovers her own misses at three to four times the league rate while carrying league-leading rebound volume: a combination no player in either league matches.
 - [**Draft value by team and college**](https://ismayc.github.io/draft-potential-by-team/analysis/){target="_blank"} 🎯, which prices every pick slot from 27 draft classes and asks who beats the price. Oklahoma City leads at +489 Win Shares above slot, yet 27 of 30 franchise intervals cross zero, and the era's biggest steal went first overall. Paired with an [interactive viewer](https://ismayc.github.io/draft-potential-by-team/){target="_blank"} of every lottery and draft board since 1989.
 - [**Are NBA players really getting shorter?**](https://ismayc.github.io/jersey-height-study/){target="_blank"} 📏, 45 seasons of NBA rosters showing the apparent decline is mostly explained by a 2019 measurement-rule change, not players actually getting smaller.
@@ -134,6 +136,7 @@ Many of these live in the [ModernDive organization on GitHub](https://moderndive
 - [**moderndive**](https://moderndive.github.io/moderndive){target="_blank"} — companion to the ModernDive book: tidyverse-friendly introductory linear regression plus all datasets used in the book ([CRAN](https://cran.r-project.org/package=moderndive){target="_blank"} · [GitHub](https://github.com/moderndive/moderndive){target="_blank"})
 - [**fivethirtyeight**](https://fivethirtyeight-r.netlify.app){target="_blank"} — access to FiveThirtyEight datasets ([CRAN](https://cran.r-project.org/package=fivethirtyeight){target="_blank"} · [GitHub](https://github.com/rudeboybert/fivethirtyeight){target="_blank"})
 - [**thesisdown**](https://github.com/ismayc/thesisdown){target="_blank"} — thesis templates in R Markdown ([GitHub](https://github.com/ismayc/thesisdown){target="_blank"})
+- [**simstreams**](https://ismayc.github.io/simstreams/){target="_blank"} — parallel simulation experiments on a multicore personal computer, the R package behind *Parallel Simulation Experiments on a Personal Computer* ([GitHub](https://github.com/ismayc/simstreams){target="_blank"})
 
 ### R Data Packages
 
@@ -151,6 +154,7 @@ Tidy, documented datasets ready for teaching, in the spirit of `nycflights13`:
 ### Python Packages
 
 - [**moderndive**](https://moderndive.readthedocs.io){target="_blank"} — Python companion to the ModernDive book: a tidy simulation-inference grammar, regression helpers, datasets, and dual-engine plotly/plotnine plots ([PyPI](https://pypi.org/project/moderndive/){target="_blank"} · [GitHub](https://github.com/moderndive/moderndive-python){target="_blank"})
+- [**simstreams**](https://ismayc.github.io/simstreams-python/){target="_blank"} — Python companion to the `simstreams` R package: parallel simulation experiments on a multicore personal computer, including the Chapter 6 SIRD epidemic case study ([GitHub](https://github.com/ismayc/simstreams-python){target="_blank"})
 
 ---
 
