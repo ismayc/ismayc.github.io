@@ -1,31 +1,31 @@
 seed,team_name,conference,wins,losses,source
-1,Philadelphia 76ers,East,3,0,nba.com
-2,Detroit Pistons,East,2,0,nba.com
-3,Toronto Raptors,East,2,0,nba.com
-4,Atlanta Hawks,East,2,1,nba.com
-5,Charlotte Hornets,East,2,1,nba.com
-6,Washington Wizards,East,2,1,nba.com
-7,Boston Celtics,East,1,1,nba.com
-8,Cleveland Cavaliers,East,1,1,nba.com
-9,Indiana Pacers,East,1,1,nba.com
-10,Chicago Bulls,East,1,2,nba.com
-11,Orlando Magic,East,0,2,nba.com
-12,New York Knicks,East,0,2,nba.com
-13,Brooklyn Nets,East,0,2,nba.com
-14,Miami Heat,East,0,3,nba.com
-15,Milwaukee Bucks,East,0,3,nba.com
+1,Detroit Pistons,East,3,0,nba.com
+2,Philadelphia 76ers,East,3,1,nba.com
+3,Atlanta Hawks,East,2,1,nba.com
+4,Toronto Raptors,East,2,1,nba.com
+5,Washington Wizards,East,2,1,nba.com
+6,Indiana Pacers,East,2,1,nba.com
+7,Charlotte Hornets,East,2,1,nba.com
+8,Boston Celtics,East,1,1,nba.com
+9,Cleveland Cavaliers,East,1,1,nba.com
+10,Orlando Magic,East,1,2,nba.com
+11,Chicago Bulls,East,1,2,nba.com
+12,Miami Heat,East,0,3,nba.com
+13,New York Knicks,East,0,3,nba.com
+14,Milwaukee Bucks,East,0,3,nba.com
+15,Brooklyn Nets,East,0,3,nba.com
 1,Houston Rockets,West,3,0,nba.com
-2,Los Angeles Lakers,West,2,0,nba.com
-3,Oklahoma City Thunder,West,2,0,nba.com
-4,Portland Trail Blazers,West,2,0,nba.com
-5,Memphis Grizzlies,West,2,0,nba.com
-6,Minnesota Timberwolves,West,2,0,nba.com
-7,Los Angeles Clippers,West,1,1,nba.com
-8,Denver Nuggets,West,1,1,nba.com
-9,Utah Jazz,West,1,1,nba.com
-10,Phoenix Suns,West,1,1,nba.com
-11,San Antonio Spurs,West,1,2,nba.com
-12,Dallas Mavericks,West,1,2,nba.com
-13,Sacramento Kings,West,0,2,nba.com
-14,New Orleans Pelicans,West,0,3,nba.com
-15,Golden State Warriors,West,0,3,nba.com
+2,Los Angeles Lakers,West,3,0,nba.com
+3,Oklahoma City Thunder,West,3,0,nba.com
+4,Memphis Grizzlies,West,3,0,nba.com
+5,Minnesota Timberwolves,West,3,0,nba.com
+6,Portland Trail Blazers,West,2,0,nba.com
+7,Denver Nuggets,West,1,1,nba.com
+8,Phoenix Suns,West,1,1,nba.com
+9,San Antonio Spurs,West,1,2,nba.com
+10,Dallas Mavericks,West,1,2,nba.com
+11,Los Angeles Clippers,West,1,2,nba.com
+12,Utah Jazz,West,1,2,nba.com
+13,New Orleans Pelicans,West,0,3,nba.com
+14,Golden State Warriors,West,0,3,nba.com
+15,Sacramento Kings,West,0,3,nba.com
