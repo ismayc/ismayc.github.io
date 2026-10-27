@@ -24,6 +24,9 @@ project:
     - "202*-nba-rooting-guide.html"
     - "us-statehood.html"
     - "projects/**"
+    # 2000-01 Newell boys basketball season page, built by
+    # ~/repos/senior-bball-clipping/build_page.py (unlisted: noindex, no nav link)
+    - "newell-2000-01/**"
     - "nba-over-under-2025-2026/final-day-scenarios.html"
     # Redirects to nba-fantasy-draft.netlify.app, where the drafts moved
     - "nba-over-under-202*/fantasy-draft/**/index.html"
