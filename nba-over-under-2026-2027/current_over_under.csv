@@ -1,16 +1,16 @@
 Team,Current Over/Under
-Atlanta Hawks,OVER
-Boston Celtics,UNDER
+Atlanta Hawks,UNDER
+Boston Celtics,OVER
 Brooklyn Nets,UNDER
 Charlotte Hornets,OVER
 Chicago Bulls,UNDER
-Cleveland Cavaliers,UNDER
-Dallas Mavericks,UNDER
+Cleveland Cavaliers,OVER
+Dallas Mavericks,OVER
 Denver Nuggets,UNDER
 Detroit Pistons,OVER
 Golden State Warriors,UNDER
 Houston Rockets,OVER
-Indiana Pacers,OVER
+Indiana Pacers,UNDER
 Los Angeles Clippers,UNDER
 Los Angeles Lakers,OVER
 Memphis Grizzlies,OVER
@@ -22,7 +22,7 @@ New York Knicks,UNDER
 Oklahoma City Thunder,OVER
 Orlando Magic,UNDER
 Philadelphia 76ers,OVER
-Phoenix Suns,OVER
+Phoenix Suns,UNDER
 Portland Trail Blazers,OVER
 Sacramento Kings,UNDER
 San Antonio Spurs,UNDER
