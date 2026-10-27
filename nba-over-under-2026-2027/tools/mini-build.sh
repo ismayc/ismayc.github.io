@@ -29,7 +29,7 @@ REPO_DIR="${NBA_BUILD_DIR:-$HOME/repos/ismayc.github.io}"
 PROJECT="nba-over-under-2026-2027"
 DRY_RUN="${BUILD_DRY_RUN:-0}"
 # The ouanalytics release (change here and in the workflow to upgrade)
-OUANALYTICS_REF="${OUANALYTICS_REF:-v0.1.0}"
+OUANALYTICS_REF="${OUANALYTICS_REF:-v0.1.1}"
 # Branch to build from; only a test of a change to this script sets it
 BRANCH="${NBA_BUILD_BRANCH:-master}"
 # Same dates as check-date in the workflow
