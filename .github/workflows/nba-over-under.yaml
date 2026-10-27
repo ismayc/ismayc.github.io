@@ -12,7 +12,7 @@ on:
 # The ouanalytics release both languages use. It is tested in ismayc/ouanalytics
 # before the tag is cut; change it here and in tools/mini-build.sh to upgrade.
 env:
-  OUANALYTICS_REF: v0.1.2
+  OUANALYTICS_REF: v0.1.3
 
 jobs:
   check-date:
