@@ -494,6 +494,10 @@ footer { margin: 48px 0 32px; font-size: 14px; color: var(--soft); }
 <script>
 (function(){
   // One inline Drive player at a time, opened under the game's row.
+  // Touch screens skip it: in iPhone Safari the embedded Drive player's pause and
+  // full-screen buttons do not respond (October 27, 2026), while Drive's own page
+  // uses the phone's video controls. There the link opens that page in a new tab.
+  if(matchMedia('(hover: none) and (pointer: coarse)').matches)return;
   var open=null;
   function close(){
     if(!open)return;
