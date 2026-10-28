@@ -131,7 +131,7 @@ a.watch:hover { filter: brightness(1.12); }
 }
 
 /* From the paper: a newsprint clipping that drops onto the page when opened */
-.paper-btn { display: inline-block; margin-top: 6px; padding: 0; border: 0; background: none; cursor: pointer;
+.paper-btn { display: inline-block; margin-top: 0; padding: 8px 0; min-height: 36px; border: 0; background: none; cursor: pointer;
   font: 500 14px Barlow, sans-serif; color: var(--maroon); text-decoration: underline; text-underline-offset: 3px; }
 .paper-btn:focus-visible { outline: 3px solid var(--maroon); outline-offset: 2px; border-radius: 3px; }
 tr.paperrow td { padding: 6px 0 18px; border-bottom: 1px solid var(--rule); }
@@ -155,7 +155,13 @@ tr.player td { padding: 4px 0 16px; border-bottom: 1px solid var(--rule); }
 tr.player .frame { position: relative; aspect-ratio: 4 / 3; background: #05070D; border-radius: 4px; overflow: hidden; }
 tr.player iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 tr.player .fallback { margin: 6px 0 0; font-size: 14px; color: var(--soft); }
-@media (max-width: 560px) { tr.player { display: block; } tr.player td { display: block; } }
+@media (max-width: 560px) {
+  tr.player { display: block; } tr.player td { display: block; }
+  /* the stacked row already draws its own bottom rule */
+  tr.player td, tr.paperrow td { border-bottom: 0; }
+  /* the strip scales down to about half size on a phone; keep its labels readable */
+  .strip text { font-size: 24px; }
+}
 
 .novid-list { padding-left: 0; list-style: none; margin: 0; }
 .novid-list li { padding: 8px 0; border-bottom: 1px solid var(--rule); }
@@ -177,11 +183,11 @@ footer { margin: 48px 0 32px; font-size: 14px; color: var(--soft); }
     <p class="big">18-7, State Class A runner-up</p>
     <p>The Gators went 13-6 in the regular season, won District 16A and Region 8A, and finished second in the state.
        All 25 games are below with their scores. 21 of them are on tape, and every tape has a link to watch it.</p>
-    <svg class="strip" viewBox="0 0 694 124" role="img" aria-label="Season in date order: 18 wins above the line, 7 losses below; the last 6 games are the postseason. 21 games have video; 4 do not.">
+    <svg class="strip" viewBox="0 0 694 134" role="img" aria-label="Season in date order: 18 wins above the line, 7 losses below; the last 6 games are the postseason. 21 games have video; 4 do not.">
   <line x1="0" x2="694" y1="36" y2="36"/>
   <rect class="v" style="--i:0;transform-origin:11.0px 36px" x="1" y="39" width="20" height="32" rx="2"/><rect class="v" style="--i:1;transform-origin:39.0px 36px" x="29" y="1" width="20" height="32" rx="2"/><rect class="v" style="--i:2;transform-origin:67.0px 36px" x="57" y="39" width="20" height="32" rx="2"/><rect class="nv" style="--i:3;transform-origin:95.0px 36px" x="85" y="39" width="20" height="32" rx="2"/><rect class="v" style="--i:4;transform-origin:123.0px 36px" x="113" y="1" width="20" height="32" rx="2"/><rect class="nv" style="--i:5;transform-origin:151.0px 36px" x="141" y="39" width="20" height="32" rx="2"/><rect class="nv" style="--i:6;transform-origin:179.0px 36px" x="169" y="1" width="20" height="32" rx="2"/><rect class="v" style="--i:7;transform-origin:207.0px 36px" x="197" y="1" width="20" height="32" rx="2"/><rect class="v" style="--i:8;transform-origin:235.0px 36px" x="225" y="1" width="20" height="32" rx="2"/><rect class="v" style="--i:9;transform-origin:263.0px 36px" x="253" y="1" width="20" height="32" rx="2"/><rect class="v" style="--i:10;transform-origin:291.0px 36px" x="281" y="1" width="20" height="32" rx="2"/><rect class="v" style="--i:11;transform-origin:319.0px 36px" x="309" y="1" width="20" height="32" rx="2"/><rect class="v" style="--i:12;transform-origin:347.0px 36px" x="337" y="39" width="20" height="32" rx="2"/><rect class="v" style="--i:13;transform-origin:375.0px 36px" x="365" y="1" width="20" height="32" rx="2"/><rect class="v" style="--i:14;transform-origin:403.0px 36px" x="393" y="39" width="20" height="32" rx="2"/><rect class="v" style="--i:15;transform-origin:431.0px 36px" x="421" y="1" width="20" height="32" rx="2"/><rect class="v" style="--i:16;transform-origin:459.0px 36px" x="449" y="1" width="20" height="32" rx="2"/><rect class="v" style="--i:17;transform-origin:487.0px 36px" x="477" y="1" width="20" height="32" rx="2"/><rect class="v" style="--i:18;transform-origin:515.0px 36px" x="505" y="1" width="20" height="32" rx="2"/><rect class="v p" style="--i:19;transform-origin:543.0px 36px" x="533" y="1" width="20" height="32" rx="2"/><rect class="nv p" style="--i:20;transform-origin:571.0px 36px" x="561" y="1" width="20" height="32" rx="2"/><rect class="v p" style="--i:21;transform-origin:599.0px 36px" x="589" y="1" width="20" height="32" rx="2"/><rect class="v p" style="--i:22;transform-origin:627.0px 36px" x="617" y="1" width="20" height="32" rx="2"/><rect class="v p" style="--i:23;transform-origin:655.0px 36px" x="645" y="1" width="20" height="32" rx="2"/><rect class="v p" style="--i:24;transform-origin:683.0px 36px" x="673" y="39" width="20" height="32" rx="2"/>
   <text x="0" y="94">Dec</text><text x="112" y="94">Jan</text><text x="364" y="94">Feb</text><text x="560" y="94">Mar</text>
-  <g class="post"><path d="M533 99 V104 H693 V99"/><text x="532" y="120">Postseason</text></g>
+  <g class="post"><path d="M533 99 V104 H693 V99"/><text x="532" y="128">Postseason</text></g>
 </svg>
     <ul class="key">
       <li><i class="kv"></i>On tape</li>
