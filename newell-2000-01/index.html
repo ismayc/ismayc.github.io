@@ -163,6 +163,11 @@ tr.player .fallback { margin: 6px 0 0; font-size: 14px; color: var(--soft); }
   .strip text { font-size: 24px; }
 }
 
+.honors { padding-left: 0; list-style: none; margin: 0; }
+.honors li { padding: 10px 0; border-bottom: 1px solid var(--rule); }
+.honors .name { display: block; font: 600 20px/1.15 "Barlow Condensed", sans-serif; }
+.honors .who { display: block; }
+.honors .sub { display: block; font-size: 14px; color: var(--soft); max-width: 68ch; }
 .novid-list { padding-left: 0; list-style: none; margin: 0; }
 .novid-list li { padding: 8px 0; border-bottom: 1px solid var(--rule); }
 .novid-list time { font: 400 20px VT323, monospace; margin-right: 8px; }
@@ -198,6 +203,7 @@ footer { margin: 48px 0 32px; font-size: 14px; color: var(--soft); }
   <nav data-sticky-nav aria-label="Sections">
     <a href="#regular">Regular season</a>
     <a href="#postseason">Postseason</a>
+    <a href="#honors">Honors</a>
     <a href="#no-video">No video</a>
     <a href="#sources">Sources</a>
   </nav>
@@ -447,6 +453,18 @@ footer { margin: 48px 0 32px; font-size: 14px; color: var(--soft); }
     </table>
   </section>
 
+  <section id="honors">
+    <h2>Honors</h2>
+    <ul class="honors">
+<li><span class="name">All-Black Hills Conference</span>
+  <span class="who">Luke Bonefield (senior), Chester Ismay (senior), Josh Wilson (junior)</span>
+  <span class="sub">Newell, third in the league, and champion St. Thomas More each had three players on the team. Rapid City Journal, March 20, 2001, page 21.</span></li>
+<li><span class="name">Academic All-State, Class A</span>
+  <span class="who">Shawn Shelley, Chester Ismay</span>
+  <span class="sub">Chosen by the South Dakota Basketball Coaches Association. Argus-Leader, April 4, 2001, page 18.</span></li>
+    </ul>
+  </section>
+
   <section id="no-video">
     <h2>Games with no video <small>4</small></h2>
     <p class="intro">These games are not on any of the tapes. If you have a recording of one, I would love a copy.</p>
@@ -482,7 +500,7 @@ footer { margin: 48px 0 32px; font-size: 14px; color: var(--soft); }
   var secs=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));});
   var cur=null;
   function mark(){
-    var y=nav.getBoundingClientRect().bottom+8,best=-1;
+    var y=nav.getBoundingClientRect().bottom+16,best=-1;
     secs.forEach(function(s,i){if(s&&s.getBoundingClientRect().top<=y)best=i;});
     if(best===cur)return;cur=best;
     links.forEach(function(a,i){if(i===best)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current');});
