@@ -133,6 +133,8 @@ a.watch:hover { filter: brightness(1.12); }
 /* From the paper: a newsprint clipping that drops onto the page when opened */
 .paper-btn { display: inline-block; margin-top: 0; padding: 8px 0; min-height: 36px; border: 0; background: none; cursor: pointer;
   font: 500 14px Barlow, sans-serif; color: var(--maroon); text-decoration: underline; text-underline-offset: 3px; }
+.clip-link { display: inline-block; margin-right: 16px; padding: 8px 0; min-height: 36px;
+  font: 500 14px Barlow, sans-serif; color: var(--maroon); text-underline-offset: 3px; }
 .paper-btn:focus-visible { outline: 3px solid var(--maroon); outline-offset: 2px; border-radius: 3px; }
 tr.paperrow td { padding: 6px 0 18px; border-bottom: 1px solid var(--rule); }
 .clip { --news: #ECE9E2; --news-ink: #1E1A18; max-width: 60ch; margin-left: 4px; padding: 16px 20px 14px;
@@ -425,7 +427,7 @@ footer { margin: 48px 0 32px; font-size: 14px; color: var(--soft); }
 <tr class="w">
   <td class="date"><time datetime="2001-03-15">MAR. 15 2001</time></td>
   <td class="opp"><span class="name">Cheyenne-Eagle Butte</span>
-    <span class="sub">Rushmore Plaza Civic Center, Rapid City, State A quarterfinal</span><span class="note">Craig Kirk dunk.</span><button type="button" class="paper-btn" aria-expanded="false">From the paper</button>
+    <span class="sub">Rushmore Plaza Civic Center, Rapid City, State A quarterfinal</span><span class="note">Craig Kirk dunk.</span><a class="clip-link" href="https://drive.google.com/file/d/1w9-fjt4J_TwVGgaZN-ES0lPLEp8b_v5W/view?t=1282" target="_blank" rel="noopener" data-drive="1w9-fjt4J_TwVGgaZN-ES0lPLEp8b_v5W" data-start="1282" data-title="Cheyenne-Eagle Butte, from 21:22" aria-label="Watch the dunk, Cheyenne-Eagle Butte game, from 21:22">Watch the dunk</a><button type="button" class="paper-btn" aria-expanded="false">From the paper</button>
     <template><div class="clip"><p class="sum">The No. 7 seed upset No. 2 Cheyenne-Eagle Butte. Luke Bonefield scored 31, with 13 in the final eight minutes. Chester Ismay made five three-pointers in the first half and finished with 19. Craig Kirk had 10 points and 13 rebounds as Newell won the boards 49-26.</p>
       <p class="cite">Rapid City Journal, March 16, 2001, page 15</p></div></template></td>
   <td class="res"><span class="score">W 77-67</span><span class="rec">17-6</span></td>
@@ -522,11 +524,12 @@ footer { margin: 48px 0 32px; font-size: 14px; color: var(--soft); }
   var open=null;
   function close(){
     if(!open)return;
-    open.row.remove();open.btn.textContent='Watch';open.btn.setAttribute('aria-expanded','false');
+    open.row.remove();open.btn.textContent=open.btn.dataset.label;open.btn.setAttribute('aria-expanded','false');
     open.btn.focus({preventScroll:true});open=null;
   }
   document.addEventListener('click',function(e){
-    var a=e.target.closest('a.watch[data-drive]');if(!a)return;
+    // The game's Watch button, or a link that starts at one play (data-start, in seconds)
+    var a=e.target.closest('a[data-drive]');if(!a)return;
     if(e.metaKey||e.ctrlKey||e.shiftKey)return; // let a modified click open Drive in a new tab
     e.preventDefault();
     var same=open&&open.btn===a;close();if(same)return;
@@ -534,13 +537,15 @@ footer { margin: 48px 0 32px; font-size: 14px; color: var(--soft); }
     var td=document.createElement('td');td.colSpan=4;
     var frame=document.createElement('div');frame.className='frame';
     var ifr=document.createElement('iframe');ifr.title='Video: '+a.dataset.title;
-    ifr.src='https://drive.google.com/file/d/'+encodeURIComponent(a.dataset.drive)+'/preview';
+    ifr.src='https://drive.google.com/file/d/'+encodeURIComponent(a.dataset.drive)+'/preview'+
+      (a.dataset.start?'?t='+encodeURIComponent(a.dataset.start):'');
     ifr.allow='autoplay; fullscreen';ifr.allowFullscreen=true;frame.appendChild(ifr);
     var p=document.createElement('p');p.className='fallback';
     p.append('If the video does not play here, ');
     var l=document.createElement('a');l.href=a.href;l.target='_blank';l.rel='noopener';l.textContent='open it in Google Drive';
     p.append(l,'.');td.append(frame,p);
     row.appendChild(td);tr.after(row);
+    if(!a.dataset.label)a.dataset.label=a.textContent;
     a.textContent='Close';a.setAttribute('aria-expanded','true');open={row:row,btn:a};
     row.scrollIntoView({block:'nearest',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
   });
