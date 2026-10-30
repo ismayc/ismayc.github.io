@@ -1,11 +1,11 @@
 seed,team_name,conference,wins,losses,source
 1,Detroit Pistons,East,4,1,nba.com
 2,Philadelphia 76ers,East,4,1,nba.com
-3,Toronto Raptors,East,3,1,nba.com
-4,Boston Celtics,East,3,1,nba.com
-5,Cleveland Cavaliers,East,3,1,nba.com
-6,Charlotte Hornets,East,3,2,nba.com
-7,Atlanta Hawks,East,2,3,nba.com
+3,Boston Celtics,East,3,1,nba.com
+4,Toronto Raptors,East,3,1,nba.com
+5,Charlotte Hornets,East,3,2,nba.com
+6,Cleveland Cavaliers,East,3,2,nba.com
+7,Atlanta Hawks,East,3,3,nba.com
 8,New York Knicks,East,2,3,nba.com
 9,Washington Wizards,East,2,3,nba.com
 10,Indiana Pacers,East,2,3,nba.com
@@ -15,10 +15,10 @@ seed,team_name,conference,wins,losses,source
 14,Miami Heat,East,1,4,nba.com
 15,Brooklyn Nets,East,0,4,nba.com
 1,Houston Rockets,West,5,0,nba.com
-2,Memphis Grizzlies,West,4,0,nba.com
-3,Portland Trail Blazers,West,3,0,nba.com
+2,Memphis Grizzlies,West,5,0,nba.com
+3,Oklahoma City Thunder,West,4,1,nba.com
 4,Los Angeles Lakers,West,4,1,nba.com
-5,Oklahoma City Thunder,West,4,1,nba.com
+5,Portland Trail Blazers,West,3,1,nba.com
 6,San Antonio Spurs,West,3,2,nba.com
 7,Dallas Mavericks,West,3,2,nba.com
 8,Minnesota Timberwolves,West,3,2,nba.com
@@ -27,5 +27,5 @@ seed,team_name,conference,wins,losses,source
 11,Phoenix Suns,West,1,2,nba.com
 12,Los Angeles Clippers,West,1,3,nba.com
 13,Utah Jazz,West,1,4,nba.com
-14,New Orleans Pelicans,West,0,4,nba.com
-15,Sacramento Kings,West,0,4,nba.com
+14,New Orleans Pelicans,West,1,4,nba.com
+15,Sacramento Kings,West,0,5,nba.com
