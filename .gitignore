@@ -41,5 +41,11 @@ docs/nba-player-finder/
 __pycache__/
 *.pyc
 
+# Local Python virtual environments. CI builds its own in the runner's
+# ~/.virtualenvs/r-reticulate, so committed copies are never used.
+/venv/
+/.venv/
+/.virtualenvs/
+
 # Netlify CLI state (draft deploys from the terminal)
 .netlify/
