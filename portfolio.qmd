@@ -36,6 +36,8 @@ format:
   **[Parallel Simulation Experiments on a Personal Computer](https://parallel-simulation-book.netlify.app/)**
 
   Co-authored with [Randall L. Eubank](https://search.asu.edu/profile/842642), this openly available guide shows how to run parallel simulation experiments on an everyday personal computer, with worked case studies in both R and Python covering topics from random number generation to epidemic modeling. It extends much of the work from my dissertation. Part of the Chapman & Hall/CRC Data Science Series, with a print edition coming in 2027.
+
+  [→ Print edition](https://www.routledge.com/Parallel-Simulation-Experiments-on-a-Personal-Computer/Eubank-Ismay/p/book/9781041394433)
   </div>
 </div>
 
