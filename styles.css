@@ -245,6 +245,12 @@ main.content li,
 #title-block-header .description {
   max-width: 56ch;
 }
+/* Portfolio: its 1140px body (grid.body-width) is meant to be used, so the
+   lists and paragraphs after Books fill the column instead of stopping at 56ch. */
+body.portfolio main.content p,
+body.portfolio main.content li {
+  max-width: none;
+}
 /* About: make each paragraph its own block formatting context, so its box sits
    entirely beside the floated photo instead of running underneath it. Without
    this, lines that wrap below the photo span the full paragraph box. Only on
