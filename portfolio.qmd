@@ -67,6 +67,7 @@ format:
 
 New analyses:
 
+- [**Did NBA offenses become solar systems?**](https://ismayc.github.io/heliocentrism-study/){target="_blank"} ☀️, 30 seasons of assisted-basket shot-creation data (1996-97 to 2025-26 NBA, 1997-2026 WNBA) showing NBA stars create a *smaller* share of their team's points than in the mid-1990s (season-total top-scorer share down from 25.9% to 22.0%), while WNBA creation has stayed about as spread out.
 - [**The Elam Ending**](https://ismayc.github.io/elam-ending-study/){target="_blank"} ⏳, a replay of three NBA and WNBA seasons under the Elam Ending's target-score, clock-off finish. The winner changes in just 3–4.8% of games, while a close game's final two minutes stretch from under 5 real minutes to over 10.
 - [**Does Game 1 shoot cold from three?**](https://ismayc.github.io/playoff-series-study/){target="_blank"} 🧊, a pre-registered look at every NBA and WNBA postseason since the 1980s/1990s. Neither league shows a Game 1 three-point accuracy dip, though NBA teams take meaningfully fewer threes early in a series, climbing back up through Game 7.
 - [**The Mebound**](https://ismayc.github.io/mebounds/){target="_blank"} 🏀, a WNBA-and-NBA play-by-play study of Angel Reese's signature stat. Across two million events and 4,434 games, she recovers her own misses at three to four times the league rate while carrying league-leading rebound volume: a combination no player in either league matches.
