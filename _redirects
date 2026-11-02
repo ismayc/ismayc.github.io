@@ -29,6 +29,7 @@ http://chester.netlify.app/*   https://chesterismay.com/:splat  301!
 /football-euros-viewer/*  https://ismayc.github.io/football-euros-viewer/:splat  200
 /genzplyr-infer/*  https://ismayc.github.io/genzplyr-infer/:splat  200
 /german-states-quiz-app/*  https://ismayc.github.io/german-states-quiz-app/:splat  200
+/heliocentrism-study/*  https://ismayc.github.io/heliocentrism-study/:splat  200
 /infer/*  https://ismayc.github.io/infer/:splat  200
 /instats-ModernDive/*  https://ismayc.github.io/instats-ModernDive/:splat  200
 /jersey-height-study/*  https://ismayc.github.io/jersey-height-study/:splat  200

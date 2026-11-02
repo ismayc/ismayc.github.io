@@ -22,6 +22,7 @@ const repos = [
   "football-euros-viewer",
   "genzplyr-infer",
   "german-states-quiz-app",
+  "heliocentrism-study",
   "infer",
   "instats-ModernDive",
   "jersey-height-study",
