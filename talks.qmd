@@ -23,7 +23,9 @@ An eight-episode O'Reilly live series I host, every other Monday starting Octobe
 → [Episode pages, data, and code](https://ismayc.github.io/monday-morning-agent/)  
 → [Trailer](https://www.youtube.com/watch?v=CfWT4FaiMls)  
 → [Episode 1 recap and video](https://www.oreilly.com/radar/building-an-ai-analyst-one-football-argument-at-a-time/)  
-→ [Episode 1 on Substack](https://oreillyradar.substack.com/p/building-an-ai-analyst-one-football)
+→ [Episode 1 on Substack](https://oreillyradar.substack.com/p/building-an-ai-analyst-one-football)  
+→ [Episode 2 recap and video](https://www.oreilly.com/radar/the-monday-morning-agent-defining-the-tush-push/)  
+→ [Episode 2 on Substack](https://oreillyradar.substack.com/p/the-monday-morning-agent-defining)
 :::
 
 ::: {.card}
