@@ -1,31 +1,31 @@
 seed,team_name,conference,wins,losses,source
-1,Philadelphia 76ers,East,7,1,nba.com
-2,Detroit Pistons,East,6,1,nba.com
-3,Boston Celtics,East,5,2,nba.com
-4,Washington Wizards,East,4,3,nba.com
-5,Toronto Raptors,East,4,3,nba.com
-6,Cleveland Cavaliers,East,4,3,nba.com
-7,Atlanta Hawks,East,4,4,nba.com
-8,New York Knicks,East,3,4,nba.com
-9,Charlotte Hornets,East,3,5,nba.com
-10,Miami Heat,East,2,5,nba.com
-11,Orlando Magic,East,2,5,nba.com
-12,Indiana Pacers,East,2,6,nba.com
-13,Chicago Bulls,East,1,6,nba.com
-14,Milwaukee Bucks,East,1,6,nba.com
-15,Brooklyn Nets,East,1,6,nba.com
-1,Houston Rockets,West,7,1,nba.com
-2,Memphis Grizzlies,West,6,1,nba.com
-3,Portland Trail Blazers,West,5,1,nba.com
-4,Los Angeles Lakers,West,6,2,nba.com
-5,Oklahoma City Thunder,West,5,2,nba.com
-6,San Antonio Spurs,West,5,2,nba.com
-7,Golden State Warriors,West,5,3,nba.com
-8,Minnesota Timberwolves,West,5,3,nba.com
-9,Dallas Mavericks,West,4,3,nba.com
-10,Denver Nuggets,West,3,3,nba.com
-11,New Orleans Pelicans,West,3,4,nba.com
-12,Phoenix Suns,West,1,4,nba.com
-13,Los Angeles Clippers,West,1,6,nba.com
-14,Sacramento Kings,West,1,6,nba.com
-15,Utah Jazz,West,1,6,nba.com
+1,Philadelphia 76ers,East,8,1,nba.com
+2,Detroit Pistons,East,6,2,nba.com
+3,Boston Celtics,East,6,2,nba.com
+4,Atlanta Hawks,East,5,4,nba.com
+5,Toronto Raptors,East,4,4,nba.com
+6,Cleveland Cavaliers,East,4,4,nba.com
+7,Washington Wizards,East,4,4,nba.com
+8,New York Knicks,East,4,4,nba.com
+9,Miami Heat,East,3,5,nba.com
+10,Charlotte Hornets,East,3,6,nba.com
+11,Indiana Pacers,East,3,6,nba.com
+12,Orlando Magic,East,2,5,nba.com
+13,Brooklyn Nets,East,2,6,nba.com
+14,Chicago Bulls,East,1,7,nba.com
+15,Milwaukee Bucks,East,1,7,nba.com
+1,Portland Trail Blazers,West,6,1,nba.com
+2,Los Angeles Lakers,West,7,2,nba.com
+3,Houston Rockets,West,7,2,nba.com
+4,Oklahoma City Thunder,West,6,2,nba.com
+5,San Antonio Spurs,West,6,2,nba.com
+6,Memphis Grizzlies,West,6,2,nba.com
+7,Minnesota Timberwolves,West,6,3,nba.com
+8,Golden State Warriors,West,5,3,nba.com
+9,Denver Nuggets,West,4,3,nba.com
+10,New Orleans Pelicans,West,4,4,nba.com
+11,Dallas Mavericks,West,4,4,nba.com
+12,Phoenix Suns,West,1,5,nba.com
+13,Los Angeles Clippers,West,1,7,nba.com
+14,Sacramento Kings,West,1,7,nba.com
+15,Utah Jazz,West,1,7,nba.com
