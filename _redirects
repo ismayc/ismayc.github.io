@@ -53,6 +53,7 @@ http://chester.netlify.app/*   https://chesterismay.com/:splat  301!
 /ProbApp/*  https://ismayc.github.io/ProbApp/:splat  200
 /rbasics-book/*  https://ismayc.github.io/rbasics-book/:splat  200
 /rstudioconf/*  https://ismayc.github.io/rstudioconf/:splat  200
+/safe-lead-study/*  https://ismayc.github.io/safe-lead-study/:splat  200
 /shot-quality-study/*  https://ismayc.github.io/shot-quality-study/:splat  200
 /simstreams/*  https://ismayc.github.io/simstreams/:splat  200
 /simstreams-python/*  https://ismayc.github.io/simstreams-python/:splat  200
@@ -62,6 +63,7 @@ http://chester.netlify.app/*   https://chesterismay.com/:splat  301!
 /talks/*  https://ismayc.github.io/talks/:splat  200
 /text-adder/*  https://ismayc.github.io/text-adder/:splat  200
 /tracking-study/*  https://ismayc.github.io/tracking-study/:splat  200
+/unrivaled-schedule/*  https://ismayc.github.io/unrivaled-schedule/:splat  200
 /us-states-quiz-app/*  https://ismayc.github.io/us-states-quiz-app/:splat  200
 /wnba-schedule/*  https://ismayc.github.io/wnba-schedule/:splat  200
 /womens-march-madness/*  https://ismayc.github.io/womens-march-madness/:splat  200
