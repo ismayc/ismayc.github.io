@@ -1,0 +1,29 @@
+---
+title: "mail-snooze: Privacy Policy"
+description: "How the mail-snooze tool uses Gmail data."
+format:
+  html:
+    toc: false
+---
+
+mail-snooze is a personal tool. I wrote it for my own Mac, and I am its only user. It
+signs in only to my own Gmail accounts. It is not offered to anyone else.
+
+## What it does with Gmail data
+
+- It searches my Gmail for one message at a time, by its Message-ID, to see whether
+  Gmail still lists a snoozed message in the Inbox.
+- If it does, the tool removes the Inbox label from that one message.
+- It does not read message bodies, send mail, or delete mail.
+- The sign-in tokens stay on my own Mac, in a file only my user account can read. No
+  Gmail data is sent to any server other than Google's.
+- No data is shared with, sold to, or used by anyone else, and none of it is used for
+  advertising or to train AI models.
+
+The tool's use of information received from Google APIs adheres to the
+[Google API Services User Data Policy](https://developers.google.com/terms/api-services-user-data-policy),
+including the Limited Use requirements.
+
+Questions: see the contact details on the [home page](/).
+
+_Last updated November 10, 2026._

@@ -45,6 +45,9 @@ project:
     - portfolio.qmd
     - 404.qmd
     - ecots2k16/template_pkg.qmd
+    # Privacy policy for the mail-snooze Google OAuth app (fix-mail-app-osx repo);
+    # its consent screen links here. Unlisted: no nav link.
+    - mail-snooze-privacy.qmd
 
 website:
   title: "Chester Ismay"
