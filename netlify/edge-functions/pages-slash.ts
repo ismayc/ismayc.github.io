@@ -26,6 +26,7 @@ const repos = [
   "infer",
   "instats-ModernDive",
   "jersey-height-study",
+  "kills-study",
   "lineup-valuation-study",
   "mebounds",
   "mens-march-madness",

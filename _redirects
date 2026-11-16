@@ -33,6 +33,7 @@ http://chester.netlify.app/*   https://chesterismay.com/:splat  301!
 /infer/*  https://ismayc.github.io/infer/:splat  200
 /instats-ModernDive/*  https://ismayc.github.io/instats-ModernDive/:splat  200
 /jersey-height-study/*  https://ismayc.github.io/jersey-height-study/:splat  200
+/kills-study/*  https://ismayc.github.io/kills-study/:splat  200
 /lineup-valuation-study/*  https://ismayc.github.io/lineup-valuation-study/:splat  200
 /mebounds/*  https://ismayc.github.io/mebounds/:splat  200
 /mens-march-madness/*  https://ismayc.github.io/mens-march-madness/:splat  200
