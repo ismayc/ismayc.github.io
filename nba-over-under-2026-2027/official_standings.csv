@@ -1,31 +1,31 @@
 seed,team_name,conference,wins,losses,source
-1,Boston Celtics,East,11,2,nba.com
-2,Philadelphia 76ers,East,11,3,nba.com
+1,Philadelphia 76ers,East,12,3,nba.com
+2,Boston Celtics,East,11,3,nba.com
 3,Detroit Pistons,East,8,4,nba.com
-4,Atlanta Hawks,East,8,6,nba.com
-5,Miami Heat,East,7,6,nba.com
+4,Miami Heat,East,8,6,nba.com
+5,Atlanta Hawks,East,8,6,nba.com
 6,New York Knicks,East,7,6,nba.com
-7,Cleveland Cavaliers,East,7,7,nba.com
-8,Orlando Magic,East,5,7,nba.com
+7,Cleveland Cavaliers,East,8,7,nba.com
+8,Orlando Magic,East,6,7,nba.com
 9,Toronto Raptors,East,5,8,nba.com
 10,Indiana Pacers,East,5,9,nba.com
 11,Charlotte Hornets,East,4,9,nba.com
-12,Washington Wizards,East,4,10,nba.com
-13,Brooklyn Nets,East,3,9,nba.com
-14,Chicago Bulls,East,3,9,nba.com
+12,Washington Wizards,East,4,11,nba.com
+13,Brooklyn Nets,East,3,10,nba.com
+14,Chicago Bulls,East,3,10,nba.com
 15,Milwaukee Bucks,East,1,13,nba.com
 1,San Antonio Spurs,West,12,2,nba.com
 2,Los Angeles Lakers,West,12,2,nba.com
-3,Houston Rockets,West,11,3,nba.com
-4,Portland Trail Blazers,West,9,3,nba.com
-5,Minnesota Timberwolves,West,9,4,nba.com
-6,Memphis Grizzlies,West,9,4,nba.com
+3,Houston Rockets,West,11,4,nba.com
+4,Minnesota Timberwolves,West,10,4,nba.com
+5,Memphis Grizzlies,West,10,4,nba.com
+6,Portland Trail Blazers,West,9,4,nba.com
 7,Oklahoma City Thunder,West,9,5,nba.com
-8,Denver Nuggets,West,7,4,nba.com
-9,Golden State Warriors,West,8,5,nba.com
+8,Denver Nuggets,West,7,5,nba.com
+9,Golden State Warriors,West,8,6,nba.com
 10,Dallas Mavericks,West,7,7,nba.com
-11,Phoenix Suns,West,5,7,nba.com
+11,Phoenix Suns,West,6,7,nba.com
 12,Los Angeles Clippers,West,4,8,nba.com
-13,New Orleans Pelicans,West,4,10,nba.com
+13,New Orleans Pelicans,West,5,10,nba.com
 14,Sacramento Kings,West,1,12,nba.com
 15,Utah Jazz,West,1,13,nba.com
