@@ -21,13 +21,12 @@ An eight-episode O'Reilly live series I host, every other Monday starting Octobe
 
 → [Series page](https://learning.oreilly.com/live-events/the-monday-morning-agent/0642572456054/)  
 → [Episode pages, data, and code](https://ismayc.github.io/monday-morning-agent/)  
-→ [Trailer](https://www.youtube.com/watch?v=CfWT4FaiMls)  
-→ [Episode 1 recap and video](https://www.oreilly.com/radar/building-an-ai-analyst-one-football-argument-at-a-time/)  
-→ [Episode 1 on Substack](https://oreillyradar.substack.com/p/building-an-ai-analyst-one-football)  
-→ [Episode 2 recap and video](https://www.oreilly.com/radar/the-monday-morning-agent-defining-the-tush-push/)  
-→ [Episode 2 on Substack](https://oreillyradar.substack.com/p/the-monday-morning-agent-defining)  
-→ [Episode 3 recap and video](https://www.oreilly.com/radar/the-monday-morning-agent-are-kickers-too-good-now/)  
-→ [Episode 3 on Substack](https://oreillyradar.substack.com/p/the-monday-morning-agent-are-kickers)
+→ [Trailer](https://www.youtube.com/watch?v=CfWT4FaiMls)
+
+**Recordings:**  
+Episode 1: [recap and video](https://www.oreilly.com/radar/building-an-ai-analyst-one-football-argument-at-a-time/) · [Substack](https://oreillyradar.substack.com/p/building-an-ai-analyst-one-football)  
+Episode 2: [recap and video](https://www.oreilly.com/radar/the-monday-morning-agent-defining-the-tush-push/) · [Substack](https://oreillyradar.substack.com/p/the-monday-morning-agent-defining)  
+Episode 3: [recap and video](https://www.oreilly.com/radar/the-monday-morning-agent-are-kickers-too-good-now/) · [Substack](https://oreillyradar.substack.com/p/the-monday-morning-agent-are-kickers)
 :::
 
 ::: {.card}
