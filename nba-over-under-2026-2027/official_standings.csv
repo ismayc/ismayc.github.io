@@ -1,31 +1,31 @@
 seed,team_name,conference,wins,losses,source
-1,Philadelphia 76ers,East,13,3,nba.com
-2,Boston Celtics,East,11,4,nba.com
-3,Detroit Pistons,East,10,4,nba.com
-4,Miami Heat,East,9,6,nba.com
-5,Atlanta Hawks,East,9,6,nba.com
-6,New York Knicks,East,8,6,nba.com
-7,Cleveland Cavaliers,East,8,8,nba.com
-8,Orlando Magic,East,6,8,nba.com
-9,Toronto Raptors,East,5,10,nba.com
-10,Indiana Pacers,East,5,10,nba.com
-11,Washington Wizards,East,5,11,nba.com
-12,Charlotte Hornets,East,4,10,nba.com
-13,Chicago Bulls,East,4,10,nba.com
-14,Brooklyn Nets,East,3,11,nba.com
-15,Milwaukee Bucks,East,1,14,nba.com
-1,Los Angeles Lakers,West,13,3,nba.com
-2,San Antonio Spurs,West,12,3,nba.com
-3,Houston Rockets,West,12,4,nba.com
-4,Minnesota Timberwolves,West,11,4,nba.com
-5,Memphis Grizzlies,West,11,4,nba.com
-6,Portland Trail Blazers,West,9,5,nba.com
-7,Denver Nuggets,West,8,5,nba.com
-8,Oklahoma City Thunder,West,9,6,nba.com
-9,Dallas Mavericks,West,8,7,nba.com
-10,Golden State Warriors,West,8,7,nba.com
-11,Phoenix Suns,West,7,7,nba.com
-12,New Orleans Pelicans,West,5,11,nba.com
-13,Los Angeles Clippers,West,4,9,nba.com
-14,Utah Jazz,West,3,13,nba.com
-15,Sacramento Kings,West,1,13,nba.com
+1,Philadelphia 76ers,East,13,3,espn_api
+2,Boston Celtics,East,11,4,espn_api
+3,Detroit Pistons,East,10,4,espn_api
+4,Miami Heat,East,9,6,espn_api
+5,Atlanta Hawks,East,9,6,espn_api
+6,New York Knicks,East,9,6,espn_api
+7,Cleveland Cavaliers,East,8,8,espn_api
+8,Orlando Magic,East,6,8,espn_api
+9,Toronto Raptors,East,5,10,espn_api
+10,Indiana Pacers,East,5,10,espn_api
+11,Washington Wizards,East,5,11,espn_api
+12,Charlotte Hornets,East,4,10,espn_api
+13,Chicago Bulls,East,4,10,espn_api
+14,Brooklyn Nets,East,3,11,espn_api
+15,Milwaukee Bucks,East,1,15,espn_api
+1,San Antonio Spurs,West,13,3,espn_api
+2,Los Angeles Lakers,West,13,3,espn_api
+3,Houston Rockets,West,12,4,espn_api
+4,Memphis Grizzlies,West,12,4,espn_api
+5,Minnesota Timberwolves,West,11,5,espn_api
+6,Portland Trail Blazers,West,10,5,espn_api
+7,Denver Nuggets,West,8,5,espn_api
+8,Oklahoma City Thunder,West,9,6,espn_api
+9,Dallas Mavericks,West,8,7,espn_api
+10,Golden State Warriors,West,8,8,espn_api
+11,Phoenix Suns,West,7,7,espn_api
+12,New Orleans Pelicans,West,5,11,espn_api
+13,Los Angeles Clippers,West,4,10,espn_api
+14,Utah Jazz,West,3,13,espn_api
+15,Sacramento Kings,West,1,13,espn_api
