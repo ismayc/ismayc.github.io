@@ -1,2 +1,4 @@
 # Written by each page build for the Python cross-check, not published
 check-export/
+# Per-variant output of backtest/chance_variants.R (rerun to rebuild)
+backtest/chance_variants/

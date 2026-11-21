@@ -154,9 +154,16 @@ state_legend <- function() {
 # same seed every date's draws are the same, so a date only changes if its
 # records do. The cache is rebuilt whenever the picks, lines, or settings
 # change. A date takes about 4 seconds at 100,000 simulations.
+#
+# Two optional inputs exist for backtests (backtest/chance_variants.R); the
+# page uses neither. `center` (columns team, wins) moves the prior from the
+# line to other projected wins; picks are still graded against the line.
+# Columns strength_wins and strength_losses in `standings_grid` replace the
+# record in the rate estimate (for example, the record a team's points imply).
 chance_by_date <- function(standings_grid, projections, picks, n_sims = 100000,
                            prior_games = 20, strength_weight = 0.5,
-                           n_games = 82, seed = 2027, cache = NULL) {
+                           n_games = 82, seed = 2027, cache = NULL,
+                           center = NULL) {
   set.seed(seed)
   players <- sort(unique(picks$player))
   signed <- picks |>
@@ -169,13 +176,19 @@ chance_by_date <- function(standings_grid, projections, picks, n_sims = 100000,
   sgn <- sign(S)
   w15 <- sgn * (abs(S) == 15)
   line <- projections$win_projection[match(teams, projections$team)]
+  prior <- if (is.null(center)) line else center$wins[match(teams, center$team)]
+  stopifnot(!anyNA(prior))
   grid <- standings_grid |>
     ungroup() |>
     filter(team %in% teams) |>
-    select(team, date, current_wins, current_losses)
+    select(team, date, current_wins, current_losses,
+           any_of(c("strength_wins", "strength_losses")))
+  if (!"strength_wins" %in% names(grid)) {
+    grid <- mutate(grid, strength_wins = current_wins, strength_losses = current_losses)
+  }
   dates <- sort(unique(grid$date))
 
-  settings <- rlang::hash(list(method = 2, teams, S, line, n_sims, prior_games,
+  settings <- rlang::hash(list(method = 3, teams, S, line, prior, n_sims, prior_games,
                                strength_weight, n_games, seed))
   saved <- if (!is.null(cache) && file.exists(cache)) readRDS(cache)
   if (is.null(saved) || !identical(saved$settings, settings)) {
@@ -192,7 +205,10 @@ chance_by_date <- function(standings_grid, projections, picks, n_sims = 100000,
     w <- d$current_wins[match(teams, d$team)]
     l <- d$current_losses[match(teams, d$team)]
     w[is.na(w)] <- 0; l[is.na(l)] <- 0
-    records <- rlang::hash(list(w, l))
+    sw <- d$strength_wins[match(teams, d$team)]
+    sl <- d$strength_losses[match(teams, d$team)]
+    sw[is.na(sw)] <- 0; sl[is.na(sl)] <- 0
+    records <- rlang::hash(list(w, l, sw, sl))
     hit <- if (nrow(saved$results)) {
       filter(saved$results, date == dates[k], records == !!records)
     }
@@ -202,9 +218,9 @@ chance_by_date <- function(standings_grid, projections, picks, n_sims = 100000,
     }
     g <- w + l
     rem <- pmax(n_games - g, 0)
-    q <- line / n_games
-    a <- strength_weight * (w + prior_games * q)
-    b <- strength_weight * (l + prior_games * (1 - q))
+    q <- prior / n_games
+    a <- strength_weight * (sw + prior_games * q)
+    b <- strength_weight * (sl + prior_games * (1 - q))
     p <- qbeta(U_rate, rep(a, each = n_sims), rep(b, each = n_sims))
     final <- matrix(qbinom(U, rep(rem, each = n_sims), p),
                     n_sims) +
@@ -215,11 +231,20 @@ chance_by_date <- function(standings_grid, projections, picks, n_sims = 100000,
     # Place = 1 + players strictly ahead (ties share a place)
     rk <- sapply(seq_along(players), \(i) 1L + rowSums(key > key[, i]))
     top <- rk == 1
+    # Chance of each place. Entries still tied split the places they cover
+    # evenly (two tied for 2nd each get half of 2nd and half of 3rd), so
+    # every place and every player sums to 100%.
+    tied <- sapply(seq_along(players), \(i) rowSums(key == key[, i]))
+    place <- sapply(seq_along(players),
+                    \(j) colMeans((rk <= j & j < rk + tied) / tied))
+    colnames(place) <- paste0("p_place_", seq_along(players))
     out[[k]] <- tibble(date = dates[k], player = players,
                        p_first = colMeans(top / rowSums(top)),
                        p_top4 = colMeans(rk <= 4),
                        # Once every game is played, every simulation agrees
                        final_rank = if (all(rem == 0)) as.integer(rk[1, ]) else NA_integer_,
+                       exp_place = as.numeric(place %*% seq_along(players)),
+                       as_tibble(place),
                        records = records)
   }
   results <- bind_rows(out)
@@ -301,6 +326,38 @@ chance_chart <- function(chances, measure = c("p_first", "p_top4")) {
       hovermode = "x unified"
     ) |>
     ou_plotly()
+}
+
+# Each player's chance of each final place as of the latest date, most likely
+# finishers first. Darker cells are likelier; the rule after 4th is the cutoff
+# for the pool's playoffs.
+place_table <- function(chances) {
+  latest <- chances |> filter(date == max(date)) |> arrange(exp_place, player)
+  cols <- names(latest)[grepl("^p_place_", names(latest))]
+  cols <- cols[colSums(!is.na(latest[cols])) > 0]
+  p <- as.matrix(latest[cols])
+  ordinal <- function(n) paste0(n, ifelse(n %% 100 %in% 11:13, "th",
+                                  c("th", "st", "nd", "rd", rep("th", 6))[n %% 10 + 1]))
+  shown <- ifelse(p > 0 & p < 0.005, "<1%", sprintf("%.0f%%", p * 100))
+  colnames(shown) <- ordinal(seq_along(cols))
+  tab <- bind_cols(tibble(Player = latest$player,
+                          `Average place` = sprintf("%.1f", latest$exp_place)),
+                   as_tibble(shown), as_tibble(p))
+  # Ink at up to 45% strength, so the ink-colored text stays readable
+  steps <- seq(0.02, max(p, 0.04), length.out = 20)
+  shades <- sprintf("rgba(28, 42, 68, %.3f)", c(0, steps / max(steps) * 0.45))
+  css <- tags$style(HTML(sprintf(
+    "#place_chances table.dataTable td:nth-child(6), #place_chances table.dataTable th:nth-child(6) { border-right: 3px solid %s !important; }",
+    ou_col$ink)))
+  dt <- DT::datatable(
+    tab, rownames = FALSE, elementId = "place_chances",
+    options = list(dom = "t", pageLength = nrow(tab), ordering = FALSE,
+                   columnDefs = list(
+                     list(visible = FALSE, targets = length(cols) + 1 + seq_along(cols)),
+                     list(className = "dt-center", targets = seq_len(length(cols) + 1))))) |>
+    DT::formatStyle(colnames(shown), valueColumns = cols,
+                    backgroundColor = DT::styleInterval(steps, shades))
+  tagList(css, dt)
 }
 
 # Recommendation 4: latest standings only, one column per tiebreaker

@@ -117,6 +117,18 @@ The top 4 qualify for the Over/Under playoffs.
 if (nrow(chances)) chance_chart(chances, "p_top4")
 ```
 
+### Chance of each place
+
+Each player's chance to finish in each place, from the latest day's
+simulations, with the likeliest finishers first. Places 1 to 4 are the seeds
+for the Over/Under playoffs, so the line after 4th is the cutoff. Average
+place is the mean over all the simulated finishes. Players still tied after
+the tiebreakers split the places they cover.
+
+```{r}
+if (nrow(chances)) place_table(chances)
+```
+
 ## Scenarios
 
 ```{r results="asis"}
