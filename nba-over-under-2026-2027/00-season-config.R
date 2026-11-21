@@ -21,6 +21,14 @@ nba_cup_champ_date    <- "2026-12-11"
 # field is set; the last two games per team get added after Group Play.
 schedule_initial_file   <- paste0("schedule-", season_label, "_initial.csv")
 
+# Chance to win: where each team's starting estimate sits between the pool's
+# line (0) and DARKO's preseason wins (1), read from
+# nba-over-under-META/preseason_projections.csv. Halfway since November 21,
+# 2026: on 2021-22 to 2025-26 it ranked the players' final places better than
+# the line alone in 4 of 5 seasons, mostly in the first 20 games
+# (backtest/chance_variants.R). Picks are still graded against the line.
+chance_center_weight <- 0.5
+
 # The scenario explorer lists every Over/Under combination of the teams still
 # undecided (2^n), so it is published only once n is this small (2^20 is
 # about a million, a second or two in the browser).
