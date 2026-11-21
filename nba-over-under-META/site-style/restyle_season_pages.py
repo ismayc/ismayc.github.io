@@ -301,12 +301,25 @@ def write_both(name, text):
 
 CHANCE_NOTE = (
     "How likely each player was to finish first, or in the top 4, as of each "
-    "date of the season. Rebuilt in October 2026 with the method the 2026-27 "
+    "date of the season. Rebuilt in November 2026 with the method the 2026-27 "
     "page uses: each day, the rest of the season was simulated 100,000 times "
     "from each team's record, pulled toward its Vegas line (the line counts "
     "as 20 games of evidence), with how good each team really is drawn at "
-    "random in every simulation. Every simulated season is scored with the "
+    "random in every simulation and every remaining game played between its "
+    "two teams. Every simulated season is scored with the "
     "pool's rules and tiebreakers. The dotted line is an even share.")
+# Seasons with a DARKO preseason projection on file (2021-22 on) start from
+# the same estimate as the 2026-27 page; past_chances.R marks them "darko".
+CHANCE_NOTE_DARKO = (
+    "How likely each player was to finish first, or in the top 4, as of each "
+    "date of the season. Rebuilt in November 2026 with the method the 2026-27 "
+    "page uses: each day, the rest of the season was simulated 100,000 times "
+    "from each team's record, pulled toward a preseason estimate (halfway "
+    "between its Vegas line and DARKO's preseason projection, counted as 20 "
+    "games of evidence), with how good each team really is drawn at random "
+    "in every simulation and every remaining game played between its two "
+    "teams. Every simulated season is scored with the pool's "
+    "rules and tiebreakers. The dotted line is an even share.")
 
 # Draw each chart the first time its tab is visible, so plotly sizes it to
 # the tab rather than to a hidden zero-width box.
@@ -351,7 +364,7 @@ def add_chances(text, year):
     section = (
         '<div id="chance-to-win" class="section level2 tabset active">\n'
         '<h2 class="tabset active">Chance to win</h2>\n'
-        f'<p>{html.escape(CHANCE_NOTE)}</p>\n'
+        f'<p>{html.escape(CHANCE_NOTE_DARKO if data.get("darko") else CHANCE_NOTE)}</p>\n'
         '<div id="chance-to-finish-first" class="section level3">\n'
         '<h3>Chance to finish first</h3>\n'
         '<div id="ou-chance-first" class="ou-chance"></div>\n</div>\n'

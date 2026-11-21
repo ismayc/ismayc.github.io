@@ -1,10 +1,14 @@
 # Each player's chance to win the pool through 2021-22 to 2025-26, from the
 # in-season model the daily page uses (chance_by_date in 09-season-graphics.R:
-# records pulled toward the line, beta-binomial, 100,000 simulations), run
-# weekly from opening night to the last day.
+# records pulled toward a preseason estimate between the line and DARKO,
+# each team's rate drawn from a beta, every remaining game played between its
+# two teams, 100,000 simulations), run weekly from opening night to the last
+# day. Until November 21, 2026 the estimate was the line alone and each team's
+# games were drawn alone; that run is `chance_variants.R run 0 0`.
 #
 # Picks: nba-over-under-META/all_picks_6seasons.csv. Lines: each season's
-# picks.xlsx. Games: the same April game files as prior_weight.R.
+# picks.xlsx. Games: the same April game files as prior_weight.R. Schedule
+# (who played whom, and where): game_scores_2021_26.csv.
 # Writes chance_over_season.csv.
 #
 # Run from this folder: Rscript --vanilla chance_over_season.R
@@ -23,6 +27,13 @@ game_files <- c(`2021-22` = "2021-2022/rds/game_results_raw_through_2022-04-10.r
                 `2023-24` = "2023-2024/rds/game_results_raw_through_2024-04-14.rds",
                 `2024-25` = "2024-2025/rds/game_results_raw_through_2025-04-13.rds",
                 `2025-26` = "2025-2026/rds/game_results_raw_through_2026-04-12.rds")
+
+center_weight <- local({
+  source(file.path(repo, "nba-over-under-2026-2027/00-season-config.R"), local = TRUE)
+  chance_center_weight
+})
+
+scores <- read_csv("game_scores_2021_26.csv", show_col_types = FALSE)
 
 all_picks <- read_csv(file.path(repo, "nba-over-under-META/all_picks_6seasons.csv"),
                       show_col_types = FALSE) |>
@@ -48,7 +59,19 @@ run <- function(s) {
     summarise(current_wins = sum(win & gdate <= date),
               current_losses = sum(!win & gdate <= date), .groups = "drop")
   picks <- filter(all_picks, season == s) |> select(team, player, wage, choice)
-  chance_by_date(standings_grid, projections, picks) |>
+  center <- chance_prior_center(projections, s, center_weight,
+                                file.path(repo, "nba-over-under-META/preseason_projections.csv"))
+  stopifnot(!is.null(center))
+  # One row per game: the home team's row, or for a neutral-site game
+  # (neither team listed at home) the row of the team first in the alphabet
+  schedule <- scores |> filter(season == s) |>
+    group_by(date, pair = paste(pmin(team, opponent), pmax(team, opponent))) |>
+    mutate(neutral = !any(home)) |> ungroup() |>
+    filter(home | (neutral & team < opponent)) |>
+    transmute(date, home = team, away = opponent, neutral)
+  stopifnot(nrow(schedule) == 1230)
+  chance_by_date(standings_grid, projections, picks, center = center,
+                 schedule = schedule) |>
     mutate(season = s, day = as.integer(date - first + 1),
            games_played = map_dbl(date, \(d) mean(
              filter(standings_grid, date == d) |> with(current_wins + current_losses))))

@@ -65,16 +65,21 @@ source("09-season-graphics.R")
 # only simulates the dates whose records changed
 # Each team's starting estimate sits between the pool's line and DARKO's
 # preseason wins (chance_center_weight in 00-season-config.R)
-darko <- read_csv(file.path("..", "nba-over-under-META", "preseason_projections.csv"),
-                  show_col_types = FALSE) |>
-  filter(source == "darko", season == season_label) |>
-  select(team, darko = proj_wins)
-chance_center <- projections |>
-  left_join(darko, by = "team") |>
-  transmute(team, wins = win_projection + chance_center_weight * (darko - win_projection))
-stopifnot(nrow(chance_center) == nba_teams, !anyNA(chance_center$wins))
+# DARKO posts its team wins around opening night. Until all 30 are in the
+# file, the estimate is the line alone, and the tab says so.
+chance_center <- chance_prior_center(
+  projections, season_label, chance_center_weight,
+  file.path("..", "nba-over-under-META", "preseason_projections.csv"))
+have_darko <- !is.null(chance_center)
+if (!have_darko) message("No complete DARKO rows for ", season_label,
+                         "; the chance to win uses the line alone")
+# Every remaining game is played between its two teams, from the season
+# schedule (the 80-game one until the NBA Cup knockout games are set)
+season_schedule <- read_csv(current_schedule_file(), show_col_types = FALSE) |>
+  transmute(date = as.Date(game_date), home = home_team, away = away_team)
 chances <- chance_by_date(standings_grid, projections, picks,
-                          cache = "rds/chance_cache.rds", center = chance_center)
+                          cache = "rds/chance_cache.rds", center = chance_center,
+                          schedule = season_schedule)
 
 knitr::opts_chunk$set(echo = FALSE)
 library(lubridate)
@@ -88,14 +93,19 @@ Last updated at `r format(Sys.time(), "%Y-%m-%d %H:%M", tz = "America/Los_Angele
 
 ## Chance to win {.tabset .active}
 
-Each day, the rest of the season is simulated 100,000 times. A team's remaining
-games are drawn from its record so far, pulled toward a preseason estimate
+Each day, the rest of the season is simulated 100,000 times. How good a team
+is comes from its record so far, pulled toward a preseason estimate
 (halfway between its Vegas line and DARKO's preseason projection, counted as
 20 games of evidence). Each simulation also draws how good
 the team really is, since a record is an uncertain guide; tested on
-2021-22 to 2025-26, leaving that out made the chances too confident. Every
+2021-22 to 2025-26, leaving that out made the chances too confident. Then
+every game left on the schedule is played between its two teams. Every
 simulated season is scored with the pool's rules and tiebreakers. The dotted
 line is an even share.
+
+```{r results="asis"}
+if (!have_darko) cat("**DARKO's projection for this season is not in yet, so for now the preseason estimate is the Vegas line alone.** The charts are recalculated when it arrives.")
+```
 
 <details>
 <summary>How the simulations work</summary>
@@ -103,12 +113,12 @@ line is an even share.
 <ol>
 <li><b>Estimate how good each team is.</b> Its record so far is blended with a preseason estimate: the point halfway between its Vegas line and the wins <a href="https://www.darko.app/standings">DARKO</a> projected before the season. That estimate counts as 20 games played at its pace (49.5 wins is a .604 pace, so it adds about 12 wins and 8 losses). Early on the preseason estimate dominates; by spring the record does.</li>
 <li><b>Allow for doubt about that estimate.</b> Rather than treat the blend as exact, each simulation draws the team's true win rate from a beta distribution centered on it, with the evidence counted at half weight. In a test on 2021-22 to 2025-26, a fixed rate gave teams 88% chances to finish Over that came true only 69% of the time; this step fixed most of that.</li>
-<li><b>Play out the remaining games.</b> Each remaining game is won at that drawn rate. Opponents, home court, and rest are not modeled.</li>
+<li><b>Play out the remaining games.</b> Every game left on the schedule is played between its two teams: the better team's chance to win grows with the gap between the two drawn rates, and the home team gets the edge home teams have had (they won 55% of games in 2021-22 to 2025-26). One team's win is the other's loss, and who a team still has to play matters. Rest and injuries are not modeled. Games not on the schedule yet (the NBA Cup knockout rounds) are won at the team's own drawn rate.</li>
 <li><b>Grade every pick and rank the entries.</b> A team is Over if its final wins beat the line. Entries gain their wager on a right pick and lose it on a wrong one, then rank by points, number right, and 15s right. Entries still tied share the place.</li>
 </ol>
 <p>A player's chance to finish first (or top 4) is the share of the 100,000 finishes where they do. Every date reuses the same random draws, so day-to-day changes come from games played, not from simulation noise.</p>
-<p><b>How it has done:</b> run weekly on 2021-22 to 2025-26, readings of 70% to 90% ended in first place (the playoffs' top seed) only 4 of 14 times, and players under 1% finished first about 4% of the time (Phil finished first in 2025-26 from 0.3%). Read big leads as less safe than they look.</p>
-<p><b>Changed November 21, 2026:</b> until then the preseason estimate was the Vegas line alone. In the same five seasons, adding DARKO ranked the players' final places better in four of them, mostly in the first 20 games, when the line-only version did no better than chance. Every earlier date on these charts was recalculated with the new estimate. Picks are still graded against the Vegas line.</p>
+<p><b>How it has done:</b> run weekly on 2021-22 to 2025-26, readings of 70% to 90% ended in first place (the playoffs' top seed) only 5 of 19 times, and players under 1% finished first about 4% of the time (Phil finished first in 2025-26 from 0.2%). Read big leads as less safe than they look.</p>
+<p><b>Changed November 21, 2026:</b> until then the preseason estimate was the Vegas line alone, and each team's remaining games were drawn on their own, without opponents. In the same five seasons, adding DARKO ranked the players' final places better in four of them, mostly in the first 20 games, when the line-only version did no better than chance. Playing out the real schedule then ranked them better again in four of the five. Neither change fixed the overconfidence in big leads described above. Every earlier date on these charts was recalculated. Picks are still graded against the Vegas line.</p>
 </details>
 
 ### Chance to finish first

@@ -44,5 +44,26 @@ load_past_season <- function(s) {
     mutate(current_wins = cumsum(w), current_losses = cumsum(l)) |>
     ungroup()
   list(label = label, n_games = s$n_games, dates = dates,
-       standings_grid = standings_grid, projections = projections, picks = picks)
+       standings_grid = standings_grid, projections = projections, picks = picks,
+       schedule = past_schedule(games, s$n_games))
+}
+
+# One row per game (date, home, away) for chance_by_date's schedule. Home
+# and away come from the matchup text ("OKC vs. HOU" is a home game, "HOU @
+# OKC" a road game), not slugOpponent: the 2024-25 file names the Spurs as
+# their own opponent for the Paris game and writes the Suns as PHX and PHO.
+past_schedule <- function(games, n_games) {
+  sides <- games |>
+    mutate(is_home = grepl(" vs. ", slugMatchup, fixed = TRUE),
+           key = map_chr(strsplit(sub("PHO", "PHX", slugMatchup), " vs. | @ "),
+                         \(x) paste(sort(x), collapse = "-")))
+  schedule <- inner_join(
+    sides |> filter(is_home) |> select(date, key, home = team),
+    sides |> filter(!is_home) |> select(date, key, away = team),
+    by = c("date", "key")) |>
+    select(date, home, away)
+  per_team <- count(tibble(team = c(schedule$home, schedule$away)), team)
+  stopifnot(nrow(schedule) == 30 * n_games / 2, all(per_team$n == n_games),
+            all(schedule$home != schedule$away))
+  schedule
 }

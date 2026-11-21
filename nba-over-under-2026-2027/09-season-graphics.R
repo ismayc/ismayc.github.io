@@ -140,6 +140,23 @@ state_legend <- function() {
          purrr::imap(ou_state_colors, \(col, label) swatch(col, label)))
 }
 
+# Each team's starting estimate for chance_by_date: the point `weight` of the
+# way from the pool's line to DARKO's preseason wins for `season` (0 = the
+# line, 1 = DARKO), from nba-over-under-META/preseason_projections.csv. Gives
+# NULL, which means the line alone, when that file lacks any of the teams:
+# DARKO posts around opening night, and it has nothing before 2021-22.
+chance_prior_center <- function(projections, season, weight, file) {
+  darko <- readr::read_csv(file, show_col_types = FALSE) |>
+    filter(source == "darko", .data$season == .env$season) |>
+    select(team, darko = proj_wins)
+  if (nrow(darko) != nrow(projections) || !setequal(darko$team, projections$team)) {
+    return(NULL)
+  }
+  projections |>
+    left_join(darko, by = "team") |>
+    transmute(team, wins = win_projection + weight * (darko - win_projection))
+}
+
 # Recommendation 1: each player's chance to win the pool, and to finish in
 # the top 4 (the pool's playoffs), as of every date so far. Each team's
 # remaining games are simulated from its record so far, pulled toward its
@@ -155,15 +172,29 @@ state_legend <- function() {
 # records do. The cache is rebuilt whenever the picks, lines, or settings
 # change. A date takes about 4 seconds at 100,000 simulations.
 #
-# Two optional inputs exist for backtests (backtest/chance_variants.R); the
-# page uses neither. `center` (columns team, wins) moves the prior from the
-# line to other projected wins; picks are still graded against the line.
-# Columns strength_wins and strength_losses in `standings_grid` replace the
-# record in the rate estimate (for example, the record a team's points imply).
+# `center` (columns team, wins) moves the prior from the line to other
+# projected wins (see chance_prior_center); picks are still graded against
+# the line.
+#
+# One more optional input exists for backtests (backtest/chance_variants.R)
+# and the page does not use it: columns strength_wins and strength_losses in
+# `standings_grid` replace the record in the rate estimate (for example, the
+# record a team's points imply).
+#
+# `schedule` (columns date, home, away, and optionally neutral; the whole
+# season, with `date` on the same calendar as the standings dates) plays out
+# each remaining game between its two teams: the home team wins with chance
+# plogis(logit(home rate) - logit(away rate) + home_edge), so one team's win
+# is the other's loss and the opponents left matter. home_edge 0.21 is the
+# logit of the 55.3% of games home teams won in 2021-22 to 2025-26. Games a
+# team still owes that are not on the schedule (the NBA Cup knockout rounds,
+# until they are set) are drawn from its own rate, as without a schedule. On
+# 2021-22 to 2025-26 this ranked the players' final places better than
+# drawing each team alone in 4 of 5 seasons (backtest/chance_variants.R).
 chance_by_date <- function(standings_grid, projections, picks, n_sims = 100000,
                            prior_games = 20, strength_weight = 0.5,
                            n_games = 82, seed = 2027, cache = NULL,
-                           center = NULL) {
+                           center = NULL, schedule = NULL, home_edge = 0.21) {
   set.seed(seed)
   players <- sort(unique(picks$player))
   signed <- picks |>
@@ -187,9 +218,19 @@ chance_by_date <- function(standings_grid, projections, picks, n_sims = 100000,
     grid <- mutate(grid, strength_wins = current_wins, strength_losses = current_losses)
   }
   dates <- sort(unique(grid$date))
+  sched <- NULL
+  if (!is.null(schedule)) {
+    sched <- schedule |>
+      filter(home %in% teams, away %in% teams) |>
+      arrange(date, home, away) |>
+      mutate(idx = row_number(), h = match(home, teams), a = match(away, teams))
+    if (!"neutral" %in% names(sched)) sched$neutral <- FALSE
+  }
 
-  settings <- rlang::hash(list(method = 3, teams, S, line, prior, n_sims, prior_games,
-                               strength_weight, n_games, seed))
+  settings <- list(method = 3, teams, S, line, prior, n_sims, prior_games,
+                   strength_weight, n_games, seed)
+  if (!is.null(sched)) settings <- c(settings, list(sched, home_edge))
+  settings <- rlang::hash(settings)
   saved <- if (!is.null(cache) && file.exists(cache)) readRDS(cache)
   if (is.null(saved) || !identical(saved$settings, settings)) {
     saved <- list(settings = settings, results = tibble())
@@ -222,9 +263,36 @@ chance_by_date <- function(standings_grid, projections, picks, n_sims = 100000,
     a <- strength_weight * (sw + prior_games * q)
     b <- strength_weight * (sl + prior_games * (1 - q))
     p <- qbeta(U_rate, rep(a, each = n_sims), rep(b, each = n_sims))
-    final <- matrix(qbinom(U, rep(rem, each = n_sims), p),
-                    n_sims) +
-      matrix(w, n_sims, length(teams), byrow = TRUE)
+    left <- if (!is.null(sched)) sched[sched$date > dates[k], ]
+    listed <- if (!is.null(sched)) tabulate(c(left$h, left$a), length(teams))
+    # A schedule that lists more games after this date than a team has left
+    # (a game moved and already played, say) cannot be played out as listed,
+    # so that date is simulated without it rather than stopping the page
+    if (!is.null(sched) && any(listed > rem)) {
+      warning("the schedule lists more games after ", dates[k],
+              " than a team has left; that date is simulated without it")
+      left <- NULL
+    }
+    if (is.null(left)) {
+      final <- matrix(qbinom(U, rep(rem, each = n_sims), p),
+                      n_sims) +
+        matrix(w, n_sims, length(teams), byrow = TRUE)
+    } else {
+      strength <- qlogis(pmin(pmax(p, 1e-6), 1 - 1e-6))
+      won <- matrix(0, n_sims, length(teams))
+      for (r in seq_len(nrow(left))) {
+        h <- left$h[r]; a <- left$a[r]
+        # One seed per game, so a game's draws are the same on every date
+        set.seed(seed + left$idx[r])
+        home_won <- runif(n_sims) < plogis(strength[, h] - strength[, a] +
+                                             if (left$neutral[r]) 0 else home_edge)
+        won[, h] <- won[, h] + home_won
+        won[, a] <- won[, a] + !home_won
+      }
+      # Games not on the schedule yet (the NBA Cup knockout rounds)
+      unlisted <- matrix(qbinom(U, rep(rem - listed, each = n_sims), p), n_sims)
+      final <- won + unlisted + matrix(w, n_sims, length(teams), byrow = TRUE)
+    }
     dir <- ifelse(final > matrix(line, n_sims, length(teams), byrow = TRUE), 1, -1)
     pts <- dir %*% S
     key <- pts * 1e4 + ((dir %*% sgn + length(teams)) / 2) * 1e2 + (dir %*% w15 + 3) / 2

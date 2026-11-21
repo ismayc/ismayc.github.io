@@ -6,11 +6,19 @@
 #           preseason wins, 0.5 = halfway.
 #   pyth:   0 = the record is wins and losses (published), 1 = the record the
 #           team's points imply (games * PF^14 / (PF^14 + PA^14)), 0.5 = halfway.
+#   sched:  0 = each team's remaining games are drawn alone (published),
+#           1 = each remaining game is played between its two teams, with home
+#           court (the real schedule; see chance_by_date).
+#   weight: the weight on the evidence when a team's rate is drawn (0.5
+#           published; lower is less sure of each team).
 #
-# The team-level version of this test is strength_inputs.R.
+# The team-level version of the first two is strength_inputs.R. Since
+# November 21, 2026 the page uses center 0.5 with the schedule (the test of
+# the schedule compared it with c0.5_p0, the page's model before it).
 #
-# One variant:  Rscript --vanilla chance_variants.R run <center> <pyth>
-#               (writes chance_variants/c<center>_p<pyth>.csv; about 8 minutes)
+# One variant:  Rscript --vanilla chance_variants.R run <center> <pyth> [sched] [weight]
+#               (writes chance_variants/c<center>_p<pyth>[_s1][_w<weight>].csv;
+#               about 8 minutes, 25 with the schedule)
 # Score them:   Rscript --vanilla chance_variants.R score
 #               (writes chance_variants_scores.csv)
 # Run from this folder.
@@ -26,6 +34,10 @@ pyth_exp <- 14
 
 if (args[1] == "run") {
   center_w <- as.numeric(args[2]); pyth_w <- as.numeric(args[3])
+  use_sched <- !is.na(args[4]) && args[4] == "1"
+  weight <- if (is.na(args[5])) 0.5 else as.numeric(args[5])
+  label <- paste0("c", center_w, "_p", pyth_w, if (use_sched) "_s1",
+                  if (weight != 0.5) paste0("_w", weight))
   source(file.path(repo, "nba-over-under-2026-2027/09-season-graphics.R"))
   all_picks <- read_csv(file.path(repo, "nba-over-under-META/all_picks_6seasons.csv"),
                         show_col_types = FALSE) |>
@@ -60,25 +72,39 @@ if (args[1] == "run") {
       left_join(filter(darko, season == s), by = "team") |>
       transmute(team, wins = win_projection + center_w * (darko - win_projection))
     picks <- filter(all_picks, season == s) |> select(team, player, wage, choice)
-    chance_by_date(standings_grid, projections, picks, center = center) |>
+    # One row per game: the home team's row, or for a neutral-site game
+    # (neither team listed at home) the row of the team first in the alphabet
+    schedule <- games |>
+      group_by(date, pair = paste(pmin(team, opponent), pmax(team, opponent))) |>
+      mutate(neutral = !any(home)) |> ungroup() |>
+      filter(home | (neutral & team < opponent)) |>
+      transmute(date, home = team, away = opponent, neutral)
+    stopifnot(nrow(schedule) == 1230)
+    chance_by_date(standings_grid, projections, picks, center = center,
+                   strength_weight = weight,
+                   schedule = if (use_sched) schedule) |>
       mutate(season = s, day = as.integer(date - first + 1),
              games_played = map_dbl(date, \(d) mean(filter(standings_grid, date == d)$g)))
   }
   res <- map_dfr(names(folders), \(s) { message(s); run(s) }) |>
-    mutate(center = center_w, pyth = pyth_w)
+    mutate(center = center_w, pyth = pyth_w, sched = as.integer(use_sched),
+           weight = weight, variant = label)
   dir.create("chance_variants", showWarnings = FALSE)
-  write_csv(res, sprintf("chance_variants/c%s_p%s.csv", center_w, pyth_w))
+  write_csv(res, sprintf("chance_variants/%s.csv", label))
 }
 
 if (args[1] == "score") {
+  # A variant is one output file; `base` is the model on the page
+  base <- "c0.5_p0_s1"
   res <- map_dfr(list.files("chance_variants", full.names = TRUE),
-                 \(f) read_csv(f, show_col_types = FALSE))
-  # The published model's run must match chance_over_season.csv
+                 \(f) read_csv(f, show_col_types = FALSE) |>
+                   select(-any_of(c("variant", "sched", "weight", "center", "pyth"))) |>
+                   mutate(variant = sub("\\.csv$", "", basename(f))))
+  # The page's model, rerun here, must match chance_over_season.csv
   pub <- read_csv("chance_over_season.csv", show_col_types = FALSE)
-  same <- inner_join(filter(res, center == 0, pyth == 0), pub,
-                     by = c("season", "date", "player"))
-  cat(sprintf("Published model: %d of %d readings rerun; largest difference in the chance to finish first %.2g, top 4 %.2g\n",
-              nrow(same), nrow(pub), max(abs(same$p_first.x - same$p_first.y)),
+  same <- inner_join(filter(res, variant == base), pub, by = c("season", "date", "player"))
+  cat(sprintf("Page model (%s): %d of %d readings rerun; largest difference in the chance to finish first %.2g, top 4 %.2g\n",
+              base, nrow(same), nrow(pub), max(abs(same$p_first.x - same$p_first.y)),
               max(abs(same$p_top4.x - same$p_top4.y))))
 
   finals <- res |> filter(!is.na(final_rank)) |>
@@ -86,7 +112,7 @@ if (args[1] == "score") {
   place_cols <- names(res)[grepl("^p_place_", names(res))]
   d <- res |> select(-final_rank) |>
     inner_join(finals, by = c("season", "player")) |>
-    group_by(season, center, pyth) |> filter(date < max(date)) |> ungroup() |>
+    group_by(season, variant) |> filter(date < max(date)) |> ungroup() |>
     mutate(top4 = as.integer(fr <= 4), first = as.integer(fr == 1),
            phase = cut(games_played, c(-1, 20, 41, 62, 82),
                        labels = c("games 0-20", "21-41", "42-62", "63-82")))
@@ -96,7 +122,7 @@ if (args[1] == "score") {
   cum_act <- outer(d$fr, seq_along(place_cols), "<=") * 1
   d$rps <- rowSums((cum_pred - cum_act)^2)
 
-  per_date <- d |> group_by(center, pyth, season, phase, date) |>
+  per_date <- d |> group_by(variant, season, phase, date) |>
     summarise(rho = cor(exp_place, fr, method = "spearman"),
               top4_hits = sum(top4[rank(exp_place, ties.method = "first") <= 4]),
               winner_logp = log(sum(p_first[first == 1])),
@@ -108,23 +134,32 @@ if (args[1] == "score") {
                                 brier_first = mean(brier_first), rps = mean(rps),
                                 winner_logp = mean(winner_logp),
                                 favorite_won = mean(favorite_won), .groups = "drop")
-  overall <- per_date |> group_by(center, pyth) |> summ()
-  by_phase <- per_date |> group_by(phase, center, pyth) |> summ()
+  overall <- per_date |> group_by(variant) |> summ()
+  by_phase <- per_date |> group_by(phase, variant) |> summ()
   cat("\nAll weekly readings before the last day (a reading = one date in one season):\n")
   print(as.data.frame(overall), digits = 3)
   cat("\nBy stage of the season:\n"); print(as.data.frame(by_phase), digits = 3)
 
-  by_season <- per_date |> group_by(season, center, pyth) |> summ()
-  base <- by_season |> filter(center == 0, pyth == 0) |>
+  by_season <- per_date |> group_by(season, variant) |> summ()
+  ref <- by_season |> filter(variant == base) |>
     select(season, rho0 = rho, rps0 = rps, b40 = brier_top4, b10 = brier_first, lp0 = winner_logp)
-  cat("\nSeasons (of 5) where the variant beats the published model:\n")
-  by_season |> inner_join(base, by = "season") |> group_by(center, pyth) |>
+  cat("\nSeasons (of 5) where the variant beats the page's model (", base, "):\n")
+  by_season |> inner_join(ref, by = "season") |> group_by(variant) |>
     summarise(rho = sum(rho > rho0), rps = sum(rps < rps0), brier_top4 = sum(brier_top4 < b40),
               brier_first = sum(brier_first < b10), winner_logp = sum(winner_logp > lp0),
               .groups = "drop") |> as.data.frame() |> print()
   cat("\nBy season:\n")
-  print(as.data.frame(select(by_season, season, center, pyth, rho, top4_hits, rps, brier_top4,
+  print(as.data.frame(select(by_season, season, variant, rho, top4_hits, rps, brier_top4,
                              brier_first, winner_logp)), digits = 3)
+
+  # How sure is too sure: the chance to finish first, in bins. `seasons` counts
+  # the player-seasons behind a bin, since weekly readings are not independent.
+  cat("\nChance to finish first, predicted against what happened:\n")
+  d |> mutate(bin = cut(p_first, c(0, .01, .1, .3, .5, .7, 1), include.lowest = TRUE)) |>
+    group_by(variant, bin) |>
+    summarise(n = n(), seasons = n_distinct(paste(season, player)), predicted = mean(p_first),
+              happened = mean(first), .groups = "drop") |>
+    as.data.frame() |> print(digits = 3)
   bind_rows(mutate(overall, phase = "all"), mutate(by_phase, phase = as.character(phase))) |>
     write_csv("chance_variants_scores.csv")
 }
