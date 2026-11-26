@@ -55,11 +55,19 @@ jobs:
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          # Retry against a moving master (other workflows also commit here).
+          # Put only this job's two files on top of the latest master. Never
+          # `git reset --soft origin/master`: it keeps this run's stale
+          # checkout in the index, so the commit reverts anything pushed while
+          # the job ran (bfe5fbd3 deleted the daily-email tools that way on
+          # November 26, 2026). Retry against a moving master.
+          FILES="nba-over-under-2025-2026/rosters/finder_app/players_finder.csv nba-player-finder/players.csv"
+          SAVED=$(mktemp)
+          tar -cf "$SAVED" $FILES
           for attempt in 1 2 3 4 5; do
             git fetch origin master
-            git reset --soft origin/master
-            git add nba-over-under-2025-2026/rosters/finder_app/players_finder.csv nba-player-finder/players.csv
+            git reset -q --hard origin/master
+            tar -xf "$SAVED"
+            git add $FILES
             if git diff --cached --quiet; then
               echo "No changes to commit"; exit 0
             fi

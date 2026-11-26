@@ -4,6 +4,9 @@ name: link-check
 # not on push, so a broken outside site never blocks a deploy. A failure sends
 # GitHub's usual failed-run email; the job summary lists each broken link.
 # LinkedIn answers every automated client with status 999, so it is excluded.
+# causeweb.org sends its certificate without the intermediate one (openssl:
+# "unable to verify the first certificate", November 26, 2026). Browsers fetch
+# the missing certificate themselves, but lychee cannot, so it is excluded too.
 # 403 and 429 count as reachable: some sites refuse bots but work in a browser.
 
 on:
@@ -43,6 +46,7 @@ jobs:
             --max-retries 2
             --accept '200..=299,403,429'
             --exclude 'linkedin\.com'
+            --exclude 'causeweb\.org'
             docs/index.html
             docs/about.html
             docs/consulting.html
