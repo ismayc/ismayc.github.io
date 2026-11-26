@@ -27,3 +27,11 @@
     X-Frame-Options = "SAMEORIGIN"
     Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
     Content-Security-Policy = "frame-ancestors 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
+
+# Shared season-page libraries (restyle_season_pages.py externalize_libs). Each
+# file name holds its content hash, so a new version gets a new name and the
+# old copy can be cached for a year.
+[[headers]]
+  for = "/nba-over-under-assets/lib/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

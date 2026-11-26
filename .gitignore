@@ -18,7 +18,9 @@ teaching/soc301-f2016/roster_files/*
 .DS_Store
 */NBA OVER.docx
 */*.parquet
-*/*.sqlite
+# Local databases and machine-specific R settings (pandoc and Python paths)
+*.sqlite
+.Renviron
 */all_chunks.rds
 nba-over-under-2024-2025/rosters/playoffs_1990s/notes.xlsx
 nba-over-under-2024-2025/rosters/playoffs_1990s/~$notes.xlsx
@@ -35,11 +37,26 @@ nba-over-under-*/**/renv.lock
 
 **/*.quarto_ipynb
 
-# Generated copy of the shinylive player-finder app. The canonical copy lives at
-# /nba-player-finder (a Quarto resource); CI (quarto-netlify.yaml) re-renders this
-# docs/ copy into the Pages artifact, so committing it would just double the
-# ~75 MB webR runtime in git history.
-docs/nba-player-finder/
+# The rendered site. CI (quarto-netlify.yaml) renders it from source on every
+# deploy and publishes that build to Netlify and GitHub Pages, so a committed
+# copy is never served. Untracked November 26, 2026; a clean render reproduces
+# every file that was tracked here.
+/docs/*
+# Kept tracked: data files and PDFs that course material may fetch by a raw
+# GitHub URL under docs/. The repo-root copies are what the site serves, and a
+# local render copies them here, so commit both when one changes.
+!/docs/cc_full.csv
+!/docs/cleSac.txt
+!/docs/critical_thinking_framework.pdf
+!/docs/dem_score.csv
+!/docs/dem_score.xlsx
+!/docs/global13sdss_0.sav
+!/docs/imf_data.rds
+!/docs/le_mess.csv
+!/docs/periodic-table-data.csv
+!/docs/pnwflights23.xlsx
+!/docs/spotify_dataset.csv
+!/docs/wash-or_black.csv
 
 # Python bytecode
 __pycache__/

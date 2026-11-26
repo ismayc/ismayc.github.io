@@ -1,0 +1,54 @@
+name: link-check
+
+# Checks every link on the site's own pages once a week. It runs on a schedule,
+# not on push, so a broken outside site never blocks a deploy. A failure sends
+# GitHub's usual failed-run email; the job summary lists each broken link.
+# LinkedIn answers every automated client with status 999, so it is excluded.
+# 403 and 429 count as reachable: some sites refuse bots but work in a browser.
+
+on:
+  schedule:
+    # Weekly, Mondays 15:00 UTC (after the pages-proxy-rules run at 14:00)
+    - cron: "0 15 * * 1"
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - '.github/workflows/link-check.yaml'
+
+permissions:
+  contents: read
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@8a96df13519ee81fd526f2dfca5962811136661b # v2.2.0
+
+      - name: Render site
+        run: quarto render
+
+      - name: Check links
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
+        with:
+          args: >-
+            --no-progress
+            --root-dir ${{ github.workspace }}/docs
+            --max-concurrency 8
+            --timeout 30
+            --max-retries 2
+            --accept '200..=299,403,429'
+            --exclude 'linkedin\.com'
+            docs/index.html
+            docs/about.html
+            docs/consulting.html
+            docs/workshops.html
+            docs/talks.html
+            docs/portfolio.html
+            docs/404.html
+            docs/mail-snooze-privacy.html
+            docs/ecots2k16/template_pkg.html

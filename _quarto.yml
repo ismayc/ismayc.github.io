@@ -35,9 +35,13 @@ project:
     # Netlify only: sends /ouanalytics/ to the package site on GitHub Pages, and the
     # old hostnames (chester.rbind.io, chester.netlify.app) to chesterismay.com
     - "_redirects"
-  output-dir: docs  # for GitHub Pages compatibility
-  # Drops noindex pages from sitemap.xml and writes "/" for "/index.html"
-  post-render: scripts/fix-sitemap.py
+  # The rendered site. Not tracked in git: CI renders it on every deploy.
+  output-dir: docs
+  post-render:
+    # Drops noindex pages from sitemap.xml and writes "/" for "/index.html"
+    - scripts/fix-sitemap.py
+    # Removes the cookie banner's claim about ads, which this site does not show
+    - scripts/fix-cookie-text.py
   render:
     - index.qmd
     - about.qmd
@@ -70,10 +74,13 @@ website:
     right:
       - icon: github
         href: https://github.com/ismayc
+        aria-label: GitHub
       - icon: linkedin
         href: https://www.linkedin.com/in/chesterismay/
+        aria-label: LinkedIn
       - icon: envelope
         href: mailto:chester.ismay@gmail.com
+        aria-label: Email
   navbar:
     left:
       - text: "About"
@@ -89,12 +96,16 @@ website:
     right:
       - icon: github
         href: https://github.com/ismayc
+        aria-label: GitHub
       - icon: linkedin
         href: https://www.linkedin.com/in/chesterismay/
+        aria-label: LinkedIn
       - icon: twitter-x
         href: https://x.com/old_man_chester
+        aria-label: X
       - icon: envelope
         href: mailto:chester.ismay@gmail.com
+        aria-label: Email
 
 format:
   html:

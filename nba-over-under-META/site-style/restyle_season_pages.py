@@ -31,9 +31,18 @@ Run from the repo root:
       Put 2027-nba-rooting-guide.html (from 000-generate-rooting-guide.R) in
       the site theme. Run it after every regeneration of the guide.
 
+  python3 nba-over-under-META/site-style/restyle_season_pages.py libs 2021 2022 ...
+      Move the library code inlined in <year>-nba-over-under.html into shared
+      files under nba-over-under-assets/lib/ (past and season do this too).
+
 Every injected block sits between OU-THEME markers, so rerunning replaces it.
+
+Only the repo-root copy of each page is tracked in git (docs/ is the
+rendered site, rebuilt by CI), so the root copy is the source of truth.
 """
+import base64
 import csv
+import hashlib
 import html
 import json
 import re
@@ -277,14 +286,77 @@ def restyle_rmd(text, year, note):
     title = f"NBA Over/Under {season_label(year)} season"
     desc = (f"The {season_label(year)} NBA over/under pool: standings, each player's "
             "chance to finish first, team-by-team results, and scenarios.")
+    # R Markdown writes no meta description; search results need one
     text = text.replace("</head>", head_block(SEASON_CSS)
-                        + START + head_meta(f"{year}-nba-over-under.html", title, desc) + END
+                        + START + f'<meta name="description" content="{html.escape(desc)}">'
+                        + head_meta(f"{year}-nba-over-under.html", title, desc) + END
                         + "</head>", 1)
     text = re.sub(r"<body([^>]*)>", lambda m: _body_open(m.group(1)), text, count=1)
     body_at = re.search(r"<body[^>]*>", text).end()
     text = (text[:body_at] + START + masthead(year, note) + END + text[body_at:])
     text = text.replace("</body>", START + PLOTLY_FONT + EXPLORER_FRAME + SCROLL_JS + LINKS_JS + END + "</body>", 1)
-    return text
+    return externalize_libs(text)
+
+
+# R Markdown inlines its library code into every season page: plotly.js alone
+# is about 3.5 MB of each 6 to 12 MB page. Each library moves to a shared file
+# named by its content hash, so a browser downloads each version once for all
+# seasons (netlify.toml caches lib/ for a year), and the daily build stops
+# committing a fresh copy of unchanged code. Only scripts that match a known
+# library are moved; page data (the htmlwidget JSON, the chance charts) stays.
+LIB_DIR = "nba-over-under-assets/lib"
+LIB_MIN = 20_000
+LIB_SIGNS = [
+    (r"plotly\.js v([\d.]+)", "plotly"),
+    (r"jQuery v([\d.]+)", "jquery"),
+    (r"Bootstrap v([\d.]+)", "bootstrap"),
+    (r"highlight\.js v([\d.]+)", "highlight"),
+    (r"DataTables ([\d.]+)", "datatables"),
+    (r"selectize\.js - v([\d.]+)", "selectize"),
+    (r"If window\.HTMLWidgets is already defined", "htmlwidgets"),
+    (r"some helper functions: using a global object", "datatables-binding"),
+    (r"crosstalk", "crosstalk"),
+]
+SCRIPT_RE = re.compile(r"<script(?P<attrs>[^>]*)>(?P<body>.*?)</script>", re.S)
+DATA_SRC_RE = re.compile(r'\ssrc="data:application/(?:x-)?javascript;base64,([^"]*)"')
+
+
+def lib_slug(head):
+    for pattern, slug in LIB_SIGNS:
+        m = re.search(pattern, head)
+        if m:
+            return f"{slug}-{m.group(1)}" if m.groups() else slug
+    return None
+
+
+def externalize_libs(text):
+    """Replace each inline or base64 library <script> with a src= reference to
+    nba-over-under-assets/lib/<library>-<hash>.js, writing the file if it is
+    new. Safe to rerun: a moved script has no body left to move."""
+    def move(m):
+        attrs, body = m.group("attrs"), m.group("body")
+        if "application/json" in attrs:
+            return m.group(0)
+        data_src = DATA_SRC_RE.search(attrs)
+        if data_src:
+            code = base64.b64decode(data_src.group(1))
+            attrs = attrs.replace(data_src.group(0), "")
+        elif "src=" in attrs:
+            return m.group(0)
+        else:
+            code = body.encode("utf-8")
+        if len(code) < LIB_MIN:
+            return m.group(0)
+        slug = lib_slug(code[:4000].decode("utf-8", "replace"))
+        if slug is None:
+            return m.group(0)
+        rel = f"{LIB_DIR}/{slug}-{hashlib.sha256(code).hexdigest()[:12]}.js"
+        path = ROOT / rel
+        if not path.exists():
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(code)
+        return f'<script src="{rel}"{attrs}></script>'
+    return SCRIPT_RE.sub(move, text)
 
 
 def _body_open(attrs):
@@ -296,7 +368,11 @@ def _body_open(attrs):
 
 
 def write_both(name, text):
+    # The root copy is the tracked, published one; the docs/ copy keeps a
+    # local preview of the rendered site current. docs/ may not exist yet in a
+    # fresh checkout, since it is no longer tracked.
     for path in (ROOT / name, ROOT / "docs" / name):
+        path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(text)
         print(f"wrote {path.relative_to(ROOT)} ({len(text):,} chars)")
 
@@ -556,7 +632,9 @@ def do_preview(path):
 
     write_both(f"{CURRENT_YEAR}-nba-over-under-preview.html",
                page(f"{CURRENT_YEAR}-nba-over-under-preview.html"))
-    season_page = ROOT / "docs" / f"{CURRENT_YEAR}-nba-over-under.html"
+    # The tracked root copy, not docs/: a fresh checkout has no docs/ copy, and
+    # this check must never mistake that for "no in-season page yet".
+    season_page = ROOT / f"{CURRENT_YEAR}-nba-over-under.html"
     # Until make_plot_html.R renders the in-season page, the season URL shows
     # the preview. Once it exists, leave it alone.
     if not season_page.exists() or 'class="ou-page ou-preview"' in season_page.read_text():
@@ -711,5 +789,15 @@ if __name__ == "__main__":
     elif mode == "explorer" and len(sys.argv) >= 3:
         for y in sys.argv[2:]:
             do_explorer(int(y))
+    elif mode == "libs" and len(sys.argv) >= 3:
+        for y in sys.argv[2:]:
+            name = f"{int(y)}-nba-over-under.html"
+            text = externalize_libs((ROOT / name).read_text())
+            # Pages restyled before the meta description was added get it from
+            # their og:description, inside the same OU-THEME block
+            if '<meta name="description"' not in text:
+                text = re.sub(r'(<meta property="og:description" content="([^"]*)">)',
+                              r'<meta name="description" content="\2">\1', text, count=1)
+            write_both(name, text)
     else:
         sys.exit(__doc__)
