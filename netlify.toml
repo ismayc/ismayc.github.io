@@ -14,3 +14,16 @@
   # governed by Firebase Security Rules), so allow this known value past the
   # secrets scanner instead of failing the deploy.
   SECRETS_SCAN_SMART_DETECTION_OMIT_VALUES = "AIzaSyDGcu91SmpVLAPOwzQqb9k1Z5515WoAlOk"
+
+# Security headers for every file Netlify serves from this deploy. The Content
+# Security Policy has no script-src rule on purpose: the Quarto pages and the
+# season pages use inline scripts, which a script-src rule would block. Test a
+# change on a draft deploy (netlify deploy --dir docs) before production.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "SAMEORIGIN"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+    Content-Security-Policy = "frame-ancestors 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"

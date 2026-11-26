@@ -271,6 +271,8 @@ def tidy_facets(text):
 
 def restyle_rmd(text, year, note):
     text = strip_old(text)
+    # R Markdown writes a bare <html>; screen readers need the language
+    text = re.sub(r"<html(?![^>]*\blang=)([^>]*)>", r'<html lang="en"\1>', text, count=1)
     text = tidy_facets(text)
     title = f"NBA Over/Under {season_label(year)} season"
     desc = (f"The {season_label(year)} NBA over/under pool: standings, each player's "

@@ -29,9 +29,11 @@ http://chester.netlify.app/*   https://chesterismay.com/:splat  301!
 /football-euros-viewer/*  https://ismayc.github.io/football-euros-viewer/:splat  200
 /genzplyr-infer/*  https://ismayc.github.io/genzplyr-infer/:splat  200
 /german-states-quiz-app/*  https://ismayc.github.io/german-states-quiz-app/:splat  200
+/heliocentrism-study/*  https://ismayc.github.io/heliocentrism-study/:splat  200
 /infer/*  https://ismayc.github.io/infer/:splat  200
 /instats-ModernDive/*  https://ismayc.github.io/instats-ModernDive/:splat  200
 /jersey-height-study/*  https://ismayc.github.io/jersey-height-study/:splat  200
+/kills-study/*  https://ismayc.github.io/kills-study/:splat  200
 /lineup-valuation-study/*  https://ismayc.github.io/lineup-valuation-study/:splat  200
 /mebounds/*  https://ismayc.github.io/mebounds/:splat  200
 /mens-march-madness/*  https://ismayc.github.io/mens-march-madness/:splat  200
@@ -52,6 +54,7 @@ http://chester.netlify.app/*   https://chesterismay.com/:splat  301!
 /ProbApp/*  https://ismayc.github.io/ProbApp/:splat  200
 /rbasics-book/*  https://ismayc.github.io/rbasics-book/:splat  200
 /rstudioconf/*  https://ismayc.github.io/rstudioconf/:splat  200
+/safe-lead-study/*  https://ismayc.github.io/safe-lead-study/:splat  200
 /shot-quality-study/*  https://ismayc.github.io/shot-quality-study/:splat  200
 /simstreams/*  https://ismayc.github.io/simstreams/:splat  200
 /simstreams-python/*  https://ismayc.github.io/simstreams-python/:splat  200
@@ -61,6 +64,7 @@ http://chester.netlify.app/*   https://chesterismay.com/:splat  301!
 /talks/*  https://ismayc.github.io/talks/:splat  200
 /text-adder/*  https://ismayc.github.io/text-adder/:splat  200
 /tracking-study/*  https://ismayc.github.io/tracking-study/:splat  200
+/unrivaled-schedule/*  https://ismayc.github.io/unrivaled-schedule/:splat  200
 /us-states-quiz-app/*  https://ismayc.github.io/us-states-quiz-app/:splat  200
 /wnba-schedule/*  https://ismayc.github.io/wnba-schedule/:splat  200
 /womens-march-madness/*  https://ismayc.github.io/womens-march-madness/:splat  200

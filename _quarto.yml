@@ -36,6 +36,8 @@ project:
     # old hostnames (chester.rbind.io, chester.netlify.app) to chesterismay.com
     - "_redirects"
   output-dir: docs  # for GitHub Pages compatibility
+  # Drops noindex pages from sitemap.xml and writes "/" for "/index.html"
+  post-render: scripts/fix-sitemap.py
   render:
     - index.qmd
     - about.qmd
@@ -89,8 +91,8 @@ website:
         href: https://github.com/ismayc
       - icon: linkedin
         href: https://www.linkedin.com/in/chesterismay/
-      - icon: twitter
-        href: https://twitter.com/old_man_chester
+      - icon: twitter-x
+        href: https://x.com/old_man_chester
       - icon: envelope
         href: mailto:chester.ismay@gmail.com
 

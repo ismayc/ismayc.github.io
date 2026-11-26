@@ -20,29 +20,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
 
       - name: Set up Quarto
-        uses: quarto-dev/quarto-actions/setup@v2
+        uses: quarto-dev/quarto-actions/setup@8a96df13519ee81fd526f2dfca5962811136661b # v2.2.0
 
       # Uncomment if your .qmd files use R
       # - name: Set up R
       #   uses: r-lib/actions/setup-r@v2
 
       - name: Render site
-        uses: quarto-dev/quarto-actions/render@v2
+        uses: quarto-dev/quarto-actions/render@8a96df13519ee81fd526f2dfca5962811136661b # v2.2.0
         with:
           to: html
 
       # Upload the built site from docs/ as an artifact for GitHub Pages
       - name: Upload artifact for GitHub Pages
-        uses: actions/upload-pages-artifact@v5
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
           path: docs
 
       # Plain copy of the rendered site for the Netlify deploy job
       - name: Upload rendered site for Netlify
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: site
           path: docs
@@ -58,7 +58,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v5
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
 
   deploy_netlify:
     needs: build
@@ -72,17 +72,18 @@ jobs:
       # The checkout supplies netlify.toml and netlify/edge-functions/, which
       # the CLI reads from the working directory, not from --dir.
       - name: Check out repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
 
       - name: Download rendered site
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: site
           path: site
 
       - name: Install Netlify CLI and deploy
         run: |
-          npm install -g netlify-cli
+          # Pinned: an unpinned install broke the deploy on October 21, 2026
+          npm install -g netlify-cli@27.20.1
           netlify deploy \
             --auth "$NETLIFY_AUTH_TOKEN" \
             --site "$NETLIFY_SITE_ID" \

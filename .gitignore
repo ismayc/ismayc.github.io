@@ -2,6 +2,10 @@ _site
 .sass-cache
 .jekyll-metadata
 .Rproj.user
+# OAuth token caches (httr, gargle): credentials, never tracked
+.httr-oauth
+**/.httr-oauth
+.secrets/
 .RData
 .Rhistory*
 *.DS_Store

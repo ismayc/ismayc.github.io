@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://chesterismay.com/ecots2k16/template_pkg.html</loc>
-    <lastmod>2025-07-28T22:46:05.726Z</lastmod>
-  </url>
-  <url>
-    <loc>https://chesterismay.com/portfolio.html</loc>
-    <lastmod>2026-10-30T15:18:02.604Z</lastmod>
-  </url>
-  <url>
-    <loc>https://chesterismay.com/workshops.html</loc>
-    <lastmod>2026-07-14T17:46:13.286Z</lastmod>
-  </url>
-  <url>
-    <loc>https://chesterismay.com/about.html</loc>
-    <lastmod>2026-10-23T20:01:04.567Z</lastmod>
-  </url>
-  <url>
-    <loc>https://chesterismay.com/index.html</loc>
-    <lastmod>2026-10-23T18:05:22.933Z</lastmod>
+    <loc>https://chesterismay.com/talks.html</loc>
+    <lastmod>2026-11-17T16:27:23.155Z</lastmod>
   </url>
   <url>
     <loc>https://chesterismay.com/consulting.html</loc>
     <lastmod>2026-10-23T20:01:45.118Z</lastmod>
   </url>
   <url>
-    <loc>https://chesterismay.com/talks.html</loc>
-    <lastmod>2026-10-20T19:05:30.239Z</lastmod>
+    <loc>https://chesterismay.com/</loc>
+    <lastmod>2026-11-26T16:35:59.899Z</lastmod>
+  </url>
+  <url>
+    <loc>https://chesterismay.com/about.html</loc>
+    <lastmod>2026-11-26T16:35:59.899Z</lastmod>
+  </url>
+  <url>
+    <loc>https://chesterismay.com/workshops.html</loc>
+    <lastmod>2026-11-26T16:35:59.898Z</lastmod>
+  </url>
+  <url>
+    <loc>https://chesterismay.com/portfolio.html</loc>
+    <lastmod>2026-11-26T16:35:59.898Z</lastmod>
+  </url>
+  <url>
+    <loc>https://chesterismay.com/ecots2k16/template_pkg.html</loc>
+    <lastmod>2025-07-28T22:46:05.726Z</lastmod>
   </url>
 </urlset>

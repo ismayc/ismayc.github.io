@@ -14,7 +14,7 @@ format:
 <div class="workshop-grid">
   <div class="workshop-item">
   <a href="https://datascience.scholar.bucknell.edu/workshop/" target="_blank">
-    <img src="images/spark-curiosity2.png" alt="Teaching and Learning with LLMs" />
+    <img src="images/spark-curiosity2.webp" alt="Teaching and Learning with LLMs" width="1240" height="418" />
   </a>
   
   <a href="https://datascience.scholar.bucknell.edu/workshop/">Bucknell University 2025</a>
@@ -31,7 +31,7 @@ Each of the following were co-led with [Arturo Valdivia](https://stat.indiana.ed
 
   <div class="workshop-item">
   <a href="https://www.causeweb.org/cause/uscots/uscots25/program/workshops/w16" target="_blank">
-    <img src="images/spark-curiosity.png" alt="Spark Curiosity: LLM-Driven Strategies for Teaching and Learning with Data" />
+    <img src="images/spark-curiosity.webp" alt="Spark Curiosity: LLM-Driven Strategies for Teaching and Learning with Data" width="1200" height="538" loading="lazy" />
   </a>
 
 <a href="https://www.causeweb.org/cause/uscots/uscots25/program/workshops/w16">USCOTS 2025</a>
@@ -40,7 +40,7 @@ Each of the following were co-led with [Arturo Valdivia](https://stat.indiana.ed
 
   <div class="workshop-item">
   <a href="https://gamma.app/docs/Reimagining-Intro-Stats-Through-Data-Science-rctif3xcgzhf5pw?follow_on_start=true&following_id=f67f1376ykr0npc" target="_blank">
-    <img src="images/intro-stats.png" alt="Reimagining Intro Stats Through Data Science: A Hands-On Approach with ModernDive" />
+    <img src="images/intro-stats.webp" alt="Reimagining Intro Stats Through Data Science: A Hands-On Approach with ModernDive" width="1200" height="556" loading="lazy" />
   </a>
   
   <a href="https://www.causeweb.org/cause/uscots/uscots25/program/workshops/w11">USCOTS 2025</a>
@@ -49,7 +49,7 @@ Each of the following were co-led with [Arturo Valdivia](https://stat.indiana.ed
 
   <div class="workshop-item">
   <a href="https://moderndive-workshops.netlify.app/llm-wnar/slides.pdf" target="_blank">
-    <img src="images/llm-analysis.png" alt="LLM-Driven Analysis and Reporting with R" />
+    <img src="images/llm-analysis.webp" alt="LLM-Driven Analysis and Reporting with R" width="1200" height="532" loading="lazy" />
   </a>
 
   <a href="https://moderndive-workshops.netlify.app/llm-wnar/slides.pdf">WNAR 2025</a>
@@ -58,7 +58,7 @@ Each of the following were co-led with [Arturo Valdivia](https://stat.indiana.ed
 
   <div class="workshop-item">
   <a href="https://moderndive-workshops.netlify.app/moderndive-wnar/slides.pdf" target="_blank">
-    <img src="images/wnar-moderndive.png" alt="Statistical Inference via Data Science with R" />
+    <img src="images/wnar-moderndive.webp" alt="Statistical Inference via Data Science with R" width="1200" height="563" loading="lazy" />
   </a>
   
   <a href="https://moderndive-workshops.netlify.app/moderndive-wnar/slides.pdf">WNAR 2025</a>

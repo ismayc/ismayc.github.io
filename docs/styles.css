@@ -111,6 +111,7 @@
 .about-photo {
   float: left;
   width: 300px;
+  height: auto; /* the img carries width/height attributes for layout stability */
   margin: 0 1.5rem 1rem 0;
   border-radius: 10px;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);

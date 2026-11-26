@@ -1,0 +1,12 @@
+# Keeps the commit-pinned GitHub Actions in .github/workflows current: one
+# grouped pull request a month. Only the github-actions ecosystem is watched
+# (the repo's old dependency manifests are gitignored on purpose).
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      actions:
+        patterns: ["*"]

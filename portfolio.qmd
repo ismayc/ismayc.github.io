@@ -18,7 +18,7 @@ format:
 
 <div class="book-card">
   <a href="https://www.moderndive.com/v2" target="_blank">
-    ![ModernDive Book Cover](images/moderndive_v2_cover.jpg){.book-cover}
+    ![ModernDive Book Cover](images/moderndive_v2_cover.webp){.book-cover width=600 height=902}
   </a>
   <div class="book-text">
   **[Statistical Inference via Data Science](https://www.moderndive.com/v2)**  
@@ -31,7 +31,7 @@ format:
 
 <div class="book-card">
   <a href="https://parallel-simulation-book.netlify.app/" target="_blank">
-    ![Parallel Simulation Experiments Book Cover](images/parallel-simulation-cover.png){.book-cover}
+    ![Parallel Simulation Experiments Book Cover](images/parallel-simulation-cover.webp){.book-cover width=600 height=906 loading="lazy"}
   </a>
   <div class="book-text">
   **[Parallel Simulation Experiments on a Personal Computer](https://parallel-simulation-book.netlify.app/)**
@@ -44,7 +44,7 @@ format:
 
 <div class="book-card">
   <a href="https://rbasics.netlify.app" target="_blank">
-    ![Getting Used to R Book Cover](images/rbasics-ai-cover.png){.book-cover}
+    ![Getting Used to R Book Cover](images/rbasics-ai-cover.webp){.book-cover width=600 height=900 loading="lazy"}
   </a>
   <div class="book-text">
   **[Getting Used to R, RStudio, and R Markdown](https://rbasics.netlify.app)**

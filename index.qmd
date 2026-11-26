@@ -15,7 +15,7 @@ format:
 
 ::: {.home-intro}
 
-![](images/pro_photo_2026-06.jpeg){.home-photo fig-alt="Portrait of Dr. Chester Ismay"}
+![](images/pro_photo_2026-06.jpeg){.home-photo width=801 height=835 fig-alt="Portrait of Dr. Chester Ismay"}
 
 <h1 class="home-name">Dr. Chester Ismay</h1>
 

@@ -4,6 +4,9 @@ description: "How the mail-snooze tool uses Gmail data."
 format:
   html:
     toc: false
+# Unlisted: kept out of search results and (by scripts/fix-sitemap.py) the sitemap
+header-includes: |
+  <meta name="robots" content="noindex">
 ---
 
 mail-snooze is a personal tool. I wrote it for my own Mac, and I am its only user. It

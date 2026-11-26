@@ -9,6 +9,10 @@ on:
       - '.github/workflows/deploy-shinyapp.yml'
   workflow_dispatch:
 
+# The workflow token can only read the repo unless a job asks for more.
+permissions:
+  contents: read
+
 jobs:
   shiny-deploy:
     runs-on: ubuntu-latest
@@ -16,10 +20,10 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Check out repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
 
       - name: Set up Pandoc
-        uses: r-lib/actions/setup-pandoc@v2
+        uses: r-lib/actions/setup-pandoc@f9a764fea8d5c63df6ef9a5c7795bf7deb5d7e05 # v2.14.0
 
       - name: Install system libraries
         shell: bash
@@ -46,13 +50,13 @@ jobs:
             libpoppler-cpp-dev
 
       - name: Set up R
-        uses: r-lib/actions/setup-r@v2
+        uses: r-lib/actions/setup-r@f9a764fea8d5c63df6ef9a5c7795bf7deb5d7e05 # v2.14.0
         with:
           r-version: '4.4.1'
           use-public-rspm: true
 
       - name: Install R dependencies
-        uses: r-lib/actions/setup-r-dependencies@v2
+        uses: r-lib/actions/setup-r-dependencies@f9a764fea8d5c63df6ef9a5c7795bf7deb5d7e05 # v2.14.0
         with:
           extra-packages: any::rsconnect
 
