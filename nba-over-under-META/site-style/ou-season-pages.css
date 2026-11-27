@@ -185,3 +185,14 @@ body.ou-page .ou-playoffs-link a.ou-link-secondary {
   box-shadow: inset 0 0 0 2px var(--ink);
 }
 body.ou-page .ou-playoffs-link a.ou-link-secondary:hover { background: rgba(28, 42, 68, 0.08); }
+
+/* The page's scripts are deferred (restyle_season_pages.py defer_scripts), so
+   the page shows before R Markdown turns its sections into tabs. Until then,
+   show only the tab that opens first in each tab set, as the tabs will. The
+   tab builder moves every tab into a .tab-content box, so these rules stop
+   matching once the tabs exist. */
+body.ou-page .section.level1.tabset > .section.level2 ~ .section.level2,
+body.ou-page .section.level2.tabset > .section.level3 ~ .section.level3,
+body.ou-page .section.level3.tabset > .section.level4 ~ .section.level4,
+body.ou-page .section.level4.tabset > .section.level5 ~ .section.level5,
+body.ou-page .section.level5.tabset > .section.level6 ~ .section.level6 { display: none; }

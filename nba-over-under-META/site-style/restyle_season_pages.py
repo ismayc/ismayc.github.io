@@ -58,6 +58,10 @@ SEASON_CSS = (HERE / "ou-season-pages.css").read_text()
 SCROLL_JS = "<script>" + (HERE / "ou-scroll-hint.js").read_text() + "</script>"
 # Each tab and heading gets its own address (#by-game-number and so on)
 LINKS_JS = "<script>" + (HERE / "ou-deep-links.js").read_text() + "</script>"
+# Charts and tables in closed tabs are drawn when the tab opens (defer_scripts)
+LAZY_JS = "<script>" + (HERE / "ou-lazy-widgets.js").read_text() + "</script>"
+# Heading levels for screen readers once the tabs are built
+HEADINGS_JS = "<script>" + (HERE / "ou-heading-levels.js").read_text() + "</script>"
 PICKS = HERE.parent / "all_picks_6seasons.csv"
 
 CURRENT_YEAR = 2027
@@ -70,18 +74,27 @@ DISPLAY = {"Mike": "Mike J"}  # how the group has always named him
 PLAYOFF_WINNERS = {2021: "Jake", 2022: "Chester", 2023: "Phil",
                    2024: "Chester", 2025: "Mike J", 2026: "Phil"}
 
-FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
-         '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
-         '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?'
-         'family=Big+Shoulders+Display:wght@700;800&family=Source+Sans+3:'
-         'wght@400;600&display=swap">')
+# The two faces are self-hosted since November 27, 2026 (@font-face in
+# ou-theme.css, files in nba-over-under-assets/fonts/); start both downloads
+# with the HTML. The Google Fonts stylesheet blocked the first paint.
+FONTS = ''.join(f'<link rel="preload" href="/nba-over-under-assets/fonts/{f}" '
+                'as="font" type="font/woff2" crossorigin>'
+                for f in ("big-shoulders-display-latin-wght.woff2", "source-sans-3-latin-wght.woff2"))
+# The Google Fonts tags that the templates and the R-built pages still carry
+GOOGLE_FONTS_RE = re.compile(
+    r'<link rel="preconnect" href="https://fonts\.(?:googleapis|gstatic)\.com"[^>]*>\n?'
+    r'|<link [^>]*href="https://fonts\.googleapis\.com/css2\?family=Big\+Shoulders\+Display[^"]*"[^>]*>\n?')
+
+
+def drop_google_fonts(text):
+    return GOOGLE_FONTS_RE.sub("", text)
 
 # The season pages drew Over in forestgreen and Under in deeppink. Swap those
 # for the theme's blue and red pencil, and the chart text to the page's face.
 # Only colors and fonts change; the data in each chart is untouched.
 PLOTLY_FONT = """<script>
-window.addEventListener('load', function () {
-  if (!window.Plotly) return;
+// ou-lazy-widgets.js calls window.ouRestylePlots for each chart it draws later
+(function () {
   var swap = [
     [/^(forestgreen|#228b22|rgba?\\(34, ?139, ?34)/i, '#2457a6'],
     [/^(deeppink|#ff1493|rgba?\\(255, ?20, ?147)/i, '#b8322f'],
@@ -104,15 +117,22 @@ window.addEventListener('load', function () {
     if (Array.isArray(o)) { for (var i = 0; i < o.length; i++) { o[i] = typeof o[i] === 'object' && o[i] ? (walk(o[i]), o[i]) : recolor(o[i]); } return; }
     for (var k in o) { if (o[k] && typeof o[k] === 'object') walk(o[k]); else o[k] = recolor(o[k]); }
   }
-  document.querySelectorAll('.js-plotly-plot').forEach(function (el) {
-    try {
-      (el.data || []).forEach(walk);
-      el.layout.font = el.layout.font || {};
-      el.layout.font.family = '"Source Sans 3", "Helvetica Neue", Arial, sans-serif';
-      Plotly.redraw(el);
-    } catch (e) {}
+  function restyle(els) {
+    if (!window.Plotly) return;
+    [].forEach.call(els, function (el) {
+      try {
+        (el.data || []).forEach(walk);
+        el.layout.font = el.layout.font || {};
+        el.layout.font.family = '"Source Sans 3", "Helvetica Neue", Arial, sans-serif';
+        Plotly.redraw(el);
+      } catch (e) {}
+    });
+  }
+  window.ouRestylePlots = restyle;
+  window.addEventListener('load', function () {
+    restyle(document.querySelectorAll('.js-plotly-plot'));
   });
-});
+})();
 </script>"""
 
 # The embedded scenario explorer posts its height; size its frame to fit
@@ -279,7 +299,7 @@ def tidy_facets(text):
 
 
 def restyle_rmd(text, year, note):
-    text = strip_old(text)
+    text = drop_google_fonts(strip_old(text))
     # R Markdown writes a bare <html>; screen readers need the language
     text = re.sub(r"<html(?![^>]*\blang=)([^>]*)>", r'<html lang="en"\1>', text, count=1)
     # Screen readers jump to the content through a main landmark; R Markdown
@@ -300,8 +320,44 @@ def restyle_rmd(text, year, note):
     text = re.sub(r"<body([^>]*)>", lambda m: _body_open(m.group(1)), text, count=1)
     body_at = re.search(r"<body[^>]*>", text).end()
     text = (text[:body_at] + START + masthead(year, note) + END + text[body_at:])
-    text = text.replace("</body>", START + PLOTLY_FONT + EXPLORER_FRAME + SCROLL_JS + LINKS_JS + END + "</body>", 1)
+    text = text.replace("</body>", START + PLOTLY_FONT + EXPLORER_FRAME + SCROLL_JS + LINKS_JS
+                        + HEADINGS_JS + END + "</body>", 1)
     return externalize_libs(text)
+
+
+# Every script on a season page was a plain <script> in the <head> or body,
+# so the browser drew nothing until it had downloaded and run about 1 MB of
+# libraries (first paint 10 s on the 2027 page in Lighthouse's mobile test,
+# November 27, 2026). Deferred scripts run in document order after the page is
+# parsed and before DOMContentLoaded, which is when R Markdown, htmlwidgets,
+# and the theme scripts start their work, so the page shows first and the
+# scripts do the same work in the same order. An inline script cannot be
+# deferred, so it becomes a data: URL that can. Run this last, after every
+# step that adds a script (add_chances adds one). Safe to rerun.
+HTMLWIDGETS_TAG = re.compile(r'<script src="nba-over-under-assets/lib/htmlwidgets-[0-9a-f]+\.js"[^>]*></script>')
+JS_TYPES = {"text/javascript", "application/javascript"}
+
+
+def _defer_one(m):
+    attrs, body = m.group("attrs"), m.group("body")
+    kind = re.search(r'\btype="([^"]*)"', attrs)
+    if kind and kind.group(1).lower() not in JS_TYPES:
+        return m.group(0)  # widget data (application/json) and the like
+    if re.search(r"\b(?:defer|async)\b", re.sub(r'\bsrc="[^"]*"', "", attrs)):
+        return m.group(0)
+    if "src=" in attrs:
+        return f"<script{attrs} defer>{body}</script>"
+    if not body.strip():
+        return m.group(0)
+    code = base64.b64encode(body.encode("utf-8")).decode("ascii")
+    return f'<script src="data:text/javascript;base64,{code}"{attrs} defer></script>'
+
+
+def defer_scripts(text):
+    widgets = HTMLWIDGETS_TAG.search(text)
+    if widgets:
+        text = text[:widgets.end()] + START + LAZY_JS + END + text[widgets.end():]
+    return SCRIPT_RE.sub(_defer_one, text)
 
 
 # R Markdown inlines its library code into every season page: plotly.js alone
@@ -599,7 +655,7 @@ def do_past():
         text = latest_standings(text, year)
         text = add_chances(text, year)
         text = add_explorer(text, year)
-        write_both(name, text)
+        write_both(name, defer_scripts(text))
     write_both("nba-scenario-explorer.html", note_page())
 
 
@@ -624,7 +680,7 @@ def head_meta(name, title, description):
 
 
 def do_preview(path):
-    template = Path(path).read_text()
+    template = drop_google_fonts(Path(path).read_text())
     template = template.replace("/*OU-THEME*/", THEME)
     template = template.replace("</body>", SCROLL_JS + LINKS_JS + "</body>", 1)
     template = template.replace("<!--OU-MASTHEAD-->",
@@ -634,7 +690,12 @@ def do_preview(path):
     title = f"NBA Over/Under {season_label(CURRENT_YEAR)} preseason preview"
 
     def page(name):
-        return template.replace("<!--OU-META-->", head_meta(name, title, desc))
+        meta = head_meta(name, title, desc) + FONTS
+        # A preview built before the theme had its @font-face rules
+        # (08-preseason-pool-analysis.R inlines ou-theme.css itself)
+        if "@font-face" not in template:
+            meta += "<style>" + "\n".join(re.findall(r"@font-face \{.*?\}", THEME, re.S)) + "</style>"
+        return template.replace("<!--OU-META-->", meta)
 
     write_both(f"{CURRENT_YEAR}-nba-over-under-preview.html",
                page(f"{CURRENT_YEAR}-nba-over-under-preview.html"))
@@ -693,7 +754,7 @@ def do_playoffs(year):
     text = text.replace("/*OU-THEME*/", THEME)
     text = text.replace("</body>", SCROLL_JS + LINKS_JS + "</body>", 1)
     text = text.replace("<!--OU-MASTHEAD-->", masthead(year, "Current season"))
-    text = text.replace("<!--OU-META-->", head_meta(name, title, desc))
+    text = drop_google_fonts(text).replace("<!--OU-META-->", head_meta(name, title, desc) + FONTS)
     text = text.replace("__TITLE__", html.escape(title)).replace("__DESCRIPTION__", html.escape(desc))
     text = text.replace("__DATA__", json.dumps(data, separators=(",", ":")).replace("</", "<\\/"))
     text = text.replace(
@@ -710,7 +771,7 @@ def do_guide(year):
     """Put a season's rooting guide (000-generate-rooting-guide.R) in the site
     theme, with the season strip. Safe to rerun on an already themed guide."""
     name = f"{year}-nba-rooting-guide.html"
-    text = strip_old((ROOT / name).read_text())
+    text = drop_google_fonts(strip_old((ROOT / name).read_text()))
     # The generator's own dark stylesheet and fonts
     text = re.sub(r'<link href="https://fonts.googleapis.com/css2\?family=Outfit[^>]*>\n?', "", text)
     text = re.sub(r"<style>.*?</style>\n?", "", text, count=1, flags=re.S)
@@ -749,14 +810,14 @@ def do_explorer(year):
     if not path.exists():
         print(f"no {name}")
         return
-    text = strip_old(path.read_text())
+    text = drop_google_fonts(strip_old(path.read_text()))
     title = f"NBA Over/Under {season_label(year)} scenario explorer"
     desc = (f"Every way the last open teams could finish in the {season_label(year)} "
             "NBA over/under pool, and where each player would end up.")
     # Mark the page as embedded before it draws, so the strip never flashes in the frame
     early = ("<script>if (window.parent !== window) "
              "document.documentElement.classList.add('embedded');</script>")
-    text = text.replace("</head>", START + head_meta(name, title, desc) + early
+    text = text.replace("</head>", START + head_meta(name, title, desc) + FONTS + early
                         + f"<style>{THEME}\n{EXPLORER_CSS}</style>" + END + "</head>", 1)
     strip = masthead(year, "Current season" if year < CURRENT_YEAR else "In progress").replace(
         '<p class="ou-kicker">',
@@ -777,7 +838,7 @@ def do_season(year):
         '<p class="ou-kicker">',
         f'<p class="ou-kicker"><a href="{year}-nba-over-under-preview.html">'
         'Preseason preview</a>. ', 1)
-    write_both(name, text)
+    write_both(name, defer_scripts(text))
 
 
 if __name__ == "__main__":

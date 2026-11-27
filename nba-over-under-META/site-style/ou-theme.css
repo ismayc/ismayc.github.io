@@ -4,6 +4,27 @@
    with white backgrounds baked in, so every page stays on paper.
    Source of truth for the 2027 page and the restyled 2021-2026 pages;
    restyle_season_pages.py inlines it. */
+/* The two faces are served from this site, not Google Fonts: one
+   variable-weight file each (Latin subset, from fonts.gstatic.com on
+   November 27, 2026; SIL OFL, licenses beside them). The Google stylesheet
+   blocked the first paint of each page for about 0.9 s (Lighthouse).
+   restyle_season_pages.py preloads both (FONTS). */
+@font-face {
+  font-family: "Big Shoulders Display";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/nba-over-under-assets/fonts/big-shoulders-display-latin-wght.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Source Sans 3";
+  font-style: normal;
+  font-weight: 200 900;
+  font-display: swap;
+  src: url("/nba-over-under-assets/fonts/source-sans-3-latin-wght.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 :root {
   --paper: #edf1e8;
   --sheet: #fafbf7;
