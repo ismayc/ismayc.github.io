@@ -46,6 +46,8 @@ project:
     - scripts/fix-cookie-text.py
     # Adds `defer` to the cookie banner script, which otherwise blocks rendering
     - scripts/defer-cookie-script.py
+    # Loads gtag.js only after the visitor accepts tracking cookies
+    - scripts/consent-gtag.py
   render:
     - index.qmd
     - about.qmd
