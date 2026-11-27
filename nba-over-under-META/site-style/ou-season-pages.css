@@ -24,10 +24,11 @@ body.ou-page h1.title {
   margin: 0 0 6px;
   letter-spacing: 0.005em;
 }
-body.ou-page h4.author {
+body.ou-page .author {
   font-family: var(--font-body);
   font-size: 0.95rem;
   font-weight: 400;
+  line-height: 1.1; /* as when it was an h4 */
   color: var(--ink-soft);
   margin: 0 0 18px;
 }

@@ -282,6 +282,12 @@ def restyle_rmd(text, year, note):
     text = strip_old(text)
     # R Markdown writes a bare <html>; screen readers need the language
     text = re.sub(r"<html(?![^>]*\blang=)([^>]*)>", r'<html lang="en"\1>', text, count=1)
+    # Screen readers jump to the content through a main landmark; R Markdown
+    # writes none. The author line is a byline, not a heading: as an <h4>
+    # right after the <h1> title it skipped two heading levels.
+    text = text.replace('<div class="container-fluid main-container">',
+                        '<div class="container-fluid main-container" role="main">', 1)
+    text = re.sub(r'<h4 class="author">(.*?)</h4>', r'<p class="author">\1</p>', text, count=1, flags=re.S)
     text = tidy_facets(text)
     title = f"NBA Over/Under {season_label(year)} season"
     desc = (f"The {season_label(year)} NBA over/under pool: standings, each player's "
@@ -668,7 +674,7 @@ def link_playoffs(text, year):
     buttons = ('<p class="ou-playoffs-link">'
                + "".join(f'<a href="{href}"{cls}>{html.escape(label)} &rarr;</a>'
                          for href, _, label, cls in links) + '</p>')
-    author = re.search(r'<h4 class="author">.*?</h4>', text)
+    author = re.search(r'<p class="author">.*?</p>', text, re.S)
     if author:
         text = text[:author.end()] + START + buttons + END + text[author.end():]
     return text

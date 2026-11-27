@@ -32,6 +32,8 @@ project:
     - "nba-over-under-202*/fantasy-draft/**/index.html"
     - "teaching/sample_problems/*.html"
     - "nba-player-finder/**"
+    # Roboto, self-hosted (theme.scss)
+    - "fonts/**"
     # Netlify only: sends /ouanalytics/ to the package site on GitHub Pages, and the
     # old hostnames (chester.rbind.io, chester.netlify.app) to chesterismay.com
     - "_redirects"
@@ -42,6 +44,8 @@ project:
     - scripts/fix-sitemap.py
     # Removes the cookie banner's claim about ads, which this site does not show
     - scripts/fix-cookie-text.py
+    # Adds `defer` to the cookie banner script, which otherwise blocks rendering
+    - scripts/defer-cookie-script.py
   render:
     - index.qmd
     - about.qmd
@@ -112,6 +116,7 @@ format:
     theme: [sandstone, theme.scss]
     css: styles.css
     include-in-header:
+      - includes/font-preload.html
       - includes/person-schema.html
       - includes/host-redirect.html
     # <link rel="canonical"> on every page, built from site-url, so search engines
