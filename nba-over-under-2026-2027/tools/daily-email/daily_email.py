@@ -435,7 +435,11 @@ def fantasy(day, cache_dir=None):
         rows = [dict(name=k, manager=manager_of.get(k), **v) for k, v in w.items() if v["gp"] >= min_gp]
         return sorted(rows, key=key)[:n]
 
-    night_top = top(night, 10, lambda r: -r["fp"])
+    # A one-night window can hold two games when ESPN's season totals lagged a game at the
+    # earlier saved point (Giannis on November 27, 2026: his November 25 and 27 games summed).
+    # The change cannot be split into games, so keep one-game rows only and name the rest.
+    night_top = top({k: v for k, v in night.items() if v["gp"] == 1}, 10, lambda r: -r["fp"])
+    night_multi = sorted((dict(name=k, **v) for k, v in night.items() if v["gp"] > 1), key=lambda r: r["name"])
     week_top = top(week, 10, lambda r: (-(r["fp"] / r["gp"]), -r["gp"]), min_gp=2)
     week_by_mgr = {m: 0.0 for m in managers}
     games_by_mgr = {m: 0 for m in managers}
@@ -451,7 +455,7 @@ def fantasy(day, cache_dir=None):
         "day": iso(d1), "prev": iso(d0) if d0 else None, "week": iso(dw) if dw else None,
         "games_day": games_day, "asOf": by_date[d1]["asOf"],
         "table": table, "night_top": night_top, "week_top": week_top, "mgr_week": mgr_week,
-        "undrafted_night": undrafted_night,
+        "undrafted_night": undrafted_night, "night_multi": night_multi,
     }
 
 
@@ -666,6 +670,11 @@ def render(day, ou, fa):
             rows = [[f"<b>{e(r['name'].split(',')[0])}</b> <span style=\"color:{DIM}\">{e(r['team'])}</span>",
                      mgr_cell(r["manager"]), stat_line(r), f"{r['fp']:.1f}"] for r in fa["night_top"]]
             body.append(table(["Player", "Manager", "Line", "FPts"], rows, left_cols=(0, 1, 2)))
+        if fa.get("night_multi"):
+            body.append(note("Left out: " + name_list(
+                f"{e(r['name'].split(',')[0])} ({r['gp']} games)" for r in fa["night_multi"])
+                + ". ESPN's season totals had not yet counted an earlier game at the day before, "
+                  "so the change covers more than one game and cannot be split."))
         if fa["week_top"]:
             body.append(h3("Best ballot players, last 7 days"))
             rows = [[f"<b>{e(r['name'].split(',')[0])}</b> <span style=\"color:{DIM}\">{e(r['team'])}</span>",
