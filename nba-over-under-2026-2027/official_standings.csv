@@ -1,31 +1,31 @@
 seed,team_name,conference,wins,losses,source
-1,Philadelphia 76ers,East,15,4,nba.com
-2,Boston Celtics,East,12,6,nba.com
-3,New York Knicks,East,12,6,nba.com
-4,Atlanta Hawks,East,11,6,nba.com
-5,Detroit Pistons,East,11,6,nba.com
-6,Miami Heat,East,10,7,nba.com
+1,Philadelphia 76ers,East,16,4,nba.com
+2,Atlanta Hawks,East,12,6,nba.com
+3,Detroit Pistons,East,12,6,nba.com
+4,Boston Celtics,East,12,7,nba.com
+5,New York Knicks,East,12,7,nba.com
+6,Miami Heat,East,11,7,nba.com
 7,Cleveland Cavaliers,East,9,10,nba.com
 8,Orlando Magic,East,7,10,nba.com
-9,Washington Wizards,East,7,12,nba.com
-10,Toronto Raptors,East,6,11,nba.com
+9,Toronto Raptors,East,7,11,nba.com
+10,Washington Wizards,East,7,12,nba.com
 11,Chicago Bulls,East,6,12,nba.com
-12,Indiana Pacers,East,6,12,nba.com
+12,Indiana Pacers,East,6,13,nba.com
 13,Charlotte Hornets,East,4,13,nba.com
-14,Brooklyn Nets,East,4,13,nba.com
-15,Milwaukee Bucks,East,2,17,nba.com
-1,Los Angeles Lakers,West,15,3,nba.com
-2,San Antonio Spurs,West,15,4,nba.com
-3,Minnesota Timberwolves,West,14,5,nba.com
+14,Brooklyn Nets,East,4,14,nba.com
+15,Milwaukee Bucks,East,2,18,nba.com
+1,San Antonio Spurs,West,16,4,nba.com
+2,Los Angeles Lakers,West,15,4,nba.com
+3,Memphis Grizzlies,West,15,5,nba.com
 4,Houston Rockets,West,14,5,nba.com
-5,Memphis Grizzlies,West,14,5,nba.com
-6,Portland Trail Blazers,West,12,6,nba.com
-7,Denver Nuggets,West,10,6,nba.com
-8,Dallas Mavericks,West,11,7,nba.com
-9,Golden State Warriors,West,10,8,nba.com
-10,Phoenix Suns,West,9,8,nba.com
-11,Oklahoma City Thunder,West,10,9,nba.com
-12,New Orleans Pelicans,West,5,14,nba.com
-13,Los Angeles Clippers,West,4,13,nba.com
-14,Utah Jazz,West,3,16,nba.com
+5,Minnesota Timberwolves,West,14,6,nba.com
+6,Portland Trail Blazers,West,13,6,nba.com
+7,Denver Nuggets,West,11,6,nba.com
+8,Dallas Mavericks,West,12,7,nba.com
+9,Oklahoma City Thunder,West,10,9,nba.com
+10,Golden State Warriors,West,10,9,nba.com
+11,Phoenix Suns,West,9,9,nba.com
+12,New Orleans Pelicans,West,6,14,nba.com
+13,Los Angeles Clippers,West,4,14,nba.com
+14,Utah Jazz,West,3,17,nba.com
 15,Sacramento Kings,West,2,16,nba.com
